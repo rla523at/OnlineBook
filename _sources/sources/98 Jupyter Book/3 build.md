@@ -15,10 +15,9 @@ conda activate jupyterbook
 conda update --all
 ```
 * Jupyterbook을 설치합니다.
-  * mamba를 사용하여 설치 - 현재 되는 방법
+  * pip을 사용하여 설치
 ```
-conda install -c conda-forge mamba
-mamba install -c conda-forge jupyter-book
+pip install -U jupyter-book
 ```
 
 > Reference  
@@ -34,6 +33,13 @@ Jupyter book을 설취하기 위해 conda를 사용하면 왜 인지 안된다
 ```
 conda install -c conda-forge jupyter-book
 ```  
+
+mamba를 사용하여 설치하면 된다.
+```
+conda install -c conda-forge mamba
+mamba install -c conda-forge jupyter-book
+```
+
 
 
 ## 빌드 환경
