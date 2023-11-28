@@ -1,9 +1,9 @@
 # Polymorphism
 `다형성(polymorphism)`이란 맥락에 따라서 다른 로직을 실행하는 능력이다.
 
-다형성은 overloading과 overriding등에 의해서 구현 가능하다.
+다형성은 overloading과 overriding등에 의해서 구현 가능하다. 그리고 OOP에서 overriding에 의한 다형성을 특히 중요하게 생각하는 이유는 이를 통해 의존성을 줄일 수 있기 때문이다. 
 
-특히 OOP에서 overriding에 의한 다형성을 중요하게 생각하는데, 그 이유는 이를 통해 의존성을 줄일 수 있기 때문이다. 다음 예시 코드를 보자.
+다음 예시 코드를 보자.
 
 ```cpp
 
@@ -33,9 +33,12 @@ int print_area(const Shape& shape){
 ```
 print_area 함수를 보면 input으로 들어오는 Shape class가 Shape1인지 Shape2인지 아니면 그 외의 Shape class인지 전혀 알지 못하고 있다. 오직 아는 것이라고는 abstract class인 Shape class뿐이다.
 
-하지만 C++에서는 `가상함수(virtual function)`을 통해 compile time 의존성과 run time 의존성을 다르게 만들어주는 `지연 바인딩(lazy binding)`, `동적 바인딩(dynamic binding)`을 제공하기 때문에 맥락에 따라 (input shape 객체의 실제 class에 따라) 알맞은 cal_area 함수를 호출할 수 있다.
+즉, overriding에 의한 polymorphism 덕분에 print_area 함수는 concrete class인 Shape1,2,3 class에 대한 compile time 의존성 대신 run time 의존성을 갖으며 compile time 의존성은 오직 abstract class인 Shape class에 대해서만 갖는다.
 
-이와 같은 overriding에 의한 polymorphism 덕분에 print_area 함수는 concrete class인 Shape1,2,3 class에 대한 compile time 의존성 대신 run time 의존성만 갖고 compile time 의존성은 오직 abstract class인 Shape class에 대해서만 갖음으로써 의존성을 줄일 수 있다.
+그리고 C++에서는 `가상함수(virtual function)`을 통해 compile time 의존성과 run time 의존성을 다르게 만들어주는 `지연 바인딩(lazy binding)`, `동적 바인딩(dynamic binding)`을 제공하기 때문에 맥락에 따라 (input shape 객체의 실제 class에 따라) 알맞은 cal_area 함수를 호출할 수 있다.
+
+정리하면, overriding에 의한 polymorphism 덕분에 concrete class에 대한 compile time 의존성을 run time 의존성으로 바꾸고 compile time 의존성은 오로지 abstract class에만 발생하게 하여 의존성을 줄일 수 있고 동시에 lazy binding에 의해 맥락 따라 알은는 로직을 갖은 함수를 호출할 수 있다. 
+
 
 
 * [why-is-polymorphism-important](https://wasabigeek.com/blog/why-is-polymorphism-important/)

@@ -600,13 +600,6 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../40%20Computer%20VIsion/01%20Homogeneous%20Representation.html">Homogeneous Representation</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Jupyter Book</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../98%20Jupyter%20Book/1%20document.html">문서작성법</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../98%20Jupyter%20Book/2%20folder.html">폴더구성법</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../98%20Jupyter%20Book/3%20build.html">빌드</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../98%20Jupyter%20Book/4%20Publish.html">배포</a></li>
-</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../99%20References/references.html">References</a></li>
@@ -799,8 +792,8 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="polymorphism">
 <h1>Polymorphism<a class="headerlink" href="#polymorphism" title="Permalink to this heading">#</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">다형성(polymorphism)</span></code>이란 맥락에 따라서 다른 로직을 실행하는 능력이다.</p>
-<p>다형성은 overloading과 overriding등에 의해서 구현 가능하다.</p>
-<p>특히 OOP에서 overriding에 의한 다형성을 중요하게 생각하는데, 그 이유는 이를 통해 의존성을 줄일 수 있기 때문이다. 다음 예시 코드를 보자.</p>
+<p>다형성은 overloading과 overriding등에 의해서 구현 가능하다. 그리고 OOP에서 overriding에 의한 다형성을 특히 중요하게 생각하는 이유는 이를 통해 의존성을 줄일 수 있기 때문이다.</p>
+<p>다음 예시 코드를 보자.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//Shape.h</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Shape</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">cal_area</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -826,8 +819,9 @@ document.write(`
 </pre></div>
 </div>
 <p>print_area 함수를 보면 input으로 들어오는 Shape class가 Shape1인지 Shape2인지 아니면 그 외의 Shape class인지 전혀 알지 못하고 있다. 오직 아는 것이라고는 abstract class인 Shape class뿐이다.</p>
-<p>하지만 C++에서는 <code class="docutils literal notranslate"><span class="pre">가상함수(virtual</span> <span class="pre">function)</span></code>을 통해 compile time 의존성과 run time 의존성을 다르게 만들어주는 <code class="docutils literal notranslate"><span class="pre">지연</span> <span class="pre">바인딩(lazy</span> <span class="pre">binding)</span></code>, <code class="docutils literal notranslate"><span class="pre">동적</span> <span class="pre">바인딩(dynamic</span> <span class="pre">binding)</span></code>을 제공하기 때문에 맥락에 따라 (input shape 객체의 실제 class에 따라) 알맞은 cal_area 함수를 호출할 수 있다.</p>
-<p>이와 같은 overriding에 의한 polymorphism 덕분에 print_area 함수는 concrete class인 Shape1,2,3 class에 대한 compile time 의존성 대신 run time 의존성만 갖고 compile time 의존성은 오직 abstract class인 Shape class에 대해서만 갖음으로써 의존성을 줄일 수 있다.</p>
+<p>즉, overriding에 의한 polymorphism 덕분에 print_area 함수는 concrete class인 Shape1,2,3 class에 대한 compile time 의존성 대신 run time 의존성을 갖으며 compile time 의존성은 오직 abstract class인 Shape class에 대해서만 갖는다.</p>
+<p>그리고 C++에서는 <code class="docutils literal notranslate"><span class="pre">가상함수(virtual</span> <span class="pre">function)</span></code>을 통해 compile time 의존성과 run time 의존성을 다르게 만들어주는 <code class="docutils literal notranslate"><span class="pre">지연</span> <span class="pre">바인딩(lazy</span> <span class="pre">binding)</span></code>, <code class="docutils literal notranslate"><span class="pre">동적</span> <span class="pre">바인딩(dynamic</span> <span class="pre">binding)</span></code>을 제공하기 때문에 맥락에 따라 (input shape 객체의 실제 class에 따라) 알맞은 cal_area 함수를 호출할 수 있다.</p>
+<p>정리하면, overriding에 의한 polymorphism 덕분에 concrete class에 대한 compile time 의존성을 run time 의존성으로 바꾸고 compile time 의존성은 오로지 abstract class에만 발생하게 하여 의존성을 줄일 수 있고 동시에 lazy binding에 의해 맥락 따라 알은는 로직을 갖은 함수를 호출할 수 있다.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://wasabigeek.com/blog/why-is-polymorphism-important/">why-is-polymorphism-important</a></p></li>
 </ul>
