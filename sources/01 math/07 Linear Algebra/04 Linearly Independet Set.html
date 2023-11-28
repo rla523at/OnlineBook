@@ -1,0 +1,2044 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Linearly Independet Set &#8212; MS Study Documents</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Basis" href="05%20Basis.html" />
+    <link rel="prev" title="Span" href="03%20Span.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">MS Study Documents</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../cover.html">
+                    MS Study Documents
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  math
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../01%20Set/Set.html">
+   Set
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20Set/01%20Power%20Set.html">
+     Power Set
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20Set/02%20Product%20Set.html">
+     Product Set
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20Set/03%20Relations.html">
+     Relation
+    </a>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../01%20Set/04%20Order/Order.html">
+     Order
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/04%20Order/01%20Partial%20Order.html">
+       Partial Order
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/04%20Order/02%20Partially%20Order%20Set.html">
+       Partially Ordered Set
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/04%20Order/03%20Maximal%20and%20Minimal%20Element.html">
+       Minimal and Maximal Element
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/04%20Order/04%20Greatest%20and%20Least%20Element.html">
+       Greatest and Least Element
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/04%20Order/05-1%20Upper%20Bound.html">
+       Upper Bound and Lower Bound
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/04%20Order/05-2%20Bounded%20Above%20and%20Below.html">
+       Bounded Above and Below
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/04%20Order/06%20Supremum%20and%20Infimum.html">
+       Sumpremum and Infimum
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/04%20Order/07%20Completeness.html">
+       Completeness
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/04%20Order/08%20Total%20Order.html">
+       Total Order
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/04%20Order/09%20Totally%20Ordered%20Set.html">
+       Totally Ordered Set
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/04%20Order/10%20Well-order.html">
+       Well-ordered Set
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/04%20Order/11%20Induction.html">
+       Induction
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/04%20Order/12%20Chain.html">
+       Chain
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../01%20Set/05%20Function/Function.html">
+     Function
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/05%20Function/05%20Image.html">
+       Image
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/05%20Function/06%20Preimage.html">
+       Preimage
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/05%20Function/07%20Injective%20Function.html">
+       Injective Function
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/05%20Function/08%20Surjective%20Function.html">
+       Surjective Function
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/05%20Function/09%20Bijective%20Function.html">
+       Bijective Function
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../01%20Set/05%20Function/10%20Inverse%20Function.html">
+       Inverse Function
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20Set/95%20Equivalence%20Relation.html">
+     Equivalence Relation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../01%20Set/96%20Equivalence%20Class.html">
+     Equivalence Class
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../02%20Abstract%20Algebra/Abstract%20Algebra.html">
+   Abstract Algebra
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../02%20Abstract%20Algebra/01%20Binary%20Operation/Binary%20Operation.html">
+     Binary Operation
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+    <label for="toctree-checkbox-5">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/01%20Binary%20Operation/01%20Closed.html">
+       Closed Under Binary Operation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/01%20Binary%20Operation/02%20Associative%20Property.html">
+       Associative Property
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/01%20Binary%20Operation/03%20Commutative%20Property.html">
+       Commutative Property
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20Abstract%20Algebra/02%20Algebraic%20Structure.html">
+     Algebraic Structure
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20Abstract%20Algebra/03%20Semi-group.html">
+     Semi-group
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20Abstract%20Algebra/04%20Monoid.html">
+     Monoid
+    </a>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../02%20Abstract%20Algebra/05%20Group/Group.html">
+     Group
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/05%20Group/01%20Commutative%20Group.html">
+       Commutative Group
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/05%20Group/02%20Abelian%20Group.html">
+       Abelian Group
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/05%20Group/03%20Subgroup.html">
+       Subgroup
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/05%20Group/04%20Span.html">
+       Span
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/05%20Group/05%20Group%20Action.html">
+       Group Action
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02%20Abstract%20Algebra/06%20Distributive%20Property.html">
+     Distributive Property
+    </a>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../02%20Abstract%20Algebra/07%20Ring/Ring.html">
+     Ring
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/07%20Ring/04%20Commutative%20Ring.html">
+       Commutative Ring
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/07%20Ring/05%20Ring%20Homeomorphism.html">
+       Ring Homeomorphism
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../02%20Abstract%20Algebra/08%20Field/Field.html">
+     Field
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/08%20Field/01%20Ordered%20Field.html">
+       Ordered Field
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../02%20Abstract%20Algebra/09%20Module/Module.html">
+     Module
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/09%20Module/01%20Left%20Module.html">
+       Left Module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/09%20Module/02%20Right%20Module.html">
+       Right Module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/09%20Module/03%20Bimodule.html">
+       Bimodule
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/09%20Module/04%20R-Module.html">
+       R-Module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02%20Abstract%20Algebra/09%20Module/05%20Module%20Homeomorphism.html">
+       Module Homeomorphism
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../03%20Analysis/Analysis.html">
+   Analysis
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03%20Analysis/01%20Integer%20Number.html">
+     Integer Number
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03%20Analysis/02%20Archimedean%20Property.html">
+     Archimedean Property
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03%20Analysis/03%20Absolute.html">
+     Absolute
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03%20Analysis/04%20Rational%20Number.html">
+     Rational Number
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03%20Analysis/05%20Real%20Number.html">
+     Real Number
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03%20Analysis/06%20Maximum%20and%20Minimum.html">
+     Maximum and Minimum
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03%20Analysis/07%20Convergence%20of%20Sequence.html">
+     Convergence of Sequence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03%20Analysis/08%20Bounded%20Sequence.html">
+     Bounded Sequence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03%20Analysis/09%20liminf%20%26%20limsup.html">
+     Limit Inferior &amp; Superior
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03%20Analysis/50%20Inequality.html">
+     Inequality
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../04%20Metric%20Space/Metric%20Space.html">
+   Metric Space
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/01-1%20Metric.html">
+     Metric
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/01-2%20Metric%20Subspace.html">
+     Metric Subspace
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/02%20Open%20Ball.html">
+     Open ball
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/03%20Open%20Set.html">
+     Open set
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/04%20Closed%20set.html">
+     Closed set
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/05-1%20Neighborhood.html">
+     Neighborhood
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/05-2%20Adherent%20Point.html">
+     Adherent Point
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/05-3%20Accumulation%20Point.html">
+     Accumulation Point
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/05-4%20Isolated%20Point.html">
+     Isolated Point
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/06%20Closure.html">
+     Closure
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/07%20Interior.html">
+     Interior
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/08%20Boudnary.html">
+     Boundary
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/09%20Bounded%20set.html">
+     Bounded Set
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/09-1%20Bounded%20sequence.html">
+     Bounded Sequence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/10%20Compact%20Set.html">
+     Compact Set
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/11%20Convergence%20of%20Sequence.html">
+     Convergence of Sequence
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/12%20Convergence%20of%20Function.html">
+     Convergence of Function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/13%20Continuous%20at%20a%20Point.html">
+     Continuous at a Point
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04%20Metric%20Space/14%20Continuous%20Function.html">
+     Continuous Function
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../05%20Topology/Topology.html">
+   Topology
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../05%20Topology/01%20Topologies/Topologies.html">
+     Topologies
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+    <label for="toctree-checkbox-13">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/01-1%20Topology.html">
+       Topology
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/01-2%20Topological%20Spaces.html">
+       Topological Space
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/02%20Open%20Set.html">
+       Open Set
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/03-1%20Closed%20set.html">
+       Closed set
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/03-2%20Clopen%20set.html">
+       Clopen set
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/04%20Neighborhood.html">
+       Neighborhood
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/05%20Subspace%20Topology.html">
+       Subspace Topology
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/06%20Subspace.html">
+       Subspace
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/07%20Closure.html">
+       Closure
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/08%20Interior.html">
+       Interior
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/09%20Exteriror.html">
+       Exteriror
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/10%20Boundary.html">
+       Boundary
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/11-1%20Adherent%20Point.html">
+       Adherent Point
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/11-2%20Limit%20Point.html">
+       Limit Point
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/12%20Isolated%20Point.html">
+       Isolated Point
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/01%20Topologies/13%20Dense.html">
+       Dense
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../05%20Topology/02%20Convergence%20and%20Continuity/Convergence%20and%20Continuity.html">
+     Convergence and Continuity
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+    <label for="toctree-checkbox-14">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/02%20Convergence%20and%20Continuity/1%20Convergence.html">
+       Convergence
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/02%20Convergence%20and%20Continuity/2%20Continuity.html">
+       Continuity
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/02%20Convergence%20and%20Continuity/3%20Homeomorphism.html">
+       Homeomorphism
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../05%20Topology/03%20Hausdorff%20Space.html">
+     Hausdorff Space
+    </a>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../05%20Topology/04%20Bases/Bases.html">
+     Bases
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+    <label for="toctree-checkbox-15">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/04%20Bases/01%20Basis.html">
+       Basis
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/04%20Bases/02%20Neighborhood%20Basis.html">
+       Neighborhood Basis
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/04%20Bases/03%20Nested%20Neighborhood%20Basis.html">
+       Nested Neighborhood Basis
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../05%20Topology/05%20Countability%20Properties/Countability%20Properties.html">
+     Countability Properties
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+    <label for="toctree-checkbox-16">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/05%20Countability%20Properties/20%20First%20Countable.html">
+       First Countable
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/05%20Countability%20Properties/21%20Eventually%20in.html">
+       Eventually in
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/05%20Countability%20Properties/22%20Second%20Countable.html">
+       Second Countable
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/05%20Countability%20Properties/23%20Cover.html">
+       Cover
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/05%20Countability%20Properties/24%20Seperable.html">
+       Seperable
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/05%20Countability%20Properties/25%20Lindelof%20Space.html">
+       Lindelof Space
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../05%20Topology/06%20Manifolds/Manifolds.html">
+     Manifolds
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
+    <label for="toctree-checkbox-17">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/06%20Manifolds/26%20Locally%20Euclidean.html">
+       Locally Euclidean
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/06%20Manifolds/27%20Coordinate.html">
+       Coordinate
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/06%20Manifolds/28%20Topological%20Manifold.html">
+       Topological Manifold
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../05%20Topology/07%20Product%20Spaces/Product%20Spaces.html">
+     Product Spaces
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
+    <label for="toctree-checkbox-18">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/07%20Product%20Spaces/01%20Product%20Topology.html">
+       Product Bases
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/07%20Product%20Spaces/02%20Product%20Space.html">
+       Product Space
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05%20Topology/07%20Product%20Spaces/03%20Product%20Open%20Set.html">
+       Product Open Set
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../06%20Calculus/Calculus.html">
+   Calculus
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/>
+  <label for="toctree-checkbox-19">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06%20Calculus/01%20Derivatives.html">
+     Derivatives
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06%20Calculus/02%20Partial%20Derivatives.html">
+     Partial Derivatives
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06%20Calculus/03%20Partial%20Derivatives%20of%20Vector-valued%20F.html">
+     Partial Derivatives of Vector-valued Function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06%20Calculus/04%20Total%20Derivative.html">
+     Total Derivative
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06%20Calculus/05%20Directional%20Derivative.html">
+     Directional Derivative
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06%20Calculus/06%20Definite%20Integral.html">
+     Definite Integral
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06%20Calculus/07%20Fundamental%20Theorem%20of%20Calculus.html">
+     Fundamental Theorem of Calculus
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06%20Calculus/40%20Differential.html">
+     Differential
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06%20Calculus/50%20Leibniz%20Integral%20Rule.html">
+     Libniz Integral Rule
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06%20Calculus/51%20Taylor%27s%20Theorem.html">
+     Taylor’s Theorem
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06%20Calculus/52%20Inverse%20Function%20Theorem.html">
+     Inverse Function Theorem
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06%20Calculus/Divergence%20Theorem.html">
+     Divergence Theorem
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="Linear%20Algebra.html">
+   Linear Algebra
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/>
+  <label for="toctree-checkbox-20">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="01%20Vector%20Space.html">
+     Vector Space
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="02%20Subspace.html">
+     Subspace
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03%20Span.html">
+     Span
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Linearly Independet Set
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05%20Basis.html">
+     Basis
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../08%20Geometry/Geometry.html">
+   Geometry
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/>
+  <label for="toctree-checkbox-21">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../08%20Geometry/02%20Smooth%20Manifold/Smooth%20Manifold.html">
+     Smooth Manifold
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/>
+    <label for="toctree-checkbox-22">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../08%20Geometry/02%20Smooth%20Manifold/01%20Ambient%20Space.html">
+       Ambient space
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../08%20Geometry/04%20Curve/Curve.html">
+     Curve
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/>
+    <label for="toctree-checkbox-23">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../08%20Geometry/04%20Curve/01%20Parametric%20Curve.html">
+       Parametric Curve
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../08%20Geometry/04%20Curve/02%20Tangent%20Vector.html">
+       Tangent Vector
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../08%20Geometry/04%20Curve/03%20Arc%20Length.html">
+       Arc Length
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../08%20Geometry/04%20Curve/04%20Curvature.html">
+       Curvature
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../08%20Geometry/05%20Conic%20Section.html">
+     Conic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../08%20Geometry/11%20Affine%20space.html">
+     Affine space
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../08%20Geometry/12%20Affine%20Transformation.html">
+     Affine Transformation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../08%20Geometry/13%20Affine%20Combination.html">
+     Affine Combination
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../08%20Geometry/21%20Euclidean%20Space.html">
+     Euclidean Space
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../09%20Numerical%20Analysis/Numerical%20Analysis.html">
+   Numerical Analysis
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/>
+  <label for="toctree-checkbox-24">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/Boundary%20Value%20Problem.html">
+     Boundary Value Problem
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/>
+    <label for="toctree-checkbox-25">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/01%20Strong%20formulation.html">
+       Strong formulation
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/02%20Weighted%20Residual%20Methods/Weighted%20Residual%20Methods.html">
+       Weighted Residual Methods
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/>
+      <label for="toctree-checkbox-26">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/02%20Weighted%20Residual%20Methods/01%20Weighted%20Residual%20Formulation.html">
+         Weighted Residual Formulation
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/02%20Weighted%20Residual%20Methods/02%20Dimensional%20Reduction.html">
+         Dimensional Reduction
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/02%20Weighted%20Residual%20Methods/03%20Reduced%20Function%20Space.html">
+         Reduced Function Space
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/Weak%20Formulation.html">
+       Weak Formulation
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/>
+      <label for="toctree-checkbox-27">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/01%20Strong%20Formulation.html">
+         Strong Formulation
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/02%20Weighted%20Residual%20Formulation.html">
+         Weighted Residual Formulation
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/03%20Weak%20Formulation.html">
+         Weak Formulation
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/04%20Dimensional%20Reduction.html">
+         Dimensional Reduction
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/05%20Reduced%20Function%20Space.html">
+         Reduced Function Space
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/04%20Model%20Problems/Model%20Problems.html">
+       Model Problems
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/>
+      <label for="toctree-checkbox-28">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/04%20Model%20Problems/01%20Model%20Problem1.html">
+         Model Problem1
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/04%20Model%20Problems/02%20Model%20Problem2.html">
+         Model Problem2
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/04%20Model%20Problems/03%20Model%20Problem3.html">
+         Model Problem3
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../10%20PDEs/PDEs.html">
+   Partial Differential Equations
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/>
+  <label for="toctree-checkbox-29">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../10%20PDEs/01%20Linear%20PDE.html">
+     Linear PDE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../10%20PDEs/02%20Semilinear%20PDE.html">
+     Semilinear PDE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../10%20PDEs/03%20Quasilinear%20PDE.html">
+     Quasilinear PDE
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../10%20PDEs/04%20Second%20Order%20PDE%20Classification.html">
+     Second Order PDE Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html">
+     Heat Conducting in Bar
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  programming
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/C%2B%2B.html">
+   C++
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/>
+  <label for="toctree-checkbox-30">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/01%20Build/Build.html">
+     Build
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/>
+    <label for="toctree-checkbox-31">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/01%20Build/01%20PreProcessing.html">
+       Preprocessing
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/01%20Build/02%20Compile.html">
+       Compile
+      </a>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/01%20Build/03%20Linking/Linking.html">
+       Linking
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/>
+      <label for="toctree-checkbox-32">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/01%20Build/03%20Linking/01%20Storage%20Class%20Specifier.html">
+         Storage Class Specifier
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/01%20Build/03%20Linking/02%20Name%20Mangling.html">
+         Name Mangling
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/01%20Build/03%20Linking/03%20Link.html">
+         Link
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/01%20Build/03%20Linking/04%20Relocation.html">
+         Relocation
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/01%20Build/03%20Linking/05%20LinkingMethod.html">
+         Linking Method
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/01%20Build/03%20Linking/06%20Static%20Library.html">
+         Static Library
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/01%20Build/03%20Linking/07%20Shared%20Library.html">
+         Shared Library
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/02%20Memory/Memory.html">
+     Memory
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/>
+    <label for="toctree-checkbox-33">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/02%20Memory/01%20Virtual%20Memory.html">
+       Virtual Memory
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/02%20Memory/02%20Paging%20system.html">
+       Paging system
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/02%20Memory/03%20Virtual%20Memory%20Size.html">
+       Virtual Memory Size
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/02%20Memory/04%20Virtual%20Memory%20Management%20in%20Window.html">
+       Virtual Memory Management in Window
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/02%20Memory/05%20Virtual%20Memory%20Structure.html">
+       Virtual Memory Structure
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/03%20Standard%20Library/Standard%20Library.html">
+     STD
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/>
+    <label for="toctree-checkbox-34">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/03%20Standard%20Library/01%20type-traits.html">
+       type-traits
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Abstract%20Function.html">
+     Abstract Function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Class.html">
+     Class
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/concept.html">
+     concept
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Enum.html">
+     Enum
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Initialization.html">
+     initialization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Keyword.html">
+     Keyword
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Name%20Space.html">
+     Namespace
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/One%20Definition%20Rule.html">
+     One Definition Rule
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/static.html">
+     Static
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Template.html">
+     Template
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03%20programming/CMake.html">
+   Cmake
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03%20programming/git.html">
+   Git
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../03%20programming/Visual%20Studio.html">
+   Visual Studio
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  continuum mechanics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../10%20continuum%20mechanics/01%20Stress%20Vector.html">
+   Stress Vector
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../10%20continuum%20mechanics/02%20Cauchy%27s%20Stress%20Principle.html">
+   Cauchy’s Stress Principle
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../10%20continuum%20mechanics/03%20Stress%20Tensor.html">
+   Stress Tensor
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../10%20continuum%20mechanics/Stress.html">
+   Stress
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  CFD
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../20%20CFD/CFD.html">
+   Computational Fluid Dynamics
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  CSM
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../21%20CSM/01%20Function%20Approximation.html">
+   Function Approximation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../21%20CSM/02%20Direct%20Stiffness%20Method.html">
+   Direct Stiffness Method
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../21%20CSM/03%20Bar/Bar.html">
+   Bar
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/>
+  <label for="toctree-checkbox-35">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../21%20CSM/03%20Bar/01%20Governing%20Equation.html">
+     Governing Equation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../21%20CSM/03%20Bar/02%20Boundary%20Value%20Problem.html">
+     Boundary Value Problem
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../21%20CSM/03%20Bar/03%20FE%20Formulation.html">
+     FE Formulation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../21%20CSM/04%20Beam/Beam.html">
+   Beam
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/>
+  <label for="toctree-checkbox-36">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../21%20CSM/04%20Beam/01%20Element%20Beam%20Theory.html">
+     Element Beam Theory
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../21%20CSM/04%20Beam/02%20Neutral%20Surface.html">
+     Neutral Surface
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../21%20CSM/05%20Plate/Plate.html">
+   판 이론
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../21%20CSM/06%20Finite%20Element%20Formulation/Finite%20Element%20Formulation.html">
+   Finite Element Formulation
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/>
+  <label for="toctree-checkbox-37">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../21%20CSM/06%20Finite%20Element%20Formulation/02%20Mechanical%20Equilibrium/Mechanical%20Equilibrium.html">
+     Mechanical Equilibrium
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/>
+    <label for="toctree-checkbox-38">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../21%20CSM/06%20Finite%20Element%20Formulation/02%20Mechanical%20Equilibrium/01%20Governing%20Equation.html">
+       Governing Equation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../21%20CSM/06%20Finite%20Element%20Formulation/02%20Mechanical%20Equilibrium/02%20Weak%20Formulation.html">
+       Weak Formulation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../21%20CSM/06%20Finite%20Element%20Formulation/02%20Mechanical%20Equilibrium/03%20FE%20Formulation.html">
+       FE Formulation
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../21%20CSM/07%20Nonlinear%20Analysis/Nonlinear%20Analysis.html">
+   Non Linear Analysis
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" type="checkbox"/>
+  <label for="toctree-checkbox-39">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../21%20CSM/07%20Nonlinear%20Analysis/01%20Elastoplasticity/Elastoplasticity.html">
+     Elastoplasticity
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" type="checkbox"/>
+    <label for="toctree-checkbox-40">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../21%20CSM/07%20Nonlinear%20Analysis/01%20Elastoplasticity/01%201D%20Elastoplastic.html">
+       1D Stress-Strain Relation in Tension
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../21%20CSM/07%20Nonlinear%20Analysis/01%20Elastoplasticity/01%20Classical%20Elastoplasticity%20Model.html">
+       Classical Elastoplasticity Model
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../21%20CSM/07%20Nonlinear%20Analysis/01%20Elastoplasticity/02%20J2%20Plasiticity%20with%20Combined%20Hardening%20Model.html">
+       J2 Plasticity Model with Hardening
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../21%20CSM/07%20Nonlinear%20Analysis/01%20Elastoplasticity/03%20Stress%20Calculation%20Algorithm.html">
+       Prerequisite
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../21%20CSM/07%20Nonlinear%20Analysis/01%20Elastoplasticity/04%20Elastoplasticity%20Algorithm.html">
+       Assumption
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Finance
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../30%20Finance/01%20Finance%20Market.html">
+   금융시장
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../30%20Finance/02%20Derivatives.html">
+   Derivatives
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Jupyter Book
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../98%20Jupyter%20Book/1%20document.html">
+   문서작성법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../98%20Jupyter%20Book/2%20folder.html">
+   폴더구성법
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../98%20Jupyter%20Book/3%20build.html">
+   빌드
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../98%20Jupyter%20Book/4%20Publish.html">
+   배포
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  References
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../99%20References/references.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/sources/01 math/07 Linear Algebra/04 Linearly Independet Set.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   정의
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     참고
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     참고1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     참고2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     참고3
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     명제
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Linearly Independet Set</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   정의
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     참고
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     참고1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     참고2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     참고3
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     명제
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="linearly-independet-set">
+<h1>Linearly Independet Set<a class="headerlink" href="#linearly-independet-set" title="Permalink to this headline">#</a></h1>
+<section id="id1">
+<h2>정의<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<p>Vector space <span class="math notranslate nohighlight">\(V/\F\)</span>와 <span class="math notranslate nohighlight">\(V\)</span>의 subset <span class="math notranslate nohighlight">\(S\)</span>가 있다고 하자.</p>
+<p><span class="math notranslate nohighlight">\(S\)</span>의 임의의 <span class="math notranslate nohighlight">\(n\)</span>개의 element를 <span class="math notranslate nohighlight">\(v_1, \cdots, v_n\)</span> <span class="math notranslate nohighlight">\(\F\)</span>의 임의의 <span class="math notranslate nohighlight">\(n\)</span>개의 element를 <span class="math notranslate nohighlight">\(a_1, \cdots, a_n\)</span>이라 하자.</p>
+<p>이 떄, 다음을 항상 만족할 경우 <span class="math notranslate nohighlight">\(S\)</span>를 <code class="docutils literal notranslate"><span class="pre">선형</span> <span class="pre">독립</span> <span class="pre">집합(linearly</span> <span class="pre">independent</span> <span class="pre">set)</span></code>라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[ \sum_{k=1}^{n}a_k v_k = 0_V \implies \forall a_k=0_\F \]</div>
+<blockquote>
+<div><p>Reference<br />
+<span id="id2">[<a class="reference internal" href="../../99%20References/references.html#id2" title="S.H. Friedberg, A.J. Insel, and L.E. Spence. Linear Algebra. Pearson Education, 2014.">Friedberg <em>et al.</em>, 2014</a>]</span> Chapter1.5</p>
+</div></blockquote>
+<section id="id3">
+<h3>참고<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h3>
+<p><span class="math notranslate nohighlight">\(n\)</span>개에도 자유도가 있고, 그 선택에도 자유도가 있다.</p>
+<p>다시 말해 2개를 뽑던지 100개를 뽑던 지 위에가 만족해야 되고 또한 2개를 어떻게 뽑더라도 100개를 어떻게 뽑더라도 항상 위를 만족해야 한다.</p>
+<p>따라서 set에서 선택가능한 모든 조합이 linearly independent해야 한다.</p>
+</section>
+<section id="id4">
+<h3>참고1<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
+<p>linearly independent set이 아닌 집합을 <code class="docutils literal notranslate"><span class="pre">선형</span> <span class="pre">종속</span> <span class="pre">집합(linear</span> <span class="pre">dependent</span> <span class="pre">set)</span></code>이라고 한다.</p>
+</section>
+<section id="id5">
+<h3>참고2<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
+<p>선형 종속 집합 <span class="math notranslate nohighlight">\(S \subseteq V\)</span>가 있다면 다음을 만족한다.</p>
+<div class="math notranslate nohighlight">
+\[\exist a_i \in \F,v_i \in S \quad s.t. \quad \sum_{k=1}^{n}a_k v_k = 0_V \land \exist a_i  \neq 0_\F \]</div>
+<p>이 때, <span class="math notranslate nohighlight">\(a_1 \neq 0_\F\)</span>이라고 가정하면 다음 관계식이 성립한다.
+$<span class="math notranslate nohighlight">\(  v_1 = - \frac{1}{a_1}\sum_{k=2}^{n} a_k v_k \)</span>$</p>
+<p>즉, <span class="math notranslate nohighlight">\(v_1\)</span>은 <span class="math notranslate nohighlight">\(S\)</span>에 속하는 다른 원소들의 선형결합으로 표현이 가능하다.</p>
+</section>
+<section id="id6">
+<h3>참고3<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
+<p><span class="math notranslate nohighlight">\(v \in V- \{0_V\}\)</span>에 대해 <span class="math notranslate nohighlight">\(\beta=\{v\}\)</span>면 <span class="math notranslate nohighlight">\(\beta\)</span>는 선형 독립 집합이다.</p>
+</section>
+<section id="id7">
+<h3>명제<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h3>
+<p>Vector space <span class="math notranslate nohighlight">\(V/\F\)</span>와 <span class="math notranslate nohighlight">\(V\)</span>의 linearly independent set <span class="math notranslate nohighlight">\(S\)</span>가 있다고 하자.</p>
+<p><span class="math notranslate nohighlight">\(v \in V - \span(S)\)</span>일 때, 다음을 증명하여라.</p>
+<div class="math notranslate nohighlight">
+\[ S \cup \Set{v} \text{ is an linearly independent set} \]</div>
+<p><strong>Proof</strong></p>
+<p><span class="math notranslate nohighlight">\(S\)</span>의 임의의 <span class="math notranslate nohighlight">\(n\)</span>개의 element를 <span class="math notranslate nohighlight">\(s_1,\cdots,s_n\)</span>이라 하자.</p>
+<p><span class="math notranslate nohighlight">\(a_1v + a_2s_1 + \cdots + a_{n+1}s_{n} = 0_V\)</span>일 때, 다음을 가정하자.</p>
+<div class="math notranslate nohighlight">
+\[ a_1 \neq 0_\F \]</div>
+<p>그러면 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ v = -\left(\frac{a_2}{a_1}s_1 + \cdots + \frac{a_{n+1}}{a_{1}}s_n \right) \]</div>
+<p>하지만 이는 <span class="math notranslate nohighlight">\(v \in V-\span(S)\)</span>라는 전제에 모순됨으로, proof by contradiction에 의해 다음이 성립한다</p>
+<div class="math notranslate nohighlight">
+\[ a_1 = 0_\F \]</div>
+<p>그러면 <span class="math notranslate nohighlight">\(S\)</span>가 linearly independent set임으로 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ a_2 = \cdots = a_{n+1} = 0_\F \]</div>
+<p>따라서, linearly independet set의 정의에 따라 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ S \cup \Set{v} \text{ is an linearly independent set} \qed \]</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./sources\01 math\07 Linear Algebra"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="03%20Span.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Span</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="05%20Basis.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Basis</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By MS<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
