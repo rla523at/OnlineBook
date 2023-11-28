@@ -1,4 +1,4 @@
-# MS Study Documents
+# MS Study Book
 
 수식을 원활하게 보기 위해서 다음과 같은 과정을 거치는 것을 권장합니다.
 
