@@ -1,5 +1,16 @@
 # 배포
-## Guide
+## 수동 배포 Guide
+### Repository 생성 및 설정
+
+### 파일 복사
+* _build/html 폴더 안에 들어있는 파일들을 전부 OnlineBook Repository에 복사한다.
+
+### 문제해결
+#### 렌더링이 제대로 안되는 경우
+* .nojekyll 파일을 만들면 해결된다.
+
+
+## 라이브러리 배포 Guide
 ### 환경 설정
 Github에 public repository를 만든다.
 
