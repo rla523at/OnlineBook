@@ -18,21 +18,21 @@ polymorphism은 overloading과 overriding등에 의해서 구현 가능한데 OO
 virtual function이란 derive 클래스에서 재정의 될 것으로 기대하는 함수로 C++에서는 virtual keyword를 통해 나타낸다. virtual function은 일반 함수와 함수 그 자체로서는 큰 차이 없이 메모리 코드 영역의 어딘가에 위치할 뿐이다. 하지만 virtual function은 `가상 함수 테이블(virtual function table; vftable)`과 `가상 함수 테이블 포인터(virtual function table pointer; vfptr)`이라는 추가적인 구조를 가지고 있으며 함수의 호출 방식도 다르다.
 
 ### vftable
-vftable은 각 virtual function별로 실제로 실행해야 될 함수의 메모리 시작 주소가 기록되어 있는 table이다. 그렇다면 이런 vftable은 언제 생성되는 것일까?
+vftable은 각 virtual function별로 실제로 실행해야 될 함수의 메모리 시작 주소가 기록되어 있는 table이다. 
 
-컴파일러는 컴파일 시점에 소스 코드에 정의된 모든 클래스에 대해서 virtual function이 하나라도 있을 경우 그 클래스에 대한 vftable을 생성한다. 그리고 각 클래스의 객체가 생성될 때 객체의 시작 주소에 vfptr을 생성하고 해당 클래스의 vftable의 주소값을 갖게 한다.
+그렇다면 이런 vftable은 언제 생성되는 것일까? 컴파일러는 컴파일 시점에 소스 코드에 정의된 모든 클래스에 대해서 virtual function이 하나라도 있을 경우 그 클래스에 대한 vftable을 생성한다. 
 
-같은 클래스의 객체의 경우 당연히 같은 virtual function을 가지게 된다. 따라서 똑같은 vftable을 객체마다 생성할 필요가 없고 클래스 별로 하나의 vftable을 생성하고 객체들이 고유의 vfptr을 통해 이를 공유하며 접근할 수 있게 한다.
+그리고 같은 클래스의 객체의 경우 당연히 같은 virtual function을 가지게 됨으로 똑같은 vftable을 객체마다 생성할 필요가 없고 클래스 별로 하나의 vftable을 생성하고 객체들이 고유의 vfptr을 통해 이를 공유하며 접근할 수 있게 한다.
 
 #### 참고
 컴파일러는 vftable을 생성할 때 함수마다 고유의 인덱스를 부여하고 이 인덱스를 이용해서 virtual function 호출을 처리한다. 예를 들어 가상함수 vfunc의 인덱스가 0번이라면, vfunc가 호출될 시 vfptr이 가리키는 vftable의 0번 인덱스에 접근하여 함수를 호출하도록 어셈블리 코드를 작성한다. 즉, virtual function는 오직 vfptr이 가리키는 vftable과 virtual function에 해당하는 인덱스만으로 주소를 찾아내서 호출될 수 있다.
 
 ### vfptr
-vfptr은 말 그대로 vftable을 가르키는 역할을 한다. 그리고 virtual function을 가지고 있는 클래스 객체의 시작 위치에는 vfptr이 생성된다. 그렇다면 이번에는 vfptr이 언제 어떤 값을 가지게 되는지 살펴보자.
+vfptr은 말 그대로 vftable을 가르키는 역할을 한다. 
 
-클래스의 생성자와 소멸자는 각각 선처리 영역과 후처리 영역을 가지고 있으며 vfptr은 이 생성자의 선처리 영역에서 설정됩니다.
+virtual function을 가지고 있는 클래스 객체가 생성될 때, 컴파일러에 의해 시작 위치에 vfptr가 생성되고 생성자의 선처리 영역에서 vftable의 주소가 설정된다.
 
-선처리 영역과 후처리 영역을 간단하게 정리하면 다음과 같다.
+클래스의 생성자와 소멸자는 각각 선처리 영역과 후처리 영역을 가지고 있으며 이를 간단하게 정리하면 다음과 같다.
 
 ```
 A(...)
@@ -145,7 +145,7 @@ int main(void)
 
 ```
 
-정리하면 비가상 멤버함수는 컴파일러에 의해 직접 해당 함수를 호출하지만 virtual function는 객체가 가지고 있는 vfptr를 이용해 vftable에 접근하고 함수를 호출한다.
+정리하면 비가상 멤버함수는 컴파일러에 의해 바로 호출되는 반면 virtual function는 객체가 가지고 있는 vfptr를 이용해 vftable에 접근해 호출된다.
 
 ## Dynamic Binding
 이제 나머지 3개의 질문에 대한 답을 하기 알아보기 위해 아래 코드를 살펴보자.
