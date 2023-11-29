@@ -1,139 +1,25 @@
 # Polymorphism
 `다형성(polymorphism)`이란 맥락에 따라서 다른 로직을 실행하는 능력이다.
 
-다형성은 overloading과 overriding등에 의해서 구현 가능하다. 그리고 OOP에서 overriding에 의한 다형성을 특히 중요하게 생각하는 이유는 이를 통해 의존성을 줄일 수 있기 때문이다. 
+polymorphism은 overloading과 overriding등에 의해서 구현 가능한데 OOP에서 overriding을 특히 중요하게 생각하는 이유는 overriding에 의해 생기는 lazy binding에 의해 polymorphsim이 구현됨과 동시에 의존성을 줄일 수 있기 때문이다.
 
-다음 예시 코드를 보자.
+위의 문장을 이해하기 위해서는 다음 5가지를 알아야 한다.
+* overriding이란 무엇인가?
+* lazy binding이란 무엇인가?
+* overridng에 의해 어떻게 lazy binding이 생기는가?
+* lazy binding에 의해 어떻게 polymorphism이 구현되는가?
+* lazy binding에 의해 어떻게 의존성을 줄일 수 있는가?
 
-```cpp
+## Overridng이란 무엇인가?
+overriding이란 base class에서 virtual function을 derive class에서 재정의 하는 것이다. 
 
-//Shape.h
-class Shape {
-    virtual double cal_area(void) const = 0;
-};
+## Lazy binding이란 무엇인가?
+lazy binding이란 run time에 의존성을 결정하는 것이다.
 
-//Shape_Impl.h
-class Shape1 : public Shape {
-    double cal_area(void) const override;
-};
-class Shape2 : public Shape {
-    double cal_area(void) const override;
-};
-class Shape3 : public Shape {
-    double cal_area(void) const override;
-};
+## overridng에 의해 어떻게 lazy binding이 생기는가?
+overriding에 의해 생기는 lazy binding을 이해하기 위해서는 virtual function에 대해서 자세하게 알아야 한다.
 
-//other.cpp
-#include <Shape.h>
-
-int print_area(const Shape& shape){
-    cout << shape.cal_area() << "\n";
-}
-
-```
-print_area 함수를 보면 input으로 들어오는 Shape class가 Shape1인지 Shape2인지 아니면 그 외의 Shape class인지 전혀 알지 못하고 있다. 오직 아는 것이라고는 abstract class인 Shape class뿐이다.
-
-즉, overriding에 의한 polymorphism 덕분에 print_area 함수는 concrete class인 Shape1,2,3 class에 대한 compile time 의존성 대신 run time 의존성을 갖으며 compile time 의존성은 오직 abstract class인 Shape class에 대해서만 갖는다.
-
-그리고 C++에서는 `가상함수(virtual function)`을 통해 compile time 의존성과 run time 의존성을 다르게 만들어주는 `지연 바인딩(lazy binding)`, `동적 바인딩(dynamic binding)`을 제공하기 때문에 맥락에 따라 (input shape 객체의 실제 class에 따라) 알맞은 cal_area 함수를 호출할 수 있다.
-
-정리하면, overriding에 의한 polymorphism 덕분에 concrete class에 대한 compile time 의존성을 run time 의존성으로 바꾸고 compile time 의존성은 오로지 abstract class에만 발생하게 하여 의존성을 줄일 수 있고 동시에 lazy binding에 의해 맥락 따라 알은는 로직을 갖은 함수를 호출할 수 있다. 
-
-
-
-* [why-is-polymorphism-important](https://wasabigeek.com/blog/why-is-polymorphism-important/)
-
-## Overloading
-overloading이란 이름은 같고 input은 다른 함수들을 정의하는 것이다.
-
-```cpp
-class Shape1;
-class Shape2;
-class Shape3;
-
-//Polymorphism via overloading
-double cal_area(const Shape1 shape);
-double cal_area(const Shape2 shape);
-double cal_area(const Shape3 shape);
-```
-
-### 참고
-C는 overloading을 제공하지 않는다. 왜냐하면 컴파일러가 목적 코드를 생성할 떄 symbol을 함수 이름으로 생성하기 때문에 같은 이름이 있는 경우 어떤 함수를 호출할 지 구분할 수가 없게 되어 linking에 실패하기 때문이다.
-
-그렇다면 C++에서는 어떻게 overloading을 제공하는 것일까? 정답은 `이름 맹글링(name mangling)`이다. C++에서는 목적 코드 생성시에 컴파일러가 함수의 이름을 바꾸는 것을 볼 수 있다. 이를 name mangling이라 하는데, 맹글링이라는 단어의 뜻이 원래 엉망진창으로 만들다 라는 의미다.
-
-이렇게 name mangling을 하게 되면 원래의 함수 이름에 namespace 정보와 input 정보들이 추가된다. 따라서 같은 이름의 함수일 지라도, name mangling을 거치고 나면 다른 함수로 취급할 수 있게 되고 링킹을 성공적으로 수행할 수 있게 된다.
-
-## Overriding
-overriding이란 base class의 abstract function을 derive class에서 재정의하는 것이다.
-
-### 참고
-만약 virtual function이 아닌 base class의 함수를 redefing하면 어떻게 될지 다음 예시를 보자.
-
-```cpp
-#include <iostream>
-
-class A {
-public:
-    void f(void) {std::cout <<"A";}
-}
-
-class B : public A {
-public:
-    void f(void) {std::cout << "B";}
-}
-
-int main(void){
-    B b;
-    b.f(); //"B"
-
-    A& a_ref = b;
-    a_ref.f(); //"A"
-}
-```
-이 경우에는 overriding에 의한 polymorphism이 없기 때문에 `a_ref.f();`에서 "A"가 출력된다.
-
-그렇다면 이름만 같고 인자가 다른 경우에는 어떻게 될지 다음 예시를 보자.
-```cpp
-#include <iostream>
-
-class A {
-public:
-    void f(void) {std::cout <<"A";}
-}
-
-class B : public A {
-public:
-    void f(int) {std::cout << "B";}
-}
-
-int main(void){
-    int i = 0;
-
-    B b;
-    b.f(i); //"B"
-    //b.f(); // compile error!
-}
-```
-B가 A를 상속받았음으로 B에는 아무 input도 받지 않는 f와 int를 input으로 받는 f가 모두 정의되어 있을 것 같지만 f라는 이름이 같기 때문에 A class에 정의되어 있는 아무 input도 받지 않는 f는 가려지게 되는 base class method hiding 문제가 발생한다.
-
-이를 해결하기 위해서는 B class에 명시적으로 A class의 f함수가 있음을 다음과 같이 작성해야 한다.
-
-```cpp
-class B : public A {
-public:
-    using A::f;
-    void f(int) {std::cout << "B";}
-}
-```
-그러면 더이상 `b.f()`에서 compile error가 발생하지 않는다.
-
-## Virtual Function
-위에서 vritual function을 통해 lazy binding을 지원함으로써 overriding에 의한 polymorphism이 생긴다고 하였다. 그렇다면 vritual funtion은 무엇이며 어떻게 lazy binding을 지원하는 것인지를 알아보자.
-
-virtual function이란 derive 클래스에서 override 될 것으로 기대하는 함수로 virtual keyword를 통해 나타낸다. virtual function은 일반 함수와 함수 그 자체로서는 큰 차이 없이 메모리 코드 영역의 어딘가에 위치할 뿐이다. 하지만 virtual function은 `가상 함수 테이블(virtual function table; vftable)`과 `가상 함수 테이블 포인터(virtual function table pointer; vfptr)`이라는 추가적인 구조를 가지고 있으며 호출 방식도 달라 lazy binding을 지원할 수 있게 된다.
-
-그러면 virtual function이 어떻게 lazy binding을 지원하게 되는지 알아보기 전에 추가적인 구조와 호출 방식에 대해 먼저 알아보자.
+virtual function이란 derive 클래스에서 재정의 될 것으로 기대하는 함수로 C++에서는 virtual keyword를 통해 나타낸다. virtual function은 일반 함수와 함수 그 자체로서는 큰 차이 없이 메모리 코드 영역의 어딘가에 위치할 뿐이다. 하지만 virtual function은 `가상 함수 테이블(virtual function table; vftable)`과 `가상 함수 테이블 포인터(virtual function table pointer; vfptr)`이라는 추가적인 구조를 가지고 있으며 함수의 호출 방식도 다르다.
 
 ### vftable
 vftable은 각 virtual function별로 실제로 실행해야 될 함수의 메모리 시작 주소가 기록되어 있는 table이다. 그렇다면 이런 vftable은 언제 생성되는 것일까?
@@ -264,41 +150,184 @@ int main(void)
 정리하면 비가상 멤버함수는 컴파일러에 의해 직접 해당 함수를 호출하지만 virtual function는 객체가 가지고 있는 vfptr를 이용해 vftable에 접근하고 함수를 호출한다.
 
 ### Lazy binding
-이제 virtual function의 추가 구조와 호출 과정이 어떻게 lazy binding을 구현하는지 알아보자.
-
+이제 overriding에 의해 생기는 lazy binding을 알아보기 위해 아래 코드를 살펴보자.
 
 ```cpp
+//Base.h
 #include <iostream>
-
 class Base
 {
 public:
     virtual void vfunc(void) { std::cout << "function in base\n"; };
 };
 
+//Derive.h
+#include "Base.h"
 class Derive : public Base
 {
     void vfunc(void) override { std::cout << "function in derive\n"; };
 };
 
+//other.cpp
+#include "Base.h"
+
+void call_vfunc(const Base& base) { base.vfunc(); };
+
+//main.cpp
+#include "Derive.h"
+
+void call_vfunc(const Base& base);
+
 int main(void)
 {
-    Derive d;
+    Base b;
+    call_vfunc(b);
 
-    Base* ptr = &d;
-    ptr->vfunc();
+    Derive d;
+    call_vfunc(d);
 }
 ```
 
-먼저 컴파일러는 각 클래스에 virtual function가 있음을 확인하고 각 클래스의 vftable을 생성한다. Base 클래스의 vftable에는 항목 한 개가 있고 Base::vfunc의 주소가 들어간다. Derive 클래스의 vftable도 항목 한개가 있고 재정의한 Derive::vfunc의 주소가 들어간다. 
+compile time에 보면 call_vfunc은 Base class만 알고 있다. 따라서, main문에서 call_vfunc의 input으로 Derive class 객체를 주어도 Base class의 vfunc이 호출될 것 같지만 놀랍게도 Derive class의 vfunc 함수를 호출하는 것을 알 수 있다. 즉, 객체 d를 넣어서 call_vfunc를 호출한 경우 call_vfunc은 compile time 의존성은 Base class에 있지만 run time 의존성은 Derive class에 있기 때문에 lazy binding이 생긴것이다.
+
+그러면 어떻게 lazy binding이 생긴건지 한 단계씩 알아보자.
+
+먼저 컴파일러는 각 클래스에 virtual function이 있음을 확인하고 각 클래스의 vftable을 생성한다. Base 클래스의 vftable에는 항목 한 개가 있고 Base::vfunc의 주소가 들어간다. Derive 클래스의 vftable도 항목 한개가 있고 재정의한 Derive::vfunc의 주소가 들어간다. 
 
 Derive 객체를 생성하는 과정을 보기 전에 주목해야 될 점이 있다. 바로 Base 클래스도 vftable을 가지고 있고 Derive 클래스도 vftable을 가지고 있지만 객체 d는 하나의 vfptr을 가진다는 점이다. 상식적으로 따진다면 Base 클래스의 vfptr이 하나 있고, Derive 클래스의 vfptr이 하나 있어야 될것 같다. 그러나 실제로는 하나의 vfptr만 있으며 두 클래스에서 동시에 사용하는 공용 vfptr이다. 공용으로 사용할 경우 혼돈이 생길 수 있을것 같은데 어떤 방식으로 vfptr을 사용하는지 살펴보자.
 
 Derive 클래스의 d 객체를 생성하기 위해 생성자를 호출한다. Derive 클래스 생성자의 선처리 영역에서 Base 클래스의 생성자를 호출한다. Base 클래스의 생성자 호출의 선처리 영역에서 vfptr이 Base 클래스의 vftable을 가르키게 된다. 그리고 Base 클래스 생성자 호출이 끝나면 바로 vfptr은 Derive 클래스의 vftable을 가르키게 된다. 즉 여러 과정을 거쳐 결론적으로 vfptr이 Derive 클래스의 vftable을 가르키게 된다.
 
-ptr이 가르키는 객체는 d 객체의 Base 클래스의 해당하는 영역뿐이다. 하지만 객체 d의 vfptr은 이미 Derive 클래스의 vftable을 가르키고 있기 때문에 ptr을 이용하여 함수를 호출하더라도 원래 객체 d의 타입에 맞는 virtual function가 호출이 될 수 있다.
+call_vfunc에 input으로 d 객체를 주었을 때, call_vfunction의 input 객체 base는 d 객체의 Base 클래스의 해당하는 영역뿐이다. 하지만 객체 d의 vfptr은 이미 Derive 클래스의 vftable을 가르키고 있기 때문에 ptr을 이용하여 함수를 호출하더라도 원래 객체 d의 타입에 맞는 virtual function이 호출이 될 수 있다.
 
-결론적으로 vfptr이 실제 클래스의 vftable을 가르키게 설계가 되어있기 때문에 lazy binding이 제대로 동작할 수 있게 된다.
+결론적으로 vfptr이 실제 클래스의 vftable을 가르키게 설계가 되어있기 때문에 lazy binding이 생긴 것이다
+
+## lazy binding에 의해 어떻게 polymorphism이 구현되는가?
+위의 예시를 다시 한번 봐보자.
+
+overriding에 의해 lazy binding이 생기기 때문에 실제 class에 해당하는 함수를 호출할 수 있게 된다. 즉, 맥락에 맞는(실제 class에 맞는) 로직(함수)을 수행하는 능력인 polymorphism이 생긴것이다.
+
+## lazy binding에 의해 어떻게 의존성을 줄일 수 있는가?
+위의 예시를 다시 한번 봐보자.
+
+lazy binding에 의해 call_vfunc은 Derive class에 대해 compile time 의존성을 갖지 않음으로 의존성이 줄어들었다.
+
+그리고 이를 활용하여 compile time 의존성은 오직 상대적으로 변경에 안전한 abstract class에 두고 상대적으로 변경에 취약한 concrete class들에 대해서는 run time 의존성만 갖게 하여 의존성을 더욱 줄일 수 있다.
+
+다음 예시 코드를 보자.
+
+```cpp
+//Shape.h
+class Shape {
+    virtual double cal_area(void) const = 0;
+};
+
+//Shape_Impl.h
+class Shape1 : public Shape {
+    double cal_area(void) const override;
+};
+class Shape2 : public Shape {
+    double cal_area(void) const override;
+};
+class Shape3 : public Shape {
+    double cal_area(void) const override;
+};
+
+//other.cpp
+#include <Shape.h>
+
+int print_area(const Shape& shape){
+    cout << shape.cal_area() << "\n";
+}
+
+```
+lazy binding 덕분에 print_area 함수는  compile time 의존성은 오직 abstract class인 Shape class에 대해서만 갖는다. 그리고 concrete class인 Shape1,2,3 class에 대해서는 run time 의존성만을 갖는다.
+
+* [why-is-polymorphism-important](https://wasabigeek.com/blog/why-is-polymorphism-important/)
+
+## 참고
+
+### Overloading
+overloading이란 이름은 같고 input은 다른 함수들을 정의하는 것이다.
+
+```cpp
+class Shape1;
+class Shape2;
+class Shape3;
+
+//Polymorphism via overloading
+double cal_area(const Shape1 shape);
+double cal_area(const Shape2 shape);
+double cal_area(const Shape3 shape);
+```
+
+#### 참고
+C는 overloading을 제공하지 않는다. 왜냐하면 컴파일러가 목적 코드를 생성할 떄 symbol을 함수 이름으로 생성하기 때문에 같은 이름이 있는 경우 어떤 함수를 호출할 지 구분할 수가 없게 되어 linking에 실패하기 때문이다.
+
+그렇다면 C++에서는 어떻게 overloading을 제공하는 것일까? 정답은 `이름 맹글링(name mangling)`이다. C++에서는 목적 코드 생성시에 컴파일러가 함수의 이름을 바꾸는 것을 볼 수 있다. 이를 name mangling이라 하는데, 맹글링이라는 단어의 뜻이 원래 엉망진창으로 만들다 라는 의미다.
+
+이렇게 name mangling을 하게 되면 원래의 함수 이름에 namespace 정보와 input 정보들이 추가된다. 따라서 같은 이름의 함수일 지라도, name mangling을 거치고 나면 다른 함수로 취급할 수 있게 되고 링킹을 성공적으로 수행할 수 있게 된다.
+
+### virtual function이 아닌 base class의 함수
+만약 virtual function이 아닌 base class의 함수를 redefing하면 어떻게 될지 다음 예시를 보자.
+
+```cpp
+#include <iostream>
+
+class A {
+public:
+    void f(void) {std::cout <<"A";}
+}
+
+class B : public A {
+public:
+    void f(void) {std::cout << "B";}
+}
+
+int main(void){
+    B b;
+    b.f(); //"B"
+
+    A& a_ref = b;
+    a_ref.f(); //"A"
+}
+```
+이 경우에는 overriding에 의한 polymorphism이 없기 때문에 `a_ref.f();`에서 "A"가 출력된다.
+
+그렇다면 이름만 같고 인자가 다른 경우에는 어떻게 될지 다음 예시를 보자.
+```cpp
+#include <iostream>
+
+class A {
+public:
+    void f(void) {std::cout <<"A";}
+}
+
+class B : public A {
+public:
+    void f(int) {std::cout << "B";}
+}
+
+int main(void){
+    int i = 0;
+
+    B b;
+    b.f(i); //"B"
+    //b.f(); // compile error!
+}
+```
+B가 A를 상속받았음으로 B에는 아무 input도 받지 않는 f와 int를 input으로 받는 f가 모두 정의되어 있을 것 같지만 f라는 이름이 같기 때문에 A class에 정의되어 있는 아무 input도 받지 않는 f는 가려지게 되는 base class method hiding 문제가 발생한다.
+
+이를 해결하기 위해서는 B class에 명시적으로 A class의 f함수가 있음을 다음과 같이 작성해야 한다.
+
+```cpp
+class B : public A {
+public:
+    using A::f;
+    void f(int) {std::cout << "B";}
+}
+```
+그러면 더이상 `b.f()`에서 compile error가 발생하지 않는다.
 
 ### Virtual destructor
 먼저 아래 코드를 보자.

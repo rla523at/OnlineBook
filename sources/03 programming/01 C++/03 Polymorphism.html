@@ -751,30 +751,34 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overloading">Overloading</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overriding">Overriding</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">참고</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-function">Virtual Function</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overridng">Overridng이란 무엇인가?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-binding">Lazy binding이란 무엇인가?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overridng-lazy-binding">overridng에 의해 어떻게 lazy binding이 생기는가?</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vftable">vftable</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">참고</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vfptr">vfptr</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">참고</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">참고</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Virtual function의 호출</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-binding">Lazy binding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-function">Virtual function의 호출</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Lazy binding</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-binding-polymorphism">lazy binding에 의해 어떻게 polymorphism이 구현되는가?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">lazy binding에 의해 어떻게 의존성을 줄일 수 있는가?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">참고</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overloading">Overloading</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">참고</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-function-base-class">virtual function이 아닌 base class의 함수</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-destructor">Virtual destructor</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">소멸자와 파괴자</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">소멸자와 파괴자</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">생성자와 소멸자에서 virtual function 호출</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">생성자와 소멸자에서 virtual function 호출</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
@@ -792,7 +796,207 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="polymorphism">
 <h1>Polymorphism<a class="headerlink" href="#polymorphism" title="Permalink to this heading">#</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">다형성(polymorphism)</span></code>이란 맥락에 따라서 다른 로직을 실행하는 능력이다.</p>
-<p>다형성은 overloading과 overriding등에 의해서 구현 가능하다. 그리고 OOP에서 overriding에 의한 다형성을 특히 중요하게 생각하는 이유는 이를 통해 의존성을 줄일 수 있기 때문이다.</p>
+<p>polymorphism은 overloading과 overriding등에 의해서 구현 가능한데 OOP에서 overriding을 특히 중요하게 생각하는 이유는 overriding에 의해 생기는 lazy binding에 의해 polymorphsim이 구현됨과 동시에 의존성을 줄일 수 있기 때문이다.</p>
+<p>위의 문장을 이해하기 위해서는 다음 5가지를 알아야 한다.</p>
+<ul class="simple">
+<li><p>overriding이란 무엇인가?</p></li>
+<li><p>lazy binding이란 무엇인가?</p></li>
+<li><p>overridng에 의해 어떻게 lazy binding이 생기는가?</p></li>
+<li><p>lazy binding에 의해 어떻게 polymorphism이 구현되는가?</p></li>
+<li><p>lazy binding에 의해 어떻게 의존성을 줄일 수 있는가?</p></li>
+</ul>
+<section id="overridng">
+<h2>Overridng이란 무엇인가?<a class="headerlink" href="#overridng" title="Permalink to this heading">#</a></h2>
+<p>overriding이란 base class에서 virtual function을 derive class에서 재정의 하는 것이다.</p>
+</section>
+<section id="lazy-binding">
+<h2>Lazy binding이란 무엇인가?<a class="headerlink" href="#lazy-binding" title="Permalink to this heading">#</a></h2>
+<p>lazy binding이란 run time에 의존성을 결정하는 것이다.</p>
+</section>
+<section id="overridng-lazy-binding">
+<h2>overridng에 의해 어떻게 lazy binding이 생기는가?<a class="headerlink" href="#overridng-lazy-binding" title="Permalink to this heading">#</a></h2>
+<p>overriding에 의해 생기는 lazy binding을 이해하기 위해서는 virtual function에 대해서 자세하게 알아야 한다.</p>
+<p>virtual function이란 derive 클래스에서 재정의 될 것으로 기대하는 함수로 C++에서는 virtual keyword를 통해 나타낸다. virtual function은 일반 함수와 함수 그 자체로서는 큰 차이 없이 메모리 코드 영역의 어딘가에 위치할 뿐이다. 하지만 virtual function은 <code class="docutils literal notranslate"><span class="pre">가상</span> <span class="pre">함수</span> <span class="pre">테이블(virtual</span> <span class="pre">function</span> <span class="pre">table;</span> <span class="pre">vftable)</span></code>과 <code class="docutils literal notranslate"><span class="pre">가상</span> <span class="pre">함수</span> <span class="pre">테이블</span> <span class="pre">포인터(virtual</span> <span class="pre">function</span> <span class="pre">table</span> <span class="pre">pointer;</span> <span class="pre">vfptr)</span></code>이라는 추가적인 구조를 가지고 있으며 함수의 호출 방식도 다르다.</p>
+<section id="vftable">
+<h3>vftable<a class="headerlink" href="#vftable" title="Permalink to this heading">#</a></h3>
+<p>vftable은 각 virtual function별로 실제로 실행해야 될 함수의 메모리 시작 주소가 기록되어 있는 table이다. 그렇다면 이런 vftable은 언제 생성되는 것일까?</p>
+<p>컴파일러는 컴파일 시점에 소스 코드에 정의된 모든 클래스에 대해서 virtual function이 하나라도 있을 경우 그 클래스에 대한 vftable을 생성한다. 그리고 각 클래스의 객체가 생성될 때 객체의 시작 주소에 vfptr을 생성하고 해당 클래스의 vftable의 주소값을 갖게 한다.</p>
+<p>같은 클래스의 객체의 경우 당연히 같은 virtual function을 가지게 된다. 따라서 똑같은 vftable을 객체마다 생성할 필요가 없고 클래스 별로 하나의 vftable을 생성하고 객체들이 고유의 vfptr을 통해 이를 공유하며 접근할 수 있게 한다.</p>
+<section id="id1">
+<h4>참고<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<p>컴파일러는 vftable을 생성할 때 함수마다 고유의 인덱스를 부여하고 이 인덱스를 이용해서 virtual function 호출을 처리한다. 예를 들어 가상함수 vfunc의 인덱스가 0번이라면, vfunc가 호출될 시 vfptr이 가리키는 vftable의 0번 인덱스에 접근하여 함수를 호출하도록 어셈블리 코드를 작성한다. 즉, virtual function는 오직 vfptr이 가리키는 vftable과 virtual function에 해당하는 인덱스만으로 주소를 찾아내서 호출될 수 있다.</p>
+</section>
+</section>
+<section id="vfptr">
+<h3>vfptr<a class="headerlink" href="#vfptr" title="Permalink to this heading">#</a></h3>
+<p>vfptr은 말 그대로 vftable을 가르키는 역할을 한다. 그리고 virtual function을 가지고 있는 클래스 객체의 시작 위치에는 vfptr이 생성된다. 그렇다면 이번에는 vfptr이 언제 어떤 값을 가지게 되는지 살펴보자.</p>
+<p>클래스의 생성자와 소멸자는 각각 선처리 영역과 후처리 영역을 가지고 있다. 이를 간단하게 정리하면 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="p">[</span><span class="o">//</span> <span class="n">선처리</span> <span class="n">영역</span> <span class="n">시작</span>
+<span class="mf">1.</span> <span class="n">base</span> <span class="n">클래스의</span> <span class="n">생성자</span> <span class="n">호출</span>
+<span class="mf">2.</span> <span class="n">vfptr</span> <span class="n">설정</span>
+<span class="mf">3.</span> <span class="n">클래스</span> <span class="n">타입</span> <span class="n">멤버의</span> <span class="n">생성자</span> <span class="n">호출</span>
+<span class="mf">4.</span> <span class="n">기타</span> <span class="n">선처리</span><span class="o">..</span>
+<span class="p">]</span><span class="o">//</span> <span class="n">선처리</span> <span class="n">영역</span> <span class="n">끝</span>
+<span class="p">{</span><span class="o">//</span> <span class="n">생성자</span> <span class="n">블록</span> <span class="n">시작</span>
+<span class="p">}</span><span class="o">//</span> <span class="n">생성자</span> <span class="n">블록</span> <span class="n">끝</span>
+
+<span class="o">~</span><span class="n">A</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="p">{</span><span class="o">//</span> <span class="n">소멸자</span> <span class="n">블록</span> <span class="n">시작</span>    
+<span class="mf">1.</span> <span class="n">vfptr</span> <span class="n">설정</span>
+<span class="p">}</span><span class="o">//</span> <span class="n">소멸자</span> <span class="n">블록</span> <span class="n">끝</span>
+<span class="p">[</span><span class="o">//</span> <span class="n">후처리</span> <span class="n">영역</span> <span class="n">시작</span>
+<span class="mf">1.</span> <span class="n">클래스</span> <span class="n">타입</span> <span class="n">멤버의</span> <span class="n">소멸자</span> <span class="n">호출</span>
+<span class="mf">2.</span> <span class="n">부모</span> <span class="n">클래스</span> <span class="n">소멸자</span> <span class="n">호출</span>
+<span class="mf">3.</span> <span class="n">기타</span> <span class="n">후처리</span><span class="o">..</span>
+<span class="p">]</span><span class="o">//</span> <span class="n">후처리</span> <span class="n">영역</span> <span class="n">끝</span>
+</pre></div>
+</div>
+<section id="id2">
+<h4>참고<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<p>vfptr은 복사 생성자나 연산자에 의해서 복사되지 않는다. 그렇다면 왜 C++에서는 복사되지 못하게 막아놓은 것일까? 그 이유를 아래 코드를 보면서 이해해보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Base</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">	</span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">vfunc</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">};</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Derive</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="n">vfunc</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">d_val_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">	</span><span class="kt">int</span><span class="w"> </span><span class="n">d_val_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="n">Base</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">	</span><span class="n">Derive</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+
+<span class="w">	</span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+<span class="w">	</span><span class="n">b</span><span class="p">.</span><span class="n">vfunc</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>만약 <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">d;</span></code> 코드에서 vfptr이 복사가 일어난다고 생각해보자. 그러면 b의 vfptr은 Derive 클래스의 vftable을 가리키고 있다. 다음에 vfunc()를 호출했다면 멤버변수 d_val_에 5를 대입해야 하지만 문제가 있다. b 객체는 멤버변수 d_val_이 없다! 존재하지도 않는 멤버변수에 접근하는 것은 미정의 동작을 일으킬 수 밖에 없으며 컴파일러는 복사 생성자에서 절대 vfptr을 복사하지 않는다.</p>
+<p>가끔 자식 클래스 객체에서 부모 클래스 객체로 단순 값 복사를 위해 memcpy를 사용하기도 하는데 memcpy는 강제로 vfptr을 복사하기 때문에 사용에 주의를 기울여야 한다.</p>
+</section>
+</section>
+<section id="virtual-function">
+<h3>Virtual function의 호출<a class="headerlink" href="#virtual-function" title="Permalink to this heading">#</a></h3>
+<p>virtual funtion의 함수 호출 과정을 알아보기 위해 아래의 어셈블리 코드를 살펴보자. 참고로 아래 어셈블리는 필요한 부분만 작성한 것이다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Test</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">vfunc1</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">vfunc2</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{};</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Test</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Test</span><span class="o">*</span><span class="w"> </span><span class="n">pt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">t</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">pt</span><span class="o">-&gt;</span><span class="n">func</span><span class="p">();</span>
+<span class="w">    </span><span class="n">call</span><span class="w"> </span><span class="n">Test</span><span class="o">::</span><span class="n">func</span><span class="w">         </span><span class="c1">//비가상 멤버 함수의 경우 컴파일러는 직접 해당 함수의 메모리 주소로  </span>
+<span class="w">                            </span><span class="c1">//call을 수행하게 어셈블리 코드를 작성한다.</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1">//레지스터인 경우, 레지스터에 저장된 주소로 가서 데이터 4바이트를 읽어온다.</span>
+<span class="w">    </span><span class="c1">//레지스터가 아닌 변수 이름이 직접 사용될 경우, 변수의 값 4바이트를 읽어온다.</span>
+<span class="w">    </span><span class="c1">//즉, 변수가 pointer일 때, pointer의 주소가 아니라 pointer가 가르키는 주소를 읽어오라는 의미이다.</span>
+
+
+<span class="w">    </span><span class="n">pt</span><span class="o">-&gt;</span><span class="n">vfunc1</span><span class="p">();</span>
+<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">eax</span><span class="p">,</span><span class="n">dword</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="p">[</span><span class="n">pt</span><span class="p">]</span><span class="w">  </span><span class="c1">//pt의 값 4바이트를 eax에 넣어라.</span>
+
+<span class="w">                            </span><span class="c1">//pt는 변수명임으로, pt의 값을 4바이트 읽어온다.</span>
+<span class="w">                            </span><span class="c1">//이 떄, pt의 값은 t객체의 시작 주소임으로 eax에는 t객체의 시작 주소 4바이트가 들어있다.</span>
+
+<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">edx</span><span class="p">,</span><span class="n">dword</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="p">[</span><span class="n">eax</span><span class="p">]</span><span class="w"> </span><span class="c1">//eax에 저장된 주소로 가서 4바이트 값을 읽어서 edx에 넣어라.</span>
+
+<span class="w">                            </span><span class="c1">//eax는 레지스터명임으로, eax에 저장된 주소(t객체의 시작 주소)로 가서 저장된 데이터 4바이트를 읽어온다.</span>
+<span class="w">                            </span><span class="c1">//이 때, t객체의 시작 위치에는 vfptr이 있고, vfptr은 vftable의 주소 값 4바이트가 저장되어 있다.</span>
+<span class="w">                            </span><span class="c1">//따라서, t 객체의 시작 주소에는 vfptr이 가르키고 있는 vftable의 주소가 적혀있음으로 edx에는 vftable의 주소 값 4바이트가 저장된다.</span>
+
+<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">eax</span><span class="p">,</span><span class="n">dword</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="p">[</span><span class="n">edx</span><span class="p">]</span><span class="w"> </span><span class="c1">//edx에 저장된 주소에서 4바이트 값을 읽어서 eax에 넣어라.</span>
+
+<span class="w">                            </span><span class="c1">//edx는 레지스터명임으로, edx에 저장된 주소(vftable의 시작 주소)로 가서 저장된 데이터 4바이트를 읽어온다.</span>
+<span class="w">                            </span><span class="c1">//이 때, vftable의 시작 주소에는 테이블의 첫번째 가상함수의 주소 4바이트 저장되어 있다.</span>
+<span class="w">                            </span><span class="c1">//따라서, eax에는 가상함수 테이블에 첫번째 함수 시작 주소가 들어있다.</span>
+
+<span class="w">    </span><span class="n">call</span><span class="w"> </span><span class="n">eax</span><span class="w">                </span><span class="c1">//eax가 가리키는 곳으로 점프하여 실행하여라.</span>
+
+<span class="w">                            </span><span class="c1">//vftable의 첫번째 함수 주소로 가서 함수를 실행하게 된다.</span>
+
+<span class="w">    </span><span class="n">pt</span><span class="o">-&gt;</span><span class="n">vfunc2</span><span class="p">();</span>
+<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">eax</span><span class="p">,</span><span class="n">dword</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="p">[</span><span class="n">pt</span><span class="p">]</span>
+<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">edx</span><span class="p">,</span><span class="n">dword</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="p">[</span><span class="n">eax</span><span class="p">]</span>
+<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">eax</span><span class="p">,</span><span class="n">dword</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="p">[</span><span class="n">edx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span><span class="w">     </span><span class="c1">//가상함수 테이블의 두번째 가상함수의 주소를 가르키게 바뀐다.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>정리하면 비가상 멤버함수는 컴파일러에 의해 직접 해당 함수를 호출하지만 virtual function는 객체가 가지고 있는 vfptr를 이용해 vftable에 접근하고 함수를 호출한다.</p>
+</section>
+<section id="id3">
+<h3>Lazy binding<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>이제 overriding에 의해 생기는 lazy binding을 알아보기 위해 아래 코드를 살펴보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//Base.h</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Base</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">vfunc</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;function in base</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="p">};</span>
+
+<span class="c1">//Derive.h</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Base.h&quot;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derive</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">vfunc</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;function in derive</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="p">};</span>
+
+<span class="c1">//other.cpp</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Base.h&quot;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">call_vfunc</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Base</span><span class="o">&amp;</span><span class="w"> </span><span class="n">base</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">base</span><span class="p">.</span><span class="n">vfunc</span><span class="p">();</span><span class="w"> </span><span class="p">};</span>
+
+<span class="c1">//main.cpp</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Derive.h&quot;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">call_vfunc</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Base</span><span class="o">&amp;</span><span class="w"> </span><span class="n">base</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Base</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="n">call_vfunc</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">Derive</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+<span class="w">    </span><span class="n">call_vfunc</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>compile time에 보면 call_vfunc은 Base class만 알고 있다. 따라서, main문에서 call_vfunc의 input으로 Derive class 객체를 주어도 Base class의 vfunc이 호출될 것 같지만 놀랍게도 Derive class의 vfunc 함수를 호출하는 것을 알 수 있다. 즉, 객체 d를 넣어서 call_vfunc를 호출한 경우 call_vfunc은 compile time 의존성은 Base class에 있지만 run time 의존성은 Derive class에 있기 때문에 lazy binding이 생긴것이다.</p>
+<p>그러면 어떻게 lazy binding이 생긴건지 한 단계씩 알아보자.</p>
+<p>먼저 컴파일러는 각 클래스에 virtual function이 있음을 확인하고 각 클래스의 vftable을 생성한다. Base 클래스의 vftable에는 항목 한 개가 있고 Base::vfunc의 주소가 들어간다. Derive 클래스의 vftable도 항목 한개가 있고 재정의한 Derive::vfunc의 주소가 들어간다.</p>
+<p>Derive 객체를 생성하는 과정을 보기 전에 주목해야 될 점이 있다. 바로 Base 클래스도 vftable을 가지고 있고 Derive 클래스도 vftable을 가지고 있지만 객체 d는 하나의 vfptr을 가진다는 점이다. 상식적으로 따진다면 Base 클래스의 vfptr이 하나 있고, Derive 클래스의 vfptr이 하나 있어야 될것 같다. 그러나 실제로는 하나의 vfptr만 있으며 두 클래스에서 동시에 사용하는 공용 vfptr이다. 공용으로 사용할 경우 혼돈이 생길 수 있을것 같은데 어떤 방식으로 vfptr을 사용하는지 살펴보자.</p>
+<p>Derive 클래스의 d 객체를 생성하기 위해 생성자를 호출한다. Derive 클래스 생성자의 선처리 영역에서 Base 클래스의 생성자를 호출한다. Base 클래스의 생성자 호출의 선처리 영역에서 vfptr이 Base 클래스의 vftable을 가르키게 된다. 그리고 Base 클래스 생성자 호출이 끝나면 바로 vfptr은 Derive 클래스의 vftable을 가르키게 된다. 즉 여러 과정을 거쳐 결론적으로 vfptr이 Derive 클래스의 vftable을 가르키게 된다.</p>
+<p>call_vfunc에 input으로 d 객체를 주었을 때, call_vfunction의 input 객체 base는 d 객체의 Base 클래스의 해당하는 영역뿐이다. 하지만 객체 d의 vfptr은 이미 Derive 클래스의 vftable을 가르키고 있기 때문에 ptr을 이용하여 함수를 호출하더라도 원래 객체 d의 타입에 맞는 virtual function이 호출이 될 수 있다.</p>
+<p>결론적으로 vfptr이 실제 클래스의 vftable을 가르키게 설계가 되어있기 때문에 lazy binding이 생긴 것이다</p>
+</section>
+</section>
+<section id="lazy-binding-polymorphism">
+<h2>lazy binding에 의해 어떻게 polymorphism이 구현되는가?<a class="headerlink" href="#lazy-binding-polymorphism" title="Permalink to this heading">#</a></h2>
+<p>위의 예시를 다시 한번 봐보자.</p>
+<p>overriding에 의해 lazy binding이 생기기 때문에 실제 class에 해당하는 함수를 호출할 수 있게 된다. 즉, 맥락에 맞는(실제 class에 맞는) 로직(함수)을 수행하는 능력인 polymorphism이 생긴것이다.</p>
+</section>
+<section id="id4">
+<h2>lazy binding에 의해 어떻게 의존성을 줄일 수 있는가?<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>위의 예시를 다시 한번 봐보자.</p>
+<p>lazy binding에 의해 call_vfunc은 Derive class에 대해 compile time 의존성을 갖지 않음으로 의존성이 줄어들었다.</p>
+<p>그리고 이를 활용하여 compile time 의존성은 오직 상대적으로 변경에 안전한 abstract class에 두고 상대적으로 변경에 취약한 concrete class들에 대해서는 run time 의존성만 갖게 하여 의존성을 더욱 줄일 수 있다.</p>
 <p>다음 예시 코드를 보자.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//Shape.h</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Shape</span><span class="w"> </span><span class="p">{</span>
@@ -818,15 +1022,15 @@ document.write(`
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>print_area 함수를 보면 input으로 들어오는 Shape class가 Shape1인지 Shape2인지 아니면 그 외의 Shape class인지 전혀 알지 못하고 있다. 오직 아는 것이라고는 abstract class인 Shape class뿐이다.</p>
-<p>즉, overriding에 의한 polymorphism 덕분에 print_area 함수는 concrete class인 Shape1,2,3 class에 대한 compile time 의존성 대신 run time 의존성을 갖으며 compile time 의존성은 오직 abstract class인 Shape class에 대해서만 갖는다.</p>
-<p>그리고 C++에서는 <code class="docutils literal notranslate"><span class="pre">가상함수(virtual</span> <span class="pre">function)</span></code>을 통해 compile time 의존성과 run time 의존성을 다르게 만들어주는 <code class="docutils literal notranslate"><span class="pre">지연</span> <span class="pre">바인딩(lazy</span> <span class="pre">binding)</span></code>, <code class="docutils literal notranslate"><span class="pre">동적</span> <span class="pre">바인딩(dynamic</span> <span class="pre">binding)</span></code>을 제공하기 때문에 맥락에 따라 (input shape 객체의 실제 class에 따라) 알맞은 cal_area 함수를 호출할 수 있다.</p>
-<p>정리하면, overriding에 의한 polymorphism 덕분에 concrete class에 대한 compile time 의존성을 run time 의존성으로 바꾸고 compile time 의존성은 오로지 abstract class에만 발생하게 하여 의존성을 줄일 수 있고 동시에 lazy binding에 의해 맥락 따라 알은는 로직을 갖은 함수를 호출할 수 있다.</p>
+<p>lazy binding 덕분에 print_area 함수는  compile time 의존성은 오직 abstract class인 Shape class에 대해서만 갖는다. 그리고 concrete class인 Shape1,2,3 class에 대해서는 run time 의존성만을 갖는다.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://wasabigeek.com/blog/why-is-polymorphism-important/">why-is-polymorphism-important</a></p></li>
 </ul>
+</section>
+<section id="id5">
+<h2>참고<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
 <section id="overloading">
-<h2>Overloading<a class="headerlink" href="#overloading" title="Permalink to this heading">#</a></h2>
+<h3>Overloading<a class="headerlink" href="#overloading" title="Permalink to this heading">#</a></h3>
 <p>overloading이란 이름은 같고 input은 다른 함수들을 정의하는 것이다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Shape1</span><span class="p">;</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Shape2</span><span class="p">;</span>
@@ -838,18 +1042,15 @@ document.write(`
 <span class="kt">double</span><span class="w"> </span><span class="nf">cal_area</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Shape3</span><span class="w"> </span><span class="n">shape</span><span class="p">);</span>
 </pre></div>
 </div>
-<section id="id1">
-<h3>참고<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<section id="id6">
+<h4>참고<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
 <p>C는 overloading을 제공하지 않는다. 왜냐하면 컴파일러가 목적 코드를 생성할 떄 symbol을 함수 이름으로 생성하기 때문에 같은 이름이 있는 경우 어떤 함수를 호출할 지 구분할 수가 없게 되어 linking에 실패하기 때문이다.</p>
 <p>그렇다면 C++에서는 어떻게 overloading을 제공하는 것일까? 정답은 <code class="docutils literal notranslate"><span class="pre">이름</span> <span class="pre">맹글링(name</span> <span class="pre">mangling)</span></code>이다. C++에서는 목적 코드 생성시에 컴파일러가 함수의 이름을 바꾸는 것을 볼 수 있다. 이를 name mangling이라 하는데, 맹글링이라는 단어의 뜻이 원래 엉망진창으로 만들다 라는 의미다.</p>
 <p>이렇게 name mangling을 하게 되면 원래의 함수 이름에 namespace 정보와 input 정보들이 추가된다. 따라서 같은 이름의 함수일 지라도, name mangling을 거치고 나면 다른 함수로 취급할 수 있게 되고 링킹을 성공적으로 수행할 수 있게 된다.</p>
 </section>
 </section>
-<section id="overriding">
-<h2>Overriding<a class="headerlink" href="#overriding" title="Permalink to this heading">#</a></h2>
-<p>overriding이란 base class의 abstract function을 derive class에서 재정의하는 것이다.</p>
-<section id="id2">
-<h3>참고<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<section id="virtual-function-base-class">
+<h3>virtual function이 아닌 base class의 함수<a class="headerlink" href="#virtual-function-base-class" title="Permalink to this heading">#</a></h3>
 <p>만약 virtual function이 아닌 base class의 함수를 redefing하면 어떻게 될지 다음 예시를 보자.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 
@@ -906,166 +1107,6 @@ document.write(`
 </div>
 <p>그러면 더이상 <code class="docutils literal notranslate"><span class="pre">b.f()</span></code>에서 compile error가 발생하지 않는다.</p>
 </section>
-</section>
-<section id="virtual-function">
-<h2>Virtual Function<a class="headerlink" href="#virtual-function" title="Permalink to this heading">#</a></h2>
-<p>위에서 vritual function을 통해 lazy binding을 지원함으로써 overriding에 의한 polymorphism이 생긴다고 하였다. 그렇다면 vritual funtion은 무엇이며 어떻게 lazy binding을 지원하는 것인지를 알아보자.</p>
-<p>virtual function이란 derive 클래스에서 override 될 것으로 기대하는 함수로 virtual keyword를 통해 나타낸다. virtual function은 일반 함수와 함수 그 자체로서는 큰 차이 없이 메모리 코드 영역의 어딘가에 위치할 뿐이다. 하지만 virtual function은 <code class="docutils literal notranslate"><span class="pre">가상</span> <span class="pre">함수</span> <span class="pre">테이블(virtual</span> <span class="pre">function</span> <span class="pre">table;</span> <span class="pre">vftable)</span></code>과 <code class="docutils literal notranslate"><span class="pre">가상</span> <span class="pre">함수</span> <span class="pre">테이블</span> <span class="pre">포인터(virtual</span> <span class="pre">function</span> <span class="pre">table</span> <span class="pre">pointer;</span> <span class="pre">vfptr)</span></code>이라는 추가적인 구조를 가지고 있으며 호출 방식도 달라 lazy binding을 지원할 수 있게 된다.</p>
-<p>그러면 virtual function이 어떻게 lazy binding을 지원하게 되는지 알아보기 전에 추가적인 구조와 호출 방식에 대해 먼저 알아보자.</p>
-<section id="vftable">
-<h3>vftable<a class="headerlink" href="#vftable" title="Permalink to this heading">#</a></h3>
-<p>vftable은 각 virtual function별로 실제로 실행해야 될 함수의 메모리 시작 주소가 기록되어 있는 table이다. 그렇다면 이런 vftable은 언제 생성되는 것일까?</p>
-<p>컴파일러는 컴파일 시점에 소스 코드에 정의된 모든 클래스에 대해서 virtual function이 하나라도 있을 경우 그 클래스에 대한 vftable을 생성한다. 그리고 각 클래스의 객체가 생성될 때 객체의 시작 주소에 vfptr을 생성하고 해당 클래스의 vftable의 주소값을 갖게 한다.</p>
-<p>같은 클래스의 객체의 경우 당연히 같은 virtual function을 가지게 된다. 따라서 똑같은 vftable을 객체마다 생성할 필요가 없고 클래스 별로 하나의 vftable을 생성하고 객체들이 고유의 vfptr을 통해 이를 공유하며 접근할 수 있게 한다.</p>
-<section id="id3">
-<h4>참고<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
-<p>컴파일러는 vftable을 생성할 때 함수마다 고유의 인덱스를 부여하고 이 인덱스를 이용해서 virtual function 호출을 처리한다. 예를 들어 가상함수 vfunc의 인덱스가 0번이라면, vfunc가 호출될 시 vfptr이 가리키는 vftable의 0번 인덱스에 접근하여 함수를 호출하도록 어셈블리 코드를 작성한다. 즉, virtual function는 오직 vfptr이 가리키는 vftable과 virtual function에 해당하는 인덱스만으로 주소를 찾아내서 호출될 수 있다.</p>
-</section>
-</section>
-<section id="vfptr">
-<h3>vfptr<a class="headerlink" href="#vfptr" title="Permalink to this heading">#</a></h3>
-<p>vfptr은 말 그대로 vftable을 가르키는 역할을 한다. 그리고 virtual function을 가지고 있는 클래스 객체의 시작 위치에는 vfptr이 생성된다. 그렇다면 이번에는 vfptr이 언제 어떤 값을 가지게 되는지 살펴보자.</p>
-<p>클래스의 생성자와 소멸자는 각각 선처리 영역과 후처리 영역을 가지고 있다. 이를 간단하게 정리하면 다음과 같다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="p">[</span><span class="o">//</span> <span class="n">선처리</span> <span class="n">영역</span> <span class="n">시작</span>
-<span class="mf">1.</span> <span class="n">base</span> <span class="n">클래스의</span> <span class="n">생성자</span> <span class="n">호출</span>
-<span class="mf">2.</span> <span class="n">vfptr</span> <span class="n">설정</span>
-<span class="mf">3.</span> <span class="n">클래스</span> <span class="n">타입</span> <span class="n">멤버의</span> <span class="n">생성자</span> <span class="n">호출</span>
-<span class="mf">4.</span> <span class="n">기타</span> <span class="n">선처리</span><span class="o">..</span>
-<span class="p">]</span><span class="o">//</span> <span class="n">선처리</span> <span class="n">영역</span> <span class="n">끝</span>
-<span class="p">{</span><span class="o">//</span> <span class="n">생성자</span> <span class="n">블록</span> <span class="n">시작</span>
-<span class="p">}</span><span class="o">//</span> <span class="n">생성자</span> <span class="n">블록</span> <span class="n">끝</span>
-
-<span class="o">~</span><span class="n">A</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="p">{</span><span class="o">//</span> <span class="n">소멸자</span> <span class="n">블록</span> <span class="n">시작</span>    
-<span class="mf">1.</span> <span class="n">vfptr</span> <span class="n">설정</span>
-<span class="p">}</span><span class="o">//</span> <span class="n">소멸자</span> <span class="n">블록</span> <span class="n">끝</span>
-<span class="p">[</span><span class="o">//</span> <span class="n">후처리</span> <span class="n">영역</span> <span class="n">시작</span>
-<span class="mf">1.</span> <span class="n">클래스</span> <span class="n">타입</span> <span class="n">멤버의</span> <span class="n">소멸자</span> <span class="n">호출</span>
-<span class="mf">2.</span> <span class="n">부모</span> <span class="n">클래스</span> <span class="n">소멸자</span> <span class="n">호출</span>
-<span class="mf">3.</span> <span class="n">기타</span> <span class="n">후처리</span><span class="o">..</span>
-<span class="p">]</span><span class="o">//</span> <span class="n">후처리</span> <span class="n">영역</span> <span class="n">끝</span>
-</pre></div>
-</div>
-<section id="id4">
-<h4>참고<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
-<p>vfptr은 복사 생성자나 연산자에 의해서 복사되지 않는다. 그렇다면 왜 C++에서는 복사되지 못하게 막아놓은 것일까? 그 이유를 아래 코드를 보면서 이해해보자.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Base</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="w">	</span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">vfunc</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">};</span>
-<span class="p">};</span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">Derive</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="n">vfunc</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">d_val_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
-
-<span class="k">private</span><span class="o">:</span>
-<span class="w">	</span><span class="kt">int</span><span class="w"> </span><span class="n">d_val_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">	</span><span class="n">Base</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
-<span class="w">	</span><span class="n">Derive</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
-
-<span class="w">	</span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
-<span class="w">	</span><span class="n">b</span><span class="p">.</span><span class="n">vfunc</span><span class="p">();</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>만약 <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">d;</span></code> 코드에서 vfptr이 복사가 일어난다고 생각해보자. 그러면 b의 vfptr은 Derive 클래스의 vftable을 가리키고 있다. 다음에 vfunc()를 호출했다면 멤버변수 d_val_에 5를 대입해야 하지만 문제가 있다. b 객체는 멤버변수 d_val_이 없다! 존재하지도 않는 멤버변수에 접근하는 것은 미정의 동작을 일으킬 수 밖에 없으며 컴파일러는 복사 생성자에서 절대 vfptr을 복사하지 않는다.</p>
-<p>가끔 자식 클래스 객체에서 부모 클래스 객체로 단순 값 복사를 위해 memcpy를 사용하기도 하는데 memcpy는 강제로 vfptr을 복사하기 때문에 사용에 주의를 기울여야 한다.</p>
-</section>
-</section>
-<section id="id5">
-<h3>Virtual function의 호출<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
-<p>virtual funtion의 함수 호출 과정을 알아보기 위해 아래의 어셈블리 코드를 살펴보자. 참고로 아래 어셈블리는 필요한 부분만 작성한 것이다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Test</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{};</span>
-<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">vfunc1</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{};</span>
-<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">vfunc2</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{};</span>
-<span class="p">};</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="n">Test</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
-<span class="w">    </span><span class="n">Test</span><span class="o">*</span><span class="w"> </span><span class="n">pt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">t</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">pt</span><span class="o">-&gt;</span><span class="n">func</span><span class="p">();</span>
-<span class="w">    </span><span class="n">call</span><span class="w"> </span><span class="n">Test</span><span class="o">::</span><span class="n">func</span><span class="w">         </span><span class="c1">//비가상 멤버 함수의 경우 컴파일러는 직접 해당 함수의 메모리 주소로  </span>
-<span class="w">                            </span><span class="c1">//call을 수행하게 어셈블리 코드를 작성한다.</span>
-<span class="w">    </span>
-<span class="w">    </span><span class="c1">//레지스터인 경우, 레지스터에 저장된 주소로 가서 데이터 4바이트를 읽어온다.</span>
-<span class="w">    </span><span class="c1">//레지스터가 아닌 변수 이름이 직접 사용될 경우, 변수의 값 4바이트를 읽어온다.</span>
-<span class="w">    </span><span class="c1">//즉, 변수가 pointer일 때, pointer의 주소가 아니라 pointer가 가르키는 주소를 읽어오라는 의미이다.</span>
-
-
-<span class="w">    </span><span class="n">pt</span><span class="o">-&gt;</span><span class="n">vfunc1</span><span class="p">();</span>
-<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">eax</span><span class="p">,</span><span class="n">dword</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="p">[</span><span class="n">pt</span><span class="p">]</span><span class="w">  </span><span class="c1">//pt의 값 4바이트를 eax에 넣어라.</span>
-
-<span class="w">                            </span><span class="c1">//pt는 변수명임으로, pt의 값을 4바이트 읽어온다.</span>
-<span class="w">                            </span><span class="c1">//이 떄, pt의 값은 t객체의 시작 주소임으로 eax에는 t객체의 시작 주소 4바이트가 들어있다.</span>
-
-<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">edx</span><span class="p">,</span><span class="n">dword</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="p">[</span><span class="n">eax</span><span class="p">]</span><span class="w"> </span><span class="c1">//eax에 저장된 주소로 가서 4바이트 값을 읽어서 edx에 넣어라.</span>
-
-<span class="w">                            </span><span class="c1">//eax는 레지스터명임으로, eax에 저장된 주소(t객체의 시작 주소)로 가서 저장된 데이터 4바이트를 읽어온다.</span>
-<span class="w">                            </span><span class="c1">//이 때, t객체의 시작 위치에는 vfptr이 있고, vfptr은 vftable의 주소 값 4바이트가 저장되어 있다.</span>
-<span class="w">                            </span><span class="c1">//따라서, t 객체의 시작 주소에는 vfptr이 가르키고 있는 vftable의 주소가 적혀있음으로 edx에는 vftable의 주소 값 4바이트가 저장된다.</span>
-
-<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">eax</span><span class="p">,</span><span class="n">dword</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="p">[</span><span class="n">edx</span><span class="p">]</span><span class="w"> </span><span class="c1">//edx에 저장된 주소에서 4바이트 값을 읽어서 eax에 넣어라.</span>
-
-<span class="w">                            </span><span class="c1">//edx는 레지스터명임으로, edx에 저장된 주소(vftable의 시작 주소)로 가서 저장된 데이터 4바이트를 읽어온다.</span>
-<span class="w">                            </span><span class="c1">//이 때, vftable의 시작 주소에는 테이블의 첫번째 가상함수의 주소 4바이트 저장되어 있다.</span>
-<span class="w">                            </span><span class="c1">//따라서, eax에는 가상함수 테이블에 첫번째 함수 시작 주소가 들어있다.</span>
-
-<span class="w">    </span><span class="n">call</span><span class="w"> </span><span class="n">eax</span><span class="w">                </span><span class="c1">//eax가 가리키는 곳으로 점프하여 실행하여라.</span>
-
-<span class="w">                            </span><span class="c1">//vftable의 첫번째 함수 주소로 가서 함수를 실행하게 된다.</span>
-
-<span class="w">    </span><span class="n">pt</span><span class="o">-&gt;</span><span class="n">vfunc2</span><span class="p">();</span>
-<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">eax</span><span class="p">,</span><span class="n">dword</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="p">[</span><span class="n">pt</span><span class="p">]</span>
-<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">edx</span><span class="p">,</span><span class="n">dword</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="p">[</span><span class="n">eax</span><span class="p">]</span>
-<span class="w">    </span><span class="n">mov</span><span class="w"> </span><span class="n">eax</span><span class="p">,</span><span class="n">dword</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="p">[</span><span class="n">edx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span><span class="w">     </span><span class="c1">//가상함수 테이블의 두번째 가상함수의 주소를 가르키게 바뀐다.</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>정리하면 비가상 멤버함수는 컴파일러에 의해 직접 해당 함수를 호출하지만 virtual function는 객체가 가지고 있는 vfptr를 이용해 vftable에 접근하고 함수를 호출한다.</p>
-</section>
-<section id="lazy-binding">
-<h3>Lazy binding<a class="headerlink" href="#lazy-binding" title="Permalink to this heading">#</a></h3>
-<p>이제 virtual function의 추가 구조와 호출 과정이 어떻게 lazy binding을 구현하는지 알아보자.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">Base</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">vfunc</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;function in base</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
-<span class="p">};</span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">Derive</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">vfunc</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;function in derive</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
-<span class="p">};</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="n">Derive</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">Base</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="p">;</span>
-<span class="w">    </span><span class="n">ptr</span><span class="o">-&gt;</span><span class="n">vfunc</span><span class="p">();</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>먼저 컴파일러는 각 클래스에 virtual function가 있음을 확인하고 각 클래스의 vftable을 생성한다. Base 클래스의 vftable에는 항목 한 개가 있고 Base::vfunc의 주소가 들어간다. Derive 클래스의 vftable도 항목 한개가 있고 재정의한 Derive::vfunc의 주소가 들어간다.</p>
-<p>Derive 객체를 생성하는 과정을 보기 전에 주목해야 될 점이 있다. 바로 Base 클래스도 vftable을 가지고 있고 Derive 클래스도 vftable을 가지고 있지만 객체 d는 하나의 vfptr을 가진다는 점이다. 상식적으로 따진다면 Base 클래스의 vfptr이 하나 있고, Derive 클래스의 vfptr이 하나 있어야 될것 같다. 그러나 실제로는 하나의 vfptr만 있으며 두 클래스에서 동시에 사용하는 공용 vfptr이다. 공용으로 사용할 경우 혼돈이 생길 수 있을것 같은데 어떤 방식으로 vfptr을 사용하는지 살펴보자.</p>
-<p>Derive 클래스의 d 객체를 생성하기 위해 생성자를 호출한다. Derive 클래스 생성자의 선처리 영역에서 Base 클래스의 생성자를 호출한다. Base 클래스의 생성자 호출의 선처리 영역에서 vfptr이 Base 클래스의 vftable을 가르키게 된다. 그리고 Base 클래스 생성자 호출이 끝나면 바로 vfptr은 Derive 클래스의 vftable을 가르키게 된다. 즉 여러 과정을 거쳐 결론적으로 vfptr이 Derive 클래스의 vftable을 가르키게 된다.</p>
-<p>ptr이 가르키는 객체는 d 객체의 Base 클래스의 해당하는 영역뿐이다. 하지만 객체 d의 vfptr은 이미 Derive 클래스의 vftable을 가르키고 있기 때문에 ptr을 이용하여 함수를 호출하더라도 원래 객체 d의 타입에 맞는 virtual function가 호출이 될 수 있다.</p>
-<p>결론적으로 vfptr이 실제 클래스의 vftable을 가르키게 설계가 되어있기 때문에 lazy binding이 제대로 동작할 수 있게 된다.</p>
-</section>
 <section id="virtual-destructor">
 <h3>Virtual destructor<a class="headerlink" href="#virtual-destructor" title="Permalink to this heading">#</a></h3>
 <p>먼저 아래 코드를 보자.</p>
@@ -1106,8 +1147,8 @@ document.write(`
 </div>
 <p>코드 실행 결과를 보면 A_ 관련 클래스의 경우 Derive의 소멸자가 호출되지 않았지만 B_ 관련 클래스의 경우 정상적으로 Derive의 소멸자와 Base의 소멸자가 호출된 것을 알 수 있다. Lazy binding의 구현 원리를 배웠음으로 ptr2를 delete할 때 “vfptr과 virtual function 테이블을 이용해서 B_Derive 클래스의 소멸자를 호출해서 아무런 문제가 없구나” 라고 이해해 볼 수 있다.</p>
 <p>근데 곰곰히 생각해보면 뭔가 이상하다. 엄연히 소멸자는 상속되지 않는다. 상속되지 않기 때문에 재정의도 불가능하다. 상식적으로 함수의 이름만 봐도 다르지 않은가? 즉, Base 클래스의 소멸자와 Derive 클래스의 소멸자는 별 상관 없는 멤버 함수라고 보는 것이 더 합당하다. 그러나 소멸자가 virtual function로 지정될 때는 마치 소멸자가 상속되면서 재정의되는 함수처럼 여겨진다. override 키워드도 사용할 수 있다. C++는 어떤 원리로 이런 이상한 현상을 용인 하는 것일까? 이를 이해하기 위해서는 소멸자의 진정한 모습을 살펴 볼 필요가 있다.</p>
-<section id="id6">
-<h4>소멸자와 파괴자<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<section id="id7">
+<h4>소멸자와 파괴자<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
 <p>먼저 아래의 어셈블리 코드를 보자. 참고로 아래 어셈블리는 필요한 부분만 작성한것이다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span>
 <span class="p">{</span>
@@ -1133,8 +1174,8 @@ document.write(`
 <p>결론적으로 delete ptr1을 할때는 A_Base 클래스의 파괴자를 바로 호출하지만 delete ptr2를 할 때는 vfptr과 virtual function 테이블을 이용해 B_Derive 클래스의 파괴자를 호출하여 B_Derive 소멸자와 B_Base 소멸자가 둘 다 정상적으로 호출 된다.</p>
 </section>
 </section>
-<section id="id7">
-<h3>생성자와 소멸자에서 virtual function 호출<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<section id="id8">
+<h3>생성자와 소멸자에서 virtual function 호출<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <p>먼저 아래 코드를 보자.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 
@@ -1164,7 +1205,7 @@ document.write(`
 <p>결론적으로 생성자나 소멸자에서 호출하는 virtual function는 비가상 멤버 함수처럼 호출되게 되어있다. 이를 활용할 수도 있겠지만 오해의 소지가 큼으로 의도를 명확히 표현하기 위해서는 주석을 충분히 써넣거나 범위 연산자를 사용해서 Base/Derive::vfunc 식으로 virtual function를 호출하는 것이 바람직하다.</p>
 <blockquote>
 <div><p>Reference<br />
-<span id="id8">[<a class="reference internal" href="../../99%20References/references.html#id14" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span></p>
+<span id="id9">[<a class="reference internal" href="../../99%20References/references.html#id14" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span></p>
 </div></blockquote>
 </section>
 </section>
@@ -1240,30 +1281,34 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overloading">Overloading</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overriding">Overriding</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">참고</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-function">Virtual Function</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overridng">Overridng이란 무엇인가?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-binding">Lazy binding이란 무엇인가?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overridng-lazy-binding">overridng에 의해 어떻게 lazy binding이 생기는가?</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vftable">vftable</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">참고</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vfptr">vfptr</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">참고</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">참고</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Virtual function의 호출</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-binding">Lazy binding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-function">Virtual function의 호출</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Lazy binding</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lazy-binding-polymorphism">lazy binding에 의해 어떻게 polymorphism이 구현되는가?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">lazy binding에 의해 어떻게 의존성을 줄일 수 있는가?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">참고</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overloading">Overloading</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">참고</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-function-base-class">virtual function이 아닌 base class의 함수</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-destructor">Virtual destructor</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">소멸자와 파괴자</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">소멸자와 파괴자</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">생성자와 소멸자에서 virtual function 호출</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">생성자와 소멸자에서 virtual function 호출</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance">Performance</a></li>
