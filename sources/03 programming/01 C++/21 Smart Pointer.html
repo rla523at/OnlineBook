@@ -691,10 +691,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shared-ptr-class">shared_ptr Class</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#make-shared">make_shared</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-shared-from-this">enable_shared_from_this</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weak-ptr-class">weak_ptr Class</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">참고</a></li>
 </ul>
 </li>
 </ul>
@@ -952,6 +953,12 @@ document.write(`
 <a class="reference external" href="https://modoocode.com/252">modoocode-shared ptr</a></p>
 </div></blockquote>
 </section>
+<section id="id1">
+<h3>참고<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>C++ 이후에 나온 많은 언어(Java 등등) 들은 대부분은 <code class="docutils literal notranslate"><span class="pre">가비지</span> <span class="pre">컬렉터(Garbage</span> <span class="pre">Collector;</span> <span class="pre">GC)</span></code> 라 불리는 자원 청소기가 기본적으로 내장되어 있다. 이 GC의 역할은 프로그램 상에서 더 이상 쓰이지 않는 자원을 자동으로 해제해 주는 역할을 한다. 따라서 프로그래머들이 코드를 작성할 때, 자원을 해제하는 일에 대해 크게 신경 쓸 필요는 없다.</p>
+<p>그렇다면 GC는 언제 자원을 해제해야 되는지 어떻게 판단할까?</p>
+<p>GC는 <code class="docutils literal notranslate"><span class="pre">도달성(Reachability)</span></code>이라는 개념을 적용한다. 객체에 유효한 레퍼런스가 있다면 Reachable로 구분되고, 유효한 레퍼런스가 없다면 Unreachable로 구분해버리고 자원을 해제한다. 즉, shared_ptr에서 refrence count로 객체 소멸 시점을 판단하는 것과 유사하다.</p>
+</section>
 </section>
 <section id="weak-ptr-class">
 <h2>weak_ptr Class<a class="headerlink" href="#weak-ptr-class" title="Permalink to this heading">#</a></h2>
@@ -1045,8 +1052,8 @@ document.write(`
 <p>weak_ptr는 생성자로 shared_ptr나 다른 weak_ptr를 받는다. 따라서 set_other 함수에 shared_ptr을 전달하더라도 잘 동작한다.</p>
 <p>참고로 shared_ptr과는 다르게, 이미 controll block이 만들어진 객체만이 의미를 가지기 때문에, 평범한 포인터 주소값으로 weak_ptr를 생성할 수 없다.</p>
 <p>그리고 weak_ptr가 가르키고 있더라도 다른 shared_ptr이 가르키지 않으면 소멸되기 때문에 weak_ptr로는 원래 객체를 참조할 수 없고, 반드시 shared_ptr 로 변환해서 사용해야 한다. 따라서 acess_other 함수에서와 같이 weak_ptr에서 제공하는 lock 함수를 사용해서 객체에 접근해야 한다. 이 때 가리키고 있는 객체가 이미 소멸되었다면 빈 shared_ptr 로 변환되고, 아닐경우 해당 객체를 가리키는 shared_ptr로 변환된다.</p>
-<section id="id1">
-<h3>참고<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<section id="id2">
+<h3>참고<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>reference count가 0이 되면 shared_ptr이 가르키고 있는 객체를 소멸시킨다. 그렇다면 이 떄, controll block 역시 소멸되어야 할까?</p>
 <p>정답은 아니다!</p>
 <p>왜냐하면 가리키는 shared_ptr은 0개지만 아직 weak_ptr 가 남아있는 경우 controll block이 없으면 reference count가 0이라는 사실을 weak_ptr이 알 수 없기 때문이다. 따라서, controll block는 reference count가 0일뿐만 아니라 객체를 가르키고 있는 weak_ptr 역시 0일 때 소멸되어야 한다.</p>
@@ -1055,8 +1062,6 @@ document.write(`
 <div><p>Reference<br />
 <a class="reference external" href="https://modoocode.com/252">modoocode-shared ptr</a></p>
 </div></blockquote>
-<hr class="docutils" />
-<p>C++ 이후에 나온 많은 언어 (Java 등등) 들은 대부분은 가비지 컬렉터 (Garbage Collector - GC) 라 불리는 자원 청소기가 기본적으로 내장되어 있다. 이 가비지 컬렉터의 역할은 프로그램 상에서 더 이상 쓰이지 않는 자원을 자동으로 해제해 주는 역할을 합니다. 따라서 프로그래머들이 코드를 작성할 때, 자원을 해제하는 일에 대해 크게 신경 쓸 필요는 없습니다.</p>
 </section>
 </section>
 </section>
@@ -1129,10 +1134,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shared-ptr-class">shared_ptr Class</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#make-shared">make_shared</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-shared-from-this">enable_shared_from_this</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weak-ptr-class">weak_ptr Class</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">참고</a></li>
 </ul>
 </li>
 </ul>

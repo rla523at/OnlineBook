@@ -275,7 +275,14 @@ std::shared_ptr<Data> pa1 = a->get_shared_ptr(); // compile error!
 
 > Reference  
 > [modoocode-shared ptr](https://modoocode.com/252)  
-> 
+
+### 참고
+C++ 이후에 나온 많은 언어(Java 등등) 들은 대부분은 `가비지 컬렉터(Garbage Collector; GC)` 라 불리는 자원 청소기가 기본적으로 내장되어 있다. 이 GC의 역할은 프로그램 상에서 더 이상 쓰이지 않는 자원을 자동으로 해제해 주는 역할을 한다. 따라서 프로그래머들이 코드를 작성할 때, 자원을 해제하는 일에 대해 크게 신경 쓸 필요는 없다.
+
+그렇다면 GC는 언제 자원을 해제해야 되는지 어떻게 판단할까? 
+
+GC는 `도달성(Reachability)`이라는 개념을 적용한다. 객체에 유효한 레퍼런스가 있다면 Reachable로 구분되고, 유효한 레퍼런스가 없다면 Unreachable로 구분해버리고 자원을 해제한다. 즉, shared_ptr에서 refrence count로 객체 소멸 시점을 판단하는 것과 유사하다.
+
 
 ## weak_ptr Class
 shared_ptr는 reference count가 0이 되면 가리키는 객체를 소멸시킨다. 그런데, 이런 방식때문에 shared_ptr을 멤버 변수로 가지고 있는 class의 두 객체가 shared_ptr로 서로가 서로를 가리키는 경우 reference count가 절대로 0이 될 수 없어서 객체 소멸이 불가능하게 될 수도 있다. 이를 `순환참조(circular reference)`라고 한다. 다음 예시를 보자.
@@ -391,7 +398,3 @@ reference count가 0이 되면 shared_ptr이 가르키고 있는 객체를 소�
 
 > Reference  
 > [modoocode-shared ptr](https://modoocode.com/252)  
-
----
-
-C++ 이후에 나온 많은 언어 (Java 등등) 들은 대부분은 가비지 컬렉터 (Garbage Collector - GC) 라 불리는 자원 청소기가 기본적으로 내장되어 있다. 이 가비지 컬렉터의 역할은 프로그램 상에서 더 이상 쓰이지 않는 자원을 자동으로 해제해 주는 역할을 합니다. 따라서 프로그래머들이 코드를 작성할 때, 자원을 해제하는 일에 대해 크게 신경 쓸 필요는 없습니다.
