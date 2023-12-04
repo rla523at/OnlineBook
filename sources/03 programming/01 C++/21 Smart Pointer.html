@@ -1,0 +1,1192 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Smart Pointer &#8212; MS Study Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/21 Smart Pointer';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Template" href="31%20Template.html" />
+    <link rel="prev" title="type-traits" href="20%20Standard%20Library/01%20type-traits.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../cover.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">MS Study Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../cover.html">
+                    MS Study Book
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">math</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01%20math/01%20Set/Set.html">Set</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/01%20Set/01%20Power%20Set.html">Power Set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/01%20Set/02%20Product%20Set.html">Product Set</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/01%20Set/04%20Order/Order.html">Order</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/04%20Order/01%20Partial%20Order.html">Partial Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/04%20Order/02%20Partially%20Order%20Set.html">Partially Ordered Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/04%20Order/03%20Maximal%20and%20Minimal%20Element.html">Minimal and Maximal Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/04%20Order/04%20Greatest%20and%20Least%20Element.html">Greatest and Least Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/04%20Order/05-1%20Upper%20Bound.html">Upper Bound and Lower Bound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/04%20Order/05-2%20Bounded%20Above%20and%20Below.html">Bounded Above and Below</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/04%20Order/06%20Supremum%20and%20Infimum.html">Sumpremum and Infimum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/04%20Order/07%20Completeness.html">Completeness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/04%20Order/08%20Total%20Order.html">Total Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/04%20Order/09%20Totally%20Ordered%20Set.html">Totally Ordered Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/04%20Order/10%20Well-order.html">Well-ordered Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/04%20Order/11%20Induction.html">Induction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/04%20Order/12%20Chain.html">Chain</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/01%20Set/05%20Function/Function.html">Function</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/05%20Function/05%20Image.html">Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/05%20Function/06%20Preimage.html">Preimage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/05%20Function/07%20Injective%20Function.html">Injective Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/05%20Function/08%20Surjective%20Function.html">Surjective Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/05%20Function/09%20Bijective%20Function.html">Bijective Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/01%20Set/05%20Function/10%20Inverse%20Function.html">Inverse Function</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/01%20Set/10%20Partition.html">Partition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/01%20Set/11%20Relations.html">Relation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/01%20Set/12%20Equivalence%20Relation.html">Equivalence Relation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/01%20Set/13%20Equivalence%20Class.html">Equivalence Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/01%20Set/14%20Quotient%20Set.html">Quotient Set</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/Abstract%20Algebra.html">Abstract Algebra</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/01%20Binary%20Operation/Binary%20Operation.html">Binary Operation</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/01%20Binary%20Operation/01%20Closed.html">Closed Under Binary Operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/01%20Binary%20Operation/02%20Associative%20Property.html">Associative Property</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/01%20Binary%20Operation/03%20Commutative%20Property.html">Commutative Property</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/02%20Algebraic%20Structure.html">Algebraic Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/03%20Semi-group.html">Semi-group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/04%20Monoid.html">Monoid</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/Group.html">Group</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/01%20Commutative%20Group.html">Commutative Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/02%20Abelian%20Group.html">Abelian Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/03%20Group%20Homomorphism.html">Group Homomorphism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/04%20Kernel.html">Kernel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/05%20Image.html">Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/11%20Subgroup.html">Subgroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/12%20Span.html">Span</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/21%20Span%20%26%20Cyclic%20Group.html">Span &amp; Cyclic Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/31%20Group%20and%20Relation.html">Group and Relation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/32%20Normal%20Subgroup.html">Normal Subgroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/51%20Group%20Action.html">Group Action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/52%20Symmetric%20Group.html">Symmetric Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/53%20Permutation%20Representation.html">Permutation Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/05%20Group/54%20G-Orbit.html">G-Orbit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/06%20Distributive%20Property.html">Distributive Property</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/07%20Ring/Ring.html">Ring</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/07%20Ring/04%20Commutative%20Ring.html">Commutative Ring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/07%20Ring/05%20Ring%20Homeomorphism.html">Ring Homeomorphism</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/08%20Field/Field.html">Field</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/08%20Field/01%20Ordered%20Field.html">Ordered Field</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/09%20Module/Module.html">Module</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/09%20Module/01%20Left%20Module.html">Left Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/09%20Module/02%20Right%20Module.html">Right Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/09%20Module/03%20Bimodule.html">Bimodule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/09%20Module/04%20R-Module.html">R-Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/02%20Abstract%20Algebra/09%20Module/05%20Module%20Homeomorphism.html">Module Homeomorphism</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01%20math/03%20Analysis/Analysis.html">Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/03%20Analysis/01%20Integer%20Number.html">Integer Number</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/03%20Analysis/02%20Archimedean%20Property.html">Archimedean Property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/03%20Analysis/03%20Absolute.html">Absolute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/03%20Analysis/04%20Rational%20Number.html">Rational Number</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/03%20Analysis/05%20Real%20Number.html">Real Number</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/03%20Analysis/06%20Maximum%20and%20Minimum.html">Maximum and Minimum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/03%20Analysis/07%20Convergence%20of%20Sequence.html">Convergence of Sequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/03%20Analysis/08%20Bounded%20Sequence.html">Bounded Sequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/03%20Analysis/09%20liminf%20%26%20limsup.html">Limit Inferior &amp; Superior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/03%20Analysis/50%20Inequality.html">Inequality</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/Metric%20Space.html">Metric Space</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/01-1%20Metric.html">Metric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/01-2%20Metric%20Subspace.html">Metric Subspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/02%20Open%20Ball.html">Open ball</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/03%20Open%20Set.html">Open set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/04%20Closed%20set.html">Closed set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/05-1%20Neighborhood.html">Neighborhood</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/05-2%20Adherent%20Point.html">Adherent Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/05-3%20Accumulation%20Point.html">Accumulation Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/05-4%20Isolated%20Point.html">Isolated Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/06%20Closure.html">Closure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/07%20Interior.html">Interior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/08%20Boudnary.html">Boundary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/09%20Bounded%20set.html">Bounded Set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/09-1%20Bounded%20sequence.html">Bounded Sequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/10%20Compact%20Set.html">Compact Set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/11%20Convergence%20of%20Sequence.html">Convergence of Sequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/12%20Convergence%20of%20Function.html">Convergence of Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/13%20Continuous%20at%20a%20Point.html">Continuous at a Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/04%20Metric%20Space/14%20Continuous%20Function.html">Continuous Function</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01%20math/05%20Topology/Topology.html">Topology</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/Topologies.html">Topologies</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/01-1%20Topology.html">Topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/01-2%20Topological%20Spaces.html">Topological Space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/02%20Open%20Set.html">Open Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/03-1%20Closed%20set.html">Closed set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/03-2%20Clopen%20set.html">Clopen set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/04%20Neighborhood.html">Neighborhood</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/05%20Subspace%20Topology.html">Subspace Topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/06%20Subspace.html">Subspace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/07%20Closure.html">Closure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/08%20Interior.html">Interior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/09%20Exteriror.html">Exteriror</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/10%20Boundary.html">Boundary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/11-1%20Adherent%20Point.html">Adherent Point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/11-2%20Limit%20Point.html">Limit Point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/12%20Isolated%20Point.html">Isolated Point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/01%20Topologies/13%20Dense.html">Dense</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/05%20Topology/02%20Convergence%20and%20Continuity/Convergence%20and%20Continuity.html">Convergence and Continuity</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/02%20Convergence%20and%20Continuity/1%20Convergence.html">Convergence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/02%20Convergence%20and%20Continuity/2%20Continuity.html">Continuity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/02%20Convergence%20and%20Continuity/3%20Homeomorphism.html">Homeomorphism</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/05%20Topology/03%20Hausdorff%20Space.html">Hausdorff Space</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/05%20Topology/04%20Bases/Bases.html">Bases</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/04%20Bases/01%20Basis.html">Basis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/04%20Bases/02%20Neighborhood%20Basis.html">Neighborhood Basis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/04%20Bases/03%20Nested%20Neighborhood%20Basis.html">Nested Neighborhood Basis</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/05%20Topology/05%20Countability%20Properties/Countability%20Properties.html">Countability Properties</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/05%20Countability%20Properties/20%20First%20Countable.html">First Countable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/05%20Countability%20Properties/21%20Eventually%20in.html">Eventually in</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/05%20Countability%20Properties/22%20Second%20Countable.html">Second Countable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/05%20Countability%20Properties/23%20Cover.html">Cover</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/05%20Countability%20Properties/24%20Seperable.html">Seperable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/05%20Countability%20Properties/25%20Lindelof%20Space.html">Lindelof Space</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/05%20Topology/06%20Manifolds/Manifolds.html">Manifolds</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/06%20Manifolds/26%20Locally%20Euclidean.html">Locally Euclidean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/06%20Manifolds/27%20Coordinate.html">Coordinate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/06%20Manifolds/28%20Topological%20Manifold.html">Topological Manifold</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/05%20Topology/07%20Product%20Spaces/Product%20Spaces.html">Product Spaces</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/07%20Product%20Spaces/01%20Product%20Topology.html">Product Bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/07%20Product%20Spaces/02%20Product%20Space.html">Product Space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/05%20Topology/07%20Product%20Spaces/03%20Product%20Open%20Set.html">Product Open Set</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01%20math/06%20Calculus/Calculus.html">Calculus</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/06%20Calculus/01%20Derivatives.html">Derivatives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/06%20Calculus/02%20Directional%20Derivative.html">Directional Derivative</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/06%20Calculus/03%20Total%20Derivative.html">Total Derivative</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/06%20Calculus/11%20Definite%20Integral.html">Definite Integral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/06%20Calculus/21%20Fundamental%20Theorem%20of%20Calculus.html">Fundamental Theorem of Calculus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/06%20Calculus/40%20Differential.html">Differential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/06%20Calculus/50%20Leibniz%20Integral%20Rule.html">Libniz Integral Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/06%20Calculus/51%20Taylor%27s%20Theorem.html">Taylor’s Theorem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/06%20Calculus/52%20Inverse%20Function%20Theorem.html">Inverse Function Theorem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/06%20Calculus/Divergence%20Theorem.html">Divergence Theorem</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/Linear%20Algebra.html">Linear Algebra</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/01%20Vector%20Space.html">Vector Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/02%20Subspace.html">Subspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/03%20Span.html">Span</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/04%20Linearly%20Independet.html">Linearly Independet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/05%20Basis.html">Basis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/06%20Coordinate.html">Coordinate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/10%20Linear%20Map.html">Linear Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/11%20Kernel.html">Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/12%20Image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/13%20Vector%20Space%20Isomorphism.html">Vector Space Isomorphism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/20%20Matrix%20Representation.html">Matrix representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/21%20Change%20of%20Basis%20and%20Coordinate%20Matrix.html">Change of Basis and Coordinate Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/22%20Eigenvector%20%26%20Eigenvalue%20%26%20EigenSpace.html">Eigenvector &amp; Eigenvalue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/31%20Orthogonal%20Map.html">Orthogonal Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/07%20Linear%20Algebra/41%20Dual%20Space.html">Dual space</a></li>
+
+
+
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01%20math/08%20Geometry/Geometry.html">Geometry</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/08%20Geometry/02%20Smooth%20Manifold/Smooth%20Manifold.html">Smooth Manifold</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/08%20Geometry/02%20Smooth%20Manifold/01%20Ambient%20Space.html">Ambient space</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/08%20Geometry/04%20Curve/Curve.html">Curve</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/08%20Geometry/04%20Curve/01%20Parametric%20Curve.html">Parametric Curve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/08%20Geometry/04%20Curve/02%20Tangent%20Vector.html">Tangent Vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/08%20Geometry/04%20Curve/03%20Curvature.html">Curvature</a></li>
+
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/08%20Geometry/05%20Conic%20Section.html">Conic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/08%20Geometry/11%20Affine%20space.html">Affine space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/08%20Geometry/12%20Affine%20Transformation.html">Affine Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/08%20Geometry/13%20Affine%20Combination.html">Affine Combination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/08%20Geometry/21%20Euclidean%20Space.html">Euclidean Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/08%20Geometry/31%20Cylidrical%20Coordinates.html">Cylindrical Coordinates</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/Numerical%20Analysis.html">Numerical Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/Boundary%20Value%20Problem.html">Boundary Value Problem</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/01%20Strong%20formulation.html">Strong formulation</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/02%20Weighted%20Residual%20Methods/Weighted%20Residual%20Methods.html">Weighted Residual Methods</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/02%20Weighted%20Residual%20Methods/01%20Weighted%20Residual%20Formulation.html">Weighted Residual Formulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/02%20Weighted%20Residual%20Methods/02%20Dimensional%20Reduction.html">Dimensional Reduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/02%20Weighted%20Residual%20Methods/03%20Reduced%20Function%20Space.html">Reduced Function Space</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/Weak%20Formulation.html">Weak Formulation</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/01%20Strong%20Formulation.html">Strong Formulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/02%20Weighted%20Residual%20Formulation.html">Weighted Residual Formulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/03%20Weak%20Formulation.html">Weak Formulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/04%20Dimensional%20Reduction.html">Dimensional Reduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/05%20Reduced%20Function%20Space.html">Reduced Function Space</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/04%20Model%20Problems/Model%20Problems.html">Model Problems</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/04%20Model%20Problems/01%20Model%20Problem1.html">Model Problem1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/04%20Model%20Problems/02%20Model%20Problem2.html">Model Problem2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/04%20Model%20Problems/03%20Model%20Problem3.html">Model Problem3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01%20math/10%20PDEs/PDEs.html">Partial Differential Equations</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/10%20PDEs/01%20Linear%20PDE.html">Linear PDE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/10%20PDEs/02%20Semilinear%20PDE.html">Semilinear PDE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/10%20PDEs/03%20Quasilinear%20PDE.html">Quasilinear PDE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/10%20PDEs/04%20Second%20Order%20PDE%20Classification.html">Second Order PDE Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html">Heat Conducting in Bar</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Miscellaneous.html">Miscellaneous</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-30"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Adjoint.html">Adjoint Operator</a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Bilinear%20map.html">Vector Space Bilinear Map</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Covector.html">Covector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Determinant.html">명제1</a></li>
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Diagonalize.html">Diagonalize of a Linear Map</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Dual%20Tensor.html">Dual Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Dyadic.html">Dyadic Product</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Eigen%20Space.html">Eigen Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Euler%27s%20Phi%20Function.html">Euler’s Phi Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/GCD%20and%20LCM.html">GCD and LCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Gram-Schmidts%20Process.html">Gram-Schmidts Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Inner%20Product%20Space.html">Inner Product</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Inverse%20Matrix.html">명제</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Modulo%20operator.html">Modulo operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Normal%20Operator.html">Normal Operator</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Permutation.html">Permutation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Tensor%20Product.html">Tensor Products</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Tensor.html">Tensor</a></li>
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../01%20math/99%20Miscellaneous/Trace.html">Trace</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="C%2B%2B.html">C++</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="01%20Build/Build.html">Build</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-32"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01%20Build/02%20Compile.html">Compile</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="01%20Build/03%20Linking/Linking.html">Linking</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-33"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="01%20Build/03%20Linking/01%20Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Build/03%20Linking/02%20Name%20Mangling.html">Name Mangling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Build/03%20Linking/03%20Link.html">Link</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Build/03%20Linking/04%20Relocation.html">Relocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Build/03%20Linking/05%20LinkingMethod.html">Linking Method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Build/03%20Linking/06%20Static%20Library.html">Static Library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Build/03%20Linking/07%20Shared%20Library.html">Shared Library</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="02%20Memory/Memory.html">Memory</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-34"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="02%20Memory/01%20Virtual%20Memory.html">Virtual Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Memory/02%20Paging%20system.html">Paging system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Memory/03%20Virtual%20Memory%20Size.html">Virtual Memory Size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Memory/04%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Memory/05%20Virtual%20Memory%20Structure.html">Virtual Memory Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="03%20Polymorphism.html">Polymorphism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04%20Value%20Category.html">Value Category</a></li>
+<li class="toctree-l2"><a class="reference internal" href="11%20Class.html">Class</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="20%20Standard%20Library/Standard%20Library.html">STD</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-35"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Smart Pointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="31%20Template.html">Template</a></li>
+<li class="toctree-l2"><a class="reference internal" href="32%20concept.html">concept</a></li>
+<li class="toctree-l2"><a class="reference internal" href="33%20Require.html">Require</a></li>
+<li class="toctree-l2"><a class="reference internal" href="34%20hpp.html">hpp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="35%20Perfact%20Forward.html">Perfact Forward + Universal Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="51%20static.html">Static</a></li>
+<li class="toctree-l2"><a class="reference internal" href="52%20Name%20Space.html">Namespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="53%20One%20Definition%20Rule.html">One Definition Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="54%20inline.html">inline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="55%20Enum.html">Enum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="56%20Forward%20Declaration.html">Forward Declaration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="57%20Initialization.html">initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="58%20Keyword.html">Keyword</a></li>
+<li class="toctree-l2"><a class="reference internal" href="59%20Type%20Casting.html">Type Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="99%20Miscelleneous.html">Miscellaneous</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../1%20OOP.html">Object Oriented Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10%20git.html">Git</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CMake.html">Cmake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visual%20Studio.html">Visual Studio</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../99%20References/references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/sources/03 programming/01 C++/21 Smart Pointer.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Smart Pointer</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raii">RAII 패턴</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unique-ptr-class">unique_ptr Class</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shared-ptr-class">shared_ptr Class</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#make-shared">make_shared</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-shared-from-this">enable_shared_from_this</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weak-ptr-class">weak_ptr Class</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="smart-pointer">
+<h1>Smart Pointer<a class="headerlink" href="#smart-pointer" title="Permalink to this heading">#</a></h1>
+<p>C++ 의 경우 한 번 동적으로 획득한 메모리는 직접 해제해주지 않는 이상 프로그램이 종료되기 전 까지 영원히 남아있게 된다. 이런 상황을 <code class="docutils literal notranslate"><span class="pre">메모리</span> <span class="pre">누수(memory</span> <span class="pre">leak)</span></code>라고 한다.</p>
+<p>memory leak이 발생하면 간단한 프로그램의 경우 크게 문제될 일이 없지만, 서버 처럼 장시간 작동하는 프로그램의 경우 시간이 지남에 따라 점점 사용하는 메모리 양의 늘어나서 결과적으로 시스템 메모리가 부족해져서  프로그램이 죽어버리는 상황이 발생할 수 있다.</p>
+<p>smart pointer는 이런 memory leak문제를 해결하기 위해 나왔다.</p>
+<section id="raii">
+<h2>RAII 패턴<a class="headerlink" href="#raii" title="Permalink to this heading">#</a></h2>
+<p>언뜻 생각하면 memory leak의 해결 방법은 간단하다. 항상 잊지 말고 메모리 꼭 해제하면 된다. 하지만 프로그램의 크기가 커지면 메모리를 해제하는 위치가 애매한 경우가 많아서 놓치기 쉽다. 그리고 메모리를 해제하는 코드를 작성했다고 하더라도 다음 예시처럼 예상치 못한 동작으로 의도와 다르게 메모리가 해제되지 않는 경우도 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">A</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;자원을 획득함!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="o">~</span><span class="n">A</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;자원을 해제함!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">throw</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">do_something</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="w"> </span><span class="o">*</span><span class="n">pa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">A</span><span class="p">();</span>
+<span class="w">  </span><span class="n">func</span><span class="p">();</span>
+<span class="w">  </span><span class="k">delete</span><span class="w"> </span><span class="n">pa</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">do_something</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;예외 발생!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w">    </span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>원래 대로라면 do_something을 호출하면 메모리 획득과 해제가 되어야 하지만 중간에 function에서 exception이 발생했기 때문에 메모리 해제가 제대로 되지 않는다.</p>
+<p>다양한 상황에서 memory leak 문제가 발생할 수 있기 때문에 비야네 스트로스트룹은 C++에서 자원을 관리하는 방법으로 <code class="docutils literal notranslate"><span class="pre">자원의</span> <span class="pre">획득은</span> <span class="pre">초기화(Resource</span> <span class="pre">Acquisition</span> <span class="pre">Is</span> <span class="pre">Initialization;</span> <span class="pre">RAII)</span></code>디자인 패턴을 제안했다. RAII 패턴은 자원 관리를 스택에 할당한 객체를 통해 수행하는 것이다.</p>
+<p>함수가 종료될 때 스택내의 모든 객체들은 당연히 소멸자들이 호출되며, 예외가 발생해서 함수를 빠져나가더라도 그 함수의 스택에 정의되어 있는 모든 객체들은 stack unwinding에 의해 빠짐없이 소멸자가 호출되기 때문에 메모리를 해제가 제대로 되지 않는 문제를 해결할 수 있다.</p>
+<p>그러면 RAII를 적용하기 위해 do_something 함수를 다시 보자. 현재 <code class="docutils literal notranslate"><span class="pre">pa</span></code>는 단순 pointer 이기 때문에 소멸자가 호출되지 않는다. 따라서, pointer의 역할을 하는 class가 필요하며 그 class의 소멸자에서는 자신이 가리키고 있는 데이터도 같이 delete 하게 해야 한다. 이와 같이 RAII를 지키는 똑똑한 pointer class를 <code class="docutils literal notranslate"><span class="pre">스마트</span> <span class="pre">포인터(smart</span> <span class="pre">pointer)</span></code>라고 한다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://modoocode.com/229">modoocode-unique ptr</a></p>
+</div></blockquote>
+</section>
+<section id="unique-ptr-class">
+<h2>unique_ptr Class<a class="headerlink" href="#unique-ptr-class" title="Permalink to this heading">#</a></h2>
+<p>C++에서 메모리를 잘못된 방식으로 관리하였을 때 발생하는 또 다른 문제점은 이미 해제된 메모리를 다시 해제하는 경우이다. 이런 경우를 <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">free</span></code> 버그라고 한다.</p>
+<p>다음 예시를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Data</span><span class="p">();</span>
+<span class="n">Date</span><span class="o">*</span><span class="w"> </span><span class="n">data2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+
+<span class="c1">// data 의 입장 : 사용 다 했으니 소멸시켜야지.</span>
+<span class="k">delete</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+
+<span class="c1">// ...</span>
+
+<span class="c1">// data2 의 입장 : 나도 사용 다 했으니 소멸시켜야지</span>
+<span class="k">delete</span><span class="w"> </span><span class="n">data2</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>data2가 이미 해제된 메모리를 다시 해제하려하기 때문에 이럴 경우 메모리 오류가 나면서 프로그램이 죽게 된다.</p>
+<p>위와 같은 문제가 발생한 이유는 만들어진 객체의 소유권이 명확하지 않아서 이다. 객체는 하나이지만 객체를 가르키는 포인터가 2개이기 때문에 해제된 메모리를 또 해제하는 실수가 발생할 가능성이 높아진 것이다.</p>
+<p>따라서 어떤 포인터에게 객체의 유일한 소유권을 부여해서 객체에 대한 메모리 관리를 완전히 맡긴다면, 위와 같이 같은 객체를 두 번 소멸시켜버리는 실수를 줄일 수 있을 것이다. 이를 위해 C++에서는 특정 객체에 유일한 소유권을 부여하는 포인터 class <code class="docutils literal notranslate"><span class="pre">unique_ptr</span> <span class="pre">class</span></code>를 제공한다.</p>
+<p>unique_ptr 객체는 유일한 소유권을 의미하기 때문에 복사와 관련된 함수들은 전부 삭제되어 있다. 다음 예시를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">data_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="c1">//auto data_ptr2 = data_ptr; //compile error  </span>
+</pre></div>
+</div>
+<p>unique_ptr를 복사할 수 있게 된다면, 특정 객체를 여러 개의 unique_ptr 들이 소유하게 되는 문제가 발생한다. 이는 원래 개발 의도와 맞지 않으며 RAII 패턴에 따라 unique_ptr들이 소멸될 때 전부 객체를 delete 하려 해서 앞서 말한 double free 버그가 발생하게 된다.</p>
+<p>하지만 unique_ptr 객체도 이동 관련된 함수들은 사용이 가능하다. 이 때, 이동을 소유권을 이동시킨다는 개념으로 받아들이기 때문이다. 다음 예시를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">data_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">data_ptr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">data_ptr</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>이 때, move method 이후의 소유권이 이전된 data_ptr를 <code class="docutils literal notranslate"><span class="pre">댕글링</span> <span class="pre">포인터(dangling</span> <span class="pre">pointer)</span></code>라고하며 재 참조할 시에 정의되지 않은 동작을 할 수 있다. 따라서 소유권 이전은 dangling pointer를 절대 다시 참조 하지 않겠다는 확신 하에 이동해야 한다.</p>
+<p>그러면 unique_ptr 객체를 함수의 인자로 전달하려고 하면 어떤 방법을 써야 할까?</p>
+<p>먼저, 다음 예시와 같이 reference로 넘기는 경우를 생각해보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">uptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="c1">// do soemthing with uptr</span>
+<span class="p">}</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">data_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="n">func</span><span class="p">(</span><span class="n">data_ptr</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>위와 같이 레퍼런스로 unique_ptr을 전달했다면, func함수 내부의 uptr은 더이상 유일한 소유권을 의미하지 않는다. 물론 uptr은 레퍼런스 이기 때문에, func함수가 종료되도 uptr이 가리키고 있는 객체를 파괴하지는 않는다.</p>
+<p>하지만 data_ptr이 유일하게 소유하고 있던 객체는 적어도 func함수 내부에서는 uptr과 공동 소유가 되고 있다는 점이다. 즉, unique_ptr은 소유권을 의미한다는 원칙에 위배된다.</p>
+<p>따라서, unique_ptr이 가르키고 있는 객체를 함수 내에서 사용하고 싶은 경우라면, raw pointer를 사용하는 것이 바람직하며 unique_ptr은 raw pointer를 return하는 get method를 제공한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">Data</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="c1">// do soemthing with ptr</span>
+<span class="p">}</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">data_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="n">func</span><span class="p">(</span><span class="n">data_ptr</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://modoocode.com/229">modoocode-unique ptr</a></p>
+</div></blockquote>
+</section>
+<section id="shared-ptr-class">
+<h2>shared_ptr Class<a class="headerlink" href="#shared-ptr-class" title="Permalink to this heading">#</a></h2>
+<p>프로그래밍을 하다 보면 하나의 객체를 여러 포인터가 소유해야하는 경우가 있다.</p>
+<p>이 경우에 사용할 수 있는 RAII를 따르는 smart pointer를 구현한다고 해보자. 이 때에는 객체를 소유하는 모든 smart pointer가 소멸자를 호출했을 때만 객체를 소멸시켜야 한다. 하지만 문제는 smart pointer가 언제 어떤 순서로 소멸되는지 알 수 없기 때문에 언제 객체를 소멸 시켜야 하는지 알 수 없다.</p>
+<p>이를 해결하기 위해서는 좀더 스마트 한 포인터가 있어서, 특정 자원을 몇 개의 smart pointer가 가리키는지를 추적한 다음에 그 수가 0 이 되야만 비로소 객체를 소멸시키는 방식의 포인터가 필요하다. 이를 위해 C++에서는 특정 자원을 몇 개의 smart pointer가 가리키는지 추적이 가능한 <code class="docutils literal notranslate"><span class="pre">shared_ptr</span></code> class를 제공한다.</p>
+<p>shared_ptr은 unique_ptr과 다르게 한 객체를 여러 포인터가 소유해야 하는 경우를 위한 class임으로 다음과 같이 복사가 잘 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">data_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">data_ptr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data_ptr</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>이 떄, shared_ptr은 자신이 가르키고 있는 객체를 가리키는 다른 shared_ptr이 몇개인지 알 수 있고 이를 <code class="docutils literal notranslate"><span class="pre">참조</span> <span class="pre">개수(reference</span> <span class="pre">count)</span></code>라고 한다. reference count는 shared_ptr의 use_count 함수를 통해 알 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">data_ptr</span><span class="p">.</span><span class="n">use_count</span><span class="p">();</span><span class="w"> </span><span class="c1">// 2</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">data_ptr2</span><span class="p">.</span><span class="n">use_count</span><span class="p">();</span><span class="w"> </span><span class="c1">// 2</span>
+</pre></div>
+</div>
+<p>shared_ptr이 제대로 동작하기 위해서는 같은 객체를 가르키는 shared_ptr끼리는 reference count가 몇인지 알아야하고 항상 같은 값을 갖어야 한다. 하지만 다음 예시를보면 이 일이 쉽지 않은 일임을 알 수가 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">data_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">data_ptr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data_ptr</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">data_ptr3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data_ptr2</span><span class="p">;</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">data_ptr</span><span class="p">.</span><span class="n">use_count</span><span class="p">();</span><span class="w"> </span><span class="c1">// 3</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">data_ptr2</span><span class="p">.</span><span class="n">use_count</span><span class="p">();</span><span class="w"> </span><span class="c1">// 3</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">data_ptr3</span><span class="p">.</span><span class="n">use_count</span><span class="p">();</span><span class="w"> </span><span class="c1">// 3</span>
+</pre></div>
+</div>
+<p>만약에, shared_ptr 내부에 reference count를 저장한다면 data_ptr3를 생성할 떄, data_ptr2와 data_ptr3의 reference count를 올리는건 어떻게든 될 수 있지만 data_ptr의 reference count를 올리는건 어떻게 할 수가 없다.</p>
+<p>하지만 실제로 data_ptr의 reference count도 3이 되는걸 알 수 있는데 어떻게 이런 마법을 부리고 있는건지 알아보자.</p>
+<p>이 마법의 비밀은 <code class="docutils literal notranslate"><span class="pre">제어</span> <span class="pre">블록(control</span> <span class="pre">block)</span></code>이란 개념에 있다.</p>
+<p>shared_ptr은 생성되고 처음으로 객체를 가르키는 경우 control block을 동적으로 할당한 뒤, shared_ptr 내부적으로 control block을 알고 있다. 그리고 shared_ptr의 복사가 일어나는 경우 복사된 shared_ptr은 기존 shared_ptr과 같은 control blcok을 알고 있게 된다. shared_ptr이 생성 또는 소멸될 때마다 control block에 접근하여 reference count를 늘리고 줄이고 하기 때문에 같은 control block을 공유하는 shared_ptr의 경우에는 항상 reference count가 몇인지 알고 항상 같은 값을 갖을 수 있다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://modoocode.com/252">modoocode-shared ptr</a></p>
+</div></blockquote>
+<section id="make-shared">
+<h3>make_shared<a class="headerlink" href="#make-shared" title="Permalink to this heading">#</a></h3>
+<p>shared_ptr을 생성할 때, 원래 new 키워드를 사용하듯이 해도 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Data</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>하지만 이는 바람직한 shared_ptr의 생성 방법이 아니다. 왜냐하면 일단 Data를 생성할 떄 동적 할당이 한 번, 그 다음 shared_ptr 의 controll block을 생성할 때 동적 할당이 한 번, 총 두 번의 동적 할당이 발생하기 때문이다.</p>
+<p>동적 할당은 상당히 비싼 연산 임으로 어차피 동적 할당을 두 번 할 것 이라는 것을 알고 있다면, 아예 두 개 합친 크기로 한 번 할당 하는 것이 훨씬 빠르다.</p>
+<p>그래서 make_shared 함수는 Data의 생성자의 인자들을 받아서 이를 통해 Data객체와 shared_ptr 의 controll block까지 한 번에 동적 할당 한 후에 만들어진 shared_ptr을 리턴한다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://modoocode.com/252">modoocode-shared ptr</a></p>
+</div></blockquote>
+</section>
+<section id="enable-shared-from-this">
+<h3>enable_shared_from_this<a class="headerlink" href="#enable-shared-from-this" title="Permalink to this heading">#</a></h3>
+<p>shared_ptr은 인자로 pointer가 전달되면 마치 자기가 pointer가 가르키는 객체를 첫번째로 소유하는 shared_ptr인 것 마냥 행동해서 같은 객체에 여러개의 controll block이 생길 수 있게 한다. 그리고 이는 잘못된 reference count와 double free 버그를 발생시킨다. 다음 예시 코드를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Data</span><span class="p">();</span>
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>이 경우에 p1도 p2도 모두 a가 가르키고 있는 Data객체를 자기가 첫번째로 소유한다고 판단해 controll block이 각각 생기게 된다. 따라서 a를 가르키는 shared_ptr이 2개임에도 불구하고 각각 reference_count는 1이 되게 되고 p1이 소멸할 떄 이미 Data객체를 소멸시키기 때문에 p2가 소멸할 때 double free bug가 발생하게 된다.</p>
+<p>따라서, shared_ptr을 생성할 때 인자로 pointer를 전달하면은 double free 버그가 발생할 수 있음으로 지양해야한다.</p>
+<p>하지만, 객체 내부에서 자기 자신을 가리키는 shared_ptr를 만들어야 할 때는 어쩔 수 없이 인자로 pointer를 전달할 수 밖에 없다. 다음 예시 코드를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Data</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">Data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;자원을 획득함!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="o">~</span><span class="n">Data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;소멸자 호출!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_shared_ptr</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pa1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pa2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pa1</span><span class="o">-&gt;</span><span class="n">get_shared_ptr</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pa1</span><span class="p">.</span><span class="n">use_count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pa2</span><span class="p">.</span><span class="n">use_count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">get_shared_ptr</span></code>은 자기자신을 가르키는 shared_ptr을 return하는 함수이다. 따라서 다음과 같이 구현될 수 밖에 없다. 하지만 이번에도 위와 동일한 이유로 double free 버그가 발생하고 만다.</p>
+<p>따라서 이러한 문제를 해결하기 위해 나온 class가 <code class="docutils literal notranslate"><span class="pre">std::enable_shared_from_this</span></code> class이다. this를 사용해서 shared_ptr을 만들고 싶은 클래스가 있다면, enable_shared_from_this를 상속 받으면 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Data</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_shared_from_this</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">Data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;자원을 획득함!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="o">~</span><span class="n">Data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;소멸자 호출!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_shared_ptr</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">shared_from_this</span><span class="p">();</span><span class="w"> </span><span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pa1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pa2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pa1</span><span class="o">-&gt;</span><span class="n">get_shared_ptr</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pa1</span><span class="p">.</span><span class="n">use_count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pa2</span><span class="p">.</span><span class="n">use_count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>이 경우에는 제대로 동작하는 것을 볼 수 있다.</p>
+<p>enable_shared_from_this 클래스에는 <code class="docutils literal notranslate"><span class="pre">shared_from_this</span></code>라는 멤버 함수가 정의되어 있는데, 이 함수는 이미 정의되어 있는 controll block을 사용해서 shared_ptr을 만들어서 return 한다.따라서 같은 객체에 두 개의 다른 controll block이 생성되는 일을 막을 수 있다.</p>
+<p>한 가지 중요한 점은 shared_from_this가 잘 동작하기 위해서는 해당 객체를 가르키는 shared_ptr가 반드시 먼저 정의되어 있어야만 한다. 즉 shared_from_this는 있는 controll block을 확인만 할 뿐, 없는 controll block을 만들지는 않는다.</p>
+<p>따라서, 해당 객체를 가르키는 shared_ptr이 없는 경우 오류가 발생한다. 다음 예시를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Data</span><span class="p">();</span>
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pa1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">-&gt;</span><span class="n">get_shared_ptr</span><span class="p">();</span><span class="w"> </span><span class="c1">// compile error!</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://modoocode.com/252">modoocode-shared ptr</a></p>
+</div></blockquote>
+</section>
+</section>
+<section id="weak-ptr-class">
+<h2>weak_ptr Class<a class="headerlink" href="#weak-ptr-class" title="Permalink to this heading">#</a></h2>
+<p>shared_ptr는 reference count가 0이 되면 가리키는 객체를 소멸시킨다. 그런데, 이런 방식때문에 shared_ptr을 멤버 변수로 가지고 있는 class의 두 객체가 shared_ptr로 서로가 서로를 가리키는 경우 reference count가 절대로 0이 될 수 없어서 객체 소멸이 불가능하게 될 수도 있다. 이를 <code class="docutils literal notranslate"><span class="pre">순환참조(circular</span> <span class="pre">reference)</span></code>라고 한다. 다음 예시를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Data</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">Data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;자원을 획득함!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="o">~</span><span class="n">Data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;소멸자 호출!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">set_other</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">o</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">  </span><span class="n">pa</span><span class="o">-&gt;</span><span class="n">set_other</span><span class="p">(</span><span class="n">pb</span><span class="p">);</span>
+<span class="w">  </span><span class="n">pb</span><span class="o">-&gt;</span><span class="n">set_other</span><span class="p">(</span><span class="n">pa</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>pa가 가르키는 동적으로 할당된 객체를 Data1, pb가 가르키는 동적으로 할당된 객체를 Data2라고 하고 함수가 끝나고 pa, pb순으로 소멸자가 호출된다고 하자. 그러면 main이 끝나고 다음 그림과 같은 과정을 거친다.</p>
+<figure class="align-default">
+<img alt="../../../_images/2101.png" src="../../../_images/2101.png" />
+</figure>
+<p>즉, circular reference가 발생한 경우 reference count가 0이 될 수가 없어서 Data의 소멸자는 호출될 수 없어서 위의 코드는 memory leak이 발생한다. 이와 같이 circular reference에 의해 발생하는 memory leak 문제를 해결하기 위해 C++에서는 <code class="docutils literal notranslate"><span class="pre">weak_ptr</span></code> class를 제공한다.</p>
+<p>그러면 weak_ptr이 어떻게 이 문제를 해결하는지 알아보자.</p>
+<p>weak_pt 는 일반 포인터와 shared_ptr 사이에 위치한 smart point로, smart point처럼 RAII 패턴을 따르면서 객체를 안전하게 참조할 수 있게 해주지만, shared_ptr와는 다르게 reference count를 늘리지 않는다.</p>
+<p>따라서 설사 어떤 객체를 weak_ptr 가 가리키고 있다고 하더라도, 다른 shared_ptr들이 가리키고 있지 않다면 소멸되게 된다.</p>
+<p>그럼으로 Data class의 other 멤버변수를 weak_ptr로 두면 refrence count가 늘지 않아 pa객체가 소멸될 때 Data1 객체가 소멸되고 pb객체가 소멸될 때 Data2 객체가 소멸되게 되서 문제가 해결된다.</p>
+<p>이제, 다음 예시를 통해 weak_ptr을 어떻게 사용하는지 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Data</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">Data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;자원을 획득함!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="o">~</span><span class="n">Data</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;소멸자 호출!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">set_other</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">o</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">access</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;접근 성공</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;};</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">acess_other</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">o</span><span class="p">)</span><span class="w"> </span><span class="n">o</span><span class="o">-&gt;</span><span class="n">access</span><span class="p">();</span>
+<span class="w">    </span><span class="k">else</span><span class="w">   </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;접근 실패, 이미 소멸 됨&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">ptrs</span><span class="p">;</span>
+<span class="w">  </span><span class="n">ptrs</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">());</span>
+<span class="w">  </span><span class="n">ptrs</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="p">());</span>
+
+<span class="w">  </span><span class="n">ptrs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">set_other</span><span class="p">(</span><span class="n">ptrs</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">ptrs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">set_other</span><span class="p">(</span><span class="n">ptrs</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptrs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">use_count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 1</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptrs</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">use_count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 1</span>
+
+<span class="w">  </span><span class="n">ptrs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">acess_other</span><span class="p">();</span>
+<span class="w">  </span><span class="n">ptrs</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+<span class="w">  </span><span class="n">ptrs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">acess_other</span><span class="p">();</span><span class="w"> </span><span class="c1">// 접근 실패</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>weak_ptr는 생성자로 shared_ptr나 다른 weak_ptr를 받는다. 따라서 set_other 함수에 shared_ptr을 전달하더라도 잘 동작한다.</p>
+<p>참고로 shared_ptr과는 다르게, 이미 controll block이 만들어진 객체만이 의미를 가지기 때문에, 평범한 포인터 주소값으로 weak_ptr를 생성할 수 없다.</p>
+<p>그리고 weak_ptr가 가르키고 있더라도 다른 shared_ptr이 가르키지 않으면 소멸되기 때문에 weak_ptr로는 원래 객체를 참조할 수 없고, 반드시 shared_ptr 로 변환해서 사용해야 한다. 따라서 acess_other 함수에서와 같이 weak_ptr에서 제공하는 lock 함수를 사용해서 객체에 접근해야 한다. 이 때 가리키고 있는 객체가 이미 소멸되었다면 빈 shared_ptr 로 변환되고, 아닐경우 해당 객체를 가리키는 shared_ptr로 변환된다.</p>
+<section id="id1">
+<h3>참고<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>reference count가 0이 되면 shared_ptr이 가르키고 있는 객체를 소멸시킨다. 그렇다면 이 떄, controll block 역시 소멸되어야 할까?</p>
+<p>정답은 아니다!</p>
+<p>왜냐하면 가리키는 shared_ptr은 0개지만 아직 weak_ptr 가 남아있는 경우 controll block이 없으면 reference count가 0이라는 사실을 weak_ptr이 알 수 없기 때문이다. 따라서, controll block는 reference count가 0일뿐만 아니라 객체를 가르키고 있는 weak_ptr 역시 0일 때 소멸되어야 한다.</p>
+<p>그럼으로 controll block은 reference count와 더불어 <code class="docutils literal notranslate"><span class="pre">약한</span> <span class="pre">참조</span> <span class="pre">개수(weak</span> <span class="pre">count)</span></code>를 기록하게 된다. C++20 MSVC debug 기준으로 reference count는 _Uses 변수명에 기록되고 reference count와 weak count를 합한 값은 _Weaks 변수명에 기록된다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://modoocode.com/252">modoocode-shared ptr</a></p>
+</div></blockquote>
+<hr class="docutils" />
+<p>C++ 이후에 나온 많은 언어 (Java 등등) 들은 대부분은 가비지 컬렉터 (Garbage Collector - GC) 라 불리는 자원 청소기가 기본적으로 내장되어 있다. 이 가비지 컬렉터의 역할은 프로그램 상에서 더 이상 쓰이지 않는 자원을 자동으로 해제해 주는 역할을 합니다. 따라서 프로그래머들이 코드를 작성할 때, 자원을 해제하는 일에 대해 크게 신경 쓸 필요는 없습니다.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./sources\03 programming\01 C++"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="20%20Standard%20Library/01%20type-traits.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">type-traits</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="31%20Template.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Template</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raii">RAII 패턴</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unique-ptr-class">unique_ptr Class</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shared-ptr-class">shared_ptr Class</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#make-shared">make_shared</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-shared-from-this">enable_shared_from_this</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weak-ptr-class">weak_ptr Class</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By MS
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
