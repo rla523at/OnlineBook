@@ -1,38 +1,40 @@
 # Polymorphism
 `다형성(polymorphism)`이란 맥락에 따라서 다른 로직을 실행하는 능력이다.
 
-polymorphism은 overloading과 overriding등에 의해서 구현 가능한데 OOP에서 overriding을 특히 중요하게 생각하는 이유는 overriding에 의해 dynamic binding이 되면 polymorphsim이 구현됨과 동시에 의존성을 줄일 수 있기 때문이다.
+polymorphism은 overloading과 overriding등에 의해서 구현 가능한데 OOP에서 overriding을 특히 중요하게 생각하는 이유는 overriding에 의해 생기는 lazy binding에 의해 polymorphsim이 구현됨과 동시에 의존성을 줄일 수 있기 때문이다.
 
 위의 문장을 이해하기 위해서는 다음 5가지를 알아야 한다.
 * overriding이란 무엇인가?
-* dynamic binding이란 무엇인가?
-* overridng에 의해 어떻게 dynamic binding이 되는가?
-* dynamic binding에 의해 어떻게 polymorphism이 구현되는가?
-* dynamic binding에 의해 어떻게 의존성을 줄일 수 있는가?
+* lazy binding이란 무엇인가?
+* overridng에 의해 어떻게 lazy binding이 생기는가?
+* lazy binding에 의해 어떻게 polymorphism이 구현되는가?
+* lazy binding에 의해 어떻게 의존성을 줄일 수 있는가?
 
-먼저, overriding이란 base class의 virtual function을 derive class에서 재정의 하는 것이고 dynamic binding이란 run time에 의존성이 결정되는 것이다.
+## Overridng이란 무엇인가?
+overriding이란 base class에서 virtual function을 derive class에서 재정의 하는 것이다. 
 
-그리고 나머지 3개의 질문에 답하기 위해서는 virtual function에 대해서 자세하게 알아야 한다.
+## Lazy binding이란 무엇인가?
+lazy binding이란 run time에 의존성을 결정하는 것이다.
 
-## Virtual Function
+## overridng에 의해 어떻게 lazy binding이 생기는가?
+overriding에 의해 생기는 lazy binding을 이해하기 위해서는 virtual function에 대해서 자세하게 알아야 한다.
+
 virtual function이란 derive 클래스에서 재정의 될 것으로 기대하는 함수로 C++에서는 virtual keyword를 통해 나타낸다. virtual function은 일반 함수와 함수 그 자체로서는 큰 차이 없이 메모리 코드 영역의 어딘가에 위치할 뿐이다. 하지만 virtual function은 `가상 함수 테이블(virtual function table; vftable)`과 `가상 함수 테이블 포인터(virtual function table pointer; vfptr)`이라는 추가적인 구조를 가지고 있으며 함수의 호출 방식도 다르다.
 
 ### vftable
-vftable은 각 virtual function별로 실제로 실행해야 될 함수의 메모리 시작 주소가 기록되어 있는 table이다. 
+vftable은 각 virtual function별로 실제로 실행해야 될 함수의 메모리 시작 주소가 기록되어 있는 table이다. 그렇다면 이런 vftable은 언제 생성되는 것일까?
 
-그렇다면 이런 vftable은 언제 생성되는 것일까? 컴파일러는 컴파일 시점에 소스 코드에 정의된 모든 클래스에 대해서 virtual function이 하나라도 있을 경우 그 클래스에 대한 vftable을 생성한다. 
+컴파일러는 컴파일 시점에 소스 코드에 정의된 모든 클래스에 대해서 virtual function이 하나라도 있을 경우 그 클래스에 대한 vftable을 생성한다. 그리고 각 클래스의 객체가 생성될 때 객체의 시작 주소에 vfptr을 생성하고 해당 클래스의 vftable의 주소값을 갖게 한다.
 
-그리고 같은 클래스의 객체의 경우 당연히 같은 virtual function을 가지게 됨으로 똑같은 vftable을 객체마다 생성할 필요가 없고 클래스 별로 하나의 vftable을 생성하고 객체들이 고유의 vfptr을 통해 이를 공유하며 접근할 수 있게 한다.
+같은 클래스의 객체의 경우 당연히 같은 virtual function을 가지게 된다. 따라서 똑같은 vftable을 객체마다 생성할 필요가 없고 클래스 별로 하나의 vftable을 생성하고 객체들이 고유의 vfptr을 통해 이를 공유하며 접근할 수 있게 한다.
 
 #### 참고
 컴파일러는 vftable을 생성할 때 함수마다 고유의 인덱스를 부여하고 이 인덱스를 이용해서 virtual function 호출을 처리한다. 예를 들어 가상함수 vfunc의 인덱스가 0번이라면, vfunc가 호출될 시 vfptr이 가리키는 vftable의 0번 인덱스에 접근하여 함수를 호출하도록 어셈블리 코드를 작성한다. 즉, virtual function는 오직 vfptr이 가리키는 vftable과 virtual function에 해당하는 인덱스만으로 주소를 찾아내서 호출될 수 있다.
 
 ### vfptr
-vfptr은 말 그대로 vftable을 가르키는 역할을 한다. 
+vfptr은 말 그대로 vftable을 가르키는 역할을 한다. 그리고 virtual function을 가지고 있는 클래스 객체의 시작 위치에는 vfptr이 생성된다. 그렇다면 이번에는 vfptr이 언제 어떤 값을 가지게 되는지 살펴보자.
 
-virtual function을 가지고 있는 클래스 객체가 생성될 때, 컴파일러에 의해 시작 위치에 vfptr가 생성되고 생성자의 선처리 영역에서 vftable의 주소가 설정된다.
-
-클래스의 생성자와 소멸자는 각각 선처리 영역과 후처리 영역을 가지고 있으며 이를 간단하게 정리하면 다음과 같다.
+클래스의 생성자와 소멸자는 각각 선처리 영역과 후처리 영역을 가지고 있다. 이를 간단하게 정리하면 다음과 같다.
 
 ```
 A(...)
@@ -145,10 +147,10 @@ int main(void)
 
 ```
 
-정리하면 비가상 멤버함수는 컴파일러에 의해 바로 호출되는 반면 virtual function는 객체가 가지고 있는 vfptr를 이용해 vftable에 접근해 호출된다.
+정리하면 비가상 멤버함수는 컴파일러에 의해 직접 해당 함수를 호출하지만 virtual function는 객체가 가지고 있는 vfptr를 이용해 vftable에 접근하고 함수를 호출한다.
 
-## Dynamic Binding
-이제 나머지 3개의 질문에 대한 답을 하기 알아보기 위해 아래 코드를 살펴보자.
+### Lazy binding
+이제 overriding에 의해 생기는 lazy binding을 알아보기 위해 아래 코드를 살펴보자.
 
 ```cpp
 //Base.h
@@ -186,23 +188,31 @@ int main(void)
 }
 ```
 
-compile time에 보면 call_vfunc은 Base class만 알고 있다. 따라서, main문에서 call_vfunc의 input으로 Derive class 객체를 주어도 Base class의 vfunc이 호출될 것 같지만 놀랍게도 Derive class의 vfunc 함수를 호출하는 것을 알 수 있다. 
+compile time에 보면 call_vfunc은 Base class만 알고 있다. 따라서, main문에서 call_vfunc의 input으로 Derive class 객체를 주어도 Base class의 vfunc이 호출될 것 같지만 놀랍게도 Derive class의 vfunc 함수를 호출하는 것을 알 수 있다. 즉, 객체 d를 넣어서 call_vfunc를 호출한 경우 call_vfunc은 compile time 의존성은 Base class에 있지만 run time 의존성은 Derive class에 있기 때문에 lazy binding이 생긴것이다.
 
-즉, 객체 d를 넣어서 call_vfunc를 호출한 경우 call_vfunc은 compile time 의존성은 Base class에 있지만 run time 의존성은 Derive class에 있기 때문에 dynamic binding이 된 것이다.  
+그러면 어떻게 lazy binding이 생긴건지 한 단계씩 알아보자.
 
-그러면 어떻게 dynamic binding이 된건지 한 단계씩 알아보자.
+먼저 컴파일러는 각 클래스에 virtual function이 있음을 확인하고 각 클래스의 vftable을 생성한다. Base 클래스의 vftable에는 항목 한 개가 있고 Base::vfunc의 주소가 들어간다. Derive 클래스의 vftable도 항목 한개가 있고 재정의한 Derive::vfunc의 주소가 들어간다. 
 
-먼저 컴파일러는 각 클래스에 virtual function이 있음을 확인하고 클래스 마다 vftable을 생성한다. Base 클래스의 vftable에는 항목 한 개가 있고 Base::vfunc의 주소가 들어간다. Derive 클래스의 vftable도 항목 한개가 있고 재정의한 Derive::vfunc의 주소가 들어간다. 
+Derive 객체를 생성하는 과정을 보기 전에 주목해야 될 점이 있다. 바로 Base 클래스도 vftable을 가지고 있고 Derive 클래스도 vftable을 가지고 있지만 객체 d는 하나의 vfptr을 가진다는 점이다. 상식적으로 따진다면 Base 클래스의 vfptr이 하나 있고, Derive 클래스의 vfptr이 하나 있어야 될것 같다. 그러나 실제로는 하나의 vfptr만 있으며 두 클래스에서 동시에 사용하는 공용 vfptr이다. 공용으로 사용할 경우 혼돈이 생길 수 있을것 같은데 어떤 방식으로 vfptr을 사용하는지 살펴보자.
 
-컴파일러에 의해 Derive 클래스의 d 객체의 맨 앞에는 vfptr이 생성되었으며 이후 생성자를 호출한다. Derive 클래스 생성자의 선처리 영역에서 Base 클래스의 생성자를 호출한다. Base 클래스의 생성자 호출의 선처리 영역에서 vfptr이 Base 클래스의 vftable을 가르키게 된다. 그리고 Base 클래스 생성자 호출이 끝나면 vfptr은 이제 Derive 클래스의 vftable을 가르키게 된다. 즉 여러 과정을 거쳐 결론적으로 vfptr이 Derive 클래스의 vftable을 가르키게 된다.
+Derive 클래스의 d 객체를 생성하기 위해 생성자를 호출한다. Derive 클래스 생성자의 선처리 영역에서 Base 클래스의 생성자를 호출한다. Base 클래스의 생성자 호출의 선처리 영역에서 vfptr이 Base 클래스의 vftable을 가르키게 된다. 그리고 Base 클래스 생성자 호출이 끝나면 바로 vfptr은 Derive 클래스의 vftable을 가르키게 된다. 즉 여러 과정을 거쳐 결론적으로 vfptr이 Derive 클래스의 vftable을 가르키게 된다.
 
-call_vfunc에 input으로 d 객체를 주었을 때, call_vfunction의 input 객체 base는 d 객체의 Base 클래스의 해당하는 영역뿐이다. 하지만 객체 d의 vfptr은 이미 Derive 클래스의 vftable을 가르키고 있기 때문에 vfptr을 이용하여 함수를 호출하더라도 원래 객체 d의 타입에 맞는 virtual function이 호출이 될 수 있다.
+call_vfunc에 input으로 d 객체를 주었을 때, call_vfunction의 input 객체 base는 d 객체의 Base 클래스의 해당하는 영역뿐이다. 하지만 객체 d의 vfptr은 이미 Derive 클래스의 vftable을 가르키고 있기 때문에 ptr을 이용하여 함수를 호출하더라도 원래 객체 d의 타입에 맞는 virtual function이 호출이 될 수 있다.
 
-결론적으로 vfptr이 실제 클래스의 vftable을 가르키게 설계가 되어있기 때문에 dynamic binding이 된 것이다. 그리고 이러한 dynamic binding에 의해서 맥락에 맞는(실제 class에 맞는) 로직(함수)을 수행하는 능력인 polymorphism이 생기고 call_vfunc은 Derive class에 대해 compile time 의존성을 갖지 않아도 됨으로 의존성을 줄일 수 있는 것이다.
+결론적으로 vfptr이 실제 클래스의 vftable을 가르키게 설계가 되어있기 때문에 lazy binding이 생긴 것이다
 
-## 참고
+## lazy binding에 의해 어떻게 polymorphism이 구현되는가?
+위의 예시를 다시 한번 봐보자.
 
-### Overriding abstract class
+overriding에 의해 lazy binding이 생기기 때문에 실제 class에 해당하는 함수를 호출할 수 있게 된다. 즉, 맥락에 맞는(실제 class에 맞는) 로직(함수)을 수행하는 능력인 polymorphism이 생긴것이다.
+
+## lazy binding에 의해 어떻게 의존성을 줄일 수 있는가?
+위의 예시를 다시 한번 봐보자.
+
+lazy binding에 의해 call_vfunc은 Derive class에 대해 compile time 의존성을 갖지 않음으로 의존성이 줄어들었다.
+
+그리고 이를 활용하여 compile time 의존성은 오직 상대적으로 변경에 안전한 abstract class에 두고 상대적으로 변경에 취약한 concrete class들에 대해서는 run time 의존성만 갖게 하여 의존성을 더욱 줄일 수 있다.
 
 다음 예시 코드를 보자.
 
@@ -231,15 +241,11 @@ int print_area(const Shape& shape){
 }
 
 ```
+lazy binding 덕분에 print_area 함수는  compile time 의존성은 오직 abstract class인 Shape class에 대해서만 갖는다. 그리고 concrete class인 Shape1,2,3 class에 대해서는 run time 의존성만을 갖는다.
 
-dynamic binding 덕분에 print_area 함수는 compile time 의존성은 오직 abstract class인 Shape class에 대해서만 갖는다. 그리고 concrete class인 Shape1,2,3 class에 대해서는 run time 의존성만을 갖는다.
+* [why-is-polymorphism-important](https://wasabigeek.com/blog/why-is-polymorphism-important/)
 
-즉, compile time 의존성은 오직 상대적으로 변경에 안전한 abstract class에 두고 상대적으로 변경에 취약한 concrete class들에 대해서는 run time 의존성만 갖게 하여 의존성을 더욱 줄일 수 있다.
-
-
-> Reference  
-> [blog - why-is-polymorphism-important](https://wasabigeek.com/blog/why-is-polymorphism-important/)  
-
+## 참고
 
 ### Overloading
 overloading이란 이름은 같고 input은 다른 함수들을 정의하는 것이다.
@@ -362,7 +368,7 @@ int main(void)
 }
 ```
 
-코드 실행 결과를 보면 A_ 관련 클래스의 경우 Derive의 소멸자가 호출되지 않았지만 B_ 관련 클래스의 경우 정상적으로 Derive의 소멸자와 Base의 소멸자가 호출된 것을 알 수 있다. dynamic binding의 구현 원리를 배웠음으로 ptr2를 delete할 때 "vfptr과 virtual function 테이블을 이용해서 B_Derive 클래스의 소멸자를 호출해서 아무런 문제가 없구나" 라고 이해해 볼 수 있다. 
+코드 실행 결과를 보면 A_ 관련 클래스의 경우 Derive의 소멸자가 호출되지 않았지만 B_ 관련 클래스의 경우 정상적으로 Derive의 소멸자와 Base의 소멸자가 호출된 것을 알 수 있다. Lazy binding의 구현 원리를 배웠음으로 ptr2를 delete할 때 "vfptr과 virtual function 테이블을 이용해서 B_Derive 클래스의 소멸자를 호출해서 아무런 문제가 없구나" 라고 이해해 볼 수 있다. 
 
 근데 곰곰히 생각해보면 뭔가 이상하다. 엄연히 소멸자는 상속되지 않는다. 상속되지 않기 때문에 재정의도 불가능하다. 상식적으로 함수의 이름만 봐도 다르지 않은가? 즉, Base 클래스의 소멸자와 Derive 클래스의 소멸자는 별 상관 없는 멤버 함수라고 보는 것이 더 합당하다. 그러나 소멸자가 virtual function로 지정될 때는 마치 소멸자가 상속되면서 재정의되는 함수처럼 여겨진다. override 키워드도 사용할 수 있다. C++는 어떤 원리로 이런 이상한 현상을 용인 하는 것일까? 이를 이해하기 위해서는 소멸자의 진정한 모습을 살펴 볼 필요가 있다.
 
