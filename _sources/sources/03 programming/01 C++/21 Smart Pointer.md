@@ -1,9 +1,7 @@
 # Smart Pointer
-C++ 의 경우 한 번 동적으로 획득한 메모리는 직접 해제해주지 않는 이상 프로그램이 종료되기 전 까지 영원히 남아있게 된다. 이런 상황을 `메모리 누수(memory leak)`라고 한다.
+C++ 의 경우 한 번 동적으로 획득한 자원는 직접 해제해주지 않는 이상 프로그램이 종료되기 전 까지 영원히 남아있게 된다. 이로인해 `메모리 누수(memory leak)`가 발생할 수 있는데 memory leak이 발생하면 간단한 프로그램의 경우 크게 문제될 일이 없지만, 서버 처럼 장시간 작동하는 프로그램의 경우 시간이 지남에 따라 점점 사용하는 메모리 양의 늘어나서 결과적으로 시스템 메모리가 부족해 프로그램이 죽어버리는 상황이 발생할 수 있다. 
 
-memory leak이 발생하면 간단한 프로그램의 경우 크게 문제될 일이 없지만, 서버 처럼 장시간 작동하는 프로그램의 경우 시간이 지남에 따라 점점 사용하는 메모리 양의 늘어나서 결과적으로 시스템 메모리가 부족해져서  프로그램이 죽어버리는 상황이 발생할 수 있다.
-
-smart pointer는 이런 memory leak문제를 해결하기 위해 나왔다.
+그래서 이런 memory leak 문제를 방지하기 위해 RAII 패턴을 따르며 pointer 역할을 하는 class인 `스마트 포인터(smart pointer)`가 나오게 되었다.
 
 ## RAII 패턴
 언뜻 생각하면 memory leak의 해결 방법은 간단하다. 항상 잊지 말고 메모리 꼭 해제하면 된다. 하지만 프로그램의 크기가 커지면 메모리를 해제하는 위치가 애매한 경우가 많아서 놓치기 쉽다. 그리고 메모리를 해제하는 코드를 작성했다고 하더라도 다음 예시처럼 예상치 못한 동작으로 의도와 다르게 메모리가 해제되지 않는 경우도 있다. 
@@ -48,11 +46,11 @@ int main() {
 
 원래 대로라면 do_something을 호출하면 메모리 획득과 해제가 되어야 하지만 중간에 function에서 exception이 발생했기 때문에 메모리 해제가 제대로 되지 않는다.
 
-다양한 상황에서 memory leak 문제가 발생할 수 있기 때문에 비야네 스트로스트룹은 C++에서 자원을 관리하는 방법으로 `자원의 획득은 초기화(Resource Acquisition Is Initialization; RAII)`디자인 패턴을 제안했다. RAII 패턴은 자원 관리를 스택에 할당한 객체를 통해 수행하는 것이다.
+다양한 상황에서 memory leak 문제가 발생할 수 있기 때문에 비야네 스트로스트룹은 C++에서 자원을 관리하는 방법으로 `자원의 획득은 초기화(Resource Acquisition Is Initialization; RAII)`디자인 패턴을 제안했다. RAII 패턴은 스택에 생성된 객체를 통해 동적으로 할당한 자원을 관리하도록 하는 디자인 패턴이다.
 
 함수가 종료될 때 스택내의 모든 객체들은 당연히 소멸자들이 호출되며, 예외가 발생해서 함수를 빠져나가더라도 그 함수의 스택에 정의되어 있는 모든 객체들은 stack unwinding에 의해 빠짐없이 소멸자가 호출되기 때문에 메모리를 해제가 제대로 되지 않는 문제를 해결할 수 있다.
 
-그러면 RAII를 적용하기 위해 do_something 함수를 다시 보자. 현재 `pa`는 단순 pointer 이기 때문에 소멸자가 호출되지 않는다. 따라서, pointer의 역할을 하는 class가 필요하며 그 class의 소멸자에서는 자신이 가리키고 있는 데이터도 같이 delete 하게 해야 한다. 이와 같이 RAII를 지키는 똑똑한 pointer class를 `스마트 포인터(smart pointer)`라고 한다.
+그러면 RAII를 적용하기 위해 do_something 함수를 다시 보자. 현재 pa는 단순 pointer 이기 때문에 소멸자가 호출되지 않는다. 따라서, pointer의 역할을 하는 class가 필요하며 그 class의 소멸자에서는 자신이 가리키고 있는 데이터도 같이 delete 하게 해야 한다. 이와 같이 RAII를 지키는 똑똑한 pointer class를 `스마트 포인터(smart pointer)`라고 한다.
 
 > Reference  
 > [modoocode-unique ptr](https://modoocode.com/229)  
@@ -77,7 +75,7 @@ data2가 이미 해제된 메모리를 다시 해제하려하기 때문에 이�
 
 위와 같은 문제가 발생한 이유는 만들어진 객체의 소유권이 명확하지 않아서 이다. 객체는 하나이지만 객체를 가르키는 포인터가 2개이기 때문에 해제된 메모리를 또 해제하는 실수가 발생할 가능성이 높아진 것이다.
 
-따라서 어떤 포인터에게 객체의 유일한 소유권을 부여해서 객체에 대한 메모리 관리를 완전히 맡긴다면, 위와 같이 같은 객체를 두 번 소멸시켜버리는 실수를 줄일 수 있을 것이다. 이를 위해 C++에서는 특정 객체에 유일한 소유권을 부여하는 포인터 class `unique_ptr class`를 제공한다.
+따라서 어떤 포인터에게 객체의 유일한 소유권을 부여해서 객체에 대한 메모리 관리를 완전히 맡긴다면, 위와 같이 같은 객체를 두 번 소멸시켜버리는 실수를 줄일 수 있을 것이다. 이를 위해 C++에서는 RAII 패턴을 따르면서 특정 객체에 유일한 소유권을 부여하여 double free 버그의 발생 가능성을 줄일 수 있는 `unique_ptr class`를 제공한다.
 
 unique_ptr 객체는 유일한 소유권을 의미하기 때문에 복사와 관련된 함수들은 전부 삭제되어 있다. 다음 예시를 보자.
 
@@ -160,9 +158,9 @@ std::cout << data_ptr3.use_count(); // 3
 
 하지만 실제로 data_ptr의 reference count도 3이 되는걸 알 수 있는데 어떻게 이런 마법을 부리고 있는건지 알아보자.
 
-이 마법의 비밀은 `제어 블록(control block)`이란 개념에 있다. 
+이 마법의 비밀은 `제어 블록(control block)`이란 추가적인 구조에 있다. control block이란 현재 객체를 가르키고 있는 shared_ptr이 몇개인지를 나타내는 reference count를 가지고 있는 객체이다. 
 
-shared_ptr은 생성되고 처음으로 객체를 가르키는 경우 control block을 동적으로 할당한 뒤, shared_ptr 내부적으로 control block을 알고 있다. 그리고 shared_ptr의 복사가 일어나는 경우 복사된 shared_ptr은 기존 shared_ptr과 같은 control blcok을 알고 있게 된다. shared_ptr이 생성 또는 소멸될 때마다 control block에 접근하여 reference count를 늘리고 줄이고 하기 때문에 같은 control block을 공유하는 shared_ptr의 경우에는 항상 reference count가 몇인지 알고 항상 같은 값을 갖을 수 있다.
+shared_ptr은 생성되고 처음으로 객체를 가르키는 경우 control block을 동적으로 할당한 뒤, 내부 pointer로 생성된 control block을 가르키고 control block의 reference count를 1로 만든다. 그리고 shared_ptr의 복사가 일어나는 경우 복사된 shared_ptr의 내부 pointer는 기존 shared_ptr의 control blcok을 가르키게 되며 control block에 접근하여 reference count를 늘린다. 반대로 소멸될 때는 control block에 접근해 줄이고 reference count를 줄이고 자신이 소멸될 때 reference count가 0이 되는 경우에 동적으로 할당된 객체를 소멸시킨다.
 
 > Reference  
 > [modoocode-shared ptr](https://modoocode.com/252)  
@@ -173,17 +171,18 @@ shared_ptr을 생성할 때, 원래 new 키워드를 사용하듯이 해도 된�
 std::shared_ptr<Data> data_ptr = new Data();
 ```
 
-하지만 이는 바람직한 shared_ptr의 생성 방법이 아니다. 왜냐하면 일단 Data를 생성할 떄 동적 할당이 한 번, 그 다음 shared_ptr 의 controll block을 생성할 때 동적 할당이 한 번, 총 두 번의 동적 할당이 발생하기 때문이다.
+하지만 이는 바람직한 shared_ptr의 생성 방법이 아니다. 왜냐하면 일단 Data를 생성할 떄 동적 할당이 한 번, 그 다음 shared_ptr 의 control block을 생성할 때 동적 할당이 한 번, 총 두 번의 동적 할당이 발생하기 때문이다.
 
 동적 할당은 상당히 비싼 연산 임으로 어차피 동적 할당을 두 번 할 것 이라는 것을 알고 있다면, 아예 두 개 합친 크기로 한 번 할당 하는 것이 훨씬 빠르다.
 
-그래서 make_shared 함수는 Data의 생성자의 인자들을 받아서 이를 통해 Data객체와 shared_ptr 의 controll block까지 한 번에 동적 할당 한 후에 만들어진 shared_ptr을 리턴한다.
+그래서 make_shared 함수는 Data의 생성자의 인자들을 받아서 이를 통해 Data객체와 shared_ptr 의 control block까지 한 번에 동적 할당 한 후에 만들어진 shared_ptr을 리턴한다.
 
 > Reference  
 > [modoocode-shared ptr](https://modoocode.com/252)  
+> [cppreference](https://en.cppreference.com/w/cpp/memory/shared_ptr#Implementation_notes)  
 
 ### enable_shared_from_this
-shared_ptr은 인자로 pointer가 전달되면 마치 자기가 pointer가 가르키는 객체를 첫번째로 소유하는 shared_ptr인 것 마냥 행동해서 같은 객체에 여러개의 controll block이 생길 수 있게 한다. 그리고 이는 잘못된 reference count와 double free 버그를 발생시킨다. 다음 예시 코드를 보자.
+shared_ptr은 인자로 pointer가 전달되면 마치 자기가 pointer가 가르키는 객체를 첫번째로 소유하는 shared_ptr인 것 마냥 행동해서 같은 객체에 여러개의 control block이 생길 수 있게 한다. 그리고 이는 잘못된 reference count와 double free 버그를 발생시킨다. 다음 예시 코드를 보자.
 
 ```cpp
 Data* a = new Data();
@@ -191,7 +190,7 @@ std::shared_ptr<Data> p1 = std::shared_ptr<Data>(a);
 std::shared_ptr<Data> p2 = std::shared_ptr<Data>(a);
 ```
 
-이 경우에 p1도 p2도 모두 a가 가르키고 있는 Data객체를 자기가 첫번째로 소유한다고 판단해 controll block이 각각 생기게 된다. 따라서 a를 가르키는 shared_ptr이 2개임에도 불구하고 각각 reference_count는 1이 되게 되고 p1이 소멸할 떄 이미 Data객체를 소멸시키기 때문에 p2가 소멸할 때 double free bug가 발생하게 된다.
+이 경우에 p1도 p2도 모두 a가 가르키고 있는 Data객체를 자기가 첫번째로 소유한다고 판단해 control block이 각각 생기게 된다. 따라서 a를 가르키는 shared_ptr이 2개임에도 불구하고 각각 reference_count는 1이 되게 되고 p1이 소멸할 떄 이미 Data객체를 소멸시키기 때문에 p2가 소멸할 때 double free bug가 발생하게 된다.
 
 따라서, shared_ptr을 생성할 때 인자로 pointer를 전달하면은 double free 버그가 발생할 수 있음으로 지양해야한다.
 
@@ -263,9 +262,9 @@ int main() {
 ```
 이 경우에는 제대로 동작하는 것을 볼 수 있다.
 
-enable_shared_from_this 클래스에는 `shared_from_this`라는 멤버 함수가 정의되어 있는데, 이 함수는 이미 정의되어 있는 controll block을 사용해서 shared_ptr을 만들어서 return 한다.따라서 같은 객체에 두 개의 다른 controll block이 생성되는 일을 막을 수 있다.
+enable_shared_from_this 클래스에는 `shared_from_this`라는 멤버 함수가 정의되어 있는데, 이 함수는 이미 정의되어 있는 control block을 사용해서 shared_ptr을 만들어서 return 한다.따라서 같은 객체에 두 개의 다른 control block이 생성되는 일을 막을 수 있다.
 
-한 가지 중요한 점은 shared_from_this가 잘 동작하기 위해서는 해당 객체를 가르키는 shared_ptr가 반드시 먼저 정의되어 있어야만 한다. 즉 shared_from_this는 있는 controll block을 확인만 할 뿐, 없는 controll block을 만들지는 않는다. 
+한 가지 중요한 점은 shared_from_this가 잘 동작하기 위해서는 해당 객체를 가르키는 shared_ptr가 반드시 먼저 정의되어 있어야만 한다. 즉 shared_from_this는 있는 control block을 확인만 할 뿐, 없는 control block을 만들지는 않는다. 
 
 따라서, 해당 객체를 가르키는 shared_ptr이 없는 경우 오류가 발생한다. 다음 예시를 보자.
 ```cpp
@@ -277,12 +276,20 @@ std::shared_ptr<Data> pa1 = a->get_shared_ptr(); // compile error!
 > [modoocode-shared ptr](https://modoocode.com/252)  
 
 ### 참고
+#### Garbage collector
 C++ 이후에 나온 많은 언어(Java 등등) 들은 대부분은 `가비지 컬렉터(Garbage Collector; GC)` 라 불리는 자원 청소기가 기본적으로 내장되어 있다. 이 GC의 역할은 프로그램 상에서 더 이상 쓰이지 않는 자원을 자동으로 해제해 주는 역할을 한다. 따라서 프로그래머들이 코드를 작성할 때, 자원을 해제하는 일에 대해 크게 신경 쓸 필요는 없다.
 
 그렇다면 GC는 언제 자원을 해제해야 되는지 어떻게 판단할까? 
 
 GC는 `도달성(Reachability)`이라는 개념을 적용한다. 객체에 유효한 레퍼런스가 있다면 Reachable로 구분되고, 유효한 레퍼런스가 없다면 Unreachable로 구분해버리고 자원을 해제한다. 즉, shared_ptr에서 refrence count로 객체 소멸 시점을 판단하는 것과 유사하다.
 
+#### STL 구현
+* C++20 MSVC 기준
+* _Ref_count_base class는 control block 개념을 구현한 class이다.
+* _Ref_count_base class는 reference count를 나타내는 _Uses 멤버 변수를 갖는다.
+* shared_ptr class은 _Ptr_base class를 상속받는다.
+* _Ptr_base class는 _Ref_count_base class의 pointer인 _Rep 멤버 변수를 가지고 있다.
+  * 따라서 _Rep은 control block을 가르키는 내부 pointer이다.
 
 ## weak_ptr Class
 shared_ptr는 reference count가 0이 되면 가리키는 객체를 소멸시킨다. 그런데, 이런 방식때문에 shared_ptr을 멤버 변수로 가지고 있는 class의 두 객체가 shared_ptr로 서로가 서로를 가리키는 경우 reference count가 절대로 0이 될 수 없어서 객체 소멸이 불가능하게 될 수도 있다. 이를 `순환참조(circular reference)`라고 한다. 다음 예시를 보자.
@@ -383,18 +390,23 @@ int main() {
 ```
 weak_ptr는 생성자로 shared_ptr나 다른 weak_ptr를 받는다. 따라서 set_other 함수에 shared_ptr을 전달하더라도 잘 동작한다. 
 
-참고로 shared_ptr과는 다르게, 이미 controll block이 만들어진 객체만이 의미를 가지기 때문에, 평범한 포인터 주소값으로 weak_ptr를 생성할 수 없다.
+참고로 shared_ptr과는 다르게, 이미 control block이 만들어진 객체만이 의미를 가지기 때문에, 평범한 포인터 주소값으로 weak_ptr를 생성할 수 없다.
 
 그리고 weak_ptr가 가르키고 있더라도 다른 shared_ptr이 가르키지 않으면 소멸되기 때문에 weak_ptr로는 원래 객체를 참조할 수 없고, 반드시 shared_ptr 로 변환해서 사용해야 한다. 따라서 acess_other 함수에서와 같이 weak_ptr에서 제공하는 lock 함수를 사용해서 객체에 접근해야 한다. 이 때 가리키고 있는 객체가 이미 소멸되었다면 빈 shared_ptr 로 변환되고, 아닐경우 해당 객체를 가리키는 shared_ptr로 변환된다.
 
 ### 참고
-reference count가 0이 되면 shared_ptr이 가르키고 있는 객체를 소멸시킨다. 그렇다면 이 떄, controll block 역시 소멸되어야 할까?
+#### Destruction of control block
+reference count가 0이 되면 shared_ptr이 가르키고 있는 객체를 소멸시킨다. 그렇다면 이 떄, control block 역시 소멸되어야 할까?
 
 정답은 아니다!
 
-왜냐하면 가리키는 shared_ptr은 0개지만 아직 weak_ptr 가 남아있는 경우 controll block이 없으면 reference count가 0이라는 사실을 weak_ptr이 알 수 없기 때문이다. 따라서, controll block는 reference count가 0일뿐만 아니라 객체를 가르키고 있는 weak_ptr 역시 0일 때 소멸되어야 한다. 
+왜냐하면 가리키는 shared_ptr은 0개지만 아직 weak_ptr 가 남아있는 경우 control block이 없으면 reference count가 0이라는 사실을 weak_ptr이 알 수 없기 때문이다. 따라서, control block는 reference count가 0일뿐만 아니라 객체를 가르키고 있는 weak_ptr 역시 0일 때 소멸되어야 한다. 
 
-그럼으로 controll block은 reference count와 더불어 `약한 참조 개수(weak count)`를 기록하게 된다. C++20 MSVC debug 기준으로 reference count는 _Uses 변수명에 기록되고 reference count와 weak count를 합한 값은 _Weaks 변수명에 기록된다.
+그럼으로 control block은 reference count와 더불어 `약한 참조 개수(weak count)`를 기록하게 된다.
+
+#### STL구현
+* C++20 MSVC 기준
+* _Ref_count_base class는 weak count를 나타내는 _Weaks를 갖는다.
 
 > Reference  
 > [modoocode-shared ptr](https://modoocode.com/252)  
