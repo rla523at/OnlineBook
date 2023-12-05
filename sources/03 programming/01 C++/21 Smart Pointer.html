@@ -1018,16 +1018,19 @@ document.write(`
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>pa가 가르키는 동적으로 할당된 객체를 Data1, pb가 가르키는 동적으로 할당된 객체를 Data2라고 하고 함수가 끝나고 pa, pb순으로 소멸자가 호출된다고 하자. 그러면 main이 끝나고 다음 그림과 같은 과정을 거친다.</p>
+<p>위 코드를 실행하면 소멸자가 호출 되지 않아 memory leak 문제가 발생한다. 왜 그런지 하나씩 살펴보자.</p>
+<p>pa가 가르키는 동적으로 할당된 객체를 Data1, pb가 가르키는 동적으로 할당된 객체를 Data2라고 하고 함수가 끝나고 pa, pb순으로 소멸자가 호출된다고 하자.</p>
+<p>그러면 main이 끝나고 다음 그림과 같은 과정을 거친다.</p>
 <figure class="align-default">
 <img alt="../../../_images/2101.png" src="../../../_images/2101.png" />
 </figure>
-<p>즉, circular reference가 발생한 경우 reference count가 0이 될 수가 없어서 Data의 소멸자는 호출될 수 없어서 위의 코드는 memory leak이 발생한다. 이와 같이 circular reference에 의해 발생하는 memory leak 문제를 해결하기 위해 C++에서는 <code class="docutils literal notranslate"><span class="pre">weak_ptr</span></code> class를 제공한다.</p>
+<p>즉, 서로가 서로를 가르키는 circular reference가 발생한 경우 reference count가 0이 될 수가 없어서 Data의 소멸자가 호출될 수 없는 것이다. 이와 같이 circular reference에 의해 발생하는 memory leak 문제를 해결하기 위해 C++에서는 <code class="docutils literal notranslate"><span class="pre">weak_ptr</span></code> class를 제공한다.</p>
 <p>그러면 weak_ptr이 어떻게 이 문제를 해결하는지 알아보자.</p>
-<p>weak_pt 는 일반 포인터와 shared_ptr 사이에 위치한 smart point로, smart point처럼 RAII 패턴을 따르면서 객체를 안전하게 참조할 수 있게 해주지만, shared_ptr와는 다르게 reference count를 늘리지 않는다.</p>
+<p>weak_pt는 일반 포인터와 shared_ptr 사이에 위치한 smart point로, smart point처럼 RAII 패턴을 따르면서 객체를 안전하게 참조할 수 있게 해주지만, shared_ptr와는 다르게 reference count를 늘리지 않는다.</p>
 <p>따라서 설사 어떤 객체를 weak_ptr 가 가리키고 있다고 하더라도, 다른 shared_ptr들이 가리키고 있지 않다면 소멸되게 된다.</p>
 <p>그럼으로 Data class의 other 멤버변수를 weak_ptr로 두면 refrence count가 늘지 않아 pa객체가 소멸될 때 Data1 객체가 소멸되고 pb객체가 소멸될 때 Data2 객체가 소멸되게 되서 문제가 해결된다.</p>
-<p>이제, 다음 예시를 통해 weak_ptr을 어떻게 사용하는지 보자.</p>
+<p>따라서, 위의 코드에서 member변수 other만 weak_ptr로 바꿔줄 경우 소멸자가 정상 호출되는 것을 확인할 수 있다.</p>
+<p>이제, 다음 예시를 통해 weak_ptr을 어떻게 사용하는지 조금 더 자세하게 보자.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
