@@ -777,12 +777,12 @@ document.write(`
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Data</span><span class="p">();</span>
 <span class="n">Date</span><span class="o">*</span><span class="w"> </span><span class="n">data2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
 
-<span class="c1">// data 의 입장 : 사용 다 했으니 소멸시켜야지.</span>
+<span class="c1">// data 의 입장 : 사용 다 했으니 내가 소유했던 객체를 소멸시켜야지.</span>
 <span class="k">delete</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
 
 <span class="c1">// ...</span>
 
-<span class="c1">// data2 의 입장 : 나도 사용 다 했으니 소멸시켜야지</span>
+<span class="c1">// data2 의 입장 : 사용 다 했으니 내가 소유했던 객체를 소멸시켜야지.</span>
 <span class="k">delete</span><span class="w"> </span><span class="n">data2</span><span class="p">;</span>
 </pre></div>
 </div>
