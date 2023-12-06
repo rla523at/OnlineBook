@@ -6,15 +6,104 @@ Curiously recurring template pattern(CRTP)
 > [wiki](https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern)  
 > 
 ## Paramter & Argument
-template parameter는 아래 예시의 T와 같이 치환될 인자를 나타내는 변수들이다.
+template parameter는 아래 예시의 T, T&와 같이 치환될 인자를 나타내는 변수들이다.
 ``` cpp
 template<typename T>
+void func(T t1, T& t2);
 ```
 
 template argument는 template parameter에 들어갈 구체적인 변수이다.
 
+template이 instance화 되기 위해서는 모든 template parameter가 전부 대응되는 template argument로 대체되어야 한다.
+
 > Reference  
 > [cppreference](https://en.cppreference.com/w/cpp/language/template_parameters)
+
+### Parameter deduction
+parameter `추론(deduction)`할 떄 기본적으로 T는 reference가 아닌 타입으로 유추한다.
+
+단, 함수의 parameter가 forwarding reference이고 argument로 Lvalue reference가 주어진 경우에는 T를 reference 타입으로 deduction한다.
+
+```cpp
+template <typename T>
+void func1(T u)
+{
+}
+
+template <typename T>
+void func2(T& u)
+{
+}
+
+template <typename T>
+void func3(const T& u)
+{
+}
+
+template <typename T>
+void func4(T&& u)
+{
+}
+
+class A {};
+
+int main()
+{
+  A        a;
+  const A  ca;
+  A&       ra  = a;
+  const A& cra = a;
+
+  //default rule for type deduction is that reference types can never be the result of deduction.
+
+  //parameter: T --> is not a reference type 
+  //adjustments  --> if Argument is a cv-qualified type, top-level cv-qualifiers are ignored for deduction
+  func1(a);   // Argument: a   --> deduced T = A
+  func1(ca);  // Argument: ca  --> T = const A --> adjumstment --> deduced T = A
+  func1(ra);  // Argument: ra  --> T = A& --> default rule --> deduced T = A
+  func1(cra); // Argument: cra --> T = const A& --> default rule & adjustment --> deduced T = A
+  func1(A()); // Argument: A() --> T = A&& --> default rule --> deduced T = A
+
+  //parameter T& --> reference type 
+  //adjustments  --> referenced type is used for deduction
+  func2(a);   // Argument: a   --> T& = (A&)& -->  --> deduced T = A
+  func2(ca);  // Argument: ca  --> T& u = ca  --> deduced T = const A
+  func2(ra);  // Argument: ra  --> T& u = ra  --> deduced T = A
+  func2(cra); // Argument: cra --> T& u = cra --> deduced T = const A
+  func2(A()); // Argument: A() --> T& u = A() --> Lvalue reference can't initialize by Rvalue --> deduction fail!
+
+  //parameter const T& --> cv-qualified type & reference type
+  //adjustments1       --> the top-level cv-qualifiers are ignored for deduction
+  //adjustments2       --> referenced type is used for deduction
+  func3(a);   // Argument: a   --> const T& u = a   --> deduced T = A
+  func3(ca);  // Argument: ca  --> const T& u = ca  --> deduced T = A
+  func3(ra);  // Argument: ra  --> const T& u = ra  --> deduced T = A
+  func3(cra); // Argument: cra --> const T& u = cra --> deduced T = A
+  func3(A()); // Argument: A() --> const T& u = A() --> deduced T = A
+
+  //parameter T&& --> forwarding reference
+  func4(a);   // Argument: a   --> T&& u = a & Lvalue reference to Argument is used  --> deduced T = A&
+  func4(ca);  // Argument: ca  --> T&& u = ca & Lvalue reference to Argument is used --> deduced T = const A&
+  func4(ra);  // Argument: ra  --> T&& u = a & Lvalue reference to Argument is used  --> deduced T = A&
+  func4(cra); // Argument: cra --> T&& u = ca & Lvalue reference to Argument is used --> deduced T = const A&
+  func4(A()); // Argument: A() --> T&& u = A() --> deduced T = A
+}
+```
+
+template parameter deduction을 하기 전에 parameter와 argument는 [Deduction from a function call](https://en.cppreference.com/w/cpp/language/template_argument_deduction#Deduction_from_a_function_call) rule에 의해 조정이 된다.
+
+그리고 기본적으로 T는 reference가 아닌 타입으로 deduction한다. 
+
+예를들어 func1(A())를 보면 parameter가 T이고 argument가 A()임으로 `T u = A()`로부터 T의 타입을 deduction 한다. 이 때, 문법적으로 가능한 선택은 T = A, T= const A&, T = A&&이다. 하지만 으로 T=A가 선택된다.
+
+단, template parameter가 
+
+> Reference  
+> [cppreference-Deduction_from_a_function_call](https://en.cppreference.com/w/cpp/language/template_argument_deduction#Deduction_from_a_function_call)  
+> [stackoverflow-how-do-i-make-template-type-deduction-work-with-references](https://stackoverflow.com/questions/37068969/how-do-i-make-template-type-deduction-work-with-references)  
+> [stackoverflow-understanding-type-deduction-for-universal-references](https://stackoverflow.com/questions/46560123/understanding-type-deduction-for-universal-references)  
+> [cppreference-Reference_collapsing](https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing)  
+> 
 
 ## Instantiation
 ### Implicit instanciation

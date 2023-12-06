@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="concept" href="32%20concept.html" />
-    <link rel="prev" title="Smart Pointer" href="21%20Smart%20Pointer.html" />
+    <link rel="prev" title="Forwarding References" href="22%20Forward%20References.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -510,14 +510,15 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="11%20Class.html">Class</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="20%20Standard%20Library/Standard%20Library.html">STD</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-35"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/11%20vector.html">vector</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="21%20Smart%20Pointer.html">Smart Pointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="22%20Forward%20References.html">Forwarding References</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="32%20concept.html">concept</a></li>
 <li class="toctree-l2"><a class="reference internal" href="33%20Require.html">Require</a></li>
 <li class="toctree-l2"><a class="reference internal" href="34%20hpp.html">hpp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="35%20Perfact%20Forward.html">Perfact Forward + Universal Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="51%20static.html">Static</a></li>
 <li class="toctree-l2"><a class="reference internal" href="52%20Name%20Space.html">Namespace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="53%20One%20Definition%20Rule.html">One Definition Rule</a></li>
@@ -687,7 +688,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crtp">CRTP</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paramter-argument">Paramter &amp; Argument</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paramter-argument">Paramter &amp; Argument</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-deduction">Parameter deduction</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instantiation">Instantiation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implicit-instanciation">Implicit instanciation</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-inclusion">Multiple inclusion</a></li>
@@ -775,15 +779,98 @@ document.write(`
 </section>
 <section id="paramter-argument">
 <h2>Paramter &amp; Argument<a class="headerlink" href="#paramter-argument" title="Permalink to this heading">#</a></h2>
-<p>template parameter는 아래 예시의 T와 같이 치환될 인자를 나타내는 변수들이다.</p>
+<p>template parameter는 아래 예시의 T, T&amp;와 같이 치환될 인자를 나타내는 변수들이다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">t1</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">t2</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>template argument는 template parameter에 들어갈 구체적인 변수이다.</p>
+<p>template이 instance화 되기 위해서는 모든 template parameter가 전부 대응되는 template argument로 대체되어야 한다.</p>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://en.cppreference.com/w/cpp/language/template_parameters">cppreference</a></p>
 </div></blockquote>
+<section id="parameter-deduction">
+<h3>Parameter deduction<a class="headerlink" href="#parameter-deduction" title="Permalink to this heading">#</a></h3>
+<p>parameter <code class="docutils literal notranslate"><span class="pre">추론(deduction)</span></code>할 떄 기본적으로 T는 reference가 아닌 타입으로 유추한다.</p>
+<p>단, 함수의 parameter가 forwarding reference이고 argument로 Lvalue reference가 주어진 경우에는 T를 reference 타입으로 deduction한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">func1</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">u</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">func2</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">u</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">func3</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">u</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">func4</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">u</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="w">        </span><span class="n">a</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">A</span><span class="w">  </span><span class="n">ca</span><span class="p">;</span>
+<span class="w">  </span><span class="n">A</span><span class="o">&amp;</span><span class="w">       </span><span class="n">ra</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cra</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">//default rule for type deduction is that reference types can never be the result of deduction.</span>
+
+<span class="w">  </span><span class="c1">//parameter: T --&gt; is not a reference type </span>
+<span class="w">  </span><span class="c1">//adjustments  --&gt; if Argument is a cv-qualified type, top-level cv-qualifiers are ignored for deduction</span>
+<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// Argument: a   --&gt; deduced T = A</span>
+<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// Argument: ca  --&gt; T = const A --&gt; adjumstment --&gt; deduced T = A</span>
+<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// Argument: ra  --&gt; T = A&amp; --&gt; default rule --&gt; deduced T = A</span>
+<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// Argument: cra --&gt; T = const A&amp; --&gt; default rule &amp; adjustment --&gt; deduced T = A</span>
+<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// Argument: A() --&gt; T = A&amp;&amp; --&gt; default rule --&gt; deduced T = A</span>
+
+<span class="w">  </span><span class="c1">//parameter T&amp; --&gt; reference type </span>
+<span class="w">  </span><span class="c1">//adjustments  --&gt; referenced type is used for deduction</span>
+<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// Argument: a   --&gt; T&amp; = (A&amp;)&amp; --&gt;  --&gt; deduced T = A</span>
+<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// Argument: ca  --&gt; T&amp; u = ca  --&gt; deduced T = const A</span>
+<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// Argument: ra  --&gt; T&amp; u = ra  --&gt; deduced T = A</span>
+<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// Argument: cra --&gt; T&amp; u = cra --&gt; deduced T = const A</span>
+<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// Argument: A() --&gt; T&amp; u = A() --&gt; Lvalue reference can&#39;t initialize by Rvalue --&gt; deduction fail!</span>
+
+<span class="w">  </span><span class="c1">//parameter const T&amp; --&gt; cv-qualified type &amp; reference type</span>
+<span class="w">  </span><span class="c1">//adjustments1       --&gt; the top-level cv-qualifiers are ignored for deduction</span>
+<span class="w">  </span><span class="c1">//adjustments2       --&gt; referenced type is used for deduction</span>
+<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// Argument: a   --&gt; const T&amp; u = a   --&gt; deduced T = A</span>
+<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// Argument: ca  --&gt; const T&amp; u = ca  --&gt; deduced T = A</span>
+<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// Argument: ra  --&gt; const T&amp; u = ra  --&gt; deduced T = A</span>
+<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// Argument: cra --&gt; const T&amp; u = cra --&gt; deduced T = A</span>
+<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// Argument: A() --&gt; const T&amp; u = A() --&gt; deduced T = A</span>
+
+<span class="w">  </span><span class="c1">//parameter T&amp;&amp; --&gt; forwarding reference</span>
+<span class="w">  </span><span class="n">func4</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// Argument: a   --&gt; T&amp;&amp; u = a &amp; Lvalue reference to Argument is used  --&gt; deduced T = A&amp;</span>
+<span class="w">  </span><span class="n">func4</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// Argument: ca  --&gt; T&amp;&amp; u = ca &amp; Lvalue reference to Argument is used --&gt; deduced T = const A&amp;</span>
+<span class="w">  </span><span class="n">func4</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// Argument: ra  --&gt; T&amp;&amp; u = a &amp; Lvalue reference to Argument is used  --&gt; deduced T = A&amp;</span>
+<span class="w">  </span><span class="n">func4</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// Argument: cra --&gt; T&amp;&amp; u = ca &amp; Lvalue reference to Argument is used --&gt; deduced T = const A&amp;</span>
+<span class="w">  </span><span class="n">func4</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// Argument: A() --&gt; T&amp;&amp; u = A() --&gt; deduced T = A</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>template parameter deduction을 하기 전에 parameter와 argument는 <a class="reference external" href="https://en.cppreference.com/w/cpp/language/template_argument_deduction#Deduction_from_a_function_call">Deduction from a function call</a> rule에 의해 조정이 된다.</p>
+<p>그리고 기본적으로 T는 reference가 아닌 타입으로 deduction한다.</p>
+<p>예를들어 func1(A())를 보면 parameter가 T이고 argument가 A()임으로 <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">u</span> <span class="pre">=</span> <span class="pre">A()</span></code>로부터 T의 타입을 deduction 한다. 이 때, 문법적으로 가능한 선택은 T = A, T= const A&amp;, T = A&amp;&amp;이다. 하지만 으로 T=A가 선택된다.</p>
+<p>단, template parameter가</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/template_argument_deduction#Deduction_from_a_function_call">cppreference-Deduction_from_a_function_call</a><br />
+<a class="reference external" href="https://stackoverflow.com/questions/37068969/how-do-i-make-template-type-deduction-work-with-references">stackoverflow-how-do-i-make-template-type-deduction-work-with-references</a><br />
+<a class="reference external" href="https://stackoverflow.com/questions/46560123/understanding-type-deduction-for-universal-references">stackoverflow-understanding-type-deduction-for-universal-references</a><br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing">cppreference-Reference_collapsing</a></p>
+</div></blockquote>
+</section>
 </section>
 <section id="instantiation">
 <h2>Instantiation<a class="headerlink" href="#instantiation" title="Permalink to this heading">#</a></h2>
@@ -1607,12 +1694,12 @@ int main(void) {
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="21%20Smart%20Pointer.html"
+       href="22%20Forward%20References.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Smart Pointer</p>
+        <p class="prev-next-title">Forwarding References</p>
       </div>
     </a>
     <a class="right-next"
@@ -1640,7 +1727,10 @@ int main(void) {
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crtp">CRTP</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paramter-argument">Paramter &amp; Argument</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paramter-argument">Paramter &amp; Argument</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-deduction">Parameter deduction</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instantiation">Instantiation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implicit-instanciation">Implicit instanciation</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-inclusion">Multiple inclusion</a></li>
