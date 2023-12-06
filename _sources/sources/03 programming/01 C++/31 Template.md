@@ -55,31 +55,33 @@ int main()
   const A& cra = a;
 
   //default rule for type deduction is that reference types can never be the result of deduction.
+  //P := parameter, A:= Argument
+  //If P is not a reference type --> If A is a cv-qualified type, the top-level cv-qualifiers of A's type are ignored for type deduction.
+  //If P is a reference type     --> the type referred to by P is used for type deduction.
+  //                             --> the deduced A can be more cv-qualified than the transformed A.
+  //If P is a cv-qualified type  --> the top-level cv-qualifiers of P's type are ignored for type deduction.
+  
 
-  //parameter: T --> is not a reference type 
-  //adjustments  --> if Argument is a cv-qualified type, top-level cv-qualifiers are ignored for deduction
-  func1(a);   // Argument: a   --> deduced T = A
-  func1(ca);  // Argument: ca  --> T = const A --> adjumstment --> deduced T = A
-  func1(ra);  // Argument: ra  --> T = A& --> default rule --> deduced T = A
-  func1(cra); // Argument: cra --> T = const A& --> default rule & adjustment --> deduced T = A
-  func1(A()); // Argument: A() --> T = A&& --> default rule --> deduced T = A
+  //parameter: T
+  func1(a);   // T = A 
+  func1(ca);  // T = const A --> T = A
+  func1(ra);  // T = A& --> T = A
+  func1(cra); // T = const A& --> T = const A --> T = A
+  func1(A()); // T = A&& --> T = A
 
-  //parameter T& --> reference type 
-  //adjustments  --> referenced type is used for deduction
-  func2(a);   // Argument: a   --> T& = (A&)& -->  --> deduced T = A
-  func2(ca);  // Argument: ca  --> T& u = ca  --> deduced T = const A
-  func2(ra);  // Argument: ra  --> T& u = ra  --> deduced T = A
-  func2(cra); // Argument: cra --> T& u = cra --> deduced T = const A
-  func2(A()); // Argument: A() --> T& u = A() --> Lvalue reference can't initialize by Rvalue --> deduction fail!
+  //parameter T&
+  func2(a);   // T& = A --> T = A
+  func2(ca);  // T& = const A --> T = const A
+  func2(ra);  // T& = A& --> T = A& --> T = A
+  func2(cra); // T& = const A& --> T = const A& --> T = const A
+  func2(A()); // T& = A&& --> T& = A --> T = A, but it should be deduction fail!
 
-  //parameter const T& --> cv-qualified type & reference type
-  //adjustments1       --> the top-level cv-qualifiers are ignored for deduction
-  //adjustments2       --> referenced type is used for deduction
-  func3(a);   // Argument: a   --> const T& u = a   --> deduced T = A
-  func3(ca);  // Argument: ca  --> const T& u = ca  --> deduced T = A
-  func3(ra);  // Argument: ra  --> const T& u = ra  --> deduced T = A
-  func3(cra); // Argument: cra --> const T& u = cra --> deduced T = A
-  func3(A()); // Argument: A() --> const T& u = A() --> deduced T = A
+  //parameter const T&
+  func3(a);   // const T& = A --> const T = A --> const T = const A --> T = A
+  func3(ca);  // const T& = const A --> const T = const A --> T = A
+  func3(ra);  // const T& = A& --> const T = A&  --> const T = A --> const T = const A --> T = A
+  func3(cra); // const T& = const A& --> const T = const A& --> const T = const A --> T = A
+  func3(A()); // const T& = A&& --> const T = A&& --> const T = A --> const T = const A --> T = A
 
   //parameter T&& --> forwarding reference
   func4(a);   // Argument: a   --> T&& u = a & Lvalue reference to Argument is used  --> deduced T = A&
@@ -103,7 +105,9 @@ template parameter deduction을 하기 전에 parameter와 argument는 [Deductio
 > [stackoverflow-how-do-i-make-template-type-deduction-work-with-references](https://stackoverflow.com/questions/37068969/how-do-i-make-template-type-deduction-work-with-references)  
 > [stackoverflow-understanding-type-deduction-for-universal-references](https://stackoverflow.com/questions/46560123/understanding-type-deduction-for-universal-references)  
 > [cppreference-Reference_collapsing](https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing)  
-> 
+> [stackoverflow-does-type-deduction-is-failed-in-this-example](https://stackoverflow.com/questions/73335637/does-type-deduction-is-failed-in-this-example)  
+> [cppstandard](https://eel.is/c++draft/temp.deduct.call)  
+> [template-argument-deduction-and-expression-rules](https://stackoverflow.com/questions/56627124/template-argument-deduction-and-expression-rules)  
 
 ## Instantiation
 ### Implicit instanciation

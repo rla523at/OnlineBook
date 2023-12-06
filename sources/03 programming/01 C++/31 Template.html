@@ -824,31 +824,33 @@ document.write(`
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cra</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
 
 <span class="w">  </span><span class="c1">//default rule for type deduction is that reference types can never be the result of deduction.</span>
+<span class="w">  </span><span class="c1">//P := parameter, A:= Argument</span>
+<span class="w">  </span><span class="c1">//If P is not a reference type --&gt; If A is a cv-qualified type, the top-level cv-qualifiers of A&#39;s type are ignored for type deduction.</span>
+<span class="w">  </span><span class="c1">//If P is a reference type     --&gt; the type referred to by P is used for type deduction.</span>
+<span class="w">  </span><span class="c1">//                             --&gt; the deduced A can be more cv-qualified than the transformed A.</span>
+<span class="w">  </span><span class="c1">//If P is a cv-qualified type  --&gt; the top-level cv-qualifiers of P&#39;s type are ignored for type deduction.</span>
+<span class="w">  </span>
 
-<span class="w">  </span><span class="c1">//parameter: T --&gt; is not a reference type </span>
-<span class="w">  </span><span class="c1">//adjustments  --&gt; if Argument is a cv-qualified type, top-level cv-qualifiers are ignored for deduction</span>
-<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// Argument: a   --&gt; deduced T = A</span>
-<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// Argument: ca  --&gt; T = const A --&gt; adjumstment --&gt; deduced T = A</span>
-<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// Argument: ra  --&gt; T = A&amp; --&gt; default rule --&gt; deduced T = A</span>
-<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// Argument: cra --&gt; T = const A&amp; --&gt; default rule &amp; adjustment --&gt; deduced T = A</span>
-<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// Argument: A() --&gt; T = A&amp;&amp; --&gt; default rule --&gt; deduced T = A</span>
+<span class="w">  </span><span class="c1">//parameter: T</span>
+<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// T = A </span>
+<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// T = const A --&gt; T = A</span>
+<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// T = A&amp; --&gt; T = A</span>
+<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// T = const A&amp; --&gt; T = const A --&gt; T = A</span>
+<span class="w">  </span><span class="n">func1</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// T = A&amp;&amp; --&gt; T = A</span>
 
-<span class="w">  </span><span class="c1">//parameter T&amp; --&gt; reference type </span>
-<span class="w">  </span><span class="c1">//adjustments  --&gt; referenced type is used for deduction</span>
-<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// Argument: a   --&gt; T&amp; = (A&amp;)&amp; --&gt;  --&gt; deduced T = A</span>
-<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// Argument: ca  --&gt; T&amp; u = ca  --&gt; deduced T = const A</span>
-<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// Argument: ra  --&gt; T&amp; u = ra  --&gt; deduced T = A</span>
-<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// Argument: cra --&gt; T&amp; u = cra --&gt; deduced T = const A</span>
-<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// Argument: A() --&gt; T&amp; u = A() --&gt; Lvalue reference can&#39;t initialize by Rvalue --&gt; deduction fail!</span>
+<span class="w">  </span><span class="c1">//parameter T&amp;</span>
+<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// T&amp; = A --&gt; T = A</span>
+<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// T&amp; = const A --&gt; T = const A</span>
+<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// T&amp; = A&amp; --&gt; T = A&amp; --&gt; T = A</span>
+<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// T&amp; = const A&amp; --&gt; T = const A&amp; --&gt; T = const A</span>
+<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// T&amp; = A&amp;&amp; --&gt; T&amp; = A --&gt; T = A, but it should be deduction fail!</span>
 
-<span class="w">  </span><span class="c1">//parameter const T&amp; --&gt; cv-qualified type &amp; reference type</span>
-<span class="w">  </span><span class="c1">//adjustments1       --&gt; the top-level cv-qualifiers are ignored for deduction</span>
-<span class="w">  </span><span class="c1">//adjustments2       --&gt; referenced type is used for deduction</span>
-<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// Argument: a   --&gt; const T&amp; u = a   --&gt; deduced T = A</span>
-<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// Argument: ca  --&gt; const T&amp; u = ca  --&gt; deduced T = A</span>
-<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// Argument: ra  --&gt; const T&amp; u = ra  --&gt; deduced T = A</span>
-<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// Argument: cra --&gt; const T&amp; u = cra --&gt; deduced T = A</span>
-<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// Argument: A() --&gt; const T&amp; u = A() --&gt; deduced T = A</span>
+<span class="w">  </span><span class="c1">//parameter const T&amp;</span>
+<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// const T&amp; = A --&gt; const T = A --&gt; const T = const A --&gt; T = A</span>
+<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// const T&amp; = const A --&gt; const T = const A --&gt; T = A</span>
+<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// const T&amp; = A&amp; --&gt; const T = A&amp;  --&gt; const T = A --&gt; const T = const A --&gt; T = A</span>
+<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// const T&amp; = const A&amp; --&gt; const T = const A&amp; --&gt; const T = const A --&gt; T = A</span>
+<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// const T&amp; = A&amp;&amp; --&gt; const T = A&amp;&amp; --&gt; const T = A --&gt; const T = const A --&gt; T = A</span>
 
 <span class="w">  </span><span class="c1">//parameter T&amp;&amp; --&gt; forwarding reference</span>
 <span class="w">  </span><span class="n">func4</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// Argument: a   --&gt; T&amp;&amp; u = a &amp; Lvalue reference to Argument is used  --&gt; deduced T = A&amp;</span>
@@ -868,7 +870,10 @@ document.write(`
 <a class="reference external" href="https://en.cppreference.com/w/cpp/language/template_argument_deduction#Deduction_from_a_function_call">cppreference-Deduction_from_a_function_call</a><br />
 <a class="reference external" href="https://stackoverflow.com/questions/37068969/how-do-i-make-template-type-deduction-work-with-references">stackoverflow-how-do-i-make-template-type-deduction-work-with-references</a><br />
 <a class="reference external" href="https://stackoverflow.com/questions/46560123/understanding-type-deduction-for-universal-references">stackoverflow-understanding-type-deduction-for-universal-references</a><br />
-<a class="reference external" href="https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing">cppreference-Reference_collapsing</a></p>
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing">cppreference-Reference_collapsing</a><br />
+<a class="reference external" href="https://stackoverflow.com/questions/73335637/does-type-deduction-is-failed-in-this-example">stackoverflow-does-type-deduction-is-failed-in-this-example</a><br />
+<a class="reference external" href="https://eel.is/c++draft/temp.deduct.call">cppstandard</a><br />
+<a class="reference external" href="https://stackoverflow.com/questions/56627124/template-argument-deduction-and-expression-rules">template-argument-deduction-and-expression-rules</a></p>
 </div></blockquote>
 </section>
 </section>
