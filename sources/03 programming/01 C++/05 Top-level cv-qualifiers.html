@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>C++ &#8212; MS Study Book</title>
+    <title>Top-level cv-qualifiers &#8212; MS Study Book</title>
   
   
   
@@ -64,11 +64,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/C++';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/05 Top-level cv-qualifiers';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Build" href="01%20Build/Build.html" />
-    <link rel="prev" title="Trace" href="../../01%20math/99%20Miscellaneous/Trace.html" />
+    <link rel="next" title="Class" href="11%20Class.html" />
+    <link rel="prev" title="Value Category" href="04%20Value%20Category.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -481,7 +481,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">C++</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="C%2B%2B.html">C++</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="01%20Build/Build.html">Build</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-32"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/02%20Compile.html">Compile</a></li>
@@ -507,7 +507,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l2"><a class="reference internal" href="03%20Polymorphism.html">Polymorphism</a></li>
 <li class="toctree-l2"><a class="reference internal" href="04%20Value%20Category.html">Value Category</a></li>
-<li class="toctree-l2"><a class="reference internal" href="05%20Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Top-level cv-qualifiers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="11%20Class.html">Class</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="20%20Standard%20Library/Standard%20Library.html">STD</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-35"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
@@ -594,7 +594,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/01 C++/C++.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/01 C++/05 Top-level cv-qualifiers.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -676,7 +676,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>C++</h1>
+    <h1>Top-level cv-qualifiers</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -690,10 +690,20 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="c">
-<h1>C++<a class="headerlink" href="#c" title="Permalink to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
-</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="top-level-cv-qualifiers">
+<h1>Top-level cv-qualifiers<a class="headerlink" href="#top-level-cv-qualifiers" title="Permalink to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">T*</span> <span class="pre">u</span></code>의 타입은 pointer to T이다. 이 때, 타입은 2개의 계층으로 이루어져 있으며 첫번째 계층은 pointer 그리고 두번째 계층은 T이다.</p>
+<p>그리고 C++에서는 cv-qualifier가 다른 계층에 각각 나타날 수 있다.</p>
+<p>예를 들어 <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T*</span> <span class="pre">u</span></code>의 타입은 pointer to const T이다. 즉, 여기서는 두번째 계층에 cv-qualifier가 나타난 경우이다.</p>
+<p>그리고 reference는 top-level cv-qualifiers를 갖지 않는다.(<a class="reference external" href="https://eel.is/c++draft/basic.type.qualifier">standard</a>, <a class="reference external" href="https://en.cppreference.com/w/cpp/language/reference">cppreference</a>)</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="http://www.dansaks.com/articles/2000-02%20Top-Level%20cv-Qualifiers%20in%20Function%20Parameters.pdf">Dan saks - Top-Level cv-Qualifiers in Function Parameters</a><br />
+<a class="reference external" href="https://stackoverflow.com/questions/24676824/where-is-the-definition-of-top-level-cv-qualifiers-in-the-c11-standard">stackoverflow - where-is-the-definition-of-top-level-cv-qualifiers-in-the-c11-standard</a><br />
+<a class="reference external" href="https://blog.knatten.org/2023/03/17/references-dont-have-top-level-cv-qualifiers/">blog - references-dont-have-top-level-cv-qualifiers</a>
+<a class="reference external" href="https://eel.is/c++draft/basic.type.qualifier">standard - basic.type.qualifier</a><br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/reference">cpprefenrece - reference</a></p>
+</div></blockquote>
 </section>
 
     <script type="text/x-thebe-config">
@@ -727,20 +737,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../../01%20math/99%20Miscellaneous/Trace.html"
+       href="04%20Value%20Category.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Trace</p>
+        <p class="prev-next-title">Value Category</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Build/Build.html"
+       href="11%20Class.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Build</p>
+        <p class="prev-next-title">Class</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
