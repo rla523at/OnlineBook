@@ -63,9 +63,9 @@ wrapper(ca);  // instantiation result: wrapper(const T& u)
 wrapper(A()); // instantiation result: wrapper(const T& u)      
 ```
 
-함수의 parameter로 Rvalue reference 타입을 사용해도 기대와 다른 instantiation으로 Lvalue가 제로 전달이 되지 않고 compile error가 발생할 것 임을 예상할 수 있다.
+함수의 parameter로 Rvalue reference 타입을 사용해도 기대와 다른 instantiation으로 Lvalue가 제대로 전달이 되지 않고 compile error가 발생할 것 임을 예상할 수 있다.
 
-이런 문제를 해결하기 위해 C++11에 추가된 문법이 `보편적 레퍼런스(Forwarding references, Universal references)`이다. forwarding references는 함수 인자의 value category를 보존시켜주는 특별한 종류의 reference이다.
+이런 문제를 해결하기 위해 C++11에 추가된 문법이 `전달 레퍼런스(Forwarding references, Universal references)`이다. forwarding references는 함수 인자의 value category를 보존시켜주는 특별한 종류의 reference이다.
 
 forwarding references는 다음 두가지 경우이다.
 * 템플릿 함수가 input으로 템플릿 parameter의 cv-unqualified rvalue reference를 사용하면 이는 forwarding references이다.
@@ -80,7 +80,7 @@ for (auto&& x: f()){}     // x is a forwarding reference; this is a common way t
     auto&& z = {1, 2, 3}; // *not* a forwarding reference (special case for initializer lists)
 ```
 
-forwaridng referencs는 특별한 template argument deduction 규칙을 갖으며, 초기에 목표대로 instance화 된다.
+forwaridng referencs는 특별한 template argument deduction 규칙을 갖으며, 초기에 목표대로 instantiation 된다.
 ```cpp
 template <typename T>
 void wrapper(T&& u) {
@@ -123,7 +123,7 @@ wrapper(A()); // 우측값 레퍼런스 호출
 
 이로써 `완벽한 전달(perfect forwarding)`을 하는 함수를 만들 수 있게 되었다.
 
-> Reference
+> Reference  
 > [cppreference - Forwarding_references](https://en.cppreference.com/w/cpp/language/reference#Forwarding_references)  
 > [modoocode - Move문법과 완벽한 전달](https://modoocode.com/228)  
 
@@ -163,7 +163,7 @@ A&& forward(A& a) noexcept {
 > [modoocode - Move문법과 완벽한 전달](https://modoocode.com/228)  
 
 ## Universal References
-Universal reference라는 표현은 Scott Meyers가 cv-unqualified template parameter의 Rvalue reference을 설명하기 위해 사용한 표현이다.
+`보편적 레퍼런스(Universal reference)`라는 표현은 Scott Meyers가 cv-unqualified template parameter의 Rvalue reference을 설명하기 위해 사용한 표현이다.
 
 하지만 C++ standard에서는 이를 위한 표현을 정의하지 않았고 나중에 forwarding reference라는 표현을 도입하였다. 따라서 C++ standard 용어는 forwarding reference이고 널리쓰이는 universal reference와 정확히 동일한 의미를 갖는다.
 
