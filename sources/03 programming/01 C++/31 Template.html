@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="concept" href="32%20concept.html" />
-    <link rel="prev" title="Forwarding References" href="22%20Forward%20References.html" />
+    <link rel="prev" title="Forwarding References" href="22%20Forwarding%20References.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -515,7 +515,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="21%20Smart%20Pointer.html">Smart Pointer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="22%20Forward%20References.html">Forwarding References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="22%20Forwarding%20References.html">Forwarding References</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="32%20concept.html">concept</a></li>
 <li class="toctree-l2"><a class="reference internal" href="33%20Require.html">Require</a></li>
@@ -697,7 +697,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instantiation">Instantiation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implicit-instanciation">Implicit instanciation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implicit-instantiation">Implicit instantiation</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-inclusion">Multiple inclusion</a></li>
 </ul>
 </li>
@@ -827,7 +827,7 @@ document.write(`
 <p>template argument가 명시적으로 결정 되지 않은 상태로 함수 호출이 될 경우, 함수 호출에 사용되는 arguments type(A)과 template parameter type(P)을 매칭시켜서 template parameter에 사용될 template argument를 deduction한다.</p>
 <p>매칭을 통해 deduction할 때, 다음과 같은 규칙을 따른다.</p>
 <ol class="arabic simple">
-<li><p>P가 forwarding reference가 아닌 경우, template argument는 reference type으로 추론되지 않는다.</p></li>
+<li><p>P가 forwarding reference가 아닌 경우, A의 reference는 무시된다.</p></li>
 <li><p>P가 reference type이 아니고 A가 cv-qualified type인 경우, 매칭시 A의 top-level cv-qualifiers는 무시된다.</p></li>
 <li><p>P가 cv-qualified type인 경우, 매칭시 P의 top-level cv-qualifiers는 무시된다.</p></li>
 <li><p>P가 reference type인 경우, 매칭시 P의 reference는 무시된다.</p></li>
@@ -866,26 +866,40 @@ document.write(`
 <span class="w">  </span><span class="c1">//parameter T&amp;</span>
 <span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// T&amp; = A --&gt; T = A</span>
 <span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// T&amp; = const A --&gt; T = const A</span>
-<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// T&amp; = A&amp; --&gt; T = A&amp; --&gt; T = A</span>
-<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// T&amp; = const A&amp; --&gt; T = const A&amp; --&gt; T = const A</span>
-<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// T&amp; = A&amp;&amp; --&gt; T = A&amp;&amp; --&gt; T = A </span>
+<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// T&amp; = A&amp; --&gt; T = A</span>
+<span class="w">  </span><span class="n">func2</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// T&amp; = const A&amp; --&gt; T = const A</span>
+<span class="w">  </span><span class="c1">//func2(A()); // T&amp; = A&amp;&amp; --&gt; T = A </span>
 
 <span class="w">  </span><span class="c1">//parameter const T&amp;</span>
-<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// const T&amp; = A --&gt; const T = A --&gt; const T = const A --&gt; deduce T = A</span>
+<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// const T&amp; = A --&gt; const T = A --&gt; const T = const A --&gt; T = A</span>
 <span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// const T&amp; = const A --&gt; const T = const A --&gt; T = A</span>
-<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// const T&amp; = A&amp; --&gt; const T = A&amp;  --&gt; const T = A --&gt; const T = const A --&gt; T = A</span>
-<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// const T&amp; = const A&amp; --&gt; const T = const A&amp; --&gt; const T = const A --&gt; T = A</span>
-<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// const T&amp; = A&amp;&amp; --&gt; const T = A&amp;&amp; --&gt; const T = A --&gt; const T = const A --&gt; T = A</span>
+<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// const T&amp; = A&amp; --&gt; const T = A --&gt; const T = const A --&gt; T = A</span>
+<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// const T&amp; = const A&amp; --&gt; const T = const A --&gt; T = A</span>
+<span class="w">  </span><span class="n">func3</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// const T&amp; = A&amp;&amp; --&gt; const T = A --&gt; const T = const A --&gt; T = A</span>
 
 <span class="w">  </span><span class="c1">//parameter T&amp;&amp; --&gt; forwarding reference</span>
 <span class="w">  </span><span class="n">func4</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// T&amp;&amp; = A --&gt; T = A&amp;</span>
 <span class="w">  </span><span class="n">func4</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// T&amp;&amp; = const A --&gt; T = const A&amp;</span>
-<span class="w">  </span><span class="n">func4</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// T&amp;&amp; = A&amp; --&gt; T = (A&amp;)&amp; --&gt; T = A&amp;</span>
-<span class="w">  </span><span class="n">func4</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// T&amp;&amp; = const A&amp; --&gt; T = (const A&amp;)&amp; --&gt; T = const A&amp;</span>
+<span class="w">  </span><span class="n">func4</span><span class="p">(</span><span class="n">ra</span><span class="p">);</span><span class="w">  </span><span class="c1">// T&amp;&amp; = A&amp; --&gt; T = A&amp;</span>
+<span class="w">  </span><span class="n">func4</span><span class="p">(</span><span class="n">cra</span><span class="p">);</span><span class="w"> </span><span class="c1">// T&amp;&amp; = const A&amp; --&gt; T = const A&amp;</span>
 <span class="w">  </span><span class="n">func4</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// T&amp;&amp; = A&amp;&amp; --&gt; T = A</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>이 때, <code class="docutils literal notranslate"><span class="pre">func2(A())</span></code>의 경우를 보자. template argument deduction의 결과 T=A가 되었다.  그 결과 다음과 같은 형태가 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">func2</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">u</span><span class="p">);</span>
+
+<span class="n">func2</span><span class="p">(</span><span class="n">A</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>A()는 PRvalue임으로 Lvalue reference를 인수로 받는 func2를 호출할 수 없다. 따라서 인수목록이 일치하는 함수가 없다고 compile error가 발생한다.</p>
+<p>그리고 다음으로 <code class="docutils literal notranslate"><span class="pre">func4</span></code>를 호출하는 경우들을 보자. type deduction한 type을 원래 함수에 대입해 인스턴스화 하려고 하면 뭔가 좀 이상하다. 왜냐하면 reference의 reference가 발생하게 되기 때문이다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//if T= A&amp;</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">func4</span><span class="p">((</span><span class="n">A</span><span class="o">&amp;</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">u</span><span class="p">){}</span><span class="w"> </span><span class="c1">// (A&amp;)&amp;&amp; ??</span>
+</pre></div>
+</div>
+<p>reference의 reference는 정의되지 않은 표현식이기 때문에 이를 축약하여 정의된 표현식으로 만드는 규칙이 C++11에 도입되었으며 이를 <code class="docutils literal notranslate"><span class="pre">Reference</span> <span class="pre">collapsing</span></code> 규칙이라고 한다.</p>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://eel.is/c++draft/temp.deduct.call">cppstandard</a><br />
@@ -898,6 +912,23 @@ document.write(`
 </section>
 <section id="reference-collapsing">
 <h3>Reference collapsing<a class="headerlink" href="#reference-collapsing" title="Permalink to this heading">#</a></h3>
+<p>Reference collapsing 규칙은 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="w">  </span><span class="n">lref</span><span class="p">;</span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">rref</span><span class="p">;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w"> </span>
+<span class="n">lref</span><span class="o">&amp;</span><span class="w">  </span><span class="n">r1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="c1">// type of r1 is int&amp;  --&gt; (&amp;)&amp;   --&gt; &amp;</span>
+<span class="n">lref</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="c1">// type of r2 is int&amp;  --&gt; (&amp;)&amp;&amp;  --&gt; &amp;</span>
+<span class="n">rref</span><span class="o">&amp;</span><span class="w">  </span><span class="n">r3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="c1">// type of r3 is int&amp;  --&gt; (&amp;&amp;)&amp;  --&gt; &amp;</span>
+<span class="n">rref</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">r4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// type of r4 is int&amp;&amp; --&gt; (&amp;&amp;)&amp;&amp; --&gt; &amp;&amp;</span>
+</pre></div>
+</div>
+<p>따라서 reference collapsing rule을 적용하면 T=A&amp;일 떄 function4는 다음과 같이 인스턴스화 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//if T= A&amp;</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">func4</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">u</span><span class="p">){}</span><span class="w"> </span><span class="c1">// (A&amp;)&amp;&amp; = A&amp;</span>
+</pre></div>
+</div>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing">cppreference-Reference_collapsing</a></p>
@@ -906,8 +937,8 @@ document.write(`
 </section>
 <section id="instantiation">
 <h2>Instantiation<a class="headerlink" href="#instantiation" title="Permalink to this heading">#</a></h2>
-<section id="implicit-instanciation">
-<h3>Implicit instanciation<a class="headerlink" href="#implicit-instanciation" title="Permalink to this heading">#</a></h3>
+<section id="implicit-instantiation">
+<h3>Implicit instantiation<a class="headerlink" href="#implicit-instantiation" title="Permalink to this heading">#</a></h3>
 <p>컴파일러의 결정에 의해 template의 instance code를 생성하는 것을 말한다.</p>
 <p>다음 예시 코드를 보자.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//Z.h</span>
@@ -1726,7 +1757,7 @@ int main(void) {
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="22%20Forward%20References.html"
+       href="22%20Forwarding%20References.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
@@ -1767,7 +1798,7 @@ int main(void) {
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instantiation">Instantiation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implicit-instanciation">Implicit instanciation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implicit-instantiation">Implicit instantiation</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-inclusion">Multiple inclusion</a></li>
 </ul>
 </li>

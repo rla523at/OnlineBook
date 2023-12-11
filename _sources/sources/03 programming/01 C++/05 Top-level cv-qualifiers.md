@@ -1,5 +1,4 @@
 # Top-level cv-qualifiers
-
 `T* u`의 타입은 pointer to T이다. 이 때, 타입은 2개의 계층으로 이루어져 있으며 첫번째 계층은 pointer 그리고 두번째 계층은 T이다.
 
 그리고 C++에서는 cv-qualifier가 다른 계층에 각각 나타날 수 있다. 

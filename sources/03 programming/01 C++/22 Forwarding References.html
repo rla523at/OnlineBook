@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>C++ &#8212; MS Study Book</title>
+    <title>Forwarding References &#8212; MS Study Book</title>
   
   
   
@@ -64,11 +64,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/C++';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/22 Forwarding References';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Build" href="01%20Build/Build.html" />
-    <link rel="prev" title="Trace" href="../../01%20math/99%20Miscellaneous/Trace.html" />
+    <link rel="next" title="Template" href="31%20Template.html" />
+    <link rel="prev" title="Smart Pointer" href="21%20Smart%20Pointer.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -481,7 +481,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">C++</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="C%2B%2B.html">C++</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="01%20Build/Build.html">Build</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-32"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/02%20Compile.html">Compile</a></li>
@@ -515,7 +515,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="21%20Smart%20Pointer.html">Smart Pointer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="22%20Forwarding%20References.html">Forwarding References</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Forwarding References</a></li>
 <li class="toctree-l2"><a class="reference internal" href="31%20Template.html">Template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="32%20concept.html">concept</a></li>
 <li class="toctree-l2"><a class="reference internal" href="33%20Require.html">Require</a></li>
@@ -594,7 +594,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/01 C++/C++.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/01 C++/22 Forwarding References.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -665,7 +665,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -676,11 +678,20 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>C++</h1>
+    <h1>Forwarding References</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-forward">std::forward</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#universal-references">Universal References</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -690,10 +701,163 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="c">
-<h1>C++<a class="headerlink" href="#c" title="Permalink to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="forwarding-references">
+<h1>Forwarding References<a class="headerlink" href="#forwarding-references" title="Permalink to this heading">#</a></h1>
+<p>vector class의 emplace_back과 같이 input으로 받은 인자를 그대로 다른 함수에 전달해줘야 되는 경우가 있다.</p>
+<p>하지만 인자를 그대로 전달하는 일은 생각보다 쉬운 일이 아니다. 다음 예시를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">wrapper</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">g</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;좌측값 레퍼런스 호출&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;좌측값 상수 레퍼런스 호출&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;우측값 레퍼런스 호출&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">A</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;우측값 상수 레퍼런스 호출&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">ca</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">wrapper</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span>
+<span class="w">  </span><span class="n">wrapper</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span>
+<span class="w">  </span><span class="n">wrapper</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span>
+<span class="p">}</span>
+</pre></div>
 </div>
+<p>기대하는 template function의 instantiation는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">wrapper</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">//instantiation result: wrapper(T&amp; u)       </span>
+<span class="n">wrapper</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">//instantiation result: wrapper(const T&amp; u) </span>
+<span class="n">wrapper</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">//instantiation result: wrapper(T&amp;&amp; u)      ``</span>
+</pre></div>
+</div>
+<p>하지만 막상 코드를 실행하면 기대와 다른 instantiation으로 Lvalue는 제대로 전달되지만 Rvalue는 제대로 전달이 되지 않고 compile error가 발생하는걸 알 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">wrapper</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">g</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">wrapper</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">     </span><span class="c1">// instantiation result: wrapper(T&amp; u)       </span>
+<span class="n">wrapper</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">    </span><span class="c1">// instantiation result: wrapper(const T&amp; u) </span>
+<span class="c1">//wrapper(A()); // instantiation result: wrapper(T&amp; u)      </span>
+</pre></div>
+</div>
+<p>함수의 parameter로 const Lvalue reference 타입을 사용해도 기대와 다른 instantiation으로 Rvalue가 제대로 전달이 되지 않고 엉뚱한 함수가 호출되는걸 알 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">wrapper</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">g</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">wrapper</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// instantiation result: wrapper(const T&amp; u)       </span>
+<span class="n">wrapper</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// instantiation result: wrapper(const T&amp; u) </span>
+<span class="n">wrapper</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// instantiation result: wrapper(const T&amp; u)      </span>
+</pre></div>
+</div>
+<p>함수의 parameter로 Rvalue reference 타입을 사용해도 기대와 다른 instantiation으로 Lvalue가 제로 전달이 되지 않고 compile error가 발생할 것 임을 예상할 수 있다.</p>
+<p>이런 문제를 해결하기 위해 C++11에 추가된 문법이 <code class="docutils literal notranslate"><span class="pre">보편적</span> <span class="pre">레퍼런스(Forwarding</span> <span class="pre">references,</span> <span class="pre">Universal</span> <span class="pre">references)</span></code>이다. forwarding references는 함수 인자의 value category를 보존시켜주는 특별한 종류의 reference이다.</p>
+<p>forwarding references는 다음 두가지 경우이다.</p>
+<ul class="simple">
+<li><p>템플릿 함수가 input으로 템플릿 parameter의 cv-unqualified rvalue reference를 사용하면 이는 forwarding references이다.</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w"> </span><span class="c1">// x is a forwarding reference</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>brace-enclosed initializer list로 부터 추론되는게 아닌 auto&amp;&amp;는 forwarding references이다.</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo</span><span class="p">();</span><span class="w">       </span><span class="c1">// foo() may be lvalue or rvalue, vec is a forwarding reference</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="n">f</span><span class="p">()){}</span><span class="w">     </span><span class="c1">// x is a forwarding reference; this is a common way to use range for in generic code</span>
+<span class="w">    </span><span class="k">auto</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">};</span><span class="w"> </span><span class="c1">// *not* a forwarding reference (special case for initializer lists)</span>
+</pre></div>
+</div>
+<p>forwaridng referencs는 특별한 template argument deduction 규칙을 갖으며, 초기에 목표대로 instance화 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">wrapper</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">g</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">wrapper</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// instantiation result: wrapper(T&amp; u)       </span>
+<span class="n">wrapper</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// instantiation result: wrapper(const T&amp; u) </span>
+<span class="n">wrapper</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// instantiation result: wrapper(T&amp;&amp; u)      </span>
+</pre></div>
+</div>
+<p>하지만 목표한대로 instantiation 되더라도 함수는 원래 의도한 바와는 다르게 동작한다. 왜냐하면 T&amp;&amp; u가 되었을 떄, u는 Lvalue가 되기 때문이다. 따라서 <code class="docutils literal notranslate"><span class="pre">wrapper(A())</span></code>는 좌측값 레퍼런스 호출이 될것이다.</p>
+<p>이를 해결하기 위해서 std::move를 사용한다고 하게 되면 Lvalue일 때 전부 우측값 레퍼런스가 호출이 되는 문제가 발생한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">wrapper</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">g</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">u</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="n">wrapper</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// 우측값 레퍼런스 호출</span>
+<span class="n">wrapper</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// 우측값 상수 레퍼런스 호출</span>
+<span class="n">wrapper</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// 우측값 레퍼런스 호출</span>
+</pre></div>
+</div>
+<p>따라서, 무조건 Rvalue reference로 바꿔주는 move가 아니라 어떤 함수가 있어서 T&amp;&amp;일 떄는 u를 Rvalue refenrece로 형변환 시켜주고 Lvalue reference type일 때는 아무런 변환도 하지 않아야 한다.</p>
+<p>이를 위해 C++에서는 std::forward 함수를 제공한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">wrapper</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">g</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="p">(</span><span class="n">u</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="n">wrapper</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">// 좌측값 레퍼런스 호출</span>
+<span class="n">wrapper</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">// 좌측값 상수 레퍼런스 호출</span>
+<span class="n">wrapper</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">// 우측값 레퍼런스 호출</span>
+</pre></div>
+</div>
+<p>이로써 <code class="docutils literal notranslate"><span class="pre">완벽한</span> <span class="pre">전달(perfect</span> <span class="pre">forwarding)</span></code>을 하는 함수를 만들 수 있게 되었다.</p>
+<blockquote>
+<div><p>Reference
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/reference#Forwarding_references">cppreference - Forwarding_references</a><br />
+<a class="reference external" href="https://modoocode.com/228">modoocode - Move문법과 완벽한 전달</a></p>
+</div></blockquote>
+<section id="std-forward">
+<h2>std::forward<a class="headerlink" href="#std-forward" title="Permalink to this heading">#</a></h2>
+<p>std::forward 함수는 어떻게 이런 일을 할 수 있는지 알아보자.</p>
+<p>std::forward 함수의 정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">S</span><span class="o">&gt;</span>
+<span class="n">S</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">forward</span><span class="p">(</span><span class="k">typename</span><span class="w"> </span><span class="nc">std</span><span class="o">::</span><span class="n">remove_reference</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">S</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>이 떄, S=A&amp;가 들어오는 경우 다음과 같이 instantiation 될 것이다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// if S=A&amp;</span>
+<span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1">//reference collapsing rule (A&amp;)&amp;&amp; --&gt; A&amp;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>따라서 T=A&amp;일 때, wrapper 함수에서 넘어온 인자를 g에 그대로 전달하게 된다.</p>
+<p>이번에는 S=A가 들어오는 경우 다음과 같이 instantiation 될 것이다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// if S=A</span>
+<span class="n">A</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>따라서 T=A일 떄, wrapper 함수에서 넘어온 인자를 g에 g&amp;&amp; Rvalue reference 형태로 전달하게 된다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://modoocode.com/228">modoocode - Move문법과 완벽한 전달</a></p>
+</div></blockquote>
+</section>
+<section id="universal-references">
+<h2>Universal References<a class="headerlink" href="#universal-references" title="Permalink to this heading">#</a></h2>
+<p>Universal reference라는 표현은 Scott Meyers가 cv-unqualified template parameter의 Rvalue reference을 설명하기 위해 사용한 표현이다.</p>
+<p>하지만 C++ standard에서는 이를 위한 표현을 정의하지 않았고 나중에 forwarding reference라는 표현을 도입하였다. 따라서 C++ standard 용어는 forwarding reference이고 널리쓰이는 universal reference와 정확히 동일한 의미를 갖는다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://stackoverflow.com/questions/39552272/is-there-a-difference-between-universal-references-and-forwarding-references">stackoverflow-is-there-a-difference-between-universal-references-and-forwarding-reference</a></p>
+</div></blockquote>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -727,20 +891,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../../01%20math/99%20Miscellaneous/Trace.html"
+       href="21%20Smart%20Pointer.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Trace</p>
+        <p class="prev-next-title">Smart Pointer</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Build/Build.html"
+       href="31%20Template.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Build</p>
+        <p class="prev-next-title">Template</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -750,6 +914,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-forward">std::forward</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#universal-references">Universal References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

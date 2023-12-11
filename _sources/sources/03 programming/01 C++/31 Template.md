@@ -49,7 +49,7 @@ function template을 인스턴스화하기 위해서는 template parameter에 �
 template argument가 명시적으로 결정 되지 않은 상태로 함수 호출이 될 경우, 함수 호출에 사용되는 arguments type(A)과 template parameter type(P)을 매칭시켜서 template parameter에 사용될 template argument를 deduction한다.
 
 매칭을 통해 deduction할 때, 다음과 같은 규칙을 따른다.
-1. P가 forwarding reference가 아닌 경우, template argument는 reference type으로 추론되지 않는다.
+1. P가 forwarding reference가 아닌 경우, A의 reference는 무시된다.
 2. P가 reference type이 아니고 A가 cv-qualified type인 경우, 매칭시 A의 top-level cv-qualifiers는 무시된다.
 3. P가 cv-qualified type인 경우, 매칭시 P의 top-level cv-qualifiers는 무시된다.
 4. P가 reference type인 경우, 매칭시 P의 reference는 무시된다.
@@ -89,25 +89,43 @@ int main()
   //parameter T&
   func2(a);   // T& = A --> T = A
   func2(ca);  // T& = const A --> T = const A
-  func2(ra);  // T& = A& --> T = A& --> T = A
-  func2(cra); // T& = const A& --> T = const A& --> T = const A
-  func2(A()); // T& = A&& --> T = A&& --> T = A 
+  func2(ra);  // T& = A& --> T = A
+  func2(cra); // T& = const A& --> T = const A
+  //func2(A()); // T& = A&& --> T = A 
 
   //parameter const T&
-  func3(a);   // const T& = A --> const T = A --> const T = const A --> deduce T = A
+  func3(a);   // const T& = A --> const T = A --> const T = const A --> T = A
   func3(ca);  // const T& = const A --> const T = const A --> T = A
-  func3(ra);  // const T& = A& --> const T = A&  --> const T = A --> const T = const A --> T = A
-  func3(cra); // const T& = const A& --> const T = const A& --> const T = const A --> T = A
-  func3(A()); // const T& = A&& --> const T = A&& --> const T = A --> const T = const A --> T = A
+  func3(ra);  // const T& = A& --> const T = A --> const T = const A --> T = A
+  func3(cra); // const T& = const A& --> const T = const A --> T = A
+  func3(A()); // const T& = A&& --> const T = A --> const T = const A --> T = A
 
   //parameter T&& --> forwarding reference
   func4(a);   // T&& = A --> T = A&
   func4(ca);  // T&& = const A --> T = const A&
-  func4(ra);  // T&& = A& --> T = (A&)& --> T = A&
-  func4(cra); // T&& = const A& --> T = (const A&)& --> T = const A&
+  func4(ra);  // T&& = A& --> T = A&
+  func4(cra); // T&& = const A& --> T = const A&
   func4(A()); // T&& = A&& --> T = A
 }
 ```
+
+이 때, `func2(A())`의 경우를 보자. template argument deduction의 결과 T=A가 되었다.  그 결과 다음과 같은 형태가 된다.
+```cpp
+void func2(A& u);
+
+func2(A());
+```
+
+A()는 PRvalue임으로 Lvalue reference를 인수로 받는 func2를 호출할 수 없다. 따라서 인수목록이 일치하는 함수가 없다고 compile error가 발생한다.
+
+그리고 다음으로 `func4`를 호출하는 경우들을 보자. type deduction한 type을 원래 함수에 대입해 인스턴스화 하려고 하면 뭔가 좀 이상하다. 왜냐하면 reference의 reference가 발생하게 되기 때문이다. 
+```cpp
+//if T= A&
+template <typename T>
+void func4((A&)&& u){} // (A&)&& ??
+```
+
+reference의 reference는 정의되지 않은 표현식이기 때문에 이를 축약하여 정의된 표현식으로 만드는 규칙이 C++11에 도입되었으며 이를 `Reference collapsing` 규칙이라고 한다.
 
 > Reference  
 > [cppstandard](https://eel.is/c++draft/temp.deduct.call)  
@@ -117,15 +135,31 @@ int main()
 > [stackoverflow-understanding-type-deduction-for-universal-references](https://stackoverflow.com/questions/46560123/understanding-type-deduction-for-universal-references)  
 > [template-argument-deduction-and-expression-rules](https://stackoverflow.com/questions/56627124/template-argument-deduction-and-expression-rules)  
  
-
 ### Reference collapsing
+Reference collapsing 규칙은 다음과 같다.
+```cpp
+typedef int&  lref;
+typedef int&& rref;
+int n;
+ 
+lref&  r1 = n; // type of r1 is int&  --> (&)&   --> &
+lref&& r2 = n; // type of r2 is int&  --> (&)&&  --> &
+rref&  r3 = n; // type of r3 is int&  --> (&&)&  --> &
+rref&& r4 = 1; // type of r4 is int&& --> (&&)&& --> &&
+```
+
+따라서 reference collapsing rule을 적용하면 T=A&일 떄 function4는 다음과 같이 인스턴스화 된다.
+```cpp
+//if T= A&
+template <typename T>
+void func4(A& u){} // (A&)&& = A&
+```
 
 > Reference  
 > [cppreference-Reference_collapsing](https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing)  
-> 
 
 ## Instantiation
-### Implicit instanciation
+### Implicit instantiation
 컴파일러의 결정에 의해 template의 instance code를 생성하는 것을 말한다.
 
 다음 예시 코드를 보자.
