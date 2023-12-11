@@ -30,7 +30,7 @@ int main() {
 }
 ```
 
-기대하는 template function의 instantiation는 다음과 같다.
+기대하는 template function의 instantiation는 다음과 같다. (왜 이렇게 instatiation 되는지 알려면 이 [페이지](https://rla523at.github.io/OnlineBook/sources/03%20programming/01%20C%2B%2B/31%20Template.html#Deduction-from-a-function-call)를 참고하면 된다.)
 ```cpp
 wrapper(a);   //instantiation result: wrapper(T& u)       
 wrapper(ca);  //instantiation result: wrapper(const T& u) 

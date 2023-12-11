@@ -2,7 +2,7 @@
 ## CRTP
 Curiously recurring template pattern(CRTP)
 
-> Reference  
+> Reference   
 > [wiki](https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern)  
 > 
 ## Template Parameter
@@ -13,7 +13,7 @@ void func(T t1, T& t2);
 ```
 이 때, T는 template parameter, T와 T&를 template parameter type이라고 한다.
 
-> Reference
+> Reference  
 > [cppreference - template_parameters](https://en.cppreference.com/w/cpp/language/template_parameters)
 
 ## Template Arguments
@@ -37,7 +37,7 @@ void func(int t1, int& t2); // T 자리에 int 대입!
 > Reference  
 > [cppreference - Template_arguments](https://en.cppreference.com/w/cpp/language/template_parameters#Template_arguments)  
 
-## Argument deduction
+## Template Argument Deduction
 function template을 인스턴스화하기 위해서는 template parameter에 들어갈 template argument가 결정되어야 한다.
 
 이 때, template argument가 명시적으로 결정되지 않은 경우 compiler가 `추론(deduction)`하게 되며 deduction은 함수 호출시 발생한다.
@@ -45,7 +45,7 @@ function template을 인스턴스화하기 위해서는 template parameter에 �
 > Reference  
 > [cppreference - template_argument_deduction](https://en.cppreference.com/w/cpp/language/template_argument_deduction)  
 
-### deduction from a function call
+### Deduction from a function call
 template argument가 명시적으로 결정 되지 않은 상태로 함수 호출이 될 경우, 함수 호출에 사용되는 arguments type(A)과 template parameter type(P)을 매칭시켜서 template parameter에 사용될 template argument를 deduction한다.
 
 매칭을 통해 deduction할 때, 다음과 같은 규칙을 따른다.

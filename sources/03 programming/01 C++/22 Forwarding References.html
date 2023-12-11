@@ -731,7 +731,7 @@ document.write(`
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>기대하는 template function의 instantiation는 다음과 같다.</p>
+<p>기대하는 template function의 instantiation는 다음과 같다. (왜 이렇게 instatiation 되는지 알려면 이 <a class="reference external" href="https://rla523at.github.io/OnlineBook/sources/03%20programming/01%20C%2B%2B/31%20Template.html#Deduction-from-a-function-call">페이지</a>를 참고하면 된다.)</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">wrapper</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">//instantiation result: wrapper(T&amp; u)       </span>
 <span class="n">wrapper</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">//instantiation result: wrapper(const T&amp; u) </span>
 <span class="n">wrapper</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">//instantiation result: wrapper(T&amp;&amp; u)      ``</span>

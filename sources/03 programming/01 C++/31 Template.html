@@ -691,8 +691,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crtp">CRTP</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#template-parameter">Template Parameter</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#template-arguments">Template Arguments</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argument-deduction">Argument deduction</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deduction-from-a-function-call">deduction from a function call</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#template-argument-deduction">Template Argument Deduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deduction-from-a-function-call">Deduction from a function call</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-collapsing">Reference collapsing</a></li>
 </ul>
 </li>
@@ -790,7 +790,7 @@ document.write(`
 </div>
 <p>이 때, T는 template parameter, T와 T&amp;를 template parameter type이라고 한다.</p>
 <blockquote>
-<div><p>Reference
+<div><p>Reference<br />
 <a class="reference external" href="https://en.cppreference.com/w/cpp/language/template_parameters">cppreference - template_parameters</a></p>
 </div></blockquote>
 </section>
@@ -814,8 +814,8 @@ document.write(`
 <a class="reference external" href="https://en.cppreference.com/w/cpp/language/template_parameters#Template_arguments">cppreference - Template_arguments</a></p>
 </div></blockquote>
 </section>
-<section id="argument-deduction">
-<h2>Argument deduction<a class="headerlink" href="#argument-deduction" title="Permalink to this heading">#</a></h2>
+<section id="template-argument-deduction">
+<h2>Template Argument Deduction<a class="headerlink" href="#template-argument-deduction" title="Permalink to this heading">#</a></h2>
 <p>function template을 인스턴스화하기 위해서는 template parameter에 들어갈 template argument가 결정되어야 한다.</p>
 <p>이 때, template argument가 명시적으로 결정되지 않은 경우 compiler가 <code class="docutils literal notranslate"><span class="pre">추론(deduction)</span></code>하게 되며 deduction은 함수 호출시 발생한다.</p>
 <blockquote>
@@ -823,7 +823,7 @@ document.write(`
 <a class="reference external" href="https://en.cppreference.com/w/cpp/language/template_argument_deduction">cppreference - template_argument_deduction</a></p>
 </div></blockquote>
 <section id="deduction-from-a-function-call">
-<h3>deduction from a function call<a class="headerlink" href="#deduction-from-a-function-call" title="Permalink to this heading">#</a></h3>
+<h3>Deduction from a function call<a class="headerlink" href="#deduction-from-a-function-call" title="Permalink to this heading">#</a></h3>
 <p>template argument가 명시적으로 결정 되지 않은 상태로 함수 호출이 될 경우, 함수 호출에 사용되는 arguments type(A)과 template parameter type(P)을 매칭시켜서 template parameter에 사용될 template argument를 deduction한다.</p>
 <p>매칭을 통해 deduction할 때, 다음과 같은 규칙을 따른다.</p>
 <ol class="arabic simple">
@@ -1792,8 +1792,8 @@ int main(void) {
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crtp">CRTP</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#template-parameter">Template Parameter</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#template-arguments">Template Arguments</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#argument-deduction">Argument deduction</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deduction-from-a-function-call">deduction from a function call</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#template-argument-deduction">Template Argument Deduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deduction-from-a-function-call">Deduction from a function call</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-collapsing">Reference collapsing</a></li>
 </ul>
 </li>
