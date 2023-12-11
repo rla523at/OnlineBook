@@ -127,7 +127,7 @@ wrapper(A()); // 우측값 레퍼런스 호출
 > [cppreference - Forwarding_references](https://en.cppreference.com/w/cpp/language/reference#Forwarding_references)  
 > [modoocode - Move문법과 완벽한 전달](https://modoocode.com/228)  
 
-### std::forward
+## std::forward
 std::forward 함수는 어떻게 이런 일을 할 수 있는지 알아보자.
 
 std::forward 함수의 정의는 다음과 같다.
@@ -162,7 +162,7 @@ A&& forward(A& a) noexcept {
 > Reference  
 > [modoocode - Move문법과 완벽한 전달](https://modoocode.com/228)  
 
-### Universal References
+## Universal References
 Universal reference라는 표현은 Scott Meyers가 cv-unqualified template parameter의 Rvalue reference을 설명하기 위해 사용한 표현이다.
 
 하지만 C++ standard에서는 이를 위한 표현을 정의하지 않았고 나중에 forwarding reference라는 표현을 도입하였다. 따라서 C++ standard 용어는 forwarding reference이고 널리쓰이는 universal reference와 정확히 동일한 의미를 갖는다.
