@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/02 Memory/Memory';</script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="Virtual Memory" href="01%20Virtual%20Memory.html" />
+    <link rel="next" title="Momery Allocation" href="01%20Virtual%20Memory.html" />
     <link rel="prev" title="Shared Library" href="../01%20Build/03%20Linking/07%20Shared%20Library.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -498,7 +498,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Memory</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-34"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="01%20Virtual%20Memory.html">Virtual Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01%20Virtual%20Memory.html">Momery Allocation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Paging%20system.html">Paging system</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03%20Virtual%20Memory%20Size.html">Virtual Memory Size</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
@@ -507,17 +507,19 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../03%20Polymorphism.html">Polymorphism</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../04%20Value%20Category.html">Value Category</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05%20Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../11%20Class.html">Class</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../20%20Standard%20Library/Standard%20Library.html">STD</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-35"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../20%20Standard%20Library/11%20vector.html">vector</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../21%20Smart%20Pointer.html">Smart Pointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../22%20Forwarding%20References.html">Forwarding References</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../31%20Template.html">Template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../32%20concept.html">concept</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../33%20Require.html">Require</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../34%20hpp.html">hpp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../35%20Perfact%20Forward.html">Perfact Forward + Universal Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../51%20static.html">Static</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../52%20Name%20Space.html">Namespace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../53%20One%20Definition%20Rule.html">One Definition Rule</a></li>
@@ -691,9 +693,6 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="memory">
 <h1>Memory<a class="headerlink" href="#memory" title="Permalink to this heading">#</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">메모리(memory)</span></code>란 프로그램과 프로그램 수행에 필요한 데이터 및 코드를 저장하는 장치이다. 메모리는 크게 CPU가 직접 접근 가능한 내부 기억장치인 <code class="docutils literal notranslate"><span class="pre">주기억장치(primary</span> <span class="pre">memory)</span></code>와 외부 기억장치인 <code class="docutils literal notranslate"><span class="pre">보조</span> <span class="pre">기억장치(secondary</span> <span class="pre">memory)</span></code>로 분류된다. DRAM(RAM, DDR4) 등의 메모리, CPU 안에 있는 레지스터(register)와 캐쉬(cache memory) 등이 주기억장치 이며 SSD, HDD 등이 보조 기억장치이다.</p>
-<p>초창기 컴퓨터에서는 주기억장치의 용량이 가장 큰 실행 프로그램의 용량보다 커야 프로그램을 실행할 수 있었다.  그렇지 않을 경우 메모리 부족 오류에 의해 해당 프로그램을 실행할 수 없었다.</p>
-<p>이런 메모리 부족 문제를 해결하기 위해 프로그래머가 프로그램을 특정 단위로 나눈 후에 필요한 조각만 주기억장치에 올려 실행하도록 지정할 수 있게 하는 <code class="docutils literal notranslate"><span class="pre">오버레이(overlay)</span> <span class="pre">기법</span></code>이 개발되었다. 이로써 주기억장치의 용량보다 큰 프로그램을 실행시킬 수 있었지만 이 역시 여러 프로그램을 실행시키는 환경에서 전반적인 메모리 부족 문제를 해결할 수 없었다.</p>
-<p>여기에서 더 발전한 <code class="docutils literal notranslate"><span class="pre">가상</span> <span class="pre">메모리(virtual</span> <span class="pre">memory)</span> <span class="pre">기법</span></code>은 “프로그램을 실행하는 데 필요한 최소한의 메모리가 얼마인가?” 집중하여 문제를 해결한 기법이다.</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -742,7 +741,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Virtual Memory</p>
+        <p class="prev-next-title">Momery Allocation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

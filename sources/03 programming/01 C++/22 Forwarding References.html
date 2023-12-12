@@ -498,7 +498,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="02%20Memory/Memory.html">Memory</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-34"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="02%20Memory/01%20Virtual%20Memory.html">Virtual Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Memory/01%20Virtual%20Memory.html">Momery Allocation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/02%20Paging%20system.html">Paging system</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/03%20Virtual%20Memory%20Size.html">Virtual Memory Size</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/04%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
@@ -731,13 +731,13 @@ document.write(`
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>기대하는 template function의 instantiation는 다음과 같다. (왜 이렇게 instatiation 되는지 알려면 이 <a class="reference external" href="https://rla523at.github.io/OnlineBook/sources/03%20programming/01%20C%2B%2B/31%20Template.html#Deduction-from-a-function-call">페이지</a>를 참고하면 된다.)</p>
+<p>기대하는 template function의 instantiation는 다음과 같다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">wrapper</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">//instantiation result: wrapper(T&amp; u)       </span>
 <span class="n">wrapper</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">//instantiation result: wrapper(const T&amp; u) </span>
 <span class="n">wrapper</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">//instantiation result: wrapper(T&amp;&amp; u)      ``</span>
 </pre></div>
 </div>
-<p>하지만 막상 코드를 실행하면 기대와 다른 instantiation으로 Lvalue는 제대로 전달되지만 Rvalue는 제대로 전달이 되지 않고 compile error가 발생하는걸 알 수 있다.</p>
+<p>하지만 막상 코드를 실행하면 기대와 다른 instantiation으로 Lvalue는 제대로 전달되지만 Rvalue는 제대로 전달이 되지 않고 compile error가 발생하는걸 알 수 있다.(왜 이렇게 instatiation 되는지 알려면 이 <a class="reference external" href="https://rla523at.github.io/OnlineBook/sources/03%20programming/01%20C%2B%2B/31%20Template.html#Deduction-from-a-function-call">페이지</a>를 참고하면 된다.)</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">wrapper</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">g</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
