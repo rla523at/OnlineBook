@@ -1,4 +1,4 @@
-# Momery Allocation
+# Memory Allocation
 primary memory는 운영체제 영역과 사용자 영역으로 나뉘어져 있으며, 프로그램은 OS로부터 사용자 영역에 있는 memory를 할당받아 process가 된다.
 
 ## Contiguous Memory Allocation

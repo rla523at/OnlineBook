@@ -498,7 +498,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="Memory.html">Memory</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-34"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="01%20Virtual%20Memory.html">Virtual Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01%20Virtual%20Memory.html">Momery Allocation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Paging%20system.html">Paging system</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03%20Virtual%20Memory%20Size.html">Virtual Memory Size</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
@@ -507,17 +507,19 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../03%20Polymorphism.html">Polymorphism</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../04%20Value%20Category.html">Value Category</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05%20Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../11%20Class.html">Class</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../20%20Standard%20Library/Standard%20Library.html">STD</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-35"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../20%20Standard%20Library/11%20vector.html">vector</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../21%20Smart%20Pointer.html">Smart Pointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../22%20Forwarding%20References.html">Forwarding References</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../31%20Template.html">Template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../32%20concept.html">concept</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../33%20Require.html">Require</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../34%20hpp.html">hpp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../35%20Perfact%20Forward.html">Perfact Forward + Universal Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../51%20static.html">Static</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../52%20Name%20Space.html">Namespace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../53%20One%20Definition%20Rule.html">One Definition Rule</a></li>
@@ -689,20 +691,14 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#null">Null 포인터 할당 파티션</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">유저모드 파티션</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code">Code 영역</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data 영역</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">참고</a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data 영역</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bss">BSS 영역</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#heap">Heap 영역</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stack">Stack 영역</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">참고</a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stack">Stack 영역</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kb">64KB 접근 금지 영역</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">커널 모드 파티션</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">커널 모드 파티션</a></li>
 </ul>
             </nav>
         </div>
@@ -749,10 +745,10 @@ document.write(`
 <section id="data">
 <h3>Data 영역<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h3>
 <p>Data 영역은 초기화된 전역 객체가 저장되는 곳이다. 이 영역의 크기는 컴파일 시 결정되며 런타임에 바뀌지 않는다. 세부적으로는 read only data 영역과 read/write data 영역으로 구분된다. read only data(.rodata) 영역은 상수 전역 변수가 저장되는 영역이다. 하지만 반드시 모든 상수 전역 변수가 .rodata에 저장되는 것은 아니며 .text에 저장되기도 한다. 이는 컴파일러 구현에 달려있다.</p>
-<section id="id3">
-<h4>참고<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
-<p><a class="reference external" href="https://stackoverflow.com/questions/39252410/use-of-readonly-memory-in-data-segment">Data 영역 구분 stack over flow</a></p>
-</section>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://stackoverflow.com/questions/39252410/use-of-readonly-memory-in-data-segment">Data 영역 구분 stack over flow</a></p>
+</div></blockquote>
 </section>
 <section id="bss">
 <h3>BSS 영역<a class="headerlink" href="#bss" title="Permalink to this heading">#</a></h3>
@@ -762,7 +758,7 @@ document.write(`
 <p>이제 프로세스가 시작되면서 실행 파일의 내용이 가상 메모리에 올라가게 된다. OS는 실행 파일의 Code와 Data영역에 해당하는 부분을 그대로 가상 메모리에 복사하지만, BSS 영역에 해당하는 부분에 대해서는 조금 다른 처리를 수행한다. 배열 객체의 크기인 32MB의 메모리를 확보하고 0으로 채워 넣는 것이다. 초기화 되지 않은 전역 객체는 수없이 많을 수 있다. 따라서 하나의 영역에 몰아놓고, 통째로 해당 영역을 0으로 초기화하는 것이 효율적이다. 그래서 초기화되지 않은 전역 객체에 대해서는 하나의 영역을 만들게 된 것이고, 그것이 바로 가상 메모리의 BSS 영역이다.</p>
 <blockquote>
 <div><p>Reference<br />
-<span id="id4">[<a class="reference internal" href="../../../99%20References/references.html#id14" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span></p>
+<span id="id3">[<a class="reference internal" href="../../../99%20References/references.html#id14" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span></p>
 </div></blockquote>
 </section>
 <section id="heap">
@@ -773,10 +769,10 @@ document.write(`
 <h3>Stack 영역<a class="headerlink" href="#stack" title="Permalink to this heading">#</a></h3>
 <p>Stack 영역은 스레드당 하나씩 생성된다. 컴파일러 설정에 따라 다를 수 있지만 보통 기본적으로 스레드당 1MB~4MB 정도의 가상 메모리 영역이 스레드 Stack 공간으로 예약된다. 스레드가 생성되는 순간 운영체제는 가상 메모리의 남은 영역 중에서 적당한 곳을 골라서 스레드 Stack으로 예약해준다. Stack에는 스레드가 실행하고 있는 함수의 인자나 지역 변수, 지역 배열 등이 저장된다. Stack 영역은 함수의 호출과 함께 할당되며, 함수의 호출이 완료되면 소멸한다. 이렇게 stack 영역에 저장되는 함수의 호출 정보를 stack 프레임(stack frame)이라고 한다.</p>
 <p>stack 영역은 다른 영역들과 달리 높은 주소에서 낮은 주소로 자라나는 형태를 가진다. 이러한 이유는 stack 영역이 엄청나게 커지더라도 운영체제의 핵심인 커널영역을 침범할 수 없게 하기 위해서다. stack 영역에 할당될 메모리의 크기는 컴파일 타임(compile time)에 미리 결정된다.</p>
-<section id="id5">
-<h4>참고<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
-<p><a class="reference external" href="https://bozeury.tistory.com/90">스택의 최대 할당 크기 - 보즈리 블로그</a></p>
-</section>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://bozeury.tistory.com/90">스택의 최대 할당 크기 - 보즈리 블로그</a></p>
+</div></blockquote>
 </section>
 </section>
 <section id="kb">
@@ -784,15 +780,15 @@ document.write(`
 <p>유저모드 파티션과 커널 모드 파티션 중간의 64KB 크기 메모리 영역을 정하였다. 이 영역은 Private영역과 Shared영역을 구분하기 위한 완충지대를 둔 것이다. NULL 포인터 영역과 같이 접근을 시도할 경우 Access Violation을 일으킨다.</p>
 <blockquote>
 <div><p>Reference<br />
-<span id="id6">[<a class="reference internal" href="../../../99%20References/references.html#id14" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span></p>
+<span id="id4">[<a class="reference internal" href="../../../99%20References/references.html#id14" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span></p>
 </div></blockquote>
 </section>
-<section id="id7">
-<h2>커널 모드 파티션<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<section id="id5">
+<h2>커널 모드 파티션<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
 <p>운영체제를 구성하는 코드들이 위치하며 시세틈 내의 모든 프로세스들이 공유한다. 스레드 스케줄링, 메모리 관리, 파일시스템 지원, 네트워크 지원들을 구현하는 모든 코드와 모든 디바이스 드라이버들이 커널 모드 파티션에 로드된다. 이것은 물리적 메모리에 한 번 로드 되며, 모든 프로세스가 공통으로 사용한다는 뜻인데, 프로세스가 이 영역을 직접 접근하는 것은 막고 있다. API함수를 통하여 얻은 핸들을 통해서만 이 영역을 사용할 수 있다. 프로세스에서 이 주소공간에 읽거나 쓰기를 시도하게 되면 접근 위반이 발생한다. 따라서 이 파티션의 코드와 데이터는 완벽하게 보호된다.</p>
 <blockquote>
 <div><p>Reference<br />
-<span id="id8">[<a class="reference internal" href="../../../99%20References/references.html#id14" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span></p>
+<span id="id6">[<a class="reference internal" href="../../../99%20References/references.html#id14" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span></p>
 </div></blockquote>
 </section>
 </section>
@@ -863,20 +859,14 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#null">Null 포인터 할당 파티션</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">유저모드 파티션</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code">Code 영역</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data 영역</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">참고</a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data 영역</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bss">BSS 영역</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#heap">Heap 영역</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stack">Stack 영역</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">참고</a></li>
-</ul>
-</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stack">Stack 영역</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kb">64KB 접근 금지 영역</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">커널 모드 파티션</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">커널 모드 파티션</a></li>
 </ul>
   </nav></div>
 

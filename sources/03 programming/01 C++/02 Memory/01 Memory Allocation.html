@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Paging system &#8212; MS Study Book</title>
+    <title>Memory Allocation &#8212; MS Study Book</title>
   
   
   
@@ -64,11 +64,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/02 Memory/02 Paging system';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/02 Memory/01 Memory Allocation';</script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="Virtual Memory Size" href="03%20Virtual%20Memory%20Size.html" />
-    <link rel="prev" title="Momery Allocation" href="01%20Virtual%20Memory.html" />
+    <link rel="next" title="Paging system" href="02%20Paging%20system.html" />
+    <link rel="prev" title="Memory" href="Memory.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -498,8 +498,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="Memory.html">Memory</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-34"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="01%20Virtual%20Memory.html">Momery Allocation</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Paging system</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Memory Allocation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Paging%20system.html">Paging system</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03%20Virtual%20Memory%20Size.html">Virtual Memory Size</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
 <li class="toctree-l3"><a class="reference internal" href="05%20Virtual%20Memory%20Structure.html">Virtual Memory Structure</a></li>
@@ -594,7 +594,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../../../../_sources/sources/03 programming/01 C++/02 Memory/02 Paging system.md" target="_blank"
+      <li><a href="../../../../_sources/sources/03 programming/01 C++/02 Memory/01 Memory Allocation.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -678,7 +678,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Paging system</h1>
+    <h1>Memory Allocation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -688,11 +688,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#page-table">Page Table</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">가상 메모리 주소의 변환 과정</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">가상 메모리 주소의 변환</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contiguous-memory-allocation">Contiguous Memory Allocation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vritual-memory">Vritual Memory</a></li>
 </ul>
             </nav>
         </div>
@@ -704,55 +701,64 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="paging-system">
-<h1>Paging system<a class="headerlink" href="#paging-system" title="Permalink to this heading">#</a></h1>
-<p>paging system에서는 virtual memory를 페이지 단위로 나누고 각각의 페이지에는 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">번호(virtual</span> <span class="pre">page</span> <span class="pre">number;</span> <span class="pre">VPN)</span></code>를 부여한다. 그리고 primary memory 또한 페이지 크기와 같은 크기로 나누고 그 단위를 <code class="docutils literal notranslate"><span class="pre">프레임(frame)</span></code>이라고 하며 각각의 프레임에도 <code class="docutils literal notranslate"><span class="pre">프레임</span> <span class="pre">번호(physical</span> <span class="pre">frame</span> <span class="pre">number;</span> <span class="pre">PFN)</span></code>를 부여한다. 그리고 페이지와 프레임을 대응시키기 위해 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">테이블(page</span> <span class="pre">table)</span></code>을 생성한다.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="memory-allocation">
+<h1>Memory Allocation<a class="headerlink" href="#memory-allocation" title="Permalink to this heading">#</a></h1>
+<p>primary memory는 운영체제 영역과 사용자 영역으로 나뉘어져 있으며, 프로그램은 OS로부터 사용자 영역에 있는 memory를 할당받아 process가 된다.</p>
+<section id="contiguous-memory-allocation">
+<h2>Contiguous Memory Allocation<a class="headerlink" href="#contiguous-memory-allocation" title="Permalink to this heading">#</a></h2>
+<p>프로그램에 메모리를 할당할 때, 하나의 커다란 공간에 연속적으로 할당하는 방식을 <code class="docutils literal notranslate"><span class="pre">연속</span> <span class="pre">메모리</span> <span class="pre">할당(Contiguous</span> <span class="pre">Memory</span> <span class="pre">Allocation)</span></code>이라고 한다.</p>
+<p>초창기 컴퓨터에서는 사용자 영역을 한 프로그램에게 전부 할당하였다. 이를 <code class="docutils literal notranslate"><span class="pre">단일</span> <span class="pre">분할</span> <span class="pre">할당</span> <span class="pre">기법</span></code>이라고 한다.</p>
+<p>단일 분할 할당 기법은 하나의 프로그램 밖에 실행시킬 수 없다는 단점이 있다.</p>
+<p>이를 개선하고자 해서 나온 기법이 바로 <code class="docutils literal notranslate"><span class="pre">다중</span> <span class="pre">분할</span> <span class="pre">할당</span> <span class="pre">기법</span></code>이다. 다중 분할 할당 기법은 primary memory의 사용자 영역을 준비상태 큐에서 준비 중인 프로그램에게 적절하게 나누어 할당함으로써 여러 프로그램에 메모리가 할당 될 수 있도록 하는 방법이다. 이 때, primary memory의 사용자 영역을 나누는 방식에 따라 크게 고정 분할 할당 기법과 가변 분할 할당 기법으로 나뉜다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">고정</span> <span class="pre">분할</span> <span class="pre">기법</span></code>은 primary memory를 고정된 크기의 파티션들로 분할한 뒤, 준비상태 큐에서 준비 중인 프로그램이 필요로 하는 메모리보다 같거나 더 큰 파티션을 할당하는 기법으로 <code class="docutils literal notranslate"><span class="pre">정적</span> <span class="pre">할당(Static</span> <span class="pre">Allocation)</span></code> 기법이라고도 한다. 이 기법은 구현이 간단하고 운영체제에 오버헤드가 거의 없지만, 파티션 단위로 memory를 부여했기 때문에 프로그램에 부여된 memory가 실제 필요한 memory보다 더 커 memory가 낭비되는 <code class="docutils literal notranslate"><span class="pre">내부</span> <span class="pre">단편화(internal</span> <span class="pre">fragmentation)</span></code>가 발생할 수 있으며 최대 활성 프로그램의 수가 고정된다는 단점이 있다.</p>
 <figure class="align-default">
-<img alt="../../../../_images/02012.png" src="../../../../_images/02012.png" />
+<img alt="../../../../_images/0002.png" src="../../../../_images/0002.png" />
 </figure>
-<p>페이징 기법을 통해 연속적으로 존재하지 않는 물리적 메모리라도 페이징 기법을 통해 연속적으로 존재하는 것처럼 이용할 수 있다. 따라서 컴퓨터의 물리적 메모리는 연속적으로 할당되어 존재할 필요가 없음으로 <code class="docutils literal notranslate"><span class="pre">불연속</span> <span class="pre">메모리</span> <span class="pre">할당(Noncontiguous</span> <span class="pre">Memory</span> <span class="pre">Allocation)</span></code>이 가능해진다.</p>
-<p>덕분에 memory 집약 과정 없이 연속적이지 않은 primary memory의 공간을 활용할 수 있기 때문에 효율적으로 external fragmentation 문제를 해결할 수 있다. 대신 프로그램 실행에 필요한 메모리가 페이지 단위에 딱 맞지 않아 필요한 양보다 더 큰 메모리를 할당받아 메모리 공간이 낭비되는 internal fragmentation 문제가 발생할 수 있다. 물론 페이지 단위를 작게하면 internal fragmentation 문제도 어느정도 해결할 수 있겠지만 대신 page mapping 과정이 많아지므로 오히려 효율이 떨어질 수 있다.</p>
-<section id="page-table">
-<h2>Page Table<a class="headerlink" href="#page-table" title="Permalink to this heading">#</a></h2>
-<p>page table에는 페이지 번호가 몇번 프레임과 연결되어 있는지가 기록되어 있으며 개별 데이터는 <code class="docutils literal notranslate"><span class="pre">page</span> <span class="pre">table</span> <span class="pre">entry</span> <span class="pre">(PTE)</span></code>라고 한다. 32bit 기준으로 PTE는 대략 다음의 구조로 이루어져 있다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">동적</span> <span class="pre">분할</span> <span class="pre">기법</span></code>은 준비상태 큐에서 준비 중인 프로그램가 필요로 하는 메모리만큼 primary memory에서 파티션을 동적으로 생성하여 각 프로그램이 필요한만큼만 memory를 할당하는 기법이다. internal fragmentation이 없으며 primary memory들 보다 효율적으로 사용 가능하다. 하지만 primary memory에 필요한 memory 크기가 모두 제각각이므로 할당 해제되는 작업이 반복적으로 일어남에 따라 필연적으로 할당된 memory와 memory 사이에 사용하지 않는 작은 memory 공간이 생기는 <code class="docutils literal notranslate"><span class="pre">단편화(fragmentation)</span></code>가 발생하게 된다.</p>
 <figure class="align-default">
-<img alt="../../../../_images/0202.png" src="../../../../_images/0202.png" />
+<img alt="../../../../_images/0003.png" src="../../../../_images/0003.png" />
 </figure>
-<p>page table은 프로세스마다 하나씩 존재하게 되며 primary memory에 상주하게 된다. 즉, 많은 프로세스가 구동될 수록 page table로 인한 primary memory 사용이 커진다.</p>
-<p>프로세스가 특정 메모리에 접근하려 하면 page table을 참고하여 프로세스의 가상 주소를 시스템의 물리 메모리 주소로 변환해 주어야 한다. 이를 위해 CPU와 메모리 중간에 <code class="docutils literal notranslate"><span class="pre">memory</span> <span class="pre">management</span> <span class="pre">unit</span> <span class="pre">(MMU)</span></code>라는 하드웨어 반도체 칩이 있다. MMU는 최근에 맵핑된 page table의 정보들을 <code class="docutils literal notranslate"><span class="pre">translation</span> <span class="pre">lookaside</span> <span class="pre">buffer</span> <span class="pre">(TLB)</span></code>라는 연관 캐쉬에 저장한다. TLB는 자주 쓰는 page table의 주소를 저장해 둠으로써, translation의 속도를 향상시켜 주는 역할을 한다.</p>
-<section id="id1">
-<h3>가상 메모리 주소의 변환 과정<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
-<p>첫번째로 TLB를 검색한다. <code class="docutils literal notranslate"><span class="pre">TLB</span> <span class="pre">검색에</span> <span class="pre">성공(TLB</span> <span class="pre">hit)</span></code>하면 primary memory 주소를 반환하고 과정을 끝낸다. 그러나 <code class="docutils literal notranslate"><span class="pre">TLB에서</span> <span class="pre">검색에</span> <span class="pre">실패(TLB</span> <span class="pre">miss)</span></code>할 경우 <code class="docutils literal notranslate"><span class="pre">page</span> <span class="pre">table을</span> <span class="pre">검색(page</span> <span class="pre">walk)</span></code>하여 primary memory 주소를 찾아내고 TLB를 업데이트한 뒤 primary memory 주소를 반환한다.</p>
-<p>page table을 검색할 때 적절한 primary memory 주소를 찾기 못하게 되는 경우가 있는데 이는 두 가지 이유에서 비롯된다. 첫번째는 virtual memory 주소 자체가 유효하지 않은 경우이다. 이 경우, 운영체제는 해당 가상 주소 접근을 요청한 프로세스에게 segmentation fault를 발생시키게 된다. 두번째는 해당 페이지 primary memory에 존재하지 않는 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">부재(page</span> <span class="pre">fault)</span></code>이다.</p>
-<p>페이지 부재가 발생하면 보조 기억장치에 저장되어 있는 <code class="docutils literal notranslate"><span class="pre">paging</span> <span class="pre">file</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">swap</span> <span class="pre">file</span></code>이라 불리는 파일을 primary memory에 저장하고 이 정보를 바탕으로 page table과 TLB의 내용을 수정한다.</p>
-<p>만약 primary memory에 빈 공간이 있을경우 paging file에 존재하는 데이터를 빈 공간에 저장한 뒤, 빈공간의 프레임 번호를 가지고 page table과 TLB를 업데이트 한다.</p>
-<p>만약 primary memory에 빈 공간이 없을경우 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">교체(page</span> <span class="pre">replacement)</span></code>를 실시한다. 가장 먼저 <code class="docutils literal notranslate"><span class="pre">page</span> <span class="pre">replacement</span> <span class="pre">algorithm</span></code>으로 page-out 시킬 페이지를 먼저 결정한다. page out된 페이지의 PTE를 수정하고 이 페이지와 연결된 프레임에 저장된 데이터는 paging file에 저장한다. 이 후 원래 paging file에 존재했던 데이터를 이 프레임에 저장한다. 그리고 page table과 TLB를 업데이트 한다.</p>
-<p>지금까지의 과정을 TLB와 page table 관점에서 정리하면, 아래 그림과 같다.</p>
+<p>이렇게 fragmentation이 발생하다 보면 결국 primary memory에 할당 가능한 memory의 크기가 프로그램이 필요로 하는 memory 크기보다 크지만 연속되어 있지 않아 memory 할당이 불가능한 <code class="docutils literal notranslate"><span class="pre">외부</span> <span class="pre">단편화(external</span> <span class="pre">fragmentation)</span></code>가 발생할 수 있다. 이를 해결하기 위해 memory 집약이 요구되므로 처리나 효율이 좋지 않다는 단점이 있다.</p>
 <figure class="align-default">
-<img alt="../../../../_images/0203.png" src="../../../../_images/0203.png" />
+<img alt="../../../../_images/0004.png" src="../../../../_images/0004.png" />
 </figure>
-</section>
-<section id="id2">
-<h3>가상 메모리 주소의 변환<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<p>Virtual Address를 Page Size로 나누어 몫은 VPN, 나머지는 offset이 된다. 다음으로, page table이나 TLB를 통해 PFN을 찾아낸다. 찾아낸 PFN을 Frame Size크기만큼 곱한 값이 Physical Memory의 시작주소가 되며, offset 값을 더해주면 Physical Memory를 구할 수 있다.</p>
-<p>요약하면 다음과 같다.</p>
-<ul class="simple">
-<li><p>Virtual Address  = VPN * Page Size + offset</p></li>
-<li><p>PFN = page_talbe(VPN)</p></li>
-<li><p>Physical Address = PFN * Frame Size + offset</p></li>
-</ul>
+<p>지금까지 살펴본 모든 경우에는 primary memory의 용량이 프로그램을 실행하는데 필요한 모든 메모리보다 항상 커야한다. 그렇지 않을 경우 메모리 부족 오류에 의해 해당 프로그램을 실행할 수 없게 된다. 따라서 primary memory의 용량보다 필요한 메모리가 더 큰 프로그램를 실행시키기 위해 <code class="docutils literal notranslate"><span class="pre">오버레이(overlay)</span> <span class="pre">기법</span></code>이 나오게 되었다. overlay 기법은 프로그래머가 프로그램을 모듈로 나눈 후에 실행에 필요한 모듈만 primary memory에 올려 실행하는 방식이다.</p>
 <figure class="align-default">
-<img alt="../../../../_images/0204.png" src="../../../../_images/0204.png" />
+<img alt="../../../../_images/0001.png" src="../../../../_images/0001.png" />
 </figure>
+<p>예를 들어, primary memory는 100kb 크기이고 A 프로그램에서 필요한 메모리는 총 150kb이며 모듈1 크기가 70kb 모듈2 크기가 30kb 모듈3 크기가 50kb이고 모듈1,2,3 순서대로 A가 동작한다고 해보자.</p>
+<p>원래대로라면 모듈 1,2,3이 모두 올라올수 없어서 메모리 부족 오류가 발생해야 했다. 하지만 A 모듈 1,2,3 순서대로 동작함으로 먼저 모듈1,2를 올려서 실행한 다음에 모듈 1이 다 실행되면 그 자리에 모듈3를 <code class="docutils literal notranslate"><span class="pre">중첩(overlay)</span></code>하여 적재해서 모듈3을 실행하면 주어진 primary memory 100kb로 A 프로그램를 실행할 수 있다.</p>
+<p>이로써 primary memory의 용량보다 memory가 더 많이 필요한 프로그램도 실행시킬 수 있다. 이처럼 “프로그램을 실행하는데 할당받아야 될 최소한의 메모리가 얼마인가?”에 집중해서 overlay 기법을 한층 더 발전시킨 기법을 <code class="docutils literal notranslate"><span class="pre">가상</span> <span class="pre">메모리(virtual</span> <span class="pre">memory)</span> <span class="pre">기법</span></code>이라고 한다.</p>
 <blockquote>
 <div><p>Reference<br />
-<span id="id3">[<a class="reference internal" href="../../../99%20References/references.html#id14" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span><br />
-<a class="reference external" href="https://sorjfkrh5078.tistory.com/50">sorjfkrh5078 - 가상기억장치 할당 기법</a><br />
-<a class="reference external" href="https://ddongwon.tistory.com/49">ddongwon - 페이징(Paging)과 페이지 테이블(Page table)</a><br />
-<a class="reference external" href="https://bb-library.tistory.com/65">bb-library - Paging</a><br />
-<a class="reference external" href="https://m.blog.naver.com/khj94811/221019655505">khj94811 - Paging - 1</a></p>
+<a class="reference external" href="https://sorjfkrh5078.tistory.com/49">sorjfkrh5078 - 주기억장치 할당 기법</a>
+<a class="reference external" href="https://devdebin.tistory.com/m/35">devdebin - 물리메모리 관리</a><br />
+<a class="reference external" href="https://iambeginnerdeveloper.tistory.com/158">iambeginnerdeveloper - 페이징과 세그멘테이션</a>
+<a class="reference external" href="https://threefivesix.tistory.com/23">threefivesix - 메모리 관리 기법</a><br />
+<a class="reference external" href="https://letsmakemyselfprogrammer.tistory.com/116">letsmakemyselfprogrammer - 메모리관리</a><br />
+<a class="reference external" href="https://ahnanne.tistory.com/15">ahnanne - 가상 메모리</a><br />
+<a class="reference external" href="https://gateoverflow.in/48306/what-difference-between-overlays-virtual-memory-transparent">gateoverflow - what is difference between overlays and virtual memory?</a></p>
 </div></blockquote>
 </section>
+<section id="vritual-memory">
+<h2>Vritual Memory<a class="headerlink" href="#vritual-memory" title="Permalink to this heading">#</a></h2>
+<p>virtual memory는 “프로그램이 실행되기 위해서 꼭 필요한 모든 메모리를 할당 받을 필요는 없다.”는 점을 활용한 메모리 관리 기법이다.</p>
+<p>메모리 접근은 순차적이고 지역적이기 때문에 명령어 수행에 필요한 메모리는 프로그램에 필요한 모든 메모리 용량에 비해 훨씬 작다. 단독 기계 명령어를 실행하기 위해서는 다음 3가지의 메모리 접근이 필요하다.</p>
+<ul class="simple">
+<li><p>메모리에서 명령어 읽기</p></li>
+<li><p>메모리에서 명령어를 수행하는데 필요한 데이터 읽기</p></li>
+<li><p>명령어 수행 후  결과를 메모리에 기록</p></li>
+</ul>
+<p>매번 메모리에 접근하는데 필요한 실제 바이트 수는 CPU 아키텍쳐 및 실제 명령어와 데이터 유형에 따라 달라진다. 그러나 예를 들어 각 메모리 접근 유형마다 100 바이트의 메모리가 필요하다고 가정하면 위의 경우 300 바이트만 메모리에 올라와 있어도 명령어를 수행할 수 있다.</p>
+<p>이런 순차적이고 지역적인 특성을 활용하면 전체 프로그램에 필요한 용량이 아닌 명령어 수행에 필요한 최소 메모리만 primary memory에 있고 나머지는 secondary memory에 위치해도 프로그램을 실행할 수 있다. 결국 빠르고 작은 primary memory를 크고 느린 secondary memory와 병합하여 하나의 크고 빠른 기억장치(가상 메모리)처럼 동작하게 한다.</p>
+<p>이를 위해서 virtual memory에 저장되어 있는 프로그램을 여러 개의 작은 블록 단위로 나눈 뒤, 메모리 할당이 필요한 블록만 primary memory에 불연속적으로 할당하여 처리해야 한다.</p>
+<p>이 떄, 프로그램을 어떻게 나누느냐에 따라서 <code class="docutils literal notranslate"><span class="pre">페이징(Paging)</span></code> 기법과 <code class="docutils literal notranslate"><span class="pre">세그먼테이션(Segmentation)</span></code> 기법으로 나뉜다.</p>
+<blockquote>
+<div><p>Reference<br />
+<span id="id1">[<a class="reference internal" href="../../../99%20References/references.html#id14" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span><br />
+<a class="reference external" href="https://sorjfkrh5078.tistory.com/50">sorjfkrh5078 - 가상기억장치 할당 기법</a>
+<a class="reference external" href="https://mimimimamimimo.tistory.com/29">mimimimamimimo - 가상 메모리</a></p>
+</div></blockquote>
 </section>
 </section>
 
@@ -787,20 +793,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="01%20Virtual%20Memory.html"
+       href="Memory.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Momery Allocation</p>
+        <p class="prev-next-title">Memory</p>
       </div>
     </a>
     <a class="right-next"
-       href="03%20Virtual%20Memory%20Size.html"
+       href="02%20Paging%20system.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Virtual Memory Size</p>
+        <p class="prev-next-title">Paging system</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -819,11 +825,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#page-table">Page Table</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">가상 메모리 주소의 변환 과정</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">가상 메모리 주소의 변환</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contiguous-memory-allocation">Contiguous Memory Allocation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vritual-memory">Vritual Memory</a></li>
 </ul>
   </nav></div>
 

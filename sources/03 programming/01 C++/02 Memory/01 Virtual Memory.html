@@ -690,10 +690,6 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contiguous-memory-allocation">Contiguous Memory Allocation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vritual-memory">Vritual Memory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paging">Paging</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">불연속 메모리 할당 기법</a></li>
-</ul>
-</li>
 </ul>
             </nav>
         </div>
@@ -761,24 +757,8 @@ document.write(`
 <div><p>Reference<br />
 <span id="id1">[<a class="reference internal" href="../../../99%20References/references.html#id14" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span><br />
 <a class="reference external" href="https://sorjfkrh5078.tistory.com/50">sorjfkrh5078 - 가상기억장치 할당 기법</a>
-<a class="reference external" href="https://mimimimamimimo.tistory.com/29">가상 메모리 - 채니 블로그</a></p>
+<a class="reference external" href="https://mimimimamimimo.tistory.com/29">mimimimamimimo - 가상 메모리</a></p>
 </div></blockquote>
-</section>
-<section id="paging">
-<h2>Paging<a class="headerlink" href="#paging" title="Permalink to this heading">#</a></h2>
-<p>이를 위해 운영체제가 만든 것이 <code class="docutils literal notranslate"><span class="pre">페이지(page)</span></code>라는 최소 크기 단위이며 이를 활용하여 메모리를 다루는 시스템을 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">시스템(paging</span> <span class="pre">system)</span></code>이라고 한다.</p>
-<p>가상기억장치란 주기억장치 안의 프로그램 양이 많아질 때, 보조기억장치(하드디스크)의 일부를 주기억장치처럼 사용하는 것으로, 용량이 작은 주기억장치를 마치 큰 용량을 가진 것처럼 사용하는 기법이다</p>
-<p>​즉, 프로그램을 여러 개의 작은 블록 단위로 나누어서 가상기억장치에 보관해 놓고, 프로그램 실행 시 요구되는 블록만 주기억장치에 불연속적으로 할당하여 처리하는 방식이다.</p>
-<section id="id2">
-<h3>불연속 메모리 할당 기법<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<p>여기에서 더 발전한 <code class="docutils literal notranslate"><span class="pre">가상</span> <span class="pre">메모리(virtual</span> <span class="pre">memory)</span> <span class="pre">기법</span></code>은 “프로그램을 실행하는 데 필요한 최소한의 메모리가 얼마인가?” 집중하여 문제를 해결한 기법이다.</p>
-<blockquote>
-<div><p><a class="reference external" href="https://velog.io/&#64;lainshower_/%EB%AC%BC%EB%A6%AC-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B4%80%EB%A6%AC">lainshower - 물리 메모리 관리</a></p>
-<p><a class="reference external" href="https://lipcoder.tistory.com/379"></a><br />
-<a class="reference external" href="https://joepasss.tistory.com/10"></a><br />
-<a class="reference external" href="https://velog.io/&#64;lainshower_/%EB%AC%BC%EB%A6%AC-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B4%80%EB%A6%AC"></a></p>
-</div></blockquote>
-</section>
 </section>
 </section>
 
@@ -847,10 +827,6 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contiguous-memory-allocation">Contiguous Memory Allocation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vritual-memory">Vritual Memory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paging">Paging</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">불연속 메모리 할당 기법</a></li>
-</ul>
-</li>
 </ul>
   </nav></div>
 

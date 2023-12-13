@@ -138,7 +138,7 @@ new와 delete는 malloc과 free를 단순히 쓰기 편하도록 대체하기 �
 new는 기본적으로 malloc을 통하여 메모리를 할당 받고, 할당 받은 메모리 영역에 대하여 생성자를 호출하는 역할을 수행해야 한다. 따라서 반드시 타입을 알아야만 하기 때문에 new 뒤에는 생성하고자 하는 객체의 타입이 들어가게 된다. 내부적으로는 타입의 크기를 알아내서 malloc을 호출하게 되어 있다. delete 또한 마찬가지로 뒤에 오는 포인터의 타입이 클래스일 경우 해당 클래스의 소멸자를 호출한 후에 free를 호출하여 메모리를 해제하게 된다. 컴파일러는 대상 포인터의 타입만을 체크하여 해당 타입과 일치하는 클래스의 소멸자를 호출한 뒤에 메모리 영역을 해제하는 어셈블리를 작성한다.
 
 > Reference  
-> {cite}`FundamentalC++`
+> {cite}`FundamentalC++`  
 
 ### new [] & delete []
 먼저 아래의 코드를 보자.
@@ -167,19 +167,19 @@ Heap manager는 메모리 할당 내역을 관리하고 있으며 malloc이 호�
 배열 타입의 new [], delete []도 내부적으로는 malloc과 free를 호출한다. 즉, heap manager의 할당 내역의 변화를 일으키는 것은 직접적으로 new와 delete가 아니라 내부에서 호출되는 malloc과 free다. 여기서 중요한 점은 단일 객체 타입의 new와 delete는 malloc과 free를 그대로 호출하는데, 배열 타입의 new [], delete []는 malloc과 free를 그대로 호출하지 않는다는 사실이다. 당연히 배열 타입이니까 다른 면이 있겠지만, 가장 큰 차이점이라고 한다면 할당 되고 해제되는 메모리의 구조 자체가 다르다는 점이다.
 
 > Reference  
-> {cite}`FundamentalC++`
+> {cite}`FundamentalC++`  
 
 #### 단일 타입 new의 처리 과정
 기본 타입인 int에 대해서 new를 호출할 경우 내부적으로는 malloc이 호출된다. malloc은 heap manager에게 메모리 할당을 요청하며, heap manager는 관리하고 있는 힙에서 적절히 4바이트 만큼의 메모리 블록을 찾은 뒤에 해당 블록의 주소를 반환할 것이다. 동시에 heap manager는 해당 블록의 주소를 할당 내역에 추가한다. malloc을 통해서 할당 받은 메모리 블록의 주소를 new는 그대로 다시 반환한다.
 
 > Reference  
-> {cite}`FundamentalC++`
+> {cite}`FundamentalC++`  
 
 #### 소멸자가 존재하는 클래스 타입의 배열 객체를 new[]를 통해서 할당하는 과정
 new []를 호출하면 내부에서 malloc을 호출하는 것은 같지만, malloc으로 넘기는 인자에 변화를 준다. new[]의 경우 필요한 메모리에 추가적인 메모리를 더해 malloc에 요청한다. heap manager는 요청 받은 만큼 힙에서 찾아내서 반환을 해줄 것이다. 그리고 추가적으로 할당한 메모리 부분에 배열의 요소 개수가 저장된다. 이것이 바로 배열 타입 객체의 소멸자를 배열 요소 개수만큼 호출하기 위한 마법의 근원이다.
 
 > Reference  
-> {cite}`FundamentalC++`
+> {cite}`FundamentalC++`  
 
 #### delete [] 호출 후 과정
 delete []의 의미는 해당 객체가 배열 타입으로 할당되었음을 나타내는 것이다. delete []가 호출 되면 컴파일러는 ptr이 가르키는 객체가 배열 타입임으로 메모리 주소에서 추가적으로 할당된 부분을 찾아내고 그를 통해 요소의 개수를 알아낸다. 배열 요소의 개수를 알아내면 그만큼 반복하면서 소멸자를 호출하면 된다. 동시에 메모리를 해제하기 위하여 내부적으로 free를 호출할 때도 ptr가 가르키는 주소에서 추가적으로 할당된 부분을 뺀 값을 인자로 넘기게 되어있다. 당연히 힙 관리자는 할당 내역에서 할당 정보를 찾을 수 있고, 정확하게 해재할 수 있다.
@@ -187,7 +187,7 @@ delete []의 의미는 해당 객체가 배열 타입으로 할당되었음을 �
 delete []가 아니라 delete를 호출할 경우 컴파일러는 단순히 소멸자는 한번만 호출할 것이며 ptr 주소를 그대로 free에 인자로 넘기게 된다. 그러나 ptr에는 추가적으로 할당된 메모리 주소가 배제되어 있기 때문에 이 값으로 할당 내역 테이블에서 검색할 경우 주소를 찾을 수 없기 때문에 메모리는 제대로 해제되지 않게 된다. 이런 상황을 보통 힙 충돌이 발생했다고 하는데 힙 충돌은 즉시 오류를 발생시킬 수도 있지만, 보통 나중에 더 큰 오류의 원인으로 작용하기 때문에 디버깅을 상당히 어렵게 만든다.
 
 > Reference  
-> {cite}`FundamentalC++`
+> {cite}`FundamentalC++`  
 
 #### 소멸자가 정의되지 않는 타입에 대한 new []할당
 할당된 메모리 블록의 포인터를 통해서 블록의 크기를 알기 위해 VC++의 경우 _msize 함수를 제공한다.
@@ -229,12 +229,12 @@ int main(void)
 
 > Reference  
 > {cite}`FundamentalC++`  
-[윈도우 메모리 구조 - 보안 세상 블로그](https://securitynewsteam.tistory.com/99)    
-[Window Heap 관리자](https://dnsdudrla97.github.io/window_allocator_/)  
-[heap에 관한 화제 - kiaak 블로그](https://kiaak.tistory.com/entry/Windowsheap%EC%97%90-%EA%B4%80%ED%95%9C-%ED%99%94%EC%A0%9C)    
-[Process Default & Private heap - 수까락 블로그](http://egloos.zum.com/sweeper/v/1791208)  
-[프로세스의 힙 메모리 - 웅웅이의 블로그](https://jungwoong.tistory.com/47)    
-[HeapAlloc과 HeapFree에 대하여 - 김성엽 블로그](https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=tipsware&logNo=220964497321)  
-[Managing heap memory - MSDN](https://docs.microsoft.com/en-us/previous-versions/ms810603(v=msdn.10)?redirectedfrom=MSDN)  
-[윈도우 메모리 구조 - 웅웅이의 블로그](https://jungwoong.tistory.com/44?category=1067195)
+> [윈도우 메모리 구조 - 보안 세상 블로그](https://securitynewsteam.tistory.com/99)    
+> [Window Heap 관리자](https://dnsdudrla97.github.io/window_allocator_/)  
+> [heap에 관한 화제 - kiaak 블로그](https://kiaak.tistory.com/entry/Windowsheap%EC%97%90-%EA%B4%80%ED%95%9C-%ED%99%94%EC%A0%9C)    
+> [Process Default & Private heap - 수까락 블로그](http://egloos.zum.com/sweeper/v/1791208)  
+> [프로세스의 힙 메모리 - 웅웅이의 블로그](https://jungwoong.tistory.com/47)    
+> [HeapAlloc과 HeapFree에 대하여 - 김성엽 블로그](https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=tipsware&logNo=220964497321)  
+> [Managing heap memory - MSDN](https://docs.microsoft.com/en-us/previous-versions/ms810603(v=msdn.10)?redirectedfrom=MSDN)  
+> [윈도우 메모리 구조 - 웅웅이의 블로그](https://jungwoong.tistory.com/44?category=1067195)
  
