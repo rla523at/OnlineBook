@@ -45,24 +45,4 @@ primary memory는 운영체제 영역과 사용자 영역으로 나뉘어져 있
 > [ahnanne - 가상 메모리](https://ahnanne.tistory.com/15)   
 > [gateoverflow - what is difference between overlays and virtual memory?](https://gateoverflow.in/48306/what-difference-between-overlays-virtual-memory-transparent)  
 
-## Vritual Memory
-virtual memory는 "프로그램이 실행되기 위해서 꼭 필요한 모든 메모리를 할당 받을 필요는 없다."는 점을 활용한 메모리 관리 기법이다.
 
-메모리 접근은 순차적이고 지역적이기 때문에 명령어 수행에 필요한 메모리는 프로그램에 필요한 모든 메모리 용량에 비해 훨씬 작다. 단독 기계 명령어를 실행하기 위해서는 다음 3가지의 메모리 접근이 필요하다.
-
-* 메모리에서 명령어 읽기
-* 메모리에서 명령어를 수행하는데 필요한 데이터 읽기
-* 명령어 수행 후  결과를 메모리에 기록
-
-매번 메모리에 접근하는데 필요한 실제 바이트 수는 CPU 아키텍쳐 및 실제 명령어와 데이터 유형에 따라 달라진다. 그러나 예를 들어 각 메모리 접근 유형마다 100 바이트의 메모리가 필요하다고 가정하면 위의 경우 300 바이트만 메모리에 올라와 있어도 명령어를 수행할 수 있다.
-
-이런 순차적이고 지역적인 특성을 활용하면 전체 프로그램에 필요한 용량이 아닌 명령어 수행에 필요한 최소 메모리만 primary memory에 있고 나머지는 secondary memory에 위치해도 프로그램을 실행할 수 있다. 결국 빠르고 작은 primary memory를 크고 느린 secondary memory와 병합하여 하나의 크고 빠른 기억장치(가상 메모리)처럼 동작하게 한다.
-
-이를 위해서 virtual memory에 저장되어 있는 프로그램을 여러 개의 작은 블록 단위로 나눈 뒤, 메모리 할당이 필요한 블록만 primary memory에 불연속적으로 할당하여 처리해야 한다. 
-
-이 떄, 프로그램을 어떻게 나누느냐에 따라서 `페이징(Paging)` 기법과 `세그먼테이션(Segmentation)` 기법으로 나뉜다.
-
-> Reference  
-> {cite}`FundamentalC++`  
-> [sorjfkrh5078 - 가상기억장치 할당 기법](https://sorjfkrh5078.tistory.com/50)
-> [mimimimamimimo - 가상 메모리](https://mimimimamimimo.tistory.com/29)   
