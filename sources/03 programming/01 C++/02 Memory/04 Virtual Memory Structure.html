@@ -825,25 +825,64 @@ document.write(`
 <ul class="simple">
 <li><p><a class="reference external" href="https://stackoverflow.com/questions/24057331/is-accessing-data-in-the-heap-faster-than-from-the-stack">https://stackoverflow.com/questions/24057331/is-accessing-data-in-the-heap-faster-than-from-the-stack</a></p>
 <ul>
-<li><p>Accessing from heap is slightly slower cause of the indirection</p></li>
 <li><p>Allocation and deallocation</p>
 <ul>
-<li><p>For global data (including C++ namespace data members), the virtual address will typically be calculated and hardcoded at compile time</p></li>
-<li><p>For stack-based data, the stack-pointer-register-relative address can also be calculated and hardcoded at compile time</p></li>
-<li><p>Then the stack-pointer-register may be adjusted by the total size of function arguments, local variables, return addresses and saved CPU registers as the function is entered and returns</p></li>
-<li><p>Both of the above are effectively free of runtime allocation/deallocation overhead, while heap based overheads are very real and may be significant for some applications…</p></li>
-<li><p>For heap-based data, a runtime heap allocation library must consult and update its internal data structures to track which parts of the block(s) aka pool(s) of heap memory it manages are associated with specific pointers the library has provided to the application, until the application frees or deletes the memory. If there is insufficient virtual address space for heap memory, it may need to call an OS function like sbrk to request more memory (Linux may also call mmap to create backing memory for large memory requests, then unmap that memory on free/delete).</p></li>
+<li><p>stack의 경우 런타임 할당/해제 오버헤드가 거의 없다.</p>
+<ul>
+<li><p>스레드가 생성될 경우 OS는 virtual memory의 일정 부분을 stack 영역으로 예약해놓는다.</p></li>
+<li><p>stack 영역에 할당되는 data는 compile time에 크기가 결정된다.</p></li>
+<li><p>따라서, stack에서 data에 메모리를 할당하는 과정은 미리 알고 있는 data 크기만큼 SP를 감소시키는 과정에 지나지 않는다.</p></li>
+<li><p>그리고 stack에서 data에 메모리를 해제하는 과정 또한 미리 알고 있는  data크기만큼 SP를 증가시키는 과정일 뿐이다.</p></li>
+</ul>
+</li>
+<li><p>heap의 경우 런타임 할당/해제 오버헤드가 존재 한다.</p>
+<ul>
+<li><p>heap memory API를 사용해서 heap memory 할당할 때</p>
+<ul>
+<li><p>할당 내역 테이블 작성</p></li>
+<li><p>미할당 영역이 부족할 시 virtual memory API를 통해 heap memory 증가</p></li>
+<li><p>multi thread 환경에서 동기화 발생</p></li>
+</ul>
+</li>
+<li><p>heap memory API를 사용해서 heap memory 해제할 떄</p>
+<ul>
+<li><p>할당 내역 테이블 참고</p></li>
+<li><p>미할당 영역으로 변경</p></li>
+<li><p>주변 미할당 영역과 병합</p></li>
+<li><p>multi thread 환경에서 동기화 발생</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Heap API</p>
+<ul>
+<li><p>Virtual memory API를 사용하여 memory를 할당 받을 때는 OS에 따른 page 단위로만 가능하므로, 불과 몇 바이트의 작은 크기를 사용할 때는 효과적이지 못하다. 예를들어 32 byte를 할당하기 위해서는 1 page(4KB = 4096byte)를 전부 물리 메모리에 맵핑 시켜야한다. 또한 virtual memory API는 각 page들을 관리하기 위해 페이지 디렉토리(page directory)라는 것이 있고, 이는 4KB의 추가적인 물리 메모리를 소모한다</p></li>
+<li><p>Virtual memory API가 작은 크기의 메모리 영역을 관리하는데 비효율적이기 때문에 이를 보완한 heap memory API를 제공한다.</p></li>
+<li><p>Heap memory API는 크기가 작은 메모리 영역을 효율적으로 사용기 위해 미리 내부적으로 virtual memory API를 활용해 virtual memory를 예약한다.</p></li>
+<li><p>Heap memory는 할당과 미할당 영역으로 구분될 수 있다</p></li>
+<li><p>프로그램으로부터 할당 요구가 있을 때마다 heap manager가 자동적으로 요구에 맞게 메모리를 잘라 할당한다.</p></li>
+<li><p>heap manager는 반환할 미할당 영역을 찾기 어려울 때 내부적으로 virtual memory API를 통해 OS에게 virtual memory를 요청하여 heap 자체를 늘린다.</p></li>
+<li><p>Heap manager는 할당이 발생할 때 마다 할당내역 테이블에 할당된 메모리 주소와 크기를 저장해 놓는다. 그래서 해제가 발생할 떄, 주소값만 있으면 할당내역 테이블을 참조해 정확한 크기만 미할당 영역으로 바꾼다.</p></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>Access</p>
 <ul>
-<li><p>Because the absolute virtual address, or a segment- or stack-pointer-register-relative address can be calculated at compile time for global and stack based data, runtime access is very fast</p></li>
-<li><p>With heap hosted data, the program has to access the data via a runtime-determined pointer holding the virtual memory address on the heap, sometimes with an offset from the pointer to a specific data member applied at runtime. That may take a little longer on some architectures.</p></li>
-<li><p>For the heap access, both the pointer and the heap memory must be in registers for the data to be accessible (so there’s more demand on CPU caches, and at scale - more cache misses/faulting overheads)</p></li>
+<li><p>stack에 저장된 data의 주소는 compile time에 알 수 있기 때문에, compile시 hardcoding되어 runtime에 매우 빠르게 접근이 가능하다.</p></li>
+<li><p>heap에 저장된 data의 주소는 compile time에 알 수가 없다. 따라서, runtime에 결정되는 pointer를 통해서 접근해야 한다.</p></li>
+<li><p>이런 미묘한 차이가 있찌만 Cache, RAM, swap file에 의한 영향을 무시한다면 stack에 있는 data와 heap에 있는 data에 접근하는 속도는 거의 동일하다.</p></li>
 </ul>
 </li>
 <li><p>Layout</p>
 <ul>
+<li><p>stack에 저장된 data들은 memory상에 연속적으로 저장되기 때문에 cache 친화적이다.</p></li>
+<li><p>heap에 저장된 data들은 memory상에 연속성이 보장되지 않기 때문에 cache 친화적이지 않다.</p>
+<ul>
+<li><p>data 하나가 memory 연속성이 없다는 얘기가 아니라 data 여러개가 memory 연속성이 없다는 얘기이다.</p></li>
+<li><p>예를 들어, stack에 배열 2개를 할당하면 주소값이 연속되지만 heap에 배열 2개를 할당하면 주소값이 연속되지 않을 수 있다.</p></li>
+</ul>
+</li>
 <li><p>global variables, stack-based variables, so the caching is very efficient.</p></li>
 <li><p>When you use heap based memory, successive calls to the heap allocation library can easily return pointers to memory in different cache lines, especially if the allocation size differs a fair bit (e.g. a three byte allocation followed by a 13 byte allocation) or if there’s already been a lot of allocation and deallocation (causing “fragmentation”). This means when you go to access a bunch of small heap-allocated memory, at worst you may need to fault in as many cache lines (in addition to needing to load the memory containing your pointers to the heap). The heap-allocated memory won’t share cache lines with your stack-allocated data - no synergies there.</p></li>
 <li></li>
@@ -888,6 +927,11 @@ document.write(`
 <li><p>Using memory pools, you can get comparable performance out of heap allocation, but that comes with a slight added complexity and its own headaches.</p></li>
 <li><p>It literally only uses a single instruction on most architectures, in most cases, That moves the stack pointer down by 0x10 bytes and thereby “allocates” those bytes for use by a variable.</p></li>
 <li><p>heaps are often shared among the threads in a process. For such heaps, the allocation and deallocation functions have to protect the shared internal administrative data structure from the data race. As a result, heap allocations and deallocations may have additional overhead due to internal synchronization operations.</p></li>
+</ul>
+</li>
+<li><p>why-is-so-much-space-allocated-on-the-stack</p>
+<ul>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/15806673/why-is-so-much-space-allocated-on-the-stack">https://stackoverflow.com/questions/15806673/why-is-so-much-space-allocated-on-the-stack</a></p></li>
 </ul>
 </li>
 </ul>
