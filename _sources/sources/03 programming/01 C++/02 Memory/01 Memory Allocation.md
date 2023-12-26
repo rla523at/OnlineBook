@@ -20,7 +20,7 @@ primary memory는 운영체제 영역과 사용자 영역으로 나뉘어져 있
 ```{figure} _image/0003.png
 ```
 
-이렇게 fragmentation이 발생하다 보면 결국 primary memory에 할당 가능한 memory의 크기가 프로그램이 필요로 하는 memory 크기보다 크지만 연속되어 있지 않아 memory 할당이 불가능한 `외부 단편화(external fragmentation)`가 발생할 수 있다. 이를 해결하기 위해 memory 집약이 요구되므로 처리나 효율이 좋지 않다는 단점이 있다.
+이렇게 fragmentation이 발생하다 보면 결국 primary memory에 할당 가능한 memory의 크기가 프로그램이 필요로 하는 memory 크기보다 크지만 연속되어 있지 않아 memory 할당이 불가능한 `외부 단편화(external fragmentation)`가 발생할 수 있다. 이를 해결하기 위해 memory 집약이 요구되므로 효율이 좋지 않다는 단점이 있다.
 
 ```{figure} _image/0004.png
 ```
@@ -37,9 +37,9 @@ primary memory는 운영체제 영역과 사용자 영역으로 나뉘어져 있
 이로써 primary memory의 용량보다 memory가 더 많이 필요한 프로그램도 실행시킬 수 있다. 이처럼 "프로그램을 실행하는데 할당받아야 될 최소한의 메모리가 얼마인가?"에 집중해서 overlay 기법을 한층 더 발전시킨 기법을 `가상 메모리(virtual memory) 기법`이라고 한다.
 
 > Reference  
-> [sorjfkrh5078 - 주기억장치 할당 기법](https://sorjfkrh5078.tistory.com/49) 
+> [sorjfkrh5078 - 주기억장치 할당 기법](https://sorjfkrh5078.tistory.com/49)  
 > [devdebin - 물리메모리 관리](https://devdebin.tistory.com/m/35)  
-> [iambeginnerdeveloper - 페이징과 세그멘테이션](https://iambeginnerdeveloper.tistory.com/158)
+> [iambeginnerdeveloper - 페이징과 세그멘테이션](https://iambeginnerdeveloper.tistory.com/158)  
 > [threefivesix - 메모리 관리 기법](https://threefivesix.tistory.com/23)  
 > [letsmakemyselfprogrammer - 메모리관리](https://letsmakemyselfprogrammer.tistory.com/116)  
 > [ahnanne - 가상 메모리](https://ahnanne.tistory.com/15)   
