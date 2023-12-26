@@ -15,7 +15,7 @@ primary memory는 운영체제 영역과 사용자 영역으로 나뉘어져 있
 ```{figure} _image/0002.png
 ```
 
-`동적 분할 기법`은 준비상태 큐에서 준비 중인 프로그램가 필요로 하는 메모리만큼 primary memory에서 파티션을 동적으로 생성하여 각 프로그램이 필요한만큼만 memory를 할당하는 기법이다. internal fragmentation이 없으며 primary memory들 보다 효율적으로 사용 가능하다. 하지만 primary memory에 필요한 memory 크기가 모두 제각각이므로 할당 해제되는 작업이 반복적으로 일어남에 따라 필연적으로 할당된 memory와 memory 사이에 사용하지 않는 작은 memory 공간이 생기는 `단편화(fragmentation)`가 발생하게 된다.
+`동적 분할 기법`은 준비상태 큐에서 준비 중인 프로그램이 필요로 하는 메모리만큼 primary memory에서 파티션을 동적으로 생성하여 각 프로그램이 필요한만큼만 memory를 할당하는 기법이다. internal fragmentation이 없으며 primary memory들 보다 효율적으로 사용 가능하다. 하지만 primary memory에 필요한 memory 크기가 모두 제각각이므로 할당 해제되는 작업이 반복적으로 일어남에 따라 필연적으로 할당된 memory와 memory 사이에 사용하지 않는 작은 memory 공간이 생기는 `단편화(fragmentation)`가 발생하게 된다.
 
 ```{figure} _image/0003.png
 ```
