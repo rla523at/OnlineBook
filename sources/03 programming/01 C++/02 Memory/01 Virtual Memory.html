@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Virtual Memory &#8212; MS Study Book</title>
+    <title>Momery Allocation &#8212; MS Study Book</title>
   
   
   
@@ -498,7 +498,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="Memory.html">Memory</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-34"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">Virtual Memory</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Momery Allocation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Paging%20system.html">Paging system</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03%20Virtual%20Memory%20Size.html">Virtual Memory Size</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
@@ -507,17 +507,19 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../03%20Polymorphism.html">Polymorphism</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../04%20Value%20Category.html">Value Category</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../05%20Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../11%20Class.html">Class</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../20%20Standard%20Library/Standard%20Library.html">STD</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-35"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../20%20Standard%20Library/11%20vector.html">vector</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../21%20Smart%20Pointer.html">Smart Pointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../22%20Forwarding%20References.html">Forwarding References</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../31%20Template.html">Template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../32%20concept.html">concept</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../33%20Require.html">Require</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../34%20hpp.html">hpp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../35%20Perfact%20Forward.html">Perfact Forward + Universal Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../51%20static.html">Static</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../52%20Name%20Space.html">Namespace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../53%20One%20Definition%20Rule.html">One Definition Rule</a></li>
@@ -663,7 +665,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -674,11 +678,20 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Virtual Memory</h1>
+    <h1>Momery Allocation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contiguous-memory-allocation">Contiguous Memory Allocation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vritual-memory">Vritual Memory</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -688,25 +701,65 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="virtual-memory">
-<h1>Virtual Memory<a class="headerlink" href="#virtual-memory" title="Permalink to this heading">#</a></h1>
-<p>가상 메모리는 “프로세스가 실행 될 때 프로세스 전체가 주기억장치에 올라와 있을 필요가 없다”는 점을 활용한 메모리 관리 기법이다.</p>
-<p>메모리 접근은 순차적이고 지역적이기 때문에 명령어 수행에 필요한 메모리는 전체 프로세스에 필요한 용량에 비해 훨씬 작다. 단독 기계 명령어를 실행하기 위해서는 다음 3가지의 메모리 접근이 필요하다.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="momery-allocation">
+<h1>Momery Allocation<a class="headerlink" href="#momery-allocation" title="Permalink to this heading">#</a></h1>
+<p>primary memory는 운영체제 영역과 사용자 영역으로 나뉘어져 있으며, 프로그램은 OS로부터 사용자 영역에 있는 memory를 할당받아 process가 된다.</p>
+<section id="contiguous-memory-allocation">
+<h2>Contiguous Memory Allocation<a class="headerlink" href="#contiguous-memory-allocation" title="Permalink to this heading">#</a></h2>
+<p>프로그램에 메모리를 할당할 때, 하나의 커다란 공간에 연속적으로 할당하는 방식을 <code class="docutils literal notranslate"><span class="pre">연속</span> <span class="pre">메모리</span> <span class="pre">할당(Contiguous</span> <span class="pre">Memory</span> <span class="pre">Allocation)</span></code>이라고 한다.</p>
+<p>초창기 컴퓨터에서는 사용자 영역을 한 프로그램에게 전부 할당하였다. 이를 <code class="docutils literal notranslate"><span class="pre">단일</span> <span class="pre">분할</span> <span class="pre">할당</span> <span class="pre">기법</span></code>이라고 한다.</p>
+<p>단일 분할 할당 기법은 하나의 프로그램 밖에 실행시킬 수 없다는 단점이 있다.</p>
+<p>이를 개선하고자 해서 나온 기법이 바로 <code class="docutils literal notranslate"><span class="pre">다중</span> <span class="pre">분할</span> <span class="pre">할당</span> <span class="pre">기법</span></code>이다. 다중 분할 할당 기법은 primary memory의 사용자 영역을 준비상태 큐에서 준비 중인 프로그램에게 적절하게 나누어 할당함으로써 여러 프로그램에 메모리가 할당 될 수 있도록 하는 방법이다. 이 때, primary memory의 사용자 영역을 나누는 방식에 따라 크게 고정 분할 할당 기법과 가변 분할 할당 기법으로 나뉜다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">고정</span> <span class="pre">분할</span> <span class="pre">기법</span></code>은 primary memory를 고정된 크기의 파티션들로 분할한 뒤, 준비상태 큐에서 준비 중인 프로그램이 필요로 하는 메모리보다 같거나 더 큰 파티션을 할당하는 기법으로 <code class="docutils literal notranslate"><span class="pre">정적</span> <span class="pre">할당(Static</span> <span class="pre">Allocation)</span></code> 기법이라고도 한다. 이 기법은 구현이 간단하고 운영체제에 오버헤드가 거의 없지만, 파티션 단위로 memory를 부여했기 때문에 프로그램에 부여된 memory가 실제 필요한 memory보다 더 커 memory가 낭비되는 <code class="docutils literal notranslate"><span class="pre">내부</span> <span class="pre">단편화(internal</span> <span class="pre">fragmentation)</span></code>가 발생할 수 있으며 최대 활성 프로그램의 수가 고정된다는 단점이 있다.</p>
+<figure class="align-default">
+<img alt="../../../../_images/0002.png" src="../../../../_images/0002.png" />
+</figure>
+<p><code class="docutils literal notranslate"><span class="pre">동적</span> <span class="pre">분할</span> <span class="pre">기법</span></code>은 준비상태 큐에서 준비 중인 프로그램가 필요로 하는 메모리만큼 primary memory에서 파티션을 동적으로 생성하여 각 프로그램이 필요한만큼만 memory를 할당하는 기법이다. internal fragmentation이 없으며 primary memory들 보다 효율적으로 사용 가능하다. 하지만 primary memory에 필요한 memory 크기가 모두 제각각이므로 할당 해제되는 작업이 반복적으로 일어남에 따라 필연적으로 할당된 memory와 memory 사이에 사용하지 않는 작은 memory 공간이 생기는 <code class="docutils literal notranslate"><span class="pre">단편화(fragmentation)</span></code>가 발생하게 된다.</p>
+<figure class="align-default">
+<img alt="../../../../_images/0003.png" src="../../../../_images/0003.png" />
+</figure>
+<p>이렇게 fragmentation이 발생하다 보면 결국 primary memory에 할당 가능한 memory의 크기가 프로그램이 필요로 하는 memory 크기보다 크지만 연속되어 있지 않아 memory 할당이 불가능한 <code class="docutils literal notranslate"><span class="pre">외부</span> <span class="pre">단편화(external</span> <span class="pre">fragmentation)</span></code>가 발생할 수 있다. 이를 해결하기 위해 memory 집약이 요구되므로 처리나 효율이 좋지 않다는 단점이 있다.</p>
+<figure class="align-default">
+<img alt="../../../../_images/0004.png" src="../../../../_images/0004.png" />
+</figure>
+<p>지금까지 살펴본 모든 경우에는 primary memory의 용량이 프로그램을 실행하는데 필요한 모든 메모리보다 항상 커야한다. 그렇지 않을 경우 메모리 부족 오류에 의해 해당 프로그램을 실행할 수 없게 된다. 따라서 primary memory의 용량보다 필요한 메모리가 더 큰 프로그램를 실행시키기 위해 <code class="docutils literal notranslate"><span class="pre">오버레이(overlay)</span> <span class="pre">기법</span></code>이 나오게 되었다. overlay 기법은 프로그래머가 프로그램을 모듈로 나눈 후에 실행에 필요한 모듈만 primary memory에 올려 실행하는 방식이다.</p>
+<figure class="align-default">
+<img alt="../../../../_images/0001.png" src="../../../../_images/0001.png" />
+</figure>
+<p>예를 들어, primary memory는 100kb 크기이고 A 프로그램에서 필요한 메모리는 총 150kb이며 모듈1 크기가 70kb 모듈2 크기가 30kb 모듈3 크기가 50kb이고 모듈1,2,3 순서대로 A가 동작한다고 해보자.</p>
+<p>원래대로라면 모듈 1,2,3이 모두 올라올수 없어서 메모리 부족 오류가 발생해야 했다. 하지만 A 모듈 1,2,3 순서대로 동작함으로 먼저 모듈1,2를 올려서 실행한 다음에 모듈 1이 다 실행되면 그 자리에 모듈3를 <code class="docutils literal notranslate"><span class="pre">중첩(overlay)</span></code>하여 적재해서 모듈3을 실행하면 주어진 primary memory 100kb로 A 프로그램를 실행할 수 있다.</p>
+<p>이로써 primary memory의 용량보다 memory가 더 많이 필요한 프로그램도 실행시킬 수 있다. 이처럼 “프로그램을 실행하는데 할당받아야 될 최소한의 메모리가 얼마인가?”에 집중해서 overlay 기법을 한층 더 발전시킨 기법을 <code class="docutils literal notranslate"><span class="pre">가상</span> <span class="pre">메모리(virtual</span> <span class="pre">memory)</span> <span class="pre">기법</span></code>이라고 한다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://sorjfkrh5078.tistory.com/49">sorjfkrh5078 - 주기억장치 할당 기법</a>
+<a class="reference external" href="https://devdebin.tistory.com/m/35">devdebin - 물리메모리 관리</a><br />
+<a class="reference external" href="https://iambeginnerdeveloper.tistory.com/158">iambeginnerdeveloper - 페이징과 세그멘테이션</a>
+<a class="reference external" href="https://threefivesix.tistory.com/23">threefivesix - 메모리 관리 기법</a><br />
+<a class="reference external" href="https://letsmakemyselfprogrammer.tistory.com/116">letsmakemyselfprogrammer - 메모리관리</a><br />
+<a class="reference external" href="https://ahnanne.tistory.com/15">ahnanne - 가상 메모리</a><br />
+<a class="reference external" href="https://gateoverflow.in/48306/what-difference-between-overlays-virtual-memory-transparent">gateoverflow - what is difference between overlays and virtual memory?</a></p>
+</div></blockquote>
+</section>
+<section id="vritual-memory">
+<h2>Vritual Memory<a class="headerlink" href="#vritual-memory" title="Permalink to this heading">#</a></h2>
+<p>virtual memory는 “프로그램이 실행되기 위해서 꼭 필요한 모든 메모리를 할당 받을 필요는 없다.”는 점을 활용한 메모리 관리 기법이다.</p>
+<p>메모리 접근은 순차적이고 지역적이기 때문에 명령어 수행에 필요한 메모리는 프로그램에 필요한 모든 메모리 용량에 비해 훨씬 작다. 단독 기계 명령어를 실행하기 위해서는 다음 3가지의 메모리 접근이 필요하다.</p>
 <ul class="simple">
 <li><p>메모리에서 명령어 읽기</p></li>
 <li><p>메모리에서 명령어를 수행하는데 필요한 데이터 읽기</p></li>
 <li><p>명령어 수행 후  결과를 메모리에 기록</p></li>
 </ul>
-<p>매번 메모리에 접근하는데 필요한 실제 바이트 수는 CPU 아키텍쳐 및 실제 명령어와 데이터 유형에 따라 달라진다.  그러나 예를 들어 각 메모리 접근 유형마다 100 바이트의 메모리가 필요하다고 가정하면 위의 경우 300 바이트만 메모리에 올라와 있어도 명령어를 수행할 수 있다.</p>
-<p>이런 순차적이고 지역적인 특성을 활용하면 전체 프로세스에 필요한 용량이 아닌 명령어 수행에 필요한 최소 메모리만 주기억장치에 있고 나머지는 보조 기억 장치에 위치해도 프로그램을 실행할 수 있다. 결국 빠르고 작은 주기억장치를 크고 느린 보조기억장치와 병합하여 하나의 크고 빠른 기억장치(가상 메모리)처럼 동작하게 한다.</p>
-<p>가상 메모리를 사용하고 프로그램 실행에 필요한 만큼만 주기억장치에 올리기로 결정했다고 가정하자. 이 경우, 주기억장치에 올리고 내리고 하는 데이터의 크기가 모두 제각각이므로 필연적으로 <code class="docutils literal notranslate"><span class="pre">단편화(fragmentation)</span></code>가 발생하게 된다. 결국 주기억장치에 공간은 남아 있지만 정작 원하는 크기의 데이터를 로드하지 못하게 되는 상황이 생길 수 있는 것이다. 이런 경우를 <code class="docutils literal notranslate"><span class="pre">외부</span> <span class="pre">단편화(external</span> <span class="pre">fragmentation)</span></code>라고 한다.</p>
-<p>이를 해결하기 위해 운영체제가 만든 것이 <code class="docutils literal notranslate"><span class="pre">페이지(page)</span></code>라는 최소 크기 단위이며 이를 활용하여 메모리를 다루는 시스템을 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">시스템(paging</span> <span class="pre">system)</span></code>이라고 한다.</p>
+<p>매번 메모리에 접근하는데 필요한 실제 바이트 수는 CPU 아키텍쳐 및 실제 명령어와 데이터 유형에 따라 달라진다. 그러나 예를 들어 각 메모리 접근 유형마다 100 바이트의 메모리가 필요하다고 가정하면 위의 경우 300 바이트만 메모리에 올라와 있어도 명령어를 수행할 수 있다.</p>
+<p>이런 순차적이고 지역적인 특성을 활용하면 전체 프로그램에 필요한 용량이 아닌 명령어 수행에 필요한 최소 메모리만 primary memory에 있고 나머지는 secondary memory에 위치해도 프로그램을 실행할 수 있다. 결국 빠르고 작은 primary memory를 크고 느린 secondary memory와 병합하여 하나의 크고 빠른 기억장치(가상 메모리)처럼 동작하게 한다.</p>
+<p>이를 위해서 virtual memory에 저장되어 있는 프로그램을 여러 개의 작은 블록 단위로 나눈 뒤, 메모리 할당이 필요한 블록만 primary memory에 불연속적으로 할당하여 처리해야 한다.</p>
+<p>이 떄, 프로그램을 어떻게 나누느냐에 따라서 <code class="docutils literal notranslate"><span class="pre">페이징(Paging)</span></code> 기법과 <code class="docutils literal notranslate"><span class="pre">세그먼테이션(Segmentation)</span></code> 기법으로 나뉜다.</p>
 <blockquote>
 <div><p>Reference<br />
 <span id="id1">[<a class="reference internal" href="../../../99%20References/references.html#id14" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span><br />
-<a class="reference external" href="https://ahnanne.tistory.com/15">가상 메모리 - ahanne 블로그</a><br />
-<a class="reference external" href="https://mimimimamimimo.tistory.com/29">가상 메모리 - 채니 블로그</a></p>
+<a class="reference external" href="https://sorjfkrh5078.tistory.com/50">sorjfkrh5078 - 가상기억장치 할당 기법</a>
+<a class="reference external" href="https://mimimimamimimo.tistory.com/29">mimimimamimimo - 가상 메모리</a></p>
 </div></blockquote>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -763,6 +816,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contiguous-memory-allocation">Contiguous Memory Allocation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vritual-memory">Vritual Memory</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
