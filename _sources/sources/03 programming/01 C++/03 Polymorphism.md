@@ -1,21 +1,108 @@
 # Polymorphism
-`다형성(polymorphism)`이란 맥락에 따라서 다른 로직을 실행하는 능력이다.
+`다형성(polymorphism)`이란 맥락에 따라서 다른 로직을 실행하는 능력으로 overloading과 overriding에 의해서 구현 가능하다.
 
-polymorphism은 overloading과 overriding등에 의해서 구현 가능한데 OOP에서 overriding을 특히 중요하게 생각하는 이유는 overriding에 의해 dynamic binding이 되면 polymorphsim이 구현됨과 동시에 의존성을 줄일 수 있기 때문이다.
+overloading이란 이름은 같고 input은 다른 함수들을 정의하는 것이다.
+
+```cpp
+class Shape1;
+class Shape2;
+class Shape3;
+
+//Polymorphism via overloading
+double cal_area(const Shape1 shape);
+double cal_area(const Shape2 shape);
+double cal_area(const Shape3 shape);
+```
+
+overloading에 의해 맥락(어떤 input이 들어오느냐)에 따라 다른 로직이 실행되게 되는 polymorphism이 구현된다.
+
+다음으로 overriding이란 base class의 virtual function을 derive class에서 재정의 하는 것이다.
+
+```cpp
+//Base.h
+#include <iostream>
+class Base
+{
+public:
+    virtual void vfunc(void) { std::cout << "function in base\n"; };
+};
+
+//Derive.h
+#include "Base.h"
+class Derive : public Base
+{
+    void vfunc(void) override { std::cout << "function in derive\n"; };
+};
+```
+
+overriding에 의해 virtual function이 dynamic binding이 되면 맥락(어떤 객체가 함수를 호출하냐)에 따라 다른 로직이 실행되게 되는 polymorphism이 구현됨과 동시에 의존성을 줄일 수 있다.
 
 위의 문장을 이해하기 위해서는 다음 5가지를 알아야 한다.
-* overriding이란 무엇인가?
-* dynamic binding이란 무엇인가?
-* overridng에 의해 어떻게 dynamic binding이 되는가?
-* dynamic binding에 의해 어떻게 polymorphism이 구현되는가?
-* dynamic binding에 의해 어떻게 의존성을 줄일 수 있는가?
+* virtual function이 무엇인가?
+* virtual function이 dynamic binding 된다는 건 무엇인가?
+* overridng에 의해 어떻게 virtual function이 dynamic binding이 되는가?
+* virtual function이 dynamic binding 되면 왜 polymorphism이 구현되는가?
+* virtual function이 dynamic binding 되면 왜 의존성을 줄어드는가?
 
-먼저, overriding이란 base class의 virtual function을 derive class에서 재정의 하는 것이고 dynamic binding이란 run time에 의존성이 결정되는 것이다.
+이제, 하나씩 알아가 보자.
 
-그리고 나머지 3개의 질문에 답하기 위해서는 virtual function에 대해서 자세하게 알아야 한다.
+## 1. What is a Virtual Function?
+virtual function이란 derive 클래스에서 재정의 될 것으로 기대하는 함수이다.
 
-## Virtual Function
-virtual function이란 derive 클래스에서 재정의 될 것으로 기대하는 함수로 C++에서는 virtual keyword를 통해 나타낸다. virtual function은 일반 함수와 함수 그 자체로서는 큰 차이 없이 메모리 코드 영역의 어딘가에 위치할 뿐이다. 하지만 virtual function은 `가상 함수 테이블(virtual function table; vftable)`과 `가상 함수 테이블 포인터(virtual function table pointer; vfptr)`이라는 추가적인 구조를 가지고 있으며 함수의 호출 방식도 다르다.
+## 2. What does it mean for a Dynamic Binding occur in Virtual Function?
+virtual function이 dynamic binding 된다는 것은 어떤 class의 함수를 호출할지가 run time에 결정되는 것이다. 
+
+이를 이해하기 위해 다음 예시 코드를 보자.
+```cpp
+//Base.h
+#include <iostream>
+class Base
+{
+public:
+    virtual void vfunc(void) { std::cout << "function in base\n"; };
+};
+
+//Derive.h
+#include "Base.h"
+class Derive : public Base
+{
+    void vfunc(void) override { std::cout << "function in derive\n"; };
+};
+
+//other.cpp
+#include "Base.h"
+
+void call_vfunc(const Base& base) { base.vfunc(); };
+
+//main.cpp
+#include "Derive.h"
+
+void call_vfunc(const Base& base);
+
+int main(void)
+{
+    Base b;
+    call_vfunc(b);
+
+    Derive d;
+    call_vfunc(d);
+}
+```
+
+call_vfunc을 보면 base는 Base class의 객체임으로 main문에서 call_vfunc의 input으로 어떤 객체가 들어오더라도 Base class의 vfunc이 호출될 것으로 보인다.
+
+하지만 놀랍게도 Base class의 객체가 들어올때는 Base class의 vfunc을 Derive class의 객체가 들어올때는 Derive class의 vfunc 함수를 호출하는 것을 알 수 있다. 
+
+즉, base 객체의 타입과 관계 없이 input으로 들어오는 객체의 실제 클래스의 함수가 호출이 되며 이는 `base.vfunc()` 코드에서 어떤 class의 함수를 호출할지가 run time에 어떤 input이 들어오는지에 따라 run time에 결정된다는 것이다.
+
+그리고 이런 경우를 virtual function이 dynamic binding 되었다고 한다.
+
+## 3. Why does Dynamic Binding occur when Overriding a Virtual Function?
+virtual function을 overriding하면 dynamic bingding이 되는 이유는 객체의 `가상 함수 테이블 포인터(virtual function table pointer; vfptr)`가 객체의 타입과 관계없이 실제 클래스의 `가상 함수 테이블(virtual function table; vftable)`을 가르키게 설계가 되어있기 때문이다.
+
+그리고 위의 문장을 이해하기 위해서 virtual function에 대해 조금더 자세히 알아보자.
+
+virtual function이란 derive 클래스에서 재정의 될 것으로 기대하는 함수로 C++에서는 virtual keyword를 통해 나타낸다. virtual function은 일반 함수와 함수 그 자체로서는 큰 차이 없이 메모리 코드 영역의 어딘가에 위치할 뿐이다. 하지만 virtual function은 vftable과 vfptr이라는 추가적인 구조를 가지고 있으며 함수의 호출 방식도 다르다.
 
 ### vftable
 vftable은 각 virtual function별로 실제로 실행해야 될 함수의 메모리 시작 주소가 기록되어 있는 table이다. 
@@ -28,9 +115,9 @@ vftable은 각 virtual function별로 실제로 실행해야 될 함수의 메�
 컴파일러는 vftable을 생성할 때 함수마다 고유의 인덱스를 부여하고 이 인덱스를 이용해서 virtual function 호출을 처리한다. 예를 들어 가상함수 vfunc의 인덱스가 0번이라면, vfunc가 호출될 시 vfptr이 가리키는 vftable의 0번 인덱스에 접근하여 함수를 호출하도록 어셈블리 코드를 작성한다. 즉, virtual function는 오직 vfptr이 가리키는 vftable과 virtual function에 해당하는 인덱스만으로 주소를 찾아내서 호출될 수 있다.
 
 ### vfptr
-vfptr은 말 그대로 vftable을 가르키는 역할을 한다. 
+vfptr은 말 그대로 vftable을 가르키는 pointer다. 
 
-virtual function을 가지고 있는 클래스 객체가 생성될 때, 컴파일러에 의해 시작 위치에 vfptr가 생성되고 생성자의 선처리 영역에서 vftable의 주소가 설정된다.
+virtual function을 가지고 있는 클래스 객체가 생성될 때, 컴파일러에 의해 시작 위치에 vfptr가 생성되고 생성자의 선처리 영역에서 vfptr의 값으로 vftable의 주소가 설정된다.
 
 클래스의 생성자와 소멸자는 각각 선처리 영역과 후처리 영역을 가지고 있으며 이를 간단하게 정리하면 다음과 같다.
 
@@ -147,9 +234,7 @@ int main(void)
 
 정리하면 비가상 멤버함수는 컴파일러에 의해 바로 호출되는 반면 virtual function는 객체가 가지고 있는 vfptr를 이용해 vftable에 접근해 호출된다.
 
-## Dynamic Binding
-이제 나머지 3개의 질문에 대한 답을 하기 알아보기 위해 아래 코드를 살펴보자.
-
+### Dynamic binding process
 ```cpp
 //Base.h
 #include <iostream>
@@ -186,11 +271,7 @@ int main(void)
 }
 ```
 
-compile time에 보면 call_vfunc은 Base class만 알고 있다. 따라서, main문에서 call_vfunc의 input으로 Derive class 객체를 주어도 Base class의 vfunc이 호출될 것 같지만 놀랍게도 Derive class의 vfunc 함수를 호출하는 것을 알 수 있다. 
-
-즉, 객체 d를 넣어서 call_vfunc를 호출한 경우 call_vfunc은 compile time 의존성은 Base class에 있지만 run time 의존성은 Derive class에 있기 때문에 dynamic binding이 된 것이다.  
-
-그러면 어떻게 dynamic binding이 된건지 한 단계씩 알아보자.
+위의 예시코드를 가지고 한 단계씩 dynamic binding이 어떻게 발생하는지 보자.
 
 먼저 컴파일러는 각 클래스에 virtual function이 있음을 확인하고 클래스 마다 vftable을 생성한다. Base 클래스의 vftable에는 항목 한 개가 있고 Base::vfunc의 주소가 들어간다. Derive 클래스의 vftable도 항목 한개가 있고 재정의한 Derive::vfunc의 주소가 들어간다. 
 
@@ -198,12 +279,32 @@ compile time에 보면 call_vfunc은 Base class만 알고 있다. 따라서, mai
 
 call_vfunc에 input으로 d 객체를 주었을 때, call_vfunction의 input 객체 base는 d 객체의 Base 클래스의 해당하는 영역뿐이다. 하지만 객체 d의 vfptr은 이미 Derive 클래스의 vftable을 가르키고 있기 때문에 vfptr을 이용하여 함수를 호출하더라도 원래 객체 d의 타입에 맞는 virtual function이 호출이 될 수 있다.
 
-결론적으로 vfptr이 실제 클래스의 vftable을 가르키게 설계가 되어있기 때문에 dynamic binding이 된 것이다. 그리고 이러한 dynamic binding에 의해서 맥락에 맞는(실제 class에 맞는) 로직(함수)을 수행하는 능력인 polymorphism이 생기고 call_vfunc은 Derive class에 대해 compile time 의존성을 갖지 않아도 됨으로 의존성을 줄일 수 있는 것이다.
+결론적으로 vfptr이 실제 클래스의 vftable을 가르키게 설계가 되어있기 때문에 virtual function은 dynamic binding이 가능하게 된다. 
+
+## 4. Why Does Polymorphism Occur When a Virtual Function is Dynamically Bound?
+virtual function이 dynamic binding 되면 맥락(호출하는 객체의 class)에 따라 다른 로직이 수행되는 polymorphism이 구현된다.
+
+## 5. Why Does Dependency Decrease When Virtual Functions Are Dynamically Bound?
+virtual function이 dynamic binding 되면 call_vfunc은 Derive class에 대해 compile time 의존성을 갖지 않아도 됨으로 의존성을 줄일 수 있는 것이다.
 
 ## 참고
+### C and Overloading
+C는 overloading을 제공하지 않는다. 왜냐하면 컴파일러가 목적 코드를 생성할 떄 symbol을 함수 이름으로 생성하기 때문에 같은 이름이 있는 경우 어떤 함수를 호출할 지 구분할 수가 없게 되어 linking에 실패하기 때문이다.
+
+그렇다면 C++에서는 어떻게 overloading을 제공하는 것일까? 정답은 `이름 맹글링(name mangling)`이다. C++에서는 목적 코드 생성시에 컴파일러가 함수의 이름을 바꾸는 것을 볼 수 있다. 이를 name mangling이라 하는데, 맹글링이라는 단어의 뜻이 원래 엉망진창으로 만들다 라는 의미다.
+
+이렇게 name mangling을 하게 되면 원래의 함수 이름에 namespace 정보와 input 정보들이 추가된다. 따라서 같은 이름의 함수일 지라도, name mangling을 거치고 나면 다른 함수로 취급할 수 있게 되고 링킹을 성공적으로 수행할 수 있게 된다.
+
+### Binding
+`바인딩(binding)`이란 코드에 쓰인 이름 식별자들에 대해 값 또는 속성을 확정하여 변경할 수 없게 `묶는(bind)` 과정이다.
+
+binding 시점에 따라 `정적 바인딩(static binding)`과 `동적 바인딩(dynamic binding)`으로 나뉘게 된다. static binding은 compile time에 binding이 일어나는 경우이고 dynamic binding은 run time에 binding이 일어나는 경우이다.
+
+> Reference    
+> [lesslate - 정적 바인딩과 동적 바인딩](https://lesslate.github.io/cpp/%EB%8F%99%EC%A0%81-%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%A0%95%EC%A0%81%EB%B0%94%EC%9D%B8%EB%94%A9/)  
+
 
 ### Overriding abstract class
-
 다음 예시 코드를 보자.
 
 ```cpp
@@ -240,27 +341,6 @@ dynamic binding 덕분에 print_area 함수는 compile time 의존성은 오직 
 > Reference  
 > [blog - why-is-polymorphism-important](https://wasabigeek.com/blog/why-is-polymorphism-important/)  
 
-
-### Overloading
-overloading이란 이름은 같고 input은 다른 함수들을 정의하는 것이다.
-
-```cpp
-class Shape1;
-class Shape2;
-class Shape3;
-
-//Polymorphism via overloading
-double cal_area(const Shape1 shape);
-double cal_area(const Shape2 shape);
-double cal_area(const Shape3 shape);
-```
-
-#### 참고
-C는 overloading을 제공하지 않는다. 왜냐하면 컴파일러가 목적 코드를 생성할 떄 symbol을 함수 이름으로 생성하기 때문에 같은 이름이 있는 경우 어떤 함수를 호출할 지 구분할 수가 없게 되어 linking에 실패하기 때문이다.
-
-그렇다면 C++에서는 어떻게 overloading을 제공하는 것일까? 정답은 `이름 맹글링(name mangling)`이다. C++에서는 목적 코드 생성시에 컴파일러가 함수의 이름을 바꾸는 것을 볼 수 있다. 이를 name mangling이라 하는데, 맹글링이라는 단어의 뜻이 원래 엉망진창으로 만들다 라는 의미다.
-
-이렇게 name mangling을 하게 되면 원래의 함수 이름에 namespace 정보와 input 정보들이 추가된다. 따라서 같은 이름의 함수일 지라도, name mangling을 거치고 나면 다른 함수로 취급할 수 있게 되고 링킹을 성공적으로 수행할 수 있게 된다.
 
 ### virtual function이 아닌 base class의 함수
 만약 virtual function이 아닌 base class의 함수를 redefing하면 어떻게 될지 다음 예시를 보자.
@@ -438,6 +518,8 @@ int main(void)
 > Reference  
 > {cite}`FundamentalC++`
 
-## Performance
+### Performance
 > Reference
 > [blog](https://johnnysswlab.com/the-true-price-of-virtual-functions-in-c/)
+
+
