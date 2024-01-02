@@ -49,12 +49,13 @@ function template을 인스턴스화하기 위해서는 template parameter에 �
 template argument가 명시적으로 결정 되지 않은 상태로 함수 호출이 될 경우, 함수 호출에 사용되는 arguments type(A)과 template parameter type(P)을 매칭시켜서 template parameter에 사용될 template argument를 deduction한다.
 
 매칭을 통해 deduction할 때, 다음과 같은 규칙을 따른다.
-1. P가 forwarding reference가 아닌 경우, A의 reference는 무시된다.
+1. P가 forwarding reference가 아닌 경우, 매칭시 A의 reference는 무시된다.
 2. P가 reference type이 아니고 A가 cv-qualified type인 경우, 매칭시 A의 top-level cv-qualifiers는 무시된다.
 3. P가 cv-qualified type인 경우, 매칭시 P의 top-level cv-qualifiers는 무시된다.
 4. P가 reference type인 경우, 매칭시 P의 reference는 무시된다.
 5. P가 reference type인 경우, 매칭시 필요에 따라 A는 추가적인 cv-qualifiers를 획득할 수 있다.
-6. P가 forwarding reference인 경우, 매칭시 A 자리에 Lvalue reference를 사용한다.
+6. P가 forwarding reference이고 A가 Lvalue인 경우 매칭시 A 자리에 Lvalue reference를 사용한다.
+7. P가 forwarding reference이고 A가 Lvalue가 아닌 경우, 매칭시 A의 referece는 무시된다.
 
 다음 예제를 통해 규칙이 어떻게 적용되는지 살펴보자.
 ```cpp

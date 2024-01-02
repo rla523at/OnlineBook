@@ -40,17 +40,17 @@ overriding에 의해 virtual function이 dynamic binding이 되면 맥락(어떤
 위의 문장을 이해하기 위해서는 다음 5가지를 알아야 한다.
 * virtual function이 무엇인가?
 * virtual function이 dynamic binding 된다는 건 무엇인가?
-* overridng에 의해 어떻게 virtual function이 dynamic binding이 되는가?
 * virtual function이 dynamic binding 되면 왜 polymorphism이 구현되는가?
-* virtual function이 dynamic binding 되면 왜 의존성을 줄어드는가?
+* virtual function이 dynamic binding 되면 왜 의존성이 줄어드는가?
+* virtual function은 어떻게 dynamic bingding이 되는가?
 
 이제, 하나씩 알아가 보자.
 
 ## 1. What is a Virtual Function?
-virtual function이란 derive 클래스에서 재정의 될 것으로 기대하는 함수이다.
+virtual function이란 derive 클래스에서 재정의 될 것으로 기대하는 함수로  virtual keyword를 통해 나타낸다
 
 ## 2. What does it mean for a Dynamic Binding occur in Virtual Function?
-virtual function이 dynamic binding 된다는 것은 어떤 class의 함수를 호출할지가 run time에 결정되는 것이다. 
+virtual function이 dynamic binding 된다는 것은 여러 class에 정의되어 있는 virtual function을 호출할 때, 어떤 class의 virtual function을 호출할지가 run time에 결정되는 것이다. 
 
 이를 이해하기 위해 다음 예시 코드를 보자.
 ```cpp
@@ -95,21 +95,25 @@ call_vfunc을 보면 base는 Base class의 객체임으로 main문에서 call_vf
 
 즉, base 객체의 타입과 관계 없이 input으로 들어오는 객체의 실제 클래스의 함수가 호출이 되며 이는 `base.vfunc()` 코드에서 어떤 class의 함수를 호출할지가 run time에 어떤 input이 들어오는지에 따라 run time에 결정된다는 것이다.
 
-그리고 이런 경우를 virtual function이 dynamic binding 되었다고 한다.
+이처럼 여러 class에 정의되어 있는 virtual function을 호출할 때, 어떤 class의 virtual function을 호출할지가 run time에 결정되는 경우를 virtual function이 dynamic binding 되었다고 한다.
 
-## 3. Why does Dynamic Binding occur when Overriding a Virtual Function?
-virtual function을 overriding하면 dynamic bingding이 되는 이유는 객체의 `가상 함수 테이블 포인터(virtual function table pointer; vfptr)`가 객체의 타입과 관계없이 실제 클래스의 `가상 함수 테이블(virtual function table; vftable)`을 가르키게 설계가 되어있기 때문이다.
+## 3. Why Does Polymorphism Occur When a Virtual Function is Dynamically Bound?
+virtual function이 dynamic binding 되면 맥락(호출하는 객체의 class)에 따라 다른 로직이 수행되는 polymorphism이 구현된다.
 
-그리고 위의 문장을 이해하기 위해서 virtual function에 대해 조금더 자세히 알아보자.
+## 4. Why Does Dependency Decrease When Virtual Functions Are Dynamically Bound?
+virtual function이 dynamic binding 되면 call_vfunc은 Derive class에 대해 compile time 의존성을 갖지 않아도 됨으로 의존성을 줄일 수 있는 것이다.
+
+## 5. How does Dynamic Binding occurs in a Virtual Function?
+virtual function이 dynamic binding이 되는 이유는 virtual function을 갖는 class는 `가상 함수 테이블(virtual function table; vftable)`을 그리고 그 class의 객체는 `가상 함수 테이블 포인터(virtual function table pointer; vfptr)`라는 추가적인 구조를 가지고 있고 virtual function은 일반 함수와 다른 호출 방식을 가지며 vfptr은 객체의 타입과 관계없이 항상 실제 클래스의 vftable을 가리키도록 설계가 되어 있기 때문이다. 
+
+위의 문장을 이해하기 위해서 virtual function에 대해 조금더 자세히 알아보자.
 
 virtual function이란 derive 클래스에서 재정의 될 것으로 기대하는 함수로 C++에서는 virtual keyword를 통해 나타낸다. virtual function은 일반 함수와 함수 그 자체로서는 큰 차이 없이 메모리 코드 영역의 어딘가에 위치할 뿐이다. 하지만 virtual function은 vftable과 vfptr이라는 추가적인 구조를 가지고 있으며 함수의 호출 방식도 다르다.
 
 ### vftable
-vftable은 각 virtual function별로 실제로 실행해야 될 함수의 메모리 시작 주소가 기록되어 있는 table이다. 
+vftable은 virtual function을 가지고 있는 class마다 하나씩 존재하는 table로 class에 정의된 virtual function들의 시작 주소가 기록되어 있는 table이다.
 
-그렇다면 이런 vftable은 언제 생성되는 것일까? 컴파일러는 컴파일 시점에 소스 코드에 정의된 모든 클래스에 대해서 virtual function이 하나라도 있을 경우 그 클래스에 대한 vftable을 생성한다. 
-
-그리고 같은 클래스의 객체의 경우 당연히 같은 virtual function을 가지게 됨으로 똑같은 vftable을 객체마다 생성할 필요가 없고 클래스 별로 하나의 vftable을 생성하고 객체들이 고유의 vfptr을 통해 이를 공유하며 접근할 수 있게 한다.
+컴파일러는 컴파일 시점에 소스 코드에 정의된 모든 클래스에 대해서 virtual function이 하나라도 있을 경우 그 클래스에 대한 vftable을 생성한다. 
 
 #### 참고
 컴파일러는 vftable을 생성할 때 함수마다 고유의 인덱스를 부여하고 이 인덱스를 이용해서 virtual function 호출을 처리한다. 예를 들어 가상함수 vfunc의 인덱스가 0번이라면, vfunc가 호출될 시 vfptr이 가리키는 vftable의 0번 인덱스에 접근하여 함수를 호출하도록 어셈블리 코드를 작성한다. 즉, virtual function는 오직 vfptr이 가리키는 vftable과 virtual function에 해당하는 인덱스만으로 주소를 찾아내서 호출될 수 있다.
@@ -117,7 +121,7 @@ vftable은 각 virtual function별로 실제로 실행해야 될 함수의 메�
 ### vfptr
 vfptr은 말 그대로 vftable을 가르키는 pointer다. 
 
-virtual function을 가지고 있는 클래스 객체가 생성될 때, 컴파일러에 의해 시작 위치에 vfptr가 생성되고 생성자의 선처리 영역에서 vfptr의 값으로 vftable의 주소가 설정된다.
+virtual function을 가지고 있는 클래스의 객체가 생성될 때, 컴파일러에 의해 객체의 시작 위치에 vfptr이 생성되고 생성자의 선처리 영역에서 vfptr이 vftable을 가르키도록 설정된다.
 
 클래스의 생성자와 소멸자는 각각 선처리 영역과 후처리 영역을 가지고 있으며 이를 간단하게 정리하면 다음과 같다.
 
@@ -194,42 +198,45 @@ int main(void)
     Test* pt = &t;
 
     pt->func();
-    call Test::func         //비가상 멤버 함수의 경우 컴파일러는 직접 해당 함수의 메모리 주소로  
-                            //call을 수행하게 어셈블리 코드를 작성한다.
+    call Test::func        
+    //비가상 멤버 함수의 경우 컴파일러는 직접 해당 함수의 메모리 주소를 call하는 어셈블리 코드를 작성한다.
     
-    //레지스터인 경우, 레지스터에 저장된 주소로 가서 데이터 4바이트를 읽어온다.
-    //레지스터가 아닌 변수 이름이 직접 사용될 경우, 변수의 값 4바이트를 읽어온다.
-    //즉, 변수가 pointer일 때, pointer의 주소가 아니라 pointer가 가르키는 주소를 읽어오라는 의미이다.
-
+    //dword ptr [name]
+    //name이 레지스터명인 경우, 레지스터에 저장된 주소로 가서 저장된 데이터 4바이트를 읽어온다.
+    //name이 변수명인 경우, 변수에 저장된 데이터 4바이트를 읽어온다.
 
     pt->vfunc1();
-    mov eax,dword ptr [pt]  //pt의 값 4바이트를 eax에 넣어라.
+    mov eax,dword ptr [pt]  
+    //pt 변수에 저장된 데이터 4바이트를 eax에 저장한다.
+        //pt 변수는 t객체의 시작 주소가 저장되어 있다.
+    //t객체의 시작 주소를 eax에 저장한다.
+    
+    mov edx,dword ptr [eax] 
+    //eax에 저장된 주소로 가서 저장된 데이터 4바이트를 edx에 저장한다.
+        //eax에는 t객체의 시작 주소가 저장되어 있다.
+        //t객체의 시작 주소에는 vfptr의 값(vftable의 주소)이 저장되어 있다. 
+    //vftable의 주소를 edx에 저장한다.
 
-                            //pt는 변수명임으로, pt의 값을 4바이트 읽어온다.
-                            //이 떄, pt의 값은 t객체의 시작 주소임으로 eax에는 t객체의 시작 주소 4바이트가 들어있다.
+    mov eax,dword ptr [edx] 
+    //edx에 저장된 주소로 가서 저장된 데이터 4바이트 eax에 저장한다.
+        //edx에는 vftable의 시작 주소가 저장되어 있다.
+        //vftable의 시작 주소에는 첫번째 가상함수(vfunc1)의 주소가 저장되어 있다.
+    //vfunc1의 주소를 eax의 저장한다.
 
-    mov edx,dword ptr [eax] //eax에 저장된 주소로 가서 4바이트 값을 읽어서 edx에 넣어라.
-
-                            //eax는 레지스터명임으로, eax에 저장된 주소(t객체의 시작 주소)로 가서 저장된 데이터 4바이트를 읽어온다.
-                            //이 때, t객체의 시작 위치에는 vfptr이 있고, vfptr은 vftable의 주소 값 4바이트가 저장되어 있다.
-                            //따라서, t 객체의 시작 주소에는 vfptr이 가르키고 있는 vftable의 주소가 적혀있음으로 edx에는 vftable의 주소 값 4바이트가 저장된다.
-
-    mov eax,dword ptr [edx] //edx에 저장된 주소에서 4바이트 값을 읽어서 eax에 넣어라.
-
-                            //edx는 레지스터명임으로, edx에 저장된 주소(vftable의 시작 주소)로 가서 저장된 데이터 4바이트를 읽어온다.
-                            //이 때, vftable의 시작 주소에는 테이블의 첫번째 가상함수의 주소 4바이트 저장되어 있다.
-                            //따라서, eax에는 가상함수 테이블에 첫번째 함수 시작 주소가 들어있다.
-
-    call eax                //eax가 가리키는 곳으로 점프하여 실행하여라.
-
-                            //vftable의 첫번째 함수 주소로 가서 함수를 실행하게 된다.
+    call eax                
+    //eax에 저장된 주소로 점프하여 실행한다.
+        //eax에는 vfunc1의 주소가 저장되어 있다.
+    //vfunc1 주소로 가서 함수를 실행한다.
 
     pt->vfunc2();
     mov eax,dword ptr [pt]
     mov edx,dword ptr [eax]
-    mov eax,dword ptr [edx + 4]     //가상함수 테이블의 두번째 가상함수의 주소를 가르키게 바뀐다.
+    mov eax,dword ptr [edx + 4]     
+    //edx+4에 저장된 주소로 가서 저장된 데이터 4바이트 eax에 저장한다.
+        //edx+4에는 두번째 가상함수(vfunc2)의 주소가 저장되어 있다.
+    //vfunc2의 주소를 eax에 저장한다.
+    call eax
 }
-
 ```
 
 정리하면 비가상 멤버함수는 컴파일러에 의해 바로 호출되는 반면 virtual function는 객체가 가지고 있는 vfptr를 이용해 vftable에 접근해 호출된다.
@@ -279,13 +286,7 @@ int main(void)
 
 call_vfunc에 input으로 d 객체를 주었을 때, call_vfunction의 input 객체 base는 d 객체의 Base 클래스의 해당하는 영역뿐이다. 하지만 객체 d의 vfptr은 이미 Derive 클래스의 vftable을 가르키고 있기 때문에 vfptr을 이용하여 함수를 호출하더라도 원래 객체 d의 타입에 맞는 virtual function이 호출이 될 수 있다.
 
-결론적으로 vfptr이 실제 클래스의 vftable을 가르키게 설계가 되어있기 때문에 virtual function은 dynamic binding이 가능하게 된다. 
-
-## 4. Why Does Polymorphism Occur When a Virtual Function is Dynamically Bound?
-virtual function이 dynamic binding 되면 맥락(호출하는 객체의 class)에 따라 다른 로직이 수행되는 polymorphism이 구현된다.
-
-## 5. Why Does Dependency Decrease When Virtual Functions Are Dynamically Bound?
-virtual function이 dynamic binding 되면 call_vfunc은 Derive class에 대해 compile time 의존성을 갖지 않아도 됨으로 의존성을 줄일 수 있는 것이다.
+결론적으로  vfptr은 객체의 타입과 관계없이 항상 실제 클래스의 vftable을 가리키도록 설계가 되어 있기 때문에 dynamic binding이 가능하게 된다. 
 
 ## 참고
 ### C and Overloading
