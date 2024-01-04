@@ -1,14 +1,15 @@
 # Reference
 Reference란 이미 존재하는 객체나 함수에 대한 `별칭(alias)`이다.
 
-Reference가 alias이기 때문에 다음과 같은 특징을 갖는다.
-* reference는 반드시 초기화 되어야 한다. 초기화 없는 정의는 불가능하다.
-* reference는 중간에 다른 변수의 alias가 될 수 없다.
-* reference는 alias지 객체가 아니다. 따라서 반드시 메모리를 차지할 필요가 없다.
-  * [c++draft - dcl.ref#4](https://eel.is/c++draft/dcl.ref#4)
-* reference는 객체가 아니기 때문에 reference의 array도 없고 reference의 pointer도 없고 reference의 reference도 없다.
-* reference는 top-level cv-qualified가 불가능하다.
-  * reference type은 두 계층으로 되어있다. reference to type. 이 때, 두번째 계층에서 cv-qualifier가 나타나는 것(reference to const type)은 가능하지만 첫번째 계층에서 cv-qualifier가 나타나는 것(const reference to type)은 정의되지 않는 표현식이다. 즉, const reference는 없는 개념이다.
+Reference가 다음과 같은 특징을 갖는다.
+* reference는 alias지 객체가 아니다. 
+  * 반드시 메모리를 차지하지 않을 수 있다.
+    * [c++draft - dcl.ref#4](https://eel.is/c++draft/dcl.ref#4)
+  * reference의 array도 없고 reference의 pointer도 없고 reference의 reference도 없다.
+* reference는 alias이기 때문에 반드시 정의와 동시에 초기화 되어야 한다. 
+* reference는 한번 정의가 되면 이후에는 다른 변수의 reference가 될 수 없다.
+  * reference는 top-level cv-qualified가 불가능하다.
+    * reference type은 두 계층으로 되어있다. reference to type. 이 때, 두번째 계층에서 cv-qualifier가 나타나는 것(reference to const type)은 가능하지만 첫번째 계층에서 cv-qualifier가 나타나는 것(const reference to type)은 정의되지 않는 표현식이다. 즉, const reference는 없는 개념이다. 왜냐하면 reference는 이미 const reference처럼 동작하기 때문이다.
 
 ```cpp
 //int& a; //초기화 없는 정의 불가능
@@ -35,9 +36,9 @@ ra = b; // ra가 b의 alias가 되는게 아니라 a에 b의 값을 대입하는
 ## Rvalue Reference
 `우측값 참조(Rvalue reference)`는 C++ 11에서 추가된 문법으로 value category상 Rvalue인 객체들의 alias이다.
 
-C++11에서 Rvalue reference를 왜 추가했는지, Rvalue reference의 필요성을 통해 알아보자.  
+C++11에서 Rvalue reference를 왜 추가했는지 이해하기 위해 불필요한 복사 문제를 살펴보자.
 
-필요성을 이해하기 위해, class X 를 어떠한 리소스에 대한 포인터(예를 들어 m_pResource) 를 담고 있는 클래스라고 생각하자. 참고로 여기서 리소스 라고 말하는 것은, 생성 또는 복사, 소멸 하기에 많은 시간이 걸리는 거대한 어떤 무언가를 의미한다. 클래스 X 의 가장 좋은 예로 std::vector 를 들 수 있다.
+class X 를 어떠한 리소스에 대한 포인터(예를 들어 m_pResource) 를 담고 있는 클래스라고 생각하자. 참고로 여기서 리소스 라고 말하는 것은, 생성 또는 복사, 소멸 하기에 많은 시간이 걸리는 거대한 어떤 무언가를 의미한다. 클래스 X 의 가장 좋은 예로 std::vector 를 들 수 있다.
 
 ```cpp
 X foo();  // foo 는 X 타입의 객체를 리턴하는 함수이다!
@@ -52,15 +53,17 @@ x = foo();
 3. x의 포인터가 복사 생성된 리소스를 가리킨다.
 4. 복사대입연산자가 끝나고 임시로 생성된 객체가 소멸되면서 임시 객체의 리소스 또한 소멸된다.
 
-하지만 위 과정은 단순히 생각해보아도, 임시로 생성된 객체 리소스를 굳이 복사할 필요가 없다. 그냥 임시로 생성된 객체가 가지고 있는 리소스를 가르키는 포인터와 x의 리소스를 가르키는 포인터를 서로 교환(swap)만 해주면 된다. 어짜피 임시 객체는 향후에 다시 사용될 일이 없기 때문에 포인터가 어디를 가르켜도 아무런 문제가 생기지 않는다. 그리고 이 과정을 임시 객체의 리소스가 x로 이동되었다고 표현합니다.
+위와 같이 기존 객체에 임시생선된 객체를 복사대입 할 떄, 임시로 생성된 객체가 가르키고 있는 리소스의 대한 복사와 소멸은 필요가 없다는 걸 알 수 있다. 그냥 x가 가르키고 있떤 리소스만 소멸시킨 뒤 임시로 생성된 객체가 가지고 있는 리소스를 가르키는 포인터와 x의 리소스를 가르키는 포인터를 서로 교환만 해주면 된다. 어짜피 임시 객체는 향후에 다시 사용될 일이 없기 때문에 포인터가 어디를 가르켜도 아무런 문제가 생기지 않는다. 그리고 이 과정을 임시 객체의 리소스가 x로 이동되었다고 표현한다.
 
-따라서 향후에 다시 사용될 일이 없는 Rvalue인 경우 복사연산 없이 교환만 하도록 구현하기 위해 Rvalue들을 나타낼 수 있는 Rvalue reference를 도입한다. 
+따라서 향후에 다시 사용될 일이 없는 Rvalue인 경우 복사연산 없이 교환만 하도록 구현하기 위해서는 Rvalue들을 나타낼 수 있는 Rvalue reference가 필요하게 됩니다.
 
 > Reference  
 > [modoocode](https://modoocode.com/189)
 
 ### std::move
-C++11에서 추가된 문법중 하나가 std::move이고 std::move는 Rvalue reference와 깊은 관련이 있다.
+std::move는 C++11에서 추가된 기능중 하나로 Rvalue reference 타입으로 형변환 해주는 함수이다.
+
+C++11에서 std::move를 왜 추가했는지 이해하기 위해 swap 복사 문제를 살펴보자.
 
 ```cpp
 template <class T>
@@ -94,9 +97,33 @@ swap(a, b);
 > Reference  
 > [modoocode](https://modoocode.com/189)
 
+#### std::move의 구현
+std::move의 구현은 다음과 같다.
+
+```cpp
+template <typename T>
+constexpr std::remove_reference_t<T>&& move(T&& arg) noexcept {
+    return static_cast<std::remove_reference_t<T>&&>(arg);
+}
+```
+
+이 때, input이 `T&& arg`임으로 타입추론이 가능함으로 std::move는 template function임에도 불구하고 호출할 때 타입을 명시하지 않아도 된다.
 
 ## Forwarding Reference
 `전달 레퍼런스(Forwarding references, Universal references)`는 C++11에 추가된 문법으로 함수 인자의 value category를 보존시켜주는 특별한 종류의 reference이다.
+
+forwarding references는 다음 두가지 경우이다.
+* 템플릿 함수가 input으로 템플릿 parameter의 cv-unqualified rvalue reference를 사용하면 이는 forwarding references이다.
+```cpp
+template<class T>
+int f(T&& x); // x is a forwarding reference
+```
+* brace-enclosed initializer list로 부터 추론되는게 아닌 auto&&는 forwarding references이다.
+```cpp
+auto&& vec = foo();       // foo() may be lvalue or rvalue, vec is a forwarding reference
+for (auto&& x: f()){}     // x is a forwarding reference; this is a common way to use range for in generic code
+    auto&& z = {1, 2, 3}; // *not* a forwarding reference (special case for initializer lists)
+```
 
 C++11에서 Rvalue reference를 왜 추가했는지 이해하기 위해 `완벽한 전달(perfect forwarding)` 문제를 살펴보자.
 
@@ -141,7 +168,7 @@ wrapper(ca);  //instantiation result: wrapper(const A& u)
 wrapper(A()); //instantiation result: wrapper(A&& u)      ``
 ```
 
-하지만 막상 코드를 실행하면 기대와 다른 instantiation으로 Lvalue는 제대로 전달되지만 Rvalue는 제대로 전달이 되지 않고 compile error가 발생하는걸 알 수 있다.(왜 이렇게 instatiation 되는지 알려면 이 [페이지](https://rla523at.github.io/OnlineBook/sources/03%20programming/01%20C%2B%2B/31%20Template.html#Deduction-from-a-function-call)를 참고하면 된다.)
+하지만 막상 코드를 실행하면 기대와 다른 instantiation으로 Lvalue는 제대로 전달되지만 Rvalue는 제대로 전달이 되지 않고 compile error가 발생하는걸 알 수 있다.(왜 이렇게 instatiation 되는지 알려면 이 [페이지](https://rla523at.github.io/OnlineBook/sources/03%20programming/01%20C++/31%20Template.html#deduction-from-a-function-call)를 참고하면 된다.)
 
 ```cpp
 template <typename T>
@@ -175,20 +202,7 @@ wrapper(A()); // instantiation result: wrapper(const A& u)
 ### Forwarding reference
 이런 문제를 해결하기 위해 C++11에 추가된 문법이 Forwarding references이다.
 
-forwarding references는 다음 두가지 경우이다.
-* 템플릿 함수가 input으로 템플릿 parameter의 cv-unqualified rvalue reference를 사용하면 이는 forwarding references이다.
-```cpp
-template<class T>
-int f(T&& x); // x is a forwarding reference
-```
-* brace-enclosed initializer list로 부터 추론되는게 아닌 auto&&는 forwarding references이다.
-```cpp
-auto&& vec = foo();       // foo() may be lvalue or rvalue, vec is a forwarding reference
-for (auto&& x: f()){}     // x is a forwarding reference; this is a common way to use range for in generic code
-    auto&& z = {1, 2, 3}; // *not* a forwarding reference (special case for initializer lists)
-```
-
-forwaridng referencs는 특별한 template argument deduction 규칙을 갖으며, 초기에 목표대로 instantiation 된다.
+forwaridng referencs는 [특별한 template argument deduction 규칙](https://rla523at.github.io/OnlineBook/sources/03%20programming/01%20C++/31%20Template.html#deduction-from-a-function-call)을 갖고 있어 초기에 목표대로 instantiation 된다.
 ```cpp
 template <typename T>
 void wrapper(T&& u) {
@@ -250,15 +264,16 @@ wrapper(A()); // 우측값 레퍼런스 호출
 std::forward 함수의 정의는 다음과 같다.
 
 ```cpp
-template <class S>
-S&& forward(typename std::remove_reference<S>::type& a) noexcept {
-  return static_cast<S&&>(a);
+template <typename T>
+constexpr T&& forward(std::remove_reference_t<T>& arg) noexcept {
+    return static_cast<T&&>(arg);
 }
+
 ```
 
-이 떄, S=A&가 들어오는 경우 다음과 같이 instantiation 될 것이다.
+이 떄, T=A&가 들어오는 경우 다음과 같이 instantiation 될 것이다.
 ```cpp
-// if S=A&
+// if T=A&
 A& forward(A& a) noexcept {  //reference collapsing rule (A&)&& --> A&
   return static_cast<A&>(a);
 }
@@ -266,15 +281,17 @@ A& forward(A& a) noexcept {  //reference collapsing rule (A&)&& --> A&
 
 따라서 T=A&일 때, wrapper 함수에서 넘어온 인자를 g에 그대로 전달하게 된다.
 
-이번에는 S=A가 들어오는 경우 다음과 같이 instantiation 될 것이다.
+이번에는 T=A가 들어오는 경우 다음과 같이 instantiation 될 것이다.
 ```cpp
-// if S=A
+// if T=A
 A&& forward(A& a) noexcept { 
   return static_cast<A&&>(a);
 }
 ```
 
 따라서 T=A일 떄, wrapper 함수에서 넘어온 인자를 g에 g&& Rvalue reference 형태로 전달하게 된다.
+
+참고로 std::forward의 input은 `std::remove_reference_t<T>& arg`이기 때문에 타입 추론이 불가능하다. 따라서 std::forward 함수를 호출할떄는 반드시 template argument를 주어야 한다.
 
 > Reference  
 > [modoocode - Move문법과 완벽한 전달](https://modoocode.com/228)  
@@ -286,3 +303,23 @@ A&& forward(A& a) noexcept {
 
 > Reference  
 > [stackoverflow-is-there-a-difference-between-universal-references-and-forwarding-reference](https://stackoverflow.com/questions/39552272/is-there-a-difference-between-universal-references-and-forwarding-references)  
+
+
+### Function References
+함수 포인터처럼 함수 레퍼런스(function reference)를 만들 수 있다.
+
+```cpp
+void Foo()
+{
+}
+
+int main()
+{
+    void(& func)() = Foo; // foo is function reference of FOO
+
+    func(); //::Foo();
+}
+```
+
+> Reference  
+> [stackoverflow - function-references](https://stackoverflow.com/questions/480248/function-references)  
