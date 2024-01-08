@@ -50,7 +50,7 @@ overriding에 의해 virtual function이 dynamic binding이 되면 맥락(어떤
 virtual function이란 derive 클래스에서 재정의 될 것으로 기대하는 함수로  virtual keyword를 통해 나타낸다
 
 ## 2. What does it mean for a Dynamic Binding occur in Virtual Function?
-virtual function이 dynamic binding 된다는 것은 여러 class에 정의되어 있는 virtual function을 호출할 때, 어떤 class의 virtual function을 호출할지가 run time에 결정되는 것이다. 
+virtual function이 dynamic binding 된다는 것은 여러 class에 정의되어 있는 virtual function을 호출할 때, 어떤 class의 정의된 함수를 호출할지가 run time에 결정되는 것이다. 
 
 이를 이해하기 위해 다음 예시 코드를 보자.
 ```cpp
