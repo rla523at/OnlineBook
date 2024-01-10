@@ -1,7 +1,5 @@
 # Virtual Memeory
-`가상메모리(virtual memory) 기법`은 "프로그램이 실행되기 위해서 프로그램에 필요한 모든 메모리를 한번에 할당 받을 필요는 없다."는 점을 활용해 secondary memory를 primary memory의 일부처럼 사용한다.
-
-이처럼 작고 빠른 primary memory와 크고 느린 secondary memory를 병합하여 primary memory보다 크고 secondary memory보다 빠른 가상의 memory를 갖고 있는 것과 같은 환상을 제공한다.
+`가상메모리(virtual memory) 기법`은 "프로그램이 실행되기 위해서 프로그램에 필요한 모든 메모리를 한번에 할당 받을 필요는 없다."는 점을 활용해 secondary memory를 primary memory의 일부처럼 사용하여 작고 빠른 primary memory와 크고 느린 secondary memory를 병합함으로써 primary memory보다 크고 secondary memory보다 빠른 가상의 memory를 갖고 있는 것과 같은 환상을 제공한다.
 
 ## 동작원리
 메모리 접근은 순차적이고 지역적이기 때문에 명령어 수행에 필요한 메모리는 프로그램에 필요한 모든 메모리 용량에 비해 훨씬 작다. 단독 기계 명령어를 실행하기 위해서는 다음 3가지의 메모리 접근이 필요하다.
