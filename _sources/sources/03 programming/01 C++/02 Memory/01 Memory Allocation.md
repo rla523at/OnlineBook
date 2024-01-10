@@ -2,7 +2,7 @@
 프로그램은 OS로부터 primary memory를 할당받아 process가 된다.
 
 ## Contiguous Memory Allocation
-프로그램에 메모리를 할당할 때, 하나의 커다란 공간에 연속적으로 할당하는 방식을 `연속 메모리 할당(Contiguous Memory Allocation)`이라고 한다.
+프로그램에 메모리를 할당할 때, primary memeory에 연속적으로 할당하는 방식을 `연속 메모리 할당(Contiguous Memory Allocation)`이라고 한다.
 
 Contiguous memory allocation 방법으로는 `단일 분할 할당 기법`과 `다중 분할 할당 기법`이 있다.
 

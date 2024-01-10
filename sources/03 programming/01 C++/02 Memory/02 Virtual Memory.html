@@ -667,21 +667,21 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="virtual-memeory">
 <h1>Virtual Memeory<a class="headerlink" href="#virtual-memeory" title="Permalink to this heading">#</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">가상메모리(virtual</span> <span class="pre">memory)</span> <span class="pre">기법</span></code>은 “프로그램이 실행되기 위해서 프로그램에 필요한 모든 메모리를 한번에 할당 받을 필요는 없다.”는 점을 활용해 secondary memory를 primary memory의 일부처럼 사용하여 작고 빠른 primary memory와 크고 느린 secondary memory를 병합함으로써 primary memory보다 크고 secondary memory보다 빠른 가상의 memory를 갖고 있는 것과 같은 환상을 제공한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">가상메모리(virtual</span> <span class="pre">memory)</span> <span class="pre">기법</span></code>은 “프로그램이 실행되기 위해서 프로그램에 필요한 모든 메모리를 한번에 할당 받을 필요는 없다.”는 점을 활용해 secondary memory를 primary memory의 일부처럼 사용하여 작고 빠른 primary memory와 크고 느린 secondary memory를 병합함으로써 primary memory보다 크고 secondary memory보다 빠른 가상의 memory를 갖고 있는 것과 같은 환상을 제공하는 기법이다.</p>
 <section id="id1">
 <h2>동작원리<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>메모리 접근은 순차적이고 지역적이기 때문에 명령어 수행에 필요한 메모리는 프로그램에 필요한 모든 메모리 용량에 비해 훨씬 작다. 단독 기계 명령어를 실행하기 위해서는 다음 3가지의 메모리 접근이 필요하다.</p>
+<p>virtual memory 기법의 동작원리는 “명령어 수행에 필요한 메모리는 프로그램이 필요로 하는 메모리 용량에 비해 훨씬 작다”는 점에서 기인한다.</p>
+<p>단독 기계 명령어를 실행하기 위해서는 다음 3가지의 메모리 접근이 필요하다.</p>
 <ul class="simple">
 <li><p>메모리에서 명령어 읽기</p></li>
 <li><p>메모리에서 명령어를 수행하는데 필요한 데이터 읽기</p></li>
 <li><p>명령어 수행 후 결과를 메모리에 기록</p></li>
 </ul>
-<p>매번 메모리에 접근하는데 필요한 실제 바이트 수는 CPU 아키텍쳐 및 실제 명령어와 데이터 유형에 따라 달라진다. 그러나 예를 들어 각 메모리 접근 유형마다 100 바이트의 메모리가 필요하다고 가정하면 위의 경우 300 바이트만 메모리에 올라와 있어도 명령어를 수행할 수 있다.</p>
-<p>이런 순차적이고 지역적인 특성을 활용하면 전체 프로그램에 필요한 메모리가 아닌 명령어 수행에 필요한 최소 메모리만 primary memory에 할당 되고 나머지는 secondary memory에 할당 되도 프로그램을 실행할 수 있다.</p>
+<p>즉, 이를 위해 필요한 메모리만 primary memory에 할당되고 나머지는 secondary memory에 할당 되도 명령어 수행이 가능함으로 프로그램을 실행할 수 있다.</p>
+<p>virtual memory 기법에서는 필요한 virtual memory만 primary memory에 할당해야 하기 때문에 virtual memory를 여러 개의 작은 블록 단위로 나누고 메모리 할당이 필요한 블록만 primary memory에 할당하고 나머지는 secondary memory의 <code class="docutils literal notranslate"><span class="pre">paging</span> <span class="pre">file</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">swap</span> <span class="pre">file</span></code>이라 불리는 파일에 할당한다.</p>
 </section>
 <section id="memory-mapping">
 <h2>Memory Mapping<a class="headerlink" href="#memory-mapping" title="Permalink to this heading">#</a></h2>
-<p>virtual memory 기법에서는 필요한 virtual memory만 primary memory에 할당해야 하기 때문에 virtual memory를 여러 개의 작은 블록 단위로 나누고 메모리 할당이 필요한 블록만 primary memory에 할당하고 나머지는 secondary memory의 <code class="docutils literal notranslate"><span class="pre">paging</span> <span class="pre">file</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">swap</span> <span class="pre">file</span></code>이라 불리는 파일에 할당한다.</p>
 <p>이 때, 실제로 data에 접근하기 위해서는 virtual memory의 주소를 primary memory의 주소로 바꾸는 <code class="docutils literal notranslate"><span class="pre">memory</span> <span class="pre">mapping</span></code> 작업이 필요하다. 이 과정에서 virtual memory가 secondary memory를 할당받은 경우라면 primary memory를 새롭게 할당받은 뒤 primary memory로 바꿔준다. memory mapping은 CPU와 메모리 중간에 <code class="docutils literal notranslate"><span class="pre">memory</span> <span class="pre">management</span> <span class="pre">unit</span> <span class="pre">(MMU)</span></code>라는 하드웨어 반도체 칩을 통해 이루어진다. MMU는 translation 속도를 높이기 위해  최근에 mapping된 정보들을 <code class="docutils literal notranslate"><span class="pre">translation</span> <span class="pre">lookaside</span> <span class="pre">buffer</span> <span class="pre">(TLB)</span></code>라는 연관 캐쉬에 저장하고 secondary memory에 저장되어 있어 새롭게 primary memory를 할당받는 경우를 최소화 하기 위한 기법이 적용되는 등 다양한 최적화가 되어있다. 이렇게 translation과 관련된 overhead를 줄임으로써 virtual memory가 physical memory와 같이 빠른 memory처럼 동작하게 한다.</p>
 <p>그리고 primary memory에 불연속적으로 할당되어 있다고 하더라도 virtual memory 입장에서는 연속적으로 존재할 수 있다. 따라서 컴퓨터의 primary memory에 연속적으로 할당되어 존재할 필요가 없음으로 <code class="docutils literal notranslate"><span class="pre">불연속</span> <span class="pre">메모리</span> <span class="pre">할당(Noncontiguous</span> <span class="pre">Memory</span> <span class="pre">Allocation)</span></code>이 가능해진다. 이로써 memory 집약 과정 없이 연속적이지 않은 primary memory의 공간을 활용할 수 있기 때문에 효율적으로 external fragmentation 문제를 해결할 수 있다. 대신 프로그램 실행에 필요한 메모리가 블록 단위에 딱 맞지 않아 필요한 양보다 더 큰 메모리를 할당받아 메모리 공간이 낭비되는 internal fragmentation 문제가 발생할 수 있다. 이를 해결하기 위해 블록 단위를 작게하면 mapping 과정이 많아지므로 오히려 효율이 떨어질 수 있다.</p>
 <hr class="docutils" />
