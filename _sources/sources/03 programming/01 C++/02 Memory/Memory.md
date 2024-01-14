@@ -1,2 +1,2 @@
 # Memory
-`메모리(memory)`란 프로그램과 프로그램 수행에 필요한 데이터 및 코드를 저장하는 장치이다. 메모리는 크게 CPU가 직접 접근 가능한 내부 기억장치인 `주기억장치(primary memory)`와 외부 기억장치인 `보조 기억장치(secondary memory)`로 분류된다. DRAM(RAM, DDR4) 등의 메모리, CPU 안에 있는 레지스터(register)와 캐쉬(cache memory) 등이 주기억장치 이며 SSD, HDD 등이 보조 기억장치이다.
+`메모리(memory)`란 프로그램 수행에 필요한 명령어와 데이터를 저장하는 장치이다. 메모리는 크게 CPU가 직접 접근 가능한 내부 기억장치인 `주기억장치(primary memory)`와 외부 기억장치인 `보조 기억장치(secondary memory)`로 분류된다. DRAM(RAM, DDR4) 등의 메모리, CPU 안에 있는 레지스터(register)와 캐쉬(cache memory) 등이 주기억장치 이며 SSD, HDD 등이 보조 기억장치이다.

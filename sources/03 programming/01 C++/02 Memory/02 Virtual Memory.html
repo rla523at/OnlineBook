@@ -642,17 +642,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-mapping">Memory Mapping</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paging-system">Paging System</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#page-table-entry">Page table entry</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-mapping-process">Memory mapping process</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">참고</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#page-table-vs-tlb">Page Table vs TLB</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paging-virtual-memory">Paging Virtual Memory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-mapping-process">Memory mapping Process</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#page-table">Page Table 매핑 방식</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">직접 매핑</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">연관 매핑</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-memory-size">Virtual Memory Size</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">명령어 수행에 필요한 최소한의 메모리</a></li>
 </ul>
             </nav>
         </div>
@@ -666,57 +666,41 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="virtual-memeory">
 <h1>Virtual Memeory<a class="headerlink" href="#virtual-memeory" title="Permalink to this heading">#</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">가상메모리(virtual</span> <span class="pre">memory)</span> <span class="pre">기법</span></code>은 “프로그램이 실행되기 위해서 프로그램에 필요한 모든 메모리를 한번에 할당 받을 필요는 없다.”는 점을 활용해 secondary memory를 primary memory의 일부처럼 사용하여 작고 빠른 primary memory와 크고 느린 secondary memory를 병합함으로써 primary memory보다 크고 secondary memory보다 빠른 가상의 memory를 갖고 있는 것과 같은 환상을 제공하는 기법이다.</p>
-<p>virtual memory 기법의 동작원리는 virtual memory 중 명령어 수행에 필요한 메모리만 primary memory에 할당하는 것이다.</p>
-<p>단독 기계 명령어를 실행하기 위해서는 다음 3가지의 메모리 접근이 필요하다.</p>
-<ul class="simple">
-<li><p>메모리에서 명령어 읽기</p></li>
-<li><p>메모리에서 명령어를 수행하는데 필요한 데이터 읽기</p></li>
-<li><p>명령어 수행 후 결과를 메모리에 기록하기</p></li>
-</ul>
-<p>즉, 이를 위해 필요한 메모리만 primary memory에 할당되고 나머지는 secondary memory에 할당 되도 명령어 수행이 가능함으로 프로그램을 실행할 수 있다.</p>
-<p>virtual memory 기법에서는 필요한 virtual memory만 primary memory에 할당해야 하기 때문에 virtual memory를 여러 개의 작은 블록 단위로 나누고 메모리 할당이 필요한 블록만 primary memory에 할당하고 나머지는 secondary memory의 <code class="docutils literal notranslate"><span class="pre">paging</span> <span class="pre">file</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">swap</span> <span class="pre">file</span></code>이라 불리는 파일에 할당한다.</p>
-<p>그리고 virtual memory를 통해 data에 접근할 때는 virtual memory의 주소를 primary memory의 주소로 바꾸는 <code class="docutils literal notranslate"><span class="pre">memory</span> <span class="pre">mapping</span></code> 과정을 거친다. 따라서 virtual memory에 primary memory를 할당할 때, 할당되는 primary memory가 연속적으로 존재할 필요가 없어 <code class="docutils literal notranslate"><span class="pre">불연속</span> <span class="pre">메모리</span> <span class="pre">할당(Noncontiguous</span> <span class="pre">Memory</span> <span class="pre">Allocation)</span></code>이 가능해진다.</p>
-<p>이로써 memory 집약 과정 없이 연속적이지 않은 primary memory의 공간을 활용할 수 있기 때문에 효율적으로 external fragmentation 문제를 해결할 수 있다. 하지만 프로그램 실행에 필요한 메모리가 블록 단위에 딱 맞지 않아 필요한 양보다 더 큰 메모리를 할당받아 메모리 공간이 낭비되는 internal fragmentation 문제가 발생할 수 있다. 그리고 이를 해결하기 위해 블록 단위를 작게하면 mapping 과정이 많아지므로 오히려 효율이 떨어질 수 있다.</p>
+<p>virtual memory 기법은 프로그램을 secondary memory의 swap 영역에 저장하고 프로그램 실행에 필요한 최소한의 메모리만 primary memory에 불연속적으로 할당하는 방식이다. 따라서, virtual memory를 사용하면 secondary memory를 primary memory의 일부처럼 사용하기 때문에 primary memory 크기의 한계를 극복할 수 있다.</p>
+<p>그리고 virtual memory을 사용하면 각각의 프로세스마다 가상의 메모리 공간이 독립적으로 부여되며 부여된 메모리 영역은 해당 프로세스만이 접근할 수 있도록 보호된다. 따라서 타 프로세스가 해당 메모리 영역을 침벌할 수 없음으로 가상 메모리는 프로그램의 안정성을 크게 향상시킬 수 있다. 단, 프로세스에서 memory에 접근할 때는 가상 메모리 주소를 primary memory의 주소로 바꾸는 <code class="docutils literal notranslate"><span class="pre">memory</span> <span class="pre">mapping</span></code> 과정이 필요하게 된다.</p>
+<p>memory mapping은 CPU와 primary memory 중간에 <code class="docutils literal notranslate"><span class="pre">memory</span> <span class="pre">management</span> <span class="pre">unit</span> <span class="pre">(MMU)</span></code>라는 하드웨어 반도체 칩을 통해 이루어진다. MMU는 mapping 속도를 높이기 위해 최근에 mapping된 정보들을 <code class="docutils literal notranslate"><span class="pre">translation</span> <span class="pre">lookaside</span> <span class="pre">buffer</span> <span class="pre">(TLB)</span></code>라는 연관 캐쉬에 저장하고 secondary memory에 저장된 data를 primary memory에 할당하는 경우를 최소화 하는 알고리즘이 적용되는 등 다양한 최적화가 되어있다. MMU는 이렇게 mapping과 관련된 overhead를 줄임으로써 virtual memory가 primary memory와 같이 빠르게 동작할 수 있게 한다.</p>
+<p>그리고 virtual memory 기법에서는 virtual memory와 primary memory를 블록들로 나누어서 관리하는데 이 때, 어떻게 블록을 나누는 지에 따라 <code class="docutils literal notranslate"><span class="pre">Paging</span> <span class="pre">virtual</span> <span class="pre">memory</span></code>와 <code class="docutils literal notranslate"><span class="pre">Segmentation</span> <span class="pre">virtual</span> <span class="pre">memory</span></code>으로 나뉜다.</p>
 <blockquote>
 <div><p>Reference<br />
-<span id="id1">[<a class="reference internal" href="../../../99%20References/references.html#id16" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span><br />
-<a class="reference external" href="https://sorjfkrh5078.tistory.com/50">sorjfkrh5078 - 가상기억장치 할당 기법</a><br />
-<a class="reference external" href="https://mimimimamimimo.tistory.com/27">mimimimamimimo - 메모리 관리, 페이징, 세그멘테이션</a><br />
-<a class="reference external" href="https://mimimimamimimo.tistory.com/29">mimimimamimimo - 가상 메모리</a></p>
+<a class="reference external" href="https://greencloud33.tistory.com/47">greencloud33 - Swap Memory 개념 및 swap partition, file 생성 방법</a></p>
 </div></blockquote>
-<section id="memory-mapping">
-<h2>Memory Mapping<a class="headerlink" href="#memory-mapping" title="Permalink to this heading">#</a></h2>
-<p>memory mapping은 CPU와 메모리 중간에 <code class="docutils literal notranslate"><span class="pre">memory</span> <span class="pre">management</span> <span class="pre">unit</span> <span class="pre">(MMU)</span></code>라는 하드웨어 반도체 칩을 통해 이루어진다. MMU는 translation 속도를 높이기 위해  최근에 mapping된 정보들을 <code class="docutils literal notranslate"><span class="pre">translation</span> <span class="pre">lookaside</span> <span class="pre">buffer</span> <span class="pre">(TLB)</span></code>라는 연관 캐쉬에 저장하고 secondary memory에 저장되어 있어 새롭게 primary memory를 할당받는 경우를 최소화 하기 위한 기법이 적용되는 등 다양한 최적화가 되어있다. 이렇게 translation과 관련된 overhead를 줄임으로써 virtual memory가 physical memory와 같이 빠른 memory처럼 동작하게 한다.</p>
-<p>만약, virtual memory가 secondary memory를 할당받은 경우라면 primary memory를 새롭게 할당받은 뒤 primary memory로 바꿔준다.</p>
-</section>
-<section id="paging-system">
-<h2>Paging System<a class="headerlink" href="#paging-system" title="Permalink to this heading">#</a></h2>
-<p>virtual memory에 할당된 프로그램은 여러 개의 작은 단위로 나뉘게 되는데, 나누는 방법 중 하나인 <code class="docutils literal notranslate"><span class="pre">페이징(Paging)</span></code> 기법에 대해서 알아보자.</p>
-<p>paging system에서는 virtual memory를 <code class="docutils literal notranslate"><span class="pre">페이지(page)</span></code> 단위로 나누고 각각의 페이지에는 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">번호(virtual</span> <span class="pre">page</span> <span class="pre">number;</span> <span class="pre">VPN)</span></code>를 부여한다. 그리고 primary memory 또한 페이지 크기와 같은 크기로 나누고 그 단위를 <code class="docutils literal notranslate"><span class="pre">프레임(frame)</span></code>이라고 하며 각각의 프레임에도 <code class="docutils literal notranslate"><span class="pre">프레임</span> <span class="pre">번호(physical</span> <span class="pre">frame</span> <span class="pre">number;</span> <span class="pre">PFN)</span></code>를 부여한다. 그리고 페이지와 프레임을 대응시키기 위해 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">테이블(page</span> <span class="pre">table)</span></code>을 생성한다.</p>
+<section id="paging-virtual-memory">
+<h2>Paging Virtual Memory<a class="headerlink" href="#paging-virtual-memory" title="Permalink to this heading">#</a></h2>
+<p>paging virtual memory란 virtual memory와 primary memory를 고정된 크기의 블록으로 나누는 방식이다.</p>
+<p>고정된 크기로 나뉘어진 virtual memory의 단위를 <code class="docutils literal notranslate"><span class="pre">페이지(page)</span></code>라고 하며, primary memory의 단위를 <code class="docutils literal notranslate"><span class="pre">프레임(frame)</span></code>이라고 한다. 그리고 각각의 페이지에는 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">번호(virtual</span> <span class="pre">page</span> <span class="pre">number;</span> <span class="pre">VPN)</span></code>를 각각의 프레임에는 <code class="docutils literal notranslate"><span class="pre">프레임</span> <span class="pre">번호(physical</span> <span class="pre">frame</span> <span class="pre">number;</span> <span class="pre">PFN)</span></code>를 부여한다.</p>
+<p>그리고 virtual memory가 primary memory를 할당받는 경우 VPN과 그에 해당하는 PFN이 존재하게 되는데 이런 정보를 기록해둔 테이블을 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">테이블(page</span> <span class="pre">table)</span></code>이라고 하며 기록된 정보를 <code class="docutils literal notranslate"><span class="pre">page</span> <span class="pre">table</span> <span class="pre">entry</span> <span class="pre">(PTE)</span></code>라고 한다.</p>
 <figure class="align-default">
 <img alt="../../../../_images/02012.png" src="../../../../_images/02012.png" />
 </figure>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://sorjfkrh5078.tistory.com/50">sorjfkrh5078 - 가상기억장치 할당 기법</a><br />
-<a class="reference external" href="https://ddongwon.tistory.com/49">ddongwon - 페이징(Paging)과 페이지 테이블(Page table)</a><br />
-<a class="reference external" href="https://bb-library.tistory.com/65">bb-library - Paging</a></p>
-</div></blockquote>
-<section id="page-table-entry">
-<h3>Page table entry<a class="headerlink" href="#page-table-entry" title="Permalink to this heading">#</a></h3>
-<p>page table에는 페이지 번호가 몇번 프레임과 연결되어 있는지가 기록되어 있으며 개별 데이터는 <code class="docutils literal notranslate"><span class="pre">page</span> <span class="pre">table</span> <span class="pre">entry</span> <span class="pre">(PTE)</span></code>라고 한다. 32bit 기준으로 PTE는 대략 다음의 구조로 이루어져 있다.</p>
 <figure class="align-default">
 <img alt="../../../../_images/0202.png" src="../../../../_images/0202.png" />
 </figure>
-</section>
+<p>paging system에서는 메모리가 필요한 page마다 해당하는 frame을 할당하면 되기 때문에 연속적이지 않은 primary memory 공간도 활용할 수 있다. 하지만 일정한 크기로 memory를 분할하다보니 internal fragmentation 문제가 발생할 수 있다. 이를 개선하기 위해 page단위를 작게할 수는 있지만 이럴 경우 mapping overhead가 증가하는 문제가 생길 수 있다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://ddongwon.tistory.com/49">ddongwon - 페이징(Paging)과 페이지 테이블(Page table)</a></p>
+</div></blockquote>
 <section id="memory-mapping-process">
-<h3>Memory mapping process<a class="headerlink" href="#memory-mapping-process" title="Permalink to this heading">#</a></h3>
-<p>Virtual Address를 Page Size로 나누어 몫 VPN과 나머지 offset을 구해낸다.</p>
+<h3>Memory mapping Process<a class="headerlink" href="#memory-mapping-process" title="Permalink to this heading">#</a></h3>
+<p>paging system에서 memory mapping이 어떻게 이루어지는지 자세히 살펴보자.</p>
+<p>먼저, Virtual Address를 Page Size로 나누어 몫 VPN과 나머지 offset을 구해낸다.</p>
 <p>다음으로 VPN으로부터 PFN을 찾아내기 위해 TLB를 검색한다. <code class="docutils literal notranslate"><span class="pre">TLB</span> <span class="pre">검색에</span> <span class="pre">성공(TLB</span> <span class="pre">hit)</span></code>하면 PFN을 바로 찾아낸다. 하지만 <code class="docutils literal notranslate"><span class="pre">TLB에서</span> <span class="pre">검색에</span> <span class="pre">실패(TLB</span> <span class="pre">miss)</span></code>할 경우 <code class="docutils literal notranslate"><span class="pre">page</span> <span class="pre">table을</span> <span class="pre">검색(page</span> <span class="pre">walk)</span></code>하여 PFN을 찾아낸다.</p>
 <p>이 때, page walk로 PFN을 찾기 못하게 되는 경우가 있는데 이는 두 가지 이유에서 비롯된다.</p>
 <p>첫번째는 virtual memory 주소 자체가 유효하지 않은 경우이다. 이 경우, 운영체제는 해당 가상 주소 접근을 요청한 프로세스에게 segmentation fault를 발생시키고 memory mapping 과정이 종료된다.</p>
-<p>두번째는 해당 페이지 primary memory에 존재하지 않는 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">부재(page</span> <span class="pre">fault)</span></code>이다. page falut가 발생하면 secondary memory에 저장되어 있는 paging file에서 필요한 데이터를 찾아내어 새롭게 primary memory에 할당하여 PFN을 알아내고 page table과 TLB의 내용을 수정한다.</p>
+<p>두번째는 해당 페이지의 data가 primary memory에 존재하지 않는 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">부재(page</span> <span class="pre">fault)</span></code>이다. page falut가 발생하면 secondary memory의 swap 영역에서 필요한 데이터를 찾아낸 다음 primary memory에 할당한다.</p>
+<p>만약 primary memory에 빈 공간이 없어 primary memory에 할당할 수 없는 경우  <code class="docutils literal notranslate"><span class="pre">page</span> <span class="pre">replacement</span> <span class="pre">algorithm</span></code>으로 page-out 시킬 page를 결정한 뒤 page out된 page의 PTE를 수정하고 연결된 frame에 저장된 데이터는 swap 영역에 저장하고, 찾은 데이터를 이 frame에 저장한다.</p>
+<p>이 때, 중요한점은 적절한 page replacement algorithm을 사용함으로써 최대한 page fault를 적게 발생하게 함으로써, secondary memory에서 primary memory로 data를 가져오는 횟수를 줄이는 것이다. 이렇게 함으로써, virtual memory가 secondary memory보다 훨씬 빠른 memory처럼 동작할 수 있게 되는 것이다.</p>
+<p>이렇게 page fault시에도 PFN을 알아내고 page table과 TLB의 내용을 수정한다.</p>
 <p>위 과정으로 찾아낸 PFN을 Frame Size크기만큼 곱한 값이 Physical Memory의 시작주소가 되며, offset 값을 더해주면 Physical Memory를 구할 수 있다.</p>
 <p>요약하면 다음과 같다.</p>
 <ul class="simple">
@@ -728,28 +712,31 @@ document.write(`
 </figure>
 <blockquote>
 <div><p>Reference<br />
-<span id="id2">[<a class="reference internal" href="../../../99%20References/references.html#id16" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span><br />
+<a class="reference external" href="https://dkswnkk.tistory.com/456">dkswnkk - TLB</a><br />
 <a class="reference external" href="https://m.blog.naver.com/khj94811/221019655505">khj94811 - Paging - 1</a></p>
 </div></blockquote>
-<section id="id3">
-<h4>참고<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
-<p>page fault가 발생하고 primary memory에 빈 공간이 있을경우 paging file에 존재하는 데이터를 빈 공간에 할당한 뒤, 빈공간의 프레임 번호를 가지고 page table과 TLB를 업데이트 한다. 그러나 primary memory에 빈 공간이 없을경우 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">교체(page</span> <span class="pre">replacement)</span></code>를 실시한다. 가장 먼저 <code class="docutils literal notranslate"><span class="pre">page</span> <span class="pre">replacement</span> <span class="pre">algorithm</span></code>으로 page-out 시킬 페이지를 먼저 결정한다. page out된 페이지의 PTE를 수정하고 이 페이지와 연결된 프레임에 저장된 데이터는 paging file에 저장한다. 이 후 원래 paging file에 존재했던 데이터를 이 프레임에 저장한다. 그리고 page table과 TLB를 업데이트 한다.</p>
-<p>적절한 page replacement algorithm을 사용해서 최대한 page fault를 적게 발생하게 함으로써, secondary memory에서 primary memory로 data를 가져오는 횟수를 줄인다. 이로써 virtual memory는 secondary memory보다 훨씬 빠른 memory처럼 동작할 수 있게 된다.</p>
 </section>
-<section id="page-table-vs-tlb">
-<h4>Page Table vs TLB<a class="headerlink" href="#page-table-vs-tlb" title="Permalink to this heading">#</a></h4>
-<p>page table은 memory에 있다. 접근하는데 오래걸림</p>
-<p>TLB는 캐쉬이다. 접근이 매우 빠르다.</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://about-myeong.tistory.com/35">https://about-myeong.tistory.com/35</a></p></li>
-<li><p><a class="reference external" href="https://dkswnkk.tistory.com/443">https://dkswnkk.tistory.com/443</a></p>
-<ul>
-<li><p>메인 메모리에 페이지 테이블을 저장하면 문맥 교환 속도가 빨라지지만 페이지 테이블을 확인하기 위해 메모리 액세스를 함으로써 시간이 더 느려질 수도 있습니다.</p></li>
-<li><p>이전 게시글에서 페이징 기법에 대해 알아보았습니다. 메인 메모리에 페이지 테이블을 저장하면 문맥 교환 속도가 빨라지지만 페이지 테이블을 확인하기 위해 메모리 액세스를 함으로써 시간이 더 느려질 수도 있습니다. 메모리 i에 액세스 하려고 한다고 가정해봅시다. 먼저 페이지 번호를 기준으로 페이지 테이블 기준 레지스터(PTBR) 오프셋의 값을 사용하여 페이지 테이블의 항목을 찾습니다. 이 작업에는 한 번의 메모리 액세스가 필요합니다. 이렇게 얻은 프레임 번호와 페이지 오프셋을 결합하여 실제 주소를 생성합니다. 그런 다음 메모리에서 원하는 위치에 액세스 할 수 있습니다. 이 기법을 사용하면 데이터에 액세스 하려면 두 번의 메모리 액세스가 필요합니다(한 번은 페이지 테이블 항목과 한 번은 실제 데이터). 따라서 메모리 접근 시간은 2배로 느려지고 이는 대부분의 상황에서 허용할 수 없는 지연시간입니다.</p></li>
-<li><p>이번 게시글에서는 이러한 문제를 해결하기 위한  TLB(translation look-aside buffers)라고 불리는 특수한 소형 하드웨어 캐시에 대해 알아보겠습니다</p></li>
-</ul>
-</li>
-</ul>
+<section id="page-table">
+<h3>Page Table 매핑 방식<a class="headerlink" href="#page-table" title="Permalink to this heading">#</a></h3>
+<section id="id1">
+<h4>직접 매핑<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<p>Page Table이 primary memory에 있는 경우 이를 직접 매핑방식이라고 한다.</p>
+<p>이 경우 page table이 primary memory에 있기 때문에 다른 매핑 방식에 비해 문맥 교환속도가 빨라지지만 page table의 크기가 결코 작지 않기 때문에 메모리 부족을 야기할 수 있다.</p>
+<p>또한, 직접 매핑방식이여도 TLB는 유의미한 역할을 한다. 왜냐하면 비록 page table이 primary memory에 있지만 cache에 접근하는 속도가 primary memory에 접근하는 속도보다 빠르기 때문이다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://dkswnkk.tistory.com/456">dkswnkk - TLB</a><br />
+<a class="reference external" href="https://threefivesix.tistory.com/24">threefivesix - 3) 페이지 테이블 매핑 방식</a></p>
+</div></blockquote>
+</section>
+<section id="id2">
+<h4>연관 매핑<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<p>Page Table이 secondary memory에 있는 경우 이를 연관 매핑방식이라고 한다.</p>
+<p>이 경우 page table이 secondary memory에 있기 때문에 page table에 의한 메모리 부족 문제를 해결할 수 있지만 TLB miss가 빈번히 발생하면 memory mapping overhead가 크게 증가할 수 있는 문제가 있다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://threefivesix.tistory.com/24">threefivesix - 3) 페이지 테이블 매핑 방식</a></p>
+</div></blockquote>
 </section>
 </section>
 </section>
@@ -759,7 +746,22 @@ document.write(`
 <p>마찬가지로 x64는 64비트 시스템이며 레지스터의 크기가 64비트이므로 이론적으로 <span class="math notranslate nohighlight">\(2^{64}\)</span> 개의 주소를 사용할 수 있기 때문에 대략 16EB<span class="math notranslate nohighlight">\((2^4 \times 2^{60})\)</span>byte의 가상 메모리 공간이 부여될 수 있다. 사실상 무한한 메모리 공간이라고 할 수 있는데, 아직까지 이렇게 큰 메모리 공간이 필요한 프로그램이 존재하지 않기 때문에 운영체제별로 다르긴 하지만 윈도우의 경우 프로세스마다 대략 8TB의 공간만을 부여하도록 제한하고 있다.</p>
 <blockquote>
 <div><p>Reference<br />
-<span id="id4">[<a class="reference internal" href="../../../99%20References/references.html#id16" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span></p>
+<span id="id3">[<a class="reference internal" href="../../../99%20References/references.html#id16" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span></p>
+</div></blockquote>
+</section>
+<section id="id4">
+<h2>명령어 수행에 필요한 최소한의 메모리<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>virtual memory 기법의 동작원리는 virtual memory 중 명령어 수행에 필요한 메모리만 primary memory에 할당하는 것이다.</p>
+<p>단독 기계 명령어를 실행하기 위해서는 다음 3가지의 메모리 접근이 필요하다.</p>
+<ul class="simple">
+<li><p>메모리에서 명령어 읽기</p></li>
+<li><p>메모리에서 명령어를 수행하는데 필요한 데이터 읽기</p></li>
+<li><p>명령어 수행 후 결과를 메모리에 기록하기</p></li>
+</ul>
+<p>즉, 이를 위해 필요한 메모리만 primary memory에 할당되고 나머지는 secondary memory에 할당 되도 명령어 수행이 가능함으로 프로그램을 실행할 수 있다.</p>
+<blockquote>
+<div><p>Reference<br />
+<span id="id5">[<a class="reference internal" href="../../../99%20References/references.html#id16" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span></p>
 </div></blockquote>
 </section>
 </section>
@@ -827,17 +829,17 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-mapping">Memory Mapping</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paging-system">Paging System</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#page-table-entry">Page table entry</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-mapping-process">Memory mapping process</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">참고</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#page-table-vs-tlb">Page Table vs TLB</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#paging-virtual-memory">Paging Virtual Memory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-mapping-process">Memory mapping Process</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#page-table">Page Table 매핑 방식</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">직접 매핑</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">연관 매핑</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#virtual-memory-size">Virtual Memory Size</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">명령어 수행에 필요한 최소한의 메모리</a></li>
 </ul>
   </nav></div>
 
