@@ -43,7 +43,7 @@ paging system에서 memory mapping이 어떻게 이루어지는지 자세히 살
 
 만약 primary memory에 빈 공간이 없어 primary memory에 할당할 수 없는 경우  `page replacement algorithm`으로 page-out 시킬 page를 결정한 뒤 page out된 page의 PTE를 수정하고 연결된 frame에 저장된 데이터는 swap 영역에 저장하고, 찾은 데이터를 이 frame에 저장한다.
 
-이 때, 중요한점은 적절한 page replacement algorithm을 사용함으로써 최대한 page fault를 적게 발생하게 함으로써, secondary memory에서 primary memory로 data를 가져오는 횟수를 줄이는 것이다. 이렇게 함으로써, virtual memory가 secondary memory보다 훨씬 빠른 memory처럼 동작할 수 있게 되는 것이다.
+이 때, 중요한점은 적절한 page replacement algorithm을 사용함으로써 앞으로 최대한 page fault를 적게 발생하게 함으로써, secondary memory에서 primary memory로 data를 가져오는 횟수를 줄이는 것이다. 이렇게 함으로써, virtual memory가 secondary memory보다 훨씬 빠른 memory처럼 동작할 수 있게 되는 것이다.
 
 위 과정으로 찾아낸 PFN을 Frame Size크기만큼 곱한 값이 primary memory의 시작주소가 되며, offset 값을 더해주면 primary memory를 구할 수 있다.
 

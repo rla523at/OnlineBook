@@ -695,7 +695,7 @@ document.write(`
 <p>첫번째는 virtual memory 주소 자체가 유효하지 않은 경우이다. 이 경우, 운영체제는 해당 가상 주소 접근을 요청한 프로세스에게 segmentation fault를 발생시키고 memory mapping 과정이 종료된다.</p>
 <p>두번째는 해당 page가 frame을 할당 받지 않아 page table에 없는 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">부재(page</span> <span class="pre">fault)</span></code>이다. page falut가 발생하면 secondary memory의 swap 영역에서 저장된 데이터를 찾아낸 다음 primary memory에 할당하고 page table과 TLB의 내용을 수정한다.</p>
 <p>만약 primary memory에 빈 공간이 없어 primary memory에 할당할 수 없는 경우  <code class="docutils literal notranslate"><span class="pre">page</span> <span class="pre">replacement</span> <span class="pre">algorithm</span></code>으로 page-out 시킬 page를 결정한 뒤 page out된 page의 PTE를 수정하고 연결된 frame에 저장된 데이터는 swap 영역에 저장하고, 찾은 데이터를 이 frame에 저장한다.</p>
-<p>이 때, 중요한점은 적절한 page replacement algorithm을 사용함으로써 최대한 page fault를 적게 발생하게 함으로써, secondary memory에서 primary memory로 data를 가져오는 횟수를 줄이는 것이다. 이렇게 함으로써, virtual memory가 secondary memory보다 훨씬 빠른 memory처럼 동작할 수 있게 되는 것이다.</p>
+<p>이 때, 중요한점은 적절한 page replacement algorithm을 사용함으로써 앞으로 최대한 page fault를 적게 발생하게 함으로써, secondary memory에서 primary memory로 data를 가져오는 횟수를 줄이는 것이다. 이렇게 함으로써, virtual memory가 secondary memory보다 훨씬 빠른 memory처럼 동작할 수 있게 되는 것이다.</p>
 <p>위 과정으로 찾아낸 PFN을 Frame Size크기만큼 곱한 값이 primary memory의 시작주소가 되며, offset 값을 더해주면 primary memory를 구할 수 있다.</p>
 <p>요약하면 다음과 같다.</p>
 <ul class="simple">

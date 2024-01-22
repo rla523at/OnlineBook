@@ -717,7 +717,7 @@ document.write(`
 <section id="code">
 <h3>Code 영역<a class="headerlink" href="#code" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">코드</span> <span class="pre">영역(code</span> <span class="pre">segment)</span></code>은 <code class="docutils literal notranslate"><span class="pre">텍스트</span> <span class="pre">영역(text</span> <span class="pre">segment)</span></code>이라고도 불리며 실행 될 명령어가 저장 되어 있는 영역이다.</p>
-<p>CPU는 이 영역에 저장된 명령어를 하나씩 가져가서 처리한다. 또한 모든 함수는 code 영역에 저장된다. 이 영역은 오직 읽기만 가능한데, 쓰기가 금지된 이유는 코드의 안정성을 위해서이다. 만일 이 영역에 쓰기가 가능하다면 악의적인 목적으로 실행 코드 자체를 변조할 수 있다.</p>
+<p>CPU는 이 영역에 저장된 명령어를 하나씩 가져가서 처리한다. 또한 모든 함수는 code 영역에 저장된다. 이 영역은 안전성을 위해 오직 읽기만 가능한데, 만일 이 영역에 쓰기가 가능하다면 악의적인 목적으로 실행 코드 자체를 변조할 수 있기 때문이다.</p>
 </section>
 <section id="data">
 <h3>Data 영역<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h3>
@@ -732,7 +732,7 @@ document.write(`
 <section id="bss">
 <h3>BSS 영역<a class="headerlink" href="#bss" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">block</span> <span class="pre">starting</span> <span class="pre">symbol</span> <span class="pre">(BSS)</span></code> 영역은 초기화 되지 않은 전역 객체가 저장되는 영역이다.</p>
-<p>실행 파일의 BSS영역에는 어떤 크기의 객체들이 필요한지 저장되어 있다. 이후 프로세스가 시작되어 실행 파일에 내용이 가상 메모리에 올라가게 되면 실행파일의 BSS영역에 있는 정보를 바탕으로 초기화 되지 않은 전역 객체들의 크기만큼 한 영역에 몰아놓고 통째로 해당 영역의 메모리를 모두 0으로 채운다. 이를 가상 메모리의 BSS 영역이라고 한다.</p>
+<p>실행 파일의 BSS영역에는 어떤 크기의 초기화 되지 않은 전역 객체가 존재하는지 저장되어 있다. 이후 프로세스가 시작되어 실행 파일에 내용이 가상 메모리에 올라가게 되면 실행파일의 BSS영역에 있는 정보를 바탕으로 초기화 되지 않은 전역 객체들의 크기만큼 가상메모리의 한 영역의 메모리를 모두 0으로 채운다. 이를 가상 메모리의 BSS 영역이라고 한다.</p>
 <section id="id4">
 <h4>실행파일의 BSS영역<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
 <p>예를 들어, 실행 파일에 초기화되지 않은 32MB 크기의 배열 객체가 있다고 가정해보자. 이것을 그대로 저장한다면 실행 파일은 32MB 이상이 될 것이다. 이것은 무척 낭비가 심하다. 실행 파일의 BSS 영역에는 단지 “32MB 크기의 초기화되지 않은 배열 객체가 있다.”는 정보만 기록하고 있으면 된다. 따라서 32MB의 크기를 포함할 필요가 없다.</p>
@@ -744,9 +744,8 @@ document.write(`
 </section>
 <section id="heap">
 <h3>Heap 영역<a class="headerlink" href="#heap" title="Permalink to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">힙</span> <span class="pre">영역(heap</span> <span class="pre">segment)</span></code>은 동적 메모리가 저장되는 곳이다.</p>
-<p>heap segment의 크기는 run time에 사용자가 동적 할당하는 메모리 크기에 의해 결정된다. 이렇게 런 타임에 메모리를 할당받는 것을 메모리의 <code class="docutils literal notranslate"><span class="pre">동적</span> <span class="pre">할당(dynamic</span> <span class="pre">allocation)</span></code>이라고 한다.</p>
-<p>heap의 경우 런타임에 memory 할당/해제 오버헤드가 존재 한다. 왜냐하면 다음과 같은 일들을 하기 때문이다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">힙</span> <span class="pre">영역(heap</span> <span class="pre">segment)</span></code>은 run time에 <code class="docutils literal notranslate"><span class="pre">동적</span> <span class="pre">할당(dynamic</span> <span class="pre">allocation)</span></code> 된 메모리가가 저장되는 영역이다.</p>
+<p>heap 영역에 memory를 할당/해제는 경우 run time 오버헤드가 존재한다. 왜냐하면 다음과 같은 일들을 하기 때문이다.</p>
 <ul class="simple">
 <li><p>heap memory API를 사용해서 heap memory 할당할 때</p>
 <ul>
@@ -764,8 +763,8 @@ document.write(`
 </ul>
 </li>
 </ul>
-<p>multi thread 환경에서 동기화를 하는 이유는 heap memory의 경우 여러 thread에서 공유하는 memory이기 때문이다. 따라서 할당,해제가 발생할 때 HeapLock과 HeapUnlock 함수를 호출하여 순차적인 접근이 일어나도록 한다. 이로인해 여러 쓰레드에서 동시에 이 작업을 요청할 경우 대기에 의해 속도가 느려질 수 있다.</p>
-<p>heap에 저장된 data의 주소는 compile time에 알 수가 없다. 따라서, runtime에 결정되는 pointer를 통해서 접근해야 한다. 하지만 Cache, RAM, swap file에 의한 영향을 무시한다면 stack에 있는 data와 heap에 있는 data에 접근하는 속도는 거의 동일하다. 하지만 heap에 저장된 여러 data들은 memory상에 연속성이 보장되지 않기 때문에 cache 친화적이지 않다. data 하나가 memory 연속성이 없다는 얘기가 아니라 data 여러개가 memory 연속성이 없다는 얘기이다. 예를 들어 heap에 배열 2개를 할당하면 주소값이 연속되지 않을 수 있다. 다음 예시 코드를 보자.</p>
+<p>multi thread 환경에서 동기화를 하는 이유는 heap 영역은 여러 thread에서 공유하는 memory이기 때문이다. 따라서 할당,해제가 발생할 때 HeapLock과 HeapUnlock 함수를 호출하여 순차적인 접근이 일어나도록 한다. 이로인해 여러 쓰레드에서 동시에 이 작업을 요청할 경우 대기에 의해 속도가 느려질 수 있다.</p>
+<p>heap에 저장된 data의 주소는 compile time에 알 수가 없다. 따라서, run time에 결정되는 pointer를 통해서 접근해야 한다. 하지만 Cache, RAM, swap file에 의한 영향을 무시한다면 stack에 있는 data와 heap에 있는 data에 접근하는 속도는 거의 동일하다. 하지만 heap에 저장된 여러 data들은 memory상에 연속성이 보장되지 않기 때문에 cache 친화적이지 않다. data 하나가 memory 연속성이 없다는 얘기가 아니라 data 여러개가 memory 연속성이 없다는 얘기이다. 예를 들어 heap에 배열 2개를 할당하면 주소값이 연속되지 않을 수 있다. 다음 예시 코드를 보자.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="w"> </span><span class="n">str3</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="w"> </span><span class="c1">// str3.data() = 0x0131ddb0</span>
 <span class="w">  </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="w"> </span><span class="n">str4</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span><span class="w"> </span><span class="c1">// str4.data() = 0x0131ccb8</span>
@@ -782,10 +781,10 @@ document.write(`
 </section>
 <section id="stack">
 <h3>Stack 영역<a class="headerlink" href="#stack" title="Permalink to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">스택</span> <span class="pre">영역(stack</span> <span class="pre">segment)</span></code>은 함수와 관련된 값들이 저장되는 곳이다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">스택</span> <span class="pre">영역(stack</span> <span class="pre">segment)</span></code>은 함수와 관련된 값들이 저장되는 영역이다.</p>
 <p>stack segment는 스레드당 하나씩 생성된다. 컴파일러 설정에 따라 다를 수 있지만 보통 스레드가 생성되는 순간 운영체제는 virtual memory의 남은 영역 중에서 스레드당 1MB~4MB 정도의 virtual memory 영역을 스레드 stack 공간으로 예약한다.</p>
-<p>stack에 data를 위한 memory를 할당하는 과정은 <code class="docutils literal notranslate"><span class="pre">스택</span> <span class="pre">포인터(Stack</span> <span class="pre">Pointer</span> <span class="pre">Resister;</span> <span class="pre">SP)</span></code>를 감소시키는 일이다. 반대로 memory를 해제하는 과정은 SP를 증가시키는 일이다. 이처럼, stack은 가장 최근에 할당된 memory가 가장 먼저 해제되는 <code class="docutils literal notranslate"><span class="pre">후입선출(last</span> <span class="pre">in</span> <span class="pre">first</span> <span class="pre">out;</span> <span class="pre">LIFO)</span></code>구조를 가지고 있다.</p>
-<p>그리고 stack의 memory 할당/해제 과정은 runtime 오버헤드가 거의 없다. 왜냐하면 stack 영역에 할당되는 data는 compile time에 크기가 결정되며 stack에서 memory를 할당하고 해제하는 과정은 미리 알고 있는 data 크기만큼 SP를 감소시키거나 증가시키는 과정에 지나지 않기 때문이다. 또한 모든 memory 할당/해제 과정은 compiler에 의해 자동으로 수행되기 때문에 프로그래머는 걱정 할 필요가 없다.</p>
+<p>stack segment에 memory를 할당하는 과정은 <code class="docutils literal notranslate"><span class="pre">스택</span> <span class="pre">포인터(Stack</span> <span class="pre">Pointer</span> <span class="pre">Resister;</span> <span class="pre">SP)</span></code>를 감소시키는 일이다. 반대로 memory를 해제하는 과정은 SP를 증가시키는 일이다. 이처럼, stack은 가장 최근에 할당된 memory가 가장 먼저 해제되는 <code class="docutils literal notranslate"><span class="pre">후입선출(last</span> <span class="pre">in</span> <span class="pre">first</span> <span class="pre">out;</span> <span class="pre">LIFO)</span></code>구조를 가지고 있다.</p>
+<p>그리고 stack의 memory 할당/해제 과정은 run time 오버헤드가 거의 없다. 왜냐하면 stack 영역에 할당되는 data는 compile time에 크기가 결정되며 stack에서 memory를 할당하고 해제하는 과정은 미리 알고 있는 data 크기만큼 SP를 감소시키거나 증가시키는 과정에 지나지 않기 때문이다. 또한 모든 memory 할당/해제 과정은 compiler에 의해 자동으로 수행되기 때문에 프로그래머는 걱정 할 필요가 없다.</p>
 <p>stack에 저장된 data의 주소는 compile time에 알 수 있기 때문에, compile시 hardcoding되어 runtime에 매우 빠르게 접근이 가능하다. 또한 stack에 저장된 data들은 memory상에 연속적으로 저장되기 때문에 stack에 저장된 data들에 연속적으로 접근하는 행위는 cache 친화적이다. 다음 예시 코드를 보자.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">str1</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span><span class="w"> </span><span class="c1">// &amp;str1 = 0x010ffc38</span>
