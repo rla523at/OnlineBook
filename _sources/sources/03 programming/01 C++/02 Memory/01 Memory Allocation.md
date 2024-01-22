@@ -9,7 +9,7 @@
 > [letsmakemyselfprogrammer - 메모리관리](https://letsmakemyselfprogrammer.tistory.com/116)    
 
 ## Contiguous Memory Allocation
-Contiguous memory allocation은 프로그램을 분할하지 않고 연속적으로 primary memeory에 할당하는 방식이다.
+Contiguous memory allocation은 프로그램을 primary memeory에 연속적으로 할당하는 방식이다.
 
 이 떄, primary memory를 어떻게 분할하냐에 따라 `단일 분할 할당 기법`과 `다중 분할 할당 기법`으로 나뉜다.
 
@@ -17,7 +17,7 @@ Contiguous memory allocation은 프로그램을 분할하지 않고 연속적으
 
 다중 분할 할당 기법은 primary memory를 Job Queue에서 준비 중인 프로그램에게 적절하게 나누어 할당함으로써 여러 프로그램에 메모리가 할당 될 수 있도록 하는 방식입니다.
 
-이 때, primary memory를 나누는 방식에 따라 `정적 다중 분할 할당` 방식과 `동적 다중 분할 할당` 방식으로 나뉜다.
+이 때, primary memory를 분할하는 방식에 따라 `정적 다중 분할 할당` 방식과 `동적 다중 분할 할당` 방식으로 나뉜다.
 
 정적 분할 할당 방식은 primary memory를 고정된 크기의 블록들로 분할한 뒤, 프로그램이 필요로 하는 메모리보다 같거나 더 큰양의 블록들을 할당하는 방법이다. 이 방법은 구현이 간단하고 운영체제에 오버헤드가 거의 없다. 하지만 블록 단위로 memory를 부여했기 때문에 프로그램에 부여된 memory가 실제 필요한 memory보다 더 커 memory가 낭비되는 `내부 단편화(internal fragmentation)`가 발생할 수 있으며 최대 활성 프로그램의 수가 고정된다는 단점이 있다.
 
@@ -45,9 +45,9 @@ Noncotiguous memory allocation은 프로그램을 분할한 뒤 각 블록을 pr
 
 이 때, program과 primary memory를 분할하는 방식에 따라 `simple paging` 방법과 `simple segmentation` 방법으로 나뉜다.
 
-simple paging 기법은 프로그램과 primary memory를 고정된 크기의 단위로 나누는 방식이다. 이 때, 프로그램의 단위를 `페이지(page)`라고 하며, primary memory의 단위를 `프레임(frame)`이라고 한다. 
+simple paging 기법은 프로그램과 primary memory를 고정된 크기의 단위로 나누는 방식이다. 
 
-그리고 프로그램에 primary memory를 할당하기 위해 page마다 frame을 할당한다. frame은 반드시 연속적일 필요가 없음으로 연속적이지 않은 primary memory 공간도 활용할 수 있다. page마다 어떤 frame이 할당되었는지에 대한 정보를 기록해둔 테이블을 `페이지 테이블(page table)`이라고 하며 기록된 정보를 `page table entry (PTE)`라고 한다.
+이 때, 프로그램의 단위를 `페이지(page)`라고 하며, primary memory의 단위를 `프레임(frame)`이라고 한다.  그리고 프로그램에 primary memory를 할당하면 page마다 frame이 할당되며 이런 정보를 기록해둔 테이블을 `페이지 테이블(page table)`이라고 하며 기록된 정보를 `page table entry (PTE)`라고 한다.
 
 simple paging에서는 고정된 크기의 단위로 나누기 때문에 external fragmentation 문제가 발생하지 않는다. 하지만 internal fragmentation 문제가 발생할 수 있다. 
 

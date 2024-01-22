@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Template" href="31%20Template.html" />
-    <link rel="prev" title="Forwarding References" href="22%20Forwarding%20References.html" />
+    <link rel="prev" title="Reference" href="22%20Reference.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -449,7 +449,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 has-children"><a class="reference internal" href="02%20Memory/Memory.html">Memory</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-33"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/01%20Memory%20Allocation.html">Memory Allocation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/02%20Virtual%20Memory.html">Virtual Memeory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02%20Memory/03%20Virtual%20Memory%20Structure.html">Virtual Memory Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Memory/03%20Virtual%20Memory%20Structure.html">Virtual Memory Space</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/04%20Stack%20Frame.html">Stack Frame</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/05%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
 </ul>
@@ -459,13 +459,14 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="05%20Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="06%20Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="11%20Class.html">Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12%20Struct%20Memory%20Padding.html">Struct Memory Padding</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="20%20Standard%20Library/Standard%20Library.html">STD</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-34"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/11%20vector.html">vector</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="21%20Smart%20Pointer.html">Smart Pointer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="22%20Forwarding%20References.html">Forwarding References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="22%20Reference.html">Reference</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Lambda Expression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="31%20Template.html">Template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="32%20concept.html">concept</a></li>
@@ -641,6 +642,8 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-of-a-lambda-expression">Structure of a Lambda Expression</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capture">Capture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#params">Params</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trailing-type">Trailing-type</a></li>
 </ul>
 </li>
 </ul>
@@ -728,6 +731,23 @@ document.write(`
 <a class="reference external" href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0806r2.html">open-std - p0806r2</a></p>
 </div></blockquote>
 </section>
+<section id="params">
+<h3>Params<a class="headerlink" href="#params" title="Permalink to this heading">#</a></h3>
+<p>Params는 closure의 operator()에 input으로 사용될 parameter list를 나타낸다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/lambda">cppreference - lambda</a></p>
+</div></blockquote>
+</section>
+<section id="trailing-type">
+<h3>Trailing-type<a class="headerlink" href="#trailing-type" title="Permalink to this heading">#</a></h3>
+<p>Trailing type은 closure의 operator()에 return type을 명시하는 부분으로 <code class="docutils literal notranslate"><span class="pre">-&gt;</span> <span class="pre">Type</span></code> 형태로 작성한다.</p>
+<p>만약, trailing-type이 명시되어 있지 않은 경우에는 C++14 이후부터 <code class="docutils literal notranslate"><span class="pre">-&gt;</span> <span class="pre">auto</span></code>로 작성된 걸로 간주하고 auto return type이 사용되며, 자동으로 return time이 추론된다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/lambda">cppreference - lambda</a></p>
+</div></blockquote>
+</section>
 </section>
 </section>
 
@@ -762,12 +782,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="22%20Forwarding%20References.html"
+       href="22%20Reference.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Forwarding References</p>
+        <p class="prev-next-title">Reference</p>
       </div>
     </a>
     <a class="right-next"
@@ -796,6 +816,8 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-of-a-lambda-expression">Structure of a Lambda Expression</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capture">Capture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#params">Params</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trailing-type">Trailing-type</a></li>
 </ul>
 </li>
 </ul>

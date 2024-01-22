@@ -69,4 +69,16 @@ TEST(Lambda_Expression, capture)
 > [ezoeryou - 2019-07-09-deprecate-implicit-lambda-capture-of-this](https://ezoeryou.github.io/blog/article/2019-07-09-deprecate-implicit-lambda-capture-of-this.html)  
 > [open-std - p0806r2](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0806r2.html)
 
+### Params
+Params는 closure의 operator()에 input으로 사용될 parameter list를 나타낸다.
 
+> Reference  
+> [cppreference - lambda](https://en.cppreference.com/w/cpp/language/lambda)  
+
+### Trailing-type
+Trailing type은 closure의 operator()에 return type을 명시하는 부분으로 `-> Type` 형태로 작성한다.
+
+만약, trailing-type이 명시되어 있지 않은 경우에는 C++14 이후부터 `-> auto`로 작성된 걸로 간주하고 auto return type이 사용되며, 자동으로 return time이 추론된다.
+
+> Reference  
+> [cppreference - lambda](https://en.cppreference.com/w/cpp/language/lambda)   
