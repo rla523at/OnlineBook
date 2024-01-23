@@ -56,9 +56,9 @@ CPU는 이 영역에 저장된 명령어를 하나씩 가져가서 처리한다.
 ### Data 영역
 `데이터 영역(Data segment)`은 초기화된 전역 객체가 저장되는 영역이다. 
 
-실행 파일의 Data영역에는 초기화된 값들이 저장되어 있으며 이후 프로세스가 시작되어 실행 파일에 내용이 가상 메모리에 올라가게 되면 OS는 실행 파일의 Data영역을 그대로 가상 메모리의 Data segment에 복사한다.
+세부적으로는 read only data 영역과 read/write data 영역으로 구분된다. read only data(.rodata) 영역은 상수 전역 변수가 저장되는 영역이다. 하지만 반드시 모든 상수 전역 변수가 .rodata에 저장되는 것은 아니며 .text에 저장되기도 한다. 이는 컴파일러 구현에 달려있다.
 
-Data영역의 크기는 컴파일 시 결정되며 런타임에 바뀌지 않는다. 세부적으로는 read only data 영역과 read/write data 영역으로 구분된다. read only data(.rodata) 영역은 상수 전역 변수가 저장되는 영역이다. 하지만 반드시 모든 상수 전역 변수가 .rodata에 저장되는 것은 아니며 .text에 저장되기도 한다. 이는 컴파일러 구현에 달려있다.
+실행 파일의 Data영역에는 초기화된 전역 객체들의 값이 저장되어 있으며 이후 프로세스가 시작되어 실행 파일에 내용이 가상 메모리에 올라가게 되면 OS는 실행 파일의 Data영역을 그대로 가상 메모리의 Data segment에 복사한다.
 
 > Reference  
 [stackoverflow - use-of-readonly-memory-in-data-segment](https://stackoverflow.com/questions/39252410/use-of-readonly-memory-in-data-segment)  
@@ -132,14 +132,18 @@ str2의 주소값과 str1의 주소값이 연속으로 존재하는 걸 알 수 
 > [educative - stack-vs-heap](https://www.educative.io/blog/stack-vs-heap)  
 > [stackoverflow - is-accessing-data-in-the-heap-faster-than-from-the-stack](https://stackoverflow.com/questions/24057331/is-accessing-data-in-the-heap-faster-than-from-the-stack)  
 
-## 64KB 접근 금지 영역
-유저모드 파티션과 커널 모드 파티션 중간의 64KB 크기 메모리 영역을 정하였다. 이 영역은 Private영역과 Shared영역을 구분하기 위한 완충지대를 둔 것이다. NULL 포인터 영역과 같이 접근을 시도할 경우 Access Violation을 일으킨다.
+## 64KB 접근 금지 파티션
+64KB 접근 금지 파티션은 Private영역인 커널 모드 파티션과 Shared 영역인 유저 모드 파티션을 구분하기 위한 영역이다.
+
+NULL 포인터 영역과 같이 접근을 시도할 경우 Access Violation을 일으킨다.
 
 > Reference  
 > {cite}`FundamentalC++`  
 
 ## 커널 모드 파티션  
-운영체제를 구성하는 코드들이 위치하며 시스템 내의 모든 프로세스들이 공유한다. 스레드 스케줄링, 메모리 관리, 파일시스템 지원, 네트워크 지원들을 구현하는 모든 코드와 모든 디바이스 드라이버들이 커널 모드 파티션에 로드된다. 이것은 물리적 메모리에 한 번 로드 되며, 모든 프로세스가 공통으로 사용한다는 뜻인데, 프로세스가 이 영역을 직접 접근하는 것은 막고 있다. API함수를 통하여 얻은 핸들을 통해서만 이 영역을 사용할 수 있다. 프로세스에서 이 주소공간에 읽거나 쓰기를 시도하게 되면 접근 위반이 발생한다. 따라서 이 파티션의 코드와 데이터는 완벽하게 보호된다. 
+커널 모드 파티션은 스레드 스케줄링, 메모리 관리, 파일시스템 지원, 네트워크 지원들을 구현하는 모든 코드와 모든 디바이스 드라이버들등 운영체제를 구성하는 코드들이 위치하는 영역이다.
+
+primary 메모리에 한 번 로드 되며, 모든 프로세스가 공통으로 사용한다. 프로세스가 이 영역을 직접 접근하는 것은 막고 있다. API함수를 통하여 얻은 핸들을 통해서만 이 영역을 사용할 수 있다. 프로세스에서 이 주소공간에 읽거나 쓰기를 시도하게 되면 접근 위반이 발생한다. 따라서 이 파티션의 코드와 데이터는 완벽하게 보호된다. 
 
 > Reference  
 > {cite}`FundamentalC++`  
