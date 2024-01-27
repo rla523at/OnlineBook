@@ -9,7 +9,7 @@
 > [letsmakemyselfprogrammer - 메모리관리](https://letsmakemyselfprogrammer.tistory.com/116)    
 
 ## Contiguous Memory Allocation
-Contiguous memory allocation은 프로그램을 primary memeory에 연속적으로 할당하는 방식이다.
+Contiguous memory allocation은 프로그램에 연속적인 primary memeory를 할당하는 방식이다.
 
 이 떄, primary memory를 어떻게 분할하냐에 따라 `단일 분할 할당 기법`과 `다중 분할 할당 기법`으로 나뉜다.
 
@@ -41,7 +41,7 @@ Contiguous memory allocation은 프로그램을 primary memeory에 연속적으�
 > [threefivesix - 메모리 관리 기법](https://threefivesix.tistory.com/23)  
 
 ## Noncontiguous Memory Allocation
-Noncotiguous memory allocation은 프로그램을 분할한 뒤 각 블록을 primary memory에 불연속적으로 할당하는 방식입니다.
+Noncotiguous memory allocation은 프로그램을 분할한 뒤 각 블록에 불연속적인 primary memory를 할당하는 방식입니다.
 
 이 때, program과 primary memory를 분할하는 방식에 따라 `simple paging` 방법과 `simple segmentation` 방법으로 나뉜다.
 
