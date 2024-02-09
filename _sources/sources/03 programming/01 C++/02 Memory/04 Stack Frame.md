@@ -1,5 +1,5 @@
 # Stack Frame
-함수가 호출되면 stack에 `스택 프레임(stack frame)`이라는 block of memory가 할당된다. stack frame은 함수만의 스택 영역을 구분하기 위하여 생성되는 공간으로 지역 변수, 함수의 인자, 지역 배열, 함수의 return adress등이 저장된다. 
+함수가 호출되면 stack에 `스택 프레임(stack frame)`이라는 block of memory가 할당된다. stack frame은 함수만의 스택 영역을 구분하기 위하여 생성되는 공간으로 지역 변수, 지역 배열, 함수의 인자, 함수의 return adress등이 저장된다. 
 
 stack frame에 할당될 메모리의 크기는 compile time에 미리 결정되며 함수가 종료되면서 소멸한다. 이 모든 과정은 자동으로 수행되며 프로그래머는 stack 영역에서의 메모리 할당과 해제에 대한 걱정을 할 필요가 없다.
 

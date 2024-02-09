@@ -98,6 +98,24 @@ s_val은 정적 변수이기 때문에 내부링크 방식을 사용하고 A.cpp
 > Reference  
 > {cite}`FundamentalC++`
 
+### Constant initialization
+static 변수의 intialization full-expression이 constant expression이면 constnat-initialized 되었다고 하며 constant initialization은 compile time에 이루어진다.
+
+```cpp
+static const int a = 3;     //constant initialization 
+static const int b = 2;     //constant initialization
+static const int c = a + b; //constant initialization  --> complie time 상수
+
+TEST(test, test)
+{
+  constexpr int cexpr = c; 
+}
+```
+
+
+> Reference  
+> [cppreference - constant_initialization](https://en.cppreference.com/w/cpp/language/constant_initialization)
+
 ## Static Data Members
 class 내부에서 static keyword를 사용하는 경우, 저장 방식 지정자를 나타낼때와는 별개로 class 객체와는 무관한 멤버 함수나 변수가 됨을 의미한다.
 

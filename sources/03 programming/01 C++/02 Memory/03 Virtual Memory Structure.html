@@ -756,8 +756,7 @@ document.write(`
 </li>
 <li><p>heap memory API를 사용해서 heap memory 해제할 떄</p>
 <ul>
-<li><p>할당 내역 테이블 참고</p></li>
-<li><p>미할당 영역으로 변경</p></li>
+<li><p>할당 내역 테이블 참고하여 미할당 영역으로 변경</p></li>
 <li><p>주변 미할당 영역과 병합</p></li>
 <li><p>multi thread 환경에서 동기화</p></li>
 </ul>
@@ -782,9 +781,8 @@ document.write(`
 <section id="stack">
 <h3>Stack 영역<a class="headerlink" href="#stack" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">스택</span> <span class="pre">영역(stack</span> <span class="pre">segment)</span></code>은 함수와 관련된 값들이 저장되는 영역이다.</p>
-<p>stack segment는 스레드당 하나씩 생성된다. 컴파일러 설정에 따라 다를 수 있지만 보통 스레드가 생성되는 순간 운영체제는 virtual memory의 남은 영역 중에서 스레드당 1MB~4MB 정도의 virtual memory 영역을 스레드 stack 공간으로 예약한다.</p>
-<p>stack segment에 memory를 할당하는 과정은 <code class="docutils literal notranslate"><span class="pre">스택</span> <span class="pre">포인터(Stack</span> <span class="pre">Pointer</span> <span class="pre">Resister;</span> <span class="pre">SP)</span></code>를 감소시키는 일이다. 반대로 memory를 해제하는 과정은 SP를 증가시키는 일이다. 이처럼, stack은 가장 최근에 할당된 memory가 가장 먼저 해제되는 <code class="docutils literal notranslate"><span class="pre">후입선출(last</span> <span class="pre">in</span> <span class="pre">first</span> <span class="pre">out;</span> <span class="pre">LIFO)</span></code>구조를 가지고 있다.</p>
-<p>그리고 stack의 memory 할당/해제 과정은 run time 오버헤드가 거의 없다. 왜냐하면 stack 영역에 할당되는 data는 compile time에 크기가 결정되며 stack에서 memory를 할당하고 해제하는 과정은 미리 알고 있는 data 크기만큼 SP를 감소시키거나 증가시키는 과정에 지나지 않기 때문이다. 또한 모든 memory 할당/해제 과정은 compiler에 의해 자동으로 수행되기 때문에 프로그래머는 걱정 할 필요가 없다.</p>
+<p>stack segment는 스레드당 하나씩 생성된다. 컴파일러 설정에 따라 다를 수 있지만 보통 스레드가 생성되는 순간 운영체제는 virtual memory의 남은 영역 중에서 스레드당 1MB~4MB 정도의 virtual memory 영역을 스레드 stack 공간으로 예약한다. 그리고 stack은 가장 최근에 할당된 memory가 가장 먼저 해제되는 <code class="docutils literal notranslate"><span class="pre">후입선출(last</span> <span class="pre">in</span> <span class="pre">first</span> <span class="pre">out;</span> <span class="pre">LIFO)</span></code>구조를 가지고 있다.</p>
+<p>stack의 memory 할당/해제 과정은 run time 오버헤드가 거의 없다. 왜냐하면 stack 영역에 할당되는 data는 compile time에 크기가 결정되며 stack에서 memory를 할당하고 해제하는 과정은 미리 알고 있는 data 크기만큼 <code class="docutils literal notranslate"><span class="pre">스택</span> <span class="pre">포인터(Stack</span> <span class="pre">Pointer</span> <span class="pre">Resister;</span> <span class="pre">SP)</span></code>를 감소시키거나 증가시키는 과정에 지나지 않기 때문이다. 또한 모든 memory 할당/해제 과정은 compiler에 의해 자동으로 수행되기 때문에 프로그래머는 걱정 할 필요가 없다.</p>
 <p>stack에 저장된 data의 주소는 compile time에 알 수 있기 때문에, compile시 hardcoding되어 runtime에 매우 빠르게 접근이 가능하다. 또한 stack에 저장된 data들은 memory상에 연속적으로 저장되기 때문에 stack에 저장된 data들에 연속적으로 접근하는 행위는 cache 친화적이다. 다음 예시 코드를 보자.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">str1</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span><span class="w"> </span><span class="c1">// &amp;str1 = 0x010ffc38</span>
@@ -814,7 +812,7 @@ document.write(`
 <section id="id7">
 <h2>커널 모드 파티션<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
 <p>커널 모드 파티션은 스레드 스케줄링, 메모리 관리, 파일시스템 지원, 네트워크 지원들을 구현하는 모든 코드와 모든 디바이스 드라이버들등 운영체제를 구성하는 코드들이 위치하는 영역이다.</p>
-<p>primary 메모리에 한 번 로드 되며, 모든 프로세스가 공통으로 사용한다. 프로세스가 이 영역을 직접 접근하는 것은 막고 있다. API함수를 통하여 얻은 핸들을 통해서만 이 영역을 사용할 수 있다. 프로세스에서 이 주소공간에 읽거나 쓰기를 시도하게 되면 접근 위반이 발생한다. 따라서 이 파티션의 코드와 데이터는 완벽하게 보호된다.</p>
+<p>primary 메모리에 한 번 로드 되며, 모든 프로세스가 공통으로 사용한다. 프로세스가 이 영역에 직접 접근하는 것은 금지 되어 있어 API함수를 통하여 얻은 핸들을 통해서만 접근할 수 있고 직접 읽거나 쓰기를 시도하게 되면 접근 위반이 발생한다.</p>
 <blockquote>
 <div><p>Reference<br />
 <span id="id8">[<a class="reference internal" href="../../../99%20References/references.html#id16" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span></p>

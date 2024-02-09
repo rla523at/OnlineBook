@@ -449,7 +449,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 has-children"><a class="reference internal" href="02%20Memory/Memory.html">Memory</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-33"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/01%20Memory%20Allocation.html">Memory Allocation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/02%20Virtual%20Memory.html">Virtual Memeory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02%20Memory/03%20Virtual%20Memory%20Structure.html">Virtual Memory Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Memory/03%20Virtual%20Memory%20Structure.html">Virtual Memory Space</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/04%20Stack%20Frame.html">Stack Frame</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/05%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
 </ul>
@@ -642,10 +642,8 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#move">Move</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identity">Identity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history-of-change-of-value-category">History of Change of Value Category</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history-of-change-of-value-category">History of Change of Value Category</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-call-value-category">Function Call Value Category</a></li>
 </ul>
             </nav>
         </div>
@@ -736,22 +734,32 @@ document.write(`
 <div><p>Reference<br />
 <a class="reference external" href="https://accu.org/journals/overload/27/150/knatten_2641/">Blog</a></p>
 </div></blockquote>
-<section id="id1">
-<h3>참고<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p><a class="reference external" href="https://stackoverflow.com/questions/22430998/is-it-correct-to-say-that-xvalues-have-identity-and-are-movable">is-it-correct-to-say-that-xvalues-have-identity-and-are-movable</a></p></li>
-<li><p><a class="reference external" href="https://stackoverflow.com/questions/59332607/xvalue-has-identity-why-i-cant-cout-it-addreess">xvalue-has-identity-why-i-cant-cout-it-addreess</a></p></li>
-<li><p><a class="reference external" href="https://stackoverflow.com/questions/45317763/xvalues-vs-prvalues-what-does-identity-property-add">xvalues-vs-prvalues-what-does-identity-property-add</a></p></li>
-<li><p><a class="reference external" href="https://stackoverflow.com/questions/69125113/clarifying-the-value-categories-of-expressions">clarifying-the-value-categories-of-expressions</a></p></li>
-<li><p><a class="reference external" href="https://modoocode.com/189#page-heading-6">modoocode</a></p></li>
-<li><p>glvalue와 prvalue만 정의가 되어 있고 나머지는 상대적으로 정의되어 있다. <a class="reference external" href="https://stackoverflow.com/questions/58703140/what-are-xvalues-in-c">stackoverflow</a></p></li>
-<li><p>우측값 참조라 정의한 것들도 좌측값 혹은 우측값이 될 수 있다. 이를 판단하는 기준은, 만일 이름이 있다면 좌측값, 없다면 우측값이다. <a class="reference external" href="https://modoocode.com/189#page-heading-6">modoocode</a></p></li>
-<li><p><a class="reference external" href="https://stackoverflow.com/questions/6609968/real-life-examples-of-xvalues-glvalues-and-prvalues">real-life-examples-of-xvalues-glvalues-and-prvalues</a></p></li>
-<li><p><a class="reference external" href="https://dydtjr1128.github.io/cpp/2019/06/10/Cpp-values.html">blog</a></p></li>
-<li><p><a class="reference external" href="https://stackoverflow.com/questions/44289402/what-do-they-mean-by-having-identity-but-not-movable-for-lvalue-in-c-11">what-do-they-mean-by-having-identity-but-not-movable-for-lvalue-in-c-11</a></p></li>
-<li><p><a class="reference external" href="https://stackoverflow.com/questions/53443234/whats-the-meaning-of-identity-in-the-definition-of-value-categories-in-c">meaning of indentity</a></p></li>
-</ul>
 </section>
+<section id="function-call-value-category">
+<h2>Function Call Value Category<a class="headerlink" href="#function-call-value-category" title="Permalink to this heading">#</a></h2>
+<p>function call expression이 있을 때, result type이 lvalue reference type이거나 function type의 rvalue reference라면 function call expression의 value category는 Lvalue이다. 만약 result type이 object type의 rvalue reference라면 function call expression의 value category는 Xvalue이다. 그 외에는 function call expression의 value category는 PRvalue이다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;gtest/gtest.h&quot;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="n">A</span><span class="w">   </span><span class="nf">f1</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">A</span><span class="o">&amp;</span><span class="w">  </span><span class="nf">f2</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">A</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nf">f3</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+
+<span class="n">TEST</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="w">      </span><span class="n">a</span><span class="p">;</span>
+<span class="w">  </span><span class="k">auto</span><span class="w">   </span><span class="n">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f1</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w"> </span><span class="c1">// f1() is PRvalue</span>
+<span class="w">  </span><span class="k">auto</span><span class="o">&amp;</span><span class="w">  </span><span class="n">x2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f2</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w"> </span><span class="c1">// f2() is Lvalue</span>
+<span class="w">  </span><span class="k">auto</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">x3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f3</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w"> </span><span class="c1">// f3() is Xvalue</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://eel.is/c++draft/expr.call#13">c++draft</a><br />
+<a class="reference external" href="https://stackoverflow.com/questions/7016777/what-is-an-rvalue-reference-to-function-type">stackoverflow - what-is-an-rvalue-reference-to-function-type</a></p>
+</div></blockquote>
 </section>
 </section>
 
@@ -820,10 +828,8 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#move">Move</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identity">Identity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history-of-change-of-value-category">History of Change of Value Category</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history-of-change-of-value-category">History of Change of Value Category</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-call-value-category">Function Call Value Category</a></li>
 </ul>
   </nav></div>
 

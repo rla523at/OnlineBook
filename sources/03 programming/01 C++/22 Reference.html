@@ -449,7 +449,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 has-children"><a class="reference internal" href="02%20Memory/Memory.html">Memory</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-33"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/01%20Memory%20Allocation.html">Memory Allocation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/02%20Virtual%20Memory.html">Virtual Memeory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02%20Memory/03%20Virtual%20Memory%20Structure.html">Virtual Memory Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Memory/03%20Virtual%20Memory%20Structure.html">Virtual Memory Space</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/04%20Stack%20Frame.html">Stack Frame</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/05%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
 </ul>
@@ -717,7 +717,7 @@ document.write(`
 <section id="rvalue-reference">
 <h2>Rvalue Reference<a class="headerlink" href="#rvalue-reference" title="Permalink to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">우측값</span> <span class="pre">참조(Rvalue</span> <span class="pre">reference)</span></code>는 C++ 11에서 추가된 문법으로 value category상 Rvalue인 객체들의 alias이다.</p>
-<p>Rvalue Reference를 통해 Lvalue와 Rvalue를 구분함으로써 복사연산이 필요 없을 때는 이동연산이 발생하도록 하여 불필요한 복사 문제를 해결할 수 있다.</p>
+<p>Rvalue Reference를 통해 함수의 input으로 Lvalue와 Rvalue를 구분할 수 있게 됨으로써 moved 특성이 있는 Rvalue가 input으로 들어온 경우에는 복사연산 대신 이동연산이 발생하도록 하여 불필요한 복사 문제를 해결할 수 있다.</p>
 <p>위의 말을 이해하기 위해 다음 예시를 살펴보자.</p>
 <p>class X 를 어떠한 리소스에 대한 포인터(예를 들어 m_pResource) 를 담고 있는 클래스라고 생각하자. 참고로 여기서 리소스 라고 말하는 것은, 생성 또는 복사, 소멸 하기에 많은 시간이 걸리는 거대한 어떤 무언가를 의미한다. 클래스 X 의 가장 좋은 예로 std::vector 를 들 수 있다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="w"> </span><span class="nf">foo</span><span class="p">();</span><span class="w">  </span><span class="c1">// foo 는 X 타입의 객체를 리턴하는 함수이다!</span>
@@ -740,8 +740,8 @@ document.write(`
 </div></blockquote>
 <section id="std-move">
 <h3>std::move<a class="headerlink" href="#std-move" title="Permalink to this heading">#</a></h3>
-<p>std::move는 C++11에서 추가된 기능중 하나로 Rvalue 타입으로 형변환 해주는 함수이다.</p>
-<p>std::move를 통해 Lvalue를 Rvalue로 (value category) casting 함으로써 복사연산 대신 이동연산이 발생하도록 하여 불필요한 복사 문제를 해결할 수 있습니다.</p>
+<p>std::move는 C++11에서 추가된 함수중 하나로 input으로 들어온 객체의 Rvalue reference를 return하는 함수로 결론적으로 input 객체를 Rvalue로 casting 해주는 함수이다.</p>
+<p>std::move를 사용하면 Lvalue를 Rvalue(Xvalue)로 casting 할 수 있어 프로그래머 판단하에 복사연산 대신 이동연산이 발생하도록 하여 불필요한 복사가 발생하지 않게 할 수 있다.</p>
 <p>위의 말을 이해하기 위해 다음 예시를 살펴보자.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">swap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -755,8 +755,8 @@ document.write(`
 </pre></div>
 </div>
 <p>위와 같이 swap이 구현되어 있다고 하면, <code class="docutils literal notranslate"><span class="pre">tmp(a)</span></code>, <code class="docutils literal notranslate"><span class="pre">a=b</span></code>, <code class="docutils literal notranslate"><span class="pre">b=tmp</span></code>에서 총 3번 복사가 발생하게 된다. 하지만 이러한 복사가 굳이 필요 없다는걸 알 수 있다. 왜냐하면 a의 리소스를 tmp로 이동하고, b의 리소스를 a로 이동하고 마지막으로 tmp의 리소스를 a로 이동하기만 하면 된다.</p>
-<p>하지만 문제는 tmp, a와 b가 Rvalue가 아니여서 Rvalue를 input으로 받는 함수를 호출할 수 없다는 점이다.</p>
-<p>C++ 표준의 첫 번째 십계명은 “우리 C++ 위원회는 C++ 프로그래머의 (때론 무모하더라도) 자유를 막는 규칙을 만들면 안된다 - The committee shall make no rule that prevents C++ programmers from shooting themselves in the foot 라고 명시되어 있다. 그래서 이러한 신념을 바탕으로 C++ 11 에서는 Lvalue를 Rvalue인 Rvalue reference로 바꿔주는 <code class="docutils literal notranslate"><span class="pre">std::move</span></code>연산을 제공한다. std::move를 통해 다음과 같이 swap을 바꿀 수 있다.</p>
+<p>하지만 문제는 tmp, a와 b가 Rvalue가 아니여서 Rvalue를 input으로 받는 이동연산을 호출할 수 없다는 점이다.</p>
+<p>C++ 표준의 첫 번째 십계명은 “우리 C++ 위원회는 C++ 프로그래머의 (때론 무모하더라도) 자유를 막는 규칙을 만들면 안된다 - The committee shall make no rule that prevents C++ programmers from shooting themselves in the foot 라고 명시되어 있다. 그래서 이러한 신념을 바탕으로 C++ 11 에서는 <code class="docutils literal notranslate"><span class="pre">std::move</span></code> 함수를 제공한다. std::move를 통해 다음과 같이 swap을 바꿀 수 있다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">swap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">T</span><span class="w"> </span><span class="nf">tmp</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
@@ -782,12 +782,37 @@ document.write(`
 </pre></div>
 </div>
 <p>이 때, input이 <code class="docutils literal notranslate"><span class="pre">T&amp;&amp;</span> <span class="pre">arg</span></code>임으로 타입추론이 가능함으로 std::move는 template function임에도 불구하고 호출할 때 타입을 명시하지 않아도 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;gtest/gtest.h&quot;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;좌측값 레퍼런스 호출&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;좌측값 상수 레퍼런스 호출&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;우측값 레퍼런스 호출&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">A</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;우측값 상수 레퍼런스 호출&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="n">TEST</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="w">        </span><span class="n">a</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">A</span><span class="w">  </span><span class="n">ca</span><span class="p">;</span>
+<span class="w">  </span><span class="n">A</span><span class="o">&amp;</span><span class="w">       </span><span class="n">ra</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cra</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ca</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">g</span><span class="p">(</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">));</span><span class="w">   </span><span class="c1">//우측값 레퍼런스 호출</span>
+<span class="w">  </span><span class="n">g</span><span class="p">(</span><span class="n">move</span><span class="p">(</span><span class="n">ca</span><span class="p">));</span><span class="w">  </span><span class="c1">//우측값 상수 레퍼런스 호출</span>
+<span class="w">  </span><span class="n">g</span><span class="p">(</span><span class="n">move</span><span class="p">(</span><span class="n">ra</span><span class="p">));</span><span class="w">  </span><span class="c1">//우측값 레퍼런스 호출</span>
+<span class="w">  </span><span class="n">g</span><span class="p">(</span><span class="n">move</span><span class="p">(</span><span class="n">cra</span><span class="p">));</span><span class="w"> </span><span class="c1">//우측값 상수 레퍼런스 호출</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 </section>
 </section>
 <section id="forwarding-reference">
 <h2>Forwarding Reference<a class="headerlink" href="#forwarding-reference" title="Permalink to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">전달</span> <span class="pre">레퍼런스(Forwarding</span> <span class="pre">references,</span> <span class="pre">Universal</span> <span class="pre">references)</span></code>는 C++11에 추가된 문법으로 std::forward와 함께 사용하여 함수 인자의 value category를 보존시켜줄 수 있는 특별한 종류의 reference이다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">전달</span> <span class="pre">레퍼런스(Forwarding</span> <span class="pre">references,</span> <span class="pre">Universal</span> <span class="pre">references)</span></code>는 C++11에 추가된 문법으로 std::forward와 함께 사용하여 함수의 input 인자들의 value category를 보존시켜줄 수 있는 특별한 종류의 reference이다.</p>
 <p>forwarding references는 다음 두가지 경우이다.</p>
 <ul class="simple">
 <li><p>템플릿 함수가 input으로 템플릿 parameter의 cv-unqualified rvalue reference를 사용하면 이는 forwarding references이다.</p></li>
@@ -811,7 +836,12 @@ document.write(`
 </div></blockquote>
 <section id="perfect-forwarding">
 <h3>Perfect forwarding 문제<a class="headerlink" href="#perfect-forwarding" title="Permalink to this heading">#</a></h3>
-<p>vector class의 emplace_back과 같이 input으로 받은 인자를 그대로 다른 함수에 전달해줘야 되는 경우가 있다. 하지만 인자를 그대로 전달하는 일은 생각보다 쉬운 일이 아니다. 다음 예시를 보자.</p>
+<p>perfect forwardin 문제는 vector class의 emplace_back과 같이 input으로 받은 인자를 그대로 다른 함수에 전달해줘야 되는 경우 발생하는 문제다.</p>
+<ul class="simple">
+<li><p>기존의 templae argument deduction rule로는 Lvalue가 input으로 주어졌을 때, Lvalue reference로 Rvalue가 input으로 주어졌을 떄, Rvalue reference로 instatiation이 되지 않는다.</p></li>
+<li><p>instantiation이 원하는 대로 되어도 Rvalue Reference type의 함수의 인자는 Lvalue라는 점이다.</p></li>
+</ul>
+<p>다음 예시를 보자.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
 
@@ -839,9 +869,9 @@ document.write(`
 </pre></div>
 </div>
 <p>이를 위해 기대하는 template function의 instantiation는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">wrapper</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">//instantiation result: wrapper(A&amp; u)       </span>
-<span class="n">wrapper</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">//instantiation result: wrapper(const A&amp; u) </span>
-<span class="n">wrapper</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">//instantiation result: wrapper(A&amp;&amp; u)      ``</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">wrapper</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="w">   </span><span class="c1">//expected instantiation result: wrapper(A&amp; u)       </span>
+<span class="n">wrapper</span><span class="p">(</span><span class="n">ca</span><span class="p">);</span><span class="w">  </span><span class="c1">//expected instantiation result: wrapper(const A&amp; u) </span>
+<span class="n">wrapper</span><span class="p">(</span><span class="n">A</span><span class="p">());</span><span class="w"> </span><span class="c1">//expected instantiation result: wrapper(A&amp;&amp; u)      ``</span>
 </pre></div>
 </div>
 <p>하지만 막상 코드를 실행하면 기대와 다른 instantiation으로 Lvalue는 제대로 전달되지만 Rvalue는 제대로 전달이 되지 않고 compile error가 발생하는걸 알 수 있다.(왜 이렇게 instatiation 되는지 알려면 이 <a class="reference external" href="https://rla523at.github.io/OnlineBook/sources/03%20programming/01%20C++/31%20Template.html#deduction-from-a-function-call">페이지</a>를 참고하면 된다.)</p>
@@ -900,8 +930,7 @@ document.write(`
 </pre></div>
 </div>
 <p>위의 문제를 해결하기 위해 C++에서는 std::forward 함수를 제공한다.</p>
-<p>std::forward는 rvalue reference type일 떄는 std::move처럼 동작하여 input을 Rvalue로 casting시켜주지만 Lvalue reference type일 때는 아무런 동작도 하지 않는 것처럼 동작한다.</p>
-<p>이로써, Lvalue reference type이 input으로 들어올때는 Lvalue reference 그대로 전달하고 Rvalue reference type이 input으로 들어왔을 때는 Lvalue가 된 input을 Rvalue로 casting해서 전달한다.</p>
+<p>std::forward는 template argument가 Lvalue reference가 되었을 때는, input으로 Lvalue reference type을 받고 그대로 Lvalue reference를 return하여 아무런 동작도 하지 않는것 처럼 동작한다. 하지만 template argument가 Type일 때는, input으로 Lvalue reference type을 받고 Rvalue reference를 return함으로써 마치 std::move처럼 동작하여 input을 Rvalue로 casting 해준다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="kt">void</span><span class="w"> </span><span class="n">wrapper</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">u</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="n">g</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">u</span><span class="p">));</span>

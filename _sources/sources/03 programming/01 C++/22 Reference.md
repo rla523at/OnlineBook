@@ -36,7 +36,7 @@ ra = b; // ra가 b의 alias가 되는게 아니라 a에 b의 값을 대입하는
 ## Rvalue Reference
 `우측값 참조(Rvalue reference)`는 C++ 11에서 추가된 문법으로 value category상 Rvalue인 객체들의 alias이다.
 
-Rvalue Reference를 통해 Lvalue와 Rvalue를 구분함으로써 복사연산이 필요 없을 때는 이동연산이 발생하도록 하여 불필요한 복사 문제를 해결할 수 있다.
+Rvalue Reference를 통해 함수의 input으로 Lvalue와 Rvalue를 구분할 수 있게 됨으로써 moved 특성이 있는 Rvalue가 input으로 들어온 경우에는 복사연산 대신 이동연산이 발생하도록 하여 불필요한 복사 문제를 해결할 수 있다.
 
 위의 말을 이해하기 위해 다음 예시를 살펴보자.
 
@@ -62,9 +62,9 @@ x = foo();
 > [modoocode](https://modoocode.com/189)
 
 ### std::move
-std::move는 C++11에서 추가된 기능중 하나로 Rvalue 타입으로 형변환 해주는 함수이다.
+std::move는 C++11에서 추가된 함수중 하나로 input으로 들어온 객체의 Rvalue reference를 return하는 함수로 결론적으로 input 객체를 Rvalue로 casting 해주는 함수이다.
 
-std::move를 통해 Lvalue를 Rvalue로 (value category) casting 함으로써 복사연산 대신 이동연산이 발생하도록 하여 불필요한 복사 문제를 해결할 수 있습니다.
+std::move를 사용하면 Lvalue를 Rvalue(Xvalue)로 casting 할 수 있어 프로그래머 판단하에 복사연산 대신 이동연산이 발생하도록 하여 불필요한 복사가 발생하지 않게 할 수 있다.
 
 위의 말을 이해하기 위해 다음 예시를 살펴보자.
 
@@ -81,9 +81,9 @@ swap(a, b);
 ```
 위와 같이 swap이 구현되어 있다고 하면, `tmp(a)`, `a=b`, `b=tmp`에서 총 3번 복사가 발생하게 된다. 하지만 이러한 복사가 굳이 필요 없다는걸 알 수 있다. 왜냐하면 a의 리소스를 tmp로 이동하고, b의 리소스를 a로 이동하고 마지막으로 tmp의 리소스를 a로 이동하기만 하면 된다. 
 
-하지만 문제는 tmp, a와 b가 Rvalue가 아니여서 Rvalue를 input으로 받는 함수를 호출할 수 없다는 점이다.
+하지만 문제는 tmp, a와 b가 Rvalue가 아니여서 Rvalue를 input으로 받는 이동연산을 호출할 수 없다는 점이다.
 
-C++ 표준의 첫 번째 십계명은 "우리 C++ 위원회는 C++ 프로그래머의 (때론 무모하더라도) 자유를 막는 규칙을 만들면 안된다 - The committee shall make no rule that prevents C++ programmers from shooting themselves in the foot 라고 명시되어 있다. 그래서 이러한 신념을 바탕으로 C++ 11 에서는 Lvalue를 Rvalue인 Rvalue reference로 바꿔주는 `std::move`연산을 제공한다. std::move를 통해 다음과 같이 swap을 바꿀 수 있다.
+C++ 표준의 첫 번째 십계명은 "우리 C++ 위원회는 C++ 프로그래머의 (때론 무모하더라도) 자유를 막는 규칙을 만들면 안된다 - The committee shall make no rule that prevents C++ programmers from shooting themselves in the foot 라고 명시되어 있다. 그래서 이러한 신념을 바탕으로 C++ 11 에서는 `std::move` 함수를 제공한다. std::move를 통해 다음과 같이 swap을 바꿀 수 있다.
 
 ```cpp
 template <class T>
@@ -112,8 +112,34 @@ constexpr std::remove_reference_t<T>&& move(T&& arg) noexcept {
 
 이 때, input이 `T&& arg`임으로 타입추론이 가능함으로 std::move는 template function임에도 불구하고 호출할 때 타입을 명시하지 않아도 된다.
 
+```cpp
+#include "gtest/gtest.h"
+
+using namespace std;
+
+struct A {};
+
+void g(A& a) { cout << "좌측값 레퍼런스 호출" << endl; }
+void g(const A& a) { cout << "좌측값 상수 레퍼런스 호출" << endl; }
+void g(A&& a) { cout << "우측값 레퍼런스 호출" << endl; }
+void g(const A&& a) { cout << "우측값 상수 레퍼런스 호출" << endl; }
+
+TEST(test, test)
+{
+  A        a;
+  const A  ca;
+  A&       ra  = a;
+  const A& cra = ca;
+
+  g(move(a));   //우측값 레퍼런스 호출
+  g(move(ca));  //우측값 상수 레퍼런스 호출
+  g(move(ra));  //우측값 레퍼런스 호출
+  g(move(cra)); //우측값 상수 레퍼런스 호출
+}
+```
+
 ## Forwarding Reference
-`전달 레퍼런스(Forwarding references, Universal references)`는 C++11에 추가된 문법으로 std::forward와 함께 사용하여 함수 인자의 value category를 보존시켜줄 수 있는 특별한 종류의 reference이다.
+`전달 레퍼런스(Forwarding references, Universal references)`는 C++11에 추가된 문법으로 std::forward와 함께 사용하여 함수의 input 인자들의 value category를 보존시켜줄 수 있는 특별한 종류의 reference이다.
 
 forwarding references는 다음 두가지 경우이다.
 * 템플릿 함수가 input으로 템플릿 parameter의 cv-unqualified rvalue reference를 사용하면 이는 forwarding references이다.
@@ -135,7 +161,11 @@ forwarding references와 std::forward를 사용해 함수 인자의 value catego
 
 
 ### Perfect forwarding 문제
-vector class의 emplace_back과 같이 input으로 받은 인자를 그대로 다른 함수에 전달해줘야 되는 경우가 있다. 하지만 인자를 그대로 전달하는 일은 생각보다 쉬운 일이 아니다. 다음 예시를 보자.
+perfect forwardin 문제는 vector class의 emplace_back과 같이 input으로 받은 인자를 그대로 다른 함수에 전달해줘야 되는 경우 발생하는 문제다. 
+* 기존의 templae argument deduction rule로는 Lvalue가 input으로 주어졌을 때, Lvalue reference로 Rvalue가 input으로 주어졌을 떄, Rvalue reference로 instatiation이 되지 않는다.
+* instantiation이 원하는 대로 되어도 Rvalue Reference type의 함수의 인자는 Lvalue라는 점이다.
+
+다음 예시를 보자.
 
 ```cpp
 #include <iostream>
@@ -166,9 +196,9 @@ int main() {
 
 이를 위해 기대하는 template function의 instantiation는 다음과 같다. 
 ```cpp
-wrapper(a);   //instantiation result: wrapper(A& u)       
-wrapper(ca);  //instantiation result: wrapper(const A& u) 
-wrapper(A()); //instantiation result: wrapper(A&& u)      ``
+wrapper(a);   //expected instantiation result: wrapper(A& u)       
+wrapper(ca);  //expected instantiation result: wrapper(const A& u) 
+wrapper(A()); //expected instantiation result: wrapper(A&& u)      ``
 ```
 
 하지만 막상 코드를 실행하면 기대와 다른 instantiation으로 Lvalue는 제대로 전달되지만 Rvalue는 제대로 전달이 되지 않고 compile error가 발생하는걸 알 수 있다.(왜 이렇게 instatiation 되는지 알려면 이 [페이지](https://rla523at.github.io/OnlineBook/sources/03%20programming/01%20C++/31%20Template.html#deduction-from-a-function-call)를 참고하면 된다.)
@@ -236,9 +266,7 @@ wrapper(A()); // 우측값 레퍼런스 호출
 
 위의 문제를 해결하기 위해 C++에서는 std::forward 함수를 제공한다.
 
-std::forward는 rvalue reference type일 떄는 std::move처럼 동작하여 input을 Rvalue로 casting시켜주지만 Lvalue reference type일 때는 아무런 동작도 하지 않는 것처럼 동작한다.
-
-이로써, Lvalue reference type이 input으로 들어올때는 Lvalue reference 그대로 전달하고 Rvalue reference type이 input으로 들어왔을 때는 Lvalue가 된 input을 Rvalue로 casting해서 전달한다.
+std::forward는 template argument가 Lvalue reference가 되었을 때는, input으로 Lvalue reference type을 받고 그대로 Lvalue reference를 return하여 아무런 동작도 하지 않는것 처럼 동작한다. 하지만 template argument가 Type일 때는, input으로 Lvalue reference type을 받고 Rvalue reference를 return함으로써 마치 std::move처럼 동작하여 input을 Rvalue로 casting 해준다.
 
 ```cpp
 template <typename T>

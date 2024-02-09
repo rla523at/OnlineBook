@@ -436,7 +436,6 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/02%20Compile.html">Compile</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="01%20Build/03%20Linking/Linking.html">Linking</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-32"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="01%20Build/03%20Linking/01%20Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Build/03%20Linking/02%20Name%20Mangling.html">Name Mangling</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Build/03%20Linking/03%20Link.html">Link</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Build/03%20Linking/04%20Relocation.html">Relocation</a></li>
@@ -450,7 +449,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 has-children"><a class="reference internal" href="02%20Memory/Memory.html">Memory</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-33"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/01%20Memory%20Allocation.html">Memory Allocation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/02%20Virtual%20Memory.html">Virtual Memeory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02%20Memory/03%20Virtual%20Memory%20Structure.html">Virtual Memory Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Memory/03%20Virtual%20Memory%20Structure.html">Virtual Memory Space</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/04%20Stack%20Frame.html">Stack Frame</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Memory/05%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
 </ul>
@@ -458,14 +457,17 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="03%20Polymorphism.html">Polymorphism</a></li>
 <li class="toctree-l2"><a class="reference internal" href="04%20Value%20Category.html">Value Category</a></li>
 <li class="toctree-l2"><a class="reference internal" href="05%20Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06%20Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="11%20Class.html">Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12%20Struct%20Memory%20Padding.html">Struct Memory Padding</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="20%20Standard%20Library/Standard%20Library.html">STD</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-34"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/11%20vector.html">vector</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="21%20Smart%20Pointer.html">Smart Pointer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="22%20Forwarding%20References.html">Forwarding References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="22%20Reference.html">Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="23%20Lambda%20Expression.html">Lambda Expression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="31%20Template.html">Template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="32%20concept.html">concept</a></li>
 <li class="toctree-l2"><a class="reference internal" href="33%20Require.html">Require</a></li>
@@ -640,6 +642,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">static 전역 변수</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-extern">static과 extern</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-initialization">Constant initialization</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-data-members">Static Data Members</a><ul class="nav section-nav flex-column">
@@ -763,6 +766,24 @@ document.write(`
 <blockquote>
 <div><p>Reference<br />
 <span id="id2">[<a class="reference internal" href="../../99%20References/references.html#id16" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span></p>
+</div></blockquote>
+</section>
+<section id="constant-initialization">
+<h3>Constant initialization<a class="headerlink" href="#constant-initialization" title="Permalink to this heading">#</a></h3>
+<p>static 변수의 intialization full-expression이 constant expression이면 constnat-initialized 되었다고 하며 constant initialization은 compile time에 이루어진다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">     </span><span class="c1">//constant initialization </span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">     </span><span class="c1">//constant initialization</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">//constant initialization  --&gt; complie time 상수</span>
+
+<span class="n">TEST</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">cexpr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w"> </span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/constant_initialization">cppreference - constant_initialization</a></p>
 </div></blockquote>
 </section>
 </section>
@@ -1124,6 +1145,7 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">static 전역 변수</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-extern">static과 extern</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-initialization">Constant initialization</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-data-members">Static Data Members</a><ul class="nav section-nav flex-column">

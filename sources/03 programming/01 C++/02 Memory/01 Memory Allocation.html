@@ -694,7 +694,7 @@ document.write(`
 <section id="noncontiguous-memory-allocation">
 <h2>Noncontiguous Memory Allocation<a class="headerlink" href="#noncontiguous-memory-allocation" title="Permalink to this heading">#</a></h2>
 <p>Noncotiguous memory allocation은 프로그램을 분할한 뒤 각 블록에 불연속적인 primary memory를 할당하는 방식입니다.</p>
-<p>이 때, program과 primary memory를 분할하는 방식에 따라 <code class="docutils literal notranslate"><span class="pre">simple</span> <span class="pre">paging</span></code> 방법과 <code class="docutils literal notranslate"><span class="pre">simple</span> <span class="pre">segmentation</span></code> 방법으로 나뉜다.</p>
+<p>Noncotiguous memeory allocation은 program과 primary memory를 블락 단위로 분할하여 관리를 하는데 이 때, 분할하는 방식에 따라 <code class="docutils literal notranslate"><span class="pre">simple</span> <span class="pre">paging</span></code> 방법과 <code class="docutils literal notranslate"><span class="pre">simple</span> <span class="pre">segmentation</span></code> 방법으로 나뉜다.</p>
 <p>simple paging 기법은 프로그램과 primary memory를 고정된 크기의 단위로 나누는 방식이다.</p>
 <p>이 때, 프로그램의 단위를 <code class="docutils literal notranslate"><span class="pre">페이지(page)</span></code>라고 하며, primary memory의 단위를 <code class="docutils literal notranslate"><span class="pre">프레임(frame)</span></code>이라고 한다.  그리고 프로그램에 primary memory를 할당하면 page마다 frame이 할당되며 이런 정보를 기록해둔 테이블을 <code class="docutils literal notranslate"><span class="pre">페이지</span> <span class="pre">테이블(page</span> <span class="pre">table)</span></code>이라고 하며 기록된 정보를 <code class="docutils literal notranslate"><span class="pre">page</span> <span class="pre">table</span> <span class="pre">entry</span> <span class="pre">(PTE)</span></code>라고 한다.</p>
 <p>simple paging에서는 고정된 크기의 단위로 나누기 때문에 external fragmentation 문제가 발생하지 않는다. 하지만 internal fragmentation 문제가 발생할 수 있다.</p>

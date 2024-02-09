@@ -73,15 +73,27 @@ Lvalue를 Rvalue reference로 casting하는 move의 결과는 identity를 갖으
 > Reference  
 > [Blog](https://accu.org/journals/overload/27/150/knatten_2641/)
 
-### 참고
-* [is-it-correct-to-say-that-xvalues-have-identity-and-are-movable](https://stackoverflow.com/questions/22430998/is-it-correct-to-say-that-xvalues-have-identity-and-are-movable)
-* [xvalue-has-identity-why-i-cant-cout-it-addreess](https://stackoverflow.com/questions/59332607/xvalue-has-identity-why-i-cant-cout-it-addreess)  
-* [xvalues-vs-prvalues-what-does-identity-property-add](https://stackoverflow.com/questions/45317763/xvalues-vs-prvalues-what-does-identity-property-add)
-* [clarifying-the-value-categories-of-expressions](https://stackoverflow.com/questions/69125113/clarifying-the-value-categories-of-expressions)
-* [modoocode](https://modoocode.com/189#page-heading-6)  
-* glvalue와 prvalue만 정의가 되어 있고 나머지는 상대적으로 정의되어 있다. [stackoverflow](https://stackoverflow.com/questions/58703140/what-are-xvalues-in-c)
-* 우측값 참조라 정의한 것들도 좌측값 혹은 우측값이 될 수 있다. 이를 판단하는 기준은, 만일 이름이 있다면 좌측값, 없다면 우측값이다. [modoocode](https://modoocode.com/189#page-heading-6)  
-* [real-life-examples-of-xvalues-glvalues-and-prvalues](https://stackoverflow.com/questions/6609968/real-life-examples-of-xvalues-glvalues-and-prvalues)
-* [blog](https://dydtjr1128.github.io/cpp/2019/06/10/Cpp-values.html)  
-* [what-do-they-mean-by-having-identity-but-not-movable-for-lvalue-in-c-11](https://stackoverflow.com/questions/44289402/what-do-they-mean-by-having-identity-but-not-movable-for-lvalue-in-c-11)  
-* [meaning of indentity](https://stackoverflow.com/questions/53443234/whats-the-meaning-of-identity-in-the-definition-of-value-categories-in-c)  
+## Function Call Value Category
+function call expression이 있을 때, result type이 lvalue reference type이거나 function type의 rvalue reference라면 function call expression의 value category는 Lvalue이다. 만약 result type이 object type의 rvalue reference라면 function call expression의 value category는 Xvalue이다. 그 외에는 function call expression의 value category는 PRvalue이다.
+
+```cpp
+#include "gtest/gtest.h"
+
+struct A {};
+
+A   f1(A& a) { return a; }
+A&  f2(A& a) { return a; }
+A&& f3(A& a) { return static_cast<A&&>(a); }
+
+TEST(test, test)
+{
+  A      a;
+  auto   x1 = f1(a); // f1() is PRvalue
+  auto&  x2 = f2(a); // f2() is Lvalue
+  auto&& x3 = f3(a); // f3() is Xvalue
+}
+```
+
+> Reference  
+> [c++draft](https://eel.is/c++draft/expr.call#13)  
+> [stackoverflow - what-is-an-rvalue-reference-to-function-type](https://stackoverflow.com/questions/7016777/what-is-an-rvalue-reference-to-function-type)  

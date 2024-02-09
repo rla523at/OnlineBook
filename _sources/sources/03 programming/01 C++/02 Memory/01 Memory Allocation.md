@@ -43,7 +43,7 @@ Contiguous memory allocation은 프로그램에 연속적인 primary memeory를 
 ## Noncontiguous Memory Allocation
 Noncotiguous memory allocation은 프로그램을 분할한 뒤 각 블록에 불연속적인 primary memory를 할당하는 방식입니다.
 
-이 때, program과 primary memory를 분할하는 방식에 따라 `simple paging` 방법과 `simple segmentation` 방법으로 나뉜다.
+Noncotiguous memeory allocation은 program과 primary memory를 블락 단위로 분할하여 관리를 하는데 이 때, 분할하는 방식에 따라 `simple paging` 방법과 `simple segmentation` 방법으로 나뉜다.
 
 simple paging 기법은 프로그램과 primary memory를 고정된 크기의 단위로 나누는 방식이다. 
 

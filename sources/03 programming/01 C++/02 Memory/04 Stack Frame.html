@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
     <link rel="next" title="Virtual Memory Management in Window" href="05%20Virtual%20Memory%20Management%20in%20Window.html" />
-    <link rel="prev" title="Virtual Memory Structure" href="03%20Virtual%20Memory%20Structure.html" />
+    <link rel="prev" title="Virtual Memory Space" href="03%20Virtual%20Memory%20Structure.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -436,7 +436,6 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3"><a class="reference internal" href="../01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01%20Build/02%20Compile.html">Compile</a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../01%20Build/03%20Linking/Linking.html">Linking</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-32"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/01%20Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/02%20Name%20Mangling.html">Name Mangling</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/03%20Link.html">Link</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/04%20Relocation.html">Relocation</a></li>
@@ -450,7 +449,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="Memory.html">Memory</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-33"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="01%20Memory%20Allocation.html">Memory Allocation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Virtual%20Memory.html">Virtual Memeory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="03%20Virtual%20Memory%20Structure.html">Virtual Memory Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="03%20Virtual%20Memory%20Structure.html">Virtual Memory Space</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Stack Frame</a></li>
 <li class="toctree-l3"><a class="reference internal" href="05%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
 </ul>
@@ -458,14 +457,17 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../03%20Polymorphism.html">Polymorphism</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../04%20Value%20Category.html">Value Category</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../05%20Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06%20Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../11%20Class.html">Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../12%20Struct%20Memory%20Padding.html">Struct Memory Padding</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../20%20Standard%20Library/Standard%20Library.html">STD</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-34"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../20%20Standard%20Library/11%20vector.html">vector</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../21%20Smart%20Pointer.html">Smart Pointer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../22%20Forwarding%20References.html">Forwarding References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../22%20Reference.html">Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../23%20Lambda%20Expression.html">Lambda Expression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../31%20Template.html">Template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../32%20concept.html">concept</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../33%20Require.html">Require</a></li>
@@ -660,7 +662,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="stack-frame">
 <h1>Stack Frame<a class="headerlink" href="#stack-frame" title="Permalink to this heading">#</a></h1>
-<p>함수가 호출되면 stack에 <code class="docutils literal notranslate"><span class="pre">스택</span> <span class="pre">프레임(stack</span> <span class="pre">frame)</span></code>이라는 block of memory가 할당된다. stack frame은 함수만의 스택 영역을 구분하기 위하여 생성되는 공간으로 지역 변수, 함수의 인자, 지역 배열, 함수의 return adress등이 저장된다.</p>
+<p>함수가 호출되면 stack에 <code class="docutils literal notranslate"><span class="pre">스택</span> <span class="pre">프레임(stack</span> <span class="pre">frame)</span></code>이라는 block of memory가 할당된다. stack frame은 함수만의 스택 영역을 구분하기 위하여 생성되는 공간으로 지역 변수, 지역 배열, 함수의 인자, 함수의 return adress등이 저장된다.</p>
 <p>stack frame에 할당될 메모리의 크기는 compile time에 미리 결정되며 함수가 종료되면서 소멸한다. 이 모든 과정은 자동으로 수행되며 프로그래머는 stack 영역에서의 메모리 할당과 해제에 대한 걱정을 할 필요가 없다.</p>
 <section id="data">
 <h2>Data 저장<a class="headerlink" href="#data" title="Permalink to this heading">#</a></h2>
@@ -875,7 +877,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Virtual Memory Structure</p>
+        <p class="prev-next-title">Virtual Memory Space</p>
       </div>
     </a>
     <a class="right-next"
