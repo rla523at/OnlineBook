@@ -1,9 +1,11 @@
 # Ring
 ## 정의
-집합 $R$과 두 이항연산 $+:R \times R \rightarrow R$, $\cdot : R \times R \rightarrow R$이 있을 때, `환(ring)` $(R,+,\cdot)$이란 다음을 만족하는 대수 구조이다.
+집합 $R$과 두 이항연산 $+:R \times R \rightarrow R$, $\cdot : R \times R \rightarrow R$이 있다고 하자.
 
 $$ \begin{gathered} (R,+) \text{ is an Abelian group} \\ (R,\cdot) \text { is a monoid } \\ \cdot \text { is distributive w.r.t. } + \end{gathered} $$
-     
+
+일 떄, 대수구조 $(R,+,\cdot)$을 `환(ring)` 이라고 한다.
+
 > Reference  
 > [wiki](https://en.wikipedia.org/wiki/Ring_(mathematics)#Definition)
 

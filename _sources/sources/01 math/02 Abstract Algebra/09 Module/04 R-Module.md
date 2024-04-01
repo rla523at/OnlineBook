@@ -1,8 +1,8 @@
 # R-Module
 ## 정의
-Abelian group $A$와 ring $R$이 있다고 하자.
+Abelian group $A$와 commutative ring $R$ 그리고 action of $R$ on $A$ $\cdot$이 있다고 하자.
 
-$R$이 commutative ring일 때, $A$와 $R$ 그리고 action of $R$ on $A$ $\cdot$이 주어진 대수구조를 `R-가군(R-module)`이라고 한다. 
+이 때, 대수구조 $(A,R,\cdot)$을 `R-가군(R-module)`이라고 한다. 
 
 ### 명제1
 Abelian group $A$와 commutative ring $R$이 있다고 하자.
