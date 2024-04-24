@@ -11,13 +11,13 @@ $$ [v]_\beta := \begin{bmatrix} a^1 \\ \vdots \\ a^n \end{bmatrix} \in M_{n1}(\m
 ### 명제1
 $n$차원 vector space $V/ \mathbb F$와 기저 $\beta$가 있다고 하자.
 
-이 떄, 함수 $\frak{m}_\beta$를 다음과 같이 정의하자.
+이 떄, 함수 $\mathfrak{m}_\beta$를 다음과 같이 정의하자.
 
-$$ \frak{m}_\beta : V \rightarrow M_{n1}(\mathbb F) \quad s.t. \quad v \mapsto [v]_\beta $$  
+$$ \mathfrak{m}_\beta : V \rightarrow M_{n1}(\mathbb F) \quad s.t. \quad v \mapsto [v]_\beta $$  
 
 이 때, 다음을 증명하여라.
 
-$$ \frak m_\beta \text{ is a vector space isomorphism} $$
+$$ \mathfrak{m}_\beta \text{ is a vector space isomorphism} $$
 
 **Proof**
 
@@ -25,7 +25,11 @@ $$ \frak m_\beta \text{ is a vector space isomorphism} $$
 $v_1 = a_i\beta_i, \enspace v_2 = b_i\beta_i \in V, \enspace c \in \mathbb F$가 있을 때 다음이 성립한다.
 
 
-$$ \frak m_\beta(cv_1 + v_2) = \begin{bmatrix} ca^1 + b_1 \\ \vdots \\ ca^n+ b_n \end{bmatrix} = c\begin{bmatrix} a^1 \\ \vdots \\ a^n \end{bmatrix} + \begin{bmatrix} b_1 \\ \vdots \\ b_n \end{bmatrix} = c \frak m_\beta(v_1) + \frak m_\beta(v_2) $$
+$$ \mathfrak {m}_\beta(cv_1 + v_2) = 
+\begin{bmatrix} ca^1 + b_1 \\ \vdots \\ ca^n+ b_n \end{bmatrix} = 
+c\begin{bmatrix} a^1 \\ \vdots \\ a^n \end{bmatrix} + 
+\begin{bmatrix} b_1 \\ \vdots \\ b_n \end{bmatrix} = 
+c \mathfrak {m}_\beta(v_1) + \mathfrak {m}_\beta(v_2) $$
 
 따라서, $m_\beta \in L(V; \mathbb M_{n1}(\mathbb F))$이다.
 
