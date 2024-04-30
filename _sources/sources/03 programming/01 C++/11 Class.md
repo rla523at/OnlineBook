@@ -524,3 +524,37 @@ struct X
 						// 0으로 초기화됨								
 };
 ```
+
+## Class의 메모리 구조
+
+```cpp
+class Base
+{
+public:
+	virtual ~Base() = default;
+
+protected:
+	int64_t _val = 0;	
+};
+
+class Derived : public Base
+{
+public:
+	void tell(void) const
+	{		
+		std::cout << "_val memory offset" << (char*)&_val - (char*)this << std::endl;
+		std::cout << "_val1 memory offset" << (char*)&_val1 - (char*)this << std::endl;
+		std::cout << "_val2 memory offset" << (char*)&_val2 - (char*)this << std::endl;
+	}
+
+private:
+	int64_t _val1 = 0;
+	int64_t _val2 = 0;
+};
+
+int main()
+{
+	Derived d;
+	d.tell(); // 8, 16, 24 출력!
+}
+```
