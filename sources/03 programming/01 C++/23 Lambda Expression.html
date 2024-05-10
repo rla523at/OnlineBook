@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Lambda Expression &#8212; MS Study Book</title>
   
@@ -677,56 +677,160 @@ document.write(`
 </div></blockquote>
 <section id="capture">
 <h3>Capture<a class="headerlink" href="#capture" title="Permalink to this heading">#</a></h3>
-<p>capture는 <code class="docutils literal notranslate"><span class="pre">,</span></code>로 구분된 list로 lambda function body에서 접근 가능한 외부 변수들을 정의한다. 단, 다음 외부 변수들의 경우 capture되지 않아도 접근 가능하다.</p>
+<p>capture는 <code class="docutils literal notranslate"><span class="pre">,</span></code>로 구분된 list로 lambda function body에서 접근 가능한 외부 변수들을 정의한다.</p>
+<p>이 때, 경우에 따라 capture-default <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>와 <code class="docutils literal notranslate"><span class="pre">=</span></code>로 시작할 수 있다.</p>
+<p>capture-default로 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>를 사용하는 경우 현재 automatic sotrage duration을 갖는 모든 변수들의 reference를 정의한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="n">f</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span><span class="w"> </span><span class="c1">// original val is changed to 20</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>그리고 capture-default로 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>를 사용하는 경우, 이후에 이어지는 capture들은 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>로 시작하면 안된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture4</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">val2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">//Error : If the capture-default is &amp;, subsequent simple captures must not begin with &amp;</span>
+<span class="w">  </span><span class="c1">//auto g = [&amp;, &amp;val2]() { val = 20; };</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="n">val2</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="n">g</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>capture-default로 <code class="docutils literal notranslate"><span class="pre">[=]</span></code>로 쓰면 현재 automatic sotrage duration을 갖는 모든 변수들의 const-qualified copy를 정의한다. 단, specs 위치에 mutable을 사용할 경우 lambda expression body에서 copy한 객체를 수정할 수 있으며 non-cost member functions를 호출할 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture2</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// compile error!</span>
+<span class="w">  </span><span class="c1">// without mutable specifier cann&#39;t change val in the body</span>
+<span class="w">  </span><span class="c1">// auto f = [=]() {</span>
+<span class="w">  </span><span class="c1">//   val = 20; </span>
+<span class="w">  </span><span class="c1">// };</span>
+<span class="w">    </span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">=</span><span class="p">]()</span><span class="w"> </span><span class="k">mutable</span><span class="w"> </span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
+<span class="w">    </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span><span class="w"> </span><span class="c1">// copied val is changed to 20</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="n">f</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w"> </span><span class="c1">// original val is still 10</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>그리고 capture-default로 <code class="docutils literal notranslate"><span class="pre">=</span></code>를 사용하는 경우, 이후에 이어지는 capture들은 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>로 시작하거나 <code class="docutils literal notranslate"><span class="pre">*this</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">this</span></code>여야 한다.</p>
+<p>만약 <code class="docutils literal notranslate"><span class="pre">*this</span></code>가 주어진 경우 객체가 복사가 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture5</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">//capture the *this by copy</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">=</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">]()</span><span class="w"> </span><span class="k">mutable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">// val of copied (*this) is changed to 3</span>
+<span class="w">      </span><span class="p">};</span>
+
+<span class="w">      </span><span class="n">f</span><span class="p">();</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">func</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// val of original `a` is still 0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>capture-default가 있으면 암시적으로 현재 객체(*this)의 reference가 정의된다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">this</span></code>가 주어진 경우 C++ 20 이후에서는 <code class="docutils literal notranslate"><span class="pre">[=]</span></code>만 있는 것과 동일하게 취급된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture6</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// until C++20: Error: this when = is the default</span>
+<span class="w">      </span><span class="c1">// since C++20: OK, same as [=]</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">=</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">// val of (*this) is changed to 3</span>
+<span class="w">      </span><span class="p">};</span>
+
+<span class="w">      </span><span class="n">f</span><span class="p">();</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">func</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">// val of original `a` is changed to 3</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>단, 다음 외부 변수들의 경우 capture되지 않아도 접근 가능하다.</p>
 <ul class="simple">
 <li><p>non-local variables</p></li>
 <li><p>static or thread local storage duration variables</p></li>
 <li><p>reference that has been initialized with a constant expression</p></li>
 <li><p>variable is constexpr and has no mutable members</p></li>
 </ul>
-<p>capture를 <code class="docutils literal notranslate"><span class="pre">[&amp;]</span></code>로 쓰면 현재 automatic sotrage duration을 갖는 모든 변수들의 reference를 정의한다.</p>
-<p>capture를 <code class="docutils literal notranslate"><span class="pre">[=]</span></code>로 쓰면 현재 automatic sotrage duration을 갖는 모든 변수들의 const-qualified copy를 정의한다. 단, sepcs 위치에 mutable을 사용할 경우 lambda expression body에서 copy한 객체를 수정할 수 있으며 non-cost member functions를 호출할 수 있다.</p>
-<p>capture에 <code class="docutils literal notranslate"><span class="pre">[&amp;]</span></code>나 <code class="docutils literal notranslate"><span class="pre">[=]</span></code>가 있으면 암시적으로 현재 객체(*this)의 reference가 정의된다. <code class="docutils literal notranslate"><span class="pre">[=]</span></code>가 있을 때, (*this)의 reference가 정의되는 것은 C++20 이후로 더이상 사용되지 않는다.</p>
-<p>caputre의 동작을 보기 위해 다음 예시코드를 보자.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture</span><span class="p">)</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture7</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">A</span>
-<span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">int</span><span class="w">  </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">()</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="w">       </span><span class="n">cref</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
-<span class="w">      </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w">    </span><span class="n">cexpr</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
-<span class="w">      </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">cexpr_double</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">20.0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 
-<span class="w">      </span><span class="c1">// until C++20: current object(*this) is implicitly captured by reference</span>
-<span class="w">      </span><span class="c1">// since C++20: The implicit capture of *this when the capture default is = is deprecated.</span>
-<span class="w">      </span><span class="c1">// Despite being deprecated, there are currently no compile errors in MSVC.</span>
-<span class="w">      </span><span class="c1">// reference that has been initialized with a constant expression can use without capture</span>
-<span class="w">      </span><span class="p">[</span><span class="o">=</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cref</span><span class="p">;</span><span class="w"> </span><span class="p">}();</span>
-<span class="w">      </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">val</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">sval</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">//static or thread local storage duration variables</span>
+<span class="w">  </span><span class="n">f</span><span class="p">();</span>
 
-<span class="w">      </span><span class="c1">// until C++20: Error: this when = is the default</span>
-<span class="w">      </span><span class="c1">// since C++20: OK, same as [=]</span>
-<span class="w">      </span><span class="c1">// variable is constexpr and has no mutable members can use without capture</span>
-<span class="w">      </span><span class="p">[</span><span class="o">=</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cexpr</span><span class="p">;</span><span class="w"> </span><span class="p">}();</span>
-<span class="w">      </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="w">      </span><span class="c1">// since C++17: captures the object (*this) by copy</span>
-<span class="w">      </span><span class="c1">// To modify the object, the lambda must be mutable</span>
-<span class="w">      </span><span class="p">[</span><span class="o">=</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">]()</span><span class="w"> </span><span class="k">mutable</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cexpr_double</span><span class="p">;</span><span class="w"> </span><span class="p">}();</span>
-<span class="w">      </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">};</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">gval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 
-<span class="w">  </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
-<span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">func</span><span class="p">();</span>
+<span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture8</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">constexpr</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gval</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w">  </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">val</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">cref</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// reference that has been initialized with a constant expression</span>
+<span class="w">  </span><span class="n">f</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture9</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">cval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w">  </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">val</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">cval</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">//variable is constexpr and has no mutable members</span>
+<span class="w">  </span><span class="n">f</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture">cppreference - Lambda_capture</a><br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/lambda#Explanation">cppreference - lambda#Explanation</a><br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture">cppreference - lambda#Lambda_capture</a><br />
 <a class="reference external" href="https://ezoeryou.github.io/blog/article/2019-07-09-deprecate-implicit-lambda-capture-of-this.html">ezoeryou - 2019-07-09-deprecate-implicit-lambda-capture-of-this</a><br />
 <a class="reference external" href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0806r2.html">open-std - p0806r2</a></p>
 </div></blockquote>

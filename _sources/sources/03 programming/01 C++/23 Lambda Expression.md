@@ -14,58 +14,175 @@ Lambda expression이란 C++11에 추가된 기술로 한마디로 말하자면 �
 > [cppreference - lambda#Explanation](https://en.cppreference.com/w/cpp/language/lambda#Explanation)  
 
 ### Capture
-capture는 `,`로 구분된 list로 lambda function body에서 접근 가능한 외부 변수들을 정의한다. 단, 다음 외부 변수들의 경우 capture되지 않아도 접근 가능하다.
+capture는 `,`로 구분된 list로 lambda function body에서 접근 가능한 외부 변수들을 정의한다. 
+
+이 때, 경우에 따라 capture-default `&`와 `=`로 시작할 수 있다.
+
+capture-default로 `&`를 사용하는 경우 현재 automatic sotrage duration을 갖는 모든 변수들의 reference를 정의한다. 
+
+```cpp
+TEST(Lambda_Expression, capture1)
+{
+  int val = 10;
+
+  auto f = [&]() { val = 20; };
+  f();
+
+  EXPECT_EQ(val, 20); // original val is changed to 20
+}
+```
+
+그리고 capture-default로 `&`를 사용하는 경우, 이후에 이어지는 capture들은 `&`로 시작하면 안된다.
+
+```cpp
+TEST(Lambda_Expression, capture4)
+{
+  int val  = 10;
+  int val2 = 20;
+
+  //Error : If the capture-default is &, subsequent simple captures must not begin with &
+  //auto g = [&, &val2]() { val = 20; };
+  auto g = [&, val2]() { val = 20; };
+  g();
+
+  EXPECT_EQ(val, 20);
+}
+```
+
+capture-default로 `[=]`로 쓰면 현재 automatic sotrage duration을 갖는 모든 변수들의 const-qualified copy를 정의한다. 단, specs 위치에 mutable을 사용할 경우 lambda expression body에서 copy한 객체를 수정할 수 있으며 non-cost member functions를 호출할 수 있다.
+
+```cpp
+TEST(Lambda_Expression, capture2)
+{
+  int val = 10;
+
+  // compile error!
+  // without mutable specifier cann't change val in the body
+  // auto f = [=]() {
+  //   val = 20; 
+  // };
+    
+  auto f = [=]() mutable 
+  {
+    val = 20;
+    EXPECT_EQ(val,20); // copied val is changed to 20
+  };
+
+  f();
+
+  EXPECT_EQ(val, 10); // original val is still 10
+}
+```
+
+그리고 capture-default로 `=`를 사용하는 경우, 이후에 이어지는 capture들은 `&`로 시작하거나 `*this` 혹은 `this`여야 한다.
+
+만약 `*this`가 주어진 경우 객체가 복사가 된다. 
+
+```cpp
+TEST(Lambda_Expression, capture5)
+{
+  struct A {
+
+    int val = 0;
+
+    void func()
+    {
+      //capture the *this by copy
+      auto f = [=, *this]() mutable {
+        val = 3;
+        EXPECT_EQ(val, 3); // val of copied (*this) is changed to 3
+      };
+
+      f();
+    };
+  };
+
+  A a;
+  a.func();
+
+  EXPECT_EQ(a.val, 0); // val of original `a` is still 0
+}
+
+```
+
+
+capture-default가 있으면 암시적으로 현재 객체(\*this)의 reference가 정의된다. 
+
+`this`가 주어진 경우 C++ 20 이후에서는 `[=]`만 있는 것과 동일하게 취급된다.
+
+```cpp
+TEST(Lambda_Expression, capture6)
+{
+  struct A {
+
+    int val = 0;
+
+    void func()
+    {
+      // until C++20: Error: this when = is the default
+      // since C++20: OK, same as [=]
+      auto f = [=, this]() {
+        val = 3;
+        EXPECT_EQ(val, 3); // val of (*this) is changed to 3
+      };
+
+      f();
+    };
+  };
+
+  A a;
+  a.func();
+
+  EXPECT_EQ(a.val, 3); // val of original `a` is changed to 3
+}
+```
+
+단, 다음 외부 변수들의 경우 capture되지 않아도 접근 가능하다.
 * non-local variables
 * static or thread local storage duration variables
 * reference that has been initialized with a constant expression
 * variable is constexpr and has no mutable members
 
-capture를 `[&]`로 쓰면 현재 automatic sotrage duration을 갖는 모든 변수들의 reference를 정의한다. 
-
-capture를 `[=]`로 쓰면 현재 automatic sotrage duration을 갖는 모든 변수들의 const-qualified copy를 정의한다. 단, sepcs 위치에 mutable을 사용할 경우 lambda expression body에서 copy한 객체를 수정할 수 있으며 non-cost member functions를 호출할 수 있다.
-
-capture에 `[&]`나 `[=]`가 있으면 암시적으로 현재 객체(*this)의 reference가 정의된다. `[=]`가 있을 때, (*this)의 reference가 정의되는 것은 C++20 이후로 더이상 사용되지 않는다.
-
-caputre의 동작을 보기 위해 다음 예시코드를 보자.
 ```cpp
-TEST(Lambda_Expression, capture)
+TEST(Lambda_Expression, capture7)
 {
-  struct A
-  {
-    int  val = 0;
-    void func()
-    {
-      const int&       cref         = 10;
-      constexpr int    cexpr        = 20;
-      constexpr double cexpr_double = 20.0;
+  static int sval = 10;
 
-      // until C++20: current object(*this) is implicitly captured by reference
-      // since C++20: The implicit capture of *this when the capture default is = is deprecated.
-      // Despite being deprecated, there are currently no compile errors in MSVC.
-      // reference that has been initialized with a constant expression can use without capture
-      [=]() { val = cref; }();
-      EXPECT_EQ(val, 1);
+  int val  = 10;
+  auto f = [&val]() { val += sval; }; //static or thread local storage duration variables
+  f();
 
-      // until C++20: Error: this when = is the default
-      // since C++20: OK, same as [=]
-      // variable is constexpr and has no mutable members can use without capture
-      [=, this]() { val = cexpr; }();
-      EXPECT_EQ(val, 2);
+  EXPECT_EQ(val, 20);
+}
 
-      // since C++17: captures the object (*this) by copy
-      // To modify the object, the lambda must be mutable
-      [=, *this]() mutable { val = cexpr_double; }();
-      EXPECT_EQ(val, 2);
-    }
-  };
+constexpr int gval = 10;
 
-  A a;
-  a.func();
+TEST(Lambda_Expression, capture8)
+{
+  constexpr const int& cref = gval;
+
+  int  val = 10;
+  auto f  = [&val]() { val += cref; }; // reference that has been initialized with a constant expression
+  f();
+
+  EXPECT_EQ(val, 20);
+}
+
+TEST(Lambda_Expression, capture9)
+{
+  constexpr int cval = 10;
+
+  int  val = 10;
+  auto f   = [&val]() { val += cval; }; //variable is constexpr and has no mutable members
+  f();
+
+  EXPECT_EQ(val, 20);
 }
 ```
 
 > Reference  
-> [cppreference - Lambda_capture](https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture)  
+> [cppreference - lambda#Explanation](https://en.cppreference.com/w/cpp/language/lambda#Explanation)   
+> [cppreference - lambda#Lambda_capture](https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture)  
 > [ezoeryou - 2019-07-09-deprecate-implicit-lambda-capture-of-this](https://ezoeryou.github.io/blog/article/2019-07-09-deprecate-implicit-lambda-capture-of-this.html)  
 > [open-std - p0806r2](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0806r2.html)
 
