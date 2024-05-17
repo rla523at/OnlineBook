@@ -16,7 +16,43 @@ Lambda expression이란 C++11에 추가된 기술로 한마디로 말하자면 �
 ### Capture
 capture는 `,`로 구분된 list로 lambda function body에서 접근 가능한 외부 변수들을 정의한다. 
 
-이 때, 경우에 따라 capture-default `&`와 `=`로 시작할 수 있다.
+외부 변수들 앞에 아무표시도 없으면 동일한 이름을 갖은 객체가 const copy로 생성되며 `&`를 사용할 경우 동일한 이름을 갖는 reference가 생성된다.
+
+만약 외부 변수를 함수내에서 수정할 일이 없어서 const로 받고 싶다면 다음과 같은 방법들이 있다.
+
+```cpp
+
+struct A
+{
+  void non_const_func(void){};
+  void const_func(void) const {};
+};
+
+int main()
+{
+  A a;
+
+  [a]() {
+    // a.non_const_func(); // const특성을 갖지만 복사가 발생함
+    a.const_func();
+  }();
+
+  [&a = std::as_const(a)]() {
+    // a.non_const_func(); // const 특성을 갖음
+    a.const_func();
+  }();
+
+  const auto& ca = a;
+  [&ca]() {
+    // ca.non_const_func(); // const 특성을 갖음
+    ca.const_func();
+  }();
+}
+
+```
+
+
+경우에 따라 외부 변수 없이 capture-default `&`와 `=`로 시작할 수 있다.
 
 capture-default로 `&`를 사용하는 경우 현재 automatic sotrage duration을 갖는 모든 변수들의 reference를 정의한다. 
 
@@ -89,8 +125,8 @@ TEST(Lambda_Expression, capture5)
     {
       //capture the *this by copy
       auto f = [=, *this]() mutable {
-        val = 3;
-        EXPECT_EQ(val, 3); // val of copied (*this) is changed to 3
+        this->val = 3;     // this for copied (*this) object
+        EXPECT_EQ(val, 3); // val of copied (*this) object is changed to 3
       };
 
       f();
