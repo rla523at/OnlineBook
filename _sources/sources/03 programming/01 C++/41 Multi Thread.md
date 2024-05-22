@@ -8,24 +8,65 @@ thread는 하나의 프로세스 내에서 여러개의 실행 흐름을 두기 
 ## Multi thread
 하나의 process가 여러 thread로 구성되어 있는 것을 multi thread라고 한다.
 
-```{figure} _image/thread vs multithread.png
+```{figure} _image/4101.png
 ```
 
 그렇다면 multi thread는 single thread 대비 어떤 장점이 있는건지 알아보자.
 
-첫번째로 multi thread의 경우 single thread에 비해 CPU를 효율적으로 사용할 수 있다.
+첫번째로 multi thread의 경우, single thread에 비해 CPU를 효율적으로 사용해 처리속도를 높일 수 있다.
 
 예를 들어, CPU가 작업은 안하지만 대기시간이 긴 작업들이 있다고 하자. 그러면, 이 작업들을 기다리는 동안 CPU는 아무런 일을 하지 않고 기다리게 된다. 이 떄, 대기시간이 긴 작업들을 처리하는 thread와 다른 일을 처리하는 thread를 만들어 놓는다면 대기하는 동안에도 CPU는 다른 일을 하고 있기 때문에 CPU를 효율적으로 사용할 수 있다.
 
-```{figure}
+```{figure} _image/4102.png
 ```
 
-두번째로 multi thread의 경우, 다중 CPU를 가진 컴퓨터에서 single thread에 비해 계산 속도를 높일 수 있다.
+위 그림을 보면 single thread일 경우 웹사이트에 데이터를 요청하고 데이터를 다운로드 받는 사이 CPU가 일을 하지 않고 대기하는 시간이 존재한다. 하지만 multi thread일 경우 다른 thread에서 웹사이트 2에 데이터를 요청하면서 CPU가 일을 하지 않고 대기하는 시간이 상당히 줄어든다. 이처럼 multi thread를 사용하면 CPU를 효율적으로 사용할 수 있고 그만큼 처리 속도를 높일 수 있다. 
+
+두번째로 multi thread의 경우, 다중 CPU를 가진 컴퓨터에서 동시에 여러 thread를 처리해주어 single thread에 비해 처리속도를 높일 수 있다.
 
 여러개의 독립적인 작은 작업으로 분할할 수 있는 작업이 있다고 하자. 이 떄, 각각의 thread마다 독립적인 작은 작업을 할당하면 다중 CPU가 process의 각기 다른 thread를 동시에 처리하게 되고 하나의 thread는 작은 작업만을 처리하기 때문에 process의 처리 시간이 단축된다.
 
 ```cpp
-예시 코드
+void sum_worker(const std::vector<int>::iterator start, const std::vector<int>::iterator end, int* result)
+{
+  int sum = 0;
+  for (auto iter = start; iter < end; ++iter)
+    sum += *iter;
+
+  *result = sum;
+}
+
+TEST(multi_thread, sum1)
+{
+  constexpr int num_thread = 4;
+  constexpr int num_data   = 10000;
+
+  std::vector<int> data(num_data);
+  for (int i = 0; i < num_data; ++i)
+    data[i] = i;
+
+  std::vector<int> partial_sums(num_thread);
+
+  std::vector<std::thread> workers;
+  workers.reserve(num_thread);
+
+  constexpr int data_per_thread = num_data / num_thread;
+  for (int i = 0; i < num_thread; ++i) {
+    const auto start_iter = data.begin() + i * data_per_thread;
+    const auto end_iter   = data.begin() + (i + 1) * data_per_thread;
+    workers.push_back(std::thread(sum_worker, start_iter, end_iter, &partial_sums[i]));
+  }
+
+  for (auto& worker : workers)
+    worker.join();
+
+  int result = 0;
+  for (const int val : partial_sums)
+    result += val;
+
+  constexpr int ref = 49995000;
+  EXPECT_EQ(result, ref);
+}
 ```
 
 이처럼 여러개의 독립적인 작은 작업으로 분할할 수 있는 작업을 병렬화가 가능(Parallelizable)한 작업이라고 한다.

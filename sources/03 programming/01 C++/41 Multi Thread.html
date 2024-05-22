@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Multi thread &#8212; MS Study Book</title>
   
@@ -685,14 +685,57 @@ document.write(`
 <h2>Multi thread<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>하나의 process가 여러 thread로 구성되어 있는 것을 multi thread라고 한다.</p>
 <figure class="align-default">
-<img alt="sources/03 programming/01 C++/_image/threadvsmultithread.png" src="sources/03 programming/01 C++/_image/threadvsmultithread.png" />
+<img alt="../../../_images/4101.png" src="../../../_images/4101.png" />
 </figure>
 <p>그렇다면 multi thread는 single thread 대비 어떤 장점이 있는건지 알아보자.</p>
-<p>첫번째로 multi thread의 경우 single thread에 비해 CPU를 효율적으로 사용할 수 있다.</p>
+<p>첫번째로 multi thread의 경우, single thread에 비해 CPU를 효율적으로 사용해 처리속도를 높일 수 있다.</p>
 <p>예를 들어, CPU가 작업은 안하지만 대기시간이 긴 작업들이 있다고 하자. 그러면, 이 작업들을 기다리는 동안 CPU는 아무런 일을 하지 않고 기다리게 된다. 이 떄, 대기시간이 긴 작업들을 처리하는 thread와 다른 일을 처리하는 thread를 만들어 놓는다면 대기하는 동안에도 CPU는 다른 일을 하고 있기 때문에 CPU를 효율적으로 사용할 수 있다.</p>
-<p>두번째로 multi thread의 경우, 다중 CPU를 가진 컴퓨터에서 single thread에 비해 계산 속도를 높일 수 있다.</p>
+<figure class="align-default">
+<img alt="../../../_images/4102.png" src="../../../_images/4102.png" />
+</figure>
+<p>위 그림을 보면 single thread일 경우 웹사이트에 데이터를 요청하고 데이터를 다운로드 받는 사이 CPU가 일을 하지 않고 대기하는 시간이 존재한다. 하지만 multi thread일 경우 다른 thread에서 웹사이트 2에 데이터를 요청하면서 CPU가 일을 하지 않고 대기하는 시간이 상당히 줄어든다. 이처럼 multi thread를 사용하면 CPU를 효율적으로 사용할 수 있고 그만큼 처리 속도를 높일 수 있다.</p>
+<p>두번째로 multi thread의 경우, 다중 CPU를 가진 컴퓨터에서 동시에 여러 thread를 처리해주어 single thread에 비해 처리속도를 높일 수 있다.</p>
 <p>여러개의 독립적인 작은 작업으로 분할할 수 있는 작업이 있다고 하자. 이 떄, 각각의 thread마다 독립적인 작은 작업을 할당하면 다중 CPU가 process의 각기 다른 thread를 동시에 처리하게 되고 하나의 thread는 작은 작업만을 처리하기 때문에 process의 처리 시간이 단축된다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">예시</span><span class="w"> </span><span class="n">코드</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">sum_worker</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span><span class="w"> </span><span class="n">end</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">result</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">start</span><span class="p">;</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">end</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">iter</span><span class="p">)</span>
+<span class="w">    </span><span class="n">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="o">*</span><span class="n">iter</span><span class="p">;</span>
+
+<span class="w">  </span><span class="o">*</span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">TEST</span><span class="p">(</span><span class="n">multi_thread</span><span class="p">,</span><span class="w"> </span><span class="n">sum1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">  </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">num_data</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="n">num_data</span><span class="p">);</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_data</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="w">    </span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">partial_sums</span><span class="p">(</span><span class="n">num_thread</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="o">&gt;</span><span class="w"> </span><span class="n">workers</span><span class="p">;</span>
+<span class="w">  </span><span class="n">workers</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">num_thread</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">data_per_thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num_data</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">num_thread</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_thread</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">start_iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">data_per_thread</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">end_iter</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">data_per_thread</span><span class="p">;</span>
+<span class="w">    </span><span class="n">workers</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="p">(</span><span class="n">sum_worker</span><span class="p">,</span><span class="w"> </span><span class="n">start_iter</span><span class="p">,</span><span class="w"> </span><span class="n">end_iter</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">partial_sums</span><span class="p">[</span><span class="n">i</span><span class="p">]));</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">worker</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">workers</span><span class="p">)</span>
+<span class="w">    </span><span class="n">worker</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">partial_sums</span><span class="p">)</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">49995000</span><span class="p">;</span>
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">ref</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>이처럼 여러개의 독립적인 작은 작업으로 분할할 수 있는 작업을 병렬화가 가능(Parallelizable)한 작업이라고 한다.</p>
