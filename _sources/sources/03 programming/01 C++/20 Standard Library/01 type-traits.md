@@ -4,6 +4,39 @@ Template metaprogramming을 위한 library로 C++11부터 제공한다.
 > Reference  
 > [cppreference](https://en.cppreference.com/w/cpp/header/type_traits)
 
+## decay
+주어진 타입에서 참조와 cv-한정자(const와 volatile)를 제거하고, 배열 및 함수 타입을 적절히 변환하여 "기본" 타입을 도출하는 데 사용한다. 이는 함수 템플릿 인수로 전달된 타입을 표준화하는 데 유용하다.
+
+decay가 어떻게 이런 역할을 하는지 그 정의를 살펴보자.
+
+```cpp
+    _EXPORT_STD template <class _Ty>
+    using decay_t = typename decay<_Ty>::type;
+
+    _EXPORT_STD template <class _Ty>
+    struct decay { // determines decayed version of _Ty
+    using _Ty1 = remove_reference_t<_Ty>;
+    using _Ty2 = typename _Select<is_function_v<_Ty1>>::template _Apply<add_pointer<_Ty1>, remove_cv<_Ty1>>;
+    using type = typename _Select<is_array_v<_Ty1>>::template _Apply<add_pointer<remove_extent_t<_Ty1>>, _Ty2>::type;
+    };
+
+    template <bool>
+    struct _Select { // Select between aliases that extract either their first or second parameter
+        template <class _Ty1, class>
+        using _Apply = _Ty1;
+    };
+
+    template <>
+    struct _Select<false> {
+        template <class, class _Ty2>
+        using _Apply = _Ty2;
+    };
+```
+
+먼저 decay의 _Ty1 타입은 주어진 argument의 reference를 제거한 타입이 된다.
+다음으로 _Ty2 타입은 만약 _Ty1이 함수일 경우 add_pointer<_Ty1> 타입이 되고 아닐 경우 _Ty1에 cv qualifier를 제거한 타입이 된다.
+마지막으로 type 타입은 만약 _Ty1이 배열일 경우 add_pointer<remove_extent_t<_Ty1>> 타입 내부에 정의된 type이 되고 아닐 경우 _Ty2 타입 내부에 정의된 type이 된다.
+
 ## Integral_constants
 
 > Reference  

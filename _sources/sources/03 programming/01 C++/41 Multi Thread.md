@@ -1,7 +1,7 @@
 # Multi thread
 
 ## Thread
-`스레드(thread)`는 프로세스의 실행 단위이다. 즉, CPU 코어에서 프로세스가 실행될 때 thread 단위로 실행된다.
+`스레드(thread)`는 프로세스의 실행 단위이다. 그래서 CPU 코어에서 프로세스가 실행될 때 thread 단위로 실행된다.
 
 thread는 하나의 프로세스 내에서 여러개의 실행 흐름을 두기 위해 나온 개념으로 하나의 프로세스에 여러개의 스레드로 구성될 수 있다.
 
@@ -26,50 +26,286 @@ thread는 하나의 프로세스 내에서 여러개의 실행 흐름을 두기 
 
 여러개의 독립적인 작은 작업으로 분할할 수 있는 작업이 있다고 하자. 이 떄, 각각의 thread마다 독립적인 작은 작업을 할당하면 다중 CPU가 process의 각기 다른 thread를 동시에 처리하게 되고 하나의 thread는 작은 작업만을 처리하기 때문에 process의 처리 시간이 단축된다.
 
-```cpp
-void sum_worker(const std::vector<int>::iterator start, const std::vector<int>::iterator end, int* result)
-{
-  int sum = 0;
-  for (auto iter = start; iter < end; ++iter)
-    sum += *iter;
+예를 들어 1부터 1000까지 더하는 코드가 있다고 하자. 다음에 thread 2개에 1-500까지 더하는 작업과 501-1000까지 더하는 작업을 할당하고 다중 CPU에서 두 thread를 동시에 처리한다고 해보자. 그러면 처리 시작이 거의 2배로 단축될 것이다.
 
-  *result = sum;
-}
-
-TEST(multi_thread, sum1)
-{
-  constexpr int num_thread = 4;
-  constexpr int num_data   = 10000;
-
-  std::vector<int> data(num_data);
-  for (int i = 0; i < num_data; ++i)
-    data[i] = i;
-
-  std::vector<int> partial_sums(num_thread);
-
-  std::vector<std::thread> workers;
-  workers.reserve(num_thread);
-
-  constexpr int data_per_thread = num_data / num_thread;
-  for (int i = 0; i < num_thread; ++i) {
-    const auto start_iter = data.begin() + i * data_per_thread;
-    const auto end_iter   = data.begin() + (i + 1) * data_per_thread;
-    workers.push_back(std::thread(sum_worker, start_iter, end_iter, &partial_sums[i]));
-  }
-
-  for (auto& worker : workers)
-    worker.join();
-
-  int result = 0;
-  for (const int val : partial_sums)
-    result += val;
-
-  constexpr int ref = 49995000;
-  EXPECT_EQ(result, ref);
-}
+```{figure} _image/4103.png
 ```
 
 이처럼 여러개의 독립적인 작은 작업으로 분할할 수 있는 작업을 병렬화가 가능(Parallelizable)한 작업이라고 한다.
+
+## std::thread
+C++ 11부터 표준에 thread가 추가되면서 thread 사용이 매우 편리해졌다.
+
+### 생성자
+<thread>를 추가해주고 std::thread 객체를 생성하면 thread가 생성된다.
+
+```cpp
+#include <iostream>
+#include <thread>
+
+void func(void)
+{
+  std::cout << "thread in func!\n";
+}
+
+int main(void)
+{
+  std::thread t1(func);
+
+  return 0;
+}
+```
+
+main thread가 t1 객체를 생성하는 순간, t1은 인자로 전달받은 함수 func를 새로운 thread에서 실행하게 되고 main thread는 다음 줄(`return 0;`)을 수행하게 된다.
+
+이 때, 함수에 인자가 있다면 어떻게 해야 할까?
+
+함수에 인자가 있는 경우에는 thread 객체를 생성할 때, 함수를 전달하고 그 다음에 인자들을 쭉 적어주면 된다.
+
+```cpp
+
+void func(const int input1, const int input2)
+{
+  std::cout << "thread in func!\n";
+}
+
+int main(void)
+{
+  const int input1 = 1;
+  const int input2 = 2;
+
+  std::thread t1(func, input1, input2);
+
+  return 0;
+}
+
+```
+
+그렇다면 만약에 리턴값이 필요한 함수라면 어떻게 해야 할까?
+
+thread 객체는 리턴값이란것이 없기 때문에 어떤 결과를 반환하고 싶으면 포인터 형태로 전달하면 된다.
+
+```cpp
+#include <iostream>
+#include <thread>
+
+void func(const int input1, const int input2, int* output)
+{
+  *output = input1 + input2;
+  std::cout << "thread in func!\n";
+}
+
+int main(void)
+{
+  const int input1 = 1;
+  const int input2 = 2;
+  int       output = 0;
+
+  std::thread t1(func, input1, input2, output);
+
+  return 0;
+}
+```
+
+만약 결과값을 reference로 전달하게 되면 'invoke'에서 일치하는 오버로드된 함수를 찾을 수 없다는 compile error가 발생하게 된다.
+
+```cpp
+#include <iostream>
+#include <thread>
+
+void func(const int input1, const int input2, int& output)
+{
+  output = input1 + input2;
+  std::cout << "thread in func!\n";
+}
+
+int main(void)
+{
+  const int input1 = 1;
+  const int input2 = 2;
+  int       output = 0;
+
+  std::thread t1(func, input1, input2, output);
+
+  return 0;
+}
+```
+
+이제 위 코드가 왜 compile error를 발생시키는지 thread 생성자 관련 코드를 보면서 하나씩 살펴보자.
+
+```cpp
+    template <class _Fn, class... _Args, enable_if_t<!is_same_v<_Remove_cvref_t<_Fn>, thread>, int> = 0>
+    _NODISCARD_CTOR_THREAD explicit thread(_Fn&& _Fx, _Args&&... _Ax) {
+        _Start(_STD forward<_Fn>(_Fx), _STD forward<_Args>(_Ax)...);
+    }
+
+    template <class _Fn, class... _Args>
+    void _Start(_Fn&& _Fx, _Args&&... _Ax) {
+        using _Tuple                 = tuple<decay_t<_Fn>, decay_t<_Args>...>;
+        auto _Decay_copied           = _STD make_unique<_Tuple>(_STD forward<_Fn>(_Fx), _STD forward<_Args>(_Ax)...);
+        constexpr auto _Invoker_proc = _Get_invoke<_Tuple>(make_index_sequence<1 + sizeof...(_Args)>{});
+
+        _Thr._Hnd =
+            reinterpret_cast<void*>(_CSTD _beginthreadex(nullptr, 0, _Invoker_proc, _Decay_copied.get(), 0, &_Thr._Id));
+        //....
+    }
+```
+
+_Start 함수를 보면 내부에서 _Tuple이라는 새로운 타입을 정의하는데 template parameter를 decay_t로 감싼 tuple이다.
+
+decay_t는 주어진 argument가 함수 타입이거나 배열 타입인 경우 포인터로 변환하고 그 외에는 reference와 cv qualifier를 제거하는 역할을 한다.
+
+따라서 _Tuple은 `tuple<void(*)(int,int,int,int&), int, int, int>` 타입이 되고 _Decay_copied는 unqiue_ptr<_Tuple> 타입의 객체로 기존의 값들을 복사한 값을 가지게 된다.
+
+다음으로 _Get_invoke 함수를 살펴보자.
+
+```cpp
+    template <class _Tuple, size_t... _Indices>
+    _NODISCARD static constexpr auto _Get_invoke(index_sequence<_Indices...>) noexcept {
+        return &_Invoke<_Tuple, _Indices...>;
+    }
+
+    template <class _Tuple, size_t... _Indices>
+    static unsigned int __stdcall _Invoke(void* _RawVals) noexcept {
+        const unique_ptr<_Tuple> _FnVals(static_cast<_Tuple*>(_RawVals));
+        _Tuple& _Tup = *_FnVals.get(); // avoid ADL, handle incomplete types
+        _STD invoke(_STD move(_STD get<_Indices>(_Tup))...);
+        // ...        
+    }
+```
+
+_Get_invoke 함수는 _Invoke 함수를 호출하고 _Invoke 함수는 _Tuple의 요소들을 std::invoke를 사용하여 호출한다
+
+이 떄, `_STD invoke(_STD move(_STD get<_Indices>(_Tup))...);` 코드를 parameter pack expansion을 해보면 다음과 같이 된다.
+
+```cpp
+std::invoke(
+    std::move(std::get<0>(_Tup)),  // func_ptr (void(*)(const int, const int, int&))
+    std::move(std::get<1>(_Tup)),  // input1 (int&&)
+    std::move(std::get<2>(_Tup)),  // input2 (int&&)
+    std::move(std::get<3>(_Tup))   // output (int&&)
+);
+```
+
+그러면 std::invoke 함수는 다음과 같이 인스턴스화가 된다.
+
+```cpp
+func_ptr(std::forward<int>(input1), std::forward<int>(input2), std::forward<int>(output));
+```
+
+결론적으로 input1, input2, output은 각각 int&& 타입으로 전달된다.
+
+하지만 func 함수의 output은 int& 타입임으로 int&& 타입을 인자로 받을 수 없기 때문에 컴파일 에러가 발생하게 된다.
+
+이를 해결하기 위해서는 thread를 생성할 떄, std::ref 함수를 사용해서 std::reference_wrapper 객체를 넘겨주면 된다.
+
+```cpp
+int main(void)
+{
+  const int input1 = 1;
+  const int input2 = 2;
+  int       output = 0;
+
+  std::thread t1(func, input1, input2, std::ref(output));
+
+  return 0;
+}
+```
+
+이럴 경우 기존에 문제가 됐던 부분이 어떻게 바뀌었길래 문제가 생기지 않는지 살펴보자.
+
+```cpp
+std::invoke(
+    std::move(std::get<0>(_Tup)),  // func_ptr (void(*)(const int, const int, int&))
+    std::move(std::get<1>(_Tup)),  // input1 (int&&)
+    std::move(std::get<2>(_Tup)),  // input2 (int&&)
+    std::move(std::get<3>(_Tup))   // output (reference_wraaper<int>&&)
+);
+```
+
+그러면 std::invoke 함수는 다음과 같이 인스턴스화가 된다.
+
+```cpp
+func_ptr(std::forward<int>(input1), std::forward<int>(input2), std::forward<reference_wraaper<int>>(output));
+```
+
+결론적으로 input1, input2은 int&& 타입으로 output은 reference_wraaper<int>&& 타입으로 전달된다.
+
+이 때, reference_wraaper<int>는 내부적으로 int& 타입으로 형변환하는 코드가 있기 때문에 output에 정상적으로 값이 전달되고 컴파일 에러가 발생하지 않는다.
+
+> Reference  
+> [stackoverflow - why-is-ref-cref-needed...](https://stackoverflow.com/questions/76398544/why-is-ref-cref-needed-for-reference-arguments-to-a-function-passed-to-stdth)
+
+
+### join & detach
+```cpp
+#include <iostream>
+#include <thread>
+
+void func(void)
+{
+  std::cout << "thread in func!\n";
+}
+
+int main(void)
+{
+  std::thread t1(func);
+
+  return 0;
+}
+```
+
+실제로 위 코드를 실행하면 thread의 소멸자에서 assert가 발생할 수 있다.
+
+왜냐하면 t1 thread가 func 함수를 전부 실행하고 종료하기전에 main thread가 main 함수를 끝내버려서 t1의 소멸자가 호출될 수 있고 C++ 표준에 따라 join 되거나 detach 되지 않은 thread의 소멸자가 호출되면 예외가 발생하기 때문이다.
+
+그러면 먼저 join 함수에 대해서 알아보자.
+
+join 함수는 생성된 스레드가 완료될 때까지 return되지 않아 호출 스레드를 블록(block)하는 역할을 한다. 또한, thread가 종료되면 join 함수는 thread와 관련된 모든 자원을 회수한다.
+
+```cpp
+#include <iostream>
+#include <thread>
+
+void func(void)
+{
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  std::cout << "thread in func!\n";
+}
+
+int main(void)
+{
+  std::thread t1(func);
+  std::cout << "thread in main!\n";
+  t1.join();
+
+  return 0;
+}
+```
+
+따라서 위와 같은 코드에서는 먼저 thread in main!이 출력되고 그다음에 thread in func! 출력되는 반면에
+
+```cpp
+#include <iostream>
+#include <thread>
+
+void func(void)
+{
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  std::cout << "thread in func!\n";
+}
+
+int main(void)
+{
+  std::thread t1(func);
+  t1.join();
+  std::cout << "thread in main!\n";
+
+  return 0;
+}
+```
+
+위와 같은 코드에서는 t1.join() 함수는 t1 thread가 끝날 떄 까지 return 되지 않음으로 thread in func!이 출력되고 thread in main!이 출력된다.
 
 ---
 
@@ -121,3 +357,47 @@ mutex 객체의 lock method를 호출하면 thread에서 mutex 객체의 사용�
 
 > Reference  
 > [modoocode](https://modoocode.com/270)  
+
+
+```cpp
+void sum_worker(const std::vector<int>::iterator start, const std::vector<int>::iterator end, int* result)
+{
+  int sum = 0;
+  for (auto iter = start; iter < end; ++iter)
+    sum += *iter;
+
+  *result = sum;
+}
+
+TEST(multi_thread, sum1)
+{
+  constexpr int num_thread = 4;
+  constexpr int num_data   = 10000;
+
+  std::vector<int> data(num_data);
+  for (int i = 0; i < num_data; ++i)
+    data[i] = i;
+
+  std::vector<int> partial_sums(num_thread);
+
+  std::vector<std::thread> workers;
+  workers.reserve(num_thread);
+
+  constexpr int data_per_thread = num_data / num_thread;
+  for (int i = 0; i < num_thread; ++i) {
+    const auto start_iter = data.begin() + i * data_per_thread;
+    const auto end_iter   = data.begin() + (i + 1) * data_per_thread;
+    workers.push_back(std::thread(sum_worker, start_iter, end_iter, &partial_sums[i]));
+  }
+
+  for (auto& worker : workers)
+    worker.join();
+
+  int result = 0;
+  for (const int val : partial_sums)
+    result += val;
+
+  constexpr int ref = 49995000;
+  EXPECT_EQ(result, ref);
+}
+```
