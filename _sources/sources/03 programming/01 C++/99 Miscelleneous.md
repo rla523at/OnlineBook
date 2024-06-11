@@ -1,5 +1,121 @@
 # Miscellaneous
 
+## COM
+COM은 Component Object Model은 마이크로소프트가 개발한 인터페이스 기반의 객체지향 기술로, 소프트웨어 컴포넌트 간의 상호작용을 가능하게 한다. COM은 다양한 프로그래밍 언어와 환경에서 사용할 수 있는 바이너리 표준을 제공하여, 재사용 가능한 소프트웨어 컴포넌트를 쉽게 만들고 사용할 수 있게 한다.
+
+COM은 인터페이스를 통해 객체와 상호작용한다. 인터페이스는 순수 가상 함수만을 포함하는 추상 클래스이다. 모든 COM 인터페이스는 IUnknown 인터페이스를 상속받으며 IUnknown 인터페이스는 참조 카운팅과 인터페이스 쿼리를 위한 세 가지 메서드(QueryInterface, AddRef, Release)를 정의한다. 
+
+AddRef, Release 메서드는 COM 객체의 참조 카운팅을 관리하는데 사용된다. COM 객체는 참조 카운팅을 사용하여 객체의 생명 주기를 관리하는데 AddRef 메서드는 참조 카운트를 증가시키고, Release 메서드는 참조 카운트를 감소시킨다. 참조 카운트가 0이 되면 객체가 메모리에서 해제된다.
+
+QueryInterface 메서드는 객체가 지원하는 다른 인터페이스로의 포인터를 요청하는 데 사용된다. 이 메서드는 인터페이스 식별자를 사용하여 요청된 인터페이스가 객체에서 지원되는지 확인하고, 지원되는 경우 해당 인터페이스 포인터를 반환한다.
+
+COM 클래스의 간단한 예제는 다음과 같다.
+
+```cpp
+#include <Windows.h>
+#include <combaseapi.h>
+
+class MyCOMObject : public IUnknown {
+private:
+    LONG refCount;
+
+public:
+    MyCOMObject() : refCount(1) {}
+
+    HRESULT __stdcall QueryInterface(REFIID riid, void **ppvObject) override {
+        if (riid == IID_IUnknown) {
+            *ppvObject = static_cast<IUnknown*>(this);
+            AddRef();
+            return S_OK;
+        }
+        *ppvObject = nullptr;
+        return E_NOINTERFACE;
+    }
+
+    ULONG __stdcall AddRef() override {
+        return InterlockedIncrement(&refCount);
+    }
+
+    ULONG __stdcall Release() override {
+        ULONG count = InterlockedDecrement(&refCount);
+        if (count == 0) {
+            delete this;
+        }
+        return count;
+    }
+};
+```
+
+## ComPtr
+ComPtr는 COM 객체를 관리하는 데 사용되는 스마트 포인터로, 참조 카운팅을 자동으로 관리하여 메모리 누수를 방지한다. Microsoft의 Windows Runtime Library (WRL) 또는 C++/WinRT와 함께 제공된다. ComPtr은 COM 객체 포인터의 수명 주기를 관리하여, 객체의 수동 해제와 참조 카운팅을 자동화한다.
+
+### As
+ComPtr는 As 메서드를 통해 쉽게 다른 인터페이스로의 포인터를 요청할 수 있는 메서드를 제공한다.
+```cpp
+    template<typename U>
+    HRESULT As(_Inout_ Details::ComPtrRef<ComPtr<U>> p) const throw()
+    {
+        return ptr_->QueryInterface(__uuidof(U), p);
+    }
+```
+
+다음 예제를 보자.
+
+```cpp
+#include <wrl.h>
+using namespace Microsoft::WRL;
+
+void UseComObject() {
+    // ComPtr를 사용하여 COM 객체 생성 및 관리
+    ComPtr<MyCOMObject> spMyCOMObject = Make<MyCOMObject>();
+
+    // 다른 인터페이스로의 포인터 요청
+    ComPtr<IUnknown> spUnknown;
+    HRESULT hr = spMyCOMObject.As(&spUnknown);
+
+    if (SUCCEEDED(hr)) {
+        // spUnknown를 통해 IUnknown 인터페이스에 접근 가능
+    }
+    // spMyCOMObject와 spUnknown는 범위를 벗어날 때 자동으로 Release 호출
+}
+```
+
+`HRESULT hr = spMyCOMObject.As(&spUnknown);`를 통해 spUnknown이 spMyCOMObject의 값을 가지게 된다. 즉, spUnknown은 spMyCOMObject이 가르키고 있는 주소값을 가지게 된다.
+
+### Reset
+Reset 메서드는 ComPtr이 현재 가리키고 있는 인터페이스 포인터를 해제하고, ComPtr을 초기화된 상태로 만드는 함수이다.
+
+### GetAddressOf
+GetAddressOf 메서드는 ComPtr 객체가 관리하는 포인터의 주소를 반환하는 함수이다.
+
+다음 예제를 보자.
+
+```cpp
+#include <iostream>
+#include <wrl.h>
+#include <d3d11.h>
+
+using namespace Microsoft::WRL;
+
+int main(void)
+{
+  ComPtr<ID3D11Device> spDevice;
+
+  std::cout << spDevice << std::endl;
+  std::cout << spDevice.GetAddressOf() << std::endl;
+
+  return 0;
+}
+```
+
+첫번째 출력에서는 ComPtr 객체가 관리하는 내부 포인터(ptr_)의 값이 출력된다. 초기 상태에서는 nullptr이므로 0이 출력된다.
+
+그리고 두번재 출력에서는 ComPtr 객체가 관리하는 내부 포인터(ptr_)의 주소가 출력된다.
+
+> REFERENCE  
+> [GITHUB - ComPtr](https://github.com/Microsoft/DirectXTK/wiki/ComPtr)  
+> [MSDN - ComPtr class](https://learn.microsoft.com/en-us/cpp/cppcx/wrl/comptr-class?view=msvc-170)
+
 ## WNDCLASSEX 구조체
 WNDCLASSEX 구조체는 Windows API에서 윈도우 클래스를 정의하는 데 사용되는 구조체로, 윈도우 클래스의 속성을 지정하여 그에 맞는 윈도우를 생성할 수 있게 한다.
 
