@@ -67,8 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/82 DXGI';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Miscellaneous" href="99%20Miscelleneous.html" />
-    <link rel="prev" title="DirectX" href="81%20DirectX.html" />
+    <link rel="next" title="DirectX Graphics Infrastructure" href="83%20DXGI.html" />
+    <link rel="prev" title="Direc3D 11 API" href="82%20Direc3D%2011%20API.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -490,8 +490,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="60%20Pointer.html">Pointer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="70%20Performance.html">Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="80%20Google%20Benchmark.html">Google Benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="81%20Direc3D%2011%20API.html">Direc3D 11 API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="81%20DirectX.html">DirectX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="82%20Direc3D%2011%20API.html">Direc3D 11 API</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">DirectX Graphics Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="83%20DXGI.html">DirectX Graphics Infrastructure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="99%20Miscelleneous.html">Miscellaneous</a></li>
 </ul>
 </li>
@@ -672,25 +675,47 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">DXGI 객체와 인터페이스</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgidevice">IDXGIDevice</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">DXGI 어댑터와의 상호작용</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">디스플레이와의 통합</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">리소스 공유</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">리소스 공유</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu">GPU 스레드 우선 순위 관리</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgifactory">IDXGIFactory</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">생성</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">DXGI 객체 생성</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">그래픽 어댑터 나열</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">디스플레이 모드 관리</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">스왑 체인 관리</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-mode-desc-bufferdesc">DXGI_MODE_DESC BufferDesc</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-sample-desc-sampledesc">DXGI_SAMPLE_DESC SampleDesc</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-usage-bufferusage">DXGI_USAGE BufferUsage</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-buffercount">UINT BufferCount</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#hwnd-outputwindow">HWND OutputWindow</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#bool-windowed">BOOL Windowed</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-swap-effect-swapeffect">DXGI_SWAP_EFFECT SwapEffect</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-flags">UINT Flags</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiadapter">IDXGIAdapter</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">그래픽 어댑터 정보 제공</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">출력 관리</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">그래픽 어댑터 정보 제공</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">출력 관리</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiswapchain">IDXGISwapChain</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiswapchain">IDXGISwapChain</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">프레임 버퍼 관리</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#resizebuffers">ResizeBuffers</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#resizetarget">ResizeTarget</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#getbuffer">GetBuffer</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">화면갱신</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">전체 화면 모드 전환</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgioutput">IDXGIOutput</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">DXGI 객체 계층 구조</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">DXGI 객체 계층 구조</a></li>
 </ul>
             </nav>
         </div>
@@ -738,13 +763,7 @@ document.write(`
 <p><code class="docutils literal notranslate"><span class="pre">GetAdapter</span></code> 메서드를 사용하여 IDXGIAdapter 인터페이스를 얻어 어댑터의 속성이나 모드를 쿼리하고 설정할 수 있게 한다. 이를 통해 디스플레이 설정을 조정하거나 성능을 최적화한다.</p>
 </section>
 <section id="id7">
-<h4>디스플레이와의 통합<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
-<p>Direct3D 디바이스가 디스플레이 장치와 통합될 수 있도록 돕는다. 이를 통해 다양한 디스플레이 출력 설정을 관리하고 변경할 수 있다. 디스플레이 출력은 모니터, 프로젝터, TV 등 다양한 장치를 포함한다.</p>
-<p>해상도, 리프레시율 등의 디스플레이 설정을 변경할 수 있다. 이를 통해 다양한 디스플레이 환경에 맞게 설정을 동적으로 조정할 수 있다.</p>
-<p>창 모드와 전체 화면 모드 간의 전환을 지원한다. 이를 통해 게임이나 멀티미디어 애플리케이션에서 유연한 디스플레이 모드 전환을 구현할 수 있다.</p>
-</section>
-<section id="id8">
-<h4>리소스 공유<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
+<h4>리소스 공유<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
 <p>여러 디바이스 간의 리소스 공유를 가능하게 한다. 이는 복잡한 그래픽 애플리케이션에서 리소스를 효율적으로 관리할 수 있도록 돕는다. 리소스 공유는 멀티 GPU 설정이나 클러스터 컴퓨팅 환경에서 특히 중요하다.</p>
 <p>IDXGIDevice를 사용하여 Direct3D 디바이스 간에 텍스처, 버퍼 등의 그래픽 리소스를 공유할 수 있다. 이를 통해 여러 디바이스가 동일한 리소스를 사용할 수 있게 되어 성능과 효율성을 높일 수 있다.</p>
 <p><code class="docutils literal notranslate"><span class="pre">QueryResourceResidency</span></code> 매서드를 사용하여 지정된 리소스가 로컬 비디오 메모리에 있는지, 공유 메모리에 있는지, 시스템 메모리에 있는지를 쿼리할 수 있다. 이를 통해 리소스의 위치와 접근 가능성을 확인할 수 있다.</p>
@@ -759,21 +778,218 @@ document.write(`
 <section id="idxgifactory">
 <h3>IDXGIFactory<a class="headerlink" href="#idxgifactory" title="Permalink to this heading">#</a></h3>
 <p>DXGI 객체와 리소스를 생성하는 팩토리 인터페이스다. 스왑 체인, 어댑터, 디바이스 등을 생성할 수 있다. 이를 통해 그래픽 어댑터와 출력 장치를 관리하고, 스왑 체인을 생성할 수 있다.</p>
-<section id="id9">
-<h4>생성<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
-<p>CreateDXGIFactory 함수를 이용하여 생성할 수 있다.</p>
+<p>IDXGIFactory는 CreateDXGIFactory 함수를 이용하여 생성할 수 있다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDXGIFactory</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dxgiFactory</span><span class="p">;</span>
 <span class="n">HRESULT</span><span class="w"> </span><span class="n">hr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateDXGIFactory</span><span class="p">(</span><span class="n">__uuidof</span><span class="p">(</span><span class="n">IDXGIFactory</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dxgiFactory</span><span class="p">);</span>
 </pre></div>
 </div>
+<p>주요 역할은 다음과 같다.</p>
+<section id="id8">
+<h4>DXGI 객체 생성<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
+<p>IDXGIFactory는 다양한 DXGI 객체를 생성하는 기능을 제공한다. 이를 통해 그래픽 어댑터, 스왑 체인, 출력 장치 등을 생성하고 관리할 수 있다.</p>
+<p>주요 생성 메서드로는 CreateSwapChain, CreateSoftwareAdapter등이 있다.</p>
+</section>
+<section id="id9">
+<h4>그래픽 어댑터 나열<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
+<p>시스템에 설치된 그래픽 어댑터를 나열하고, 각 어댑터의 속성을 쿼리할 수 있다. 이를 통해 애플리케이션은 사용 가능한 그래픽 하드웨어를 파악하고, 적절한 어댑터를 선택할 수 있다.</p>
+<p>설치된 그래픽 어댑터는 <code class="docutils literal notranslate"><span class="pre">EnumAdapters</span></code> 메서드로 얻을 수 있으며, 인덱스를 통해 각 어댑터를 쿼리할 수 있다. <code class="docutils literal notranslate"><span class="pre">EnumAdapters</span></code>의 시그니쳐는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">EnumAdapters</span><span class="p">(</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Adapter</span><span class="p">,</span>
+<span class="w">    </span><span class="n">IDXGIAdapter</span><span class="w"> </span><span class="o">**</span><span class="n">ppAdapter</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h4>디스플레이 모드 관리<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h4>
+<p>어댑터에 연결된 출력 장치(모니터 등)의 디스플레이 모드를 쿼리하고 설정할 수 있다. 이를 통해 다양한 해상도와 리프레시율 설정을 관리할 수 있다.</p>
+</section>
+<section id="id11">
+<h4>스왑 체인 관리<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h4>
+<p>스왑 체인을 생성하고 관리하는 기능을 제공한다. 스왑 체인은 화면에 렌더링된 프레임을 표시하는 데 사용된다.</p>
+<p>스왑 체인은 CreateSwapChain 메서드로 생성하며 시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CreateSwapChain</span><span class="p">(</span>
+<span class="w">    </span><span class="n">IUnknown</span><span class="w"> </span><span class="o">*</span><span class="n">pDevice</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_CHAIN_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pDesc</span><span class="p">,</span>
+<span class="w">    </span><span class="n">IDXGISwapChain</span><span class="w"> </span><span class="o">**</span><span class="n">ppSwapChain</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>여기서 스왑 체인을 정의할 때 사용하는 DXGI_SWAP_CHAIN_DESC 구조체는 스왑 체인의 속성을 정의하는 데 사용된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">DXGI_SWAP_CHAIN_DESC</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">DXGI_MODE_DESC</span><span class="w"> </span><span class="n">BufferDesc</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_SAMPLE_DESC</span><span class="w"> </span><span class="n">SampleDesc</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_USAGE</span><span class="w"> </span><span class="n">BufferUsage</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">BufferCount</span><span class="p">;</span>
+<span class="w">    </span><span class="n">HWND</span><span class="w"> </span><span class="n">OutputWindow</span><span class="p">;</span>
+<span class="w">    </span><span class="n">BOOL</span><span class="w"> </span><span class="n">Windowed</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_EFFECT</span><span class="w"> </span><span class="n">SwapEffect</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Flags</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">DXGI_SWAP_CHAIN_DESC</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>각각의 멤버변수는 다음과 같다.</p>
+<section id="dxgi-mode-desc-bufferdesc">
+<h5>DXGI_MODE_DESC BufferDesc<a class="headerlink" href="#dxgi-mode-desc-bufferdesc" title="Permalink to this heading">#</a></h5>
+<p>DXGI_MODE_DESC 구조체는 디스플레이 모드를 설명하는 데 사용되는 구조체로, 해상도, 색상 형식, 리프레시율 등과 같은 디스플레이 속성을 정의한다.</p>
+<p>정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">DXGI_MODE_DESC</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Width</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Height</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_RATIONAL</span><span class="w"> </span><span class="n">RefreshRate</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">Format</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_MODE_SCANLINE_ORDER</span><span class="w"> </span><span class="n">ScanlineOrdering</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_MODE_SCALING</span><span class="w"> </span><span class="n">Scaling</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">DXGI_MODE_DESC</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>각각의 멤버 변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>UINT Width</p>
+<ul>
+<li><p>화면의 너비(픽셀 단위)</p></li>
+</ul>
+</li>
+<li><p>UINT Height</p>
+<ul>
+<li><p>화면의 높이(픽셀 단위)</p></li>
+</ul>
+</li>
+<li><p>DXGI_RATIONAL RefreshRate</p>
+<ul>
+<li><p>화면의 리프레시율(초당 화면 재생 빈도)</p></li>
+<li><p>DXGI_RATIONAL 구조체는 분자와 분모로 구성된다.</p>
+<ul>
+<li><p>RefreshRate.Numerator</p></li>
+<li><p>RefreshRate.Denominator</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>DXGI_FORMAT Format</p>
+<ul>
+<li><p>버퍼의 색상 형식</p></li>
+<li><p>일반적으로 사용되는 값은 DXGI_FORMAT_R8G8B8A8_UNORM (32비트 RGBA)이다</p></li>
+</ul>
+</li>
+<li><p>DXGI_MODE_SCANLINE_ORDER ScanlineOrdering</p>
+<ul>
+<li><p>화면의 스캔라인 순서</p></li>
+<li><p>일반적으로 DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED(스캔라인 순서가 지정되지 않음)을 사용한다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_MODE_SCALING Scaling;</p>
+<ul>
+<li><p>화면의 스케일링 방식</p></li>
+<li><p>일반적으로 DXGI_MODE_SCALING_UNSPECIFIED(스케일링 방식이 지정되지 않음)을 사용한다.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="dxgi-sample-desc-sampledesc">
+<h5>DXGI_SAMPLE_DESC SampleDesc<a class="headerlink" href="#dxgi-sample-desc-sampledesc" title="Permalink to this heading">#</a></h5>
+<p>DXGI_SAMPLE_DESC 구조체는 Direct3D 11에서 멀티샘플링(anti-aliasing) 설정을 지정하는 데 사용된다.</p>
+<p>정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">DXGI_SAMPLE_DESC</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Count</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Quality</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">DXGI_SAMPLE_DESC</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>각각의 멤버 변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>UINT Count</p>
+<ul>
+<li><p>멀티샘플링의 샘플 수를 지정한다.</p></li>
+<li><p>값이 1이면 멀티샘플링이 비활성화되며, 값이 2, 4, 8 등의 값이면 해당 샘플 수로 멀티샘플링이 활성화된다.</p></li>
+<li><p>예를 들어 4x MSAA를 사용하려면 Count 값을 4로 설정한다.</p></li>
+</ul>
+</li>
+<li><p>UINT Quality</p>
+<ul>
+<li><p>멀티샘플링의 품질 수준을 지정한다.</p></li>
+<li><p>품질 수준은 특정 샘플 수에 대해 지원되는 품질의 수를 나타낸다.</p></li>
+<li><p>일반적으로 Quality 값은 0부터 시작하며, 지원되는 최대 품질 수준은 CheckMultisampleQualityLevels 함수에 의해 결정된다.</p>
+<ul>
+<li><p>품질 수준이 0이면 기본 품질 수준을 사용한다.</p></li>
+<li><p>CheckMultisampleQualityLevels 함수에서 numQualityLevels를 얻었을 떄, 품질 수준이 numQualityLevels - 1이면 최고 품질 수준을 사용한다.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="dxgi-usage-bufferusage">
+<h5>DXGI_USAGE BufferUsage<a class="headerlink" href="#dxgi-usage-bufferusage" title="Permalink to this heading">#</a></h5>
+<p>버퍼의 사용 용도를 지정하는 플래그로, 주로 렌더 타겟 또는 셰이더 리소스로 사용된다.</p>
+<p>이 값으로 DXGI_USAGE_RENDER_TARGET_OUTPUT을 사용하면 렌더 타겟으로 사용됨을 지정하며 DXGI_USAGE_SHADER_INPUT을 사용하면 셰이더 입력으로 사용을 지정할 수 있다.</p>
+</section>
+<section id="uint-buffercount">
+<h5>UINT BufferCount<a class="headerlink" href="#uint-buffercount" title="Permalink to this heading">#</a></h5>
+<p>스왑 체인의 버퍼 개수를 지정한다.</p>
+<p>2로 설정하여 하나의 프론트 버퍼와 하나의 백 버퍼를 사용하는 더블 버퍼링을 지정할 수 있고 3으로 설정하여 하나의 프론트 버퍼와 두 개의 백 버퍼를 사용하는 트리플 버퍼링을 사용할 수 있다.</p>
+</section>
+<section id="hwnd-outputwindow">
+<h5>HWND OutputWindow<a class="headerlink" href="#hwnd-outputwindow" title="Permalink to this heading">#</a></h5>
+<p>렌더링 결과를 출력할 윈도우 핸들이다.</p>
+</section>
+<section id="bool-windowed">
+<h5>BOOL Windowed<a class="headerlink" href="#bool-windowed" title="Permalink to this heading">#</a></h5>
+<p>창 모드인지 전체 화면 모드인지를 지정한다.</p>
+<p>TRUE이면 창 모드로 설정되고 FALSE이면 전체 화면 모드로 설정된다.</p>
+</section>
+<section id="dxgi-swap-effect-swapeffect">
+<h5>DXGI_SWAP_EFFECT SwapEffect<a class="headerlink" href="#dxgi-swap-effect-swapeffect" title="Permalink to this heading">#</a></h5>
+<p>스왑 체인이 버퍼를 교환하는 방식을 지정한다.</p>
+<p>가능한 값들은 다음과 같다.</p>
+<ul class="simple">
+<li><p>DXGI_SWAP_EFFECT_DISCARD</p>
+<ul>
+<li><p>가장 최근 프레임을 디스플레이에 전환하고 이전 프레임을 버린다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_EFFECT_SEQUENTIAL</p>
+<ul>
+<li><p>버퍼를 순차적으로 교환한다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</p>
+<ul>
+<li><p>플립 모델을 사용하여 버퍼를 순차적으로 교환한다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_EFFECT_FLIP_DISCARD</p>
+<ul>
+<li><p>플립 모델을 사용하고 이전 내용을 버린다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>REFERENCE<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/dxgi/ne-dxgi-dxgi_swap_effect">MSDN - ne-dxgi-dxgi_swap_effect</a></p>
+</div></blockquote>
+</section>
+<section id="uint-flags">
+<h5>UINT Flags<a class="headerlink" href="#uint-flags" title="Permalink to this heading">#</a></h5>
+<p>스왑 체인의 동작을 제어하는 플래그이다.</p>
+<p>가능한 값들은 다음과 같다.</p>
+<ul class="simple">
+<li><p>DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH</p>
+<ul>
+<li><p>전체 화면 모드 전환을 허용한다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_CHAIN_FLAG_GDI_COMPATIBLE</p></li>
+</ul>
+</section>
 </section>
 </section>
 <section id="idxgiadapter">
 <h3>IDXGIAdapter<a class="headerlink" href="#idxgiadapter" title="Permalink to this heading">#</a></h3>
 <p>그래픽 어댑터를 나타내는 인터페이스로, 어댑터의 속성이나 모드를 쿼리하고 설정할 수 있다. 이를 통해 애플리케이션은 그래픽 카드의 메모리, 성능, 지원하는 디스플레이 모드 등의 정보를 얻을 수 있다.</p>
 <p>주요 역할은 다음과 같다.</p>
-<section id="id10">
-<h4>그래픽 어댑터 정보 제공<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h4>
+<section id="id12">
+<h4>그래픽 어댑터 정보 제공<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h4>
 <p>IDXGIAdapter는 시스템에 설치된 그래픽 어댑터의 정보를 제공한다. 이를 통해 애플리케이션은 사용 가능한 그래픽 하드웨어의 성능과 특성을 파악할 수 있다.</p>
 <p><code class="docutils literal notranslate"><span class="pre">GetDesc</span></code> 메서드를 이용하여 어댑터에 관한 정보를 담은 DXGI_ADAPTER_DESC 구조체를 얻을 수 있다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">GetDesc</span><span class="p">(</span><span class="n">DXGI_ADAPTER_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pDesc</span><span class="p">);</span>
@@ -842,8 +1058,8 @@ document.write(`
 </li>
 </ul>
 </section>
-<section id="id11">
-<h4>출력 관리<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h4>
+<section id="id13">
+<h4>출력 관리<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h4>
 <p>어댑터에 연결된 디스플레이 출력 장치(모니터 등)에 대한 정보를 제공하고, 이를 관리할 수 있다.</p>
 <p><code class="docutils literal notranslate"><span class="pre">EnumOutputs</span></code> 메서드를 이용하여 어댑터에 연결된 출력 장치를 나열하고 이를 통해 여러 출력 장치(모니터 등)를 관리할 수 있다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">EnumOutputs</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">Output</span><span class="p">,</span><span class="w"> </span><span class="n">IDXGIOutput</span><span class="w"> </span><span class="o">**</span><span class="n">ppOutput</span><span class="p">);</span>
@@ -854,17 +1070,156 @@ document.write(`
 <section id="idxgiswapchain">
 <h3>IDXGISwapChain<a class="headerlink" href="#idxgiswapchain" title="Permalink to this heading">#</a></h3>
 <p>IDXGISwapChain는 프레임 버퍼를 관리하고 렌더링된 이미지를 화면에 표시하는 역할을 한다. IDXGISwapChain는 Direct3D 디바이스와 함께 사용되며, 주로 게임이나 그래픽 애플리케이션에서 화면에 그래픽을 출력하기 위해 사용된다.</p>
-<p>이런 스왑 체인은 하나 이상의 백 버퍼와 하나의 프론트 버퍼로 구성된다. 프론트 버퍼는 현재 화면에 표시되는 버퍼이고, 백 버퍼는 다음 프레임을 렌더링할 버퍼다. 렌더링이 완료되면 백 버퍼와 프론트 버퍼를 교환(swap)하여 화면에 새로운 프레임을 표시한다.</p>
+<p>주요 역할은 다음과 같다.</p>
+<section id="id14">
+<h4>프레임 버퍼 관리<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h4>
+<p>스왑 체인은 하나 이상의 백 버퍼와 하나의 프론트 버퍼로 구성된다. 프론트 버퍼는 현재 화면에 표시되는 버퍼이고, 백 버퍼는 다음 프레임을 렌더링할 버퍼다. 렌더링이 완료되면 백 버퍼와 프론트 버퍼를 교환(swap)하여 화면에 새로운 프레임을 표시한다.</p>
 <p>이 때, 하나의 프론트 버퍼와 하나의 백 버퍼를 사용하여 렌더링이 완료되면 두 버퍼를 교환하는 방식을 더블 버퍼링이라고 한다.
 그리고 프론트 버퍼와 두 개의 백 버퍼를 사용하여 더 부드러운 애니메이션과 입력 지연을 줄이는 방식을 트리플 버퍼링이라고 한다.</p>
+<p>이처럼, 스왑 체인은 두 개 이상의 프레임 버퍼를 관리하여, 하나의 프레임을 디스플레이에 표시하는 동안 다른 프레임을 준비할 수 있게 한다. 이를 통해 화면의 깜빡임을 줄이고 부드러운 애니메이션을 제공할 수 있다.</p>
+<p>프레임 버퍼 관리와 관련해 주요 메서드들은 다음과 같다.</p>
+<section id="resizebuffers">
+<h5>ResizeBuffers<a class="headerlink" href="#resizebuffers" title="Permalink to this heading">#</a></h5>
+<p>스왑 체인의 버퍼 크기, 개수 또는 포맷을 변경할 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">ResizeBuffers</span><span class="p">(</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">BufferCount</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Width</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Height</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">NewFormat</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">SwapChainFlags</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>이 때, 각 매개 변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>BufferCount</p>
+<ul>
+<li><p>새로 생성할 버퍼의 개수.</p></li>
+</ul>
+</li>
+<li><p>Width</p>
+<ul>
+<li><p>버퍼의 새로운 너비.</p></li>
+</ul>
+</li>
+<li><p>Height</p>
+<ul>
+<li><p>버퍼의 새로운 높이.</p></li>
+</ul>
+</li>
+<li><p>NewFormat</p>
+<ul>
+<li><p>버퍼의 새로운 포맷.</p></li>
+</ul>
+</li>
+<li><p>SwapChainFlags</p>
+<ul>
+<li><p>추가적인 스왑 체인 옵션.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="resizetarget">
+<h5>ResizeTarget<a class="headerlink" href="#resizetarget" title="Permalink to this heading">#</a></h5>
+<p>스왑 체인의 출력 창 크기를 변경한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">ResizeTarget</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">DXGI_MODE_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pNewTargetParameters</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>이 때, 각 매개 변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>pNewTargetParameters</p>
+<ul>
+<li><p>새로운 출력 창 크기를 지정하는 DXGI_MODE_DESC 구조체.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="getbuffer">
+<h5>GetBuffer<a class="headerlink" href="#getbuffer" title="Permalink to this heading">#</a></h5>
+<p>스왑 체인의 백 버퍼에 대한 포인터를 얻는다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">GetBuffer</span><span class="p">(</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Buffer</span><span class="p">,</span>
+<span class="w">    </span><span class="n">REFIID</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="n">ppSurface</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>이 떄, 각 매게 변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>Buffer</p>
+<ul>
+<li><p>가져올 버퍼의 인덱스.</p></li>
+</ul>
+</li>
+<li><p>riid</p>
+<ul>
+<li><p>요청할 인터페이스의 식별자.</p></li>
+</ul>
+</li>
+<li><p>ppSurface</p>
+<ul>
+<li><p>요청된 인터페이스 포인터를 받는 변수.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="id15">
+<h4>화면갱신<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">Present</span></code> 메서드를 통해 새로운 프레임을 화면에 표시할 수 있다. 이 메서드는 현재 백 버퍼에 있는 내용을 프론트 버퍼로 전환하여 화면에 표시한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">Present</span><span class="p">(</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">SyncInterval</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Flags</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>이 때, 각 매개 변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>SyncInterval</p>
+<ul>
+<li><p>화면 갱신 빈도와 동기화할지 여부를 지정한다. 0은 가능한 빨리 전환하고, 1 이상은 수직 동기화 간격을 나타낸다.</p></li>
+</ul>
+</li>
+<li><p>Flags</p>
+<ul>
+<li><p>추가적인 프레젠트 옵션을 지정한다.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id16">
+<h4>전체 화면 모드 전환<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">SetFullscreenState</span></code> 메서드를 통해 전체 화면 모드와 창 모드 간의 전환을 관리할 수 있다. 이를 통해 게임이나 멀티미디어 애플리케이션에서 유연하게 화면 모드를 전환할 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">SetFullscreenState</span><span class="p">(</span>
+<span class="w">    </span><span class="n">BOOL</span><span class="w"> </span><span class="n">Fullscreen</span><span class="p">,</span>
+<span class="w">    </span><span class="n">IDXGIOutput</span><span class="w"> </span><span class="o">*</span><span class="n">pTarget</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>이 때, 각 매개 변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>Fullscreen</p>
+<ul>
+<li><p>전체 화면 모드로 전환할지 여부를 지정한다.</p></li>
+</ul>
+</li>
+<li><p>pTarget</p>
+<ul>
+<li><p>전체 화면 모드에서 사용할 출력 장치.</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 <section id="idxgioutput">
 <h3>IDXGIOutput<a class="headerlink" href="#idxgioutput" title="Permalink to this heading">#</a></h3>
 <p>디스플레이 출력을 나타내는 인터페이스로, 모니터와 같은 출력 장치에 대한 정보와 제어를 제공한다. 연결된 모니터의 해상도, 리프레시율 등의 정보를 얻고 설정할 수 있다.</p>
 </section>
 </section>
-<section id="id12">
-<h2>DXGI 객체 계층 구조<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<section id="id17">
+<h2>DXGI 객체 계층 구조<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h2>
 <p>DXGI는 그래픽 어댑터, 출력 장치, 스왑 체인 등의 관리와 상호작용을 위한 다양한 인터페이스를 제공하며, 이들 인터페이스는 계층 구조를 형성한다.</p>
 <p>IDXGIFactory의 자식 객체는 IDXGIAdapter와 IDXGISwapChain이며, IDXGIAdapter의 자식 객체는 IDXGIOutput이다.</p>
 <p>이를 그림으로 나타내면 다음과 같다.</p>
@@ -909,20 +1264,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="81%20DirectX.html"
+       href="82%20Direc3D%2011%20API.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">DirectX</p>
+        <p class="prev-next-title">Direc3D 11 API</p>
       </div>
     </a>
     <a class="right-next"
-       href="99%20Miscelleneous.html"
+       href="83%20DXGI.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Miscellaneous</p>
+        <p class="prev-next-title">DirectX Graphics Infrastructure</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -951,25 +1306,47 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">DXGI 객체와 인터페이스</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgidevice">IDXGIDevice</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">DXGI 어댑터와의 상호작용</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">디스플레이와의 통합</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">리소스 공유</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">리소스 공유</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu">GPU 스레드 우선 순위 관리</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgifactory">IDXGIFactory</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">생성</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">DXGI 객체 생성</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">그래픽 어댑터 나열</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">디스플레이 모드 관리</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">스왑 체인 관리</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-mode-desc-bufferdesc">DXGI_MODE_DESC BufferDesc</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-sample-desc-sampledesc">DXGI_SAMPLE_DESC SampleDesc</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-usage-bufferusage">DXGI_USAGE BufferUsage</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-buffercount">UINT BufferCount</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#hwnd-outputwindow">HWND OutputWindow</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#bool-windowed">BOOL Windowed</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-swap-effect-swapeffect">DXGI_SWAP_EFFECT SwapEffect</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-flags">UINT Flags</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiadapter">IDXGIAdapter</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">그래픽 어댑터 정보 제공</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">출력 관리</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">그래픽 어댑터 정보 제공</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">출력 관리</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiswapchain">IDXGISwapChain</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiswapchain">IDXGISwapChain</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">프레임 버퍼 관리</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#resizebuffers">ResizeBuffers</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#resizetarget">ResizeTarget</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#getbuffer">GetBuffer</a></li>
+</ul>
+</li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">화면갱신</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">전체 화면 모드 전환</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgioutput">IDXGIOutput</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">DXGI 객체 계층 구조</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">DXGI 객체 계층 구조</a></li>
 </ul>
   </nav></div>
 

@@ -487,6 +487,14 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../57%20Initialization.html">initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../58%20Keyword.html">Keyword</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../59%20Type%20Casting.html">Type Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../60%20Pointer.html">Pointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../70%20Performance.html">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../80%20Google%20Benchmark.html">Google Benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../81%20Direc3D%2011%20API.html">Direc3D 11 API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../81%20DirectX.html">DirectX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../82%20Direc3D%2011%20API.html">Direc3D 11 API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../82%20DXGI.html">DirectX Graphics Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../83%20DXGI.html">DirectX Graphics Infrastructure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20Miscelleneous.html">Miscellaneous</a></li>
 </ul>
 </li>
@@ -710,7 +718,7 @@ document.write(`
 <p>pa가 가르키는 동적으로 할당된 객체를 Data1, pb가 가르키는 동적으로 할당된 객체를 Data2라고 하고 함수가 끝나고 pa, pb순으로 소멸자가 호출된다고 하자.</p>
 <p>그러면 main이 끝나고 다음 그림과 같은 과정을 거친다.</p>
 <figure class="align-default">
-<img alt="sources/03 programming/01 C++/21 Smart Pointer/_image/2101.png" src="sources/03 programming/01 C++/21 Smart Pointer/_image/2101.png" />
+<img alt="../../../../_images/2101.png" src="../../../../_images/2101.png" />
 </figure>
 <p>즉, 서로가 서로를 가르키는 circular reference가 발생한 경우 reference count가 0이 될 수가 없어서 Data의 소멸자가 호출될 수 없는 것이다. 이와 같이 circular reference에 의해 발생하는 memory leak 문제를 해결하기 위해 C++에서는 <code class="docutils literal notranslate"><span class="pre">weak_ptr</span></code> class를 제공한다.</p>
 <p>그러면 weak_ptr이 어떻게 이 문제를 해결하는지 알아보자.</p>
