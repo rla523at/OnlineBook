@@ -101,16 +101,77 @@ int main(void)
 {
   ComPtr<ID3D11Device> spDevice;
 
-  std::cout << spDevice << std::endl;
+  std::cout << spDevice.Get() << std::endl;
   std::cout << spDevice.GetAddressOf() << std::endl;
 
   return 0;
 }
 ```
 
-첫번째 출력에서는 ComPtr 객체가 관리하는 내부 포인터(ptr_)의 값이 출력된다. 초기 상태에서는 nullptr이므로 0이 출력된다.
+첫번째 출력에서는 ComPtr 객체가 관리하는 내부 포인터(ptr_)의 값이 출력된다. 초기 상태에서는 nullptr이므로 0000000000000000이 출력된다.
 
 그리고 두번재 출력에서는 ComPtr 객체가 관리하는 내부 포인터(ptr_)의 주소가 출력된다.
+
+#### 주의
+```cpp
+std::cout << static_cast<void **>(&spDevice) << std::endl;
+```
+
+위 코드로도 ComPtr 객체가 관리하는 내부 포인터(ptr_)의 주소를 출력할 수 있다.
+
+그러나 &spDevice의 결과인 ComPtrRef 객체는 내부적으로 void** 타입으로 형변환 할 때, pointer를 통해 `ReleaseAndGetAddressOf` 메서드를 호출하고 그 결과 ComPtr 객체가 관리하는 내부 포인터가 nullptr이 된다.
+
+위의 예제에서는 애초에 nullptr이라 문제가 없지만, 아닌 경우에는 위와 같은 형변환을 조심해야 한다.
+
+
+### operator&
+ComPtr에는 ComPtrRef 객체를 return하는 주소변환 연산자가 정의되어 있다.
+
+```cpp
+    Details::ComPtrRef<ComPtr<T>> operator&() throw()
+    {
+        return Details::ComPtrRef<ComPtr<T>>(this);
+    }
+```
+
+### InternalRelease
+InternalRelease 메서드는 ComPtr이 관리하는 포인터가 가르키는 주소를 nullptr로 만들고 포인터가 원래 가르키던 주소를 return한다.
+
+```cpp
+    unsigned long InternalRelease() throw()
+    {
+        unsigned long ref = 0;
+        T* temp = ptr_;
+
+        if (temp != nullptr)
+        {
+            ptr_ = nullptr;
+            ref = temp->Release();
+        }
+
+        return ref;
+    }
+```
+
+### ReleaseAndGetAddressOf
+ReleaseAndGetAddressOf 메서드는 ComPtr이 관리하는 포인터가 가르키는 주소를 nullptr로 만들고 포인터의 주소를 return한다.
+
+```cpp
+    T** ReleaseAndGetAddressOf() throw()
+    {
+        InternalRelease(); // ptr_ = nullptr이 된다.
+        return &ptr_;
+    }
+```
+
+## ComPtrRef
+ComPtrRef에는 void**으로의 형변환 연산자가 정의되어 있다.
+
+```cpp
+return reinterpret_cast<void**>(this->ptr_->ReleaseAndGetAddressOf());
+```
+
+이는 내부적으로 ComPtr 객체의 `ReleaseAndGetAddressOf` 메서드를 호출한다.
 
 > REFERENCE  
 > [GITHUB - ComPtr](https://github.com/Microsoft/DirectXTK/wiki/ComPtr)  

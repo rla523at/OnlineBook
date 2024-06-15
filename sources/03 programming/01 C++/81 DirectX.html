@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/81 DirectX';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Miscellaneous" href="99%20Miscelleneous.html" />
+    <link rel="next" title="DirectX Graphics Infrastructure" href="82%20DXGI.html" />
     <link rel="prev" title="Google Benchmark" href="80%20Google%20Benchmark.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -491,6 +491,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="70%20Performance.html">Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="80%20Google%20Benchmark.html">Google Benchmark</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">DirectX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="82%20DXGI.html">DirectX Graphics Infrastructure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="99%20Miscelleneous.html">Miscellaneous</a></li>
 </ul>
 </li>
@@ -662,21 +663,43 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d11device">ID3D11Device</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkmultisamplequalitylevels">CheckMultisampleQualityLevels</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa-vs-ssaa">멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d11devicecontext">ID3D11DeviceContext</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11createdevice">D3D11CreateDevice</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#padapter">pAdapter</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#drivertype">DriverType</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#software">Software</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flags">Flags</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pfeaturelevels">pFeatureLevels</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#featurelevels">FeatureLevels</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sdkversion">SDKVersion</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppdevice">ppDevice</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pfeaturelevel">pFeatureLevel</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppimmediatecontext">ppImmediateContext</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiadapter-padapter">IDXGIAdapter* pAdapter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d-driver-type-drivertype">D3D_DRIVER_TYPE DriverType</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hmodule-software">HMODULE Software</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-flags">UINT Flags</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#const-d3d-feature-level-pfeaturelevels">const D3D_FEATURE_LEVEL* pFeatureLevels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-featurelevels">UINT FeatureLevels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-sdkversion">UINT SDKVersion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d11device-ppdevice">ID3D11Device** ppDevice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d-feature-level-pfeaturelevel">D3D_FEATURE_LEVEL* pFeatureLevel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d11devicecontext-ppimmediatecontext">ID3D11DeviceContext** ppImmediateContext</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11createdeviceandswapchain">D3D11CreateDeviceAndSwapChain</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">IDXGIAdapter* pAdapter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">D3D_DRIVER_TYPE DriverType</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">HMODULE Software</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">UINT Flags</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">const D3D_FEATURE_LEVEL* pFeatureLevels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">UINT FeatureLevels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">UINT SDKVersion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#const-dxgi-swap-chain-desc-pswapchaindesc">const DXGI_SWAP_CHAIN_DESC* pSwapChainDesc</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-mode-desc-bufferdesc">DXGI_MODE_DESC BufferDesc</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-sample-desc-sampledesc">DXGI_SAMPLE_DESC SampleDesc</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">ID3D11Device** ppDevice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">D3D_FEATURE_LEVEL* pFeatureLevel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">ID3D11DeviceContext** ppImmediateContext</a></li>
 </ul>
 </li>
 </ul>
@@ -696,6 +719,79 @@ document.write(`
 <h2>ID3D11Device<a class="headerlink" href="#id3d11device" title="Permalink to this heading">#</a></h2>
 <p>ID3D11Device는 Direct3D 11 API의 인터페이스 중 하나로, COM(Component Object Model) 기반의 객체다.</p>
 <p>ID3D11Device 인터페이스는 Direct3D 11 응용 프로그램의 핵심 컴포넌트 중 하나로, GPU(Device)를 관리하고 리소스를 생성하는 역할을 담당하며 그래픽스를 처리하는 데 필요한 다양한 기능과 메서드를 제공한다.</p>
+<section id="checkmultisamplequalitylevels">
+<h3>CheckMultisampleQualityLevels<a class="headerlink" href="#checkmultisamplequalitylevels" title="Permalink to this heading">#</a></h3>
+<p>CheckMultisampleQualityLevels 함수는 지정된 포맷 및 샘플 수에 대해 사용할 수 있는 멀티샘플링(Multi-Sample Anti-Aliasing; MSAA) 품질 수준의 수를 확인하는 함수다.</p>
+<p>멀티샘플링은 렌더링 품질을 향상시키기 위해 여러 샘플을 사용하여 픽셀의 가장자리 부드럽게 하는 기술이다.</p>
+<p>함수의 시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CheckMultisampleQualityLevels</span><span class="p">(</span>
+<span class="w">    </span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">Format</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">SampleCount</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="o">*</span><span class="n">pNumQualityLevels</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>각각의 매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>Format</p>
+<ul>
+<li><p>DXGI_FORMAT 열거형으로, 확인할 멀티샘플링을 지원하는 텍스처 포맷을 지정한다.</p></li>
+<li><p>예를 들어, DXGI_FORMAT_R8G8B8A8_UNORM은 일반적인 32비트 RGBA 포맷이다.</p></li>
+</ul>
+</li>
+<li><p>SampleCount</p>
+<ul>
+<li><p>멀티샘플링에 사용할 샘플의 수를 지정한다.</p></li>
+<li><p>이 값은 보통 1, 2, 4, 8, 16 등의 값을 가지며, 특정 하드웨어가 지원하는 샘플 수에 따라 다를 수 있다.</p></li>
+</ul>
+</li>
+<li><p>pNumQualityLevels</p>
+<ul>
+<li><p>지정된 포맷과 샘플 수에 대해 사용 가능한 품질 수준의 수를 반환하는 포인터다.</p></li>
+<li><p>이 값은 0부터 시작하며, 값이 1 이상이면 멀티샘플링을 사용할 수 있는 품질 수준이 있음을 의미한다.</p></li>
+</ul>
+</li>
+</ul>
+<section id="msaa-vs-ssaa">
+<h4>멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)<a class="headerlink" href="#msaa-vs-ssaa" title="Permalink to this heading">#</a></h4>
+<p>MSAA는 각 픽셀을 여러 개의 서브픽셀로 나누고, 경계선에서만 다중 샘플링을 수행한다. 이는 주로 삼각형의 가장자리에서 앨리어싱을 줄이는 데 집중된다. 따라서 경계선 내부의 픽셀은 다중 샘플링을 하지 않으므로, 전체 화면에서 필요한 샘플 수를 줄인다.</p>
+<p>SSAA는 화면을 고해상도로 렌더링한 다음, 결과를 다운샘플링하여 최종 이미지를 생성한다. 예를 들어, 2x SSAA는 화면을 원래 해상도의 두 배로 렌더링하고 이를 다시 원래 해상도로 축소한다. 따라서 화면의 모든 픽셀에 대해 다중 샘플링을 수행하여 모든 부분에서 앨리어싱을 줄인다.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>특성</p></th>
+<th class="head"><p>SSAA</p></th>
+<th class="head"><p>MSAA</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>샘플링 방식</p></td>
+<td><p>모든 픽셀에 대해 다중 샘플링</p></td>
+<td><p>경계선에서만 다중 샘플링</p></td>
+</tr>
+<tr class="row-odd"><td><p>이미지 품질</p></td>
+<td><p>매우 높음</p></td>
+<td><p>높음</p></td>
+</tr>
+<tr class="row-even"><td><p>성능 비용</p></td>
+<td><p>매우 높음</p></td>
+<td><p>낮음</p></td>
+</tr>
+<tr class="row-odd"><td><p>메모리 사용량</p></td>
+<td><p>높음</p></td>
+<td><p>낮음</p></td>
+</tr>
+<tr class="row-even"><td><p>적용 범위</p></td>
+<td><p>전체 이미지</p></td>
+<td><p>경계선 주로</p></td>
+</tr>
+<tr class="row-odd"><td><p>복잡성</p></td>
+<td><p>간단</p></td>
+<td><p>복잡</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 <section id="id1">
 <h3>참고<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>Direct3D 11은 마이크로소프트의 DirectX API의 한 부분으로, 주로 게임 및 멀티미디어 응용 프로그램에서 사용된다.</p>
@@ -725,13 +821,13 @@ document.write(`
 </pre></div>
 </div>
 <p>각각의 매개변수는 다음과 같다.</p>
-<section id="padapter">
-<h3>pAdapter<a class="headerlink" href="#padapter" title="Permalink to this heading">#</a></h3>
+<section id="idxgiadapter-padapter">
+<h3>IDXGIAdapter* pAdapter<a class="headerlink" href="#idxgiadapter-padapter" title="Permalink to this heading">#</a></h3>
 <p>사용할 DXGI 어댑터를 지정하기 위한 매개변수이다.</p>
 <p>nullptr로 설정하면 기본 어댑터가 사용되고 특정 GPU를 선택하려면 IDXGIAdapter 객체를 전달해야 한다.</p>
 </section>
-<section id="drivertype">
-<h3>DriverType<a class="headerlink" href="#drivertype" title="Permalink to this heading">#</a></h3>
+<section id="d3d-driver-type-drivertype">
+<h3>D3D_DRIVER_TYPE DriverType<a class="headerlink" href="#d3d-driver-type-drivertype" title="Permalink to this heading">#</a></h3>
 <p>디바이스의 드라이버 유형을 지정하기 위한 매개변수이다.</p>
 <p>사용 가능한 드라이버 유형은 다음과 같다:</p>
 <ul class="simple">
@@ -762,13 +858,13 @@ document.write(`
 </li>
 </ul>
 </section>
-<section id="software">
-<h3>Software<a class="headerlink" href="#software" title="Permalink to this heading">#</a></h3>
+<section id="hmodule-software">
+<h3>HMODULE Software<a class="headerlink" href="#hmodule-software" title="Permalink to this heading">#</a></h3>
 <p>소프트웨어 드라이버의 경우 사용되는 DLL의 핸들을 지정하기 위한 매개변수이다.</p>
 <p>DriverType이 D3D_DRIVER_TYPE_SOFTWARE인 경우 유효한 핸들이 필요하지만 그렇지 않으면 nullptr로 설정한다.</p>
 </section>
-<section id="flags">
-<h3>Flags<a class="headerlink" href="#flags" title="Permalink to this heading">#</a></h3>
+<section id="uint-flags">
+<h3>UINT Flags<a class="headerlink" href="#uint-flags" title="Permalink to this heading">#</a></h3>
 <p>디바이스 생성 시 사용할 플래그를 지정하기 위한 매개변수이다.</p>
 <p>사용 가능한 주요 플래그는 다음과 같다:</p>
 <ul class="simple">
@@ -785,32 +881,251 @@ document.write(`
 </ul>
 <p>만약 이 값에 0을 주는 경우 Direct3D 11 디바이스가 아무런 추가 디버그 기능이나 특수 모드를 사용하지 않고 기본 설정으로 생성된다.</p>
 </section>
-<section id="pfeaturelevels">
-<h3>pFeatureLevels<a class="headerlink" href="#pfeaturelevels" title="Permalink to this heading">#</a></h3>
+<section id="const-d3d-feature-level-pfeaturelevels">
+<h3>const D3D_FEATURE_LEVEL* pFeatureLevels<a class="headerlink" href="#const-d3d-feature-level-pfeaturelevels" title="Permalink to this heading">#</a></h3>
 <p>지원할 기능 수준을 나열한 배열을 지정하기 위한 매개변수이다.</p>
 <p>이 배열의 첫 번째 요소부터 적용이 시작됨으로 선호하는 기능 수준 순서로 배열을 만들어야 한다.</p>
 </section>
-<section id="featurelevels">
-<h3>FeatureLevels<a class="headerlink" href="#featurelevels" title="Permalink to this heading">#</a></h3>
+<section id="uint-featurelevels">
+<h3>UINT FeatureLevels<a class="headerlink" href="#uint-featurelevels" title="Permalink to this heading">#</a></h3>
 <p>기능 수준 배열의 크기를 지정하기 위한 매개변수이다.</p>
 <p>일반적으로 ARRAYSIZE(featureLevels)를 사용한다.</p>
 </section>
-<section id="sdkversion">
-<h3>SDKVersion<a class="headerlink" href="#sdkversion" title="Permalink to this heading">#</a></h3>
+<section id="uint-sdkversion">
+<h3>UINT SDKVersion<a class="headerlink" href="#uint-sdkversion" title="Permalink to this heading">#</a></h3>
 <p>SDK 버전을 지정하기 위한 매개변수이다.</p>
 <p>일반적으로 D3D11_SDK_VERSION을 사용한다.</p>
 </section>
-<section id="ppdevice">
-<h3>ppDevice<a class="headerlink" href="#ppdevice" title="Permalink to this heading">#</a></h3>
+<section id="id3d11device-ppdevice">
+<h3>ID3D11Device** ppDevice<a class="headerlink" href="#id3d11device-ppdevice" title="Permalink to this heading">#</a></h3>
 <p>생성된 디바이스 객체를 받을 포인터의 주소를 지정하기 위한 매개변수이다.</p>
 </section>
-<section id="pfeaturelevel">
-<h3>pFeatureLevel<a class="headerlink" href="#pfeaturelevel" title="Permalink to this heading">#</a></h3>
+<section id="d3d-feature-level-pfeaturelevel">
+<h3>D3D_FEATURE_LEVEL* pFeatureLevel<a class="headerlink" href="#d3d-feature-level-pfeaturelevel" title="Permalink to this heading">#</a></h3>
 <p>생성된 디바이스의 기능 수준을 받을 포인터를 지정하기 위한 매개변수이다.</p>
 <p>nullptr로 설정하면 이 값을 무시한다.</p>
 </section>
-<section id="ppimmediatecontext">
-<h3>ppImmediateContext<a class="headerlink" href="#ppimmediatecontext" title="Permalink to this heading">#</a></h3>
+<section id="id3d11devicecontext-ppimmediatecontext">
+<h3>ID3D11DeviceContext** ppImmediateContext<a class="headerlink" href="#id3d11devicecontext-ppimmediatecontext" title="Permalink to this heading">#</a></h3>
+<p>생성된 디바이스 컨텍스트 객체를 받을 포인터의 주소를 지정하기 위한 매개변수이다.</p>
+</section>
+</section>
+<section id="d3d11createdeviceandswapchain">
+<h2>D3D11CreateDeviceAndSwapChain<a class="headerlink" href="#d3d11createdeviceandswapchain" title="Permalink to this heading">#</a></h2>
+<p>D3D11CreateDeviceAndSwapChain 함수는 Direct3D 11 디바이스와 디바이스 컨텍스트 그리고 스왑 체인을 동시에 생성하는 함수다.</p>
+<p>이 함수의 시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">D3D11CreateDeviceAndSwapChain</span><span class="p">(</span>
+<span class="w">    </span><span class="n">IDXGIAdapter</span><span class="o">*</span><span class="w"> </span><span class="n">pAdapter</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D_DRIVER_TYPE</span><span class="w"> </span><span class="n">DriverType</span><span class="p">,</span>
+<span class="w">    </span><span class="n">HMODULE</span><span class="w"> </span><span class="n">Software</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Flags</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">D3D_FEATURE_LEVEL</span><span class="o">*</span><span class="w"> </span><span class="n">pFeatureLevels</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">FeatureLevels</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">SDKVersion</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">DXGI_SWAP_CHAIN_DESC</span><span class="o">*</span><span class="w"> </span><span class="n">pSwapChainDesc</span><span class="p">,</span>
+<span class="w">    </span><span class="n">IDXGISwapChain</span><span class="o">**</span><span class="w"> </span><span class="n">ppSwapChain</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ID3D11Device</span><span class="o">**</span><span class="w"> </span><span class="n">ppDevice</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D_FEATURE_LEVEL</span><span class="o">*</span><span class="w"> </span><span class="n">pFeatureLevel</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ID3D11DeviceContext</span><span class="o">**</span><span class="w"> </span><span class="n">ppImmediateContext</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>각각의 매개변수는 다음과 같다.</p>
+<section id="id2">
+<h3>IDXGIAdapter* pAdapter<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>사용할 DXGI 어댑터를 지정하기 위한 매개변수이다.</p>
+<p>nullptr로 설정하면 기본 어댑터가 사용되고 특정 GPU를 선택하려면 IDXGIAdapter 객체를 전달해야 한다.</p>
+</section>
+<section id="id3">
+<h3>D3D_DRIVER_TYPE DriverType<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>디바이스의 드라이버 유형을 지정하기 위한 매개변수이다.</p>
+<p>사용 가능한 드라이버 유형은 다음과 같다:</p>
+<ul class="simple">
+<li><p>D3D_DRIVER_TYPE_HARDWARE</p>
+<ul>
+<li><p>하드웨어 가속을 사용하는 디바이스.</p></li>
+</ul>
+</li>
+<li><p>D3D_DRIVER_TYPE_REFERENCE</p>
+<ul>
+<li><p>소프트웨어로 구현된 디바이스. 디버깅 및 테스트 목적으로 사용된다.</p></li>
+</ul>
+</li>
+<li><p>D3D_DRIVER_TYPE_NULL</p>
+<ul>
+<li><p>출력이 없는 디바이스. 주로 성능 테스트에 사용된다.</p></li>
+</ul>
+</li>
+<li><p>D3D_DRIVER_TYPE_SOFTWARE</p>
+<ul>
+<li><p>사용자 지정 소프트웨어 렌더러를 사용하는 디바이스.</p></li>
+</ul>
+</li>
+<li><p>D3D_DRIVER_TYPE_WARP</p>
+<ul>
+<li><p>WARP(WIndows Advanced Rasterization Platform) 소프트웨어 렌더러를 사용하는 디바이스.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id4">
+<h3>HMODULE Software<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>소프트웨어 드라이버의 경우 사용되는 DLL의 핸들을 지정하기 위한 매개변수이다.</p>
+<p>DriverType이 D3D_DRIVER_TYPE_SOFTWARE인 경우 유효한 핸들이 필요하지만 그렇지 않으면 nullptr로 설정한다.</p>
+</section>
+<section id="id5">
+<h3>UINT Flags<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>디바이스 생성 시 사용할 플래그를 지정하기 위한 매개변수이다.</p>
+<p>사용 가능한 주요 플래그는 다음과 같다:</p>
+<ul class="simple">
+<li><p>D3D11_CREATE_DEVICE_DEBUG</p>
+<ul>
+<li><p>디버그 디바이스를 생성하여 디버깅 정보를 활성화한다.</p></li>
+</ul>
+</li>
+<li><p>D3D11_CREATE_DEVICE_SINGLETHREADED</p>
+<ul>
+<li><p>디바이스가 단일 스레드에서만 사용됨을 나타낸다.</p></li>
+</ul>
+</li>
+</ul>
+<p>만약 이 값에 0을 주는 경우 Direct3D 11 디바이스가 아무런 추가 디버그 기능이나 특수 모드를 사용하지 않고 기본 설정으로 생성된다.</p>
+</section>
+<section id="id6">
+<h3>const D3D_FEATURE_LEVEL* pFeatureLevels<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>지원할 기능 수준을 나열한 배열을 지정하기 위한 매개변수이다.</p>
+<p>이 배열의 첫 번째 요소부터 적용이 시작됨으로 선호하는 기능 수준 순서로 배열을 만들어야 한다.</p>
+</section>
+<section id="id7">
+<h3>UINT FeatureLevels<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<p>기능 수준 배열의 크기를 지정하기 위한 매개변수이다.</p>
+<p>일반적으로 ARRAYSIZE(featureLevels)를 사용한다.</p>
+</section>
+<section id="id8">
+<h3>UINT SDKVersion<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>SDK 버전을 지정하기 위한 매개변수이다.</p>
+<p>일반적으로 D3D11_SDK_VERSION을 사용한다.</p>
+</section>
+<section id="const-dxgi-swap-chain-desc-pswapchaindesc">
+<h3>const DXGI_SWAP_CHAIN_DESC* pSwapChainDesc<a class="headerlink" href="#const-dxgi-swap-chain-desc-pswapchaindesc" title="Permalink to this heading">#</a></h3>
+<p>스왑 체인을 생성하기 위해 필요한 DXGI_SWAP_CHAIN_DESC을 지정하기 위한 매개변수이다.</p>
+<p>DXGI_SWAP_CHAIN_DESC 구조체는 DirectX Graphics Infrastructure (DXGI)에서 스왑 체인의 속성을 정의하며 스왑 체인 생성에 사용된다.</p>
+<p>정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">DXGI_SWAP_CHAIN_DESC</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">DXGI_MODE_DESC</span><span class="w"> </span><span class="n">BufferDesc</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_SAMPLE_DESC</span><span class="w"> </span><span class="n">SampleDesc</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_USAGE</span><span class="w"> </span><span class="n">BufferUsage</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">BufferCount</span><span class="p">;</span>
+<span class="w">    </span><span class="n">HWND</span><span class="w"> </span><span class="n">OutputWindow</span><span class="p">;</span>
+<span class="w">    </span><span class="n">BOOL</span><span class="w"> </span><span class="n">Windowed</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_EFFECT</span><span class="w"> </span><span class="n">SwapEffect</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Flags</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">DXGI_SWAP_CHAIN_DESC</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>각각의 멤버변수는 다음과 같다.</p>
+<section id="dxgi-mode-desc-bufferdesc">
+<h4>DXGI_MODE_DESC BufferDesc<a class="headerlink" href="#dxgi-mode-desc-bufferdesc" title="Permalink to this heading">#</a></h4>
+<p>DXGI_MODE_DESC 구조체는 디스플레이 모드를 설명하는 데 사용되는 구조체로, 해상도, 색상 형식, 리프레시율 등과 같은 디스플레이 속성을 정의한다.</p>
+<p>정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">DXGI_MODE_DESC</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Width</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Height</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_RATIONAL</span><span class="w"> </span><span class="n">RefreshRate</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">Format</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_MODE_SCANLINE_ORDER</span><span class="w"> </span><span class="n">ScanlineOrdering</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_MODE_SCALING</span><span class="w"> </span><span class="n">Scaling</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">DXGI_MODE_DESC</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>각각의 멤버 변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>UINT Width</p>
+<ul>
+<li><p>화면의 너비(픽셀 단위)</p></li>
+</ul>
+</li>
+<li><p>UINT Height</p>
+<ul>
+<li><p>화면의 높이(픽셀 단위)</p></li>
+</ul>
+</li>
+<li><p>DXGI_RATIONAL RefreshRate</p>
+<ul>
+<li><p>화면의 리프레시율(초당 화면 재생 빈도)</p></li>
+<li><p>DXGI_RATIONAL 구조체는 분자와 분모로 구성된다.</p>
+<ul>
+<li><p>RefreshRate.Numerator</p></li>
+<li><p>RefreshRate.Denominator</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>DXGI_FORMAT Format</p>
+<ul>
+<li><p>버퍼의 색상 형식</p></li>
+<li><p>일반적으로 사용되는 값은 DXGI_FORMAT_R8G8B8A8_UNORM (32비트 RGBA)이다</p></li>
+</ul>
+</li>
+<li><p>DXGI_MODE_SCANLINE_ORDER ScanlineOrdering</p>
+<ul>
+<li><p>화면의 스캔라인 순서</p></li>
+<li><p>일반적으로 DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED(스캔라인 순서가 지정되지 않음)을 사용한다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_MODE_SCALING Scaling;</p>
+<ul>
+<li><p>화면의 스케일링 방식</p></li>
+<li><p>일반적으로 DXGI_MODE_SCALING_UNSPECIFIED(스케일링 방식이 지정되지 않음)을 사용한다.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="dxgi-sample-desc-sampledesc">
+<h4>DXGI_SAMPLE_DESC SampleDesc<a class="headerlink" href="#dxgi-sample-desc-sampledesc" title="Permalink to this heading">#</a></h4>
+<p>DXGI_SAMPLE_DESC 구조체는 Direct3D 11에서 멀티샘플링(anti-aliasing) 설정을 지정하는 데 사용된다.</p>
+<p>정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">DXGI_SAMPLE_DESC</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Count</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Quality</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">DXGI_SAMPLE_DESC</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>각각의 멤버 변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>UINT Count</p>
+<ul>
+<li><p>멀티샘플링의 샘플 수를 지정한다.</p></li>
+<li><p>값이 1이면 멀티샘플링이 비활성화되며, 값이 2, 4, 8 등의 값이면 해당 샘플 수로 멀티샘플링이 활성화된다.</p></li>
+<li><p>예를 들어 4x MSAA를 사용하려면 Count 값을 4로 설정한다.</p></li>
+</ul>
+</li>
+<li><p>UINT Quality</p>
+<ul>
+<li><p>멀티샘플링의 품질 수준을 지정한다.</p></li>
+<li><p>품질 수준은 특정 샘플 수에 대해 지원되는 품질의 수를 나타낸다.</p></li>
+<li><p>일반적으로 Quality 값은 0부터 시작하며, 지원되는 최대 품질 수준은 CheckMultisampleQualityLevels 함수에 의해 결정된다.</p>
+<ul>
+<li><p>품질 수준이 0이면 기본 품질 수준을 사용한다.</p></li>
+<li><p>CheckMultisampleQualityLevels 함수에서 numQualityLevels를 얻었을 떄, 품질 수준이 numQualityLevels - 1이면 최고 품질 수준을 사용한다.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="id9">
+<h3>ID3D11Device** ppDevice<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<p>생성된 디바이스 객체를 받을 포인터의 주소를 지정하기 위한 매개변수이다.</p>
+</section>
+<section id="id10">
+<h3>D3D_FEATURE_LEVEL* pFeatureLevel<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<p>생성된 디바이스의 기능 수준을 받을 포인터를 지정하기 위한 매개변수이다.</p>
+<p>nullptr로 설정하면 이 값을 무시한다.</p>
+</section>
+<section id="id11">
+<h3>ID3D11DeviceContext** ppImmediateContext<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
 <p>생성된 디바이스 컨텍스트 객체를 받을 포인터의 주소를 지정하기 위한 매개변수이다.</p>
 </section>
 </section>
@@ -856,11 +1171,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="99%20Miscelleneous.html"
+       href="82%20DXGI.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Miscellaneous</p>
+        <p class="prev-next-title">DirectX Graphics Infrastructure</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -880,21 +1195,43 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d11device">ID3D11Device</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checkmultisamplequalitylevels">CheckMultisampleQualityLevels</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa-vs-ssaa">멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d11devicecontext">ID3D11DeviceContext</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11createdevice">D3D11CreateDevice</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#padapter">pAdapter</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#drivertype">DriverType</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#software">Software</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flags">Flags</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pfeaturelevels">pFeatureLevels</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#featurelevels">FeatureLevels</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sdkversion">SDKVersion</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppdevice">ppDevice</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pfeaturelevel">pFeatureLevel</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ppimmediatecontext">ppImmediateContext</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiadapter-padapter">IDXGIAdapter* pAdapter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d-driver-type-drivertype">D3D_DRIVER_TYPE DriverType</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hmodule-software">HMODULE Software</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-flags">UINT Flags</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#const-d3d-feature-level-pfeaturelevels">const D3D_FEATURE_LEVEL* pFeatureLevels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-featurelevels">UINT FeatureLevels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-sdkversion">UINT SDKVersion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d11device-ppdevice">ID3D11Device** ppDevice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d-feature-level-pfeaturelevel">D3D_FEATURE_LEVEL* pFeatureLevel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d11devicecontext-ppimmediatecontext">ID3D11DeviceContext** ppImmediateContext</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11createdeviceandswapchain">D3D11CreateDeviceAndSwapChain</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">IDXGIAdapter* pAdapter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">D3D_DRIVER_TYPE DriverType</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">HMODULE Software</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">UINT Flags</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">const D3D_FEATURE_LEVEL* pFeatureLevels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">UINT FeatureLevels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">UINT SDKVersion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#const-dxgi-swap-chain-desc-pswapchaindesc">const DXGI_SWAP_CHAIN_DESC* pSwapChainDesc</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-mode-desc-bufferdesc">DXGI_MODE_DESC BufferDesc</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-sample-desc-sampledesc">DXGI_SAMPLE_DESC SampleDesc</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">ID3D11Device** ppDevice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">D3D_FEATURE_LEVEL* pFeatureLevel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">ID3D11DeviceContext** ppImmediateContext</a></li>
 </ul>
 </li>
 </ul>

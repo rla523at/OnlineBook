@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>C++ &#8212; MS Study Book</title>
+    <title>DirectX Graphics Infrastructure &#8212; MS Study Book</title>
   
   
   
@@ -64,11 +64,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/C++';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/82 DXGI';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Build" href="01%20Build/Build.html" />
-    <link rel="prev" title="Heat Conducting in Bar" href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html" />
+    <link rel="next" title="Miscellaneous" href="99%20Miscelleneous.html" />
+    <link rel="prev" title="DirectX" href="81%20DirectX.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -431,7 +431,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">C++</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-30"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="C%2B%2B.html">C++</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-30"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="01%20Build/Build.html">Build</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/02%20Compile.html">Compile</a></li>
@@ -491,7 +491,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="70%20Performance.html">Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="80%20Google%20Benchmark.html">Google Benchmark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="81%20DirectX.html">DirectX</a></li>
-<li class="toctree-l2"><a class="reference internal" href="82%20DXGI.html">DirectX Graphics Infrastructure</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">DirectX Graphics Infrastructure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="99%20Miscelleneous.html">Miscellaneous</a></li>
 </ul>
 </li>
@@ -568,7 +568,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/01 C++/C++.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/01 C++/82 DXGI.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -639,7 +639,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -650,11 +652,47 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>C++</h1>
+    <h1>DirectX Graphics Infrastructure</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi">DXGI 역할</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">하드웨어 추상화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">스왑체인 관리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">디스플레이 모드 관리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">멀티 어댑터 지원</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">DXGI 객체와 인터페이스</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgidevice">IDXGIDevice</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">DXGI 어댑터와의 상호작용</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">디스플레이와의 통합</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">리소스 공유</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu">GPU 스레드 우선 순위 관리</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgifactory">IDXGIFactory</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">생성</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiadapter">IDXGIAdapter</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">그래픽 어댑터 정보 제공</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">출력 관리</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiswapchain">IDXGISwapChain</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgioutput">IDXGIOutput</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">DXGI 객체 계층 구조</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -664,10 +702,180 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="c">
-<h1>C++<a class="headerlink" href="#c" title="Permalink to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="directx-graphics-infrastructure">
+<h1>DirectX Graphics Infrastructure<a class="headerlink" href="#directx-graphics-infrastructure" title="Permalink to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">DirectX</span> <span class="pre">Graphics</span> <span class="pre">Infrastructure</span> <span class="pre">(DXGI)</span></code>는 DirectX API의 일부로, 그래픽 어댑터와 디스플레이를 관리하고 조작하는 데 필요한 기능을 제공하는 라이브러리다. DXGI는 Direct3D와 같은 그래픽 API와 함께 사용되어 그래픽 리소스, 디스플레이 모드, 스왑 체인 등의 관리를 단순화하는 역할을 한다.</p>
+<section id="dxgi">
+<h2>DXGI 역할<a class="headerlink" href="#dxgi" title="Permalink to this heading">#</a></h2>
+<p>DXGI의 역할을 조금더 자세하게 살펴보자.</p>
+<section id="id1">
+<h3>하드웨어 추상화<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>그래픽 어댑터와 디스플레이 장치 간의 추상화 계층을 제공하여 개발자가 하드웨어 세부 사항에 신경 쓰지 않고도 작업을 수행할 수 있게 한다. 이를 통해 다양한 하드웨어 환경에서 일관된 성능과 기능을 제공할 수 있다.</p>
+</section>
+<section id="id2">
+<h3>스왑체인 관리<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>프레임 버퍼를 관리하여 더블 버퍼링, 트리플 버퍼링 등의 기술을 지원하고, 스크린 티어링을 방지하는 데 도움을 준다. 스왑 체인은 두 개 이상의 프레임 버퍼를 사용하여 새로운 프레임을 준비하는 동안 기존 프레임을 디스플레이에 표시할 수 있게 한다.</p>
+</section>
+<section id="id3">
+<h3>디스플레이 모드 관리<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>디스플레이 해상도, 리프레시율 등의 설정을 관리하고 변경할 수 있게 한다. 이를 통해 다양한 디스플레이 환경에 맞게 동적으로 화면 설정을 조정할 수 있다</p>
+</section>
+<section id="id4">
+<h3>멀티 어댑터 지원<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>여러 개의 그래픽 어댑터를 지원하여, 다중 디스플레이 환경이나 고성능 컴퓨팅 환경에서 효율적인 자원 관리를 가능하게 한다. 이를 통해 복잡한 렌더링 작업을 여러 어댑터에 분산시켜 성능을 향상시킬 수 있다.</p>
+</section>
+</section>
+<section id="id5">
+<h2>DXGI 객체와 인터페이스<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<p>DXGI는 COM(Component Object Model) 기반의 객체인 인터페이스를 통해 다양한 기능을 제공한다. 주요 인터페이스는 다음과 같다:</p>
+<section id="idxgidevice">
+<h3>IDXGIDevice<a class="headerlink" href="#idxgidevice" title="Permalink to this heading">#</a></h3>
+<p>Direct3D 디바이스와 DXGI 간의 상호작용을 관리하는 중요한 역할을 한다. 이 인터페이스는 Direct3D 디바이스가 DXGI 팩토리 및 어댑터와 통신할 수 있도록 하며, 이를 통해 디스플레이 설정 및 리소스 관리를 효율적으로 처리할 수 있다.</p>
+<p>주요 역할 및 기능은 다음과 같다.</p>
+<section id="id6">
+<h4>DXGI 어댑터와의 상호작용<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<p>IDXGIDevice는 Direct3D 디바이스와 DXGI 어댑터 간의 통신을 관리하는 역할을 한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">GetAdapter</span></code> 메서드를 사용하여 IDXGIAdapter 인터페이스를 얻어 어댑터의 속성이나 모드를 쿼리하고 설정할 수 있게 한다. 이를 통해 디스플레이 설정을 조정하거나 성능을 최적화한다.</p>
+</section>
+<section id="id7">
+<h4>디스플레이와의 통합<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<p>Direct3D 디바이스가 디스플레이 장치와 통합될 수 있도록 돕는다. 이를 통해 다양한 디스플레이 출력 설정을 관리하고 변경할 수 있다. 디스플레이 출력은 모니터, 프로젝터, TV 등 다양한 장치를 포함한다.</p>
+<p>해상도, 리프레시율 등의 디스플레이 설정을 변경할 수 있다. 이를 통해 다양한 디스플레이 환경에 맞게 설정을 동적으로 조정할 수 있다.</p>
+<p>창 모드와 전체 화면 모드 간의 전환을 지원한다. 이를 통해 게임이나 멀티미디어 애플리케이션에서 유연한 디스플레이 모드 전환을 구현할 수 있다.</p>
+</section>
+<section id="id8">
+<h4>리소스 공유<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
+<p>여러 디바이스 간의 리소스 공유를 가능하게 한다. 이는 복잡한 그래픽 애플리케이션에서 리소스를 효율적으로 관리할 수 있도록 돕는다. 리소스 공유는 멀티 GPU 설정이나 클러스터 컴퓨팅 환경에서 특히 중요하다.</p>
+<p>IDXGIDevice를 사용하여 Direct3D 디바이스 간에 텍스처, 버퍼 등의 그래픽 리소스를 공유할 수 있다. 이를 통해 여러 디바이스가 동일한 리소스를 사용할 수 있게 되어 성능과 효율성을 높일 수 있다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">QueryResourceResidency</span></code> 매서드를 사용하여 지정된 리소스가 로컬 비디오 메모리에 있는지, 공유 메모리에 있는지, 시스템 메모리에 있는지를 쿼리할 수 있다. 이를 통해 리소스의 위치와 접근 가능성을 확인할 수 있다.</p>
+</section>
+<section id="gpu">
+<h4>GPU 스레드 우선 순위 관리<a class="headerlink" href="#gpu" title="Permalink to this heading">#</a></h4>
+<p>GPU 스레드의 우선 순위를 설정하고 쿼리할 수 있다. 이를 통해 GPU 작업의 우선 순위를 조정하여 특정 작업의 성능을 최적화할 수 있다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SetGPUThreadPriority</span></code> 매서드를 사용하여 GPU 스레드의 우선 순위를 설정할 수 있다. 이를 통해 중요한 작업의 우선 순위를 높이거나, 백그라운드 작업의 우선 순위를 낮출 수 있다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">GetGPUThreadPriority</span></code> 매서드를 사용하여 현재 설정된 GPU 스레드의 우선 순위를 쿼리할 수 있다. 이를 통해 현재 시스템의 스레드 우선 순위 설정을 확인하고, 필요에 따라 조정할 수 있다.</p>
+</section>
+</section>
+<section id="idxgifactory">
+<h3>IDXGIFactory<a class="headerlink" href="#idxgifactory" title="Permalink to this heading">#</a></h3>
+<p>DXGI 객체와 리소스를 생성하는 팩토리 인터페이스다. 스왑 체인, 어댑터, 디바이스 등을 생성할 수 있다. 이를 통해 그래픽 어댑터와 출력 장치를 관리하고, 스왑 체인을 생성할 수 있다.</p>
+<section id="id9">
+<h4>생성<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
+<p>CreateDXGIFactory 함수를 이용하여 생성할 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDXGIFactory</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dxgiFactory</span><span class="p">;</span>
+<span class="n">HRESULT</span><span class="w"> </span><span class="n">hr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateDXGIFactory</span><span class="p">(</span><span class="n">__uuidof</span><span class="p">(</span><span class="n">IDXGIFactory</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dxgiFactory</span><span class="p">);</span>
+</pre></div>
 </div>
+</section>
+</section>
+<section id="idxgiadapter">
+<h3>IDXGIAdapter<a class="headerlink" href="#idxgiadapter" title="Permalink to this heading">#</a></h3>
+<p>그래픽 어댑터를 나타내는 인터페이스로, 어댑터의 속성이나 모드를 쿼리하고 설정할 수 있다. 이를 통해 애플리케이션은 그래픽 카드의 메모리, 성능, 지원하는 디스플레이 모드 등의 정보를 얻을 수 있다.</p>
+<p>주요 역할은 다음과 같다.</p>
+<section id="id10">
+<h4>그래픽 어댑터 정보 제공<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h4>
+<p>IDXGIAdapter는 시스템에 설치된 그래픽 어댑터의 정보를 제공한다. 이를 통해 애플리케이션은 사용 가능한 그래픽 하드웨어의 성능과 특성을 파악할 수 있다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">GetDesc</span></code> 메서드를 이용하여 어댑터에 관한 정보를 담은 DXGI_ADAPTER_DESC 구조체를 얻을 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">GetDesc</span><span class="p">(</span><span class="n">DXGI_ADAPTER_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pDesc</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>DXGI_ADAPTER_DESC 구조체는 다음과 같이 정의되어 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">DXGI_ADAPTER_DESC</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">WCHAR</span><span class="w"> </span><span class="n">Description</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">VendorId</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">DeviceId</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">SubSysId</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Revision</span><span class="p">;</span>
+<span class="w">    </span><span class="n">SIZE_T</span><span class="w"> </span><span class="n">DedicatedVideoMemory</span><span class="p">;</span>
+<span class="w">    </span><span class="n">SIZE_T</span><span class="w"> </span><span class="n">DedicatedSystemMemory</span><span class="p">;</span>
+<span class="w">    </span><span class="n">SIZE_T</span><span class="w"> </span><span class="n">SharedSystemMemory</span><span class="p">;</span>
+<span class="w">    </span><span class="n">LUID</span><span class="w"> </span><span class="n">AdapterLuid</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">DXGI_ADAPTER_DESC</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>각각의 멤버 변수는 다음과 같은 의미를 갖는다.</p>
+<ul class="simple">
+<li><p>Description</p>
+<ul>
+<li><p>어댑터의 이름을 나타낸다.</p></li>
+</ul>
+</li>
+<li><p>VendorId</p>
+<ul>
+<li><p>벤더 ID를 나타낸다.</p></li>
+</ul>
+</li>
+<li><p>DeviceId</p>
+<ul>
+<li><p>디바이스 ID를 나타낸다.</p></li>
+</ul>
+</li>
+<li><p>SubSysId</p>
+<ul>
+<li><p>서브 시스템 ID를 나타낸다.</p></li>
+</ul>
+</li>
+<li><p>Revision</p>
+<ul>
+<li><p>리비전 번호를 나타낸다.</p></li>
+</ul>
+</li>
+<li><p>DedicatedVideoMemory</p>
+<ul>
+<li><p>전용 비디오 메모리 크기를 나타낸다.</p></li>
+</ul>
+</li>
+<li><p>DedicatedSystemMemory</p>
+<ul>
+<li><p>전용 시스템 메모리 크기를 나타낸다.</p></li>
+</ul>
+</li>
+<li><p>SharedSystemMemory</p>
+<ul>
+<li><p>공유 시스템 메모리 크기를 나타낸다.</p></li>
+</ul>
+</li>
+<li><p>AdapterLuid</p>
+<ul>
+<li><p>어댑터의 로컬 고유 식별자(LUID)를 나타낸다.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id11">
+<h4>출력 관리<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h4>
+<p>어댑터에 연결된 디스플레이 출력 장치(모니터 등)에 대한 정보를 제공하고, 이를 관리할 수 있다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">EnumOutputs</span></code> 메서드를 이용하여 어댑터에 연결된 출력 장치를 나열하고 이를 통해 여러 출력 장치(모니터 등)를 관리할 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">EnumOutputs</span><span class="p">(</span><span class="n">UINT</span><span class="w"> </span><span class="n">Output</span><span class="p">,</span><span class="w"> </span><span class="n">IDXGIOutput</span><span class="w"> </span><span class="o">**</span><span class="n">ppOutput</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="idxgiswapchain">
+<h3>IDXGISwapChain<a class="headerlink" href="#idxgiswapchain" title="Permalink to this heading">#</a></h3>
+<p>IDXGISwapChain는 프레임 버퍼를 관리하고 렌더링된 이미지를 화면에 표시하는 역할을 한다. IDXGISwapChain는 Direct3D 디바이스와 함께 사용되며, 주로 게임이나 그래픽 애플리케이션에서 화면에 그래픽을 출력하기 위해 사용된다.</p>
+<p>이런 스왑 체인은 하나 이상의 백 버퍼와 하나의 프론트 버퍼로 구성된다. 프론트 버퍼는 현재 화면에 표시되는 버퍼이고, 백 버퍼는 다음 프레임을 렌더링할 버퍼다. 렌더링이 완료되면 백 버퍼와 프론트 버퍼를 교환(swap)하여 화면에 새로운 프레임을 표시한다.</p>
+<p>이 때, 하나의 프론트 버퍼와 하나의 백 버퍼를 사용하여 렌더링이 완료되면 두 버퍼를 교환하는 방식을 더블 버퍼링이라고 한다.
+그리고 프론트 버퍼와 두 개의 백 버퍼를 사용하여 더 부드러운 애니메이션과 입력 지연을 줄이는 방식을 트리플 버퍼링이라고 한다.</p>
+</section>
+<section id="idxgioutput">
+<h3>IDXGIOutput<a class="headerlink" href="#idxgioutput" title="Permalink to this heading">#</a></h3>
+<p>디스플레이 출력을 나타내는 인터페이스로, 모니터와 같은 출력 장치에 대한 정보와 제어를 제공한다. 연결된 모니터의 해상도, 리프레시율 등의 정보를 얻고 설정할 수 있다.</p>
+</section>
+</section>
+<section id="id12">
+<h2>DXGI 객체 계층 구조<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<p>DXGI는 그래픽 어댑터, 출력 장치, 스왑 체인 등의 관리와 상호작용을 위한 다양한 인터페이스를 제공하며, 이들 인터페이스는 계층 구조를 형성한다.</p>
+<p>IDXGIFactory의 자식 객체는 IDXGIAdapter와 IDXGISwapChain이며, IDXGIAdapter의 자식 객체는 IDXGIOutput이다.</p>
+<p>이를 그림으로 나타내면 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IDXGIFactory</span>
+<span class="o">|--</span> <span class="n">IDXGIAdapter</span>
+<span class="o">|</span>   <span class="o">|--</span> <span class="n">IDXGIOutput</span>
+<span class="o">|</span>
+<span class="o">|--</span> <span class="n">IDXGISwapChain</span>
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -701,20 +909,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html"
+       href="81%20DirectX.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Heat Conducting in Bar</p>
+        <p class="prev-next-title">DirectX</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Build/Build.html"
+       href="99%20Miscelleneous.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Build</p>
+        <p class="prev-next-title">Miscellaneous</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -724,6 +932,48 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi">DXGI 역할</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">하드웨어 추상화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">스왑체인 관리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">디스플레이 모드 관리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">멀티 어댑터 지원</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">DXGI 객체와 인터페이스</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgidevice">IDXGIDevice</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">DXGI 어댑터와의 상호작용</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">디스플레이와의 통합</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">리소스 공유</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu">GPU 스레드 우선 순위 관리</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgifactory">IDXGIFactory</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">생성</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiadapter">IDXGIAdapter</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">그래픽 어댑터 정보 제공</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">출력 관리</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiswapchain">IDXGISwapChain</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgioutput">IDXGIOutput</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">DXGI 객체 계층 구조</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
