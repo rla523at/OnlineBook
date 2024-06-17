@@ -3,7 +3,7 @@
 ## ID3D11Device
 ID3D11Device는 Direct3D 11 API의 인터페이스 중 하나로, COM(Component Object Model) 기반의 객체다.
 
-ID3D11Device 인터페이스는 Direct3D 11 응용 프로그램의 핵심 컴포넌트 중 하나로, GPU(Device)를 관리하고 리소스를 생성하는 역할을 담당하며 그래픽스를 처리하는 데 필요한 다양한 기능과 메서드를 제공한다.
+ID3D11Device 인터페이스는 Direct3D 11 응용 프로그램의 핵심 컴포넌트 중 하나로, GPU(Device)를 관리하고 리소스를 생성하는 역할을 담당하며 그래픽스를 처리하는 데 필요한 다양한 기능과 함수를 제공한다.
 
 ### CheckMultisampleQualityLevels
 CheckMultisampleQualityLevels 함수는 지정된 포맷 및 샘플 수에 대해 사용할 수 있는 멀티샘플링(Multi-Sample Anti-Aliasing; MSAA) 품질 수준의 수를 확인하는 함수다.
@@ -48,7 +48,7 @@ SSAA는 화면을 고해상도로 렌더링한 다음, 결과를 다운샘플링
 
 
 ### CreateRenderTargetView
-CreateRenderTargetView는 렌더 타겟 뷰를 생성하는 메서드다. 이 메서드는 ID3D11RenderTargetView 객체를 생성하여, 렌더링 파이프라인의 출력 병합 단계(OM, Output Merger)에 사용할 수 있게 한다.
+CreateRenderTargetView는 렌더 타겟 뷰를 생성하는 함수다. 이 함수는 ID3D11RenderTargetView 객체를 생성하여, 렌더링 파이프라인의 출력 병합 단계(OM, Output Merger)에 사용할 수 있게 한다.
 
 ```cpp
 HRESULT CreateRenderTargetView(
@@ -130,9 +130,9 @@ typedef struct D3D11_RENDER_TARGET_VIEW_DESC {
       * MipSlice와 FirstWSlice, WSize 멤버를 포함한다.
 
 ### CreateRasterizerState
-CreateRasterizerState 메서드는 Direct3D 11에서 ID3D11RasterizerState 객체를 생성하는 데 사용된다. ID3D11RasterizerState는 폴리곤이 화면에 렌더링되는 방식을 제어하며, 이 상태 객체를 통해 다양한 렌더링 설정을 적용할 수 있다. 이 메서드는 D3D11_RASTERIZER_DESC 구조체를 입력으로 받아, 해당 구조체의 설정에 따라 ID3D11RasterizerState 객체를 생성한다.
+CreateRasterizerState 함수는 Direct3D 11에서 ID3D11RasterizerState 객체를 생성하는 데 사용된다. ID3D11RasterizerState는 폴리곤이 화면에 렌더링되는 방식을 제어하며, 이 상태 객체를 통해 다양한 렌더링 설정을 적용할 수 있다. 이 함수는 D3D11_RASTERIZER_DESC 구조체를 입력으로 받아, 해당 구조체의 설정에 따라 ID3D11RasterizerState 객체를 생성한다.
 
-메서드의 시그니쳐는 다음과 같다.
+함수의 시그니쳐는 다음과 같다.
 ```cpp
 HRESULT CreateRasterizerState(
   const D3D11_RASTERIZER_DESC *pRasterizerDesc,
@@ -254,12 +254,12 @@ ID3D11RenderTargetView는 Direct3D 11 API에서 렌더링 타겟을 나타내는
 ## ID3D11DeviceContext
 ID3D11DeviceContext는 Direct3D 11 API의 인터페이스 중 하나로, COM(Component Object Model) 기반의 객체다.
 
-ID3D11DeviceContext는 Direct3D 11의 핵심 인터페이스 중 하나로, 주로 렌더링 파이프라인을 관리하고 GPU에 명령을 전달하는 역할을 담당한다. 이 인터페이스는 그래픽스 및 컴퓨팅 작업을 수행하기 위한 다양한 메서드를 제공하며, 주로 드로우 호출, 리소스 관리, 파이프라인 상태 설정 등을 처리한다.
+ID3D11DeviceContext는 Direct3D 11의 핵심 인터페이스 중 하나로, 주로 렌더링 파이프라인을 관리하고 GPU에 명령을 전달하는 역할을 담당한다. 이 인터페이스는 그래픽스 및 컴퓨팅 작업을 수행하기 위한 다양한 함수를 제공하며, 주로 드로우 호출, 리소스 관리, 파이프라인 상태 설정 등을 처리한다.
 
-### RSSetViewports
+### RSSetViewports 함수
 RSSetViewports는 Direct3D 11에서 뷰포트를 설정하는 데 사용된다.
 
-메서드의 시그니쳐는 다음과 같다.
+함수의 시그니쳐는 다음과 같다.
 ```cpp
 void RSSetViewports(
   UINT NumViewports,
@@ -276,6 +276,53 @@ void RSSetViewports(
   * 뷰포트 배열에 대한 포인터다. 
   * 각 뷰포트는 D3D11_VIEWPORT 구조체로 정의된다.
   * 이 배열의 길이는 NumViewports와 같아야 한다.
+
+### Map 함수
+Map 함수는 리소스를 매핑하여 CPU가 리소스 데이터를 직접 접근하고 수정할 수 있도록 한다. 이 함수는 주로 버퍼 및 텍스처 데이터를 읽거나 쓸 때 사용된다. 리소스를 매핑하면 GPU가 해당 리소스를 사용하지 못하게 되므로, 작업이 끝난 후 반드시 Unmap 함수를 호출하여 매핑을 해제해야 한다.
+
+함수의 시그니쳐는 다음과 같다.
+```cpp
+HRESULT Map(
+  ID3D11Resource *pResource,
+  UINT Subresource,
+  D3D11_MAP MapType,
+  UINT MapFlags,
+  D3D11_MAPPED_SUBRESOURCE *pMappedResource
+);
+```
+
+각 매개변수는 다음과 같다.
+* pResource
+  * 매핑할 리소스에 대한 포인터이다. 예를 들어, 텍스처나 버퍼 객체일 수 있다.
+* Subresource
+  * 매핑할 서브 리소스의 인덱스를 지정한다. 일반적으로 텍스처의 MIP 수준이나 배열 요소를 나타낸다.
+* MapType
+  * 매핑의 유형을 지정하는 D3D11_MAP 열거형 값이다. 다음과 같은 값이 있다:
+    * D3D11_MAP_READ: 리소스를 읽기 전용으로 매핑한다.
+    * D3D11_MAP_WRITE: 리소스를 쓰기 전용으로 매핑한다.
+    * D3D11_MAP_READ_WRITE: 리소스를 읽기/쓰기 가능으로 매핑한다.
+    * D3D11_MAP_WRITE_DISCARD: 기존 리소스 데이터를 무시하고 새로운 데이터를 쓰기 위한 매핑이다.
+    * D3D11_MAP_WRITE_NO_OVERWRITE: 기존 데이터의 일부를 덮어쓰지 않고 데이터를 쓰기 위한 매핑이다.
+* MapFlags
+  * 추가적인 매핑 옵션을 지정하는 플래그이다. 일반적으로 0 또는 D3D11_MAP_FLAG_DO_NOT_WAIT를 사용할 수 있다:
+    * D3D11_MAP_FLAG_DO_NOT_WAIT: 리소스를 사용할 수 있을 때까지 대기하지 않고 바로 반환한다. 리소스가 아직 사용 중이면 DXGI_ERROR_WAS_STILL_DRAWING을 반환한다.
+* pMappedResource
+  * 매핑된 서브 리소스 데이터에 대한 정보를 저장하는 D3D11_MAPPED_SUBRESOURCE 구조체에 대한 포인터이다.
+
+이 때, 주의할점은 다음과 같다.
+* 자원 해제
+  * 매핑한 리소스를 사용한 후에는 반드시 Unmap 메소드를 호출하여 매핑을 해제해야 한다. 
+  * 그렇지 않으면 리소스가 잠긴 상태로 남아 다른 작업에 영향을 미칠 수 있다.
+* 자원 사용 중단
+  * Map 메소드를 호출하여 리소스를 매핑하는 동안, GPU는 해당 리소스를 사용할 수 없다. 
+  * 따라서 매핑 작업을 신속하게 완료하고 Unmap을 호출하는 것이 중요하다.
+* 매핑 가능한 리소스
+  * 모든 리소스가 매핑 가능한 것은 아니다. 
+  * 리소스의 생성 시점에 D3D11_USAGE_DYNAMIC 또는 D3D11_CPU_ACCESS_READ / D3D11_CPU_ACCESS_WRITE 플래그가 설정되어 있어야 한다.
+* D3D11_MAPPED_SUBRESOURCE 구조체의 RowPitch
+  * RowPitch는 기본적으로 Map 함수에 주어진 ID3D11Resource에 정의된 텍스처의 형식(DXGI_FORMAT)과 텍스처 너비로 정해진다.
+  * 예를 들어, 텍스처의 형식이 DXGI_FORMAT_R32G32B32A32_FLOAT(16바이트)이고 텍스처의 너비가 100픽셀이라면, 기본적으로 1600 바이트가 된다.
+  * 하지만, GPU의 메모리 정렬 요구 사항에 따라 행 간의 추가적인 패딩을 삽입할 수 있다. 이 패딩은 각 행의 시작 주소가 특정 정렬 경계를 맞추도록 하기 위함이다. 따라서 실제 RowPitch 값은 기본적인 행 크기보다 클 수 있다.
 
 ## D3D11_VIEWPORT
 D3D11_VIEWPORT는 Direct3D 11에서 `뷰포트(Viewport)`를 정의하는 구조체다. 뷰포트는 렌더링된 이미지가 화면에 그려지는 영역을 지정하며, 3D 장면을 2D 화면 공간으로 변환할 때 사용된다. 뷰포트는 렌더링 파이프라인의 래스터라이저(Rasterizer) 단계에서 중요한 역할을 한다.
@@ -309,7 +356,33 @@ typedef struct D3D11_VIEWPORT {
 ### Viewport
 뷰포트는 렌더링된 이미지가 화면에 그려지는 영역이다.
 
-## D3D11_RASTERIZER_DESC
+## D3D11_MAPPED_SUBRESOURCE
+D3D11_MAPPED_SUBRESOURCE는 Direct3D 11에서 리소스의 서브 리소스를 매핑할 때 사용되는 구조체다. 이 구조체는 매핑된 리소스 데이터에 접근하기 위한 정보를 제공한다. 매핑은 주로 CPU가 GPU 리소스에 접근하여 데이터를 읽거나 쓸 수 있도록 하는데 사용된다.
+
+구조체의 정의는 다음과 같다.
+```cpp
+typedef struct D3D11_MAPPED_SUBRESOURCE {
+    void *pData;
+    UINT RowPitch;
+    UINT DepthPitch;
+} D3D11_MAPPED_SUBRESOURCE;
+```
+
+각 멤버변수는 다음과 같다.
+* pData
+  * 매핑된 서브 리소스의 데이터에 대한 포인터다.
+  * 이 포인터를 통해 리소스의 데이터에 접근할 수 있다.
+* RowPitch
+  * 텍스처 데이터의 행(row) 간의 바이트 수를 나타낸다.
+  * 2D 텍스처의 경우, 한 행의 시작 지점과 다음 행의 시작 지점 간의 바이트 단위 오프셋을 나타낸다.
+* DepthPitch
+  * 3D 텍스처 데이터의 깊이 슬라이스 간의 바이트 수를 나타낸다.
+  * 한 깊이 슬라이스의 시작 지점과 다음 깊이 슬라이스의 시작 지점 간의 바이트 단위 오프셋을 나타낸다.
+
+주의사항은 다음과 같다.
+* RowPitch
+  * RowPitch 값은 Map 메소드 호출 시 Direct3D가 자동으로 설정하는 값이며, 이는 매핑된 리소스의 실제 메모리 레이아웃을 반영한다. 
+  * RowPitch는 GPU 메모리 정렬 요구사항을 포함한 각 행(row)의 바이트 수를 나타내며, 이 값을 수동으로 수정한다고 해서 Direct3D가 사용하는 메모리 레이아웃이 변경되는 것은 아니다.
 
 
 ## D3D11CreateDevice
