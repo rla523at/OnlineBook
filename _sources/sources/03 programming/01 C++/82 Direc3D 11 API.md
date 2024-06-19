@@ -218,9 +218,110 @@ typedef struct D3D11_RASTERIZER_DESC {
   * FALSE: 안티앨리어싱을 비활성화한다.
 
 ## ID3D11Texture2D
-ID3D11Texture2D는 Direct3D 11 API에서 2D 텍스처를 나타내는 인터페이스다. 텍스처는 이미지 데이터를 포함하는 리소스로, 3D 모델에 매핑하여 렌더링할 때 사용된다. 2D 텍스처는 게임 및 그래픽 애플리케이션에서 매우 흔하게 사용되며, 다양한 그래픽 효과를 구현하는 데 필수적이다.
+ID3D11Texture2D는 Direct3D 11 API에서 2D 텍스처를 나타내는 인터페이스다. 
+
+2D 텍스처는 주로 이미지 데이터를 저장하고, 쉐이더에서 사용할 텍스처 매핑, 렌더 타겟, 깊이/스텐실 버퍼 등 다양한 용도로 사용된다.
 
 ID3D11Texture2D 인터페이스는 ID3D11Resource 인터페이스를 상속받아, Direct3D 11 리소스와 관련된 모든 기능을 제공한다.
+
+### 2D 이미지 데이터 저장
+ID3D11Texture2D 객체는 2D 배열 형식으로 이미지 데이터를 저장한다.
+
+ID3D11Texture2D 객체는 D3D11_TEXTURE2D_DESC에 정의된 방식으로 생성되며, D3D11_TEXTURE2D_DESC에 따라 이미지 데이터를 저장하는 방법이 다르다.
+
+#### ID3D11DeviceContext의 UpdateSubresource 함수
+UpdateSubresource 함수는 D3D11_TEXTURE2D_DESC의 Usage 변수가 D3D11_USAGE_DEFAULT로 정의된 리소스를 업데이트 할 때 사용된다.
+
+#### ID3D11DeviceContext의 Map/UnMap 함수
+Map/UnMap 함수는 D3D11_TEXTURE2D_DESC의 Usage 변수가 D3D11_USAGE_DYNAMIC으로 정의된 리소스를 업데이트 할 때 사용된다.
+
+
+
+
+### 생성
+
+#### D3D11_TEXTURE2D_DESC 
+D3D11_TEXTURE2D_DESC 구조체는 Direct3D 11에서 2D 텍스처를 생성할 때 사용되는 속성들을 정의한다. 
+
+구조체의 정의는 다음과 같다.
+```cpp
+typedef struct D3D11_TEXTURE2D_DESC {
+    UINT Width;
+    UINT Height;
+    UINT MipLevels;
+    UINT ArraySize;
+    DXGI_FORMAT Format;
+    DXGI_SAMPLE_DESC SampleDesc;
+    D3D11_USAGE Usage;
+    UINT BindFlags;
+    UINT CPUAccessFlags;
+    UINT MiscFlags;
+} D3D11_TEXTURE2D_DESC;
+```
+
+각 멤버 변수는 다음과 같다.
+* Width
+  * 텍스처의 가로 크기를 픽셀 단위로 지정한다.
+  * 텍스처의 가로 크기는 GPU가 지원하는 최대 텍스처 크기를 초과하지 않아야 한다.
+
+* Height
+  * 텍스처의 세로 크기를 픽셀 단위로 지정한다.
+  * 텍스처의 세로 크기는 GPU가 지원하는 최대 텍스처 크기를 초과하지 않아야 한다.
+
+* MipLevels
+  * 텍스처의 MIP 맵 레벨 수를 지정한다.
+  * 0으로 설정하면 가능한 모든 MIP 레벨이 자동으로 생성된다.
+  * MIP 맵은 텍스처의 다양한 해상도 버전을 제공하여, 텍스처 맵핑에서 성능을 향상시키고 알리아싱을 줄이는 데 사용된다.
+
+* ArraySize
+  * 텍스처 배열의 크기를 지정한다.
+  * 2D 텍스처 배열을 생성할 때 사용된다.
+  * 여러 개의 텍스처를 하나의 배열로 사용하여 복잡한 텍스처 맵핑을 수행할 수 있다.
+
+* Format
+  * 텍스처의 픽셀 형식을 지정한다.
+  * DXGI_FORMAT 열거형 값 중 하나를 사용한다.
+    * DXGI_FORMAT_R8G8B8A8_UNORM
+  * 픽셀 형식은 각 채널(RGBA 등)의 비트 수와 데이터 타입(정수, 부동 소수점 등)을 정의한다.
+
+* SampleDesc
+  * 멀티 샘플링을 위한 샘플 수와 품질 수준을 지정한다.
+  * DXGI_SAMPLE_DESC 구조체로 정의된다.
+    * SampleDesc.Count = 1; 
+    * SampleDesc.Quality = 0;
+  * 멀티 샘플링은 안티 앨리어싱을 향상시키는 데 사용된다.
+
+* Usage
+  * 텍스처의 사용 방법을 지정한다.
+  * D3D11_USAGE 열거형 값 중 하나를 사용한다.
+    * D3D11_USAGE_DEFAULT : GPU 읽기/쓰기를 위해 최적화된 리소스. CPU에서 직접 접근할 수 없다.
+    * D3D11_USAGE_DYNAMIC : CPU에서 주기적으로 업데이트할 리소스
+    * D3D11_USAGE_STAGING : 데이터 전송에 사용되는 리소스. CPU에서 읽기/쓰기가 가능하지만, GPU에서 직접 접근할 수 없다.
+    * D3D11_USAGE_IMMUTABLE : 텍스처를 한 번만 설정하고 변경하지 않는 경우에 사용된다. 성능이 가장 좋다.
+  * 사용 방법은 텍스처가 GPU와 CPU에서 어떻게 접근되고 사용될지를 정의한다.
+
+* BindFlags
+  * 텍스처가 바인딩될 파이프라인 단계와 사용법을 지정한다.
+  * D3D11_BIND_FLAG 열거형 값들의 비트 플래그 조합을 사용한다.
+    * D3D11_BIND_SHADER_RESOURCE
+    * D3D11_BIND_RENDER_TARGET
+  * 바인딩 플래그는 텍스처가 셰이더 리소스, 렌더 타겟 등으로 사용될지를 정의한다.
+
+* CPUAccessFlags
+  * CPU에서 접근 가능한 방법을 지정한다.
+  * D3D11_CPU_ACCESS_FLAG 열거형 값 중 하나를 사용한다.
+    * 0 (기본값)
+    * D3D11_CPU_ACCESS_WRITE
+    * D3D11_CPU_ACCESS_READ
+  * CPU 접근 플래그는 텍스처가 CPU에서 쓰기 또는 읽기 가능한지를 정의한다.
+
+* MiscFlags
+  * 추가적인 옵션 플래그를 지정한다.
+  * D3D11_RESOURCE_MISC_FLAG 열거형 값들의 비트 플래그 조합을 사용한다.
+    * 0 (기본값)
+    * D3D11_RESOURCE_MISC_GENERATE_MIPS
+  * 기타 플래그는 텍스처가 특별한 기능(예: MIP 맵 생성)을 사용할지를 정의한다.
+
 
 
 ## ID3D11RenderTargetView
@@ -251,6 +352,58 @@ ID3D11RenderTargetView는 Direct3D 11 API에서 렌더링 타겟을 나타내는
   * 동시에 여러 렌더 타겟에 렌더링 결과를 출력할 수 있다.
   * 이는 복잡한 셰이더 효과나 다양한 데이터 출력을 필요로 할 때 유용하다.
 
+### Render Target View에 저장된 데이터 읽기
+다음 코드들로 Render Target View에 저장된 데이터를 읽을 수 있다.
+
+```cpp
+    // 1. 렌더 타겟 리소스 얻기
+     ID3D11Resource* pRenderTargetResource = nullptr;
+     renderTargetView->GetResource(&pRenderTargetResource);
+
+     ID3D11Texture2D* pRenderTargetTexture = nullptr;
+     pRenderTargetResource->QueryInterface(IID_PPV_ARGS(&pRenderTargetTexture));
+
+    // 2. 임시 텍스처 생성
+     D3D11_TEXTURE2D_DESC desc;
+     pRenderTargetTexture->GetDesc(&desc);
+
+     desc.Usage          = D3D11_USAGE_STAGING;
+     desc.BindFlags      = 0;
+     desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+     desc.MiscFlags      = 0;
+
+     ID3D11Texture2D* pStagingTexture = nullptr;
+     device->CreateTexture2D(&desc, nullptr, &pStagingTexture);
+
+    // 3. 렌더 타겟 텍스처를 스테이징 텍스처로 복사
+     deviceContext->CopyResource(pStagingTexture, pRenderTargetTexture);
+
+    // 4. 스테이징 텍스처에서 데이터 읽기
+     D3D11_MAPPED_SUBRESOURCE mappedResource;
+     HRESULT                  hr = deviceContext->Map(pStagingTexture, 0, D3D11_MAP_READ, 0, &mappedResource);
+     if (SUCCEEDED(hr))
+    {
+       // 픽셀 데이터에 접근
+       BYTE* pData    = static_cast<BYTE*>(mappedResource.pData);
+       UINT  rowPitch = mappedResource.RowPitch;
+
+      BYTE* pixel1 = pData + 100 * rowPitch + 0 * 4;
+      BYTE* pixel2 = pData + 300 * rowPitch + 0 * 4;
+      BYTE* pixel3 = pData + 500 * rowPitch + 0 * 4;
+      BYTE* pixel4 = pData + 700 * rowPitch + 0 * 4;
+      BYTE* pixel5 = pData + 900 * rowPitch + 0 * 4;
+
+      deviceContext->Unmap(pStagingTexture, 0);
+    }
+
+    // 5. 자원 해제
+     pRenderTargetResource->Release();
+     pRenderTargetTexture->Release();
+     pStagingTexture->Release();
+```
+
+
+
 ## ID3D11DeviceContext
 ID3D11DeviceContext는 Direct3D 11 API의 인터페이스 중 하나로, COM(Component Object Model) 기반의 객체다.
 
@@ -278,7 +431,9 @@ void RSSetViewports(
   * 이 배열의 길이는 NumViewports와 같아야 한다.
 
 ### Map 함수
-Map 함수는 리소스를 매핑하여 CPU가 리소스 데이터를 직접 접근하고 수정할 수 있도록 한다. 이 함수는 주로 버퍼 및 텍스처 데이터를 읽거나 쓸 때 사용된다. 리소스를 매핑하면 GPU가 해당 리소스를 사용하지 못하게 되므로, 작업이 끝난 후 반드시 Unmap 함수를 호출하여 매핑을 해제해야 한다.
+Map 함수는 리소스를 매핑하여 CPU가 리소스 데이터를 직접 접근하고 수정할 수 있도록 한다. 
+
+이 함수는 주로 버퍼 및 텍스처 데이터를 읽거나 쓸 때 사용된다. 리소스를 매핑하면 GPU가 해당 리소스를 사용하지 못하게 되므로, 작업이 끝난 후 반드시 Unmap 함수를 호출하여 매핑을 해제해야 한다.
 
 함수의 시그니쳐는 다음과 같다.
 ```cpp
@@ -318,11 +473,22 @@ HRESULT Map(
   * 따라서 매핑 작업을 신속하게 완료하고 Unmap을 호출하는 것이 중요하다.
 * 매핑 가능한 리소스
   * 모든 리소스가 매핑 가능한 것은 아니다. 
-  * 리소스의 생성 시점에 D3D11_USAGE_DYNAMIC 또는 D3D11_CPU_ACCESS_READ / D3D11_CPU_ACCESS_WRITE 플래그가 설정되어 있어야 한다.
+  * 리소스의 생성 시점에 D3D11_USAGE_DYNAMIC 플래그, D3D11_CPU_ACCESS_WRITE 플래그가 설정되어 있어야 한다.
 * D3D11_MAPPED_SUBRESOURCE 구조체의 RowPitch
   * RowPitch는 기본적으로 Map 함수에 주어진 ID3D11Resource에 정의된 텍스처의 형식(DXGI_FORMAT)과 텍스처 너비로 정해진다.
   * 예를 들어, 텍스처의 형식이 DXGI_FORMAT_R32G32B32A32_FLOAT(16바이트)이고 텍스처의 너비가 100픽셀이라면, 기본적으로 1600 바이트가 된다.
   * 하지만, GPU의 메모리 정렬 요구 사항에 따라 행 간의 추가적인 패딩을 삽입할 수 있다. 이 패딩은 각 행의 시작 주소가 특정 정렬 경계를 맞추도록 하기 위함이다. 따라서 실제 RowPitch 값은 기본적인 행 크기보다 클 수 있다.
+* 성능 
+  * CPU에서 자주 업데이트하는 경우에 최적화되어 있으며, GPU와의 동기화 비용이 발생할 수 있다.
+
+### UpdateSubresource 함수
+D3D11_USAGE_DEFAULT 플래그가 설정된 리소스를 업데이트할 때 주로 사용된다. (CPU에서 GPU에 직접 접근이 불가능하다.)
+
+GPU에서 리소스를 사용 중일 때도 안전하게 호출할 수 있다.
+CPU에서 데이터를 GPU로 전송한다.
+성능: 일반적으로 성능이 좋지만, 자주 호출되면 성능이 떨어질 수 있다.
+
+UpdateSubresource 함수는 CPU에서 GPU 메모리로 데이터를 복사하는 데 사용된다. 이 함수는 GPU에서 사용 중인 리소스를 갱신하는 안전하고 효율적인 방법을 제공한다
 
 ## D3D11_VIEWPORT
 D3D11_VIEWPORT는 Direct3D 11에서 `뷰포트(Viewport)`를 정의하는 구조체다. 뷰포트는 렌더링된 이미지가 화면에 그려지는 영역을 지정하며, 3D 장면을 2D 화면 공간으로 변환할 때 사용된다. 뷰포트는 렌더링 파이프라인의 래스터라이저(Rasterizer) 단계에서 중요한 역할을 한다.

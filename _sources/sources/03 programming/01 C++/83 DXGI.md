@@ -120,9 +120,11 @@ typedef struct DXGI_MODE_DESC {
 
 각각의 멤버 변수는 다음과 같다.
 * UINT Width
-  * 화면의 너비(픽셀 단위)
+  * 스왑 체인의 백 버퍼의 너비(픽셀 단위)
+  * 최종 렌더링된 이미지의 너비이다
 * UINT Height
-  * 화면의 높이(픽셀 단위)
+  * 스왑 체인의 백 버퍼의 높이(픽셀 단위)
+  * 최종 렌더링된 이미지의 높이
 * DXGI_RATIONAL RefreshRate
   * 화면의 리프레시율(초당 화면 재생 빈도)
   * DXGI_RATIONAL 구조체는 분자와 분모로 구성된다.
