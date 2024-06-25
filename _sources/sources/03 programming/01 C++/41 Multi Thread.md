@@ -190,7 +190,7 @@ std::invoke(
 그러면 std::invoke 함수는 다음과 같이 인스턴스화가 된다.
 
 ```cpp
-func_ptr(static_cast<int&&>(input1), static_cast<int&&>(input2), static_cast<int&&>(output));
+func_ptr(std::forward<int>(input1), std::forward<int>(input2), std::forward<int>(output));
 ```
 
 결론적으로 input1, input2, output은 각각 int&& 타입으로 전달된다.
@@ -226,7 +226,7 @@ std::invoke(
 그러면 std::invoke 함수는 다음과 같이 인스턴스화가 된다.
 
 ```cpp
-func_ptr(static_cast<int&&>(input1), static_cast<int&&>(input2), static_cast<reference_wraaper<int>&&>(output));
+func_ptr(std::forward<int>(input1), std::forward<int>(input2), std::forward<reference_wraaper<int>>(output));
 ```
 
 결론적으로 input1, input2은 int&& 타입으로 output은 reference_wraaper<int>&& 타입으로 전달된다.
@@ -259,7 +259,7 @@ int main(void)
 
 왜냐하면 t1 thread가 func 함수를 전부 실행하고 종료하기전에 main thread가 main 함수를 끝내버려서 t1의 소멸자가 호출될 수 있고 C++ 표준에 따라 join 되거나 detach 되지 않은 thread의 소멸자가 호출되면 예외가 발생하기 때문이다.
 
-#### join
+그러면 먼저 join 함수에 대해서 알아보자.
 
 join 함수는 생성된 스레드가 완료될 때까지 return되지 않아 호출 스레드를 블록(block)하는 역할을 한다. 또한, thread가 종료되면 join 함수는 thread와 관련된 모든 자원을 회수한다.
 
@@ -307,179 +307,57 @@ int main(void)
 
 위와 같은 코드에서는 t1.join() 함수는 t1 thread가 끝날 떄 까지 return 되지 않음으로 thread in func!이 출력되고 thread in main!이 출력된다.
 
+---
+
+
+process 내에 thread는 stack과 레지스터를 제외한 메모리 영역을 공유한다.
+
+* 왜 multi thread가 필요할까?
+  * 병렬 가능한 (Parallelizable) 작업들의 계산 속도를 높일 수 있다 (i.e. 1~10000까지 더하기)
+  * 대기시간이 긴 작업(인터넷에 자료 긁어오기)을 기다리는 동안 다른 작업을 하여 CPU를 효율적으로 사용할 수 있다.
+
+
+멀티 process 대비 장점
+* 공유 메모리 영역을 통해  thread 간의 통신을 간단히 할 수 있다.
+* thread의 context switching은 기존 thread의 stack만 저장하고 새로운 thread의 stack만 불러오면 되기 때문에  process의 context switching에 비해 overhead가 상대적으로 적다.
+
+싱글 thread 대비 장점
+* process 내의 한 thread가 다른 작업을 수행중이더라도 다른 thread가 사용자의 작업 요구에 응답이 가능하기 때문에 응답성이 향상된다.
+* 다중 CPU를 가진 컴퓨터에서 multi thread를 사용하면 다중 CPU가 process의 각기 다른 thread를 동시에 처리하여 process의 처리 시간이 단축된다.
+
+단점
+* `경쟁 상태(race condition)`가 발생할 수 있다.
+* 하나의 thread에서 발생한 문제가 동일 process 내의 다른 thread로 확산될 수 있다.
+
 > Reference  
 > [modoocode](https://modoocode.com/269)  
-
-#### detach
-detach는 말 그대로 해당 쓰레드를 실행 시킨 후 잊어버리는 것이다.
-
-> Reference  
-> [modoocode](https://modoocode.com/269)  
+> [blog](https://code-lab1.tistory.com/43)  
 
 ### Race condition
 race condition이란 두 개 이상의 프로세스가 공통 자원을 병행적으로(concurrently) 읽거나 쓰는 동작을 할 때, 공용 데이터에 대한 접근이 어떤 순서에 따라 이루어졌는지에 따라 그 실행 결과가 같지 않고 달라지는 상황을 말한다.
 
-예를 들어 다음 코드를 보자.
-
-```cpp
-void counter_worker(int* result)
-{
-  for (int i = 0; i < 100000; ++i)
-    ++(*result);
-}
-
-TEST(multi_thread, counter1)
-{
-  constexpr int num_thread = 4;
-
-  std::vector<std::thread> workers;
-  workers.reserve(num_thread);
-
-  int count = 0;
-  for (int i = 0; i < num_thread; ++i)
-  {
-    workers.push_back(std::thread(counter_worker, &count));
-  }
-
-  for (auto& worker : workers)
-    worker.join();
-
-  constexpr int ref = 400000;
-  //EXPECT_EQ(count, ref);
-  EXPECT_LT(count, ref);
-}
-```
-
-예상대로라면 400000이 되어야 하지만 결과는 400000보다 작은 경우가 종종 생긴다.
-
-왜 이런지 이해하기 위해서는 CPU에서 연산을 어떻게 처리하는지 알아야 한다.
-
-CPU는 연산을 수행하기 위해 register라는 곳에 데이터를 기록한 다음에 연산을 수행한다. 즉, 모든 데이터들은 메모리에 저장되어 있다가 연산할 때 레지스터로 옮겨진 다음 연산을 하고 다시 메모리에 옮겨진다.
-
-관련된 assembly 코드를 보면서 자세히 살펴보자.
-
-```
-00007FF7919DE614  mov         rax,qword ptr [result]  
-00007FF7919DE619  mov         eax,dword ptr [rax]  
-00007FF7919DE61B  inc         eax  
-00007FF7919DE61D  mov         rcx,qword ptr [result]  
-00007FF7919DE622  mov         dword ptr [rcx],eax  
-```
-
-먼저, 첫번째 `mov rax, qword ptr [result]`는 result에 저장된 데이터 8바이트를 rax 레지스터에 저장하는 명령어이다. result에는 변수 count의 주소가 저장되어 있기 때문에, 이제 rax는 count의 주소값을 가지고 있다.
-
-다음으로 `mov eax, dword ptr [rax]`는 rax에 저장된 주소로 가서 저장된 데이터 4바이트를 eax 레지스터에 저장하는 명령어이다. rax에는 count의 주소가 저장되어 있음으로, 이제 eax에는 count의 값이 들어 있다.
-
-다음으로 `inc eax`는 eax 레지스터의 값을 1만큼 증가시키는 명령어이다.
-
-다음 `mov rcx, qword ptr [result]`는 result에 저장된 데이터 8바이트를 rcx 레지스터에 저장하는 명령어이다. result에는 변수 count의 주소가 저장되어 있기 때문에, 이제 rcx는 count의 주소값을 가지고 있다.
-
-다음 `mov dword ptr [rcx], eax`는 eax에 저장된 데이터 4바이트를 rcx 레지스터에 저장된 주소에 저장하는 명령어이다. eax에는 1만큼 증가한 count값이 들어 있고, rcx는 count의 주소값을 가지고 있음으로 count에 1만큼 증가한 count 값을 저장하게 된다.
-
-그러면 이제 왜 이 assembly가 multi thread에서 문제가 될 수 있는지 알아보자.
-
-만약 두개의 thread에서 다음과 같이 실행이 발생했다고 해보자.
-
-```{figure} _image/4104.png
-```
-
-thread1에서 처음 2명령어를 실행했을 때, thread1의 eax 레지스터에는 0값이 들어있다.
-
-다음으로 thread2에서 모든 명령어를 실행한경우 count의 값이 1이 된다.
-
-이후에 다시 thread1에서 나머지 명령어를 실행하면 thread1의 eax 레지스터 값을 1로 만들고 그걸 다시 count에 대입하기 때문에 count의 값이 1이 된다.
-
-즉, 증가 연산이 두 thread에서 발생했지만, count 값은 한번만 증가하게 된다.
-
-물론 위와 같은 상황이 아니라서 count의 값이 두번 증가할 수도 있지만, thread를 어떻게 스케쥴링 할지는 운영체제가 결정함으로 항상 이런 행운을 바랄 수는 없다.
+multi thread의 race condition를 해결하기 위해 `뮤텍스(mutex)` 개념이 사용된다.
 
 > Reference  
+> [blog](https://iredays.tistory.com/125)  
 > [modoocode](https://modoocode.com/270)  
 
-#### 참고
 
-inc 명령은 역참조한 메모리에서 직접 사용할 수 없다. 따라서 다음과 같은 어셈블리 명령어는 불가능하다.
-```
-00007FF7919DE614  mov         rax,qword ptr [result]  
-00007FF7919DE61B  inc         dword ptr [rax]    
-```
 
 ### 뮤텍스(mutex)
-이런 race condition를 해결하기 위해 `뮤텍스(mutex)` 개념이 사용된다.
+mutex 라는 단어는 영어의 상호 배제(mutual exclusion)에서 온 단어로 여러 thread 들이 동시에 어떠한 코드에 접근하는 것을 배제한다는 의미이다.
 
-mutex라는 단어는 영어의 상호 배제(mutual exclusion)에서 온 단어로 여러 thread 들이 동시에 어떠한 코드에 접근하는 것을 배제한다는 의미이다.
+여러 thread가 동시에 코드를 실행하지 못하게 std::mutex 객체에서 lock과 unlock 메서드를 제공한다. 
 
 mutex 객체의 lock method를 호출하면 thread에서 mutex 객체의 사용권한을 요청한것이며 한번의 한 thread만 mutex 객체의 사용권한을 얻을 수 있다. 따라서, 현재 mutex 객체의 사용권한을 얻은 thread가 unlock method로 사용권한을 반환하기 전까지 다른 thread들은 계속 사용권한을 요청한 상태로 대기하게 된다.
 
 즉, lock과 unlock 사이에 코드는 mutex 객체의 사용권한을 얻은 단 하나의 thread만 사용할 수 있으며 이 코드 영역을 `임계 영역(critical section)`이라고 한다.
 
-```cpp
-void counter_worker2(int* result, std::mutex* m)
-{
-  for (int i = 0; i < 100000; ++i)
-  {
-    m->lock();
-    ++(*result);
-    m->unlock();
-  }
-}
-
-TEST(multi_thread, counter2)
-{
-  constexpr int num_thread = 4;
-
-  std::vector<std::thread> workers;
-  workers.reserve(num_thread);
-
-  std::mutex m;
-
-  int count = 0;
-  for (int i = 0; i < num_thread; ++i)
-    workers.push_back(std::thread(counter_worker2, &count, &m));
-
-  for (auto& worker : workers)
-    worker.join();
-
-  constexpr int ref = 400000;
-   EXPECT_EQ(count, ref);
-}
-```
-
-만약, 실수해서 unlock을 하지 않으면 프로그램이 끝나지 않게 된다.
-
-왜냐하면 mutex를 취득한 thread가 unlock을 하지 않았음으로, 다른 모든 thread들은 `m->lock()`에서 권한을 획득받지 못해 return 되지 못한채로 대기하게 된다. 그리고 심지어 mutex를 취득한 thread 또한 `m->lock()`을 다시 호출하게 되고 권한을 획득받지 못해 return 되지 못한채로 대기한다.
-
-결국 모든 쓰레드가 연산을 진행하지 못하고 무한정 대기하여 프로그램이 끝나지 않게 되며 이런 상황을 `데드락(dead lock)`이라고 한다.
-
-반드시 mutex를 lock한 뒤에 반드시 unlock해야 하는 문제를 해결하기 위해, 스택에 있는 객체를 통해 lock과 unlock을 관리하는 c++에서는 `lock_gaurd` 클래스를 제공한다.
-
-```cpp
-void counter_worker3(int* result, std::mutex* m)
-{
-  for (int i = 0; i < 1000000; ++i)
-  {
-    std::lock_guard<std::mutex> lock(*m);
-    ++(*result);
-  }
-}
-```
-
-lock_guard 객체를 생성할 때, `m->lock()`가 실행되고 객체가 소멸될 때, `m->unlock()`이 실행된다고 볼 수 있다.
+`데드락(dead lock)`이란 mutex를 lock하지 못해 모든 스레드들이 연산을 진행하지 못하고 무한정 대기하는 상태이다. 데드락이 발생할 수 있는 상황은 첫번째로 mutex 객체로 lock 메서드를 호출한 후 unlock 하지 않은 경우이다. 이 경우는 std::lock_guard 객체를 사용할 경우 소멸자에서 mutex 객체를 자동으로 unlock하게 하여 해결할 수 있다. 두번째 경우에는 중첩된 lock을 다른 순서로 다른 함수에서 사용할 경우 mutex lock 메서드 호출 후 unlock 메서드를 호출 했음에도 lock이 얽히는 경우이다. 이 경우는 특정 뮤텍스에 우선순위를 주어 해결할 수 있지만 이 경우 특정 스레드만 많은 일을 하게 되는 기아 상태(starvation)이 발생할 수 있다. 따라서 애초에 중첩된 lock을 사용하지 않거나 lock을 언제나 정해진 순서로 획득해야 한다.
 
 > Reference  
 > [modoocode](https://modoocode.com/270)  
 
-### Producer and Consumer Pattern
-`생산자 소비자 패턴(Producer and Consumer Pattern)`은 멀티 쓰레드 프로그램에서 자주 등장하는 패턴이다.
-
-Producer의 경우 무언가 처리할 데이터를 받아오는 쓰레드이고 Consumer의 경우 데이터를 처리하는 쓰레드이다.
-
-예를 들어서 DB에 데이터를 요청해서 가공하는 경우라고 해보자.
-
-그러면 Producer는 DB에 처리할 데이터를 요청하여 받아오는 쓰레드이고 Consumer는 받은 데이터를 처리하는 쓰레드 일 것이다.
-
-> Reference  
-> [modoocode](https://modoocode.com/270)  
 
 ```cpp
 void sum_worker(const std::vector<int>::iterator start, const std::vector<int>::iterator end, int* result)
@@ -523,30 +401,3 @@ TEST(multi_thread, sum1)
   EXPECT_EQ(result, ref);
 }
 ```
-
----
-
-process 내에 thread는 stack과 레지스터를 제외한 메모리 영역을 공유한다.
-
-* 왜 multi thread가 필요할까?
-  * 병렬 가능한 (Parallelizable) 작업들의 계산 속도를 높일 수 있다 (i.e. 1~10000까지 더하기)
-  * 대기시간이 긴 작업(인터넷에 자료 긁어오기)을 기다리는 동안 다른 작업을 하여 CPU를 효율적으로 사용할 수 있다.
-
-
-멀티 process 대비 장점
-* 공유 메모리 영역을 통해  thread 간의 통신을 간단히 할 수 있다.
-* thread의 context switching은 기존 thread의 stack만 저장하고 새로운 thread의 stack만 불러오면 되기 때문에  process의 context switching에 비해 overhead가 상대적으로 적다.
-
-싱글 thread 대비 장점
-* process 내의 한 thread가 다른 작업을 수행중이더라도 다른 thread가 사용자의 작업 요구에 응답이 가능하기 때문에 응답성이 향상된다.
-* 다중 CPU를 가진 컴퓨터에서 multi thread를 사용하면 다중 CPU가 process의 각기 다른 thread를 동시에 처리하여 process의 처리 시간이 단축된다.
-
-단점
-* `경쟁 상태(race condition)`가 발생할 수 있다.
-* 하나의 thread에서 발생한 문제가 동일 process 내의 다른 thread로 확산될 수 있다.
-
-> Reference  
-> [modoocode](https://modoocode.com/269)  
-> [blog](https://code-lab1.tistory.com/43)  
-
-중첩된 lock을 다른 순서로 다른 함수에서 사용할 경우 mutex lock 메서드 호출 후 unlock 메서드를 호출 했음에도 lock이 얽히는 경우 데드락이 발생한다. 이 경우는 특정 뮤텍스에 우선순위를 주어 해결할 수 있지만 이 경우 특정 스레드만 많은 일을 하게 되는 기아 상태(starvation)이 발생할 수 있다. 따라서 애초에 중첩된 lock을 사용하지 않거나 lock을 언제나 정해진 순서로 획득해야 한다.
