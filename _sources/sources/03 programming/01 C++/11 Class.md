@@ -472,13 +472,171 @@ public:
 
 protected acess는 `B` class가 가지고 있는 `A`class 객체에만 적용된다.
 
-새롭게 생성한 `a` 객체는 
-
-
-The protected access only applies to parent members of your own current object type. You don't get public access to the protected members of other objects of the parent type.
+새롭게 생성한 `a` 객체의 protected 함수 및 변수에는 접근할 수 없다.
 
 > Reference  
 > [stackoverflow](https://stackoverflow.com/questions/24636234/access-to-protected-constructor-of-base-class)  
+
+### 다중상속 Memory Layout
+
+다음과 같은 상속 구조가 있다고 하자.
+```cpp
+class Base1 {
+  virtual void f1(void) {};
+public:
+  int value1 = 1;
+};
+
+class Base2 {
+  virtual void f2(void){};
+public:
+  int value2 = 2;
+};
+
+class Base3 {
+public:
+  int value3 = 3;
+};
+
+class Derive : public Base1, public Base2, public Base3 {
+public:
+  int valued = 0;
+};
+```
+
+이 떄, Derive 객체의 메모리 레이아웃은 다음과 같다.
+
+```
+------------------------------------------------------------------------------------------------------------------
+| Base1::vptr | Base1::value1 | Padding | Base2::vptr | Base2::value2 | Padding | Base3::value3 | Derive::valued |
+------------------------------------------------------------------------------------------------------------------
+  8 bytes         4 bytes       4 bytes    8 bytes        4 bytes       4 bytes    4 bytes          4 bytes
+
+```
+
+참고로, Base1과 Base2에는 가상함수 포인터 때문에 struct memory padding이 발생한다.
+
+이를 다음 코드로 확인할 수 있다.
+```cpp
+  std::cout << "size of Base1 " << sizeof(Base1) << std::endl;
+  std::cout << "size of Base2 " << sizeof(Base2) << std::endl;
+  std::cout << "size of Base3 " << sizeof(Base3) << std::endl;
+  std::cout << "size of Derive " << sizeof(Derive) << std::endl;
+
+  Derive  d;
+  Derive* pd  = &d;
+  Base1*  pb1 = static_cast<Base1*>(pd);
+  Base2*  pb2 = static_cast<Base2*>(pd);
+  Base3*  pb3 = static_cast<Base3*>(pd);
+
+  std::cout << pd << std::endl;
+  std::cout << pb1 << std::endl;
+  std::cout << pb2 << std::endl;
+  std::cout << pb3 << std::endl;
+  std::cout << &d.valued << std::endl;
+```
+
+### 다중상속에서 this pointer
+다음과 같은 상속 구조가 있다고 하자.
+
+```cpp
+class Base1 {
+public:
+  virtual void vf1(void) { std::cout << "vf1 this " << this << std::endl; };
+  void         f1(void) { std::cout << "f1 this " << this << std::endl; };
+
+public:
+  int value1 = 1;
+};
+
+class Base2 {
+public:
+  virtual void vf2(void) { std::cout << "vf2 this " << this << std::endl; };
+  void         f2(void) { std::cout << "f2 this " << this << std::endl; };
+
+public:
+  int value2 = 2;
+};
+
+class Base3 {
+public:
+  void f3(void) { std::cout << "f3 this " << this << std::endl; };
+
+public:
+  int value3 = 3;
+};
+
+class Derive : public Base1, public Base2, public Base3 {
+public:
+  void fd(void) { std::cout << "fd this " << this << std::endl; };
+
+public:
+  int valued = 0;
+};
+```
+
+이 때, this 값을 비교해보면 다음과 같다.
+
+```
+-------------------------------------------------
+| Base1 this = D this | Base2 this | Base3 this |
+-------------------------------------------------
+ 0bytes           		16 bytes     32 bytes
+```
+
+따라서, 실제로 함수를 호출하기 전에 this 값을 조정하는 어셈블리가 작성이 된다.
+
+```cpp
+  Derive d;
+  std::cout << &d << std::endl;
+
+  d.vf1();
+  d.vf2();
+  d.f1();
+  d.f2();
+  d.f3();
+  d.fd();
+
+  return 0;
+```
+
+```cpp
+  d.vf1();
+00007FF615E229B2  lea         rcx,[d]  
+00007FF615E229B6  call        Base1::vf1 (07FF615E214B0h)  
+  d.vf2();
+00007FF615E229BB  lea         rax,[rbp+18h]  
+00007FF615E229BF  mov         rcx,rax  
+00007FF615E229C2  call        Base2::vf2 (07FF615E214D8h)  
+  d.f1();
+00007FF615E229C7  lea         rcx,[d]  
+00007FF615E229CB  call        Base1::f1 (07FF615E214BFh)  
+  d.f2();
+00007FF615E229D0  lea         rax,[rbp+18h]  
+00007FF615E229D4  mov         rcx,rax  
+00007FF615E229D7  call        Base2::f2 (07FF615E214D3h)  
+  d.f3();
+00007FF615E229DC  lea         rax,[rbp+28h]  
+00007FF615E229E0  mov         rcx,rax  
+00007FF615E229E3  call        Base3::f3 (07FF615E214C4h)  
+  d.fd();
+00007FF615E229E8  lea         rcx,[d]  
+00007FF615E229EC  call        Derive::fd (07FF615E214DDh)
+```
+
+`vf1`, `f1`, `fd`와 같은 함수를 호출하기 전에는 `lea rcx,[d]` 어셈블리가 작성이 된다.
+
+이는 rcx 레지스터에 d 변수의 메모리 주소를 저장하라는 명령어이다.
+
+그리고 rcx 레지스터는 해당 객체의 주소를 this 전달하기 위해 사용하는 레지스터이다.
+
+즉, this의 주소로 d 변수의 메모리 주소를 쓴다는 의미가 된다.
+
+하지만 vf2, f2의 경우에는 `lea rax,[rbp+18h]` 후 `mov rcx,rax` 어셈블리가 작성된다.
+
+이는 rax 레지스터에 
+
+
 
 ## Friend Class
 

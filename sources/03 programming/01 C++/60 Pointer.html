@@ -491,8 +491,25 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="70%20Performance.html">Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="80%20Google%20Benchmark.html">Google Benchmark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="81%20DirectX.html">DirectX</a></li>
-<li class="toctree-l2"><a class="reference internal" href="82%20Direc3D%2011%20API.html">Direc3D 11 API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="83%20DXGI.html">DirectX Graphics Infrastructure</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="82%20Direct3D11%20API/Direct3D11%20API.html">Direct3D 11 API</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/01%20ID3D11Device.html">ID3D11Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/02%20ID3D11DeviceContext.html">ID3D11DeviceContext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/03%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/04%20ID3D11Texture2D.html">ID3D11Texture2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/05%20D3D11_VIEWPORT.html">D3D11_VIEWPORT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/06%20D3D11_MAPPED_SUBRESOURCE.html">D3D11_MAPPED_SUBRESOURCE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/07%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/08%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/09%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="83%20DXGI/DXGI.html">DirectX Graphics Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/01%20IDXGIDevice.html">IDXGIDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/02%20IDXGIFactory.html">IDXGIFactory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/03%20IDXGIAdapter.html">IDXGIAdapter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/04%20IDXGISwapChain.html">IDXGISwapChain</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="99%20Miscelleneous.html">Miscellaneous</a></li>
 </ul>
 </li>
@@ -663,6 +680,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pointer-type-hierarchy">Pointer Type Hierarchy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pointer-as-function-input-argument">Pointer as Function Input Argument</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Pointer끼리 대입연산</a></li>
 </ul>
             </nav>
@@ -677,6 +696,93 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="pointer">
 <h1>Pointer<a class="headerlink" href="#pointer" title="Permalink to this heading">#</a></h1>
+<section id="pointer-type-hierarchy">
+<h2>Pointer Type Hierarchy<a class="headerlink" href="#pointer-type-hierarchy" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">T*</span> <span class="pre">u</span></code>의 타입은 pointer to T이다.</p>
+<p>이 때, 타입은 2개의 계층으로 이루어져 있으며 첫번째 계층은 pointer 그리고 두번째 계층은 T이다.</p>
+<p>그리고 C++에서는 cv-qualifier가 다른 계층에 각각 나타날 수 있다.</p>
+<p>예를 들어 <code class="docutils literal notranslate"><span class="pre">T*</span> <span class="pre">const</span> <span class="pre">u</span></code>의 타입은 const pointer to T이다. 즉, 여기서는 첫번째 계층에서 cv-qualifer가 나타난 경우이다.</p>
+<p>그리고 <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T*</span> <span class="pre">u</span></code>의 타입은 pointer to const T이다. 즉, 여기서는 두번째 계층에 cv-qualifier가 나타난 경우이다.</p>
+<p>그리고 reference는 top-level cv-qualifiers를 갖지 않는다.(<a class="reference external" href="https://eel.is/c++draft/basic.type.qualifier">standard</a>, <a class="reference external" href="https://en.cppreference.com/w/cpp/language/reference">cppreference</a>)</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="http://www.dansaks.com/articles/2000-02%20Top-Level%20cv-Qualifiers%20in%20Function%20Parameters.pdf">Dan saks - Top-Level cv-Qualifiers in Function Parameters</a><br />
+<a class="reference external" href="https://stackoverflow.com/questions/24676824/where-is-the-definition-of-top-level-cv-qualifiers-in-the-c11-standard">stackoverflow - where-is-the-definition-of-top-level-cv-qualifiers-in-the-c11-standard</a><br />
+<a class="reference external" href="https://blog.knatten.org/2023/03/17/references-dont-have-top-level-cv-qualifiers/">blog - references-dont-have-top-level-cv-qualifiers</a>
+<a class="reference external" href="https://eel.is/c++draft/basic.type.qualifier">standard - basic.type.qualifier</a><br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/reference">cpprefenrece - reference</a></p>
+</div></blockquote>
+</section>
+<section id="pointer-as-function-input-argument">
+<h2>Pointer as Function Input Argument<a class="headerlink" href="#pointer-as-function-input-argument" title="Permalink to this heading">#</a></h2>
+<p>Pointer를 함수에 input으로 주었을 때, 함수 내부에 변화가 반영이 된다고 햇갈리지 않게 조심해야 한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">input_ptr</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">new_ptr</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">A</span><span class="p">();</span>
+<span class="w">  </span><span class="n">input_ptr</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="n">new_ptr</span><span class="p">;</span>
+<span class="w">  </span><span class="n">input_ptr</span><span class="o">-&gt;</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">  </span><span class="n">func</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr</span><span class="o">-&gt;</span><span class="n">val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="c1">// nullptr read access error!</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>위 예시의 경우에는 <code class="docutils literal notranslate"><span class="pre">func</span></code>이 호출된 이후에도 ptr은 계속 nullptr이기 때문에 읽기 위반 오류가 발생한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">func</span></code>에 인자로 주어진 ptr과 <code class="docutils literal notranslate"><span class="pre">func</span></code> 내부에 정의된 input_ptr은 다른 pointer이다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">func</span></code> 내부에 정의된 input_ptr은 ptr을 복사해서 만든 다른 pointer일 뿐이다.</p>
+<p>따라서, input_ptr에 new_ptr을 대입하여도, ptr은 여전히 nullptr이고 그래서 읽기 위반 오류가 발생하는 것이다.</p>
+<p>이를 해결하려면 이중포인터나, 레퍼런스를 활용하면 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">func_ref</span><span class="p">(</span><span class="n">A</span><span class="o">*&amp;</span><span class="w"> </span><span class="n">input_ptr</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">new_ptr</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">A</span><span class="p">();</span>
+<span class="w">  </span><span class="n">input_ptr</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="n">new_ptr</span><span class="p">;</span>
+<span class="w">  </span><span class="n">input_ptr</span><span class="o">-&gt;</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">func_pptr</span><span class="p">(</span><span class="n">A</span><span class="o">**</span><span class="w"> </span><span class="n">input_ptr</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">new_ptr</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">A</span><span class="p">();</span>
+<span class="w">  </span><span class="o">*</span><span class="n">input_ptr</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">new_ptr</span><span class="p">;</span>
+<span class="w">  </span><span class="p">(</span><span class="o">*</span><span class="n">input_ptr</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">  </span><span class="n">func_ref</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr</span><span class="o">-&gt;</span><span class="n">val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">ptr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">  </span><span class="n">func_pptr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ptr2</span><span class="p">);</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr2</span><span class="o">-&gt;</span><span class="n">val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
 <section id="id1">
 <h2>Pointer끼리 대입연산<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>Pointer끼리 대입연산을 하면 다른 포인터가 가르키는 주소값을 가지게 된다.</p>
@@ -769,6 +875,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pointer-type-hierarchy">Pointer Type Hierarchy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pointer-as-function-input-argument">Pointer as Function Input Argument</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Pointer끼리 대입연산</a></li>
 </ul>
   </nav></div>

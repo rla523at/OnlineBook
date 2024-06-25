@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Miscellaneous &#8212; MS Study Book</title>
   
@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Procedural Programming" href="../1%20OOP.html" />
-    <link rel="prev" title="Google Benchmark" href="80%20Google%20Benchmark.html" />
+    <link rel="prev" title="IDXGISwapChain" href="83%20DXGI/04%20IDXGISwapChain.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -487,8 +487,29 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="57%20Initialization.html">initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="58%20Keyword.html">Keyword</a></li>
 <li class="toctree-l2"><a class="reference internal" href="59%20Type%20Casting.html">Type Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="60%20Pointer.html">Pointer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="70%20Performance.html">Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="80%20Google%20Benchmark.html">Google Benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="81%20DirectX.html">DirectX</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="82%20Direct3D11%20API/Direct3D11%20API.html">Direct3D 11 API</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/01%20ID3D11Device.html">ID3D11Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/02%20ID3D11DeviceContext.html">ID3D11DeviceContext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/03%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/04%20ID3D11Texture2D.html">ID3D11Texture2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/05%20D3D11_VIEWPORT.html">D3D11_VIEWPORT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/06%20D3D11_MAPPED_SUBRESOURCE.html">D3D11_MAPPED_SUBRESOURCE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/07%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/08%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/09%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="83%20DXGI/DXGI.html">DirectX Graphics Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/01%20IDXGIDevice.html">IDXGIDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/02%20IDXGIFactory.html">IDXGIFactory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/03%20IDXGIAdapter.html">IDXGIAdapter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/04%20IDXGISwapChain.html">IDXGISwapChain</a></li>
+</ul>
+</li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Miscellaneous</a></li>
 </ul>
 </li>
@@ -659,6 +680,20 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#com">COM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comptr">ComPtr</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#as">As</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reset">Reset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getaddressof">GetAddressOf</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">주의</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operator">operator&amp;</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#internalrelease">InternalRelease</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#releaseandgetaddressof">ReleaseAndGetAddressOf</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comptrref">ComPtrRef</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wndclassex">WNDCLASSEX 구조체</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cbsize">cbSize</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#style">style</a><ul class="nav section-nav flex-column">
@@ -683,18 +718,20 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#showwindow">ShowWindow 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#updatewindow">UpdateWindow 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#message-loop">Message Loop</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">메시지 정보를 담는 구조체</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">메시지 큐에서 메시지를 가져오는 함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">메시지 정보를 담는 구조체</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">메시지 큐에서 메시지를 가져오는 함수</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#getmessage">GetMessage</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#peekmessage">PeekMessage</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">키보드 메시지를 변환해서 텍스트 입력을 처리하는 함수</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">메시지를 윈도우 프로시저로 전달하는 함수</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">키보드 메시지를 변환해서 텍스트 입력을 처리하는 함수</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">메시지를 윈도우 프로시저로 전달하는 함수</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-typename">Checking TypeName</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterator">Iterator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bool-1-1-8">bool은 왜 1비트가 아니라 1바이트(8비트)일까?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#union">클래스 내부 또는 구조체 내부에서 익명 union 사용</a></li>
 </ul>
             </nav>
         </div>
@@ -708,6 +745,181 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="miscellaneous">
 <h1>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this heading">#</a></h1>
+<section id="com">
+<h2>COM<a class="headerlink" href="#com" title="Permalink to this heading">#</a></h2>
+<p>COM은 Component Object Model은 마이크로소프트가 개발한 인터페이스 기반의 객체지향 기술로, 소프트웨어 컴포넌트 간의 상호작용을 가능하게 한다. COM은 다양한 프로그래밍 언어와 환경에서 사용할 수 있는 바이너리 표준을 제공하여, 재사용 가능한 소프트웨어 컴포넌트를 쉽게 만들고 사용할 수 있게 한다.</p>
+<p>COM은 인터페이스를 통해 객체와 상호작용한다. 인터페이스는 순수 가상 함수만을 포함하는 추상 클래스이다. 모든 COM 인터페이스는 IUnknown 인터페이스를 상속받으며 IUnknown 인터페이스는 참조 카운팅과 인터페이스 쿼리를 위한 세 가지 메서드(QueryInterface, AddRef, Release)를 정의한다.</p>
+<p>AddRef, Release 메서드는 COM 객체의 참조 카운팅을 관리하는데 사용된다. COM 객체는 참조 카운팅을 사용하여 객체의 생명 주기를 관리하는데 AddRef 메서드는 참조 카운트를 증가시키고, Release 메서드는 참조 카운트를 감소시킨다. 참조 카운트가 0이 되면 객체가 메모리에서 해제된다.</p>
+<p>QueryInterface 메서드는 객체가 지원하는 다른 인터페이스로의 포인터를 요청하는 데 사용된다. 이 메서드는 인터페이스 식별자를 사용하여 요청된 인터페이스가 객체에서 지원되는지 확인하고, 지원되는 경우 해당 인터페이스 포인터를 반환한다.</p>
+<p>COM 클래스의 간단한 예제는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Windows.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;combaseapi.h&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyCOMObject</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">IUnknown</span><span class="w"> </span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">LONG</span><span class="w"> </span><span class="n">refCount</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">MyCOMObject</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">refCount</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="n">HRESULT</span><span class="w"> </span><span class="kr">__stdcall</span><span class="w"> </span><span class="n">QueryInterface</span><span class="p">(</span><span class="n">REFIID</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="n">ppvObject</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">IID_IUnknown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="o">*</span><span class="n">ppvObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">IUnknown</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">            </span><span class="n">AddRef</span><span class="p">();</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">S_OK</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="o">*</span><span class="n">ppvObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">E_NOINTERFACE</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">ULONG</span><span class="w"> </span><span class="kr">__stdcall</span><span class="w"> </span><span class="n">AddRef</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">InterlockedIncrement</span><span class="p">(</span><span class="o">&amp;</span><span class="n">refCount</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">ULONG</span><span class="w"> </span><span class="kr">__stdcall</span><span class="w"> </span><span class="n">Release</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ULONG</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InterlockedDecrement</span><span class="p">(</span><span class="o">&amp;</span><span class="n">refCount</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">delete</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="comptr">
+<h2>ComPtr<a class="headerlink" href="#comptr" title="Permalink to this heading">#</a></h2>
+<p>ComPtr는 COM 객체를 관리하는 데 사용되는 스마트 포인터로, 참조 카운팅을 자동으로 관리하여 메모리 누수를 방지한다. Microsoft의 Windows Runtime Library (WRL) 또는 C++/WinRT와 함께 제공된다. ComPtr은 COM 객체 포인터의 수명 주기를 관리하여, 객체의 수동 해제와 참조 카운팅을 자동화한다.</p>
+<section id="as">
+<h3>As<a class="headerlink" href="#as" title="Permalink to this heading">#</a></h3>
+<p>ComPtr는 As 메서드를 통해 쉽게 다른 인터페이스로의 포인터를 요청할 수 있는 메서드를 제공한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">As</span><span class="p">(</span><span class="n">_Inout_</span><span class="w"> </span><span class="n">Details</span><span class="o">::</span><span class="n">ComPtrRef</span><span class="o">&lt;</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">throw</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ptr_</span><span class="o">-&gt;</span><span class="n">QueryInterface</span><span class="p">(</span><span class="n">__uuidof</span><span class="p">(</span><span class="n">U</span><span class="p">),</span><span class="w"> </span><span class="n">p</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>다음 예제를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;wrl.h&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">Microsoft</span><span class="o">::</span><span class="nn">WRL</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">UseComObject</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ComPtr를 사용하여 COM 객체 생성 및 관리</span>
+<span class="w">    </span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">MyCOMObject</span><span class="o">&gt;</span><span class="w"> </span><span class="n">spMyCOMObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Make</span><span class="o">&lt;</span><span class="n">MyCOMObject</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// 다른 인터페이스로의 포인터 요청</span>
+<span class="w">    </span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IUnknown</span><span class="o">&gt;</span><span class="w"> </span><span class="n">spUnknown</span><span class="p">;</span>
+<span class="w">    </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">hr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spMyCOMObject</span><span class="p">.</span><span class="n">As</span><span class="p">(</span><span class="o">&amp;</span><span class="n">spUnknown</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">SUCCEEDED</span><span class="p">(</span><span class="n">hr</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// spUnknown를 통해 IUnknown 인터페이스에 접근 가능</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// spMyCOMObject와 spUnknown는 범위를 벗어날 때 자동으로 Release 호출</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">HRESULT</span> <span class="pre">hr</span> <span class="pre">=</span> <span class="pre">spMyCOMObject.As(&amp;spUnknown);</span></code>를 통해 spUnknown이 spMyCOMObject의 값을 가지게 된다. 즉, spUnknown은 spMyCOMObject이 가르키고 있는 주소값을 가지게 된다.</p>
+</section>
+<section id="reset">
+<h3>Reset<a class="headerlink" href="#reset" title="Permalink to this heading">#</a></h3>
+<p>Reset 메서드는 ComPtr이 현재 가리키고 있는 인터페이스 포인터를 해제하고, ComPtr을 초기화된 상태로 만드는 함수이다.</p>
+</section>
+<section id="getaddressof">
+<h3>GetAddressOf<a class="headerlink" href="#getaddressof" title="Permalink to this heading">#</a></h3>
+<p>GetAddressOf 메서드는 ComPtr 객체가 관리하는 포인터의 주소를 반환하는 함수이다.</p>
+<p>함수의 정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">**</span><span class="w"> </span><span class="nf">GetAddressOf</span><span class="p">()</span><span class="w"> </span><span class="k">throw</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ptr_</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>T pointer의 주소를 반환해야 함으로, 리턴 타입은 T pointer의 pointer로 이중 포인터가 된다.</p>
+<p>다음 예제를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;wrl.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;d3d11.h&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">Microsoft</span><span class="o">::</span><span class="nn">WRL</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">ID3D11Device</span><span class="o">&gt;</span><span class="w"> </span><span class="n">spDevice</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">spDevice</span><span class="p">.</span><span class="n">Get</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">spDevice</span><span class="p">.</span><span class="n">GetAddressOf</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>첫번째 출력에서는 ComPtr 객체가 관리하는 내부 포인터(ptr_)의 값이 출력된다. 초기 상태에서는 nullptr이므로 0000000000000000이 출력된다.</p>
+<p>그리고 두번재 출력에서는 ComPtr 객체가 관리하는 내부 포인터(ptr_)의 주소가 출력된다.</p>
+<section id="id1">
+<h4>주의<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="w"> </span><span class="o">**&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">spDevice</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>위 코드로도 ComPtr 객체가 관리하는 내부 포인터(ptr_)의 주소를 출력할 수 있다.</p>
+<p>그러나 &amp;spDevice의 결과인 ComPtrRef 객체는 내부적으로 void** 타입으로 형변환 할 때, pointer를 통해 <code class="docutils literal notranslate"><span class="pre">ReleaseAndGetAddressOf</span></code> 메서드를 호출하고 그 결과 ComPtr 객체가 관리하는 내부 포인터가 nullptr이 된다.</p>
+<p>위의 예제에서는 애초에 nullptr이라 문제가 없지만, 아닌 경우에는 위와 같은 형변환을 조심해야 한다.</p>
+</section>
+</section>
+<section id="operator">
+<h3>operator&amp;<a class="headerlink" href="#operator" title="Permalink to this heading">#</a></h3>
+<p>ComPtr에는 ComPtrRef 객체를 return하는 주소변환 연산자가 정의되어 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">Details</span><span class="o">::</span><span class="n">ComPtrRef</span><span class="o">&lt;</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="k">operator</span><span class="o">&amp;</span><span class="p">()</span><span class="w"> </span><span class="k">throw</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Details</span><span class="o">::</span><span class="n">ComPtrRef</span><span class="o">&lt;</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="internalrelease">
+<h3>InternalRelease<a class="headerlink" href="#internalrelease" title="Permalink to this heading">#</a></h3>
+<p>InternalRelease 메서드는 ComPtr이 관리하는 포인터가 가르키는 주소를 nullptr로 만들고 포인터가 원래 가르키던 주소를 return한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">InternalRelease</span><span class="p">()</span><span class="w"> </span><span class="k">throw</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr_</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">temp</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">ptr_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">            </span><span class="n">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">Release</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ref</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="releaseandgetaddressof">
+<h3>ReleaseAndGetAddressOf<a class="headerlink" href="#releaseandgetaddressof" title="Permalink to this heading">#</a></h3>
+<p>ReleaseAndGetAddressOf 메서드는 ComPtr이 관리하는 포인터가 가르키는 주소를 nullptr로 만들고 포인터의 주소를 return한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">T</span><span class="o">**</span><span class="w"> </span><span class="nf">ReleaseAndGetAddressOf</span><span class="p">()</span><span class="w"> </span><span class="k">throw</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">InternalRelease</span><span class="p">();</span><span class="w"> </span><span class="c1">// ptr_ = nullptr이 된다.</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ptr_</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="comptrref">
+<h2>ComPtrRef<a class="headerlink" href="#comptrref" title="Permalink to this heading">#</a></h2>
+<p>ComPtrRef에는 void**으로의 형변환 연산자가 정의되어 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">return</span><span class="w"> </span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">**&gt;</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">ptr_</span><span class="o">-&gt;</span><span class="n">ReleaseAndGetAddressOf</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>이는 내부적으로 ComPtr 객체의 <code class="docutils literal notranslate"><span class="pre">ReleaseAndGetAddressOf</span></code> 메서드를 호출한다.</p>
+<blockquote>
+<div><p>REFERENCE<br />
+<a class="reference external" href="https://github.com/Microsoft/DirectXTK/wiki/ComPtr">GITHUB - ComPtr</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/cpp/cppcx/wrl/comptr-class?view=msvc-170">MSDN - ComPtr class</a></p>
+</div></blockquote>
+</section>
 <section id="wndclassex">
 <h2>WNDCLASSEX 구조체<a class="headerlink" href="#wndclassex" title="Permalink to this heading">#</a></h2>
 <p>WNDCLASSEX 구조체는 Windows API에서 윈도우 클래스를 정의하는 데 사용되는 구조체로, 윈도우 클래스의 속성을 지정하여 그에 맞는 윈도우를 생성할 수 있게 한다.</p>
@@ -989,8 +1201,8 @@ document.write(`
 <li><p>키보드 메시지를 변환해서 텍스트 입력을 처리하는 함수</p></li>
 <li><p>메시지를 윈도우 프로시저로 전달하는 함수</p></li>
 </ul>
-<section id="id1">
-<h3>메시지 정보를 담는 구조체<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<section id="id2">
+<h3>메시지 정보를 담는 구조체<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>메시지 정보를 담는 구조체는 MSG 구조체로 Windows API에서 사용되는 구조체다.</p>
 <p>MSG 구조체의 정의는 다음과 같다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">tagMSG</span><span class="w"> </span><span class="p">{</span>
@@ -1054,8 +1266,8 @@ document.write(`
 </li>
 </ul>
 </section>
-<section id="id2">
-<h3>메시지 큐에서 메시지를 가져오는 함수<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<section id="id3">
+<h3>메시지 큐에서 메시지를 가져오는 함수<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>메시지 큐에서 메시지를 가져오는 함수로는 GetMessage와 PeekMessage 함수가 있다.</p>
 <p>두 함수 모두 Windows 애플리케이션에서 메시지 루프를 구현하는 데 사용되지만, 동작 방식과 사용 목적에 따라 차이가 있다.</p>
 <section id="getmessage">
@@ -1186,8 +1398,8 @@ document.write(`
 <p>따라서, PeekMessage는 게임이나 애니메이션, 멀티미디어 애플리케이션 등에서 사용된다. 예를 들어, 게임에서는 프레임을 계속해서 그려야 하므로 PeekMessage를 사용하여 메시지가 없는 동안에도 게임 로직을 처리할 수 있다.</p>
 </section>
 </section>
-<section id="id3">
-<h3>키보드 메시지를 변환해서 텍스트 입력을 처리하는 함수<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<section id="id4">
+<h3>키보드 메시지를 변환해서 텍스트 입력을 처리하는 함수<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>TranslateMessage 함수는 Windows 애플리케이션에서 키보드 입력 메시지를 해석하여 문자 메시지로 변환하는 역할을 한다. 이 함수는 키보드 이벤트를 처리할 때, 키보드로 입력된 메시지를 더 높은 수준의 문자 메시지로 변환하여 애플리케이션이 더 쉽게 처리할 수 있도록 도와준다.</p>
 <p>함수의 시그니쳐는 다음과 같다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BOOL</span><span class="w"> </span><span class="nf">TranslateMessage</span><span class="p">(</span>
@@ -1206,8 +1418,8 @@ document.write(`
 <li><p>윈도우 프로시저는 WM_CHAR 메시지를 처리하여 사용자 입력을 적절히 반영한다.</p></li>
 </ul>
 </section>
-<section id="id4">
-<h3>메시지를 윈도우 프로시저로 전달하는 함수<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<section id="id5">
+<h3>메시지를 윈도우 프로시저로 전달하는 함수<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <p>DispatchMessage 함수는 Windows 애플리케이션에서 메시지 큐에 있는 메시지를 해당 윈도우의 윈도우 프로시저로 전달하는 역할을 한다.</p>
 <p>이 함수는 GetMessage나 PeekMessage 함수를 통해 얻은 메시지를 처리하는 데 사용된다.</p>
 <p>함수의 시그니쳐는 다음과같다.</p>
@@ -1242,6 +1454,62 @@ document.write(`
 <a class="reference external" href="https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp">blog</a></p>
 </div></blockquote>
 </section>
+<section id="bool-1-1-8">
+<h2>bool은 왜 1비트가 아니라 1바이트(8비트)일까?<a class="headerlink" href="#bool-1-1-8" title="Permalink to this heading">#</a></h2>
+<p>왜냐하면, 모든 C++ value는 주소값을 가질 수 있어야 하고, 주소는 1바이트를 차지하기 때문에 value의 최소 사이즈는 1바이트이다.</p>
+<blockquote>
+<div><p>REFERENCE<br />
+<a class="reference external" href="https://stackoverflow.com/questions/2064550/c-why-bool-is-8-bits-long">STACKOVERFLOW</a></p>
+</div></blockquote>
+</section>
+<section id="union">
+<h2>클래스 내부 또는 구조체 내부에서 익명 union 사용<a class="headerlink" href="#union" title="Permalink to this heading">#</a></h2>
+<p>클래스 또는 구조체 내부 익명 union이 있는 경우 일반적인 멤버 변수처럼 사용할 수 있기 때문에 오히려 익명으로 사용하는 것이 편리하다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">A</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">union</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">number</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">chracter</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">chracter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>익명이 아니면 다음과 같이 사용해야 한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">A</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">union</span><span class="w"> </span><span class="nc">B</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">number</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">chracter</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">chracter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1275,12 +1543,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="80%20Google%20Benchmark.html"
+       href="83%20DXGI/04%20IDXGISwapChain.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Google Benchmark</p>
+        <p class="prev-next-title">IDXGISwapChain</p>
       </div>
     </a>
     <a class="right-next"
@@ -1307,6 +1575,20 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#com">COM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comptr">ComPtr</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#as">As</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reset">Reset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getaddressof">GetAddressOf</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">주의</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operator">operator&amp;</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#internalrelease">InternalRelease</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#releaseandgetaddressof">ReleaseAndGetAddressOf</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comptrref">ComPtrRef</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wndclassex">WNDCLASSEX 구조체</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cbsize">cbSize</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#style">style</a><ul class="nav section-nav flex-column">
@@ -1331,18 +1613,20 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#showwindow">ShowWindow 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#updatewindow">UpdateWindow 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#message-loop">Message Loop</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">메시지 정보를 담는 구조체</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">메시지 큐에서 메시지를 가져오는 함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">메시지 정보를 담는 구조체</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">메시지 큐에서 메시지를 가져오는 함수</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#getmessage">GetMessage</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#peekmessage">PeekMessage</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">키보드 메시지를 변환해서 텍스트 입력을 처리하는 함수</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">메시지를 윈도우 프로시저로 전달하는 함수</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">키보드 메시지를 변환해서 텍스트 입력을 처리하는 함수</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">메시지를 윈도우 프로시저로 전달하는 함수</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-typename">Checking TypeName</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterator">Iterator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bool-1-1-8">bool은 왜 1비트가 아니라 1바이트(8비트)일까?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#union">클래스 내부 또는 구조체 내부에서 익명 union 사용</a></li>
 </ul>
   </nav></div>
 

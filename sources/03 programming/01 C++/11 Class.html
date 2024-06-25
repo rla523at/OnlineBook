@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Class &#8212; MS Study Book</title>
   
@@ -487,6 +487,29 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="57%20Initialization.html">initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="58%20Keyword.html">Keyword</a></li>
 <li class="toctree-l2"><a class="reference internal" href="59%20Type%20Casting.html">Type Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="60%20Pointer.html">Pointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="70%20Performance.html">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="80%20Google%20Benchmark.html">Google Benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="81%20DirectX.html">DirectX</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="82%20Direct3D11%20API/Direct3D11%20API.html">Direct3D 11 API</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/01%20ID3D11Device.html">ID3D11Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/02%20ID3D11DeviceContext.html">ID3D11DeviceContext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/03%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/04%20ID3D11Texture2D.html">ID3D11Texture2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/05%20D3D11_VIEWPORT.html">D3D11_VIEWPORT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/06%20D3D11_MAPPED_SUBRESOURCE.html">D3D11_MAPPED_SUBRESOURCE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/07%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/08%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/09%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="83%20DXGI/DXGI.html">DirectX Graphics Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/01%20IDXGIDevice.html">IDXGIDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/02%20IDXGIFactory.html">IDXGIFactory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/03%20IDXGIAdapter.html">IDXGIAdapter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/04%20IDXGISwapChain.html">IDXGISwapChain</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="99%20Miscelleneous.html">Miscellaneous</a></li>
 </ul>
 </li>
@@ -676,6 +699,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">부모클래스 매서드 숨김 문제</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derive">Derive 클래스의 복사</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#protected-member">부모 클래스의 protected member 함수</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-layout">다중상속 Memory Layout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#this-pointer">다중상속에서 this pointer</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#friend-class">Friend Class</a><ul class="nav section-nav flex-column">
@@ -1138,12 +1163,155 @@ document.write(`
 </pre></div>
 </div>
 <p>protected acess는 <code class="docutils literal notranslate"><span class="pre">B</span></code> class가 가지고 있는 <code class="docutils literal notranslate"><span class="pre">A</span></code>class 객체에만 적용된다.</p>
-<p>새롭게 생성한 <code class="docutils literal notranslate"><span class="pre">a</span></code> 객체는</p>
-<p>The protected access only applies to parent members of your own current object type. You don’t get public access to the protected members of other objects of the parent type.</p>
+<p>새롭게 생성한 <code class="docutils literal notranslate"><span class="pre">a</span></code> 객체의 protected 함수 및 변수에는 접근할 수 없다.</p>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://stackoverflow.com/questions/24636234/access-to-protected-constructor-of-base-class">stackoverflow</a></p>
 </div></blockquote>
+</section>
+<section id="memory-layout">
+<h3>다중상속 Memory Layout<a class="headerlink" href="#memory-layout" title="Permalink to this heading">#</a></h3>
+<p>다음과 같은 상속 구조가 있다고 하자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Base1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">f1</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">value1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Base2</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">f2</span><span class="p">(</span><span class="kt">void</span><span class="p">){};</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">value2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Base3</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">value3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Derive</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base1</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base2</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base3</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">valued</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>이 떄, Derive 객체의 메모리 레이아웃은 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">------------------------------------------------------------------------------------------------------------------</span>
+<span class="o">|</span> <span class="n">Base1</span><span class="p">::</span><span class="n">vptr</span> <span class="o">|</span> <span class="n">Base1</span><span class="p">::</span><span class="n">value1</span> <span class="o">|</span> <span class="n">Padding</span> <span class="o">|</span> <span class="n">Base2</span><span class="p">::</span><span class="n">vptr</span> <span class="o">|</span> <span class="n">Base2</span><span class="p">::</span><span class="n">value2</span> <span class="o">|</span> <span class="n">Padding</span> <span class="o">|</span> <span class="n">Base3</span><span class="p">::</span><span class="n">value3</span> <span class="o">|</span> <span class="n">Derive</span><span class="p">::</span><span class="n">valued</span> <span class="o">|</span>
+<span class="o">------------------------------------------------------------------------------------------------------------------</span>
+  <span class="mi">8</span> <span class="nb">bytes</span>         <span class="mi">4</span> <span class="nb">bytes</span>       <span class="mi">4</span> <span class="nb">bytes</span>    <span class="mi">8</span> <span class="nb">bytes</span>        <span class="mi">4</span> <span class="nb">bytes</span>       <span class="mi">4</span> <span class="nb">bytes</span>    <span class="mi">4</span> <span class="nb">bytes</span>          <span class="mi">4</span> <span class="nb">bytes</span>
+
+</pre></div>
+</div>
+<p>참고로, Base1과 Base2에는 가상함수 포인터 때문에 struct memory padding이 발생한다.</p>
+<p>이를 다음 코드로 확인할 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;size of Base1 &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">Base1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;size of Base2 &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">Base2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;size of Base3 &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">Base3</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;size of Derive &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">Derive</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">Derive</span><span class="w">  </span><span class="n">d</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Derive</span><span class="o">*</span><span class="w"> </span><span class="n">pd</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="p">;</span>
+<span class="w">  </span><span class="n">Base1</span><span class="o">*</span><span class="w">  </span><span class="n">pb1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Base1</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pd</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Base2</span><span class="o">*</span><span class="w">  </span><span class="n">pb2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Base2</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pd</span><span class="p">);</span>
+<span class="w">  </span><span class="n">Base3</span><span class="o">*</span><span class="w">  </span><span class="n">pb3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Base3</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">pd</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pd</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pb1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pb2</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pb3</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="p">.</span><span class="n">valued</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="this-pointer">
+<h3>다중상속에서 this pointer<a class="headerlink" href="#this-pointer" title="Permalink to this heading">#</a></h3>
+<p>다음과 같은 상속 구조가 있다고 하자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Base1</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">vf1</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;vf1 this &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">this</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="kt">void</span><span class="w">         </span><span class="nf">f1</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;f1 this &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">this</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">value1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Base2</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">vf2</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;vf2 this &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">this</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="kt">void</span><span class="w">         </span><span class="nf">f2</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;f2 this &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">this</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">value2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Base3</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">f3</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;f3 this &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">this</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">value3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Derive</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base1</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base2</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base3</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">fd</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;fd this &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">this</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">valued</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>이 때, this 값을 비교해보면 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-------------------------------------------------</span>
+<span class="o">|</span> <span class="n">Base1</span> <span class="n">this</span> <span class="o">=</span> <span class="n">D</span> <span class="n">this</span> <span class="o">|</span> <span class="n">Base2</span> <span class="n">this</span> <span class="o">|</span> <span class="n">Base3</span> <span class="n">this</span> <span class="o">|</span>
+<span class="o">-------------------------------------------------</span>
+ <span class="mi">0</span><span class="nb">bytes</span>           		<span class="mi">16</span> <span class="nb">bytes</span>     <span class="mi">32</span> <span class="nb">bytes</span>
+</pre></div>
+</div>
+<p>따라서, 실제로 함수를 호출하기 전에 this 값을 조정하는 어셈블리가 작성이 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="n">Derive</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">d</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">d</span><span class="p">.</span><span class="n">vf1</span><span class="p">();</span>
+<span class="w">  </span><span class="n">d</span><span class="p">.</span><span class="n">vf2</span><span class="p">();</span>
+<span class="w">  </span><span class="n">d</span><span class="p">.</span><span class="n">f1</span><span class="p">();</span>
+<span class="w">  </span><span class="n">d</span><span class="p">.</span><span class="n">f2</span><span class="p">();</span>
+<span class="w">  </span><span class="n">d</span><span class="p">.</span><span class="n">f3</span><span class="p">();</span>
+<span class="w">  </span><span class="n">d</span><span class="p">.</span><span class="n">fd</span><span class="p">();</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="n">d</span><span class="p">.</span><span class="n">vf1</span><span class="p">();</span>
+<span class="mf">00007F</span><span class="n">F615E229B2</span><span class="w">  </span><span class="n">lea</span><span class="w">         </span><span class="n">rcx</span><span class="p">,[</span><span class="n">d</span><span class="p">]</span><span class="w">  </span>
+<span class="mf">00007F</span><span class="n">F615E229B6</span><span class="w">  </span><span class="n">call</span><span class="w">        </span><span class="n">Base1</span><span class="o">::</span><span class="n">vf1</span><span class="w"> </span><span class="p">(</span><span class="mf">07F</span><span class="n">F615E214B0h</span><span class="p">)</span><span class="w">  </span>
+<span class="w">  </span><span class="n">d</span><span class="p">.</span><span class="n">vf2</span><span class="p">();</span>
+<span class="mf">00007F</span><span class="n">F615E229BB</span><span class="w">  </span><span class="n">lea</span><span class="w">         </span><span class="n">rax</span><span class="p">,[</span><span class="n">rbp</span><span class="o">+</span><span class="mi">18</span><span class="n">h</span><span class="p">]</span><span class="w">  </span>
+<span class="mf">00007F</span><span class="n">F615E229BF</span><span class="w">  </span><span class="n">mov</span><span class="w">         </span><span class="n">rcx</span><span class="p">,</span><span class="n">rax</span><span class="w">  </span>
+<span class="mf">00007F</span><span class="n">F615E229C2</span><span class="w">  </span><span class="n">call</span><span class="w">        </span><span class="n">Base2</span><span class="o">::</span><span class="n">vf2</span><span class="w"> </span><span class="p">(</span><span class="mf">07F</span><span class="n">F615E214D8h</span><span class="p">)</span><span class="w">  </span>
+<span class="w">  </span><span class="n">d</span><span class="p">.</span><span class="n">f1</span><span class="p">();</span>
+<span class="mf">00007F</span><span class="n">F615E229C7</span><span class="w">  </span><span class="n">lea</span><span class="w">         </span><span class="n">rcx</span><span class="p">,[</span><span class="n">d</span><span class="p">]</span><span class="w">  </span>
+<span class="mf">00007F</span><span class="n">F615E229CB</span><span class="w">  </span><span class="n">call</span><span class="w">        </span><span class="n">Base1</span><span class="o">::</span><span class="n">f1</span><span class="w"> </span><span class="p">(</span><span class="mf">07F</span><span class="n">F615E214BFh</span><span class="p">)</span><span class="w">  </span>
+<span class="w">  </span><span class="n">d</span><span class="p">.</span><span class="n">f2</span><span class="p">();</span>
+<span class="mf">00007F</span><span class="n">F615E229D0</span><span class="w">  </span><span class="n">lea</span><span class="w">         </span><span class="n">rax</span><span class="p">,[</span><span class="n">rbp</span><span class="o">+</span><span class="mi">18</span><span class="n">h</span><span class="p">]</span><span class="w">  </span>
+<span class="mf">00007F</span><span class="n">F615E229D4</span><span class="w">  </span><span class="n">mov</span><span class="w">         </span><span class="n">rcx</span><span class="p">,</span><span class="n">rax</span><span class="w">  </span>
+<span class="mf">00007F</span><span class="n">F615E229D7</span><span class="w">  </span><span class="n">call</span><span class="w">        </span><span class="n">Base2</span><span class="o">::</span><span class="n">f2</span><span class="w"> </span><span class="p">(</span><span class="mf">07F</span><span class="n">F615E214D3h</span><span class="p">)</span><span class="w">  </span>
+<span class="w">  </span><span class="n">d</span><span class="p">.</span><span class="n">f3</span><span class="p">();</span>
+<span class="mf">00007F</span><span class="n">F615E229DC</span><span class="w">  </span><span class="n">lea</span><span class="w">         </span><span class="n">rax</span><span class="p">,[</span><span class="n">rbp</span><span class="o">+</span><span class="mi">28</span><span class="n">h</span><span class="p">]</span><span class="w">  </span>
+<span class="mf">00007F</span><span class="n">F615E229E0</span><span class="w">  </span><span class="n">mov</span><span class="w">         </span><span class="n">rcx</span><span class="p">,</span><span class="n">rax</span><span class="w">  </span>
+<span class="mf">00007F</span><span class="n">F615E229E3</span><span class="w">  </span><span class="n">call</span><span class="w">        </span><span class="n">Base3</span><span class="o">::</span><span class="n">f3</span><span class="w"> </span><span class="p">(</span><span class="mf">07F</span><span class="n">F615E214C4h</span><span class="p">)</span><span class="w">  </span>
+<span class="w">  </span><span class="n">d</span><span class="p">.</span><span class="n">fd</span><span class="p">();</span>
+<span class="mf">00007F</span><span class="n">F615E229E8</span><span class="w">  </span><span class="n">lea</span><span class="w">         </span><span class="n">rcx</span><span class="p">,[</span><span class="n">d</span><span class="p">]</span><span class="w">  </span>
+<span class="mf">00007F</span><span class="n">F615E229EC</span><span class="w">  </span><span class="n">call</span><span class="w">        </span><span class="n">Derive</span><span class="o">::</span><span class="n">fd</span><span class="w"> </span><span class="p">(</span><span class="mf">07F</span><span class="n">F615E214DDh</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">vf1</span></code>, <code class="docutils literal notranslate"><span class="pre">f1</span></code>, <code class="docutils literal notranslate"><span class="pre">fd</span></code>와 같은 함수를 호출하기 전에는 <code class="docutils literal notranslate"><span class="pre">lea</span> <span class="pre">rcx,[d]</span></code> 어셈블리가 작성이 된다.</p>
+<p>이는 rcx 레지스터에 d 변수의 메모리 주소를 저장하라는 명령어이다.</p>
+<p>그리고 rcx 레지스터는 해당 객체의 주소를 this 전달하기 위해 사용하는 레지스터이다.</p>
+<p>즉, this의 주소로 d 변수의 메모리 주소를 쓴다는 의미가 된다.</p>
+<p>하지만 vf2, f2의 경우에는 <code class="docutils literal notranslate"><span class="pre">lea</span> <span class="pre">rax,[rbp+18h]</span></code> 후 <code class="docutils literal notranslate"><span class="pre">mov</span> <span class="pre">rcx,rax</span></code> 어셈블리가 작성된다.</p>
+<p>이는 rax 레지스터에</p>
 </section>
 </section>
 <section id="friend-class">
@@ -1311,6 +1479,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">부모클래스 매서드 숨김 문제</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derive">Derive 클래스의 복사</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#protected-member">부모 클래스의 protected member 함수</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-layout">다중상속 Memory Layout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#this-pointer">다중상속에서 this pointer</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#friend-class">Friend Class</a><ul class="nav section-nav flex-column">

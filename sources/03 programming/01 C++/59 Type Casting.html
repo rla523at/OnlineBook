@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Type Casting &#8212; MS Study Book</title>
   
@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/59 Type Casting';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Miscellaneous" href="99%20Miscelleneous.html" />
+    <link rel="next" title="Pointer" href="60%20Pointer.html" />
     <link rel="prev" title="Keyword" href="58%20Keyword.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -487,6 +487,29 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="57%20Initialization.html">initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="58%20Keyword.html">Keyword</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Type Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="60%20Pointer.html">Pointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="70%20Performance.html">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="80%20Google%20Benchmark.html">Google Benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="81%20DirectX.html">DirectX</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="82%20Direct3D11%20API/Direct3D11%20API.html">Direct3D 11 API</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/01%20ID3D11Device.html">ID3D11Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/02%20ID3D11DeviceContext.html">ID3D11DeviceContext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/03%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/04%20ID3D11Texture2D.html">ID3D11Texture2D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/05%20D3D11_VIEWPORT.html">D3D11_VIEWPORT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/06%20D3D11_MAPPED_SUBRESOURCE.html">D3D11_MAPPED_SUBRESOURCE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/07%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/08%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
+<li class="toctree-l3"><a class="reference internal" href="82%20Direct3D11%20API/09%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="83%20DXGI/DXGI.html">DirectX Graphics Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/01%20IDXGIDevice.html">IDXGIDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/02%20IDXGIFactory.html">IDXGIFactory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/03%20IDXGIAdapter.html">IDXGIAdapter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="83%20DXGI/04%20IDXGISwapChain.html">IDXGISwapChain</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="99%20Miscelleneous.html">Miscellaneous</a></li>
 </ul>
 </li>
@@ -657,10 +680,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-cast">static_cast</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reinterpret-cast">reinterpret_cast</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c-style-casting">C Style casting</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#const-cast">const_cast</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pointer-cast">pointer_cast</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-cast">static_cast</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reinterpret-cast">reinterpret_cast</a></li>
 </ul>
             </nav>
         </div>
@@ -674,6 +701,105 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="type-casting">
 <h1>Type Casting<a class="headerlink" href="#type-casting" title="Permalink to this heading">#</a></h1>
+<section id="static-cast">
+<h2>static_cast<a class="headerlink" href="#static-cast" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">static_cast&lt;T&gt;(val)</span></code>은 <code class="docutils literal notranslate"><span class="pre">val</span></code>의 <code class="docutils literal notranslate"><span class="pre">T</span></code>로의 형 변환 함수를 호출한다고 볼 수 있다.</p>
+<p>따라서, bit 단위로 보면 전혀 다른 <code class="docutils literal notranslate"><span class="pre">5.0f</span></code>와 <code class="docutils literal notranslate"><span class="pre">5</span></code>를 변환해 줄 수 있는 것이다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">f</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w">   </span><span class="n">i</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">);</span><span class="w">   </span><span class="c1">// i=5</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w"> </span><span class="c1">// f2=5.0</span>
+</pre></div>
+</div>
+<p>그래서 사용자 정의 타입과 같은 경우에는 형 변환 함수가 없을 경우 static_cast에서 적절한 변환 함수가 없다는 오류가 발생한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">My_Int</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">Num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">My_Float</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">Num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">My_Int</span><span class="w">   </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">5</span><span class="p">};</span>
+<span class="w">  </span><span class="n">My_Float</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">5.0</span><span class="p">};</span>
+<span class="w">  </span><span class="c1">//My_Int i2 = { static_cast&lt;My_Int&gt;(f) }; // &quot;My_Float&quot;에서 &quot;int&quot;(으)로의 적절한 변환 함수가 없습니다.</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>그리고 결국 함수를 호출하는 것과 같기 때문에 컴파일 타임에 타입 체크를 수행하여 잘못된 변환을 방지할 수 있다.</p>
+<p>잘못된 변환의 예시는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">// different byte size</span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="c1">// 1 byte</span>
+<span class="w">  </span><span class="c1">// int* p = static_cast&lt;int*&gt;(&amp;c); // 4 bytes</span>
+
+<span class="w">  </span><span class="c1">// type casting between pointer and integer</span>
+<span class="w">  </span><span class="kt">int64_t</span><span class="w">  </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">//int64_t* p = static_cast&lt;int64_t*&gt;(i); // error</span>
+<span class="w">  </span><span class="c1">//int64_t address = static_cast&lt;int64_t&gt;(&amp;i); // error</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://blog.naver.com/wkdghcjf1234/220210906503">blog</a></p>
+</div></blockquote>
+</section>
+<section id="reinterpret-cast">
+<h2>reinterpret_cast<a class="headerlink" href="#reinterpret-cast" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">reinterpret_cast&lt;T*&gt;(adress)</span></code>는 주어진 주소 <code class="docutils literal notranslate"><span class="pre">adress</span></code>을 <code class="docutils literal notranslate"><span class="pre">T</span></code> 타입의 변수의 시작 주소로 인식하라는 말이다.</p>
+<p>따라서, static_cast와 다르게 동작하게 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w">   </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">f</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1084227584</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://blog.naver.com/wkdghcjf1234/220210906503">blog</a></p>
+</div></blockquote>
+<section id="id1">
+<h3>참고<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">reinterpret_cast&lt;T&amp;&gt;(val)</span></code>는 <code class="docutils literal notranslate"><span class="pre">val</span></code>을 <code class="docutils literal notranslate"><span class="pre">T</span></code> 타입의 변수의 시작 주소로 인식하라는 말이다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w">   </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1084227584</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="c-style-casting">
+<h2>C Style casting<a class="headerlink" href="#c-style-casting" title="Permalink to this heading">#</a></h2>
+<p>C style casting의 경우, static_cast가 되는 상황에서는 stataic_cast처럼 static_cast가 안되는 경우에는 reinterpret_cast처럼 동작한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//static_cast</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">val</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w">   </span><span class="n">val1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">val</span><span class="p">);</span>
+<span class="w">  </span><span class="kt">int</span><span class="w">   </span><span class="n">val2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+<span class="w">  </span><span class="kt">int</span><span class="w">   </span><span class="n">val3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">//val1 == val2 != val3</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//reinterpret_cast</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
+<span class="w">  </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">//int* p3 = static_cast&lt;int*&gt;(&amp;c); compile error</span>
+
+<span class="w">  </span><span class="c1">//p1 == p2</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
 <section id="const-cast">
 <h2>const_cast<a class="headerlink" href="#const-cast" title="Permalink to this heading">#</a></h2>
 <blockquote>
@@ -686,22 +812,6 @@ document.write(`
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://en.cppreference.com/w/cpp/memory/shared_ptr/pointer_cast">cppreference</a></p>
-</div></blockquote>
-</section>
-<section id="static-cast">
-<h2>static_cast<a class="headerlink" href="#static-cast" title="Permalink to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">static_cast&lt;T&gt;(val)</span></code>은 <code class="docutils literal notranslate"><span class="pre">val</span></code>의 <code class="docutils literal notranslate"><span class="pre">T</span></code>로의 형 변환 함수를 호출한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://blog.naver.com/wkdghcjf1234/220210906503">blog</a></p>
-</div></blockquote>
-</section>
-<section id="reinterpret-cast">
-<h2>reinterpret_cast<a class="headerlink" href="#reinterpret-cast" title="Permalink to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">reinterpret_cast&lt;T&gt;(val)</span></code>는 주어진 데이터 <code class="docutils literal notranslate"><span class="pre">val</span></code>을 <code class="docutils literal notranslate"><span class="pre">T</span></code> 타입으로 인식하라는 말이다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://blog.naver.com/wkdghcjf1234/220210906503">blog</a></p>
 </div></blockquote>
 </section>
 </section>
@@ -746,11 +856,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="99%20Miscelleneous.html"
+       href="60%20Pointer.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Miscellaneous</p>
+        <p class="prev-next-title">Pointer</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -769,10 +879,14 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-cast">static_cast</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reinterpret-cast">reinterpret_cast</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c-style-casting">C Style casting</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#const-cast">const_cast</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pointer-cast">pointer_cast</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-cast">static_cast</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reinterpret-cast">reinterpret_cast</a></li>
 </ul>
   </nav></div>
 

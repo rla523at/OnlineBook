@@ -5,6 +5,8 @@
 
 예를 들어 `const T* u`의 타입은 pointer to const T이다. 즉, 여기서는 두번째 계층에 cv-qualifier가 나타난 경우이다.
 
+그리고 `T* const u`의 타입은 const pointer to T이다. 즉, 여기서는 첫번째 계층에서 cv-qualifer가 나타난 경우이고 이를 Top-level cv-qualifiers라고 한다.
+
 그리고 reference는 top-level cv-qualifiers를 갖지 않는다.([standard](https://eel.is/c++draft/basic.type.qualifier), [cppreference](https://en.cppreference.com/w/cpp/language/reference))
 
 > Reference  
