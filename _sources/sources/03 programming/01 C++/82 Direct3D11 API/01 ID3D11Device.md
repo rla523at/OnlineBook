@@ -9,12 +9,6 @@ ID3D11Device 인터페이스는 GPU(Device)와 상호작용하는 데 필요한 
   * ID3D11Device 클래스는 Shader Resource View(SRV), Render Target View(RTV), Depth-Stencil View(DSV)등을 생성하여 Texture와 Buffer를 렌더링 파이프라인에 바인딩할 수 있게 한다.
   * 그래픽 파이프라인에서 리소스를 사용하려면, 해당 리소스를 적절한 뷰를 통해 파이프라인에 바인딩해야 한다. 이를 통해 GPU는 해당 리소스를 인식하고, 적절한 단계에서 사용할 수 있게 된다.
 
-ID3D11Device 클래스는 리소스 생성 및 관리를 위해 하고  
-
-
-
-ID3D11Device 객체를 통해 ID3D11Texture2D, ID3D11RasterizerState, ID3D11RenderTargetView, ID3D11DepthStencilView를 생성할 수 있다.
-
 ## CreateTexture2D 함수
 ID3D11Device::CreateTexture2D 함수는 Direct3D 11에서 2D 텍스처를 생성하는 데 사용된다. 
 
@@ -166,3 +160,51 @@ HRESULT CreateDepthStencilView(
 * ppDepthStencilView:
   * 생성된 ID3D11DepthStencilView 객체에 대한 포인터의 주소를 반환한다.
   * 이 이중 포인터를 통해 함수가 성공적으로 뷰를 생성했을 때, 호출한 측에서 이 뷰를 사용할 수 있다.
+
+## CreateInputLayout 멤버 함수
+CreateInputLayout 함수는 Input Lyaout을 생성하는 함수다. 
+
+Input Lyaout은 셰이더가 입력 데이터를 어떻게 해석할지를 정의하며, 주로 정점 셰이더에 사용된다.
+
+시그니처는 다음과 같다.
+```cpp
+HRESULT ID3D11Device::CreateInputLayout(
+    const D3D11_INPUT_ELEMENT_DESC *pInputElementDescs,
+    UINT NumElements,
+    const void *pShaderBytecodeWithInputSignature,
+    SIZE_T BytecodeLength,
+    ID3D11InputLayout **ppInputLayout
+);
+```
+매개변수는 다음과 같다.
+
+* const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs
+  * 입력 요소의 배열에 대한 포인터
+  * 사용 가능한 값
+    * 유효한 D3D11_INPUT_ELEMENT_DESC 구조체 배열의 포인터
+  * 기본값: 없음
+
+* UINT NumElements
+  * pInputElementDescs 배열의 요소 수
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* const void* pShaderBytecodeWithInputSignature
+  * 셰이더 바이트 코드의 포인터
+  * 사용 가능한 값
+    * 유효한 셰이더 바이트 코드의 포인터
+  * 기본값: 없음
+
+* SIZE_T BytecodeLength
+  * pShaderBytecodeWithInputSignature의 바이트 코드 길이
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* ID3D11InputLayout** ppInputLayout
+  * 생성된 Input Lyaout 객체에 대한 포인터의 주소
+  * 사용 가능한 값
+    * NULL: 유효한 Input Lyaout 객체를 반환하지 않는다.
+    * ID3D11InputLayout: 생성된 Input Lyaout 객체를 반환한다.
+  * 기본값: 없음

@@ -1,7 +1,101 @@
 # ID3D11DeviceContext
 ID3D11DeviceContext는 Direct3D 11 API의 인터페이스 중 하나로, COM(Component Object Model) 기반의 객체다.
 
+ID3D11DeviceContext는 그래픽 파이프라인의 다양한 단계를 설정하고 관리한다.
+
+먼저, Input Assembler(IA) stage에서는 다음과 같은 일들을 하며, 관련된 멤버함수는 다음과 같다.
+* 입력 레이아웃을 설정하여 정점 버퍼의 데이터 형식을 정의한다.
+  * IASetInputLayout 멤버함수
+* 입력 어셈블러 단계에서 사용할 정점 버퍼를 바인딩한다.
+  * IASetVertexBuffers 멤버함수
+* 입력 어셈블러 단계에서 사용할 인덱스 버퍼를 바인딩한다.
+  * IASetIndexBuffer 멤버함수
+* 입력 어셈블러 단계의 프리미티브 토폴로지를 설정한다.
+  * IASetPrimitiveTopology 멤버함수
+
+Vertex Shader(VS) stage에서는 다음과 같은 일들을 하며, 관련된 멤버함수는 다음과 같다.
+* 정점 셰이더를 설정한다.
+  * VSSetShader 멤버함수
+* 정점 셰이더에서 사용할 상수 버퍼를 설정한다.
+  * VSSetConstantBuffers 멤버함수
+* 정점 셰이더에서 사용할 셰이더 리소스를 설정한다.
+  * VSSetShaderResources 멤버함수
+* 정점 셰이더에서 사용할 샘플러를 설정한다.
+  * VSSetSamplers 멤버함수
+
+Rasterizer(RS) stage에서는 다음과 같은 일들을 하며, 관련된 멤버함수는 다음과 같다.
+* 래스터라이저 상태를 설정하여 폴리곤의 렌더링 방법을 정의한다.
+  * RSSetState 멤버함수
+* 뷰포트를 설정하여 렌더링할 화면 영역을 정의한다.
+  * RSSetViewports 멤버함수
+* 시저 영역을 설정하여 렌더링할 클리핑 영역을 정의한다.
+  * RSSetScissorRects 멤버함수
+
+Pixel Shader(PS) stage에서는 다음과 같은 일들을 하며, 관련된 멤버함수는 다음과 같다.
+* 픽셀 셰이더를 설정한다.
+  * PSSetShader 멤버함수
+* 픽셀 셰이더에서 사용할 상수 버퍼를 설정한다.
+  * PSSetConstantBuffers 멤버함수
+* 픽셀 셰이더에서 사용할 셰이더 리소스를 설정한다.
+  * PSSetShaderResources 멤버함수
+* 픽셀 셰이더에서 사용할 샘플러를 설정한다.
+  * PSSetSamplers 멤버함수
+
+Output-Merger(OM) stage에서는 다음과 같은 일들을 하며, 관련된 멤버함수는 다음과 같다.
+* 렌더 타겟 뷰와 깊이-스텐실 뷰를 설정하여 렌더링 결과가 기록될 위치를 지정한다.
+  * OMSetRenderTargets 멤버함수
+* 블렌드 상태를 설정하여 색상 블렌딩 방법을 정의한다.
+  * OMSetBlendState 멤버함수
+* 깊이-스텐실 상태를 설정하여 깊이 및 스텐실 테스트의 동작을 정의한다.
+  * OMSetDepthStencilState 멤버함수
+
+그리고 ID3D11DeviceContext는 실제 렌더링을 수행하는 다양한 멤버 함수를 제공한다.
+* 인덱스 버퍼를 사용하지 않고, 바인딩된 정점 버퍼의 데이터를 순차적으로 읽어서 렌더링을 수행한다.
+  * Draw 멤버함수
+* 인덱스 버퍼를 사용하여 렌더링을 수행한다.
+  * DrawIndexed 멤버함수
+* 인스턴싱을 사용하여 동일한 메쉬를 여러 번 렌더링한다.
+  * DrawInstanced 멤버함수
+* 인덱스 버퍼와 인스턴싱을 조합하여 렌더링을 수행한다.
+  * DrawIndexedInstanced 멤버함수
+
+
 ID3D11DeviceContext는 주로 렌더링 파이프라인을 관리하고 GPU에 명령을 전달하는 역할을 담당한다. 이 인터페이스는 그래픽스 및 컴퓨팅 작업을 수행하기 위한 다양한 함수를 제공하며, 주로 드로우 호출, 리소스 관리, 파이프라인 상태 설정 등을 처리한다.
+
+## OMSetRenderTargets 멤버함수
+OMSetRenderTargets 함수는 출력-병합(Output-Merger) 단계에서 그리기 작업이 이루어질 RenderTargetView와 Depth Test시 사용할 DepthStencilView를 설정하는 함수다. 
+
+시그니처는 다음과 같다.
+```cpp
+void ID3D11DeviceContext::OMSetRenderTargets(
+    UINT NumViews,
+    ID3D11RenderTargetView * const *ppRenderTargetViews,
+    ID3D11DepthStencilView *pDepthStencilView
+);
+```
+
+매개변수는 다음과 같다.
+
+* UINT NumViews
+  * 설정할 렌더 타겟 뷰의 수
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* ID3D11RenderTargetView* const *ppRenderTargetViews
+  * 렌더 타겟 뷰의 배열에 대한 포인터
+  * 사용 가능한 값
+    * NULL: 렌더 타겟 뷰를 설정하지 않는다.
+    * 유효한 ID3D11RenderTargetView 객체의 포인터 배열
+  * 기본값: NULL
+
+* ID3D11DepthStencilView* pDepthStencilView
+  * 깊이-스텐실 뷰에 대한 포인터
+  * 사용 가능한 값
+    * NULL: 깊이-스텐실 뷰를 설정하지 않는다.
+    * 유효한 ID3D11DepthStencilView 객체
+  * 기본값: NULL
+
 
 ## RSSetViewports 함수
 RSSetViewports는 Direct3D 11에서 뷰포트를 설정하는 데 사용된다.
