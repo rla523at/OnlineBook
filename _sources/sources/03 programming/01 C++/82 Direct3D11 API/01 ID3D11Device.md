@@ -208,3 +208,65 @@ HRESULT ID3D11Device::CreateInputLayout(
     * NULL: 유효한 Input Lyaout 객체를 반환하지 않는다.
     * ID3D11InputLayout: 생성된 Input Lyaout 객체를 반환한다.
   * 기본값: 없음
+
+## CreateShaderResourceView 함수
+CreateShaderResourceView 함수는 ID3DShaderResourceView를 생성하는 함수다. 
+
+ID3DShaderResourceView는 shader에서 텍스처나 버퍼와 같은 리소스를 읽을 수 있게 한다.
+
+시그니처는 다음과 같다.
+```cpp
+HRESULT ID3D11Device::CreateShaderResourceView(
+    ID3D11Resource *pResource,
+    const D3D11_SHADER_RESOURCE_VIEW_DESC *pDesc,
+    ID3D11ShaderResourceView **ppSRView
+);
+```
+매개변수는 다음과 같다.
+
+* ID3D11Resource* pResource
+  * 셰이더 리소스 뷰를 생성할 리소스에 대한 포인터
+  * 사용 가능한 값
+    * 유효한 ID3D11Resource 객체
+  * 기본값: 없음
+
+* const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc
+  * 셰이더 리소스 뷰의 속성을 지정하는 구조체에 대한 포인터
+  * 사용 가능한 값
+    * NULL: 리소스의 기본 뷰를 생성한다.
+    * 유효한 D3D11_SHADER_RESOURCE_VIEW_DESC 구조체
+  * 기본값: NULL
+
+* ID3D11ShaderResourceView** ppSRView
+  * 생성된 셰이더 리소스 뷰 객체에 대한 포인터의 주소
+  * 사용 가능한 값
+    * NULL: 유효한 셰이더 리소스 뷰 객체를 반환하지 않는다.
+    * ID3D11ShaderResourceView: 생성된 셰이더 리소스 뷰 객체를 반환한다.
+  * 기본값: 없음
+
+## CreateSamplerState 함수
+CreateSamplerState 함수는 ID3D11Device 인터페이스의 멤버 함수로, ID3D11SamplerState 객체를 생성하는 함수다. 
+
+ID3D11SamplerState 객체는 텍스처 샘플링 동작을 정의하며, 텍스처 필터링 모드와 경계 처리 방식을 설정한다.
+
+시그니처는 다음과 같다.
+```cpp
+HRESULT ID3D11Device::CreateSamplerState(
+    const D3D11_SAMPLER_DESC *pSamplerDesc,
+    ID3D11SamplerState **ppSamplerState
+);
+```
+매개변수는 다음과 같다.
+
+* const D3D11_SAMPLER_DESC* pSamplerDesc
+  * 샘플러 상태를 정의하는 구조체에 대한 포인터
+  * 사용 가능한 값
+    * 유효한 D3D11_SAMPLER_DESC 구조체
+  * 기본값: 없음
+
+* ID3D11SamplerState** ppSamplerState
+  * 생성된 샘플러 상태 객체에 대한 포인터의 주소
+  * 사용 가능한 값
+    * NULL: 유효한 샘플러 상태 객체를 반환하지 않는다.
+    * ID3D11SamplerState: 생성된 샘플러 상태 객체를 반환한다.
+  * 기본값: 없음

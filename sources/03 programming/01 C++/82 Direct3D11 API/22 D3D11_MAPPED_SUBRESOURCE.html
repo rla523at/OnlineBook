@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>ID3D11Device &#8212; MS Study Book</title>
+    <title>D3D11_MAPPED_SUBRESOURCE &#8212; MS Study Book</title>
   
   
   
@@ -64,11 +64,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/82 Direct3D11 API/01 ID3D11Device';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/82 Direct3D11 API/22 D3D11_MAPPED_SUBRESOURCE';</script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="ID3D11DeviceContext" href="02%20ID3D11DeviceContext.html" />
-    <link rel="prev" title="Direct3D 11 API" href="Direct3D11%20API.html" />
+    <link rel="next" title="D3D11_SUBRESOURCE_DATA 구조체" href="23%20D3D11_SUBRESOURCE_DATA.html" />
+    <link rel="prev" title="D3D11_VIEWPORT" href="21%20D3D11_VIEWPORT.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -492,7 +492,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../80%20Google%20Benchmark.html">Google Benchmark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../81%20DirectX.html">DirectX</a></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="Direct3D11%20API.html">Direct3D 11 API</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">ID3D11Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01%20ID3D11Device.html">ID3D11Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20ID3D11DeviceContext.html">ID3D11DeviceContext</a></li>
 <li class="toctree-l3"><a class="reference internal" href="03%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
 <li class="toctree-l3"><a class="reference internal" href="04%20ID3D11Texture2D.html">ID3D11Texture2D</a></li>
@@ -504,7 +504,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3"><a class="reference internal" href="12%20ID3D11SamplerState.html">ID3D11SamplerState</a></li>
 <li class="toctree-l3"><a class="reference internal" href="13%20ID3D11Buffer.html">ID3D11Buffer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="21%20D3D11_VIEWPORT.html">D3D11_VIEWPORT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="22%20D3D11_MAPPED_SUBRESOURCE.html">D3D11_MAPPED_SUBRESOURCE</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">D3D11_MAPPED_SUBRESOURCE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="23%20D3D11_SUBRESOURCE_DATA.html">D3D11_SUBRESOURCE_DATA 구조체</a></li>
 <li class="toctree-l3"><a class="reference internal" href="24%20D3D11_SAMPLER_DESC.html">D3D11_SAMPLER_DESC</a></li>
 </ul>
@@ -592,7 +592,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../../../../_sources/sources/03 programming/01 C++/82 Direct3D11 API/01 ID3D11Device.md" target="_blank"
+      <li><a href="../../../../_sources/sources/03 programming/01 C++/82 Direct3D11 API/22 D3D11_MAPPED_SUBRESOURCE.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -663,9 +663,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -676,29 +674,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ID3D11Device</h1>
+    <h1>D3D11_MAPPED_SUBRESOURCE</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createtexture2d">CreateTexture2D 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkmultisamplequalitylevels">CheckMultisampleQualityLevels 함수</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa-vs-ssaa">멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createrendertargetview">CreateRenderTargetView 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createrasterizerstate">CreateRasterizerState 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createdepthstencilview">CreateDepthStencilView 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createinputlayout">CreateInputLayout 멤버 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createshaderresourceview">CreateShaderResourceView 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createsamplerstate">CreateSamplerState 함수</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -708,400 +688,47 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="id3d11device">
-<h1>ID3D11Device<a class="headerlink" href="#id3d11device" title="Permalink to this heading">#</a></h1>
-<p>ID3D11Device는 Direct3D 11 API의 인터페이스 중 하나로, COM(Component Object Model) 기반의 클래스다.</p>
-<p>ID3D11Device 인터페이스는 GPU(Device)와 상호작용하는 데 필요한 다양한 리소스와 상태 객체를 생성하고 관리하는 역할을 한다.</p>
-<ul class="simple">
-<li><p>리소스 생성</p>
-<ul>
-<li><p>ID3D11Device 클래스는 Buffer 및 Texture를 생성한다.</p></li>
-</ul>
-</li>
-<li><p>리소스 관리</p>
-<ul>
-<li><p>ID3D11Device 클래스는 Shader Resource View(SRV), Render Target View(RTV), Depth-Stencil View(DSV)등을 생성하여 Texture와 Buffer를 렌더링 파이프라인에 바인딩할 수 있게 한다.</p></li>
-<li><p>그래픽 파이프라인에서 리소스를 사용하려면, 해당 리소스를 적절한 뷰를 통해 파이프라인에 바인딩해야 한다. 이를 통해 GPU는 해당 리소스를 인식하고, 적절한 단계에서 사용할 수 있게 된다.</p></li>
-</ul>
-</li>
-</ul>
-<section id="createtexture2d">
-<h2>CreateTexture2D 함수<a class="headerlink" href="#createtexture2d" title="Permalink to this heading">#</a></h2>
-<p>ID3D11Device::CreateTexture2D 함수는 Direct3D 11에서 2D 텍스처를 생성하는 데 사용된다.</p>
-<p>이 함수는 주어진 D3D11_TEXTURE2D_DESC에 따라 2D 텍스처를 생성하고, 생성된 텍스처에 대한 포인터를 반환한다.</p>
-<p>함수의 시그니쳐는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CreateTexture2D</span><span class="p">(</span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">D3D11_TEXTURE2D_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pDesc</span><span class="p">,</span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">D3D11_SUBRESOURCE_DATA</span><span class="w"> </span><span class="o">*</span><span class="n">pInitialData</span><span class="p">,</span>
-<span class="w">  </span><span class="n">ID3D11Texture2D</span><span class="w"> </span><span class="o">**</span><span class="n">ppTexture2D</span>
-<span class="p">);</span>
+  <section class="tex2jax_ignore mathjax_ignore" id="d3d11-mapped-subresource">
+<h1>D3D11_MAPPED_SUBRESOURCE<a class="headerlink" href="#d3d11-mapped-subresource" title="Permalink to this heading">#</a></h1>
+<p>D3D11_MAPPED_SUBRESOURCE는 Direct3D 11에서 리소스의 서브 리소스를 매핑할 때 사용되는 구조체다. 이 구조체는 매핑된 리소스 데이터에 접근하기 위한 정보를 제공한다. 매핑은 주로 CPU가 GPU 리소스에 접근하여 데이터를 읽거나 쓸 수 있도록 하는데 사용된다.</p>
+<p>구조체의 정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D11_MAPPED_SUBRESOURCE</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pData</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">RowPitch</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">DepthPitch</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">D3D11_MAPPED_SUBRESOURCE</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>각 매개변수는 다음과 같다.</p>
+<p>각 멤버변수는 다음과 같다.</p>
 <ul class="simple">
-<li><p>const D3D11_TEXTURE2D_DESC* pDesc:</p>
+<li><p>pData</p>
 <ul>
-<li><p>생성할 텍스처의 특성을 정의하는 D3D11_TEXTURE2D_DESC 구조체에 대한 포인터다.</p></li>
+<li><p>매핑된 서브 리소스의 데이터에 대한 포인터다.</p></li>
+<li><p>이 포인터를 통해 리소스의 데이터에 접근할 수 있다.</p></li>
 </ul>
 </li>
-<li><p>const D3D11_SUBRESOURCE_DATA* pInitialData:</p>
+<li><p>RowPitch</p>
 <ul>
-<li><p>텍스처의 초기 데이터를 제공하는 D3D11_SUBRESOURCE_DATA 구조체에 대한 포인터다.</p></li>
-<li><p>각 서브리소스의 초기화 데이터를 포함하고 있으며, 이 매개변수가 NULL일 경우 텍스처는 초기 데이터 없이 생성된다.</p></li>
+<li><p>텍스처 데이터의 행(row) 간의 바이트 수를 나타낸다.</p></li>
+<li><p>2D 텍스처의 경우, 한 행의 시작 지점과 다음 행의 시작 지점 간의 바이트 단위 오프셋을 나타낸다.</p></li>
 </ul>
 </li>
-<li><p>ID3D11Texture2D** ppTexture2D:</p>
+<li><p>DepthPitch</p>
 <ul>
-<li><p>생성된 텍스처 객체에 대한 포인터의 주소를 반환한다.</p></li>
+<li><p>3D 텍스처 데이터의 깊이 슬라이스 간의 바이트 수를 나타낸다.</p></li>
+<li><p>한 깊이 슬라이스의 시작 지점과 다음 깊이 슬라이스의 시작 지점 간의 바이트 단위 오프셋을 나타낸다.</p></li>
 </ul>
 </li>
 </ul>
-</section>
-<section id="checkmultisamplequalitylevels">
-<h2>CheckMultisampleQualityLevels 함수<a class="headerlink" href="#checkmultisamplequalitylevels" title="Permalink to this heading">#</a></h2>
-<p>CheckMultisampleQualityLevels 함수는 지정된 포맷 및 샘플 수에 대해 사용할 수 있는 멀티샘플링(Multi-Sample Anti-Aliasing; MSAA) 품질 수준의 수를 확인하는 함수다.</p>
-<p>멀티샘플링은 렌더링 품질을 향상시키기 위해 여러 샘플을 사용하여 픽셀의 가장자리 부드럽게 하는 기술이다.</p>
-<p>함수의 시그니처는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CheckMultisampleQualityLevels</span><span class="p">(</span>
-<span class="w">    </span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">Format</span><span class="p">,</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">SampleCount</span><span class="p">,</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="o">*</span><span class="n">pNumQualityLevels</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>각각의 매개변수는 다음과 같다.</p>
+<p>주의사항은 다음과 같다.</p>
 <ul class="simple">
-<li><p>Format</p>
+<li><p>RowPitch</p>
 <ul>
-<li><p>DXGI_FORMAT 열거형으로, 확인할 멀티샘플링을 지원하는 텍스처 포맷을 지정한다.</p></li>
-<li><p>예를 들어, DXGI_FORMAT_R8G8B8A8_UNORM은 일반적인 32비트 RGBA 포맷이다.</p></li>
-</ul>
-</li>
-<li><p>SampleCount</p>
-<ul>
-<li><p>멀티샘플링에 사용할 샘플의 수를 지정한다.</p></li>
-<li><p>이 값은 보통 1, 2, 4, 8, 16 등의 값을 가지며, 특정 하드웨어가 지원하는 샘플 수에 따라 다를 수 있다.</p></li>
-</ul>
-</li>
-<li><p>pNumQualityLevels</p>
-<ul>
-<li><p>지정된 포맷과 샘플 수에 대해 사용 가능한 품질 수준의 수를 반환하는 포인터다.</p></li>
-<li><p>이 값은 0부터 시작하며, 값이 1 이상이면 멀티샘플링을 사용할 수 있는 품질 수준이 있음을 의미한다.</p></li>
+<li><p>RowPitch 값은 Map 메소드 호출 시 Direct3D가 자동으로 설정하는 값이며, 이는 매핑된 리소스의 실제 메모리 레이아웃을 반영한다.</p></li>
+<li><p>RowPitch는 GPU 메모리 정렬 요구사항을 포함한 각 행(row)의 바이트 수를 나타내며, 이 값을 수동으로 수정한다고 해서 Direct3D가 사용하는 메모리 레이아웃이 변경되는 것은 아니다.</p></li>
 </ul>
 </li>
 </ul>
-<section id="msaa-vs-ssaa">
-<h3>멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)<a class="headerlink" href="#msaa-vs-ssaa" title="Permalink to this heading">#</a></h3>
-<p>MSAA는 각 픽셀을 여러 개의 서브픽셀로 나누고, 경계선에서만 다중 샘플링을 수행한다. 이는 주로 삼각형의 가장자리에서 앨리어싱을 줄이는 데 집중된다. 따라서 경계선 내부의 픽셀은 다중 샘플링을 하지 않으므로, 전체 화면에서 필요한 샘플 수를 줄인다.</p>
-<p>SSAA는 화면을 고해상도로 렌더링한 다음, 결과를 다운샘플링하여 최종 이미지를 생성한다. 예를 들어, 2x SSAA는 화면을 원래 해상도의 두 배로 렌더링하고 이를 다시 원래 해상도로 축소한다. 따라서 화면의 모든 픽셀에 대해 다중 샘플링을 수행하여 모든 부분에서 앨리어싱을 줄인다.</p>
-<table class="colwidths-auto table">
-<thead>
-<tr class="row-odd"><th class="head"><p>특성</p></th>
-<th class="head"><p>SSAA</p></th>
-<th class="head"><p>MSAA</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>샘플링 방식</p></td>
-<td><p>모든 픽셀에 대해 다중 샘플링</p></td>
-<td><p>경계선에서만 다중 샘플링</p></td>
-</tr>
-<tr class="row-odd"><td><p>이미지 품질</p></td>
-<td><p>매우 높음</p></td>
-<td><p>높음</p></td>
-</tr>
-<tr class="row-even"><td><p>성능 비용</p></td>
-<td><p>매우 높음</p></td>
-<td><p>낮음</p></td>
-</tr>
-<tr class="row-odd"><td><p>메모리 사용량</p></td>
-<td><p>높음</p></td>
-<td><p>낮음</p></td>
-</tr>
-<tr class="row-even"><td><p>적용 범위</p></td>
-<td><p>전체 이미지</p></td>
-<td><p>경계선 주로</p></td>
-</tr>
-<tr class="row-odd"><td><p>복잡성</p></td>
-<td><p>간단</p></td>
-<td><p>복잡</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="createrendertargetview">
-<h2>CreateRenderTargetView 함수<a class="headerlink" href="#createrendertargetview" title="Permalink to this heading">#</a></h2>
-<p>CreateRenderTargetView는 렌더 타겟 뷰를 생성하는 함수다. 이 함수는 ID3D11RenderTargetView 객체를 생성하여, 렌더링 파이프라인의 출력 병합 단계(OM, Output Merger)에 사용할 수 있게 한다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CreateRenderTargetView</span><span class="p">(</span>
-<span class="w">  </span><span class="n">ID3D11Resource</span><span class="w"> </span><span class="o">*</span><span class="n">pResource</span><span class="p">,</span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">D3D11_RENDER_TARGET_VIEW_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pDesc</span><span class="p">,</span>
-<span class="w">  </span><span class="n">ID3D11RenderTargetView</span><span class="w"> </span><span class="o">**</span><span class="n">ppRTView</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>각각의 매개변수는 다음과 같다.</p>
-<ul class="simple">
-<li><p>pResource</p>
-<ul>
-<li><p>렌더 타겟 뷰를 생성할 리소스에 대한 포인터다.</p></li>
-<li><p>일반적으로 이는 텍스처(예: ID3D11Texture2D) 객체를 가리킨다.</p></li>
-</ul>
-</li>
-<li><p>pDesc</p>
-<ul>
-<li><p>생성할 렌더 타겟 뷰의 속성을 정의하는 D3D11_RENDER_TARGET_VIEW_DESC 구조체에 대한 포인터다.</p></li>
-<li><p>이 구조체를 통해 포맷, 뷰의 첫 번째 배열 슬라이스 및 배열 슬라이스 수를 지정할 수 있다.</p></li>
-<li><p>이 값이 NULL인 경우, 리소스의 기본 뷰가 생성된다.</p>
-<ul>
-<li><p>기본 뷰를 사용하면 Direct3D가 해당 리소스에 대해 기본 설정을 사용하여 렌더 타겟 뷰를 생성한다.</p></li>
-<li><p>포맷: 리소스의 기본 포맷이 사용된다.</p></li>
-<li><p>차원: 리소스의 타입에 따라 자동으로 결정된다.</p></li>
-<li><p>슬라이스 및 크기: 리소스 전체를 대상으로 하는 뷰가 생성된다.</p></li>
-<li><p>기본 뷰를 사용하는 것은 간단한 설정을 요구하는 경우에 유용하며, 세부적인 제어가 필요하지 않을 때 편리하다.</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>ppRTView</p>
-<ul>
-<li><p>생성된 렌더 타겟 뷰의 주소를 받을 포인터에 대한 이중 포인터다.</p></li>
-<li><p>성공적으로 생성되면, 이 포인터는 ID3D11RenderTargetView 인터페이스를 가리키게 된다.</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="createrasterizerstate">
-<h2>CreateRasterizerState 함수<a class="headerlink" href="#createrasterizerstate" title="Permalink to this heading">#</a></h2>
-<p>CreateRasterizerState 함수는 Direct3D 11에서 ID3D11RasterizerState 객체를 생성하는 데 사용된다.</p>
-<p>ID3D11RasterizerState는 래스터화 단계의 동작을 제어하는 상태 객체이며 D3D11_RASTERIZER_DESC 구조체를 입력으로 받아, 해당 구조체의 설정에 따라 ID3D11RasterizerState 객체를 생성한다.</p>
-<p>함수의 시그니쳐는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CreateRasterizerState</span><span class="p">(</span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">D3D11_RASTERIZER_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pRasterizerDesc</span><span class="p">,</span>
-<span class="w">  </span><span class="n">ID3D11RasterizerState</span><span class="w"> </span><span class="o">**</span><span class="n">ppRasterizerState</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>각 매개변수는 다음과 같다.</p>
-<ul class="simple">
-<li><p>pRasterizerDesc</p>
-<ul>
-<li><p>D3D11_RASTERIZER_DESC 구조체에 대한 포인터로, 래스터라이저 상태를 정의하는 설정을 포함한다.</p></li>
-</ul>
-</li>
-<li><p>ppRasterizerState</p>
-<ul>
-<li><p>생성된 객체의 주소를 호출한 측에 전달하기 위해서는 역참조를 통해 생성된 ID3D11RasterizerState 객체의 주소를 받아야 함으로 역참조 했을 때, 객체의 주소를 가르키는 포인터가 되게 이중 포인터로 되어 있다.</p></li>
-</ul>
-</li>
-</ul>
-<p>의사 코드는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// 새로운 ID3D11RasterizerState 객체 생성</span>
-<span class="n">ID3D11RasterizerState</span><span class="o">*</span><span class="w"> </span><span class="n">pNewState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ID3D11RasterizerState</span><span class="p">(</span><span class="n">pRasterizerDesc</span><span class="p">);</span>
-
-<span class="c1">// 생성된 객체의 주소를 호출한 측에 전달</span>
-<span class="o">*</span><span class="n">ppRasterizerState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pNewState</span><span class="p">;</span>
-</pre></div>
-</div>
-</section>
-<section id="createdepthstencilview">
-<h2>CreateDepthStencilView 함수<a class="headerlink" href="#createdepthstencilview" title="Permalink to this heading">#</a></h2>
-<p>CreateDepthStencilView 함수는 ID3D11DepthStencilView를 생성하는 데 사용되는 함수다.</p>
-<p>이 함수는 주어진 텍스처 리소스를 기반으로 ID3D11DepthStencilView를를 생성하며, 이 뷰를 통해 깊이 및 스텐실 테스트를 수행할 수 있다.</p>
-<p>함수의 시그니쳐는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CreateDepthStencilView</span><span class="p">(</span>
-<span class="w">  </span><span class="n">ID3D11Resource</span><span class="w"> </span><span class="o">*</span><span class="n">pResource</span><span class="p">,</span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">D3D11_DEPTH_STENCIL_VIEW_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pDesc</span><span class="p">,</span>
-<span class="w">  </span><span class="n">ID3D11DepthStencilView</span><span class="w"> </span><span class="o">**</span><span class="n">ppDepthStencilView</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>각 매개변수는 다음과 같다.</p>
-<ul class="simple">
-<li><p>pResource:</p>
-<ul>
-<li><p>ID3D11Resource* 타입의 포인터로, 깊이-스텐실 뷰를 생성할 텍스처 리소스를 가리킨다.</p></li>
-<li><p>일반적으로 ID3D11Texture2D 타입의 텍스처 리소스를 사용한다.</p></li>
-</ul>
-</li>
-<li><p>pDesc:</p>
-<ul>
-<li><p>D3D11_DEPTH_STENCIL_VIEW_DESC 구조체에 대한 포인터로, 깊이-스텐실 뷰의 속성을 정의한다.</p></li>
-<li><p>이 구조체는 뷰의 형식, 차원, MIP 슬라이스 등을 지정한다.</p></li>
-<li><p>이 매개변수가 NULL일 경우, 기본 속성으로 뷰가 생성된다.</p></li>
-</ul>
-</li>
-<li><p>ppDepthStencilView:</p>
-<ul>
-<li><p>생성된 ID3D11DepthStencilView 객체에 대한 포인터의 주소를 반환한다.</p></li>
-<li><p>이 이중 포인터를 통해 함수가 성공적으로 뷰를 생성했을 때, 호출한 측에서 이 뷰를 사용할 수 있다.</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="createinputlayout">
-<h2>CreateInputLayout 멤버 함수<a class="headerlink" href="#createinputlayout" title="Permalink to this heading">#</a></h2>
-<p>CreateInputLayout 함수는 Input Lyaout을 생성하는 함수다.</p>
-<p>Input Lyaout은 셰이더가 입력 데이터를 어떻게 해석할지를 정의하며, 주로 정점 셰이더에 사용된다.</p>
-<p>시그니처는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">ID3D11Device::CreateInputLayout</span><span class="p">(</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">D3D11_INPUT_ELEMENT_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pInputElementDescs</span><span class="p">,</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">NumElements</span><span class="p">,</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pShaderBytecodeWithInputSignature</span><span class="p">,</span>
-<span class="w">    </span><span class="n">SIZE_T</span><span class="w"> </span><span class="n">BytecodeLength</span><span class="p">,</span>
-<span class="w">    </span><span class="n">ID3D11InputLayout</span><span class="w"> </span><span class="o">**</span><span class="n">ppInputLayout</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>매개변수는 다음과 같다.</p>
-<ul class="simple">
-<li><p>const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs</p>
-<ul>
-<li><p>입력 요소의 배열에 대한 포인터</p></li>
-<li><p>사용 가능한 값</p>
-<ul>
-<li><p>유효한 D3D11_INPUT_ELEMENT_DESC 구조체 배열의 포인터</p></li>
-</ul>
-</li>
-<li><p>기본값: 없음</p></li>
-</ul>
-</li>
-<li><p>UINT NumElements</p>
-<ul>
-<li><p>pInputElementDescs 배열의 요소 수</p></li>
-<li><p>사용 가능한 값</p>
-<ul>
-<li><p>0 이상의 정수 값</p></li>
-</ul>
-</li>
-<li><p>기본값: 없음</p></li>
-</ul>
-</li>
-<li><p>const void* pShaderBytecodeWithInputSignature</p>
-<ul>
-<li><p>셰이더 바이트 코드의 포인터</p></li>
-<li><p>사용 가능한 값</p>
-<ul>
-<li><p>유효한 셰이더 바이트 코드의 포인터</p></li>
-</ul>
-</li>
-<li><p>기본값: 없음</p></li>
-</ul>
-</li>
-<li><p>SIZE_T BytecodeLength</p>
-<ul>
-<li><p>pShaderBytecodeWithInputSignature의 바이트 코드 길이</p></li>
-<li><p>사용 가능한 값</p>
-<ul>
-<li><p>0 이상의 정수 값</p></li>
-</ul>
-</li>
-<li><p>기본값: 없음</p></li>
-</ul>
-</li>
-<li><p>ID3D11InputLayout** ppInputLayout</p>
-<ul>
-<li><p>생성된 Input Lyaout 객체에 대한 포인터의 주소</p></li>
-<li><p>사용 가능한 값</p>
-<ul>
-<li><p>NULL: 유효한 Input Lyaout 객체를 반환하지 않는다.</p></li>
-<li><p>ID3D11InputLayout: 생성된 Input Lyaout 객체를 반환한다.</p></li>
-</ul>
-</li>
-<li><p>기본값: 없음</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="createshaderresourceview">
-<h2>CreateShaderResourceView 함수<a class="headerlink" href="#createshaderresourceview" title="Permalink to this heading">#</a></h2>
-<p>CreateShaderResourceView 함수는 ID3DShaderResourceView를 생성하는 함수다.</p>
-<p>ID3DShaderResourceView는 shader에서 텍스처나 버퍼와 같은 리소스를 읽을 수 있게 한다.</p>
-<p>시그니처는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">ID3D11Device::CreateShaderResourceView</span><span class="p">(</span>
-<span class="w">    </span><span class="n">ID3D11Resource</span><span class="w"> </span><span class="o">*</span><span class="n">pResource</span><span class="p">,</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">D3D11_SHADER_RESOURCE_VIEW_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pDesc</span><span class="p">,</span>
-<span class="w">    </span><span class="n">ID3D11ShaderResourceView</span><span class="w"> </span><span class="o">**</span><span class="n">ppSRView</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>매개변수는 다음과 같다.</p>
-<ul class="simple">
-<li><p>ID3D11Resource* pResource</p>
-<ul>
-<li><p>셰이더 리소스 뷰를 생성할 리소스에 대한 포인터</p></li>
-<li><p>사용 가능한 값</p>
-<ul>
-<li><p>유효한 ID3D11Resource 객체</p></li>
-</ul>
-</li>
-<li><p>기본값: 없음</p></li>
-</ul>
-</li>
-<li><p>const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc</p>
-<ul>
-<li><p>셰이더 리소스 뷰의 속성을 지정하는 구조체에 대한 포인터</p></li>
-<li><p>사용 가능한 값</p>
-<ul>
-<li><p>NULL: 리소스의 기본 뷰를 생성한다.</p></li>
-<li><p>유효한 D3D11_SHADER_RESOURCE_VIEW_DESC 구조체</p></li>
-</ul>
-</li>
-<li><p>기본값: NULL</p></li>
-</ul>
-</li>
-<li><p>ID3D11ShaderResourceView** ppSRView</p>
-<ul>
-<li><p>생성된 셰이더 리소스 뷰 객체에 대한 포인터의 주소</p></li>
-<li><p>사용 가능한 값</p>
-<ul>
-<li><p>NULL: 유효한 셰이더 리소스 뷰 객체를 반환하지 않는다.</p></li>
-<li><p>ID3D11ShaderResourceView: 생성된 셰이더 리소스 뷰 객체를 반환한다.</p></li>
-</ul>
-</li>
-<li><p>기본값: 없음</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="createsamplerstate">
-<h2>CreateSamplerState 함수<a class="headerlink" href="#createsamplerstate" title="Permalink to this heading">#</a></h2>
-<p>CreateSamplerState 함수는 ID3D11Device 인터페이스의 멤버 함수로, ID3D11SamplerState 객체를 생성하는 함수다.</p>
-<p>ID3D11SamplerState 객체는 텍스처 샘플링 동작을 정의하며, 텍스처 필터링 모드와 경계 처리 방식을 설정한다.</p>
-<p>시그니처는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">ID3D11Device::CreateSamplerState</span><span class="p">(</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">D3D11_SAMPLER_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pSamplerDesc</span><span class="p">,</span>
-<span class="w">    </span><span class="n">ID3D11SamplerState</span><span class="w"> </span><span class="o">**</span><span class="n">ppSamplerState</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>매개변수는 다음과 같다.</p>
-<ul class="simple">
-<li><p>const D3D11_SAMPLER_DESC* pSamplerDesc</p>
-<ul>
-<li><p>샘플러 상태를 정의하는 구조체에 대한 포인터</p></li>
-<li><p>사용 가능한 값</p>
-<ul>
-<li><p>유효한 D3D11_SAMPLER_DESC 구조체</p></li>
-</ul>
-</li>
-<li><p>기본값: 없음</p></li>
-</ul>
-</li>
-<li><p>ID3D11SamplerState** ppSamplerState</p>
-<ul>
-<li><p>생성된 샘플러 상태 객체에 대한 포인터의 주소</p></li>
-<li><p>사용 가능한 값</p>
-<ul>
-<li><p>NULL: 유효한 샘플러 상태 객체를 반환하지 않는다.</p></li>
-<li><p>ID3D11SamplerState: 생성된 샘플러 상태 객체를 반환한다.</p></li>
-</ul>
-</li>
-<li><p>기본값: 없음</p></li>
-</ul>
-</li>
-</ul>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1135,20 +762,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="Direct3D11%20API.html"
+       href="21%20D3D11_VIEWPORT.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Direct3D 11 API</p>
+        <p class="prev-next-title">D3D11_VIEWPORT</p>
       </div>
     </a>
     <a class="right-next"
-       href="02%20ID3D11DeviceContext.html"
+       href="23%20D3D11_SUBRESOURCE_DATA.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">ID3D11DeviceContext</p>
+        <p class="prev-next-title">D3D11_SUBRESOURCE_DATA 구조체</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1158,30 +785,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createtexture2d">CreateTexture2D 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkmultisamplequalitylevels">CheckMultisampleQualityLevels 함수</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa-vs-ssaa">멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createrendertargetview">CreateRenderTargetView 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createrasterizerstate">CreateRasterizerState 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createdepthstencilview">CreateDepthStencilView 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createinputlayout">CreateInputLayout 멤버 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createshaderresourceview">CreateShaderResourceView 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createsamplerstate">CreateSamplerState 함수</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
