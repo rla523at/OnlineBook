@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>DirectX &#8212; MS Study Book</title>
+    <title>Vertex Shader &#8212; MS Study Book</title>
   
   
   
@@ -64,11 +64,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/50 DirectX/DirectX';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/50 DirectX/22 Vertex Shader';</script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="Direct3D" href="01%20Direct3D/Direct3D.html" />
-    <link rel="prev" title="Graphics" href="../Graphics.html" />
+    <link rel="next" title="Procedural Programming" href="../../1%20OOP.html" />
+    <link rel="prev" title="Sementic" href="21%20Sementic.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -494,7 +494,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">DirectX</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="DirectX.html">DirectX</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3 has-children"><a class="reference internal" href="01%20Direct3D/Direct3D.html">Direct3D</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-38"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="01%20Direct3D/01%20ID3D11Device.html">ID3D11Device</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Direct3D/02%20ID3D11DeviceContext.html">ID3D11DeviceContext</a></li>
@@ -543,7 +543,7 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li class="toctree-l3"><a class="reference internal" href="20%20HLSL.html">HLSL</a></li>
 <li class="toctree-l3"><a class="reference internal" href="21%20Sementic.html">Sementic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="22%20Vertex%20Shader.html">Vertex Shader</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Vertex Shader</a></li>
 </ul>
 </li>
 </ul>
@@ -621,7 +621,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../../../../_sources/sources/03 programming/02 Graphics/50 DirectX/DirectX.md" target="_blank"
+      <li><a href="../../../../_sources/sources/03 programming/02 Graphics/50 DirectX/22 Vertex Shader.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -705,7 +705,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>DirectX</h1>
+    <h1>Vertex Shader</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -715,16 +715,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct3d">Direct3D</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct2d">Direct2D</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directwrite">DirectWrite</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directcompute">DirectCompute</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directsound">DirectSound</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directmusic">DirectMusic</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directinput">DirectInput</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directplay">DirectPlay</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directshow">DirectShow</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-directx-graphics-infrastructure">DXGI (DirectX Graphics Infrastructure)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ouput">Ouput</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sv-position">SV_POSITION</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">순서</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -736,51 +731,52 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="directx">
-<h1>DirectX<a class="headerlink" href="#directx" title="Permalink to this heading">#</a></h1>
-<p>DirectX는 Microsoft에서 개발한 API(응용 프로그램 인터페이스) 집합으로, 멀티미디어 애플리케이션, 특히 게임 및 비디오 애플리케이션을 쉽게 개발할 수 있게 도와준다. DirectX API는 다양한 하위 API로 구성되어 있으며, 각 하위 API는 특정 멀티미디어 기능을 처리하는 데 사용된다.</p>
-<section id="direct3d">
-<h2>Direct3D<a class="headerlink" href="#direct3d" title="Permalink to this heading">#</a></h2>
-<p>Direct3D는 3D 그래픽스를 처리하는 API로, 게임 및 그래픽 응용 프로그램에서 가장 널리 사용된다. Direct3D는 하드웨어 가속을 통해 고성능 3D 렌더링을 제공하며, 최신 그래픽 카드의 기능을 최대한 활용할 수 있게 한다.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="vertex-shader">
+<h1>Vertex Shader<a class="headerlink" href="#vertex-shader" title="Permalink to this heading">#</a></h1>
+<p>Vertex Shader의 출력이 Geometry Shader의 입력으로 사용된다. 따라서, Vertex Shader에서 출력으로 정의한 구조체가 Geometry Shader의 입력으로 사용된다.</p>
+<p>즉, Vertex Shader에서 VS_OUTPUT으로 사용하는 구조체와 Geometry Shader에서 GS_INPUT으로 사용하는 구조체가 같아야 한다.</p>
+<section id="ouput">
+<h2>Ouput<a class="headerlink" href="#ouput" title="Permalink to this heading">#</a></h2>
+<section id="sv-position">
+<h3>SV_POSITION<a class="headerlink" href="#sv-position" title="Permalink to this heading">#</a></h3>
+<p>Vertex Shader의 출력에서 SV_POSITION 세맨틱은 반드시 포함되어야 한다.</p>
+<p>왜냐하면 SV_POSITION 세멘틱이 없을 경우 그래픽 파이프라인은 정점의 위치를 올바르게 처리할 수 없으므로 정상적인 렌더링이 불가능하다. SV_POSITION은 정점 셰이더에서 계산된 정점의 위치를 나타내며, 래스터화 단계에서 반드시 필요하다.</p>
 </section>
-<section id="direct2d">
-<h2>Direct2D<a class="headerlink" href="#direct2d" title="Permalink to this heading">#</a></h2>
-<p>Direct2D는 2D 그래픽스를 처리하는 API로, 고성능의 2D 렌더링을 제공한다. 이는 벡터 그래픽, 텍스처 매핑, 픽셀 쉐이딩 등을 지원하며, 하드웨어 가속을 통해 효율적인 렌더링을 가능하게 한다.</p>
-</section>
-<section id="directwrite">
-<h2>DirectWrite<a class="headerlink" href="#directwrite" title="Permalink to this heading">#</a></h2>
-<p>DirectWrite는 텍스트 렌더링을 처리하는 API로, 고품질의 텍스트 출력을 제공한다. 이는 다양한 글꼴, 스타일, 레이아웃을 지원하며, 특히 ClearType 텍스트 렌더링 기술을 통해 가독성을 향상시킨다.</p>
-</section>
-<section id="directcompute">
-<h2>DirectCompute<a class="headerlink" href="#directcompute" title="Permalink to this heading">#</a></h2>
-<p>DirectCompute는 GPU를 이용한 일반 연산을 처리하는 API로, 그래픽스가 아닌 계산 작업을 수행하는 데 사용된다. 이는 GPGPU(General-Purpose computing on Graphics Processing Units) 프로그래밍을 지원하며, 물리 연산, 이미지 처리, 과학 계산 등에 활용된다.</p>
-</section>
-<section id="directsound">
-<h2>DirectSound<a class="headerlink" href="#directsound" title="Permalink to this heading">#</a></h2>
-<p>DirectSound는 오디오 스트림의 재생, 녹음, 믹싱을 처리하는 API로, 실시간 오디오 처리를 지원한다. 이는 다양한 오디오 효과를 적용할 수 있으며, 멀티채널 사운드를 지원한다.</p>
-</section>
-<section id="directmusic">
-<h2>DirectMusic<a class="headerlink" href="#directmusic" title="Permalink to this heading">#</a></h2>
-<p>DirectMusic는 음악 및 사운드 효과를 관리하는 API로, MIDI 스트림의 재생과 디지털 사운드의 믹싱을 지원한다. 이는 다이나믹한 음악 생성과 재생을 위한 다양한 기능을 제공한다.</p>
-</section>
-<section id="directinput">
-<h2>DirectInput<a class="headerlink" href="#directinput" title="Permalink to this heading">#</a></h2>
-<p>DirectInput는 사용자 입력을 처리하는 API로, 키보드, 마우스, 게임 컨트롤러 등 다양한 입력 장치를 지원한다. 이는 고성능 입력 처리를 가능하게 하며, 사용자 입력에 빠르게 반응할 수 있다.</p>
-</section>
-<section id="directplay">
-<h2>DirectPlay<a class="headerlink" href="#directplay" title="Permalink to this heading">#</a></h2>
-<p>DirectPlay는 네트워크 통신을 처리하는 API로, 멀티플레이어 게임의 네트워크 기능을 지원한다. 이는 게임 상태 동기화, 채팅, 로비 관리 등을 포함한 다양한 네트워크 기능을 제공한다.</p>
-</section>
-<section id="directshow">
-<h2>DirectShow<a class="headerlink" href="#directshow" title="Permalink to this heading">#</a></h2>
-<p>DirectShow는 오디오 및 비디오 스트림의 재생과 편집을 처리하는 API로, 멀티미디어 애플리케이션에서 널리 사용된다. 이는 다양한 코덱과 필터를 지원하며, 스트림의 캡처, 처리, 재생 기능을 제공한다.</p>
-</section>
-<section id="dxgi-directx-graphics-infrastructure">
-<h2>DXGI (DirectX Graphics Infrastructure)<a class="headerlink" href="#dxgi-directx-graphics-infrastructure" title="Permalink to this heading">#</a></h2>
-<p>DXGI는 Direct3D와 하드웨어 드라이버 간의 상호작용을 관리하는 API로, 스왑 체인, 디스플레이 설정, 리소스 공유 등을 관리한다. 이는 Direct3D의 하위 시스템으로, 그래픽 어댑터와 디스플레이 장치 간의 통신을 조정한다.</p>
-</section>
-<div class="toctree-wrapper compound">
+<section id="id1">
+<h3>순서<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>Vertex Shader의 출력의 순서와 Pixel Shader의 입력의 순서가 반드시 같아야 한다.</p>
+<p>예를 들어 다음과 같은 상황을 가정하자</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">VS_Output</span> <span class="p">{</span>    
+    <span class="n">float4</span> <span class="n">pos</span> <span class="p">:</span> <span class="n">SV_POSITION</span><span class="p">;</span>
+    <span class="n">float3</span> <span class="n">color</span> <span class="p">:</span> <span class="n">COLOR</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">struct</span> <span class="n">PS_Input</span> <span class="p">{</span>
+    <span class="n">float3</span> <span class="n">color</span> <span class="p">:</span> <span class="n">COLOR</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
 </div>
+<p>Pixel Shader에서 pos가 필요 없을 경우, 위와 같이 Input을 작성할 수 있다.</p>
+<p>하지만, 이 경우에는 VS_Output과 PS_Input의 순서가 다르기 때문에 그래픽스 파이프라인상에서 데이터가 정상적으로 전달되지 않고 렌더링이 제대로 되지 않는다.</p>
+<p>이를 해결하기 위해서는 다음과 같이 순서를 맞춰줘야한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">VS_Output</span> <span class="p">{</span>    
+    <span class="n">float3</span> <span class="n">color</span> <span class="p">:</span> <span class="n">COLOR</span><span class="p">;</span>
+    <span class="n">float4</span> <span class="n">pos</span> <span class="p">:</span> <span class="n">SV_POSITION</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">struct</span> <span class="n">PS_Input</span> <span class="p">{</span>
+    <span class="n">float3</span> <span class="n">color</span> <span class="p">:</span> <span class="n">COLOR</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>참고로, Pixel Shader의 Input 변수가 하나임으로 입력 구조체를 사용하지 않고 pixel shader를 작성할 수 있다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">float4</span> <span class="n">main</span><span class="p">(</span><span class="n">float3</span> <span class="n">color</span> <span class="p">:</span> <span class="n">COLOR</span><span class="p">)</span> <span class="p">:</span> <span class="n">SV_TARGET</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">float4</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -814,20 +810,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../Graphics.html"
+       href="21%20Sementic.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Graphics</p>
+        <p class="prev-next-title">Sementic</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Direct3D/Direct3D.html"
+       href="../../1%20OOP.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Direct3D</p>
+        <p class="prev-next-title">Procedural Programming</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -846,16 +842,11 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct3d">Direct3D</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct2d">Direct2D</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directwrite">DirectWrite</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directcompute">DirectCompute</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directsound">DirectSound</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directmusic">DirectMusic</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directinput">DirectInput</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directplay">DirectPlay</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#directshow">DirectShow</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-directx-graphics-infrastructure">DXGI (DirectX Graphics Infrastructure)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ouput">Ouput</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sv-position">SV_POSITION</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">순서</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

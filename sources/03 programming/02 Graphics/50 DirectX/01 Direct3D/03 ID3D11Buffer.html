@@ -541,6 +541,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/101%20enum%20DXGI_SWAP_EFFECT.html">enum DXGI_SWAP_EFFECT</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../20%20HLSL.html">HLSL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../21%20Sementic.html">Sementic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../22%20Vertex%20Shader.html">Vertex Shader</a></li>
 </ul>
 </li>
 </ul>
@@ -712,7 +715,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-buffer-desc">D3D11_BUFFER_DESC 구조체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-buffer-desc">D3D11_BUFFER_DESC 구조체</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-buffer">구조화된 버퍼(Structured Buffer)</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -822,6 +828,11 @@ document.write(`
 </ul>
 </li>
 </ul>
+<section id="structured-buffer">
+<h3>구조화된 버퍼(Structured Buffer)<a class="headerlink" href="#structured-buffer" title="Permalink to this heading">#</a></h3>
+<p>구조화된 버퍼는 동일한 크기의 데이터 요소로 구성된 버퍼다.</p>
+<p>각 요소는 동일한 구조체 타입으로 정의된다. 일반적으로, 구조화된 버퍼는 복잡한 데이터 구조를 셰이더에 전달하는 데 유용하다.</p>
+</section>
 </section>
 </section>
 
@@ -888,7 +899,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-buffer-desc">D3D11_BUFFER_DESC 구조체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-buffer-desc">D3D11_BUFFER_DESC 구조체</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-buffer">구조화된 버퍼(Structured Buffer)</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

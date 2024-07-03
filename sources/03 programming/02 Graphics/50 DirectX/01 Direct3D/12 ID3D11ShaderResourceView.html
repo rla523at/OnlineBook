@@ -541,6 +541,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/101%20enum%20DXGI_SWAP_EFFECT.html">enum DXGI_SWAP_EFFECT</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../20%20HLSL.html">HLSL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../21%20Sementic.html">Sementic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../22%20Vertex%20Shader.html">Vertex Shader</a></li>
 </ul>
 </li>
 </ul>
@@ -712,7 +715,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-shader-resource-view-desc">D3D11_SHADER_RESOURCE_VIEW_DESC 구조체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-shader-resource-view-desc">D3D11_SHADER_RESOURCE_VIEW_DESC 구조체</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-buffer-srv">D3D11_BUFFER_SRV</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-bufferex-srv">D3D11_BUFFEREX_SRV 구조체</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -747,6 +754,7 @@ document.write(`
 <span class="w">        </span><span class="n">D3D11_TEX3D_SRV</span><span class="w"> </span><span class="n">Texture3D</span><span class="p">;</span>
 <span class="w">        </span><span class="n">D3D11_TEXCUBE_SRV</span><span class="w"> </span><span class="n">TextureCube</span><span class="p">;</span>
 <span class="w">        </span><span class="n">D3D11_TEXCUBE_ARRAY_SRV</span><span class="w"> </span><span class="n">TextureCubeArray</span><span class="p">;</span>
+<span class="w">        </span><span class="n">D3D11_BUFFEREX_SRV</span><span class="w"> </span><span class="n">BufferEx</span><span class="p">;</span>
 <span class="w">    </span><span class="p">};</span>
 <span class="p">}</span><span class="w"> </span><span class="n">D3D11_SHADER_RESOURCE_VIEW_DESC</span><span class="p">;</span>
 </pre></div>
@@ -781,17 +789,149 @@ document.write(`
 <li><p>셰이더 리소스 뷰의 상세 설정을 위한 유니온이다. 각 타입에 따라 구조체를 사용한다.</p></li>
 <li><p>가능한 값과 각 값이 갖는 의미</p>
 <ul>
-<li><p>D3D11_BUFFER_SRV Buffer: 버퍼 리소스에 대한 설정</p></li>
-<li><p>D3D11_TEX1D_SRV Texture1D: 1D 텍스처 리소스에 대한 설정</p></li>
-<li><p>D3D11_TEX2D_SRV Texture2D: 2D 텍스처 리소스에 대한 설정</p></li>
-<li><p>D3D11_TEX3D_SRV Texture3D: 3D 텍스처 리소스에 대한 설정</p></li>
-<li><p>D3D11_TEXCUBE_SRV TextureCube: 큐브 텍스처 리소스에 대한 설정</p></li>
+<li><p>D3D11_BUFFER_SRV Buffer</p>
+<ul>
+<li><p>버퍼 리소스에 대한 설정</p></li>
+</ul>
+</li>
+<li><p>D3D11_TEX1D_SRV Texture1D</p>
+<ul>
+<li><p>1D 텍스처 리소스에 대한 설정</p></li>
+</ul>
+</li>
+<li><p>D3D11_TEX1D_ARRAY_SRV Texture1DArray</p>
+<ul>
+<li><p>1D 텍스처 배열 리소스에 대한 설정</p></li>
+</ul>
+</li>
+<li><p>D3D11_TEX2D_SRV Texture2D</p>
+<ul>
+<li><p>2D 텍스처 리소스에 대한 설정</p></li>
+</ul>
+</li>
+<li><p>D3D11_TEX2D_ARRAY_SRV Texture2DArray</p>
+<ul>
+<li><p>2D 텍스처 배열 리소스에 대한 설정</p></li>
+</ul>
+</li>
+<li><p>D3D11_TEX2DMS_SRV Texture2DMS</p>
+<ul>
+<li><p>멀티샘플 2D 텍스처 리소스에 대한 설정</p></li>
+</ul>
+</li>
+<li><p>D3D11_TEX2DMS_ARRAY_SRV Texture2DMSArray</p>
+<ul>
+<li><p>멀티샘플 2D 텍스처 배열 리소스에 대한 설정</p></li>
+</ul>
+</li>
+<li><p>D3D11_TEX3D_SRV Texture3D</p>
+<ul>
+<li><p>3D 텍스처 리소스에 대한 설정</p></li>
+</ul>
+</li>
+<li><p>D3D11_TEXCUBE_SRV TextureCube</p>
+<ul>
+<li><p>큐브 텍스처 리소스에 대한 설정</p></li>
+</ul>
+</li>
+<li><p>D3D11_TEXCUBE_ARRAY_SRV TextureCubeArray</p>
+<ul>
+<li><p>큐브 텍스처 배열 리소스에 대한 설정</p></li>
+</ul>
+</li>
+<li><p>D3D11_BUFFEREX_SRV BufferEx</p>
+<ul>
+<li><p>확장된 버퍼 리소스에 대한 설정</p></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>기본값은 없다. 각 ViewDimension에 따라 적절한 값을 설정해야 한다.</p></li>
 </ul>
 </li>
 </ul>
+<section id="d3d11-buffer-srv">
+<h3>D3D11_BUFFER_SRV<a class="headerlink" href="#d3d11-buffer-srv" title="Permalink to this heading">#</a></h3>
+<p>D3D11_BUFFER_SRV 구조체는 Direct3D 11에서 버퍼 리소스 뷰를 정의하기 위한 구조체이다. 이 구조체는 셰이더가 접근할 버퍼의 범위를 지정한다.</p>
+<p>정의는 다음과 같다.</p>
+<p>typedef struct D3D11_BUFFER_SRV {
+UINT FirstElement;
+UINT NumElements;
+} D3D11_BUFFER_SRV;</p>
+<p>각각의 멤버변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>UINT FirstElement</p>
+<ul>
+<li><p>뷰의 첫 번째 요소를 지정한다.</p></li>
+<li><p>가능한 값</p>
+<ul>
+<li><p>0 이상의 정수 값</p></li>
+</ul>
+</li>
+<li><p>기본값은 0이다.</p></li>
+</ul>
+</li>
+<li><p>UINT NumElements</p>
+<ul>
+<li><p>뷰에 포함된 요소의 수를 지정한다.</p></li>
+<li><p>가능한 값</p>
+<ul>
+<li><p>1 이상의 정수 값</p></li>
+</ul>
+</li>
+<li><p>기본값은 전체 버퍼 크기에서 FirstElement를 뺀 값이다.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="d3d11-bufferex-srv">
+<h3>D3D11_BUFFEREX_SRV 구조체<a class="headerlink" href="#d3d11-bufferex-srv" title="Permalink to this heading">#</a></h3>
+<p>D3D11_BUFFEREX_SRV 구조체는 Direct3D 11에서 확장된 버퍼 리소스 뷰를 정의하기 위한 구조체이다. 이 구조체는 버퍼의 범위를 지정하고, 원시 뷰를 허용하는 옵션을 제공한다.</p>
+<p>정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D11_BUFFEREX_SRV</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">FirstElement</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">NumElements</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Flags</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">D3D11_BUFFEREX_SRV</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>각각의 멤버변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>UINT FirstElement</p>
+<ul>
+<li><p>뷰의 첫 번째 요소를 지정한다.</p></li>
+<li><p>가능한 값</p>
+<ul>
+<li><p>0 이상의 정수 값</p></li>
+</ul>
+</li>
+<li><p>기본값은 0이다.</p></li>
+</ul>
+</li>
+<li><p>UINT NumElements</p>
+<ul>
+<li><p>뷰에 포함된 요소의 수를 지정한다.</p></li>
+<li><p>가능한 값</p>
+<ul>
+<li><p>1 이상의 정수 값</p></li>
+</ul>
+</li>
+<li><p>기본값은 전체 버퍼 크기에서 FirstElement를 뺀 값이다.</p></li>
+</ul>
+</li>
+<li><p>UINT Flags</p>
+<ul>
+<li><p>버퍼 뷰에 대한 옵션 플래그를 지정한다.</p></li>
+<li><p>가능한 값</p>
+<ul>
+<li><p>D3D11_BUFFEREX_SRV_FLAG_RAW: 버퍼의 원시 뷰를 허용</p></li>
+</ul>
+</li>
+<li><p>기본값은 0이다.</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 </section>
 
@@ -858,7 +998,11 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-shader-resource-view-desc">D3D11_SHADER_RESOURCE_VIEW_DESC 구조체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-shader-resource-view-desc">D3D11_SHADER_RESOURCE_VIEW_DESC 구조체</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-buffer-srv">D3D11_BUFFER_SRV</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-bufferex-srv">D3D11_BUFFEREX_SRV 구조체</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
