@@ -541,6 +541,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/101%20enum%20DXGI_SWAP_EFFECT.html">enum DXGI_SWAP_EFFECT</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../20%20HLSL.html">HLSL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../21%20Sementic.html">Sementic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../22%20Vertex%20Shader.html">Vertex Shader</a></li>
 </ul>
 </li>
 </ul>
@@ -717,6 +720,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-unmap">Map/Unmap 멤버 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unmap">Unmap 멤버 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#updatesubresource">UpdateSubresource 멤버 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vssetconstantbuffers">VSSetConstantBuffers 멤버 함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#startslot">StartSlot 인자</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#immediate-context-deferred-context">Immediate Context와 Deferred Context</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#immediate-context">Immediate Context</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deferred-context">Deferred Context</a></li>
@@ -765,22 +772,22 @@ document.write(`
 </ul>
 <p>Vertex Shader(VS) stage에서는 다음과 같은 일들을 하며, 관련된 멤버함수는 다음과 같다.</p>
 <ul class="simple">
-<li><p>정점 셰이더를 설정한다.</p>
+<li><p>정점 shader를 설정한다.</p>
 <ul>
 <li><p>VSSetShader 멤버함수</p></li>
 </ul>
 </li>
-<li><p>정점 셰이더에서 사용할 상수 버퍼를 설정한다.</p>
+<li><p>정점 shader에서 사용할 상수 버퍼를 설정한다.</p>
 <ul>
 <li><p>VSSetConstantBuffers 멤버함수</p></li>
 </ul>
 </li>
-<li><p>정점 셰이더에서 사용할 셰이더 리소스를 설정한다.</p>
+<li><p>정점 shader에서 사용할 shader 리소스를 설정한다.</p>
 <ul>
 <li><p>VSSetShaderResources 멤버함수</p></li>
 </ul>
 </li>
-<li><p>정점 셰이더에서 사용할 샘플러를 설정한다.</p>
+<li><p>정점 shader에서 사용할 샘플러를 설정한다.</p>
 <ul>
 <li><p>VSSetSamplers 멤버함수</p></li>
 </ul>
@@ -806,22 +813,22 @@ document.write(`
 </ul>
 <p>Pixel Shader(PS) stage에서는 다음과 같은 일들을 하며, 관련된 멤버함수는 다음과 같다.</p>
 <ul class="simple">
-<li><p>픽셀 셰이더를 설정한다.</p>
+<li><p>픽셀 shader를 설정한다.</p>
 <ul>
 <li><p>PSSetShader 멤버함수</p></li>
 </ul>
 </li>
-<li><p>픽셀 셰이더에서 사용할 상수 버퍼를 설정한다.</p>
+<li><p>픽셀 shader에서 사용할 상수 버퍼를 설정한다.</p>
 <ul>
 <li><p>PSSetConstantBuffers 멤버함수</p></li>
 </ul>
 </li>
-<li><p>픽셀 셰이더에서 사용할 셰이더 리소스를 설정한다.</p>
+<li><p>픽셀 shader에서 사용할 shader 리소스를 설정한다.</p>
 <ul>
 <li><p>PSSetShaderResources 멤버함수</p></li>
 </ul>
 </li>
-<li><p>픽셀 셰이더에서 사용할 샘플러를 설정한다.</p>
+<li><p>픽셀 shader에서 사용할 샘플러를 설정한다.</p>
 <ul>
 <li><p>PSSetSamplers 멤버함수</p></li>
 </ul>
@@ -1127,6 +1134,79 @@ document.write(`
 <li><p>내부적으로 메모리 할당과 해제를 수반할 수 있다. 매 프레임마다 이러한 작업이 반복되면 메모리 관리 오버헤드가 발생할 수 있다.</p></li>
 </ul>
 </section>
+<section id="vssetconstantbuffers">
+<h2>VSSetConstantBuffers 멤버 함수<a class="headerlink" href="#vssetconstantbuffers" title="Permalink to this heading">#</a></h2>
+<p>VSSetConstantBuffers 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 버텍스 shader 단계에서 사용할 상수 버퍼를 설정하는 함수다. 이 함수는 shader 프로그램에 상수 데이터를 전달하는 데 사용된다.</p>
+<p>시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">ID3D11DeviceContext::VSSetConstantBuffers</span><span class="p">(</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">StartSlot</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">NumBuffers</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ID3D11Buffer</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">ppConstantBuffers</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>UINT StartSlot</p>
+<ul>
+<li><p>설정할 첫 번째 상수 버퍼 슬롯의 인덱스</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0 이상의 정수 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>UINT NumBuffers</p>
+<ul>
+<li><p>설정할 상수 버퍼의 수</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0 이상의 정수 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>ID3D11Buffer *const *ppConstantBuffers</p>
+<ul>
+<li><p>상수 버퍼 배열에 대한 포인터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>NULL: 상수 버퍼를 설정하지 않는다.</p></li>
+<li><p>유효한 ID3D11Buffer 객체의 포인터 배열</p></li>
+</ul>
+</li>
+<li><p>기본값: NULL</p></li>
+</ul>
+</li>
+</ul>
+<section id="startslot">
+<h3>StartSlot 인자<a class="headerlink" href="#startslot" title="Permalink to this heading">#</a></h3>
+<p>StartSlot 인자는 상수 버퍼를 바인딩할 첫 번째 슬롯을 지정하며, 그 뒤의 슬롯에 순차적으로 상수 버퍼를 바인딩한다.</p>
+<p>예를 들어 다음과 같은 C++ 코드가 있다고 하자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// 상수 버퍼 배열 준비</span>
+<span class="n">ID3D11Buffer</span><span class="o">*</span><span class="w"> </span><span class="n">constantBuffers</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pConstantBuffer0</span><span class="p">,</span><span class="w"> </span><span class="n">pConstantBuffer1</span><span class="w"> </span><span class="p">};</span>
+
+<span class="c1">// Vertex Shader에 상수 버퍼 설정 (슬롯 0과 슬롯 1에 바인딩)</span>
+<span class="n">deviceContext</span><span class="o">-&gt;</span><span class="n">VSSetConstantBuffers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">constantBuffers</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>상수 버퍼는 슬롯 0과 슬롯 1에 바인딩된다. 그리고 shader 코드에서 아래와 같이 슬롯을 참조하여 상수 버퍼에 접근할 수 있다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cbuffer</span> <span class="n">ConstantBuffer0</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">b0</span><span class="p">)</span> <span class="o">//</span> <span class="n">StartSlot</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="p">{</span>
+    <span class="o">//</span><span class="n">pConstantBuffer0의</span> <span class="n">내용</span>
+<span class="p">};</span>
+
+<span class="n">cbuffer</span> <span class="n">ConstantBuffer1</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">b1</span><span class="p">)</span> <span class="o">//</span> <span class="n">StartSlot</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">{</span>
+    <span class="o">//</span><span class="n">pConstantBuffer1의</span> <span class="n">내용</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="immediate-context-deferred-context">
 <h2>Immediate Context와 Deferred Context<a class="headerlink" href="#immediate-context-deferred-context" title="Permalink to this heading">#</a></h2>
 <section id="immediate-context">
@@ -1270,6 +1350,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-unmap">Map/Unmap 멤버 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unmap">Unmap 멤버 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#updatesubresource">UpdateSubresource 멤버 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vssetconstantbuffers">VSSetConstantBuffers 멤버 함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#startslot">StartSlot 인자</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#immediate-context-deferred-context">Immediate Context와 Deferred Context</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#immediate-context">Immediate Context</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deferred-context">Deferred Context</a></li>
