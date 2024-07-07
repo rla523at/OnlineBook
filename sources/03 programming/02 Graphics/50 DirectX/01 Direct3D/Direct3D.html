@@ -512,17 +512,17 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="105%20enum%20D3D11_RTV_DIMENSION.html">enum D3D11_RTV_DIMENSION</a></li>
 <li class="toctree-l4"><a class="reference internal" href="106%20enum%20D3D11_DSV_DIMENSION.html">enum D3D11_DSV_DIMENSION</a></li>
 <li class="toctree-l4"><a class="reference internal" href="107%20enum%20D3D11_DSV_FLAG.html">enum D3D11_DSV_FLAG</a></li>
-<li class="toctree-l4"><a class="reference internal" href="108%20enum%20D3D_SRV_DIMENSION.html">enum D3D_SRV_DIMENSION</a></li>
-<li class="toctree-l4"><a class="reference internal" href="109%20enum%20D3D11_FILL_MODE.html">enum D3D11_FILL_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="108%20enum%20D3D11_FILL_MODE.html">enum D3D11_FILL_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="109%20enum%20D3D11_CULL_MODE.html">enum D3D11_CULL_MODE</a></li>
 <li class="toctree-l4"><a class="reference internal" href="11%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
-<li class="toctree-l4"><a class="reference internal" href="110%20enum%20D3D11_CULL_MODE.html">enum D3D11_CULL_MODE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="111%20enum%20D3D11_FILTER.html">enum D3D11_FILTER</a></li>
-<li class="toctree-l4"><a class="reference internal" href="112%20enum%20D3D11_TEXTURE_ADDRESS_MODE.html">enum D3D11_TEXTURE_ADDRESS_MODE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="113%20enum%20D3D11_COMPARISON_FUNC.html">enum D3D11_COMPARISON_FUNC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="114%20enum%20D3D11_STENCIL_OP.html">enum D3D11_STENCIL_OP</a></li>
-<li class="toctree-l4"><a class="reference internal" href="115%20enum%20D3D11_CREATE_DEVICE_FLAG.html">enum D3D11_CREATE_DEVICE_FLAG</a></li>
-<li class="toctree-l4"><a class="reference internal" href="116%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="110%20enum%20D3D11_FILTER.html">enum D3D11_FILTER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="111%20enum%20D3D11_TEXTURE_ADDRESS_MODE.html">enum D3D11_TEXTURE_ADDRESS_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="112%20enum%20D3D11_COMPARISON_FUNC.html">enum D3D11_COMPARISON_FUNC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="113%20enum%20D3D11_STENCIL_OP.html">enum D3D11_STENCIL_OP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="114%20enum%20D3D11_CREATE_DEVICE_FLAG.html">enum D3D11_CREATE_DEVICE_FLAG</a></li>
 <li class="toctree-l4"><a class="reference internal" href="12%20ID3D11ShaderResourceView.html">ID3D11ShaderResourceView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="150%20enum%20D3D_SRV_DIMENSION.html">enum D3D_SRV_DIMENSION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="151%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
 <li class="toctree-l4"><a class="reference internal" href="30%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="31%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="32%20ID3D11SamplerState.html">ID3D11SamplerState</a></li>
@@ -542,8 +542,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../20%20HLSL.html">HLSL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../21%20Sementic.html">Sementic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../21%20Sementic.html">Semantic</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../22%20Vertex%20Shader.html">Vertex Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../23%20Pixel%20Shader.html">Pixel Shader</a></li>
 </ul>
 </li>
 </ul>
@@ -747,6 +748,17 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3dcompilefromfile">D3DCompileFromFile 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer-padding">Constant Buffer Padding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer-vs-shader-resource-view">Constant Buffer vs Shader Resource View</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer">constant buffer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-resource">shader resource</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">정리</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixlookatlh">XMMatrixLookAtLH 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixlooktolh">XMMatrixLookToLH 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixperspectivefovlh">XMMatrixPerspectiveFovLH 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixorthographicoffcenterlh">XMMatrixOrthographicOffCenterLH함수</a></li>
 </ul>
             </nav>
         </div>
@@ -765,6 +777,7 @@ document.write(`
 <section id="input-assembler-stage">
 <h3>입력 어셈블러 단계 (Input Assembler Stage)<a class="headerlink" href="#input-assembler-stage" title="Permalink to this heading">#</a></h3>
 <p>이 단계에서는 정점 데이터와 인덱스 데이터를 GPU로 가져온다. 정점 데이터는 3D 모델의 점들에 대한 정보이며, 인덱스 데이터는 이러한 정점들이 어떻게 결합되어 폴리곤을 이루는지에 대한 정보를 포함한다. 이 단계에서 정점 버퍼와 인덱스 버퍼가 GPU에 바인딩되어 후속 단계에서 사용할 수 있도록 준비된다.</p>
+<p>input assembler stage에서는 graphics pipe line에 input data인 vertex buffer를 설정하고 vertex buffer가 어떤 형태의 data인지 알려주는 input layout을 설정한다. 그리고 각 data의 고유한 index가 저장된 index buffer를 설정하고 index buffer를 어떻게 해석할지를 결정하는 primitive topology를 설정한다.</p>
 </section>
 <section id="vertex-shader-stage">
 <h3>정점 셰이더 단계 (Vertex Shader Stage)<a class="headerlink" href="#vertex-shader-stage" title="Permalink to this heading">#</a></h3>
@@ -1252,6 +1265,323 @@ document.write(`
 </li>
 </ul>
 </section>
+<section id="constant-buffer-padding">
+<h2>Constant Buffer Padding<a class="headerlink" href="#constant-buffer-padding" title="Permalink to this heading">#</a></h2>
+<p>constant buffer는 16byte를 맞춰줘야한다.</p>
+<p>따라서, 16byte를 맞추지 못하는 경우에는 그에 해당하는 padding을 넣어줘야한다.</p>
+<p>예를 들어, 아래와 같이 16byte를 안맞출 경우 CreateBuffer 함수가 실패할 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Box3D_PS_CBuffer_Data</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">BOOL</span><span class="w">  </span><span class="n">use_tex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FALSE</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>이를 해결하기 위해서는 16byte를 맞추어줘야한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Box3D_PS_CBuffer_Data</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">BOOL</span><span class="w">  </span><span class="n">use_tex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FALSE</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">padding</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="constant-buffer-vs-shader-resource-view">
+<h2>Constant Buffer vs Shader Resource View<a class="headerlink" href="#constant-buffer-vs-shader-resource-view" title="Permalink to this heading">#</a></h2>
+<section id="constant-buffer">
+<h3>constant buffer<a class="headerlink" href="#constant-buffer" title="Permalink to this heading">#</a></h3>
+<p>상수 버퍼는 작은 양의 데이터를 셰이더에 전달할 때 매우 효율적이다. 이는 주로 매트릭스, 벡터, 스칼라 값과 같은 데이터를 전달하는 데 사용된다.</p>
+<p>constant buffer는 효율성: 상수 버퍼는 작은 데이터 집합을 매우 빠르게 전달할 수 있도록 최적화되어 있다.
+간단한 사용: 상수 버퍼는 설정이 비교적 간단하고, Direct3D에서 효율적으로 관리된다.
+동기화: 상수 버퍼는 CPU와 GPU 간의 동기화가 필요 없으며, 빠르게 업데이트할 수 있다.</p>
+</section>
+<section id="shader-resource">
+<h3>shader resource<a class="headerlink" href="#shader-resource" title="Permalink to this heading">#</a></h3>
+<p>셰이더 리소스는 텍스처, 구조화된 버퍼, 버퍼 배열 등 더 큰 데이터 세트를 전달하는 데 사용된다. 이는 주로 텍스처 맵핑 또는 복잡한 데이터 구조를 전달하는 데 적합하다.</p>
+<p>장점
+유연성: 다양한 유형의 데이터(텍스처, 버퍼 등)를 전달할 수 있다.
+큰 데이터 세트 처리: 더 큰 데이터 세트를 효율적으로 처리할 수 있다</p>
+</section>
+<section id="id1">
+<h3>정리<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>특성</p></th>
+<th class="head"><p>상수 버퍼 (Constant Buffer)</p></th>
+<th class="head"><p>셰이더 리소스 (Shader Resource)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>데이터 크기</strong></p></td>
+<td><p>작은 데이터 (예: 매트릭스, 벡터)</p></td>
+<td><p>큰 데이터 (예: 텍스처, 구조화된 버퍼)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>사용 빈도</strong></p></td>
+<td><p>매 프레임 업데이트 가능</p></td>
+<td><p>자주 변경되지 않는 데이터</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>유형</strong></p></td>
+<td><p>단순 데이터 구조</p></td>
+<td><p>복잡한 데이터 구조</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>성능</strong></p></td>
+<td><p>매우 효율적</p></td>
+<td><p>대규모 데이터 전송에 적합</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>동기화</strong></p></td>
+<td><p>필요 없음</p></td>
+<td><p>일반적으로 필요 없음</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>유연성</strong></p></td>
+<td><p>제한적</p></td>
+<td><p>매우 유연</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="xmmatrixlookatlh">
+<h2>XMMatrixLookAtLH 함수<a class="headerlink" href="#xmmatrixlookatlh" title="Permalink to this heading">#</a></h2>
+<p>XMMatrixLookAtLH 함수는 DirectXMath 라이브러리의 함수로, 좌측좌표계(Left-Handed Coordinate System)에서 뷰 행렬을 생성하는 함수다.</p>
+<p>이 함수는 카메라의 위치, 카메라가 바라보는 대상, 그리고 카메라의 상향 벡터를 기반으로 뷰 행렬을 계산한다.</p>
+<p>시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">XMMATRIX</span><span class="w"> </span><span class="nf">XMMatrixLookAtLH</span><span class="p">(</span>
+<span class="w">    </span><span class="n">FXMVECTOR</span><span class="w"> </span><span class="n">EyePosition</span><span class="p">,</span>
+<span class="w">    </span><span class="n">FXMVECTOR</span><span class="w"> </span><span class="n">FocusPosition</span><span class="p">,</span>
+<span class="w">    </span><span class="n">FXMVECTOR</span><span class="w"> </span><span class="n">UpDirection</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>FXMVECTOR EyePosition</p>
+<ul>
+<li><p>카메라의 위치를 지정하는 3차원 벡터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>FXMVECTOR FocusPosition</p>
+<ul>
+<li><p>카메라가 바라보는 대상의 위치를 지정하는 3차원 벡터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>FXMVECTOR UpDirection</p>
+<ul>
+<li><p>카메라의 상향 벡터를 지정하는 3차원 벡터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="xmmatrixlooktolh">
+<h2>XMMatrixLookToLH 함수<a class="headerlink" href="#xmmatrixlooktolh" title="Permalink to this heading">#</a></h2>
+<p>XMMatrixLookToLH 함수는 DirectXMath 라이브러리의 함수로, 좌측좌표계(Left-Handed Coordinate System)에서 뷰 행렬을 생성하는 함수다.</p>
+<p>이 함수는 카메라의 위치, 카메라가 바라보는 방향, 그리고 카메라의 상향 벡터를 기반으로 뷰 행렬을 계산한다.</p>
+<p>시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">XMMATRIX</span><span class="w"> </span><span class="nf">XMMatrixLookToLH</span><span class="p">(</span>
+<span class="w">    </span><span class="n">FXMVECTOR</span><span class="w"> </span><span class="n">EyePosition</span><span class="p">,</span>
+<span class="w">    </span><span class="n">FXMVECTOR</span><span class="w"> </span><span class="n">EyeDirection</span><span class="p">,</span>
+<span class="w">    </span><span class="n">FXMVECTOR</span><span class="w"> </span><span class="n">UpDirection</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>FXMVECTOR EyePosition</p>
+<ul>
+<li><p>카메라의 위치를 지정하는 3차원 벡터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>FXMVECTOR EyeDirection</p>
+<ul>
+<li><p>카메라가 바라보는 방향을 지정하는 3차원 벡터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>FXMVECTOR UpDirection</p>
+<ul>
+<li><p>카메라의 상향 벡터를 지정하는 3차원 벡터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="xmmatrixperspectivefovlh">
+<h2>XMMatrixPerspectiveFovLH 함수<a class="headerlink" href="#xmmatrixperspectivefovlh" title="Permalink to this heading">#</a></h2>
+<p>XMMatrixPerspectiveFovLH 함수는 DirectXMath 라이브러리의 함수로, 좌측좌표계(Left-Handed Coordinate System)에서 주어진 시야각(FOV), 종횡비, 그리고 근/원거리 평면을 기반으로 원근 투영 행렬을 생성하는 함수다.</p>
+<p>시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">XMMATRIX</span><span class="w"> </span><span class="nf">XMMatrixPerspectiveFovLH</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">FovAngleY</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">AspectRatio</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">NearZ</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">FarZ</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>float FovAngleY</p>
+<ul>
+<li><p>Y축 방향의 시야각을 라디안 단위로 지정</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0보다 크고, π(파이)보다 작은 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float AspectRatio</p>
+<ul>
+<li><p>뷰포트의 종횡비를 지정 (너비 / 높이)</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0보다 큰 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float NearZ</p>
+<ul>
+<li><p>근거리 평면의 깊이를 지정</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0보다 크고, FarZ보다 작은 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float FarZ</p>
+<ul>
+<li><p>원거리 평면의 깊이를 지정</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>NearZ보다 큰 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="xmmatrixorthographicoffcenterlh">
+<h2>XMMatrixOrthographicOffCenterLH함수<a class="headerlink" href="#xmmatrixorthographicoffcenterlh" title="Permalink to this heading">#</a></h2>
+<p>XMMatrixOrthographicOffCenterLH 함수는 DirectXMath 라이브러리의 함수로, 좌측좌표계(Left-Handed Coordinate System)에서 원근이 없는 직교 투영 행렬을 생성하는 함수다.</p>
+<p>이 함수는 사용자 지정 좌표로 정의된 평면을 기준으로 하는 직교 투영을 설정한다.</p>
+<p>시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">XMMATRIX</span><span class="w"> </span><span class="nf">XMMatrixOrthographicOffCenterLH</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ViewLeft</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ViewRight</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ViewBottom</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ViewTop</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">NearZ</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">FarZ</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>float ViewLeft</p>
+<ul>
+<li><p>투영 평면의 왼쪽 좌표</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>임의의 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float ViewRight</p>
+<ul>
+<li><p>투영 평면의 오른쪽 좌표</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>임의의 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float ViewBottom</p>
+<ul>
+<li><p>투영 평면의 아래쪽 좌표</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>임의의 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float ViewTop</p>
+<ul>
+<li><p>투영 평면의 위쪽 좌표</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>임의의 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float NearZ</p>
+<ul>
+<li><p>근거리 평면의 깊이</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>임의의 부동 소수점 값 (일반적으로 0보다 큰 값)</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float FarZ</p>
+<ul>
+<li><p>원거리 평면의 깊이</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>NearZ보다 큰 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+</ul>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -1351,6 +1681,17 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3dcompilefromfile">D3DCompileFromFile 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer-padding">Constant Buffer Padding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer-vs-shader-resource-view">Constant Buffer vs Shader Resource View</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer">constant buffer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-resource">shader resource</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">정리</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixlookatlh">XMMatrixLookAtLH 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixlooktolh">XMMatrixLookToLH 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixperspectivefovlh">XMMatrixPerspectiveFovLH 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixorthographicoffcenterlh">XMMatrixOrthographicOffCenterLH함수</a></li>
 </ul>
   </nav></div>
 

@@ -512,17 +512,17 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="105%20enum%20D3D11_RTV_DIMENSION.html">enum D3D11_RTV_DIMENSION</a></li>
 <li class="toctree-l4"><a class="reference internal" href="106%20enum%20D3D11_DSV_DIMENSION.html">enum D3D11_DSV_DIMENSION</a></li>
 <li class="toctree-l4"><a class="reference internal" href="107%20enum%20D3D11_DSV_FLAG.html">enum D3D11_DSV_FLAG</a></li>
-<li class="toctree-l4"><a class="reference internal" href="108%20enum%20D3D_SRV_DIMENSION.html">enum D3D_SRV_DIMENSION</a></li>
-<li class="toctree-l4"><a class="reference internal" href="109%20enum%20D3D11_FILL_MODE.html">enum D3D11_FILL_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="108%20enum%20D3D11_FILL_MODE.html">enum D3D11_FILL_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="109%20enum%20D3D11_CULL_MODE.html">enum D3D11_CULL_MODE</a></li>
 <li class="toctree-l4"><a class="reference internal" href="11%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
-<li class="toctree-l4"><a class="reference internal" href="110%20enum%20D3D11_CULL_MODE.html">enum D3D11_CULL_MODE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="111%20enum%20D3D11_FILTER.html">enum D3D11_FILTER</a></li>
-<li class="toctree-l4"><a class="reference internal" href="112%20enum%20D3D11_TEXTURE_ADDRESS_MODE.html">enum D3D11_TEXTURE_ADDRESS_MODE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="113%20enum%20D3D11_COMPARISON_FUNC.html">enum D3D11_COMPARISON_FUNC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="114%20enum%20D3D11_STENCIL_OP.html">enum D3D11_STENCIL_OP</a></li>
-<li class="toctree-l4"><a class="reference internal" href="115%20enum%20D3D11_CREATE_DEVICE_FLAG.html">enum D3D11_CREATE_DEVICE_FLAG</a></li>
-<li class="toctree-l4"><a class="reference internal" href="116%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="110%20enum%20D3D11_FILTER.html">enum D3D11_FILTER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="111%20enum%20D3D11_TEXTURE_ADDRESS_MODE.html">enum D3D11_TEXTURE_ADDRESS_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="112%20enum%20D3D11_COMPARISON_FUNC.html">enum D3D11_COMPARISON_FUNC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="113%20enum%20D3D11_STENCIL_OP.html">enum D3D11_STENCIL_OP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="114%20enum%20D3D11_CREATE_DEVICE_FLAG.html">enum D3D11_CREATE_DEVICE_FLAG</a></li>
 <li class="toctree-l4"><a class="reference internal" href="12%20ID3D11ShaderResourceView.html">ID3D11ShaderResourceView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="150%20enum%20D3D_SRV_DIMENSION.html">enum D3D_SRV_DIMENSION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="151%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
 <li class="toctree-l4"><a class="reference internal" href="30%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="31%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="32%20ID3D11SamplerState.html">ID3D11SamplerState</a></li>
@@ -541,6 +541,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/101%20enum%20DXGI_SWAP_EFFECT.html">enum DXGI_SWAP_EFFECT</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../20%20HLSL.html">HLSL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../21%20Sementic.html">Semantic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../22%20Vertex%20Shader.html">Vertex Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../23%20Pixel%20Shader.html">Pixel Shader</a></li>
 </ul>
 </li>
 </ul>
@@ -713,6 +717,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-input-element-desc">D3D11_INPUT_ELEMENT_DESC 구조체</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#semanticname">SemanticName</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instancedatasteprate">InstanceDataStepRate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inputslot">InputSlot</a></li>
 </ul>
@@ -833,6 +838,65 @@ document.write(`
 </ul>
 </li>
 </ul>
+<section id="semanticname">
+<h3>SemanticName<a class="headerlink" href="#semanticname" title="Permalink to this heading">#</a></h3>
+<p>D3D11_INPUT_ELEMENT_DESC로 나타내려는 변수가 Vertex Shader Input에서 어떤 Sementics를 갖는지 정하는 변수이다.</p>
+<p>Vertex Shader Input으로 사용할 수 있는 Semantics는 다음과 같다.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Input</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>BINORMAL[n]</p></td>
+<td><p>Binormal</p></td>
+<td><p>float4</p></td>
+</tr>
+<tr class="row-odd"><td><p>BLENDINDICES[n]</p></td>
+<td><p>Blend indices</p></td>
+<td><p>uint</p></td>
+</tr>
+<tr class="row-even"><td><p>BLENDWEIGHT[n]</p></td>
+<td><p>Blend weights</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-odd"><td><p>COLOR[n]</p></td>
+<td><p>Diffuse and specular color</p></td>
+<td><p>float4</p></td>
+</tr>
+<tr class="row-even"><td><p>NORMAL[n]</p></td>
+<td><p>Normal vector</p></td>
+<td><p>float4</p></td>
+</tr>
+<tr class="row-odd"><td><p>POSITION[n]</p></td>
+<td><p>Vertex position in object space.</p></td>
+<td><p>float4</p></td>
+</tr>
+<tr class="row-even"><td><p>POSITIONT</p></td>
+<td><p>Transformed vertex position.</p></td>
+<td><p>float4</p></td>
+</tr>
+<tr class="row-odd"><td><p>PSIZE[n]</p></td>
+<td><p>Point size</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-even"><td><p>TANGENT[n]</p></td>
+<td><p>Tangent</p></td>
+<td><p>float4</p></td>
+</tr>
+<tr class="row-odd"><td><p>TEXCOORD[n]</p></td>
+<td><p>Texture coordinates</p></td>
+<td><p>float4</p></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics#vertex-shader-semantics">learn.microsoft - vertex-shader-semantics</a></p>
+</div></blockquote>
+</section>
 <section id="instancedatasteprate">
 <h3>InstanceDataStepRate<a class="headerlink" href="#instancedatasteprate" title="Permalink to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D11_INPUT_ELEMENT_DESC</span> <span class="n">inputElementDesc</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
@@ -950,6 +1014,7 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-input-element-desc">D3D11_INPUT_ELEMENT_DESC 구조체</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#semanticname">SemanticName</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instancedatasteprate">InstanceDataStepRate</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inputslot">InputSlot</a></li>
 </ul>

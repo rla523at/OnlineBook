@@ -72,6 +72,28 @@ typedef struct D3D11_INPUT_ELEMENT_DESC {
       * 0일 경우 당 입력 요소가 인스턴싱되지 않음을 의미하며 각 버텍스마다 데이터가 변경된다.
   * 기본값은 0이다.
 
+### SemanticName
+D3D11_INPUT_ELEMENT_DESC로 나타내려는 변수가 Vertex Shader Input에서 어떤 Sementics를 갖는지 정하는 변수이다.
+
+Vertex Shader Input으로 사용할 수 있는 Semantics는 다음과 같다.
+
+| Input          | Description                         | Type    |
+|----------------|-------------------------------------|---------|
+| BINORMAL[n]    | Binormal                            | float4  |
+| BLENDINDICES[n]| Blend indices                       | uint    |
+| BLENDWEIGHT[n] | Blend weights                       | float   |
+| COLOR[n]       | Diffuse and specular color          | float4  |
+| NORMAL[n]      | Normal vector                       | float4  |
+| POSITION[n]    | Vertex position in object space.    | float4  |
+| POSITIONT      | Transformed vertex position.        | float4  |
+| PSIZE[n]       | Point size                          | float   |
+| TANGENT[n]     | Tangent                             | float4  |
+| TEXCOORD[n]    | Texture coordinates                 | float4  |
+
+> Reference  
+> [learn.microsoft - vertex-shader-semantics](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics#vertex-shader-semantics)
+
+
 ### InstanceDataStepRate
 
 ```

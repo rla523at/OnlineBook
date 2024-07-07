@@ -4,6 +4,8 @@
 ### 입력 어셈블러 단계 (Input Assembler Stage)
 이 단계에서는 정점 데이터와 인덱스 데이터를 GPU로 가져온다. 정점 데이터는 3D 모델의 점들에 대한 정보이며, 인덱스 데이터는 이러한 정점들이 어떻게 결합되어 폴리곤을 이루는지에 대한 정보를 포함한다. 이 단계에서 정점 버퍼와 인덱스 버퍼가 GPU에 바인딩되어 후속 단계에서 사용할 수 있도록 준비된다.
 
+input assembler stage에서는 graphics pipe line에 input data인 vertex buffer를 설정하고 vertex buffer가 어떤 형태의 data인지 알려주는 input layout을 설정한다. 그리고 각 data의 고유한 index가 저장된 index buffer를 설정하고 index buffer를 어떻게 해석할지를 결정하는 primitive topology를 설정한다.
+
 ### 정점 셰이더 단계 (Vertex Shader Stage)
 정점 셰이더는 각 정점에 대해 실행되며, 주로 정점의 변환과 조명을 계산한다. 이 단계에서는 3D 모델의 정점이 월드 공간, 뷰 공간, 클립 공간으로 변환된다. 또한 조명 계산을 통해 정점의 색상과 조명 효과를 결정할 수 있다. 정점 셰이더는 고유의 셰이더 프로그램으로 작성되며, HLSL을 사용하여 정의된다.
 
@@ -331,3 +333,212 @@ HRESULT D3DCompileFromFile(
     * NULL: 오류 메시지를 반환하지 않는다.
     * 유효한 ID3DBlob 객체 포인터
   * 기본값: NULL
+
+## Constant Buffer Padding
+constant buffer는 16byte를 맞춰줘야한다.
+
+따라서, 16byte를 맞추지 못하는 경우에는 그에 해당하는 padding을 넣어줘야한다.
+
+예를 들어, 아래와 같이 16byte를 안맞출 경우 CreateBuffer 함수가 실패할 수 있다.
+
+```cpp
+struct Box3D_PS_CBuffer_Data
+{
+  BOOL  use_tex = FALSE;
+};
+```
+
+이를 해결하기 위해서는 16byte를 맞추어줘야한다.
+
+```cpp
+struct Box3D_PS_CBuffer_Data
+{
+  BOOL  use_tex = FALSE;
+  float padding[3];
+};
+```
+
+## Constant Buffer vs Shader Resource View
+### constant buffer
+상수 버퍼는 작은 양의 데이터를 셰이더에 전달할 때 매우 효율적이다. 이는 주로 매트릭스, 벡터, 스칼라 값과 같은 데이터를 전달하는 데 사용된다.
+
+constant buffer는 효율성: 상수 버퍼는 작은 데이터 집합을 매우 빠르게 전달할 수 있도록 최적화되어 있다.
+간단한 사용: 상수 버퍼는 설정이 비교적 간단하고, Direct3D에서 효율적으로 관리된다.
+동기화: 상수 버퍼는 CPU와 GPU 간의 동기화가 필요 없으며, 빠르게 업데이트할 수 있다.
+
+### shader resource
+셰이더 리소스는 텍스처, 구조화된 버퍼, 버퍼 배열 등 더 큰 데이터 세트를 전달하는 데 사용된다. 이는 주로 텍스처 맵핑 또는 복잡한 데이터 구조를 전달하는 데 적합하다.
+
+장점
+유연성: 다양한 유형의 데이터(텍스처, 버퍼 등)를 전달할 수 있다.
+큰 데이터 세트 처리: 더 큰 데이터 세트를 효율적으로 처리할 수 있다
+
+### 정리
+
+| 특성                    | 상수 버퍼 (Constant Buffer) | 셰이더 리소스 (Shader Resource) |
+|------------------------|----------------------------|--------------------------------|
+| **데이터 크기**         | 작은 데이터 (예: 매트릭스, 벡터) | 큰 데이터 (예: 텍스처, 구조화된 버퍼) |
+| **사용 빈도**           | 매 프레임 업데이트 가능        | 자주 변경되지 않는 데이터          |
+| **유형**                | 단순 데이터 구조               | 복잡한 데이터 구조                |
+| **성능**                | 매우 효율적                    | 대규모 데이터 전송에 적합          |
+| **동기화**              | 필요 없음                      | 일반적으로 필요 없음              |
+| **유연성**              | 제한적                         | 매우 유연                         |
+
+
+## XMMatrixLookAtLH 함수
+XMMatrixLookAtLH 함수는 DirectXMath 라이브러리의 함수로, 좌측좌표계(Left-Handed Coordinate System)에서 뷰 행렬을 생성하는 함수다. 
+
+이 함수는 카메라의 위치, 카메라가 바라보는 대상, 그리고 카메라의 상향 벡터를 기반으로 뷰 행렬을 계산한다.
+
+시그니처는 다음과 같다.
+```cpp
+XMMATRIX XMMatrixLookAtLH(
+    FXMVECTOR EyePosition,
+    FXMVECTOR FocusPosition,
+    FXMVECTOR UpDirection
+);
+```
+매개변수는 다음과 같다.
+
+* FXMVECTOR EyePosition
+  * 카메라의 위치를 지정하는 3차원 벡터
+  * 사용 가능한 값
+    * 유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))
+  * 기본값: 없음
+
+* FXMVECTOR FocusPosition
+  * 카메라가 바라보는 대상의 위치를 지정하는 3차원 벡터
+  * 사용 가능한 값
+    * 유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))
+  * 기본값: 없음
+
+* FXMVECTOR UpDirection
+  * 카메라의 상향 벡터를 지정하는 3차원 벡터
+  * 사용 가능한 값
+    * 유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))
+  * 기본값: 없음
+
+## XMMatrixLookToLH 함수
+XMMatrixLookToLH 함수는 DirectXMath 라이브러리의 함수로, 좌측좌표계(Left-Handed Coordinate System)에서 뷰 행렬을 생성하는 함수다. 
+
+이 함수는 카메라의 위치, 카메라가 바라보는 방향, 그리고 카메라의 상향 벡터를 기반으로 뷰 행렬을 계산한다.
+
+시그니처는 다음과 같다.
+```cpp
+XMMATRIX XMMatrixLookToLH(
+    FXMVECTOR EyePosition,
+    FXMVECTOR EyeDirection,
+    FXMVECTOR UpDirection
+);
+```
+매개변수는 다음과 같다.
+
+* FXMVECTOR EyePosition
+  * 카메라의 위치를 지정하는 3차원 벡터
+  * 사용 가능한 값
+    * 유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))
+  * 기본값: 없음
+
+* FXMVECTOR EyeDirection
+  * 카메라가 바라보는 방향을 지정하는 3차원 벡터
+  * 사용 가능한 값
+    * 유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))
+  * 기본값: 없음
+
+* FXMVECTOR UpDirection
+  * 카메라의 상향 벡터를 지정하는 3차원 벡터
+  * 사용 가능한 값
+    * 유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))
+  * 기본값: 없음
+
+## XMMatrixPerspectiveFovLH 함수
+XMMatrixPerspectiveFovLH 함수는 DirectXMath 라이브러리의 함수로, 좌측좌표계(Left-Handed Coordinate System)에서 주어진 시야각(FOV), 종횡비, 그리고 근/원거리 평면을 기반으로 원근 투영 행렬을 생성하는 함수다.
+
+시그니처는 다음과 같다.
+```cpp
+XMMATRIX XMMatrixPerspectiveFovLH(
+    float FovAngleY,
+    float AspectRatio,
+    float NearZ,
+    float FarZ
+);
+```
+매개변수는 다음과 같다.
+
+* float FovAngleY
+  * Y축 방향의 시야각을 라디안 단위로 지정
+  * 사용 가능한 값
+    * 0보다 크고, π(파이)보다 작은 부동 소수점 값
+  * 기본값: 없음
+
+* float AspectRatio
+  * 뷰포트의 종횡비를 지정 (너비 / 높이)
+  * 사용 가능한 값
+    * 0보다 큰 부동 소수점 값
+  * 기본값: 없음
+
+* float NearZ
+  * 근거리 평면의 깊이를 지정
+  * 사용 가능한 값
+    * 0보다 크고, FarZ보다 작은 부동 소수점 값
+  * 기본값: 없음
+
+* float FarZ
+  * 원거리 평면의 깊이를 지정
+  * 사용 가능한 값
+    * NearZ보다 큰 부동 소수점 값
+  * 기본값: 없음
+
+## XMMatrixOrthographicOffCenterLH함수
+XMMatrixOrthographicOffCenterLH 함수는 DirectXMath 라이브러리의 함수로, 좌측좌표계(Left-Handed Coordinate System)에서 원근이 없는 직교 투영 행렬을 생성하는 함수다. 
+
+이 함수는 사용자 지정 좌표로 정의된 평면을 기준으로 하는 직교 투영을 설정한다.
+
+시그니처는 다음과 같다.
+```cpp
+XMMATRIX XMMatrixOrthographicOffCenterLH(
+    float ViewLeft,
+    float ViewRight,
+    float ViewBottom,
+    float ViewTop,
+    float NearZ,
+    float FarZ
+);
+```
+매개변수는 다음과 같다.
+
+* float ViewLeft
+  * 투영 평면의 왼쪽 좌표
+  * 사용 가능한 값
+    * 임의의 부동 소수점 값
+  * 기본값: 없음
+
+* float ViewRight
+  * 투영 평면의 오른쪽 좌표
+  * 사용 가능한 값
+    * 임의의 부동 소수점 값
+  * 기본값: 없음
+
+* float ViewBottom
+  * 투영 평면의 아래쪽 좌표
+  * 사용 가능한 값
+    * 임의의 부동 소수점 값
+  * 기본값: 없음
+
+* float ViewTop
+  * 투영 평면의 위쪽 좌표
+  * 사용 가능한 값
+    * 임의의 부동 소수점 값
+  * 기본값: 없음
+
+* float NearZ
+  * 근거리 평면의 깊이
+  * 사용 가능한 값
+    * 임의의 부동 소수점 값 (일반적으로 0보다 큰 값)
+  * 기본값: 없음
+
+* float FarZ
+  * 원거리 평면의 깊이
+  * 사용 가능한 값
+    * NearZ보다 큰 부동 소수점 값
+  * 기본값: 없음

@@ -512,17 +512,17 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="105%20enum%20D3D11_RTV_DIMENSION.html">enum D3D11_RTV_DIMENSION</a></li>
 <li class="toctree-l4"><a class="reference internal" href="106%20enum%20D3D11_DSV_DIMENSION.html">enum D3D11_DSV_DIMENSION</a></li>
 <li class="toctree-l4"><a class="reference internal" href="107%20enum%20D3D11_DSV_FLAG.html">enum D3D11_DSV_FLAG</a></li>
-<li class="toctree-l4"><a class="reference internal" href="108%20enum%20D3D_SRV_DIMENSION.html">enum D3D_SRV_DIMENSION</a></li>
-<li class="toctree-l4"><a class="reference internal" href="109%20enum%20D3D11_FILL_MODE.html">enum D3D11_FILL_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="108%20enum%20D3D11_FILL_MODE.html">enum D3D11_FILL_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="109%20enum%20D3D11_CULL_MODE.html">enum D3D11_CULL_MODE</a></li>
 <li class="toctree-l4"><a class="reference internal" href="11%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
-<li class="toctree-l4"><a class="reference internal" href="110%20enum%20D3D11_CULL_MODE.html">enum D3D11_CULL_MODE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="111%20enum%20D3D11_FILTER.html">enum D3D11_FILTER</a></li>
-<li class="toctree-l4"><a class="reference internal" href="112%20enum%20D3D11_TEXTURE_ADDRESS_MODE.html">enum D3D11_TEXTURE_ADDRESS_MODE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="113%20enum%20D3D11_COMPARISON_FUNC.html">enum D3D11_COMPARISON_FUNC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="114%20enum%20D3D11_STENCIL_OP.html">enum D3D11_STENCIL_OP</a></li>
-<li class="toctree-l4"><a class="reference internal" href="115%20enum%20D3D11_CREATE_DEVICE_FLAG.html">enum D3D11_CREATE_DEVICE_FLAG</a></li>
-<li class="toctree-l4"><a class="reference internal" href="116%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="110%20enum%20D3D11_FILTER.html">enum D3D11_FILTER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="111%20enum%20D3D11_TEXTURE_ADDRESS_MODE.html">enum D3D11_TEXTURE_ADDRESS_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="112%20enum%20D3D11_COMPARISON_FUNC.html">enum D3D11_COMPARISON_FUNC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="113%20enum%20D3D11_STENCIL_OP.html">enum D3D11_STENCIL_OP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="114%20enum%20D3D11_CREATE_DEVICE_FLAG.html">enum D3D11_CREATE_DEVICE_FLAG</a></li>
 <li class="toctree-l4"><a class="reference internal" href="12%20ID3D11ShaderResourceView.html">ID3D11ShaderResourceView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="150%20enum%20D3D_SRV_DIMENSION.html">enum D3D_SRV_DIMENSION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="151%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
 <li class="toctree-l4"><a class="reference internal" href="30%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="31%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="32%20ID3D11SamplerState.html">ID3D11SamplerState</a></li>
@@ -541,6 +541,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/101%20enum%20DXGI_SWAP_EFFECT.html">enum DXGI_SWAP_EFFECT</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../20%20HLSL.html">HLSL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../21%20Sementic.html">Semantic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../22%20Vertex%20Shader.html">Vertex Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../23%20Pixel%20Shader.html">Pixel Shader</a></li>
 </ul>
 </li>
 </ul>
@@ -731,9 +735,13 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id3d11texture2d">
 <h1>ID3D11Texture2D<a class="headerlink" href="#id3d11texture2d" title="Permalink to this heading">#</a></h1>
-<p>ID3D11Texture2D는 Direct3D 11 API에서 2D 텍스처를 나타내는 인터페이스다.</p>
-<p>2D 텍스처는 주로 이미지 데이터를 저장하고, 쉐이더에서 사용할 텍스처 매핑, 렌더 타겟, 깊이/스텐실 버퍼 등 다양한 용도로 사용된다.</p>
-<p>ID3D11Texture2D 인터페이스는 ID3D11Resource 인터페이스를 상속받아, Direct3D 11 리소스와 관련된 모든 기능을 제공한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ID3D11Texture2D</span></code>는 Direct3D 11에서 2D 텍스처를 나타내는 인터페이스다.</p>
+<p>이 클래스는 2차원 배열로 구성된 텍스처 데이터를 관리하며, 주로 텍스처 매핑, 렌더 타겟, 심지어 깊이 스텐실 버퍼 등 다양한 용도로 사용된다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ID3D11Texture2D</span></code>의 주요 역할은 2D 텍스처 리소스를 정의하고 관리하는 것이다. 이 클래스는 텍스처 데이터를 저장하고, 셰이더 프로그램에서 접근할 수 있도록 한다. 예를 들어, 게임 개발에서 캐릭터의 스킨이나 환경 텍스처를 저장하는 데 사용될 수 있다. 또한, 렌더 타겟이나 깊이 스텐실 버퍼로도 사용될 수 있어, 다양한 그래픽 연산에 활용된다.</p>
+<p>이 클래스는 <code class="docutils literal notranslate"><span class="pre">ID3D11Device</span></code>를 사용하여 생성된다. 이를 위해 <code class="docutils literal notranslate"><span class="pre">D3D11_TEXTURE2D_DESC</span></code> 구조체를 사용하여 텍스처의 속성을 정의하고, 해당 속성에 따라 텍스처를 초기화한다. 이 구조체는 텍스처의 너비, 높이, MIP 맵 레벨 수, 포맷, 샘플링 설정, 사용 용도 등을 포함한다. 그런 다음, <code class="docutils literal notranslate"><span class="pre">CreateTexture2D</span></code> 메서드를 호출하여 텍스처 객체를 생성한다.</p>
+<p>또한, <code class="docutils literal notranslate"><span class="pre">ID3D11Texture2D</span></code>는 다양한 그래픽 파이프라인 단계에서 사용될 수 있다. 텍스처는 셰이더 리소스로서 셰이더 프로그램에 바인딩되어 텍스처 매핑에 사용될 수 있으며, 렌더 타겟으로서 렌더링 결과를 저장하는 데 사용될 수도 있다. 이를 위해 <code class="docutils literal notranslate"><span class="pre">ID3D11DeviceContext</span></code>를 사용하여 텍스처를 적절한 파이프라인 단계에 바인딩한다.</p>
+<p>예를 들어, 텍스처를 셰이더 리소스로 사용하려면 <code class="docutils literal notranslate"><span class="pre">ID3D11ShaderResourceView</span></code>를 생성하고, 이를 셰이더에 바인딩한다. 렌더 타겟으로 사용하려면 <code class="docutils literal notranslate"><span class="pre">ID3D11RenderTargetView</span></code>를 생성하여 렌더 타겟으로 설정할 수 있다. 또한, 깊이 스텐실 버퍼로 사용하기 위해 <code class="docutils literal notranslate"><span class="pre">ID3D11DepthStencilView</span></code>를 생성하여 깊이 스텐실 버퍼로 설정할 수 있다.</p>
+<p>이 클래스는 2D 텍스처 데이터를 효율적으로 관리하고, 다양한 그래픽 효과를 구현하는 데 필수적인 역할을 한다. <code class="docutils literal notranslate"><span class="pre">ID3D11Texture2D</span></code>는 Direct3D 애플리케이션에서 고품질의 텍스처 매핑과 다양한 그래픽 연산을 지원하는 중요한 구성 요소다.</p>
 <section id="d">
 <h2>2D 이미지 데이터 저장<a class="headerlink" href="#d" title="Permalink to this heading">#</a></h2>
 <p>ID3D11Texture2D 객체는 2D 배열 형식으로 이미지 데이터를 저장한다.</p>

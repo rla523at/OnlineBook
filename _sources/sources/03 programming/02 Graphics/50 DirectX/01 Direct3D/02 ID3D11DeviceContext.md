@@ -62,6 +62,8 @@ Output-Merger(OM) stage에서는 다음과 같은 일들을 하며, 관련된 �
 
 ID3D11DeviceContext는 주로 렌더링 파이프라인을 관리하고 GPU에 명령을 전달하는 역할을 담당한다. 이 인터페이스는 그래픽스 및 컴퓨팅 작업을 수행하기 위한 다양한 함수를 제공하며, 주로 드로우 호출, 리소스 관리, 파이프라인 상태 설정 등을 처리한다.
 
+
+
 ## OMSetRenderTargets 멤버함수
 OMSetRenderTargets 함수는 출력-병합(Output-Merger) 단계에서 그리기 작업이 이루어질 RenderTargetView와 Depth Test시 사용할 DepthStencilView를 설정하는 함수다. 
 
@@ -296,6 +298,7 @@ cbuffer ConstantBuffer1 : register(b1) // StartSlot = 1
 
 
 
+
 ## Immediate Context와 Deferred Context
 
 ### Immediate Context
@@ -344,3 +347,88 @@ Immediate Context와 Deferred Context는 각각 다른 용도로 사용되며, �
 
 > REFERENCE  
 > [MSDN - deferred-context](https://learn.microsoft.com/en-us/windows/win32/direct3d11/overviews-direct3d-11-devices-intro#deferred-context)
+
+
+## PSSetShaderResources 멤버 함수
+PSSetShaderResources 멤버 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, pixel shader 단계에서 사용할 shader resource view를 설정하는 함수다. 이 함수는 shader 프로그램에 텍스처나 버퍼와 같은 리소스를 전달하는 데 사용된다.
+
+시그니처는 다음과 같다.
+```cpp
+void ID3D11DeviceContext::PSSetShaderResources(
+    UINT StartSlot,
+    UINT NumViews,
+    ID3D11ShaderResourceView *const *ppShaderResourceViews
+);
+```
+매개변수는 다음과 같다.
+
+* UINT StartSlot
+  * 설정할 첫 번째 shader 리소스 뷰 슬롯의 인덱스
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* UINT NumViews
+  * 설정할 shader 리소스 뷰의 수
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* ID3D11ShaderResourceView *const *ppShaderResourceViews
+  * shader 리소스 뷰 배열에 대한 포인터
+  * 사용 가능한 값
+    * NULL: shader 리소스 뷰를 설정하지 않는다.
+    * 유효한 ID3D11ShaderResourceView 객체의 포인터 배열
+  * 기본값: NULL
+
+### StartSlot
+pixel shader에서 리소스를 참조하는 코드와 일치해야 한다.
+
+예를 들어 pixel shader 코드가 다음과 같다고 하자.
+```
+Texture2D texture0 : register(t0); // t0 슬롯에 바인딩
+Texture2D texture1 : register(t1); // t1 슬롯에 바인딩
+```
+
+그리고 C++ 코드가 다음과 같다고 하자.
+```cpp
+ID3D11ShaderResourceView* shaderResourceViews[] = { srv0, srv1 };
+deviceContext->PSSetShaderResources(0, 2, shaderResourceViews);
+```
+
+그러면 srv0은 t0 슬롯에, srv1은 t1 슬롯에 바인딩된다.
+
+## DrawIndexed 멤버 함수
+DrawIndexed 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 인덱스 버퍼를 사용하여 기하 도형을 그리는 함수다. 
+
+DrawIndexed 함수가 호출되면, 그 시점에서 Direct3D가 현재 설정된 모든 상태를 포함한 그리기 명령을 GPU 커맨드 큐에 추가한다.
+
+이 함수는 정점 데이터를 효율적으로 재사용할 수 있게 해준다.
+
+시그니처는 다음과 같다.
+```cpp
+void ID3D11DeviceContext::DrawIndexed(
+    UINT IndexCount,
+    UINT StartIndexLocation,
+    INT BaseVertexLocation
+);
+```
+매개변수는 다음과 같다.
+
+* UINT IndexCount
+  * 그릴 인덱스의 수
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* UINT StartIndexLocation
+  * 인덱스 버퍼 내에서 시작할 위치의 인덱스
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* INT BaseVertexLocation
+  * 각 인덱스에 더할 정점 위치의 오프셋 값
+  * 사용 가능한 값
+    * 음수 또는 0 이상의 정수 값
+  * 기본값: 없음
