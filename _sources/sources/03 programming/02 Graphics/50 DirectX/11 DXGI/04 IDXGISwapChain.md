@@ -149,6 +149,7 @@ typedef struct DXGI_MODE_DESC {
       * DXGI_RATIONAL 구조체를 사용하여 분자(Numerator)와 분모(Denominator)로 지정한다.
       * 예: 60Hz의 경우 Numerator = 60, Denominator = 1
   * 기본값은 Numerator = 0, Denominator = 1이다.
+    * Numerator가 0일 경우 refresh rate를 자동으로 결정한다.
 
 * DXGI_FORMAT Format
   * 디스플레이 모드의 픽셀 포맷을 지정한다.
@@ -172,6 +173,18 @@ typedef struct DXGI_MODE_DESC {
       * DXGI_MODE_SCALING_CENTERED: 중심에 맞춤
       * DXGI_MODE_SCALING_STRETCHED: 화면에 맞춤
   * 기본값은 DXGI_MODE_SCALING_UNSPECIFIED이다.
+
+### DXGI_RATIONAL RefreshRate
+디스플레이의 재생 빈도(리프레시 레이트)를 정의하는 변수이다.
+
+디스플레이가 화면을 갱신하는 빈도를 나타내며 단위는 Hz(헤르츠)이다.
+예를 들어 60Hz는 디스플레이가 초당 60번 화면을 갱신함을 의미하며 모니터의 물리적인 특성에 따라 결정된다. 일반적으로 60Hz, 75Hz, 120Hz, 144Hz 등이 있다.
+
+DXGI_MODE_DESC 구조체에서 RefreshRate.Numerator가 0이면, DirectX는 디스플레이의 재생 빈도를 자동으로 결정한다. 일반적으로 이는 운영 체제나 드라이버가 기본 재생 빈도로 설정된 값을 사용하게 된다. 이러한 설정은 일반적으로 최적의 재생 빈도를 의미하며, 주로 모니터의 기본값이나 최적의 재생 빈도로 설정된다.
+
+만약 RefreshRate.Numerator를 10, RefreshRate.Denominator를 1로 설정하면 전체 화면 모드에서 모니터가 10Hz로 동작하도록 시도할 수 있다. 그러나, 대부분의 현대 모니터는 60Hz, 120Hz, 144Hz 등의 고정 재생 빈도를 지원하며, 10Hz와 같은 매우 낮은 재생 빈도는 지원하지 않는다. 따라서, 이런 설정이 실제로 적용되지 않을 수 있다.
+
+참고로 Frame Rate는 GPU가 새로운 프레임을 생성하는 빈도로, 단위는 FPS(Frames Per Second)이며, 예를 들어 60FPS는 GPU가 초당 60개의 프레임을 생성함을 의미한다.
 
 ## DXGI_USAGE Flag
 DXGI_USAGE는 DirectX Graphics Infrastructure (DXGI)에서 리소스의 사용 용도를 정의하는 플래그다. 
@@ -275,20 +288,53 @@ HRESULT GetBuffer(
 * ppSurface
   * 요청된 인터페이스 포인터를 받는 변수.
 
-## 화면갱신
-`Present` 메서드를 통해 새로운 프레임을 화면에 표시할 수 있다. 이 메서드는 현재 백 버퍼에 있는 내용을 프론트 버퍼로 전환하여 화면에 표시한다.
+## Present 멤버함수
+Present 함수는 IDXGISwapChain 인터페이스의 멤버 함수로, 백 버퍼의 내용을 화면에 표시하는 함수다. 이 함수는 더블 버퍼링을 통해 렌더링된 프레임을 스왑 체인에 연결된 디스플레이 장치에 출력한다.
+
+시그니처는 다음과 같다.
 ```cpp
-HRESULT Present(
+HRESULT IDXGISwapChain::Present(
     UINT SyncInterval,
     UINT Flags
 );
 ```
+매개변수는 다음과 같다.
 
-이 때, 각 매개 변수는 다음과 같다.
-* SyncInterval
-  * 화면 갱신 빈도와 동기화할지 여부를 지정한다. 0은 가능한 빨리 전환하고, 1 이상은 수직 동기화 간격을 나타낸다.
-* Flags
-  * 추가적인 프레젠트 옵션을 지정한다.
+* UINT SyncInterval
+  * 수직 동기화 간격을 지정
+  * 사용 가능한 값
+    * 0: 수직 동기화를 하지 않는다.
+    * 1 이상: 수직 동기화 간격 (예: 1은 매 프레임 수직 동기화, 2는 두 번째 프레임마다 수직 동기화)
+  * 기본값: 1
+
+* UINT Flags
+  * 표시 옵션을 지정
+  * 사용 가능한 값
+    * 0: 기본 설정
+    * DXGI_PRESENT_DO_NOT_WAIT: 스왑 체인이 차단되지 않도록 한다.
+    * DXGI_PRESENT_RESTART: 프레젠트 작업을 다시 시작한다.
+    * DXGI_PRESENT_TEST: 화면 표시 없이 오류 테스트를 수행한다.
+  * 기본값: 0
+
+### SyncInterval
+SyncInterval 인자는 수직 동기화 간격을 지정하며, 각 값에 따라 프레임 레이트와 V-Sync의 동작이 달라진다.
+
+0은 V-Sync를 비활성화한다. 프레임은 가능한 한 빨리 렌더링되고 표시된다. 이 설정은 화면 잘림(screen tearing) 현상을 유발할 수 있지만, 최대 성능을 추구할 때 사용된다.
+
+1은 V-Sync를 활성화하고, 프레임을 모니터의 수직 동기화 주기(V-Blank)에 맞춘다. 모니터가 60Hz인 경우, 프레임 레이트가 60FPS로 제한된다.
+
+2는 프레임을 두 번째 수직 동기화 주기마다 표시한다. 모니터가 60Hz인 경우, 프레임 레이트가 30FPS로 제한된다.
+
+3은 프레임을 세 번째 수직 동기화 주기마다 표시한다. 모니터가 60Hz인 경우, 프레임 레이트가 20FPS로 제한된다.
+
+4는 프레임을 네 번째 수직 동기화 주기마다 표시한다. 모니터가 60Hz인 경우, 프레임 레이트가 15FPS로 제한된다.
+
+....
+
+### 수직동기화
+수직 동기화(V-Sync)는 그래픽 렌더링 기술 중 하나로, 그래픽 카드(GPU)가 생성하는 프레임을 모니터의 재생 빈도에 맞추어 출력하는 기술이다. 이를 통해 화면 잘림(screen tearing) 현상을 방지하고 더 부드러운 시각적 경험을 제공한다.
+
+화면 잘림은 GPU가 프레임을 렌더링하는 속도와 모니터가 화면을 갱신하는 속도가 일치하지 않을 때 발생한다. 이로 인해 모니터가 한 번의 화면 갱신 주기 내에 두 개 이상의 다른 프레임을 받게 되어, 화면에 두 개 이상의 프레임이 겹쳐 보이게 된다. 이는 특히 빠르게 움직이는 장면에서 잘 드러난다.
 
 ## 전체 화면 모드 전환
 `SetFullscreenState` 메서드를 통해 전체 화면 모드와 창 모드 간의 전환을 관리할 수 있다. 이를 통해 게임이나 멀티미디어 애플리케이션에서 유연하게 화면 모드를 전환할 수 있다.

@@ -48,6 +48,15 @@ StreamOutputObject는 다음과 같은 형태를 갖는다.
 inout StreamOutputObject<DataType> Name;
 ```
 
+가능한 `StreamOutputObject` 타입은 다음과 같다.
+
+| Stream-Output Object Types | Description                        |
+|----------------------------|------------------------------------|
+| PointStream                | A sequence of point primitives     |
+| LineStream                 | A sequence of line primitives      |
+| TriangleStream             | A sequence of triangle primitives  |
+
+`DataType`은 HLSL data type이 전부 가능하다.
 
 
 

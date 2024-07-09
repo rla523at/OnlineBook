@@ -563,7 +563,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../../../10%20git.html">Git</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../11%20Visual%20Studio.html">Visual Studio</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../12%20Clang-format.html">Clang-format</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../CMake.html">Cmake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../21%20CMake.html">Cmake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../30%20OpenMP.html">OpenMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Process.html">Process</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
@@ -859,10 +860,12 @@ document.write(`
 <h3>D3D11_BUFFER_SRV<a class="headerlink" href="#d3d11-buffer-srv" title="Permalink to this heading">#</a></h3>
 <p>D3D11_BUFFER_SRV 구조체는 Direct3D 11에서 버퍼 리소스 뷰를 정의하기 위한 구조체이다. 이 구조체는 shader가 접근할 버퍼의 범위를 지정한다.</p>
 <p>정의는 다음과 같다.</p>
-<p>typedef struct D3D11_BUFFER_SRV {
-UINT FirstElement;
-UINT NumElements;
-} D3D11_BUFFER_SRV;</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D11_BUFFER_SRV</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">FirstElement</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">NumElements</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">D3D11_BUFFER_SRV</span><span class="p">;</span>
+</pre></div>
+</div>
 <p>각각의 멤버변수는 다음과 같다.</p>
 <ul class="simple">
 <li><p>UINT FirstElement</p>

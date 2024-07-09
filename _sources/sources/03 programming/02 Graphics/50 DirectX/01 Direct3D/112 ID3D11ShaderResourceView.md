@@ -80,12 +80,12 @@ typedef struct D3D11_SHADER_RESOURCE_VIEW_DESC {
 D3D11_BUFFER_SRV 구조체는 Direct3D 11에서 버퍼 리소스 뷰를 정의하기 위한 구조체이다. 이 구조체는 shader가 접근할 버퍼의 범위를 지정한다.
 
 정의는 다음과 같다.
-
+```cpp
 typedef struct D3D11_BUFFER_SRV {
     UINT FirstElement;
     UINT NumElements;
 } D3D11_BUFFER_SRV;
-
+```
 각각의 멤버변수는 다음과 같다.
 
 * UINT FirstElement

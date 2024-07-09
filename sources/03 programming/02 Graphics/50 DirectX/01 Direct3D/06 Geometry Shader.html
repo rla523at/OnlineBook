@@ -563,7 +563,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../../../10%20git.html">Git</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../11%20Visual%20Studio.html">Visual Studio</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../12%20Clang-format.html">Clang-format</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../CMake.html">Cmake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../21%20CMake.html">Cmake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../30%20OpenMP.html">OpenMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Process.html">Process</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
@@ -806,6 +807,26 @@ document.write(`
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">inout</span> <span class="n">StreamOutputObject</span><span class="o">&lt;</span><span class="n">DataType</span><span class="o">&gt;</span> <span class="n">Name</span><span class="p">;</span>
 </pre></div>
 </div>
+<p>가능한 <code class="docutils literal notranslate"><span class="pre">StreamOutputObject</span></code> 타입은 다음과 같다.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Stream-Output Object Types</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PointStream</p></td>
+<td><p>A sequence of point primitives</p></td>
+</tr>
+<tr class="row-odd"><td><p>LineStream</p></td>
+<td><p>A sequence of line primitives</p></td>
+</tr>
+<tr class="row-even"><td><p>TriangleStream</p></td>
+<td><p>A sequence of triangle primitives</p></td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">DataType</span></code>은 HLSL data type이 전부 가능하다.</p>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-geometry-shader">learn.microsoft - hlsl-geometry-shader</a><br />
