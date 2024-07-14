@@ -4,6 +4,12 @@
 
 $f$가 injective function이면서 동시에 surjective function이면 `전단사 함수(bijective function)` 혹은 `일대일 대응(one-to-one correspondence)`라고 한다.
 
+### 참고
+injective 이면서 동시에 surjective function 임으로, 다음이 성립한다.
+
+$$ \forall y \in Y, \quad \exist! x \in X \st f(x) = y $$
+
+
 ### 명제1
 집합 $X,Y,Z$와 함수 $f : X \rightarrow Y, g : Y \rightarrow Z$가 있을 때 다음을 증명하여라.
 

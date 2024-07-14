@@ -64,6 +64,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'sources/01 math/08 Geometry/12 Affine Transformation';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -533,7 +535,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/01%20Direct3D/451%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/11%20DXGI/DXGI.html">DirectX Graphics Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-39"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/02%20DirectXTex/DirectXTex.html">DirectXTex</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-39"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/02%20DirectXTex/100%20enum%20WIC_FLAGS.html">enum WIC_FLAGS</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/11%20DXGI/DXGI.html">DirectX Graphics Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-40"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/11%20DXGI/01%20IDXGIDevice.html">IDXGIDevice</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/11%20DXGI/02%20IDXGIFactory.html">IDXGIFactory</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/11%20DXGI/03%20IDXGIAdapter.html">IDXGIAdapter</a></li>
@@ -542,10 +548,13 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/11%20DXGI/101%20enum%20DXGI_SWAP_EFFECT.html">enum DXGI_SWAP_EFFECT</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/20%20HLSL.html">HLSL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/21%20Sementic.html">Semantic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/22%20Vertex%20Shader.html">Vertex Shader</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/23%20Pixel%20Shader.html">Pixel Shader</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/20%20HLSL/HLSL.html">HLSL</a><input class="toctree-checkbox" id="toctree-checkbox-41" name="toctree-checkbox-41" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-41"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/20%20HLSL/21%20Sementic.html">Semantic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/20%20HLSL/22%20Vertex%20Shader.html">Vertex Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/20%20HLSL/23%20Pixel%20Shader.html">Pixel Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/20%20HLSL/50%20Constant%20Buffer.html">Constant Buffer</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -563,7 +572,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../../03%20programming/10%20git.html">Git</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../03%20programming/11%20Visual%20Studio.html">Visual Studio</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../03%20programming/12%20Clang-format.html">Clang-format</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../03%20programming/CMake.html">Cmake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03%20programming/13%20vcpkg.html">vcpkg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03%20programming/21%20CMake.html">Cmake</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../03%20programming/30%20OpenMP.html">OpenMP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../03%20programming/Process.html">Process</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
@@ -694,7 +705,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -710,6 +723,23 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#affine-homomorphism">Affine Homomorphism</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">명제1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Affine Transformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">참고1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">명제1</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -721,10 +751,90 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="affine-transformation">
 <h1>Affine Transformation<a class="headerlink" href="#affine-transformation" title="Permalink to this heading">#</a></h1>
+<section id="affine-homomorphism">
+<h2>Affine Homomorphism<a class="headerlink" href="#affine-homomorphism" title="Permalink to this heading">#</a></h2>
+<p>두개의 affine space <span class="math notranslate nohighlight">\(A,B\)</span>와 함수 <span class="math notranslate nohighlight">\(F : A \rightarrow B\)</span>가 있다고 하자.</p>
+<p><span class="math notranslate nohighlight">\(F\)</span>에 의해 정의되는 <span class="math notranslate nohighlight">\(T_F:V_A \rightarrow V_B\)</span> 함수가 다음을 만족할 때, <span class="math notranslate nohighlight">\(F\)</span>를 <code class="docutils literal notranslate"><span class="pre">affine</span> <span class="pre">homomorphism</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">affine</span> <span class="pre">map</span></code>이라고 한다.</p>
+<div class="math notranslate nohighlight">
+\[ T_F:V_A \rightarrow V_B \st  b-a \mapsto F(b) - F(a) \text{ is a well deifned linear map} \]</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.wikipedia.org/wiki/Affine_space#Affine_map">wikipedia - Affine_space#Affine_map</a></p>
+</div></blockquote>
+<section id="id1">
+<h3>참고1<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>두개의 affine space <span class="math notranslate nohighlight">\(A,B\)</span>와 affine homomorphism <span class="math notranslate nohighlight">\(F:A\rightarrow B\)</span>가 있다고 하자.</p>
+<p>그러면 <span class="math notranslate nohighlight">\(T_F\)</span>는 well defined이기 때문에 <span class="math notranslate nohighlight">\(a,b,c,d\in A\)</span>에 대해서 다음이 성립해야 한다.</p>
+<div class="math notranslate nohighlight">
+\[ a-b = c-d \implies T_F(a-b) = T_F(c-d) \iff F(a)-F(b) = F(c) - F(d) \]</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.wikipedia.org/wiki/Affine_space#Affine_map">wikipedia - Affine_space#Affine_map</a></p>
+</div></blockquote>
+</section>
+<section id="id2">
+<h3>명제1<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>두개의 affine space <span class="math notranslate nohighlight">\(A,B\)</span>와 affine homomorphism <span class="math notranslate nohighlight">\(F:A\rightarrow B\)</span>가 있다고 하자.</p>
+<p><span class="math notranslate nohighlight">\(a \in A\)</span>와 <span class="math notranslate nohighlight">\(v\in V_A\)</span>에 대해서 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ F(a+v) = F(a) + T_F(v) \]</div>
+<p><strong>Proof</strong></p>
+<p>affine homomorphism의 정의에 의해 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ T_F((a+v)-a) = F(a+v) -F(a) \]</div>
+<p>이를 정리하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ F(a+v) = F(a) + T_F(v) \]</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.wikipedia.org/wiki/Affine_space#Affine_map">wikipedia - Affine_space#Affine_map</a></p>
+</div></blockquote>
+</section>
+</section>
+<section id="id3">
+<h2>Affine Transformation<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>affine space <span class="math notranslate nohighlight">\(A\)</span>와 affine homomorphism <span class="math notranslate nohighlight">\(F:A\rightarrow A\)</span>가 있다고 하자.</p>
+<p>이 떄, <span class="math notranslate nohighlight">\(F\)</span>를 <code class="docutils literal notranslate"><span class="pre">affine</span> <span class="pre">space</span> <span class="pre">endomorphism</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">affine</span> <span class="pre">transformation</span></code>이라고 한다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.wikipedia.org/wiki/Affine_transformation#Definition">wikipedia - Affine_transformation#Definition</a></p>
+</div></blockquote>
+<section id="id4">
+<h3>참고1<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>affine space <span class="math notranslate nohighlight">\(A\)</span>와 <span class="math notranslate nohighlight">\(p_0 \in A\)</span>가 있다고 하자.</p>
+<p><span class="math notranslate nohighlight">\(T \in \End(V_A)\)</span>가 있으면, <span class="math notranslate nohighlight">\(p_0\)</span>와 <span class="math notranslate nohighlight">\(T\)</span>로 부터 <span class="math notranslate nohighlight">\(L:A\rightarrow A\)</span>을 다음과 같이 정의할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ L : A \rightarrow A \st p \mapsto (F_{p_0} \circ T \circ F_{p_0}^{-1})(p) \]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{CD} 
+A                   &#64;&gt;L&gt;&gt;     A \\ 
+&#64;V{F_{p_0}^{-1}}VV            &#64;AA{F_{p_0}}A \\ 
+V_A                 &#64;&gt;&gt;T&gt;     V_A \\
+\end{CD} \end{split}\]</div>
+<p>이 때, 임의의 <span class="math notranslate nohighlight">\(p \in A\)</span>에 대해서 <span class="math notranslate nohighlight">\(\exist! v \in V_A \st p =p_0 + v\)</span>이 존재함으로, 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{aligned}
+L(p) &amp;= L(p_0 +v) \\
+     &amp;= (F_{p_0} \circ T \circ F_{p_0}^{-1})(p_0 +v) \\
+     &amp;= (F_{p_0} \circ T)(v) \\
+     &amp;= F_{p_0}(T(v)) \\
+     &amp;= p_0 + T(v) \\
+\end{aligned}   \end{split}\]</div>
 <blockquote>
 <div><p>Reference
-<a class="reference external" href="https://en.wikipedia.org/wiki/Affine_transformation#Structure">wiki</a></p>
+<a class="reference external" href="https://en.wikipedia.org/wiki/Affine_transformation#Structure">wikipedia - Affine_transformation#Structure</a></p>
 </div></blockquote>
+</section>
+<section id="id5">
+<h3>명제1<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(V_A\)</span>의 임의의 endomorphism <span class="math notranslate nohighlight">\(T\)</span>에 대해서, 함수 <span class="math notranslate nohighlight">\(F(p_0, T)\)</span>를 다음과 같이 정의하자.</p>
+<div class="math notranslate nohighlight">
+\[ F(p_0,T):A \rightarrow A \st p \mapsto f_{p_0}^{-1}(T(f_{p_0}(p))) \]</div>
+<p>그러면 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ F(p_0,T)(p) = p + T(\overrightarrow{p_0p}) \]</div>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -781,6 +891,29 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#affine-homomorphism">Affine Homomorphism</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">명제1</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Affine Transformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">참고1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">명제1</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

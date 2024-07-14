@@ -334,30 +334,6 @@ HRESULT D3DCompileFromFile(
     * 유효한 ID3DBlob 객체 포인터
   * 기본값: NULL
 
-## Constant Buffer Padding
-constant buffer는 16byte를 맞춰줘야한다.
-
-따라서, 16byte를 맞추지 못하는 경우에는 그에 해당하는 padding을 넣어줘야한다.
-
-예를 들어, 아래와 같이 16byte를 안맞출 경우 CreateBuffer 함수가 실패할 수 있다.
-
-```cpp
-struct Box3D_PS_CBuffer_Data
-{
-  BOOL  use_tex = FALSE;
-};
-```
-
-이를 해결하기 위해서는 16byte를 맞추어줘야한다.
-
-```cpp
-struct Box3D_PS_CBuffer_Data
-{
-  BOOL  use_tex = FALSE;
-  float padding[3];
-};
-```
-
 ## Constant Buffer vs Shader Resource View
 ### constant buffer
 상수 버퍼는 작은 양의 데이터를 셰이더에 전달할 때 매우 효율적이다. 이는 주로 매트릭스, 벡터, 스칼라 값과 같은 데이터를 전달하는 데 사용된다.
@@ -542,3 +518,4 @@ XMMATRIX XMMatrixOrthographicOffCenterLH(
   * 사용 가능한 값
     * NearZ보다 큰 부동 소수점 값
   * 기본값: 없음
+

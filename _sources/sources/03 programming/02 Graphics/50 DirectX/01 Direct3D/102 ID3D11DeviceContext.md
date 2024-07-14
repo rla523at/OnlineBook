@@ -62,6 +62,100 @@ Output-Merger(OM) stage에서는 다음과 같은 일들을 하며, 관련된 �
 
 ID3D11DeviceContext는 주로 렌더링 파이프라인을 관리하고 GPU에 명령을 전달하는 역할을 담당한다. 이 인터페이스는 그래픽스 및 컴퓨팅 작업을 수행하기 위한 다양한 함수를 제공하며, 주로 드로우 호출, 리소스 관리, 파이프라인 상태 설정 등을 처리한다.
 
+## IASetVertexBuffers 멤버함수
+IASetVertexBuffers 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 입력 어셈블러(Input Assembler) 단계에서 사용할 정점 버퍼를 설정하는 함수다. 
+
+이 함수는 렌더링 파이프라인의 입력 어셈블러 단계에 정점 데이터를 제공한다.
+
+시그니처는 다음과 같다.
+```cpp
+void ID3D11DeviceContext::IASetVertexBuffers(
+    UINT StartSlot,
+    UINT NumBuffers,
+    ID3D11Buffer *const *ppVertexBuffers,
+    const UINT *pStrides,
+    const UINT *pOffsets
+);
+```
+매개변수는 다음과 같다.
+
+* UINT StartSlot
+  * 설정할 첫 번째 정점 버퍼 슬롯의 인덱스
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* UINT NumBuffers
+  * 설정할 정점 버퍼의 수
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* ID3D11Buffer *const *ppVertexBuffers
+  * 정점 버퍼 배열에 대한 포인터
+  * 사용 가능한 값
+    * NULL: 정점 버퍼를 설정하지 않는다.
+    * 유효한 ID3D11Buffer 객체의 포인터 배열
+  * 기본값: NULL
+
+* const UINT *pStrides
+  * 각 정점 버퍼의 정점 간격(바이트 단위)
+  * 사용 가능한 값
+    * 0 이상의 정수 값 배열
+  * 기본값: 없음
+
+* const UINT *pOffsets
+  * 각 정점 버퍼의 오프셋(바이트 단위)
+  * 사용 가능한 값
+    * 0 이상의 정수 값 배열
+  * 기본값: 없음
+
+### 참고
+IASetVertexBuffers 함수에 전달된 버텍스 버퍼가 함수 호출 후 소멸되면 문제가 발생한다.
+
+왜냐하면 IASetVertexBuffers 함수는 버텍스 버퍼의 내용을 직접 복사하지 않고, 버텍스 버퍼의 포인터를 저장하여 이후의 그리기 호출에서 참조하기 때문이다.
+
+따라서, IASetVertexBuffers 함수 호출 후에도 버텍스 버퍼가 유효하게 유지되어야 한다.
+
+## IASetIndexBuffer 멤버 함수
+IASetIndexBuffer 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 입력 어셈블러(Input Assembler) 단계에서 사용할 인덱스 버퍼를 설정하는 함수다. 이 함수는 렌더링 파이프라인의 입력 어셈블러 단계에 인덱스 데이터를 제공한다.
+
+시그니처는 다음과 같다.
+```cpp
+void ID3D11DeviceContext::IASetIndexBuffer(
+    ID3D11Buffer *pIndexBuffer,
+    DXGI_FORMAT Format,
+    UINT Offset
+);
+```
+매개변수는 다음과 같다.
+
+* ID3D11Buffer* pIndexBuffer
+  * 설정할 인덱스 버퍼
+  * 사용 가능한 값
+    * 유효한 ID3D11Buffer 객체
+    * NULL: 인덱스 버퍼를 설정하지 않는다.
+  * 기본값: 없음
+
+* DXGI_FORMAT Format
+  * 인덱스 버퍼의 데이터 형식을 지정
+  * 사용 가능한 값
+    * DXGI_FORMAT_R16_UINT: 16비트 무부호 정수 형식
+    * DXGI_FORMAT_R32_UINT: 32비트 무부호 정수 형식
+  * 기본값: 없음
+
+* UINT Offset
+  * 인덱스 버퍼의 오프셋(바이트 단위)
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+### Offset
+Offset 인자는 입력 어셈블러가 인덱스 데이터를 읽기 시작할 위치를 지정한다. 
+
+인덱스 버퍼의 시작 위치가 아닌, 지정된 오프셋부터 인덱스 데이터를 읽기 시작하게 된다. 
+
+이는 동일한 인덱스 버퍼를 여러 개의 서브셋으로 나누어 사용하거나, 버퍼의 특정 부분만 사용하고자 할 때 유용하다.
 
 
 ## OMSetRenderTargets 멤버함수
@@ -121,7 +215,9 @@ void RSSetViewports(
   * 이 배열의 길이는 NumViewports와 같아야 한다.
 
 ## Map/Unmap 멤버 함수
-Map 멤버 함수는 지정된 리소스의 데이터를 CPU에서 접근할 수 있도록 메모리에 매핑한다. 이 함수는 리소스가 GPU에서 사용 중일 때도 안전하게 호출할 수 있으며, 호출이 성공하면 D3D11_MAPPED_SUBRESOURCE 구조체를 통해 매핑된 데이터에 접근할 수 있다.
+Map 멤버 함수는 지정된 리소스의 데이터를 CPU에서 접근할 수 있도록 메모리에 매핑한다. 
+
+이 함수는 리소스가 GPU에서 사용 중일 때도 안전하게 호출할 수 있으며, 호출이 성공하면 D3D11_MAPPED_SUBRESOURCE 구조체를 통해 매핑된 데이터에 접근할 수 있다.
 
 함수의 시그니쳐는 다음과 같다.
 ```cpp
