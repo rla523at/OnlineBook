@@ -85,6 +85,25 @@ Direct3D 11에서 멀티샘플링을 사용할 때, back buffer와 depth-stencil
 
 따라서, 여기서 사용하는 SampleDesc와 depth stencil buffer를 만들 때 사용하는 SampleDesc가 동일해야 한다.
 
+### Flags
+	if (m_VSync) {
+		sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+	}
+	else {
+		sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING;
+	}
+
+  if (m_VSync) {
+		m_SwapChain->Present(1, 0);
+	}
+	else {
+		m_SwapChain->Present(0, DXGI_PRESENT_ALLOW_TEARING);
+	}
+
+> Reference  
+> [github](https://github.com/KDBFootman/DirectXTutorial/blob/master/DirectXTutorial/Device.cpp)  
+> [gamedev - dxgi_swap_effect_flip_discard-forces-vsync](https://www.gamedev.net/forums/topic/713460-dxgi_swap_effect_flip_discard-forces-vsync/)  
+
 ## DXGI_SAMPLE_DESC 구조체
 DXGI_SAMPLE_DESC 구조체는 멀티샘플링에 대한 샘플 수와 품질 수준을 정의하기 위한 구조체이다.
 
