@@ -1,7 +1,7 @@
 # Affine Transformation
 
 ## Affine Homomorphism
-두개의 affine space $A,B$와 함수 $F : A \rightarrow B$가 있다고 하자.
+affine space $A,B$와 함수 $F : A \rightarrow B$가 있다고 하자.
 
 $F$에 의해 정의되는 $T_F:V_A \rightarrow V_B$ 함수가 다음을 만족할 때, $F$를 `affine homomorphism` 또는 `affine map`이라고 한다.
 
@@ -11,7 +11,7 @@ $$ T_F:V_A \rightarrow V_B \st  b-a \mapsto F(b) - F(a) \text{ is a well deifned
 > [wikipedia - Affine_space#Affine_map](https://en.wikipedia.org/wiki/Affine_space#Affine_map)
 
 ### 참고1
-두개의 affine space $A,B$와 affine homomorphism $F:A\rightarrow B$가 있다고 하자.
+affine space $A,B$와 affine homomorphism $F:A\rightarrow B$가 있다고 하자.
 
 그러면 $T_F$는 well defined이기 때문에 $a,b,c,d\in A$에 대해서 다음이 성립해야 한다.
 
@@ -21,7 +21,7 @@ $$ a-b = c-d \implies T_F(a-b) = T_F(c-d) \iff F(a)-F(b) = F(c) - F(d) $$
 > [wikipedia - Affine_space#Affine_map](https://en.wikipedia.org/wiki/Affine_space#Affine_map)
 
 ### 명제1
-두개의 affine space $A,B$와 affine homomorphism $F:A\rightarrow B$가 있다고 하자.
+affine space $A,B$와 affine homomorphism $F:A\rightarrow B$가 있다고 하자.
 
 $a \in A$와 $v\in V_A$에 대해서 다음이 성립한다.
 

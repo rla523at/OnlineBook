@@ -38,6 +38,62 @@ $$ A \xtofrom[F_p]{F_p^{-1}} V_A$$
 > [wikipedia - Affine_transformation#Structure](https://en.wikipedia.org/wiki/Affine_transformation#Structure)
 
 ### 명제1
+Affine space $A$와 $v \in V_A$가 있다고 하자.
+
+그리고 함수 $F_v:A \rightarrow A$를 다음과 같이 정의하자.
+
+$$F_v : A \rightarrow A \st p \mapsto p + v$$
+
+이 때, $F_v$가 bijectivce임을 증명하여라.
+
+**Proof**
+
+[well defined]  
+$p_1,p_2 \in A$라고 하자.
+
+$+$는 group action이기 때문에, well defined 되어 있음으로 다음이 성립한다.
+
+$$ \begin{aligned} 
+        & p_1 = p_2 \\ 
+\implies& p_1 + v = p_2 + v \qed \\ 
+\end{aligned} $$
+
+[injective]  
+$p_1,p_2 \in A$라 하자.  
+
+$$ \begin{aligned} & F_v(p_1) = F_v(p_2) \\ \implies& p_1 + v = p_2 + v \\ \implies& p_1 + v + v^{-1} = p_2 + v + v^{-1} \\ \implies& p_1 + 0_V = p_2 + 0_V \\ \implies& p_1 = p_2 \qed\end{aligned} $$
+
+[surjective]   
+$A$의 임의의 element를 $p$라고 할 떄, $q$를 다음과 같이 정의하자.
+
+$$ q:= p+(-v) $$
+
+이 때, $+$는 binary operation임으로 다음이 성립한다.
+
+$$ q \in A $$
+
+따라서, $F_v$의 정의에 의해 다음이 성립한다.
+
+$$ F_v(q) = q + v = p+(-v)+v = p+0_{V_A} = p $$
+
+즉, 다음이 성립한다.
+
+$$ \forall p \in A, \quad \exist q \in A \st F_v(q) = p \qed $$
+
+> Reference  
+> [math.stackexchange - prove-that-an-action-is-well-defined](https://math.stackexchange.com/questions/2541410/prove-that-an-action-is-well-defined)  
+
+#### 참고
+$F_v$가 bijective이기 때문에 다음이 성립한다.
+
+$$ \forall p \in A, \quad \exist! q \in A \st F_v(q) = p \qed $$
+
+이를, Existence of one-to-one translations라고 표현한다.
+
+> Reference  
+> [wikipedia - Affine_space#Definition](https://en.wikipedia.org/wiki/Affine_space#Definition)
+
+### 명제2
 Affine space $A$가 있다고 하자.
 
 임의의 $p,q \in A$에 대해서, 다음이 성립함을 증명하여라.
@@ -70,62 +126,39 @@ $$ p + (q-p) = q $$
 > Reference  
 > [wikipedia - Affine_space#Subtraction_and_Weyl's_axioms](https://en.wikipedia.org/wiki/Affine_space#Subtraction_and_Weyl's_axioms)  
 
-### 명제2
+#### 참고2
+substraction의 정의에 따라 $p,q \in A$, $v \in V_A$에 대해서 다음 표현식들이 성립한다.
+
+$$ p + (q-p) = q $$
+
+$$ (p + (q-p)) - p = q-p $$
+
+$$ (p+v) - p = v $$
+
+#### 따름정리
 Affine space $A$가 있다고 하자.
 
 임의의 $p \in A$에 대해서, 다음이 성립함을 증명하여라.
 
-$$ p+v = p+w \implies v = w $$
+$$ p+v = p+w \iff v = w $$
 
 **Proof**
 
-$F_p:V_A \rightarrow P$를 다음과 같이 정의하자.
+[$\implies$]  
+$p+v=p+w=q$라고 하자.
 
-$$ F_p : V_A \rightarrow A \st v \mapsto p + v $$
+그러면, 명제1에 의해 $p+v = q$,  $p+w =q$를 만족하는 $v,w$는 유일하게 존재한다.
 
-그러면 Affine space의 정의에 의해 $F_p$는 injective function임으로 임의의 $v,w \in V_A$ 다음이 성립한다.
+즉, $v=w$일 수 밖에 없다. $\qed$
 
-$$ F_p(v) = F_p(w) \implies v = w $$
+[$\impliedby$]  
+Affine space의 정의에 의해 $F_p : V_A \rightarrow A \st v \mapsto p + v$는 well-defined 함수이다.
 
-이를 풀어 쓰면 다음과 같다.
+따라서, 다음이 성립한다.
 
-$$ p+v = p+w \implies v=w \qed $$
+$$v=w \implies F_p(v) = F_p(w) \implies p+v = p+w \qed $$
 
-### 명제3
-Affine space $A$가 있다고 하자.
-
-임의의 $p \in A$와 $v\in V_A$에 대해서 다음이 성립함을 증명하여라.
-
-$$ (p+v) - p = v $$
-
-**Proof**
-
-$p+v \in A$임으로, 명제1에 의해 다음이 성립한다.
-
-$$ \exist! w \in V_A \st p +w = p+v $$
-
-이를 substraction으로 표현하면 다음과 같다.
-
-$$ w = (p+v) - p $$
-
-그리고 명제 2에 의해 다음이 성립한다.
-
-$$ w= v $$
-
-위의 두 표현식을 합치면 다음과 같다.
-
-$$ (p+v) - p = v \qed $$
-
-#### 따름정리
-임의의 $p \in A$와 $v \in V_A$가 있을 때, 다음이 성립함을 증명하여라.
-
-$$ \exist! q \in A \st q-p = v $$
-
-**Proof**
-
-$q = p+v$로 두면 명제3에 의해 자명하다.
-
-### 명제4
+### 명제2
 Affine space $A$가 있다고 하자.
 
 임의의 $p,q,r \in A$에 대해서 다음이 성립함을 증명하여라.
@@ -140,7 +173,7 @@ $$ p + (r-q) + (q-p) = p + (q-p) + (r-q) = q+(r-q) = r $$
 
 $$ p +(r-p) = r $$
 
-그리고 명제2에 의해 다음이 성립한다.
+그리고 명제1의 따름정리에 의해 다음이 성립한다.
 
 $$ p+ (r-q)+(q-p) = p + (r-p) \implies (r - q) + (q - p) = (r-p) \qed $$
 
@@ -201,63 +234,36 @@ affine space $A$와 subspace $B,C \le A$가 있다고 하자.
 > Reference  
 > [wikipedia - Affine_space#Affine_subspaces_and_parallelism](https://en.wikipedia.org/wiki/Affine_space#Affine_subspaces_and_parallelism)  
 
+## Coordinate System of Affine Space
+affine space $A$가 있다고 하자.
 
----
+$A$의 임의의 점을 $p_0$라고 하고 $V_A$의 임의의 기저를 $\beta$라고 할 때, $(p_0,\beta)$를 $A$의 coordinate system이라고 한다.
+
+## Coordinate of Affine Space
+affine space $A$와 coordinate system $(p_0, \beta)$가 있다고 하자.
+
+그러면 $p\in A$에 대해서, $p$의 coordinate는 다음과 같이 정의된다.
+
+$$ [p]_{(p_0,\beta)} := [p-p_0]_\beta $$
 
 ### 명제1
-Affine space $A$와 $v \in V_A$가 있다고 하자.
+affine space $A$와 coordinate system $(p_0,\beta)$가 있다고 하자.
 
-이 때, 함수 $f_v:A \rightarrow A$를 다음과 같이 정의하자.
+이 때, 다음을 증명하여라.
 
-$$f_v : A \rightarrow A \st p \mapsto p + v$$
-
-이 때, $f_v$가 bijectivce임을 증명하여라.
+$$ \phi : A \rightarrow \R^n \st p \mapsto [p]_{(p_0,\beta)} \text{ is a bijective} $$
 
 **Proof**
+
+[well defined]    
+$p_1, p_2 \in A$에 대해서 $p_1=p_2$ 라고 하자.
+
+$$ \begin{aligned} 
+        & p_1 = p_2 \\ 
+\implies& [p_1]_{p_0,\beta} = [p_1-p_0]_\beta = [p_2-p_0]_\beta = [p_2]_{p_0,\beta} \qed \\ 
+\end{aligned} $$
 
 [injective]  
-$p_1,p_2 \in A$라 하자.  
-
-$$ \begin{aligned} & f_v(p_1) = f_v(p_2) \\ \implies& p_1 + v = p_2 + v \\ \implies& p_1 + v + v^{-1} = p_2 + v + v^{-1} \\ \implies& p_1 + 0_V = p_2 + 0_V \\ \implies& p_1 = p_2 \qed\end{aligned} $$
-
-[surjective]  
-$A$의 임의의 element를 $p$라고 할 떄, $q$를 다음과 같이 정의하자.
-
-$$ q:= p+(-v) $$
-
-이 때, $+$는 binary operation임으로 다음이 성립한다.
-
-$$ q \in A $$
-
-따라서, $f_v$의 정의에 의해 다음이 성립한다.
-
-$$ f_v(q) = q + v = p+(-v)+v = p+0_{V_A} = p $$
-
-즉, 다음이 성립한다.
-
-$$ \forall p \in A, \quad \exist q \in A \st f_v(q) = p \qed $$
-
-#### 참고
-$f_v$가 bijective이기 때문에 다음이 성립한다.
-
-$$ \forall p \in A, \quad \exist! q \in A \st f_v(q) = p \qed $$
-
-이를, Existence of one-to-one translations라고 표현한다.
-
-> Reference  
-> [wikipedia - Affine_space#Definition](https://en.wikipedia.org/wiki/Affine_space#Definition)
-
-
-
-
-### 명제1
-vector space $V / \mathbb F$가 주어진 affine space $A$가 있을 때, $p_0 \in A$와  $V$의 기저 $\beta$를 결정하면 bijective function $\phi : A \rightarrow \R^n$이 존재함을 증명하여라.
-
-**Proof**
-
-$\phi$를 다음과 같이 정의하자.
-
-$$ \phi : A \rightarrow \R^n \st P \mapsto [P-p_0]_\beta $$
 
 명제2에 의해 $P-p_0$가 유일하게 존재함으로, 함수 $\phi$는 잘 정의되며 injective이다.
 
@@ -270,21 +276,6 @@ $$ \phi : A \rightarrow \R^n \st P \mapsto [P-p_0]_\beta $$
 > [when-is-a-vector-glued-to-the-origin - mathmatics](https://math.stackexchange.com/questions/2392479/when-is-a-vector-glued-to-the-origin)  
 > [must-vectors-in-mathbbrn-have-their-tail-at-origin - mathematics](https://math.stackexchange.com/questions/627616/must-vectors-in-mathbbrn-have-their-tail-at-origin)
 > [Euclidean space - wiki](https://en.wikipedia.org/wiki/Euclidean_space) 
-
-
-
-
-## Coordinate System of Affine Space
-affine space $A$가 있다고 하자.
-
-$A$의 임의의 점을 $p_0$라고 하고 $V_A$의 임의의 기저를 $\beta$라고 할 때, $(p_0,\beta)$를 $A$의 coordinate system이라고 한다.
-
-## Coordinate of Affine Space
-affine space $A$와 coordinate system $(p_0, \beta)$가 있다고 하자.
-
-그러면 $p\in A$에 대해서, $p$의 coordinate는 다음과 같이 정의된다.
-
-$$ [p-p_0]_\beta $$
 
 ## Change of Coordinate of Affine Space
 

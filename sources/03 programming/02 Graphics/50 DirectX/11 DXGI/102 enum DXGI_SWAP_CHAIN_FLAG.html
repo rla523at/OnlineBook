@@ -704,7 +704,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -720,6 +722,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-swap-chain-flag-allow-mode-switch">DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-swap-chain-flag-allow-tearing">DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -819,6 +830,16 @@ document.write(`
 </ul>
 </li>
 </ul>
+<section id="dxgi-swap-chain-flag-allow-mode-switch">
+<h2>DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH<a class="headerlink" href="#dxgi-swap-chain-flag-allow-mode-switch" title="Permalink to this heading">#</a></h2>
+<p>이 플래그는 DirectX 그래픽 애플리케이션에서 전체 화면 모드와 창 모드 간의 전환을 허용하는 데 사용된다.</p>
+<p>일반적으로 DirectX 애플리케이션은 전체 화면 모드(Fullscreen Mode)에서 실행될 때 더 높은 성능을 제공하지만, 사용자는 일반적으로 창 모드(Windowed Mode)에서 더 많은 편의성을 제공받기를 원한다.</p>
+<p>이 플래그를 설정하면 사용자가 애플리케이션의 창 모드에서 전체 화면 모드로 전환할 수 있습니다.</p>
+</section>
+<section id="dxgi-swap-chain-flag-allow-tearing">
+<h2>DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING<a class="headerlink" href="#dxgi-swap-chain-flag-allow-tearing" title="Permalink to this heading">#</a></h2>
+<p>이 플래그는 화면의 수직 동기화(V-Sync)를 무시하고 그래픽 카드가 화면을 업데이트할 때마다 그림을 그리는 방식을 지원한다.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -875,6 +896,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-swap-chain-flag-allow-mode-switch">DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-swap-chain-flag-allow-tearing">DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

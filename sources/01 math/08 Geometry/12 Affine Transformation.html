@@ -546,6 +546,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/11%20DXGI/04%20IDXGISwapChain.html">IDXGISwapChain</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/11%20DXGI/100%20enum%20DXGI_FORMAT.html">enum DXGI_FORMAT</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/11%20DXGI/101%20enum%20DXGI_SWAP_EFFECT.html">enum DXGI_SWAP_EFFECT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/11%20DXGI/102%20enum%20DXGI_SWAP_CHAIN_FLAG.html">enum DXGI_SWAP_CHAIN_FLAG</a></li>
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/20%20HLSL/HLSL.html">HLSL</a><input class="toctree-checkbox" id="toctree-checkbox-41" name="toctree-checkbox-41" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-41"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -753,7 +754,7 @@ document.write(`
 <h1>Affine Transformation<a class="headerlink" href="#affine-transformation" title="Permalink to this heading">#</a></h1>
 <section id="affine-homomorphism">
 <h2>Affine Homomorphism<a class="headerlink" href="#affine-homomorphism" title="Permalink to this heading">#</a></h2>
-<p>두개의 affine space <span class="math notranslate nohighlight">\(A,B\)</span>와 함수 <span class="math notranslate nohighlight">\(F : A \rightarrow B\)</span>가 있다고 하자.</p>
+<p>affine space <span class="math notranslate nohighlight">\(A,B\)</span>와 함수 <span class="math notranslate nohighlight">\(F : A \rightarrow B\)</span>가 있다고 하자.</p>
 <p><span class="math notranslate nohighlight">\(F\)</span>에 의해 정의되는 <span class="math notranslate nohighlight">\(T_F:V_A \rightarrow V_B\)</span> 함수가 다음을 만족할 때, <span class="math notranslate nohighlight">\(F\)</span>를 <code class="docutils literal notranslate"><span class="pre">affine</span> <span class="pre">homomorphism</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">affine</span> <span class="pre">map</span></code>이라고 한다.</p>
 <div class="math notranslate nohighlight">
 \[ T_F:V_A \rightarrow V_B \st  b-a \mapsto F(b) - F(a) \text{ is a well deifned linear map} \]</div>
@@ -763,7 +764,7 @@ document.write(`
 </div></blockquote>
 <section id="id1">
 <h3>참고1<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
-<p>두개의 affine space <span class="math notranslate nohighlight">\(A,B\)</span>와 affine homomorphism <span class="math notranslate nohighlight">\(F:A\rightarrow B\)</span>가 있다고 하자.</p>
+<p>affine space <span class="math notranslate nohighlight">\(A,B\)</span>와 affine homomorphism <span class="math notranslate nohighlight">\(F:A\rightarrow B\)</span>가 있다고 하자.</p>
 <p>그러면 <span class="math notranslate nohighlight">\(T_F\)</span>는 well defined이기 때문에 <span class="math notranslate nohighlight">\(a,b,c,d\in A\)</span>에 대해서 다음이 성립해야 한다.</p>
 <div class="math notranslate nohighlight">
 \[ a-b = c-d \implies T_F(a-b) = T_F(c-d) \iff F(a)-F(b) = F(c) - F(d) \]</div>
@@ -774,7 +775,7 @@ document.write(`
 </section>
 <section id="id2">
 <h3>명제1<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<p>두개의 affine space <span class="math notranslate nohighlight">\(A,B\)</span>와 affine homomorphism <span class="math notranslate nohighlight">\(F:A\rightarrow B\)</span>가 있다고 하자.</p>
+<p>affine space <span class="math notranslate nohighlight">\(A,B\)</span>와 affine homomorphism <span class="math notranslate nohighlight">\(F:A\rightarrow B\)</span>가 있다고 하자.</p>
 <p><span class="math notranslate nohighlight">\(a \in A\)</span>와 <span class="math notranslate nohighlight">\(v\in V_A\)</span>에 대해서 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
 \[ F(a+v) = F(a) + T_F(v) \]</div>

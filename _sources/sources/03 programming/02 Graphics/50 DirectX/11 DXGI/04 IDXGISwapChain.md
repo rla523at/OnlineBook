@@ -86,6 +86,8 @@ Direct3D 11에서 멀티샘플링을 사용할 때, back buffer와 depth-stencil
 따라서, 여기서 사용하는 SampleDesc와 depth stencil buffer를 만들 때 사용하는 SampleDesc가 동일해야 한다.
 
 ### Flags
+만약 VSync를 사용하지 않을 경우, Flags에 DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING를 반영해야한다.
+
 	if (m_VSync) {
 		sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 	}
@@ -348,7 +350,35 @@ SyncInterval 인자는 수직 동기화 간격을 지정하며, 각 값에 따�
 
 4는 프레임을 네 번째 수직 동기화 주기마다 표시한다. 모니터가 60Hz인 경우, 프레임 레이트가 15FPS로 제한된다.
 
-....
+### Flags
+
+1. **DXGI_PRESENT_TEST (0x00000001UL)**
+   - `Present` 함수 호출 시 실제 화면 업데이트를 수행하지 않고, 호출의 유효성만을 테스트한다. 호출이 성공적으로 수행될 수 있는지를 확인할 때 유용하다.
+
+2. **DXGI_PRESENT_DO_NOT_SEQUENCE (0x00000002UL)**
+   - `Present` 함수 호출을 순서대로 진행하지 않도록 하며, 시스템이 최적화를 통해 호출 순서를 변경할 수 있다.
+
+3. **DXGI_PRESENT_RESTART (0x00000004UL)**
+   - DXGI 스왑 체인이 복구 모드에서 재시작해야 할 때 사용된다. 디바이스가 손상되었을 때, 예를 들어 드라이버 강제 업데이트 후 디바이스를 재시작할 때 유용하다.
+
+4. **DXGI_PRESENT_DO_NOT_WAIT (0x00000008UL)**
+   - `Present` 함수가 즉시 반환되며, 화면 업데이트가 완료되지 않은 경우에도 기다리지 않고 즉시 다음 코드로 진행한다. 비동기적인 작업을 수행할 때 유용하다.
+
+5. **DXGI_PRESENT_STEREO_PREFER_RIGHT (0x00000010UL)**
+   - 스테레오 3D 출력 시, 오른쪽 이미지를 선호한다.
+
+6. **DXGI_PRESENT_STEREO_TEMPORARY_MONO (0x00000020UL)**
+   - 스테레오 3D 출력을 일시적으로 모노로 전환한다.
+
+7. **DXGI_PRESENT_RESTRICT_TO_OUTPUT (0x00000040UL)**
+   - `Present` 함수가 출력 창에만 제한되도록 한다.
+
+8. **DXGI_PRESENT_USE_DURATION (0x00000100UL)**
+   - 업데이트할 프레임의 지속 시간을 지정하는 데 사용된다. 지속 시간은 밀리초 단위로 지정됩니다. 시간 기반의 프레임 제한을 설정할 때 유용하다.
+
+9. **DXGI_PRESENT_ALLOW_TEARING (0x00000200UL)**
+   - 화면 테어링을 허용한다. 일반적으로 V-Sync가 활성화된 상태에서는 화면 테어링을 방지하지만, 이 플래그를 사용하면 테어링을 허용하고 더 높은 프레임 속도를 달성할 수 있다.
+   - 단, DXGI_SWAP_CHAIN_DESC객체를 생성할 때, Flags로 DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING이 설정되어 있어야한다.
 
 ### 수직동기화
 수직 동기화(V-Sync)는 그래픽 렌더링 기술 중 하나로, 그래픽 카드(GPU)가 생성하는 프레임을 모니터의 재생 빈도에 맞추어 출력하는 기술이다. 이를 통해 화면 잘림(screen tearing) 현상을 방지하고 더 부드러운 시각적 경험을 제공한다.
