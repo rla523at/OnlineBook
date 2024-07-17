@@ -733,33 +733,36 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">참고1</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">참고2</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">참고3</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">명제1</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">참고</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">명제2</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">참고4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">참고5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">명제1</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">참고1</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">참고2</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">따름정리</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">명제2</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">따름정리</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">참고</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">명제2</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">참고1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">참고2</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">명제3</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">따름정리</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">참고</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">명제4</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#affine-subspace">Affine subspace</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">참고1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">참고2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">참고1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">참고2</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-system-of-affine-space">Coordinate System of Affine Space</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-of-affine-space">Coordinate of Affine Space</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">명제1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">명제1</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-of-coordinate-of-affine-space">Change of Coordinate of Affine Space</a></li>
@@ -779,20 +782,24 @@ document.write(`
 <section id="id1">
 <h2>정의<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>집합 <span class="math notranslate nohighlight">\(A\)</span>와 vector space <span class="math notranslate nohighlight">\(V_A/\F\)</span>와 right group action <span class="math notranslate nohighlight">\(+:A\times V_A \rightarrow A\)</span>가 있다고 하자.</p>
-<p>임의의 <span class="math notranslate nohighlight">\(p\in A\)</span>에 의존하여 정의되는 함수 <span class="math notranslate nohighlight">\(F_p\)</span>가 다음을 만족하는 경우 <span class="math notranslate nohighlight">\((A,V_A,+)\)</span>를 <code class="docutils literal notranslate"><span class="pre">affine</span> <span class="pre">space</span></code>라고 한다.</p>
+<p>임의의 <span class="math notranslate nohighlight">\(p\in A\)</span>에 의존하여 정의되는 함수 <span class="math notranslate nohighlight">\(T_p\)</span>가 다음을 만족하는 경우 <span class="math notranslate nohighlight">\((A,V_A,+)\)</span>를 <code class="docutils literal notranslate"><span class="pre">affine</span> <span class="pre">space</span></code>라고 한다.</p>
 <div class="math notranslate nohighlight">
-\[ F_p : V_A \rightarrow A \st v \mapsto p + v \text{ is bijective} \]</div>
+\[ T_p : V_A \rightarrow A \st v \mapsto p + v \text{ is bijective} \]</div>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://en.wikipedia.org/wiki/Affine_space#Definition">wiki - Affine space</a></p>
 </div></blockquote>
 <section id="id2">
 <h3>참고1<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<p>집합 <span class="math notranslate nohighlight">\(A\)</span>의 원소를 <code class="docutils literal notranslate"><span class="pre">점(point)</span></code>, <span class="math notranslate nohighlight">\(V_A\)</span>의 원소를 <code class="docutils literal notranslate"><span class="pre">vector</span></code> 혹은  <code class="docutils literal notranslate"><span class="pre">translation</span></code>이라고 하며 <span class="math notranslate nohighlight">\(F_p\)</span>에서 <span class="math notranslate nohighlight">\(p\)</span>를 <code class="docutils literal notranslate"><span class="pre">원점(origin)</span></code>이라고 한다.</p>
+<p>집합 <span class="math notranslate nohighlight">\(A\)</span>의 원소를 <code class="docutils literal notranslate"><span class="pre">점(point)</span></code>, <span class="math notranslate nohighlight">\(V_A\)</span>의 원소를 <code class="docutils literal notranslate"><span class="pre">vector</span></code> 혹은  <code class="docutils literal notranslate"><span class="pre">translation</span></code>이라고 하며 <span class="math notranslate nohighlight">\(T_p\)</span>에서 <span class="math notranslate nohighlight">\(p\)</span>를 <code class="docutils literal notranslate"><span class="pre">원점(origin)</span></code>이라고 한다.</p>
 </section>
 <section id="id3">
 <h3>참고2<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
-<p><span class="math notranslate nohighlight">\(+\)</span>가 right group action이기 때문에 right indenity와 associativity가 성립한다.</p>
+<p><span class="math notranslate nohighlight">\(+\)</span>가 right group action이기 때문에 well defined, right indenity와 associativity가 성립한다.</p>
+<p><strong>well defined</strong></p>
+<p><span class="math notranslate nohighlight">\(p_1, p_2 \in A\)</span>, <span class="math notranslate nohighlight">\(v \in V\)</span>가 있다고 하자.</p>
+<div class="math notranslate nohighlight">
+\[ p_1 = p_2 \implies p_1+v = p_2+v  \]</div>
 <p><strong>right identity</strong></p>
 <div class="math notranslate nohighlight">
 \[ \forall p \in A, \quad  p + 0_{V_A} = p \]</div>
@@ -802,87 +809,107 @@ document.write(`
 </section>
 <section id="id4">
 <h3>참고3<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
-<p>origin <span class="math notranslate nohighlight">\(p\)</span>가 주어진 경우, <span class="math notranslate nohighlight">\(F_p\)</span>는 bijective 이기 때문에, <span class="math notranslate nohighlight">\(A\)</span>와 <span class="math notranslate nohighlight">\(V_A\)</span>는 isomorphic하다.</p>
+<p><span class="math notranslate nohighlight">\(p \in A\)</span>, <span class="math notranslate nohighlight">\(v_1,v_2 \in V_A\)</span>라고 하자.</p>
+<p><span class="math notranslate nohighlight">\(T_p\)</span>가 well defined 함수이기 때문에 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ v_1 = v_2 \implies p+v_1 = p+v_2 \]</div>
+<p>또 한, <span class="math notranslate nohighlight">\(T_p\)</span>가 injective 함수이기 때문에 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ v_1 = v_2 \impliedby p+v_1 = p+v_2 \]</div>
+<p>결론적으로 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ v_1 = v_2 \iff p+v_1 = p+v_2 \]</div>
+</section>
+<section id="id5">
+<h3>참고4<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(p \in A\)</span>, <span class="math notranslate nohighlight">\(v \in V\)</span>가 있다고 하자.</p>
+<p><span class="math notranslate nohighlight">\(T_p\)</span>가 well defined 함수이기 때문에 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ \exist! q \in A \st q = T_p(v) = p+v \]</div>
+</section>
+<section id="id6">
+<h3>참고5<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>origin <span class="math notranslate nohighlight">\(p\)</span>가 주어진 경우, <span class="math notranslate nohighlight">\(T_p\)</span>는 bijective 이기 때문에, <span class="math notranslate nohighlight">\(A\)</span>와 <span class="math notranslate nohighlight">\(V_A\)</span>는 isomorphic하다.</p>
 <p>따라서, point를 vector로 vector를 point로 볼 수 있게 된다.</p>
 <div class="math notranslate nohighlight">
-\[ A \xtofrom[F_p]{F_p^{-1}} V_A\]</div>
+\[ A \xtofrom[T_p]{T_p^{-1}} V_A\]</div>
 <p>참고로, Affine space 정의 자체에는 origin이 주어져 있지 않다.</p>
-<p>따라서, 특정한 origin이 정해지기 전까지는 vector는 고정된 origin을 가지고 있지 않으며 동시에 어떤 point와도 1:1 대응될 수 없다.</p>
+<p>따라서, 특정한 origin이 정해지기 전까지는 vector는 어떤 point와도 1:1 대응될 수 없다.</p>
 <blockquote>
 <div><p>Reference
 <a class="reference external" href="https://en.wikipedia.org/wiki/Affine_transformation#Structure">wikipedia - Affine_transformation#Structure</a></p>
 </div></blockquote>
 </section>
-<section id="id5">
-<h3>명제1<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<section id="id7">
+<h3>명제1<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
 <p>Affine space <span class="math notranslate nohighlight">\(A\)</span>와 <span class="math notranslate nohighlight">\(v \in V_A\)</span>가 있다고 하자.</p>
-<p>그리고 함수 <span class="math notranslate nohighlight">\(F_v:A \rightarrow A\)</span>를 다음과 같이 정의하자.</p>
+<p>그리고 함수 <span class="math notranslate nohighlight">\(T_v:A \rightarrow A\)</span>를 다음과 같이 정의하자.</p>
 <div class="math notranslate nohighlight">
-\[F_v : A \rightarrow A \st p \mapsto p + v\]</div>
-<p>이 때, <span class="math notranslate nohighlight">\(F_v\)</span>가 bijectivce임을 증명하여라.</p>
+\[T_v : A \rightarrow A \st p \mapsto p + v\]</div>
+<p>이 때, <span class="math notranslate nohighlight">\(T_v\)</span>가 bijectivce임을 증명하여라.</p>
 <p><strong>Proof</strong></p>
 <p>[well defined]<br />
 <span class="math notranslate nohighlight">\(p_1,p_2 \in A\)</span>라고 하자.</p>
 <p><span class="math notranslate nohighlight">\(+\)</span>는 group action이기 때문에, well defined 되어 있음으로 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
-\[\begin{split} \begin{aligned} 
-        &amp; p_1 = p_2 \\ 
-\implies&amp; p_1 + v = p_2 + v \qed \\ 
-\end{aligned} \end{split}\]</div>
+\[ p_1 = p_2 \implies p_1 + v = p_2 + v \implies T_v(p_1) = T_v(p_2) \qed \]</div>
 <p>[injective]<br />
 <span class="math notranslate nohighlight">\(p_1,p_2 \in A\)</span>라 하자.</p>
 <div class="math notranslate nohighlight">
-\[\begin{split} \begin{aligned} &amp; F_v(p_1) = F_v(p_2) \\ \implies&amp; p_1 + v = p_2 + v \\ \implies&amp; p_1 + v + v^{-1} = p_2 + v + v^{-1} \\ \implies&amp; p_1 + 0_V = p_2 + 0_V \\ \implies&amp; p_1 = p_2 \qed\end{aligned} \end{split}\]</div>
+\[\begin{split} \begin{aligned} 
+        &amp; T_v(p_1) = T_v(p_2) \\ 
+\implies&amp; p_1 + v = p_2 + v \\ 
+\implies&amp; (p_1 + v) + v^{-1} = (p_2 + v) + v^{-1} \\ 
+\implies&amp; p_1 + (v + v^{-1}) = p_2 + (v + v^{-1}) \\ 
+\implies&amp; p_1 + 0_V = p_2 + 0_V \\ 
+\implies&amp; p_1 = p_2 \qed
+\end{aligned} \end{split}\]</div>
 <p>[surjective]<br />
 <span class="math notranslate nohighlight">\(A\)</span>의 임의의 element를 <span class="math notranslate nohighlight">\(p\)</span>라고 할 떄, <span class="math notranslate nohighlight">\(q\)</span>를 다음과 같이 정의하자.</p>
 <div class="math notranslate nohighlight">
-\[ q:= p+(-v) \]</div>
+\[ q = p+(-v) \]</div>
 <p>이 때, <span class="math notranslate nohighlight">\(+\)</span>는 binary operation임으로 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
 \[ q \in A \]</div>
-<p>따라서, <span class="math notranslate nohighlight">\(F_v\)</span>의 정의에 의해 다음이 성립한다.</p>
+<p>따라서, <span class="math notranslate nohighlight">\(T_v\)</span>의 정의에 의해 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
-\[ F_v(q) = q + v = p+(-v)+v = p+0_{V_A} = p \]</div>
+\[ T_v(q) = q + v = p+(-v)+v = p+0_{V_A} = p \]</div>
 <p>즉, 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
-\[ \forall p \in A, \quad \exist q \in A \st F_v(q) = p \qed \]</div>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://math.stackexchange.com/questions/2541410/prove-that-an-action-is-well-defined">math.stackexchange - prove-that-an-action-is-well-defined</a></p>
-</div></blockquote>
-<section id="id6">
-<h4>참고<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
-<p><span class="math notranslate nohighlight">\(F_v\)</span>가 bijective이기 때문에 다음이 성립한다.</p>
+\[ \forall p \in A, \quad \exist q \in A \st T_v(q) = p \qed \]</div>
+<section id="id8">
+<h4>참고1<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
+<p><span class="math notranslate nohighlight">\(T_v\)</span>가 bijective이기 때문에 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
-\[ \forall p \in A, \quad \exist! q \in A \st F_v(q) = p \qed \]</div>
-<p>이를, Existence of one-to-one translations라고 표현한다.</p>
+\[ \forall p \in A, \quad \exist! q \in A \st T_v(q) = q+v = p \qed \]</div>
+<p>이를, <code class="docutils literal notranslate"><span class="pre">Existence</span> <span class="pre">of</span> <span class="pre">one-to-one</span> <span class="pre">translations</span></code>라고 표현한다.</p>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://en.wikipedia.org/wiki/Affine_space#Definition">wikipedia - Affine_space#Definition</a></p>
 </div></blockquote>
 </section>
+<section id="id9">
+<h4>참고2<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
+<p><span class="math notranslate nohighlight">\(T_v\)</span>가 bijective하기 때문에 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ p_1 = p_2 \iff p_1 + v = p_2 = v \]</div>
 </section>
-<section id="id7">
-<h3>명제2<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="id10">
+<h3>명제2<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
 <p>Affine space <span class="math notranslate nohighlight">\(A\)</span>가 있다고 하자.</p>
 <p>임의의 <span class="math notranslate nohighlight">\(p,q \in A\)</span>에 대해서, 다음이 성립함을 증명하여라.</p>
 <div class="math notranslate nohighlight">
 \[ \exist! v \in V_A \st p+v = q \]</div>
 <p><strong>Proof</strong></p>
-<p><span class="math notranslate nohighlight">\(F_p:V_A \rightarrow P\)</span>를 다음과 같이 정의하자.</p>
+<p>Affine space의 정의에 의해 <span class="math notranslate nohighlight">\(T_p\)</span>는 bijective function임으로 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
-\[ F_p : V_A \rightarrow A \st v \mapsto p + v \]</div>
-<p>그러면 Affine space의 정의에 의해 <span class="math notranslate nohighlight">\(F_p\)</span>는 bijective function임으로 다음이 성립한다.</p>
-<div class="math notranslate nohighlight">
-\[ \exist! v \in V_A \st F_p(v) = p+v = q \qed \]</div>
-<section id="id8">
-<h4>참고1<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
-<p><span class="math notranslate nohighlight">\(p,q \in A\)</span>면 <span class="math notranslate nohighlight">\(F_p(v) = q\)</span>인 <span class="math notranslate nohighlight">\(v\)</span>가 <span class="math notranslate nohighlight">\(p,q\)</span>의 선택에 의존하여 유일하게 존재함으로 <span class="math notranslate nohighlight">\(v\)</span>를 다음과 같이 표현할 수 있다.</p>
+\[ \exist! v \in V_A \st T_p(v) = p+v = q \qed \]</div>
+<section id="id11">
+<h4>참고1<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h4>
+<p><span class="math notranslate nohighlight">\(p,q \in A\)</span>면 <span class="math notranslate nohighlight">\(T_p(v) = q\)</span>인 <span class="math notranslate nohighlight">\(v\)</span>가 <span class="math notranslate nohighlight">\(p,q\)</span>의 선택에 의존하여 유일하게 존재함으로 <span class="math notranslate nohighlight">\(v\)</span>를 다음과 같이 표현할 수 있다.</p>
 <div class="math notranslate nohighlight">
 \[ v \equiv q-p \]</div>
-<p>따라서, 다음과 같이 표현이 성립한다.</p>
-<div class="math notranslate nohighlight">
-\[ p + (q-p) = q \]</div>
 <p>이를 substraction이라고 한다.</p>
 <p>또한, <span class="math notranslate nohighlight">\(q-p\)</span>를 <span class="math notranslate nohighlight">\(\overrightarrow{pq}\)</span>로 표현하기도 한다.</p>
 <blockquote>
@@ -890,36 +917,19 @@ document.write(`
 <a class="reference external" href="https://en.wikipedia.org/wiki/Affine_space#Subtraction_and_Weyl's_axioms">wikipedia - Affine_space#Subtraction_and_Weyl’s_axioms</a></p>
 </div></blockquote>
 </section>
-<section id="id9">
-<h4>참고2<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
+<section id="id12">
+<h4>참고2<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h4>
 <p>substraction의 정의에 따라 <span class="math notranslate nohighlight">\(p,q \in A\)</span>, <span class="math notranslate nohighlight">\(v \in V_A\)</span>에 대해서 다음 표현식들이 성립한다.</p>
 <div class="math notranslate nohighlight">
 \[ p + (q-p) = q \]</div>
 <div class="math notranslate nohighlight">
-\[ (p + (q-p)) - p = q-p \]</div>
-<div class="math notranslate nohighlight">
 \[ (p+v) - p = v \]</div>
-</section>
-<section id="id10">
-<h4>따름정리<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h4>
-<p>Affine space <span class="math notranslate nohighlight">\(A\)</span>가 있다고 하자.</p>
-<p>임의의 <span class="math notranslate nohighlight">\(p \in A\)</span>에 대해서, 다음이 성립함을 증명하여라.</p>
 <div class="math notranslate nohighlight">
-\[ p+v = p+w \iff v = w \]</div>
-<p><strong>Proof</strong></p>
-<p>[<span class="math notranslate nohighlight">\(\implies\)</span>]<br />
-<span class="math notranslate nohighlight">\(p+v=p+w=q\)</span>라고 하자.</p>
-<p>그러면, 명제1에 의해 <span class="math notranslate nohighlight">\(p+v = q\)</span>,  <span class="math notranslate nohighlight">\(p+w =q\)</span>를 만족하는 <span class="math notranslate nohighlight">\(v,w\)</span>는 유일하게 존재한다.</p>
-<p>즉, <span class="math notranslate nohighlight">\(v=w\)</span>일 수 밖에 없다. <span class="math notranslate nohighlight">\(\qed\)</span></p>
-<p>[<span class="math notranslate nohighlight">\(\impliedby\)</span>]<br />
-Affine space의 정의에 의해 <span class="math notranslate nohighlight">\(F_p : V_A \rightarrow A \st v \mapsto p + v\)</span>는 well-defined 함수이다.</p>
-<p>따라서, 다음이 성립한다.</p>
-<div class="math notranslate nohighlight">
-\[v=w \implies F_p(v) = F_p(w) \implies p+v = p+w \qed \]</div>
+\[ p+v = q \iff v = q-p \iff p= q-v \iff p-q = -v \]</div>
 </section>
 </section>
-<section id="id11">
-<h3>명제2<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<section id="id13">
+<h3>명제3<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
 <p>Affine space <span class="math notranslate nohighlight">\(A\)</span>가 있다고 하자.</p>
 <p>임의의 <span class="math notranslate nohighlight">\(p,q,r \in A\)</span>에 대해서 다음이 성립함을 증명하여라.</p>
 <div class="math notranslate nohighlight">
@@ -930,11 +940,11 @@ Affine space의 정의에 의해 <span class="math notranslate nohighlight">\(F_
 \[ p + (r-q) + (q-p) = p + (q-p) + (r-q) = q+(r-q) = r \]</div>
 <div class="math notranslate nohighlight">
 \[ p +(r-p) = r \]</div>
-<p>그리고 명제1의 따름정리에 의해 다음이 성립한다.</p>
+<p>따라서, 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
 \[ p+ (r-q)+(q-p) = p + (r-p) \implies (r - q) + (q - p) = (r-p) \qed \]</div>
-<section id="id12">
-<h4>따름정리<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h4>
+<section id="id14">
+<h4>따름정리<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h4>
 <p>Affine space <span class="math notranslate nohighlight">\(A\)</span>가 있다고 하자.</p>
 <p>이 때, 임의의 <span class="math notranslate nohighlight">\(a,b,c,d \in A\)</span>에서 다음이 성립함을 증명하여라.</p>
 <div class="math notranslate nohighlight">
@@ -946,8 +956,8 @@ Affine space의 정의에 의해 <span class="math notranslate nohighlight">\(F_
 <p>따라서, 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
 \[ b-a = d-c \iff c-a = d-b \qed \]</div>
-<section id="id13">
-<h5>참고<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h5>
+<section id="id15">
+<h5>참고<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h5>
 <p>이를 <code class="docutils literal notranslate"><span class="pre">평행사변형</span> <span class="pre">특성(parallelogram</span> <span class="pre">property)</span></code>이라고 하며, Affine space는 parallelogram property를 만족한다.</p>
 <blockquote>
 <div><p>Reference<br />
@@ -956,6 +966,20 @@ Affine space의 정의에 의해 <span class="math notranslate nohighlight">\(F_
 </div></blockquote>
 </section>
 </section>
+</section>
+<section id="id16">
+<h3>명제4<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
+<p>Affine space <span class="math notranslate nohighlight">\(A\)</span>가 있다고 하자.</p>
+<p><span class="math notranslate nohighlight">\(p_1,p_2,p_3 \in A\)</span>에 대해서 다음이 성립함을 증명하여라.</p>
+<div class="math notranslate nohighlight">
+\[ p_2 - p_1 = p_3 - p_1 \iff p_2 = p_3 \]</div>
+<p><strong>Proof</strong></p>
+<p>[<span class="math notranslate nohighlight">\(\implies\)</span>]</p>
+<div class="math notranslate nohighlight">
+\[ p_2 = p_1 + (p_2 - p_1) = p_1 + (p_3 - p_1) = p_3 \qed \]</div>
+<p>[<span class="math notranslate nohighlight">\(\impliedby\)</span>]</p>
+<div class="math notranslate nohighlight">
+\[p_1 + (p_2 -p_1) = p_2 = p_3 = p_1 + (p_3 - p_1) \implies p_2 - p_1 = p_3 - p_1 \qed \]</div>
 </section>
 </section>
 <section id="affine-subspace">
@@ -969,8 +993,8 @@ Affine space의 정의에 의해 <span class="math notranslate nohighlight">\(F_
 <div><p>Reference<br />
 <a class="reference external" href="https://en.wikipedia.org/wiki/Affine_space#Affine_subspaces_and_parallelism">wikipedia - Affine_space#Affine_subspaces_and_parallelism</a></p>
 </div></blockquote>
-<section id="id14">
-<h3>참고1<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<section id="id17">
+<h3>참고1<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h3>
 <p>Affine space <span class="math notranslate nohighlight">\(A\)</span>와 <span class="math notranslate nohighlight">\(B\le A\)</span>가 있다고 하자.</p>
 <p>이 때, <span class="math notranslate nohighlight">\(V_B\)</span>를 <code class="docutils literal notranslate"><span class="pre">direction</span></code>이라고 한다.</p>
 <blockquote>
@@ -978,8 +1002,8 @@ Affine space의 정의에 의해 <span class="math notranslate nohighlight">\(F_
 <a class="reference external" href="https://en.wikipedia.org/wiki/Affine_space#Affine_subspaces_and_parallelism">wikipedia - Affine_space#Affine_subspaces_and_parallelism</a></p>
 </div></blockquote>
 </section>
-<section id="id15">
-<h3>참고2<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
+<section id="id18">
+<h3>참고2<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h3>
 <p>affine space <span class="math notranslate nohighlight">\(A\)</span>와 subspace <span class="math notranslate nohighlight">\(B,C \le A\)</span>가 있다고 하자.</p>
 <p>이 때, <span class="math notranslate nohighlight">\(V_B = V_C\)</span>이면, <span class="math notranslate nohighlight">\(B\)</span>와 <span class="math notranslate nohighlight">\(C\)</span>가 <code class="docutils literal notranslate"><span class="pre">평행(parallel)</span></code>하다고 한다.</p>
 <p>따라서, 모든 translation <span class="math notranslate nohighlight">\(A \rightarrow A : a \mapsto a+v\)</span>는 모든 affine subspace를 parallel 한 subspace로 mapping 한다.</p>
@@ -1001,23 +1025,42 @@ Affine space의 정의에 의해 <span class="math notranslate nohighlight">\(F_
 <p>그러면 <span class="math notranslate nohighlight">\(p\in A\)</span>에 대해서, <span class="math notranslate nohighlight">\(p\)</span>의 coordinate는 다음과 같이 정의된다.</p>
 <div class="math notranslate nohighlight">
 \[ [p]_{(p_0,\beta)} := [p-p_0]_\beta \]</div>
-<section id="id16">
-<h3>명제1<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
+<section id="id19">
+<h3>명제1<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h3>
 <p>affine space <span class="math notranslate nohighlight">\(A\)</span>와 coordinate system <span class="math notranslate nohighlight">\((p_0,\beta)\)</span>가 있다고 하자.</p>
 <p>이 때, 다음을 증명하여라.</p>
 <div class="math notranslate nohighlight">
 \[ \phi : A \rightarrow \R^n \st p \mapsto [p]_{(p_0,\beta)} \text{ is a bijective} \]</div>
 <p><strong>Proof</strong></p>
 <p>[well defined]<br />
-<span class="math notranslate nohighlight">\(p_1, p_2 \in A\)</span>에 대해서 <span class="math notranslate nohighlight">\(p_1=p_2\)</span> 라고 하자.</p>
+<span class="math notranslate nohighlight">\(p_1, p_2 \in A\)</span>에 대해서 <span class="math notranslate nohighlight">\(p_1=p_2\)</span> 라고 하면 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} \begin{aligned} 
-        &amp; p_1 = p_2 \\ 
-\implies&amp; [p_1]_{p_0,\beta} = [p_1-p_0]_\beta = [p_2-p_0]_\beta = [p_2]_{p_0,\beta} \qed \\ 
+[p_1]_{(p_0,\beta)} &amp;= [p_1-p_0]_\beta \\ 
+                  &amp;= [p_2-p_0]_\beta \\
+                  &amp;= [p_2]_{(p_0,\beta)} \\ 
 \end{aligned} \end{split}\]</div>
+<p>따라서, 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ p_1 = p_2 \implies \phi(p_1) = \phi(p_2) \]</div>
 <p>[injective]</p>
-<p>명제2에 의해 <span class="math notranslate nohighlight">\(P-p_0\)</span>가 유일하게 존재함으로, 함수 <span class="math notranslate nohighlight">\(\phi\)</span>는 잘 정의되며 injective이다.</p>
-<p>또한 +는 연산에 닫혀있음으로, <span class="math notranslate nohighlight">\(a \in \R^n\)</span>에 대해, <span class="math notranslate nohighlight">\(P = p_0 + a_i\beta_i\)</span>를 만족하는 <span class="math notranslate nohighlight">\(P\)</span>가 항상 존재함으로 surjective이다. <span class="math notranslate nohighlight">\(\qed\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{aligned} 
+\phi(p_1) = \phi(p_2) &amp;\implies [p_1]_{(p_0,\beta)} = [p_2]_{(p_0,\beta)} \\
+                      &amp;\implies [p_1-p_0]_\beta = [p_2-p_0]_\beta \\
+                      &amp;\implies p_1-p_0 = p_2-p_0\\
+                      &amp;\implies p_1 = p_2 \qed  \\ 
+\end{aligned} \end{split}\]</div>
+<p>[sujective]<br />
+<span class="math notranslate nohighlight">\(x \in \R^n\)</span>이 있다고 하면 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ \exist! v \in V_A \st [v]_\beta  = x\]</div>
+<p><span class="math notranslate nohighlight">\(p_0 \in A, v \in v_A\)</span>가 있을 떄, <span class="math notranslate nohighlight">\(T_{v}\)</span>는 bijective 함수임으로 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ \exist! p \in A \st p = p_0 +v \implies v = p_0 - p \]</div>
+<p>따라서, 이를 종합하면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ \forall x \in \R^n, \quad \exist! p \in A \st x= \phi(p) \qed \]</div>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://en.wikipedia.org/wiki/Affine_space">wiki</a><br />
@@ -1032,9 +1075,15 @@ Affine space의 정의에 의해 <span class="math notranslate nohighlight">\(F_
 <section id="change-of-coordinate-of-affine-space">
 <h2>Change of Coordinate of Affine Space<a class="headerlink" href="#change-of-coordinate-of-affine-space" title="Permalink to this heading">#</a></h2>
 <p>affine space <span class="math notranslate nohighlight">\(A\)</span>와 두개의 coordinate system <span class="math notranslate nohighlight">\((p_1, \beta), (p_2, \gamma)\)</span>가 있다고 하자.</p>
-<p>임의의 <span class="math notranslate nohighlight">\(p \in A\)</span>에 대해서 두개의 coordinate system에서 coordinate 사이에 관계는 다음과 같다.</p>
+<p>임의의 <span class="math notranslate nohighlight">\(p \in A\)</span>에 대해서 <span class="math notranslate nohighlight">\([p]_{(p_1, \beta)}\)</span>와 <span class="math notranslate nohighlight">\([p]_{(p_2, \gamma)}\)</span> coordinate 사이에 관계는 다음과 같다.</p>
 <div class="math notranslate nohighlight">
-\[ [p-p_2]_\gamma = [p-p_1 + p_1-p_2]_\gamma = [p-p_1+t]_\gamma\]</div>
+\[\begin{split} \begin{aligned} 
+[p]_{(p_2, \gamma)} &amp;= [p-p_2]_\gamma \\
+                    &amp;= [p-p_1 + p_1-p_2]_\gamma \\
+                    &amp;= [id]^\gamma_\beta [p-p_1+(p_1-p_2)]_\beta
+                    &amp;= [id]^\gamma_\beta [p+(p_1-p_2)]_{(p_1,\beta)}
+\end{aligned} \end{split}\]</div>
+<p>즉, <span class="math notranslate nohighlight">\(p\)</span>를 <span class="math notranslate nohighlight">\(p_1 - p_2\)</span>만큼 translation한 point의 <span class="math notranslate nohighlight">\((p_1,\beta)\)</span>에 대한 coordinate를 <span class="math notranslate nohighlight">\(\beta \rightarrow \gamma\)</span>로 basis change 해주면 된다.</p>
 </section>
 </section>
 
@@ -1105,33 +1154,36 @@ Affine space의 정의에 의해 <span class="math notranslate nohighlight">\(F_
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">참고1</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">참고2</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">참고3</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">명제1</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">참고</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">명제2</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">참고4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">참고5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">명제1</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">참고1</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">참고2</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">따름정리</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">명제2</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">따름정리</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">참고</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">명제2</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">참고1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">참고2</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">명제3</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">따름정리</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">참고</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">명제4</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#affine-subspace">Affine subspace</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">참고1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">참고2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">참고1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">참고2</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-system-of-affine-space">Coordinate System of Affine Space</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-of-affine-space">Coordinate of Affine Space</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">명제1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">명제1</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-of-coordinate-of-affine-space">Change of Coordinate of Affine Space</a></li>
