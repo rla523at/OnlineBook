@@ -510,6 +510,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="130%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="131%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="132%20ID3D11SamplerState.html">ID3D11SamplerState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="133%20ID3D11BlendState.html">ID3D11BlendState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="140%20D3D11_VIEWPORT.html">D3D11_VIEWPORT</a></li>
 <li class="toctree-l4"><a class="reference internal" href="141%20D3D11_MAPPED_SUBRESOURCE.html">D3D11_MAPPED_SUBRESOURCE</a></li>
 <li class="toctree-l4"><a class="reference internal" href="142%20D3D11_SUBRESOURCE_DATA.html">D3D11_SUBRESOURCE_DATA 구조체</a></li>
@@ -529,6 +530,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="412%20enum%20D3D11_COMPARISON_FUNC.html">enum D3D11_COMPARISON_FUNC</a></li>
 <li class="toctree-l4"><a class="reference internal" href="413%20enum%20D3D11_STENCIL_OP.html">enum D3D11_STENCIL_OP</a></li>
 <li class="toctree-l4"><a class="reference internal" href="414%20enum%20D3D11_CREATE_DEVICE_FLAG.html">enum D3D11_CREATE_DEVICE_FLAG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="415%20enum%20D3D11_BLEND.html">enum D3D11_BLEND</a></li>
+<li class="toctree-l4"><a class="reference internal" href="416%20enum%20D3D11_BLEND_OP.html">enum D3D11_BLEND_OP</a></li>
 <li class="toctree-l4"><a class="reference internal" href="450%20enum%20D3D_SRV_DIMENSION.html">enum D3D_SRV_DIMENSION</a></li>
 <li class="toctree-l4"><a class="reference internal" href="451%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
 </ul>
@@ -588,6 +591,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../../../../10%20Mechanics/01%20Continuum/02%20Material%20%26%20spatial%20description.html">Lagrangian &amp; Eulerian Description</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../10%20Mechanics/01%20Continuum/03%20Material%20Derivative.html">Material Derivative</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../10%20Mechanics/01%20Continuum/04%20Deformation%20Gradient.html">Deformation Gradient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../10%20Mechanics/01%20Continuum/05%20Time%20Rate%20of%20Change.html">Time Rate of Change</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../10%20Mechanics/11%20Fluid/Fluid.html">Fluid</a><input class="toctree-checkbox" id="toctree-checkbox-44" name="toctree-checkbox-44" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-44"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -779,6 +783,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vssetshader">VSSetShader 멤버함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pssetshader">PSSetShader 멤버함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#draw">Draw 멤버함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#omsetblendstate">OMSetBlendState 멤버함수</a></li>
 </ul>
             </nav>
         </div>
@@ -1716,6 +1721,58 @@ document.write(`
 </li>
 </ul>
 </section>
+<section id="omsetblendstate">
+<h2>OMSetBlendState 멤버함수<a class="headerlink" href="#omsetblendstate" title="Permalink to this heading">#</a></h2>
+<p>OMSetBlendState 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 출력 병합기(Output-Merger) 단계에서 사용할 블렌드 상태를 설정하는 함수다.</p>
+<p>이 함수는 렌더링 파이프라인의 출력 병합기 단계에서 블렌딩 옵션을 정의하는데 사용된다.</p>
+<p>시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">ID3D11DeviceContext::OMSetBlendState</span><span class="p">(</span>
+<span class="w">    </span><span class="n">ID3D11BlendState</span><span class="w"> </span><span class="o">*</span><span class="n">pBlendState</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">FLOAT</span><span class="w"> </span><span class="n">BlendFactor</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">SampleMask</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>ID3D11BlendState* pBlendState</p>
+<ul>
+<li><p>설정할 블렌드 상태 객체에 대한 포인터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>NULL: 기본 블렌드 상태를 사용</p></li>
+<li><p>유효한 ID3D11BlendState 객체</p></li>
+</ul>
+</li>
+<li><p>기본값: NULL</p></li>
+</ul>
+</li>
+<li><p>const FLOAT BlendFactor[4]</p>
+<ul>
+<li><p>블렌딩 연산에 사용될 RGBA 혼합 계수</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>4개의 부동 소수점 값 배열</p></li>
+<li><p>예: {1.0f, 1.0f, 1.0f, 1.0f}</p></li>
+</ul>
+</li>
+<li><p>기본값: {1.0f, 1.0f, 1.0f, 1.0f}</p></li>
+</ul>
+</li>
+<li><p>UINT SampleMask</p>
+<ul>
+<li><p>샘플링할 비트 마스크</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0xFFFFFFFF: 모든 샘플링 활성화</p></li>
+<li><p>특정 비트 마스크 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 0xFFFFFFFF</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1814,6 +1871,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vssetshader">VSSetShader 멤버함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pssetshader">PSSetShader 멤버함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#draw">Draw 멤버함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#omsetblendstate">OMSetBlendState 멤버함수</a></li>
 </ul>
   </nav></div>
 

@@ -623,3 +623,39 @@ void ID3D11DeviceContext::Draw(
   * 사용 가능한 값
     * 0 이상의 정수 값
   * 기본값: 없음
+
+## OMSetBlendState 멤버함수
+OMSetBlendState 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 출력 병합기(Output-Merger) 단계에서 사용할 블렌드 상태를 설정하는 함수다. 
+
+이 함수는 렌더링 파이프라인의 출력 병합기 단계에서 블렌딩 옵션을 정의하는데 사용된다.
+
+시그니처는 다음과 같다.
+```cpp
+void ID3D11DeviceContext::OMSetBlendState(
+    ID3D11BlendState *pBlendState,
+    const FLOAT BlendFactor[4],
+    UINT SampleMask
+);
+```
+매개변수는 다음과 같다.
+
+* ID3D11BlendState* pBlendState
+  * 설정할 블렌드 상태 객체에 대한 포인터
+  * 사용 가능한 값
+    * NULL: 기본 블렌드 상태를 사용
+    * 유효한 ID3D11BlendState 객체
+  * 기본값: NULL
+
+* const FLOAT BlendFactor[4]
+  * 블렌딩 연산에 사용될 RGBA 혼합 계수
+  * 사용 가능한 값
+    * 4개의 부동 소수점 값 배열
+    * 예: {1.0f, 1.0f, 1.0f, 1.0f}
+  * 기본값: {1.0f, 1.0f, 1.0f, 1.0f}
+
+* UINT SampleMask
+  * 샘플링할 비트 마스크
+  * 사용 가능한 값
+    * 0xFFFFFFFF: 모든 샘플링 활성화
+    * 특정 비트 마스크 값
+  * 기본값: 0xFFFFFFFF

@@ -263,3 +263,27 @@ HRESULT ID3D11Device::CreateBuffer(
     * ID3D11Buffer: 생성된 버퍼 객체를 반환한다.
   * 기본값: 없음
 
+## CreateBlendState 멤버함수
+CreateBlendState 함수는 ID3D11Device 인터페이스의 멤버 함수로, 블렌드 상태 객체를 생성하는 함수다. 이 함수는 블렌딩(투명도 및 혼합) 동작을 정의하는데 사용된다.
+
+시그니처는 다음과 같다.
+```cpp
+HRESULT ID3D11Device::CreateBlendState(
+    const D3D11_BLEND_DESC *pBlendStateDesc,
+    ID3D11BlendState **ppBlendState
+);
+```
+매개변수는 다음과 같다.
+
+* const D3D11_BLEND_DESC* pBlendStateDesc
+  * 블렌드 상태를 정의하는 구조체에 대한 포인터
+  * 사용 가능한 값
+    * 유효한 D3D11_BLEND_DESC 구조체
+  * 기본값: 없음
+
+* ID3D11BlendState** ppBlendState
+  * 생성된 블렌드 상태 객체에 대한 포인터의 주소
+  * 사용 가능한 값
+    * NULL: 유효한 블렌드 상태 객체를 반환하지 않음
+    * 유효한 ID3D11BlendState 객체의 포인터
+  * 기본값: 없음
