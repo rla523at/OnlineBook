@@ -182,7 +182,7 @@ HRESULT ID3D11Device::CreateShaderResourceView(
 매개변수는 다음과 같다.
 
 * ID3D11Resource* pResource
-  * 셰이더 리소스 뷰를 생성할 리소스에 대한 포인터
+  * shader가 읽을 리소스에 대한 포인터
   * 사용 가능한 값
     * 유효한 ID3D11Resource 객체
   * 기본값: 없음

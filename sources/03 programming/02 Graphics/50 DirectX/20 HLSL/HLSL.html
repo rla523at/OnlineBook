@@ -812,11 +812,33 @@ document.write(`
 <p>register 키워드는 특정 리소스를 GPU 레지스터에 수동으로 할당하는 데 사용된다. 이 키워드를 사용하면 상수 버퍼, 텍스처, 샘플러 등을 특정 슬롯에 매핑할 수 있다. 이를 통해 셰이더와 Direct3D API 간의 데이터 바인딩을 명시적으로 관리할 수 있습니다.</p>
 <p>사용가능한 레지스터 종류는 다음과 같다</p>
 <ul class="simple">
-<li><p>b#: 상수 버퍼(Constant Buffer)</p></li>
-<li><p>t#: 텍스처(Texture)</p></li>
-<li><p>s#: 샘플러(Sampler)</p></li>
-<li><p>u#: UAV(Unordered Access View)</p></li>
+<li><p>b#</p>
+<ul>
+<li><p>상수 버퍼(Constant Buffer)용 레지스터.</p></li>
 </ul>
+</li>
+<li><p>t#</p>
+<ul>
+<li><p>셰이더 리소스 뷰(Shader Resource View, SRV)용 레지스터.</p></li>
+<li><p>텍스처, 버퍼, 구조화된 버퍼 등이 여기에 포함 된다</p></li>
+</ul>
+</li>
+<li><p>s#</p>
+<ul>
+<li><p>샘플러(Sampler State)용 레지스터.</p></li>
+</ul>
+</li>
+<li><p>u#</p>
+<ul>
+<li><p>언오더드 액세스 뷰(Unordered Access View, UAV)용 레지스터.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Refernce<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-variable-register">learn.microsoft - dx-graphics-hlsl-variable-register</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/resource-binding-in-hlsl">learn.microsoft - resource-binding-in-hlsl</a></p>
+</div></blockquote>
 </section>
 <div class="toctree-wrapper compound">
 </div>

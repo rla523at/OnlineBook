@@ -659,3 +659,39 @@ void ID3D11DeviceContext::OMSetBlendState(
     * 0xFFFFFFFF: 모든 샘플링 활성화
     * 특정 비트 마스크 값
   * 기본값: 0xFFFFFFFF
+
+
+## VSSetShaderResources 멤버 함수
+VSSetShaderResources 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 버텍스 셰이더 단계에서 사용할 셰이더 리소스 뷰를 설정하는 함수다. 이 함수는 셰이더 프로그램에 텍스처나 버퍼와 같은 리소스를 전달하는 데 사용된다.
+
+시그니처는 다음과 같다.
+
+```cpp
+void ID3D11DeviceContext::VSSetShaderResources(
+    UINT StartSlot,
+    UINT NumViews,
+    ID3D11ShaderResourceView *const *ppShaderResourceViews
+);
+```
+
+매개변수는 다음과 같다.
+
+* UINT StartSlot
+  * 설정할 첫 번째 셰이더 리소스 뷰 슬롯의 인덱스
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* UINT NumViews
+  * 설정할 셰이더 리소스 뷰의 수
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* ID3D11ShaderResourceView *const *ppShaderResourceViews
+  * 셰이더 리소스 뷰 배열에 대한 포인터
+  * 사용 가능한 값
+    * NULL: 셰이더 리소스 뷰를 설정하지 않는다.
+    * 유효한 ID3D11ShaderResourceView 객체의 포인터 배열
+  * 기본값: NULL
+

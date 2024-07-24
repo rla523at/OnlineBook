@@ -42,7 +42,16 @@ Buffer<Type> Name;
 register 키워드는 특정 리소스를 GPU 레지스터에 수동으로 할당하는 데 사용된다. 이 키워드를 사용하면 상수 버퍼, 텍스처, 샘플러 등을 특정 슬롯에 매핑할 수 있다. 이를 통해 셰이더와 Direct3D API 간의 데이터 바인딩을 명시적으로 관리할 수 있습니다.
 
 사용가능한 레지스터 종류는 다음과 같다
-* b#: 상수 버퍼(Constant Buffer)
-* t#: 텍스처(Texture)
-* s#: 샘플러(Sampler)
-* u#: UAV(Unordered Access View)
+* b#
+  * 상수 버퍼(Constant Buffer)용 레지스터.
+* t#
+  * 셰이더 리소스 뷰(Shader Resource View, SRV)용 레지스터. 
+  * 텍스처, 버퍼, 구조화된 버퍼 등이 여기에 포함 된다
+* s#
+  * 샘플러(Sampler State)용 레지스터.
+* u#
+  * 언오더드 액세스 뷰(Unordered Access View, UAV)용 레지스터.
+
+> Refernce  
+> [learn.microsoft - dx-graphics-hlsl-variable-register](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-variable-register)  
+> [learn.microsoft - resource-binding-in-hlsl](https://learn.microsoft.com/en-us/windows/win32/direct3d12/resource-binding-in-hlsl)  
