@@ -507,6 +507,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="110%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="111%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="112%20ID3D11ShaderResourceView.html">ID3D11ShaderResourceView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="113%20ID3D11UnorderedAccessView.html">ID3D11UnorderedAccessView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="130%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="131%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="132%20ID3D11SamplerState.html">ID3D11SamplerState</a></li>
@@ -765,7 +766,8 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="d3d11-viewport">
 <h1>D3D11_VIEWPORT<a class="headerlink" href="#d3d11-viewport" title="Permalink to this heading">#</a></h1>
 <p>D3D11_VIEWPORT는 Direct3D 11에서 <code class="docutils literal notranslate"><span class="pre">뷰포트(Viewport)</span></code>를 정의하는 구조체다.</p>
-<p>뷰포트란 렌더링된 이미지가 화면에 그려지는 영역이며 3D 장면을 2D 화면 공간으로 변환할 때 사용된다. 뷰포트는 렌더링 파이프라인의 래스터라이저(Rasterizer) 단계에서 중요한 역할을 한다.</p>
+<p>뷰포트란 렌더링된 이미지가 화면에 그려지는 영역이며 3D 장면을 2D 화면 공간으로 변환할 때 사용된다.</p>
+<p>뷰포트는 렌더링 파이프라인의 래스터라이저(Rasterizer) 단계에서 중요한 역할을 한다.</p>
 <p>구조체의 정의는 다음과 같다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D11_VIEWPORT</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">FLOAT</span><span class="w"> </span><span class="n">TopLeftX</span><span class="p">;</span>

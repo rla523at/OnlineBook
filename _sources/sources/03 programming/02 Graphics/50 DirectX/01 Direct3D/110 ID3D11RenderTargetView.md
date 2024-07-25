@@ -1,11 +1,11 @@
 # ID3D11RenderTargetView
 ID3D11RenderTargetView는 Direct3D 11에서 `렌더 타겟(render target)`을 나타내는 인터페이스다. 
 
-이 클래스는 렌더링 파이프라인에서 출력 목표를 정의하고, 렌더링된 픽셀이 쓰여질 위치를 지정하는 역할을 한다. ID3D11RenderTargetView는 주로 화면에 렌더링 결과를 표시하거나, 텍스처에 렌더링 데이터를 저장하는 데 사용된다.
+이 클래스는 주어진 메모리 공간(백 버퍼, 텍스처)을 렌더링 파이프라인에서 렌더링된 픽셀이 저장될 메모리 공간인 render target으로 설정하는 역할을 한다. 
 
-ID3D11RenderTargetView의 주요 역할은 render target을 설정하고 관리하는 것이다. render target은 렌더링된 픽셀이 저장되는 버퍼로 화면에 보여질 이미지를 저장하는 메모리 공간이다. render target으로는 주로 백 버퍼나 텍스처가 사용된다. 이 인터페이스를 통해 애플리케이션은 렌더링 출력을 특정 render target에 지정할 수 있다. 예를 들어, 화면에 직접 렌더링할 때는 백 버퍼를 render target으로 설정하고, 포스트 프로세싱 효과를 위해 텍스처를 render target으로 설정할 수 있다.
+예를 들어, 화면에 직접 렌더링할 때는 백 버퍼를 render target으로 설정하고, 포스트 프로세싱 효과를 위해 텍스처를 render target으로 설정할 수 있다.
 
-ID3D11RenderTargetView는 ID3D11Device를 사용하여 생성된다. 이를 위해 D3D11_RENDER_TARGET_VIEW_DESC 구조체를 사용하여 render target 뷰의 속성을 정의하고, 해당 속성에 따라 render target 뷰를 초기화한다. 이 구조체는 render target 뷰의 포맷, 뷰의 차원(예: 1D, 2D, 3D 텍스처), 그리고 사용될 리소스의 특정 부분을 정의한다.
+ID3D11RenderTargetView는 ID3D11Device를 사용하여 생성된다. 이를 위해 D3D11_RENDER_TARGET_VIEW_DESC 구조체를 사용하여 render target 뷰의 속성을 정의하고, 해당 속성에 따라 render target 뷰를 초기화한다. 
 
 또한, ID3D11RenderTargetView는 ID3D11DeviceContext를 통해 그래픽 파이프라인에 바인딩된다. 이를 통해 렌더링 작업이 수행되는 동안 특정 render target 뷰를 활성화하고, 렌더링 결과가 해당 뷰에 기록되도록 한다. 예를 들어, OMSetRenderTargets 메서드를 사용하여 render target 뷰를 설정하고, 이후의 드로우 콜이 지정된 render target에 출력되도록 할 수 있다.
 

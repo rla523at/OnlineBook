@@ -507,6 +507,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="110%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="111%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="112%20ID3D11ShaderResourceView.html">ID3D11ShaderResourceView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="113%20ID3D11UnorderedAccessView.html">ID3D11UnorderedAccessView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="130%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="131%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="132%20ID3D11SamplerState.html">ID3D11SamplerState</a></li>
@@ -792,6 +793,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixlooktolh">XMMatrixLookToLH 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixperspectivefovlh">XMMatrixPerspectiveFovLH 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixorthographicoffcenterlh">XMMatrixOrthographicOffCenterLH함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-shader">Compute Shader</a></li>
 </ul>
             </nav>
         </div>
@@ -1595,6 +1597,11 @@ document.write(`
 </li>
 </ul>
 </section>
+<section id="compute-shader">
+<h2>Compute Shader<a class="headerlink" href="#compute-shader" title="Permalink to this heading">#</a></h2>
+<p>Compute Shader에서 그룹별 실행 순서는 특정한 규칙 없으며 GPU는 가능한 한 많은 스레드 그룹을 동시에 실행하려고 한다.</p>
+<p>따라서, 스레드 그룹 간에는 동기화가 불가능하며 실행 순서가 정의되지 않는다.</p>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -1704,6 +1711,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixlooktolh">XMMatrixLookToLH 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixperspectivefovlh">XMMatrixPerspectiveFovLH 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixorthographicoffcenterlh">XMMatrixOrthographicOffCenterLH함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-shader">Compute Shader</a></li>
 </ul>
   </nav></div>
 

@@ -36,7 +36,9 @@ HRESULT CreateTexture2D(
   * 생성된 텍스처 객체에 대한 포인터의 주소를 반환한다.
 
 ## CreateRenderTargetView 함수
-CreateRenderTargetView는 렌더 타겟 뷰를 생성하는 함수다. 이 함수는 ID3D11RenderTargetView 객체를 생성하여, 렌더링 파이프라인의 출력 병합 단계(OM, Output Merger)에 사용할 수 있게 한다.
+CreateRenderTargetView는 렌더 타겟 뷰를 생성하는 함수다. 
+
+이 함수는 ID3D11RenderTargetView 객체를 생성하여, 렌더링 파이프라인의 출력 병합 단계(OM, Output Merger)에 사용할 수 있게 한다.
 
 ```cpp
 HRESULT CreateRenderTargetView(
@@ -287,3 +289,107 @@ HRESULT ID3D11Device::CreateBlendState(
     * NULL: 유효한 블렌드 상태 객체를 반환하지 않음
     * 유효한 ID3D11BlendState 객체의 포인터
   * 기본값: 없음
+
+## CreateUnorderedAccessView 멤버 함수
+CreateUnorderedAccessView 함수는 ID3D11Device 인터페이스의 멤버 함수로, 언오더드 액세스 뷰를 생성하는 함수다. 
+
+이 함수는 리소스에 대한 무순서 접근을 허용하는 뷰를 생성하며, 컴퓨트 셰이더 또는 픽셀 셰이더에서 사용될 수 있다.
+
+시그니처는 다음과 같다.
+```cpp
+HRESULT ID3D11Device::CreateUnorderedAccessView(
+    ID3D11Resource *pResource,
+    const D3D11_UNORDERED_ACCESS_VIEW_DESC *pDesc,
+    ID3D11UnorderedAccessView **ppUAView
+);
+```
+
+매개변수는 다음과 같다.
+
+* ID3D11Resource* pResource
+  * 언오더드 액세스 뷰를 생성할 리소스
+  * 사용 가능한 값
+    * 유효한 ID3D11Resource 객체
+  * 기본값: 없음
+
+* const D3D11_UNORDERED_ACCESS_VIEW_DESC* pDesc
+  * 언오더드 액세스 뷰의 속성을 지정하는 구조체에 대한 포인터
+  * 사용 가능한 값
+    * NULL: 리소스의 기본 뷰를 생성한다.
+    * 유효한 D3D11_UNORDERED_ACCESS_VIEW_DESC 구조체
+  * 기본값: NULL
+
+* ID3D11UnorderedAccessView** ppUAView
+  * 생성된 언오더드 액세스 뷰 객체에 대한 포인터의 주소
+  * 사용 가능한 값
+    * NULL: 유효한 언오더드 액세스 뷰 객체를 반환하지 않는다.
+    * 유효한 ID3D11UnorderedAccessView 객체의 포인터
+  * 기본값: 없음
+
+### 리소스의 기본 뷰
+CreateUnorderedAccessView 함수에서 pDesc 인자로 NULL이 주어지는 경우, Direct3D는 리소스의 기본 뷰를 생성한다. 
+
+리소스의 기본 뷰가 설정되면, D3D11_UNORDERED_ACCESS_VIEW_DESC 구조체의 각 필드는 다음과 같은 값으로 설정된다.
+
+* Format
+  * 리소스의 기본 형식이 사용된다.
+  * 예를 들어, 텍스처 리소스의 경우 텍스처의 형식이 사용된다. 버퍼 리소스의 경우, DXGI_FORMAT_R32_TYPELESS가 사용된다.
+
+* ViewDimension
+  * 리소스의 유형에 따라 뷰 차원이 자동으로 설정된다.
+  * 예를 들어, 텍스처 2D 리소스의 경우 D3D11_UAV_DIMENSION_TEXTURE2D가 설정된다. 버퍼 리소스의 경우 D3D11_UAV_DIMENSION_BUFFER가 설정된다.
+
+* union
+  * union의 구체적인 필드는 리소스 유형에 따라 자동으로 설정된다.
+  * 버퍼 리소스의 경우, D3D11_BUFFER_UAV 구조체가 설정된다.
+  * 텍스처 리소스의 경우, D3D11_TEX*UAV 구조체가 설정된다.
+
+#### 버퍼 리소스 (Buffer Resource)
+
+* Format: DXGI_FORMAT_R32_TYPELESS
+* ViewDimension: D3D11_UAV_DIMENSION_BUFFER
+* D3D11_BUFFER_UAV 구조체 필드:
+  * FirstElement: 0
+  * NumElements: 버퍼의 요소 수
+  * Flags: 0
+
+#### 텍스처 1D 리소스 (Texture1D Resource)
+
+* Format: 텍스처의 기본 형식
+* ViewDimension: D3D11_UAV_DIMENSION_TEXTURE1D
+* D3D11_TEX1D_UAV 구조체 필드:
+  * MipSlice: 0
+
+#### 텍스처 1D 배열 리소스 (Texture1D Array Resource)
+
+* Format: 텍스처의 기본 형식
+* ViewDimension: D3D11_UAV_DIMENSION_TEXTURE1DARRAY
+* D3D11_TEX1D_ARRAY_UAV 구조체 필드:
+  * MipSlice: 0
+  * FirstArraySlice: 0
+  * ArraySize: 텍스처 배열의 크기
+
+#### 텍스처 2D 리소스 (Texture2D Resource)
+
+* Format: 텍스처의 기본 형식
+* ViewDimension: D3D11_UAV_DIMENSION_TEXTURE2D
+* D3D11_TEX2D_UAV 구조체 필드:
+  * MipSlice: 0
+
+#### 텍스처 2D 배열 리소스 (Texture2D Array Resource)
+
+* Format: 텍스처의 기본 형식
+* ViewDimension: D3D11_UAV_DIMENSION_TEXTURE2DARRAY
+* D3D11_TEX2D_ARRAY_UAV 구조체 필드:
+  * MipSlice: 0
+  * FirstArraySlice: 0
+  * ArraySize: 텍스처 배열의 크기
+
+#### 텍스처 3D 리소스 (Texture3D Resource)
+
+* Format: 텍스처의 기본 형식
+* ViewDimension: D3D11_UAV_DIMENSION_TEXTURE3D
+* D3D11_TEX3D_UAV 구조체 필드:
+  * MipSlice: 0
+  * FirstWSlice: 0
+  * WSize: 텍스처의 깊이

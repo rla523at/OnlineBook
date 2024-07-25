@@ -695,3 +695,40 @@ void ID3D11DeviceContext::VSSetShaderResources(
     * 유효한 ID3D11ShaderResourceView 객체의 포인터 배열
   * 기본값: NULL
 
+## Dispatch 멤버 함수
+Dispatch 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 컴퓨트 셰이더를 실행하는 함수다. 
+
+이 함수는 지정된 스레드 그룹 수만큼 컴퓨트 셰이더를 실행하여 병렬 연산을 수행한다.
+
+시그니처는 다음과 같다.
+
+```cpp
+void ID3D11DeviceContext::Dispatch(
+    UINT ThreadGroupCountX,
+    UINT ThreadGroupCountY,
+    UINT ThreadGroupCountZ
+);
+```
+
+매개변수는 다음과 같다.
+
+* UINT ThreadGroupCountX
+  * X 방향으로 실행할 스레드 그룹의 수
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* UINT ThreadGroupCountY
+  * Y 방향으로 실행할 스레드 그룹의 수
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* UINT ThreadGroupCountZ
+  * Z 방향으로 실행할 스레드 그룹의 수
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+이 함수는 컴퓨트 셰이더를 설정하고 나서 호출하며, 각 스레드 그룹 내의 스레드들은 컴퓨트 셰이더에서 정의된 작업을 병렬로 수행한다.
+
