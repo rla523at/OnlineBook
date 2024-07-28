@@ -763,11 +763,17 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-merger-stage">출력 병합 단계 (Output Merger Stage)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11createdevice">D3D11CreateDevice 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkmultisamplequalitylevels">CheckMultisampleQualityLevels 함수</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa-vs-ssaa">멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">자원 바인딩 경고</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anti-aliasing">Anti-aliasing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa-and-flip-model">MSAA and Flip model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa">MSAA</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#checkmultisamplequalitylevels">CheckMultisampleQualityLevels 함수</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa-vs-ssaa">멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11createdevice">D3D11CreateDevice 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11createdeviceandswapchain">D3D11CreateDeviceAndSwapChain</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiadapter-padapter">IDXGIAdapter* pAdapter</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d-driver-type-drivertype">D3D_DRIVER_TYPE DriverType</a></li>
@@ -786,7 +792,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer-vs-shader-resource-view">Constant Buffer vs Shader Resource View</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer">constant buffer</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-resource">shader resource</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">정리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">정리</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixlookatlh">XMMatrixLookAtLH 함수</a></li>
@@ -849,6 +855,120 @@ document.write(`
 <div><p>REFERENCE<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage">MSDN - input-assembler-stage</a></p>
 </div></blockquote>
+</section>
+</section>
+<section id="id1">
+<h2>자원 바인딩 경고<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>백 버퍼를 렌더 타겟 뷰(RTV)로 바인딩한 후에 동일한 자원을 언오더드 액세스 뷰(UAV)로 바인딩하려고 하면</p>
+<p>동일한 자원을 여러 파이프라인 단계에서 동시에 읽거나 쓰려는 시도에 대한 문제를 경고한다.</p>
+<p>예를 들어, _cptr_back_buffer_RTV를 OMSetRenderTargets를 통해 렌더 타겟 뷰로 바인딩한 후, 동일한 자원을 CSSetUnorderedAccessViews를 통해 컴퓨트 셰이더의 UAV로 바인딩하려고 하면 Direct3D 11은 동일한 자원이 여러 파이프라인 단계에서 동시에 쓰기 가능 상태로 바인딩되는 것을 허용하지 않는다.</p>
+<p>따라서, UAV로 설정하려는 자원이 이미 다른 파이프라인 단계(이 경우 출력 병합 단계)에서 RTV로 바인딩되어 있으면, UAV로 바인딩할 때 자동으로 RTV가 해제된다.</p>
+<p>그러면 이로 인해 픽셀 셰이더에서 예상하는 RTV가 없다는 경고 메시지가 발생하게 된다.</p>
+</section>
+<section id="anti-aliasing">
+<h2>Anti-aliasing<a class="headerlink" href="#anti-aliasing" title="Permalink to this heading">#</a></h2>
+<section id="msaa-and-flip-model">
+<h3>MSAA and Flip model<a class="headerlink" href="#msaa-and-flip-model" title="Permalink to this heading">#</a></h3>
+<p>플립 모델 스왑 체인은 성능과 효율성을 높이기 위해 설계되었으며, 블릿 모델(Blt model) 스왑 체인은 구식으로 간주된다.</p>
+<p>Direct3D 11에서 멀티샘플링(MSAA)을 사용하려면 블릿 모델을 사용해야 하지만, 이는 성능 및 최신 기능 면에서 최적의 선택이 아닐 수 있다.</p>
+<p>MSAA 대신 다른 안티앨리어싱 기술을 사용하는 것이 일반적으로 더 선호된다.</p>
+<p>이는 특히 플립 모델 스왑 체인을 사용할 때 성능과 효율성을 유지할 수 있기 때문이다.</p>
+<p><strong>현대적 안티앨리어싱 기술</strong></p>
+<p>현대적인 안티앨리어싱 기술은 주로 포스트 프로세싱 단계에서 수행되며, MSAA보다 성능 효율적이다. 대표적인 기술로는 다음과 같다:</p>
+<p><strong>FXAA (Fast Approximate Anti-Aliasing)</strong></p>
+<ul class="simple">
+<li><p>빠른 속도로 계단 현상을 줄이는 기술.</p></li>
+<li><p>포스트 프로세싱 단계에서 적용.</p></li>
+<li><p>이미지 품질은 MSAA보다 낮을 수 있지만, 성능은 더 우수하다.</p></li>
+</ul>
+<p><strong>SMAA (Subpixel Morphological Anti-Aliasing)</strong></p>
+<ul class="simple">
+<li><p>FXAA보다 향상된 품질을 제공.</p></li>
+<li><p>여전히 포스트 프로세싱 단계에서 수행되며 성능 효율적.</p></li>
+<li><p>Subpixel 정보를 활용하여 더 부드러운 가장자리를 생성.</p></li>
+</ul>
+<p><strong>TAA (Temporal Anti-Aliasing)</strong></p>
+<ul class="simple">
+<li><p>시간적 정보를 사용하여 계단 현상을 줄이는 기술.</p></li>
+<li><p>이전 프레임의 데이터를 활용하여 부드러운 이미지를 생성.</p></li>
+<li><p>고정된 장면에서는 매우 효과적이나, 빠르게 움직이는 장면에서는 아티팩트가 발생할 수 있다.</p></li>
+</ul>
+</section>
+<section id="msaa">
+<h3>MSAA<a class="headerlink" href="#msaa" title="Permalink to this heading">#</a></h3>
+<section id="checkmultisamplequalitylevels">
+<h4>CheckMultisampleQualityLevels 함수<a class="headerlink" href="#checkmultisamplequalitylevels" title="Permalink to this heading">#</a></h4>
+<p>CheckMultisampleQualityLevels 함수는 지정된 포맷 및 샘플 수에 대해 사용할 수 있는 <code class="docutils literal notranslate"><span class="pre">멀티샘플링(Multi-Sample</span> <span class="pre">Anti-Aliasing;</span> <span class="pre">MSAA)</span></code> 품질 수준의 수를 확인하는 함수다.</p>
+<p>멀티샘플링은 렌더링 품질을 향상시키기 위해 여러 샘플을 사용하여 픽셀의 가장자리 부드럽게 하는 기술이다.</p>
+<p>함수의 시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CheckMultisampleQualityLevels</span><span class="p">(</span>
+<span class="w">    </span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">Format</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">SampleCount</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="o">*</span><span class="n">pNumQualityLevels</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>각각의 매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>Format</p>
+<ul>
+<li><p>DXGI_FORMAT 열거형으로, 확인할 멀티샘플링을 지원하는 텍스처 포맷을 지정한다.</p></li>
+<li><p>예를 들어, DXGI_FORMAT_R8G8B8A8_UNORM은 일반적인 32비트 RGBA 포맷이다.</p></li>
+</ul>
+</li>
+<li><p>SampleCount</p>
+<ul>
+<li><p>멀티샘플링에 사용할 샘플의 수를 지정한다.</p></li>
+<li><p>이 값은 보통 1, 2, 4, 8, 16 등의 값을 가지며, 특정 하드웨어가 지원하는 샘플 수에 따라 다를 수 있다.</p></li>
+</ul>
+</li>
+<li><p>pNumQualityLevels</p>
+<ul>
+<li><p>지정된 포맷과 샘플 수에 대해 사용 가능한 품질 수준의 수를 반환하는 포인터다.</p></li>
+<li><p>이 값은 0부터 시작하며, 값이 1 이상이면 멀티샘플링을 사용할 수 있는 품질 수준이 있음을 의미한다.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="msaa-vs-ssaa">
+<h4>멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)<a class="headerlink" href="#msaa-vs-ssaa" title="Permalink to this heading">#</a></h4>
+<p>MSAA는 각 픽셀을 여러 개의 서브픽셀로 나누고, 경계선에서만 다중 샘플링을 수행한다. 이는 주로 삼각형의 가장자리에서 앨리어싱을 줄이는 데 집중된다. 따라서 경계선 내부의 픽셀은 다중 샘플링을 하지 않으므로, 전체 화면에서 필요한 샘플 수를 줄인다.</p>
+<p>SSAA는 화면을 고해상도로 렌더링한 다음, 결과를 다운샘플링하여 최종 이미지를 생성한다. 예를 들어, 2x SSAA는 화면을 원래 해상도의 두 배로 렌더링하고 이를 다시 원래 해상도로 축소한다. 따라서 화면의 모든 픽셀에 대해 다중 샘플링을 수행하여 모든 부분에서 앨리어싱을 줄인다.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>특성</p></th>
+<th class="head"><p>SSAA</p></th>
+<th class="head"><p>MSAA</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>샘플링 방식</p></td>
+<td><p>모든 픽셀에 대해 다중 샘플링</p></td>
+<td><p>경계선에서만 다중 샘플링</p></td>
+</tr>
+<tr class="row-odd"><td><p>이미지 품질</p></td>
+<td><p>매우 높음</p></td>
+<td><p>높음</p></td>
+</tr>
+<tr class="row-even"><td><p>성능 비용</p></td>
+<td><p>매우 높음</p></td>
+<td><p>낮음</p></td>
+</tr>
+<tr class="row-odd"><td><p>메모리 사용량</p></td>
+<td><p>높음</p></td>
+<td><p>낮음</p></td>
+</tr>
+<tr class="row-even"><td><p>적용 범위</p></td>
+<td><p>전체 이미지</p></td>
+<td><p>경계선 주로</p></td>
+</tr>
+<tr class="row-odd"><td><p>복잡성</p></td>
+<td><p>간단</p></td>
+<td><p>복잡</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 </section>
 <section id="d3d11createdevice">
@@ -981,79 +1101,6 @@ document.write(`
 </ul>
 </li>
 </ul>
-</section>
-<section id="checkmultisamplequalitylevels">
-<h2>CheckMultisampleQualityLevels 함수<a class="headerlink" href="#checkmultisamplequalitylevels" title="Permalink to this heading">#</a></h2>
-<p>CheckMultisampleQualityLevels 함수는 지정된 포맷 및 샘플 수에 대해 사용할 수 있는 <code class="docutils literal notranslate"><span class="pre">멀티샘플링(Multi-Sample</span> <span class="pre">Anti-Aliasing;</span> <span class="pre">MSAA)</span></code> 품질 수준의 수를 확인하는 함수다.</p>
-<p>멀티샘플링은 렌더링 품질을 향상시키기 위해 여러 샘플을 사용하여 픽셀의 가장자리 부드럽게 하는 기술이다.</p>
-<p>함수의 시그니처는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CheckMultisampleQualityLevels</span><span class="p">(</span>
-<span class="w">    </span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">Format</span><span class="p">,</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">SampleCount</span><span class="p">,</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="o">*</span><span class="n">pNumQualityLevels</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>각각의 매개변수는 다음과 같다.</p>
-<ul class="simple">
-<li><p>Format</p>
-<ul>
-<li><p>DXGI_FORMAT 열거형으로, 확인할 멀티샘플링을 지원하는 텍스처 포맷을 지정한다.</p></li>
-<li><p>예를 들어, DXGI_FORMAT_R8G8B8A8_UNORM은 일반적인 32비트 RGBA 포맷이다.</p></li>
-</ul>
-</li>
-<li><p>SampleCount</p>
-<ul>
-<li><p>멀티샘플링에 사용할 샘플의 수를 지정한다.</p></li>
-<li><p>이 값은 보통 1, 2, 4, 8, 16 등의 값을 가지며, 특정 하드웨어가 지원하는 샘플 수에 따라 다를 수 있다.</p></li>
-</ul>
-</li>
-<li><p>pNumQualityLevels</p>
-<ul>
-<li><p>지정된 포맷과 샘플 수에 대해 사용 가능한 품질 수준의 수를 반환하는 포인터다.</p></li>
-<li><p>이 값은 0부터 시작하며, 값이 1 이상이면 멀티샘플링을 사용할 수 있는 품질 수준이 있음을 의미한다.</p></li>
-</ul>
-</li>
-</ul>
-<section id="msaa-vs-ssaa">
-<h3>멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)<a class="headerlink" href="#msaa-vs-ssaa" title="Permalink to this heading">#</a></h3>
-<p>MSAA는 각 픽셀을 여러 개의 서브픽셀로 나누고, 경계선에서만 다중 샘플링을 수행한다. 이는 주로 삼각형의 가장자리에서 앨리어싱을 줄이는 데 집중된다. 따라서 경계선 내부의 픽셀은 다중 샘플링을 하지 않으므로, 전체 화면에서 필요한 샘플 수를 줄인다.</p>
-<p>SSAA는 화면을 고해상도로 렌더링한 다음, 결과를 다운샘플링하여 최종 이미지를 생성한다. 예를 들어, 2x SSAA는 화면을 원래 해상도의 두 배로 렌더링하고 이를 다시 원래 해상도로 축소한다. 따라서 화면의 모든 픽셀에 대해 다중 샘플링을 수행하여 모든 부분에서 앨리어싱을 줄인다.</p>
-<table class="colwidths-auto table">
-<thead>
-<tr class="row-odd"><th class="head"><p>특성</p></th>
-<th class="head"><p>SSAA</p></th>
-<th class="head"><p>MSAA</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>샘플링 방식</p></td>
-<td><p>모든 픽셀에 대해 다중 샘플링</p></td>
-<td><p>경계선에서만 다중 샘플링</p></td>
-</tr>
-<tr class="row-odd"><td><p>이미지 품질</p></td>
-<td><p>매우 높음</p></td>
-<td><p>높음</p></td>
-</tr>
-<tr class="row-even"><td><p>성능 비용</p></td>
-<td><p>매우 높음</p></td>
-<td><p>낮음</p></td>
-</tr>
-<tr class="row-odd"><td><p>메모리 사용량</p></td>
-<td><p>높음</p></td>
-<td><p>낮음</p></td>
-</tr>
-<tr class="row-even"><td><p>적용 범위</p></td>
-<td><p>전체 이미지</p></td>
-<td><p>경계선 주로</p></td>
-</tr>
-<tr class="row-odd"><td><p>복잡성</p></td>
-<td><p>간단</p></td>
-<td><p>복잡</p></td>
-</tr>
-</tbody>
-</table>
-</section>
 </section>
 <section id="d3d11createdeviceandswapchain">
 <h2>D3D11CreateDeviceAndSwapChain<a class="headerlink" href="#d3d11createdeviceandswapchain" title="Permalink to this heading">#</a></h2>
@@ -1316,8 +1363,8 @@ document.write(`
 유연성: 다양한 유형의 데이터(텍스처, 버퍼 등)를 전달할 수 있다.
 큰 데이터 세트 처리: 더 큰 데이터 세트를 효율적으로 처리할 수 있다</p>
 </section>
-<section id="id1">
-<h3>정리<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<section id="id2">
+<h3>정리<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>특성</p></th>
@@ -1601,6 +1648,20 @@ document.write(`
 <h2>Compute Shader<a class="headerlink" href="#compute-shader" title="Permalink to this heading">#</a></h2>
 <p>Compute Shader에서 그룹별 실행 순서는 특정한 규칙 없으며 GPU는 가능한 한 많은 스레드 그룹을 동시에 실행하려고 한다.</p>
 <p>따라서, 스레드 그룹 간에는 동기화가 불가능하며 실행 순서가 정의되지 않는다.</p>
+<p>SV_GroupID : 그룹의 3차원 고유 아이디
+SV_GroupThreadID : 그룹 내에서 Thread의 3차원 고유 아이디
+SV_GroupIndex : 그룹 내에서 Thread의 1차원 고유 아이디
+SV_DispatchThreadID : 전체에서 Thread의 3차원 고유 아이디</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-dispatch">learn.microsoft - dispatch</a></p>
+</div></blockquote>
+<p>Groupshared memory는 그룹당 최대 16KB를 갖을 수 있다.</p>
+<p>각 Thread는 Groupshared memory중 256byte에만 writing 할 수 있다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d11/direct3d-11-advanced-stages-compute-shader">learn.microsoft - direct3d-11-advanced-stages-compute-shader</a></p>
+</div></blockquote>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -1681,11 +1742,17 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-merger-stage">출력 병합 단계 (Output Merger Stage)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11createdevice">D3D11CreateDevice 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checkmultisamplequalitylevels">CheckMultisampleQualityLevels 함수</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa-vs-ssaa">멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">자원 바인딩 경고</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anti-aliasing">Anti-aliasing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa-and-flip-model">MSAA and Flip model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa">MSAA</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#checkmultisamplequalitylevels">CheckMultisampleQualityLevels 함수</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa-vs-ssaa">멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11createdevice">D3D11CreateDevice 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11createdeviceandswapchain">D3D11CreateDeviceAndSwapChain</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiadapter-padapter">IDXGIAdapter* pAdapter</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d-driver-type-drivertype">D3D_DRIVER_TYPE DriverType</a></li>
@@ -1704,7 +1771,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer-vs-shader-resource-view">Constant Buffer vs Shader Resource View</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer">constant buffer</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-resource">shader resource</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">정리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">정리</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixlookatlh">XMMatrixLookAtLH 함수</a></li>

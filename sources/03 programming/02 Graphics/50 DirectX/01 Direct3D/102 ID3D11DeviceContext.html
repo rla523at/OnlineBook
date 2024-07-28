@@ -787,6 +787,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#omsetblendstate">OMSetBlendState 멤버함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vssetshaderresources">VSSetShaderResources 멤버 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dispatch">Dispatch 멤버 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolvesubresource">ResolveSubresource 멤버 함수</a></li>
 </ul>
             </nav>
         </div>
@@ -1875,6 +1876,84 @@ document.write(`
 </ul>
 <p>이 함수는 컴퓨트 셰이더를 설정하고 나서 호출하며, 각 스레드 그룹 내의 스레드들은 컴퓨트 셰이더에서 정의된 작업을 병렬로 수행한다.</p>
 </section>
+<section id="resolvesubresource">
+<h2>ResolveSubresource 멤버 함수<a class="headerlink" href="#resolvesubresource" title="Permalink to this heading">#</a></h2>
+<p>ResolveSubresource 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 두 리소스 간의 서브 리소스를 복사하는 함수다.</p>
+<p>이 함수는 특정 서브 리소스의 내용(예: 텍스처의 mipmap 레벨)을 다른 리소스로 복사하는 데 사용된다.</p>
+<p>시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">ID3D11DeviceContext::ResolveSubresource</span><span class="p">(</span>
+<span class="w">    </span><span class="n">ID3D11Resource</span><span class="w"> </span><span class="o">*</span><span class="n">pDestResource</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">DestSubresource</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ID3D11Resource</span><span class="w"> </span><span class="o">*</span><span class="n">pSrcResource</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">SrcSubresource</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">Format</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>ID3D11Resource* pDestResource</p>
+<ul>
+<li><p>데이터를 복사할 대상 리소스</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 ID3D11Resource 객체</p></li>
+<li><p>NULL: 유효한 대상 리소스가 필요함</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>UINT DestSubresource</p>
+<ul>
+<li><p>대상 리소스에서 복사할 서브 리소스의 인덱스</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0 이상의 정수 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>ID3D11Resource* pSrcResource</p>
+<ul>
+<li><p>데이터를 복사할 원본 리소스</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 ID3D11Resource 객체</p></li>
+<li><p>NULL: 유효한 원본 리소스가 필요함</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>UINT SrcSubresource</p>
+<ul>
+<li><p>원본 리소스에서 복사할 서브 리소스의 인덱스</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0 이상의 정수 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>DXGI_FORMAT Format</p>
+<ul>
+<li><p>복사할 리소스의 형식을 지정</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>DXGI_FORMAT_R8G8B8A8_UNORM: 8비트 RGBA 정규화 정수 형식</p></li>
+<li><p>DXGI_FORMAT_R32_FLOAT: 32비트 부동 소수점 형식</p></li>
+<li><p>기타 DXGI_FORMAT 값들</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+</ul>
+<p>이 함수는 그래픽스 파이프라인에서 리소스 간의 데이터 이동을 관리하며, 일반적으로 렌더링 완료 후 텍스처를 스왑 체인에 복사하는 등 다양한 그래픽스 처리에서 유용하다.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1976,6 +2055,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#omsetblendstate">OMSetBlendState 멤버함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vssetshaderresources">VSSetShaderResources 멤버 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dispatch">Dispatch 멤버 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolvesubresource">ResolveSubresource 멤버 함수</a></li>
 </ul>
   </nav></div>
 

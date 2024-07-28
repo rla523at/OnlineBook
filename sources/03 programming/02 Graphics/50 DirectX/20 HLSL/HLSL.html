@@ -507,6 +507,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/110%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/111%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/112%20ID3D11ShaderResourceView.html">ID3D11ShaderResourceView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/113%20ID3D11UnorderedAccessView.html">ID3D11UnorderedAccessView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/130%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/131%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/132%20ID3D11SamplerState.html">ID3D11SamplerState</a></li>
@@ -759,6 +760,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register">Register</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-attribute">for attribute</a></li>
 </ul>
             </nav>
         </div>
@@ -840,6 +842,27 @@ document.write(`
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/resource-binding-in-hlsl">learn.microsoft - resource-binding-in-hlsl</a></p>
 </div></blockquote>
 </section>
+<section id="for-attribute">
+<h2>for attribute<a class="headerlink" href="#for-attribute" title="Permalink to this heading">#</a></h2>
+<p>HLSL에서 [unroll]은 루프 언롤링(Loop Unrolling)을 수행하도록 컴파일러에게 지시하는 속성이다.</p>
+<p>이는 반복문을 컴파일 타임에 고정된 횟수만큼 반복하도록 변환하여 실행 시 반복문 조건 검사 및 분기 명령을 제거함으로써 성능을 최적화하는 기법이다.</p>
+<p>[unroll] 속성은 반복문 앞에 배치한다. 예를 들어, 다음과 같이 사용한다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">unroll</span><span class="p">]</span>
+<span class="k">for</span> <span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="n">반복할</span> <span class="n">코드</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>이 경우, 컴파일러는 반복문을 다음과 같이 언롤링할 수 있다:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">반복문의</span> <span class="n">언롤링된</span> <span class="n">버전</span>
+<span class="o">//</span> <span class="n">반복할</span> <span class="n">코드</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="o">//</span> <span class="n">반복할</span> <span class="n">코드</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="o">//</span> <span class="n">반복할</span> <span class="n">코드</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">//</span> <span class="n">반복할</span> <span class="n">코드</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>단, 언롤링된 코드는 반복 횟수가 정적으로 결정될 때만 유효하다. 동적 반복 횟수가 필요한 경우에는 적합하지 않다.</p>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -916,6 +939,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register">Register</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-attribute">for attribute</a></li>
 </ul>
   </nav></div>
 

@@ -732,3 +732,57 @@ void ID3D11DeviceContext::Dispatch(
 
 이 함수는 컴퓨트 셰이더를 설정하고 나서 호출하며, 각 스레드 그룹 내의 스레드들은 컴퓨트 셰이더에서 정의된 작업을 병렬로 수행한다.
 
+## ResolveSubresource 멤버 함수
+ResolveSubresource 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 두 리소스 간의 서브 리소스를 복사하는 함수다.
+
+이 함수는 특정 서브 리소스의 내용(예: 텍스처의 mipmap 레벨)을 다른 리소스로 복사하는 데 사용된다.
+
+시그니처는 다음과 같다.
+
+```cpp
+void ID3D11DeviceContext::ResolveSubresource(
+    ID3D11Resource *pDestResource,
+    UINT DestSubresource,
+    ID3D11Resource *pSrcResource,
+    UINT SrcSubresource,
+    DXGI_FORMAT Format
+);
+```
+
+매개변수는 다음과 같다.
+
+* ID3D11Resource* pDestResource
+  * 데이터를 복사할 대상 리소스
+  * 사용 가능한 값
+    * 유효한 ID3D11Resource 객체
+    * NULL: 유효한 대상 리소스가 필요함
+  * 기본값: 없음
+
+* UINT DestSubresource
+  * 대상 리소스에서 복사할 서브 리소스의 인덱스
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* ID3D11Resource* pSrcResource
+  * 데이터를 복사할 원본 리소스
+  * 사용 가능한 값
+    * 유효한 ID3D11Resource 객체
+    * NULL: 유효한 원본 리소스가 필요함
+  * 기본값: 없음
+
+* UINT SrcSubresource
+  * 원본 리소스에서 복사할 서브 리소스의 인덱스
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* DXGI_FORMAT Format
+  * 복사할 리소스의 형식을 지정
+  * 사용 가능한 값
+    * DXGI_FORMAT_R8G8B8A8_UNORM: 8비트 RGBA 정규화 정수 형식
+    * DXGI_FORMAT_R32_FLOAT: 32비트 부동 소수점 형식
+    * 기타 DXGI_FORMAT 값들
+  * 기본값: 없음
+
+이 함수는 그래픽스 파이프라인에서 리소스 간의 데이터 이동을 관리하며, 일반적으로 렌더링 완료 후 텍스처를 스왑 체인에 복사하는 등 다양한 그래픽스 처리에서 유용하다.

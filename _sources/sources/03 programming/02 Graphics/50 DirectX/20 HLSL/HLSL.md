@@ -55,3 +55,28 @@ register 키워드는 특정 리소스를 GPU 레지스터에 수동으로 할�
 > Refernce  
 > [learn.microsoft - dx-graphics-hlsl-variable-register](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-variable-register)  
 > [learn.microsoft - resource-binding-in-hlsl](https://learn.microsoft.com/en-us/windows/win32/direct3d12/resource-binding-in-hlsl)  
+
+## for attribute
+HLSL에서 [unroll]은 루프 언롤링(Loop Unrolling)을 수행하도록 컴파일러에게 지시하는 속성이다. 
+
+이는 반복문을 컴파일 타임에 고정된 횟수만큼 반복하도록 변환하여 실행 시 반복문 조건 검사 및 분기 명령을 제거함으로써 성능을 최적화하는 기법이다.
+
+[unroll] 속성은 반복문 앞에 배치한다. 예를 들어, 다음과 같이 사용한다:
+```
+[unroll]
+for (int i = 0; i < 4; ++i) {
+    // 반복할 코드
+}
+```
+
+이 경우, 컴파일러는 반복문을 다음과 같이 언롤링할 수 있다:
+```
+// 반복문의 언롤링된 버전
+// 반복할 코드 (i = 0)
+// 반복할 코드 (i = 1)
+// 반복할 코드 (i = 2)
+// 반복할 코드 (i = 3)
+```
+
+단, 언롤링된 코드는 반복 횟수가 정적으로 결정될 때만 유효하다. 동적 반복 횟수가 필요한 경우에는 적합하지 않다.
+

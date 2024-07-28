@@ -33,6 +33,91 @@ input assembler stage에서는 graphics pipe line에 input data인 vertex buffer
 > REFERENCE  
 > [MSDN - input-assembler-stage](https://learn.microsoft.com/en-us/windows/win32/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage)  
 
+## 자원 바인딩 경고
+백 버퍼를 렌더 타겟 뷰(RTV)로 바인딩한 후에 동일한 자원을 언오더드 액세스 뷰(UAV)로 바인딩하려고 하면
+
+동일한 자원을 여러 파이프라인 단계에서 동시에 읽거나 쓰려는 시도에 대한 문제를 경고한다. 
+
+예를 들어, _cptr_back_buffer_RTV를 OMSetRenderTargets를 통해 렌더 타겟 뷰로 바인딩한 후, 동일한 자원을 CSSetUnorderedAccessViews를 통해 컴퓨트 셰이더의 UAV로 바인딩하려고 하면 Direct3D 11은 동일한 자원이 여러 파이프라인 단계에서 동시에 쓰기 가능 상태로 바인딩되는 것을 허용하지 않는다. 
+
+따라서, UAV로 설정하려는 자원이 이미 다른 파이프라인 단계(이 경우 출력 병합 단계)에서 RTV로 바인딩되어 있으면, UAV로 바인딩할 때 자동으로 RTV가 해제된다. 
+
+그러면 이로 인해 픽셀 셰이더에서 예상하는 RTV가 없다는 경고 메시지가 발생하게 된다.
+
+## Anti-aliasing
+
+### MSAA and Flip model
+플립 모델 스왑 체인은 성능과 효율성을 높이기 위해 설계되었으며, 블릿 모델(Blt model) 스왑 체인은 구식으로 간주된다. 
+
+Direct3D 11에서 멀티샘플링(MSAA)을 사용하려면 블릿 모델을 사용해야 하지만, 이는 성능 및 최신 기능 면에서 최적의 선택이 아닐 수 있다.
+
+MSAA 대신 다른 안티앨리어싱 기술을 사용하는 것이 일반적으로 더 선호된다. 
+
+이는 특히 플립 모델 스왑 체인을 사용할 때 성능과 효율성을 유지할 수 있기 때문이다.
+
+**현대적 안티앨리어싱 기술**
+
+현대적인 안티앨리어싱 기술은 주로 포스트 프로세싱 단계에서 수행되며, MSAA보다 성능 효율적이다. 대표적인 기술로는 다음과 같다:
+
+**FXAA (Fast Approximate Anti-Aliasing)**
+* 빠른 속도로 계단 현상을 줄이는 기술.
+* 포스트 프로세싱 단계에서 적용.
+* 이미지 품질은 MSAA보다 낮을 수 있지만, 성능은 더 우수하다.
+
+**SMAA (Subpixel Morphological Anti-Aliasing)**
+* FXAA보다 향상된 품질을 제공.
+* 여전히 포스트 프로세싱 단계에서 수행되며 성능 효율적.
+* Subpixel 정보를 활용하여 더 부드러운 가장자리를 생성.
+
+**TAA (Temporal Anti-Aliasing)**
+* 시간적 정보를 사용하여 계단 현상을 줄이는 기술.
+* 이전 프레임의 데이터를 활용하여 부드러운 이미지를 생성.
+* 고정된 장면에서는 매우 효과적이나, 빠르게 움직이는 장면에서는 아티팩트가 발생할 수 있다.
+
+### MSAA
+
+#### CheckMultisampleQualityLevels 함수
+CheckMultisampleQualityLevels 함수는 지정된 포맷 및 샘플 수에 대해 사용할 수 있는 `멀티샘플링(Multi-Sample Anti-Aliasing; MSAA)` 품질 수준의 수를 확인하는 함수다.
+
+멀티샘플링은 렌더링 품질을 향상시키기 위해 여러 샘플을 사용하여 픽셀의 가장자리 부드럽게 하는 기술이다.
+
+함수의 시그니처는 다음과 같다.
+
+```cpp
+HRESULT CheckMultisampleQualityLevels(
+    DXGI_FORMAT Format,
+    UINT SampleCount,
+    UINT *pNumQualityLevels
+);
+```
+
+각각의 매개변수는 다음과 같다.
+
+* Format
+  * DXGI_FORMAT 열거형으로, 확인할 멀티샘플링을 지원하는 텍스처 포맷을 지정한다. 
+  * 예를 들어, DXGI_FORMAT_R8G8B8A8_UNORM은 일반적인 32비트 RGBA 포맷이다.
+* SampleCount
+  * 멀티샘플링에 사용할 샘플의 수를 지정한다. 
+  * 이 값은 보통 1, 2, 4, 8, 16 등의 값을 가지며, 특정 하드웨어가 지원하는 샘플 수에 따라 다를 수 있다.
+* pNumQualityLevels
+  * 지정된 포맷과 샘플 수에 대해 사용 가능한 품질 수준의 수를 반환하는 포인터다. 
+  * 이 값은 0부터 시작하며, 값이 1 이상이면 멀티샘플링을 사용할 수 있는 품질 수준이 있음을 의미한다.
+
+#### 멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)
+MSAA는 각 픽셀을 여러 개의 서브픽셀로 나누고, 경계선에서만 다중 샘플링을 수행한다. 이는 주로 삼각형의 가장자리에서 앨리어싱을 줄이는 데 집중된다. 따라서 경계선 내부의 픽셀은 다중 샘플링을 하지 않으므로, 전체 화면에서 필요한 샘플 수를 줄인다.
+
+SSAA는 화면을 고해상도로 렌더링한 다음, 결과를 다운샘플링하여 최종 이미지를 생성한다. 예를 들어, 2x SSAA는 화면을 원래 해상도의 두 배로 렌더링하고 이를 다시 원래 해상도로 축소한다. 따라서 화면의 모든 픽셀에 대해 다중 샘플링을 수행하여 모든 부분에서 앨리어싱을 줄인다.
+
+| 특성                  | SSAA                       | MSAA                         |
+|-----------------------|----------------------------|------------------------------|
+|   샘플링 방식         | 모든 픽셀에 대해 다중 샘플링 | 경계선에서만 다중 샘플링    |
+|   이미지 품질         | 매우 높음                   | 높음                         |
+|   성능 비용           | 매우 높음                   | 낮음                         |
+|   메모리 사용량       | 높음                        | 낮음                         |
+|   적용 범위           | 전체 이미지                 | 경계선 주로                  |
+|   복잡성              | 간단                        | 복잡                         |
+
+
 ## D3D11CreateDevice 함수
 D3D11CreateDevice 함수는 Direct3D 11 디바이스와 해당 디바이스의 즉시 컨텍스트를 생성하는 함수다. 이 함수는 Direct3D 애플리케이션의 기본 구성 요소로, 그래픽 하드웨어와 상호 작용할 수 있게 한다.
 
@@ -118,46 +203,7 @@ HRESULT D3D11CreateDevice(
     * ID3D11DeviceContext: 생성된 즉시 컨텍스트 객체를 반환한다.
   * 기본값: 없음
 
-## CheckMultisampleQualityLevels 함수
-CheckMultisampleQualityLevels 함수는 지정된 포맷 및 샘플 수에 대해 사용할 수 있는 `멀티샘플링(Multi-Sample Anti-Aliasing; MSAA)` 품질 수준의 수를 확인하는 함수다.
 
-멀티샘플링은 렌더링 품질을 향상시키기 위해 여러 샘플을 사용하여 픽셀의 가장자리 부드럽게 하는 기술이다.
-
-함수의 시그니처는 다음과 같다.
-
-```cpp
-HRESULT CheckMultisampleQualityLevels(
-    DXGI_FORMAT Format,
-    UINT SampleCount,
-    UINT *pNumQualityLevels
-);
-```
-
-각각의 매개변수는 다음과 같다.
-
-* Format
-  * DXGI_FORMAT 열거형으로, 확인할 멀티샘플링을 지원하는 텍스처 포맷을 지정한다. 
-  * 예를 들어, DXGI_FORMAT_R8G8B8A8_UNORM은 일반적인 32비트 RGBA 포맷이다.
-* SampleCount
-  * 멀티샘플링에 사용할 샘플의 수를 지정한다. 
-  * 이 값은 보통 1, 2, 4, 8, 16 등의 값을 가지며, 특정 하드웨어가 지원하는 샘플 수에 따라 다를 수 있다.
-* pNumQualityLevels
-  * 지정된 포맷과 샘플 수에 대해 사용 가능한 품질 수준의 수를 반환하는 포인터다. 
-  * 이 값은 0부터 시작하며, 값이 1 이상이면 멀티샘플링을 사용할 수 있는 품질 수준이 있음을 의미한다.
-
-### 멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)
-MSAA는 각 픽셀을 여러 개의 서브픽셀로 나누고, 경계선에서만 다중 샘플링을 수행한다. 이는 주로 삼각형의 가장자리에서 앨리어싱을 줄이는 데 집중된다. 따라서 경계선 내부의 픽셀은 다중 샘플링을 하지 않으므로, 전체 화면에서 필요한 샘플 수를 줄인다.
-
-SSAA는 화면을 고해상도로 렌더링한 다음, 결과를 다운샘플링하여 최종 이미지를 생성한다. 예를 들어, 2x SSAA는 화면을 원래 해상도의 두 배로 렌더링하고 이를 다시 원래 해상도로 축소한다. 따라서 화면의 모든 픽셀에 대해 다중 샘플링을 수행하여 모든 부분에서 앨리어싱을 줄인다.
-
-| 특성                  | SSAA                       | MSAA                         |
-|-----------------------|----------------------------|------------------------------|
-|   샘플링 방식         | 모든 픽셀에 대해 다중 샘플링 | 경계선에서만 다중 샘플링    |
-|   이미지 품질         | 매우 높음                   | 높음                         |
-|   성능 비용           | 매우 높음                   | 낮음                         |
-|   메모리 사용량       | 높음                        | 낮음                         |
-|   적용 범위           | 전체 이미지                 | 경계선 주로                  |
-|   복잡성              | 간단                        | 복잡                         |
 
 ## D3D11CreateDeviceAndSwapChain
 D3D11CreateDeviceAndSwapChain 함수는 Direct3D 11 디바이스와 디바이스 컨텍스트 그리고 스왑 체인을 동시에 생성하는 함수다.
@@ -523,3 +569,18 @@ XMMATRIX XMMatrixOrthographicOffCenterLH(
 Compute Shader에서 그룹별 실행 순서는 특정한 규칙 없으며 GPU는 가능한 한 많은 스레드 그룹을 동시에 실행하려고 한다.
 
 따라서, 스레드 그룹 간에는 동기화가 불가능하며 실행 순서가 정의되지 않는다. 
+
+SV_GroupID : 그룹의 3차원 고유 아이디
+SV_GroupThreadID : 그룹 내에서 Thread의 3차원 고유 아이디
+SV_GroupIndex : 그룹 내에서 Thread의 1차원 고유 아이디
+SV_DispatchThreadID : 전체에서 Thread의 3차원 고유 아이디
+
+> Reference  
+> [learn.microsoft - dispatch](https://learn.microsoft.com/en-us/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-dispatch)
+
+Groupshared memory는 그룹당 최대 16KB를 갖을 수 있다.
+
+각 Thread는 Groupshared memory중 256byte에만 writing 할 수 있다.
+
+> Reference  
+> [learn.microsoft - direct3d-11-advanced-stages-compute-shader](https://learn.microsoft.com/en-us/windows/win32/direct3d11/direct3d-11-advanced-stages-compute-shader)
