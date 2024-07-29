@@ -784,7 +784,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vssetshader">VSSetShader 멤버함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pssetshader">PSSetShader 멤버함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#draw">Draw 멤버함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#omsetblendstate">OMSetBlendState 멤버함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#omsetblendstate">OMSetBlendState 멤버함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#samplemask-null">SampleMask NULL</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vssetshaderresources">VSSetShaderResources 멤버 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dispatch">Dispatch 멤버 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolvesubresource">ResolveSubresource 멤버 함수</a></li>
@@ -1776,6 +1779,13 @@ document.write(`
 </ul>
 </li>
 </ul>
+<section id="samplemask-null">
+<h3>SampleMask NULL<a class="headerlink" href="#samplemask-null" title="Permalink to this heading">#</a></h3>
+<p>Direct3D 11에서 ID3D11DeviceContext::OMSetBlendState 함수의 SampleMask 인자는 멀티샘플링 시 각 샘플의 활성화 여부를 결정하는 32비트 마스크다.</p>
+<p>SampleMask의 기본값은 0xFFFFFFFF로, 이는 모든 샘플이 활성화됨을 의미한다.</p>
+<p>SampleMask 인자에 NULL(정수형 NULL 값은 0)이나 0을 전달하면 모든 샘플이 비활성화되어 화면에 아무것도 렌더링되지 않게 된다.</p>
+<p>이로 인해 검은 화면만 보이는 결과가 나타난다.</p>
+</section>
 </section>
 <section id="vssetshaderresources">
 <h2>VSSetShaderResources 멤버 함수<a class="headerlink" href="#vssetshaderresources" title="Permalink to this heading">#</a></h2>
@@ -2052,7 +2062,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vssetshader">VSSetShader 멤버함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pssetshader">PSSetShader 멤버함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#draw">Draw 멤버함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#omsetblendstate">OMSetBlendState 멤버함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#omsetblendstate">OMSetBlendState 멤버함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#samplemask-null">SampleMask NULL</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vssetshaderresources">VSSetShaderResources 멤버 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dispatch">Dispatch 멤버 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resolvesubresource">ResolveSubresource 멤버 함수</a></li>

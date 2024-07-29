@@ -660,6 +660,15 @@ void ID3D11DeviceContext::OMSetBlendState(
     * 특정 비트 마스크 값
   * 기본값: 0xFFFFFFFF
 
+### SampleMask NULL
+Direct3D 11에서 ID3D11DeviceContext::OMSetBlendState 함수의 SampleMask 인자는 멀티샘플링 시 각 샘플의 활성화 여부를 결정하는 32비트 마스크다.
+
+SampleMask의 기본값은 0xFFFFFFFF로, 이는 모든 샘플이 활성화됨을 의미한다. 
+ 
+SampleMask 인자에 NULL(정수형 NULL 값은 0)이나 0을 전달하면 모든 샘플이 비활성화되어 화면에 아무것도 렌더링되지 않게 된다. 
+
+이로 인해 검은 화면만 보이는 결과가 나타난다.
+
 
 ## VSSetShaderResources 멤버 함수
 VSSetShaderResources 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 버텍스 셰이더 단계에서 사용할 셰이더 리소스 뷰를 설정하는 함수다. 이 함수는 셰이더 프로그램에 텍스처나 버퍼와 같은 리소스를 전달하는 데 사용된다.

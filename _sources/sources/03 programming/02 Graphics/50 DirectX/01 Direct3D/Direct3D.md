@@ -575,6 +575,8 @@ SV_GroupThreadID : 그룹 내에서 Thread의 3차원 고유 아이디
 SV_GroupIndex : 그룹 내에서 Thread의 1차원 고유 아이디
 SV_DispatchThreadID : 전체에서 Thread의 3차원 고유 아이디
 
+SV_GroupID는 (0,0,0)부터 시작한다.
+
 > Reference  
 > [learn.microsoft - dispatch](https://learn.microsoft.com/en-us/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-dispatch)
 
