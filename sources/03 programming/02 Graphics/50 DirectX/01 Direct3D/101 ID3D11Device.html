@@ -555,7 +555,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/21%20Sementic.html">Semantic</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/22%20Vertex%20Shader.html">Vertex Shader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/23%20Pixel%20Shader.html">Pixel Shader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/50%20Constant%20Buffer.html">Constant Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/50%20Buffer.html">Buffer</a></li>
 </ul>
 </li>
 </ul>
@@ -770,6 +770,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#d-texture3d-resource">텍스처 3D 리소스 (Texture3D Resource)</a></li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#buffer">Buffer와 리소스의 기본 뷰</a></li>
 </ul>
 </li>
 </ul>
@@ -1339,6 +1340,15 @@ document.write(`
 </ul>
 </section>
 </section>
+<section id="buffer">
+<h3>Buffer와 리소스의 기본 뷰<a class="headerlink" href="#buffer" title="Permalink to this heading">#</a></h3>
+<p>pResource로 Structured가 아닌 D3D11_BUFFER가 주어지고 CreateUnorderedAccessView의 pDesc 인자로 nullptr을 전달하면 다음과 같은 오류가 발생한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="n">View</span> <span class="n">of</span> <span class="n">a</span> <span class="n">non</span><span class="o">-</span><span class="n">Structured</span> <span class="n">Buffer</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">created</span> <span class="n">using</span> <span class="n">a</span> <span class="n">NULL</span> <span class="n">Desc</span><span class="o">.</span> <span class="n">Default</span> <span class="n">Desc</span> <span class="n">parameters</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">used</span><span class="p">,</span> <span class="k">as</span> <span class="n">a</span> <span class="n">Format</span> <span class="n">must</span> <span class="n">be</span> <span class="n">supplied</span>
+</pre></div>
+</div>
+<p>참고로, pResource로 D3D11_TEXTURE2D인 경우에는 아무런 오류가 발생하지 않는다.</p>
+<p>오류를 해결하기 위해서는 D3D11_UNORDERED_ACCESS_VIEW_DESC 객체 생성해서 pDesc의 인자로 전달해줘야 한다.</p>
+</section>
 </section>
 </section>
 
@@ -1424,6 +1434,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#d-texture3d-resource">텍스처 3D 리소스 (Texture3D Resource)</a></li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#buffer">Buffer와 리소스의 기본 뷰</a></li>
 </ul>
 </li>
 </ul>

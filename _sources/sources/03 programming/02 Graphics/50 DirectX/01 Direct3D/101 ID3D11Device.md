@@ -393,3 +393,14 @@ CreateUnorderedAccessView 함수에서 pDesc 인자로 NULL이 주어지는 경�
   * MipSlice: 0
   * FirstWSlice: 0
   * WSize: 텍스처의 깊이
+
+### Buffer와 리소스의 기본 뷰
+pResource로 Structured가 아닌 D3D11_BUFFER가 주어지고 CreateUnorderedAccessView의 pDesc 인자로 nullptr을 전달하면 다음과 같은 오류가 발생한다.
+
+```
+A View of a non-Structured Buffer cannot be created using a NULL Desc. Default Desc parameters cannot be used, as a Format must be supplied
+```
+
+참고로, pResource로 D3D11_TEXTURE2D인 경우에는 아무런 오류가 발생하지 않는다.
+
+오류를 해결하기 위해서는 D3D11_UNORDERED_ACCESS_VIEW_DESC 객체 생성해서 pDesc의 인자로 전달해줘야 한다.

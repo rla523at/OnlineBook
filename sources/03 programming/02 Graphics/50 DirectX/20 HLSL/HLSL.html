@@ -555,7 +555,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="21%20Sementic.html">Semantic</a></li>
 <li class="toctree-l4"><a class="reference internal" href="22%20Vertex%20Shader.html">Vertex Shader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="23%20Pixel%20Shader.html">Pixel Shader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="50%20Constant%20Buffer.html">Constant Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="50%20Buffer.html">Buffer</a></li>
 </ul>
 </li>
 </ul>
@@ -755,10 +755,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clip">clip</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">데이터 형식</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#buffer">Buffer</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">데이터 형식</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register">Register</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-attribute">for attribute</a></li>
 </ul>
@@ -794,19 +791,6 @@ document.write(`
 </section>
 <section id="id2">
 <h2>데이터 형식<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
-<section id="buffer">
-<h3>Buffer<a class="headerlink" href="#buffer" title="Permalink to this heading">#</a></h3>
-<p>Buffer 변수는 다음과 같은 형태를 가지고 있다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Buffer</span><span class="o">&lt;</span><span class="n">Type</span><span class="o">&gt;</span> <span class="n">Name</span><span class="p">;</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">Type</span></code>은 HLSL에서 지원하는 scalar, vector, 그리고 4개의 32비트 크기를 넘지 않는 matrix 타입이여야 한다.</p>
-<p>예를 들어, Buffer<float2x2>를 쓸 수 있지만, Buffer<float4x4>는 너무 커서 컴파일러 오류가 발생한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/direct3dhlsl/dx-graphics-hlsl-buffer">learn.microsoft - hlsl-buffer</a></p>
-</div></blockquote>
-</section>
 </section>
 <section id="register">
 <h2>Register<a class="headerlink" href="#register" title="Permalink to this heading">#</a></h2>
@@ -934,10 +918,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clip">clip</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">데이터 형식</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#buffer">Buffer</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">데이터 형식</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register">Register</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-attribute">for attribute</a></li>
 </ul>

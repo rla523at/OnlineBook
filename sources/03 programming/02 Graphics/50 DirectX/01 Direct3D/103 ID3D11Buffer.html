@@ -507,6 +507,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="110%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="111%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="112%20ID3D11ShaderResourceView.html">ID3D11ShaderResourceView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="113%20ID3D11UnorderedAccessView.html">ID3D11UnorderedAccessView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="130%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="131%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
 <li class="toctree-l4"><a class="reference internal" href="132%20ID3D11SamplerState.html">ID3D11SamplerState</a></li>
@@ -554,7 +555,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/21%20Sementic.html">Semantic</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/22%20Vertex%20Shader.html">Vertex Shader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/23%20Pixel%20Shader.html">Pixel Shader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/50%20Constant%20Buffer.html">Constant Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/50%20Buffer.html">Buffer</a></li>
 </ul>
 </li>
 </ul>
@@ -751,9 +752,12 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-buffer-desc">D3D11_BUFFER_DESC 구조체</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-buffer">구조화된 버퍼(Structured Buffer)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-dynamic-cpu-acess-read">USAGE_DYNAMIC &amp; CPU_ACESS_READ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-dynamic-unordered-access">USAGE_DYNAMIC &amp; UNORDERED_ACCESS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-staging-bindflags">USAGE_STAGING &amp; BindFlags</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structuredbuffer">StructuredBuffer</a></li>
 </ul>
             </nav>
         </div>
@@ -863,11 +867,49 @@ document.write(`
 </ul>
 </li>
 </ul>
-<section id="structured-buffer">
-<h3>구조화된 버퍼(Structured Buffer)<a class="headerlink" href="#structured-buffer" title="Permalink to this heading">#</a></h3>
-<p>구조화된 버퍼는 동일한 크기의 데이터 요소로 구성된 버퍼다.</p>
-<p>각 요소는 동일한 구조체 타입으로 정의된다. 일반적으로, 구조화된 버퍼는 복잡한 데이터 구조를 셰이더에 전달하는 데 유용하다.</p>
+<section id="usage-dynamic-cpu-acess-read">
+<h3>USAGE_DYNAMIC &amp; CPU_ACESS_READ<a class="headerlink" href="#usage-dynamic-cpu-acess-read" title="Permalink to this heading">#</a></h3>
+<p>D3D11_BUFFER_DESC의 Usage에 D3D11_USAGE_DYNAMIC을 할당하고 CPUAccessFlags에 D3D11_CPU_ACCESS_READ를 할당하면 CreateBuffer함수에서 다음 오류가 발생한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="n">D3D11_USAGE_DYNAMIC</span> <span class="n">Resource</span> <span class="n">may</span> <span class="n">only</span> <span class="n">have</span> <span class="n">the</span> <span class="n">D3D11_CPU_ACCESS_WRITE</span> <span class="n">CPUAccessFlags</span> <span class="nb">set</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>이는 DirectX에서 동시에 사용할 수 없게 막아놓은 조합이다.</p>
+<p>왜냐하면 동적으로 업데이트할 수 있는 버퍼를 만들어 놓고 그 데이터를 읽기 전용으로 설정하려는 시도는 모순적인 행동이기 때문이다.</p>
+<p>D3D11_USAGE_DYNAMIC은 CPU에서 버퍼의 데이터를 자주 수정하고자 할 때 사용하며 CPU가 버퍼에 대한 읽기와 쓰기 액세스를 가능하게 한다. 이 옵션을 사용하면 GPU와 CPU 간의 데이터 전송이 빠르게 이루어질 수 있어서 동적인 데이터 업데이트가 필요한 경우 유용하다</p>
+<p>반면, D3D11_CPU_ACCESS_READ는 데이터를 읽기 위한 목적으로 사용된다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://stackoverflow.com/questions/56017150/error-when-creating-2d-texture-with-dynamic-format">stackoverflow - error-when-creating-2d-texture-with-dynamic-format</a></p>
+</div></blockquote>
 </section>
+<section id="usage-dynamic-unordered-access">
+<h3>USAGE_DYNAMIC &amp; UNORDERED_ACCESS<a class="headerlink" href="#usage-dynamic-unordered-access" title="Permalink to this heading">#</a></h3>
+<p>D3D11_BUFFER_DESC의 Usage에 D3D11_USAGE_DYNAMIC을 할당하여 생성한 Buffer의 UAV를 생성하려고 하면 CreateUnorderedAccessView 함수에서 다음과 같은 오류가 발생한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">A</span> <span class="n">D3D11_USAGE_DYNAMIC</span> <span class="n">Resource</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">bound</span> <span class="n">to</span> <span class="n">certain</span> <span class="n">parts</span> <span class="n">of</span> <span class="n">the</span> <span class="n">graphics</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">but</span> <span class="n">must</span> <span class="n">have</span> <span class="n">at</span> <span class="n">least</span> <span class="n">one</span> <span class="n">BindFlags</span> <span class="n">bit</span> <span class="nb">set</span><span class="o">.</span> <span class="n">The</span> <span class="n">BindFlags</span> <span class="n">bits</span> <span class="p">(</span><span class="mh">0x80</span><span class="p">)</span> <span class="n">have</span> <span class="n">the</span> <span class="n">following</span> <span class="n">settings</span><span class="p">:</span> <span class="n">D3D11_BIND_STREAM_OUTPUT</span> <span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">D3D11_BIND_RENDER_TARGET</span> <span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">D3D11_BIND_DEPTH_STENCIL</span> <span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">D3D11_BIND_UNORDERED_ACCESS</span> 
+</pre></div>
+</div>
+<p>오류 내용만 봐서는 무슨 말인지 이해하기 어렵지만, DYNAMIC과 UNORDERED_ACCESS의 의미를 생각해보면 왜 오류가 발생하는지 이해할 수 있다.</p>
+<p>D3D11_USAGE_DYNAMIC으로 생성된 버퍼는 CPU에서도 접근 가능하며, CPU에서 데이터를 변경한 후 GPU에서 사용할 수 있도록 설계되어 있다.</p>
+<p>반면, CreateUnorderedAccessView 메서드는 GPU에서 데이터를 읽고 쓸 수 있는 Unordered Access View (UAV)를 생성하기 위한 메서드이다.</p>
+<p>즉, CPU에서도 GPU에서도 데이터 변경이 가능한 상태가 되며 이런 상태는 비정상적이기 때문에 오류가 발생하는 것이다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://gamedev.net/forums/topic/554092-dynamic-buffers-and-compute-shaders/4561317/">gamedev - dynamic-buffers-and-compute-shaders</a></p>
+</div></blockquote>
+</section>
+<section id="usage-staging-bindflags">
+<h3>USAGE_STAGING &amp; BindFlags<a class="headerlink" href="#usage-staging-bindflags" title="Permalink to this heading">#</a></h3>
+<p>D3D11_BUFFER_DESC의 Usage에 D3D11_USAGE_STAGING을 할당하고 BindFlags에 무엇인가를 할당하면 CreateBuffer 함수에서 다음 오류가 발생한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="n">D3D11_USAGE_STAGING</span> <span class="n">Resource</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">bound</span> <span class="n">to</span> <span class="nb">any</span> <span class="n">parts</span> <span class="n">of</span> <span class="n">the</span> <span class="n">graphics</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">so</span> <span class="n">therefore</span> <span class="n">cannot</span> <span class="n">have</span> <span class="nb">any</span> <span class="n">BindFlags</span> <span class="n">bits</span> <span class="nb">set</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>STAGING buffer는 GPU에 있는 데이터를 CPU로 옮기기 위한 buffer임으로 Graphics Pipeline에 binding되는 것은 오류이다.</p>
+</section>
+</section>
+<section id="structuredbuffer">
+<h2>StructuredBuffer<a class="headerlink" href="#structuredbuffer" title="Permalink to this heading">#</a></h2>
+<p>Buffer를 사용할 수 있는 상황에서도 StructuredBuffer를 사용하는 것이 편하다.</p>
+<p>왜냐하면, Buffer의 경우에는 UAV를 생성할 때, D3D11_UNORDERED_ACCESS_VIEW_DESC를 일일이 작성해줘야 하지만, StructuredBuffer의 경우에는 nullptr을 넘겨줘도 자동으로 생성해주기 때문이다.</p>
 </section>
 </section>
 
@@ -935,9 +977,12 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11-buffer-desc">D3D11_BUFFER_DESC 구조체</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-buffer">구조화된 버퍼(Structured Buffer)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-dynamic-cpu-acess-read">USAGE_DYNAMIC &amp; CPU_ACESS_READ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-dynamic-unordered-access">USAGE_DYNAMIC &amp; UNORDERED_ACCESS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-staging-bindflags">USAGE_STAGING &amp; BindFlags</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structuredbuffer">StructuredBuffer</a></li>
 </ul>
   </nav></div>
 

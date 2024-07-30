@@ -20,19 +20,6 @@ clip(x)
 
 ## 데이터 형식
 
-### Buffer
-Buffer 변수는 다음과 같은 형태를 가지고 있다.
-
-```
-Buffer<Type> Name;
-```
-
-`Type`은 HLSL에서 지원하는 scalar, vector, 그리고 4개의 32비트 크기를 넘지 않는 matrix 타입이여야 한다.
-
-예를 들어, Buffer<float2x2>를 쓸 수 있지만, Buffer<float4x4>는 너무 커서 컴파일러 오류가 발생한다.
-
-> Reference  
-> [learn.microsoft - hlsl-buffer](https://learn.microsoft.com/ko-kr/windows/win32/direct3dhlsl/dx-graphics-hlsl-buffer)
 
  
 
