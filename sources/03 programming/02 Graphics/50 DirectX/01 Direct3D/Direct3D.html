@@ -551,13 +551,14 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/102%20enum%20DXGI_SWAP_CHAIN_FLAG.html">enum DXGI_SWAP_CHAIN_FLAG</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../20%20HLSL/HLSL.html">HLSL</a><input class="toctree-checkbox" id="toctree-checkbox-41" name="toctree-checkbox-41" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-41"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/21%20Sementic.html">Semantic</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/22%20Vertex%20Shader.html">Vertex Shader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/23%20Pixel%20Shader.html">Pixel Shader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/50%20Buffer.html">Buffer</a></li>
 </ul>
 </li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../60%20HLSL/HLSL.html">HLSL</a><input class="toctree-checkbox" id="toctree-checkbox-41" name="toctree-checkbox-41" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-41"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/10%20Intrinsic%20Function.html">Intrinsic Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/21%20Sementic.html">Semantic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/22%20Vertex%20Shader.html">Vertex Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/23%20Pixel%20Shader.html">Pixel Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/50%20Buffer.html">Buffer</a></li>
 </ul>
 </li>
 </ul>
@@ -800,6 +801,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixperspectivefovlh">XMMatrixPerspectiveFovLH 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixorthographicoffcenterlh">XMMatrixOrthographicOffCenterLH함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-shader">Compute Shader</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-test-list">Performance Test List</a></li>
 </ul>
             </nav>
         </div>
@@ -1664,6 +1666,17 @@ SV_DispatchThreadID : 전체에서 Thread의 3차원 고유 아이디</p>
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d11/direct3d-11-advanced-stages-compute-shader">learn.microsoft - direct3d-11-advanced-stages-compute-shader</a></p>
 </div></blockquote>
 </section>
+<section id="performance-test-list">
+<h2>Performance Test List<a class="headerlink" href="#performance-test-list" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Map 성능 테스트</p>
+<ul>
+<li><p>MapType이 D3D11_MAP_READ일 때와 D3D11_MAP_WRITE일 때 읽기 속도 비교</p></li>
+<li><p>MapType이 D3D11_MAP_WRITE일 때와 D3D11_MAP_WRITE_DISCARD일 때 쓰기 속도 비교</p></li>
+</ul>
+</li>
+</ul>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -1780,6 +1793,7 @@ SV_DispatchThreadID : 전체에서 Thread의 3차원 고유 아이디</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixperspectivefovlh">XMMatrixPerspectiveFovLH 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixorthographicoffcenterlh">XMMatrixOrthographicOffCenterLH함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-shader">Compute Shader</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-test-list">Performance Test List</a></li>
 </ul>
   </nav></div>
 

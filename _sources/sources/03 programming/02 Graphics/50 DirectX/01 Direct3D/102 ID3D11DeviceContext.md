@@ -264,6 +264,21 @@ HRESULT Map(
   * 이 패딩은 각 행의 시작 주소가 특정 정렬 경계를 맞추도록 하기 위함이다. 
   * 따라서 실제 RowPitch 값은 기본적인 행 크기보다 클 수 있다.
 
+### MapType
+만약, pResource로 주어진 Buffer가 만들어 질 때, CPUAccessFlags의 인자로 D3D11_CPU_ACCESS_READ가 주어진 경우 Map 함수의 MapType의 인자로 D3D11_MAP_WRITE가 주어지면 다음과 같은 오류가 발생한다.
+
+```
+D3D11 ERROR: ID3D11DeviceContext::Map: Map cannot be called with MAP_READ access, because the Resource was not created with the D3D11_CPU_ACCESS_READ flag.
+```
+
+반대로, CPUAccessFlags의 인자로 D3D11_CPU_ACCESS_WRITE가 주어진 경우 Map 함수의 MapType의 인자로 D3D11_MAP_READ가 주어지면 다음과 같은 오류가 발생한다.
+
+```
+D3D11 ERROR: ID3D11DeviceContext::Map: Map cannot be called with MAP_WRITE access, because the Resource was not created with the D3D11_CPU_ACCESS_WRITE flag.
+```
+
+즉, Buffer와 짝을 맞추어서 MapType을 설정해주어야 한다.
+
 ## Unmap 멤버 함수
 Unmap 멤버 함수는 Map 멤버 함수를 사용하여 매핑된 리소스에 대한 CPU의 접근을 해제한다. 이 함수는 데이터 업데이트가 완료되었음을 Direct3D에 알리며, GPU가 리소스에 접근할 수 있도록 한다.
 
@@ -795,3 +810,44 @@ void ID3D11DeviceContext::ResolveSubresource(
   * 기본값: 없음
 
 이 함수는 그래픽스 파이프라인에서 리소스 간의 데이터 이동을 관리하며, 일반적으로 렌더링 완료 후 텍스처를 스왑 체인에 복사하는 등 다양한 그래픽스 처리에서 유용하다.
+
+## CopyStructureCount 멤버 함수
+CopyStructureCount 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, UAV(Unordered Access View) 리소스의 카운트 값을 지정된 버퍼에 복사하는 함수다. 
+
+이 함수는 주로 컴퓨트 셰이더에서 사용되며, 셰이더에서 생성된 카운트 값을 CPU 측에서 읽기 위해 사용한다.
+
+시그니처는 다음과 같다.
+
+```cpp
+void ID3D11DeviceContext::CopyStructureCount(
+    ID3D11Buffer *pDstBuffer,
+    UINT DstAlignedByteOffset,
+    ID3D11UnorderedAccessView *pSrcView
+);
+```
+
+매개변수는 다음과 같다.
+
+* ID3D11Buffer* pDstBuffer
+  * 카운트 값을 복사할 대상 버퍼
+  * 사용 가능한 값
+    * 유효한 ID3D11Buffer 객체
+    * NULL: 유효한 버퍼가 필요함
+  * 기본값: 없음
+
+* UINT DstAlignedByteOffset
+  * 대상 버퍼에서 카운트 값을 복사할 위치의 바이트 오프셋
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* ID3D11UnorderedAccessView* pSrcView
+  * 카운트 값을 읽어올 소스 UAV
+  * 사용 가능한 값
+    * 유효한 ID3D11UnorderedAccessView 객체
+    * NULL: 유효한 소스 UAV가 필요함
+  * 기본값: 없음
+
+이 함수는 UAV의 카운트 값을 대상 버퍼의 특정 위치에 복사하며, 셰이더에서 쓰여진 데이터를 CPU 측에서 읽기 위해 유용하다. 이 작업은 컴퓨트 셰이더의 결과를 CPU에서 확인하거나 후속 처리를 수행하는 데 사용된다.
+
+

@@ -586,3 +586,11 @@ Groupshared memory는 그룹당 최대 16KB를 갖을 수 있다.
 
 > Reference  
 > [learn.microsoft - direct3d-11-advanced-stages-compute-shader](https://learn.microsoft.com/en-us/windows/win32/direct3d11/direct3d-11-advanced-stages-compute-shader)
+
+
+## Performance Test List
+
+* Map 성능 테스트
+  * MapType이 D3D11_MAP_READ일 때와 D3D11_MAP_WRITE일 때 읽기 속도 비교
+  * MapType이 D3D11_MAP_WRITE일 때와 D3D11_MAP_WRITE_DISCARD일 때 쓰기 속도 비교
+
