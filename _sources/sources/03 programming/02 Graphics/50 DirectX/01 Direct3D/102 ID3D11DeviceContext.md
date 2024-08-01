@@ -264,7 +264,7 @@ HRESULT Map(
   * 이 패딩은 각 행의 시작 주소가 특정 정렬 경계를 맞추도록 하기 위함이다. 
   * 따라서 실제 RowPitch 값은 기본적인 행 크기보다 클 수 있다.
 
-### MapType
+### CPUAccessFlags와 MapType
 만약, pResource로 주어진 Buffer가 만들어 질 때, CPUAccessFlags의 인자로 D3D11_CPU_ACCESS_READ가 주어진 경우 Map 함수의 MapType의 인자로 D3D11_MAP_WRITE가 주어지면 다음과 같은 오류가 발생한다.
 
 ```
@@ -277,7 +277,23 @@ D3D11 ERROR: ID3D11DeviceContext::Map: Map cannot be called with MAP_READ access
 D3D11 ERROR: ID3D11DeviceContext::Map: Map cannot be called with MAP_WRITE access, because the Resource was not created with the D3D11_CPU_ACCESS_WRITE flag.
 ```
 
-즉, Buffer와 짝을 맞추어서 MapType을 설정해주어야 한다.
+즉, CPUAccessFlags와 짝을 맞추어서 MapType을 설정해주어야 한다.
+
+### USAGE와 MapType
+만약, pResource로 주어진 Buffer가 만들어 질 때, Usage의 인자로 D3D11_USAGE_DYNAMIC 주어진 경우 Map 함수의 MapType의 인자로 D3D11_MAP_WRITE가 주어지면 다음과 같은 오류가 발생한다.
+
+```
+D3D11 ERROR: ID3D11DeviceContext::Map: Map cannot be called with MAP_WRITE access, because the Resource was created as D3D11_USAGE_DYNAMIC. D3D11_USAGE_DYNAMIC Resources must use either MAP_WRITE_DISCARD or MAP_WRITE_NO_OVERWRITE with Map. [ RESOURCE_MANIPULATION ERROR #2097210: RESOURCE_MAP_INVALIDMAPTYPE]
+```
+
+그리고 Usage의 인자로 D3D11_USAGE_STAGING이 주어진 경우 Map 함수의 MapType의 인자로 D3D11_MAP_WRITE_DISCARD가 주어지면 다음과 같은 오류가 발생한다.
+
+```
+D3D11 ERROR: ID3D11DeviceContext::Map: Map cannot be called with MAP_WRITE_DISCARD access, because the Resource was not created as D3D11_USAGE_DYNAMIC. D3D11_USAGE_DYNAMIC Resources must use either MAP_WRITE_DISCARD or MAP_WRITE_NO_OVERWRITE with Map. [ RESOURCE_MANIPULATION ERROR #2097210: RESOURCE_MAP_INVALIDMAPTYPE]
+```
+
+즉, USAGE와 짝을 맞추어서 MapType을 설정해주어야 한다.
+
 
 ## Unmap 멤버 함수
 Unmap 멤버 함수는 Map 멤버 함수를 사용하여 매핑된 리소스에 대한 CPU의 접근을 해제한다. 이 함수는 데이터 업데이트가 완료되었음을 Direct3D에 알리며, GPU가 리소스에 접근할 수 있도록 한다.

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Graphics &#8212; MS Study Book</title>
+    <title>Message Loop &#8212; MS Study Book</title>
   
   
   
@@ -64,11 +64,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/Graphics';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/03 Message Loop';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Window Programming" href="01%20Window%20Programming.html" />
-    <link rel="prev" title="Miscellaneous" href="../01%20C%2B%2B/99%20Miscelleneous.html" />
+    <link rel="next" title="DirectX" href="50%20DirectX/DirectX.html" />
+    <link rel="prev" title="COM" href="02%20COM.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -493,10 +493,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../01%20C%2B%2B/99%20Miscelleneous.html">Miscellaneous</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Graphics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="Graphics.html">Graphics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="01%20Window%20Programming.html">Window Programming</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02%20COM.html">COM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="03%20Message%20Loop.html">Message Loop</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Message Loop</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="50%20DirectX/DirectX.html">DirectX</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="50%20DirectX/01%20Direct3D/Direct3D.html">Direct3D</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-38"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="50%20DirectX/01%20Direct3D/06%20Geometry%20Shader.html">Geometry Shader</a></li>
@@ -662,7 +662,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/02 Graphics/Graphics.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/02 Graphics/03 Message Loop.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -733,7 +733,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -744,11 +746,26 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Graphics</h1>
+    <h1>Message Loop</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">메시지 정보를 담는 구조체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">메시지 큐에서 메시지를 가져오는 함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getmessage">GetMessage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#peekmessage">PeekMessage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">키보드 메시지를 변환해서 텍스트 입력을 처리하는 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">메시지를 윈도우 프로시저로 전달하는 함수</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -758,10 +775,246 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="graphics">
-<h1>Graphics<a class="headerlink" href="#graphics" title="Permalink to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="message-loop">
+<h1>Message Loop<a class="headerlink" href="#message-loop" title="Permalink to this heading">#</a></h1>
+<p>Message Loop(메시지 루프)는 애플리케이션이 사용자 입력(키보드, 마우스) 및 시스템 메시지를 처리하는 루프이다. 메시지 루프는 애플리케이션이 실행되는 동안 지속적으로 실행되며, 메시지를 받아들이고 처리하는 역할을 한다.</p>
+<p>일반적인 메시지 루프는 다음과 같은 구성 요소를 가지고 있다.</p>
+<ul class="simple">
+<li><p>메시지 정보를 담는 구조체</p></li>
+<li><p>메시지 큐에서 메시지를 가져오는 함수</p></li>
+<li><p>키보드 메시지를 변환해서 텍스트 입력을 처리하는 함수</p></li>
+<li><p>메시지를 윈도우 프로시저로 전달하는 함수</p></li>
+</ul>
+<section id="id1">
+<h2>메시지 정보를 담는 구조체<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>메시지 정보를 담는 구조체는 MSG 구조체로 Windows API에서 사용되는 구조체다.</p>
+<p>MSG 구조체의 정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">tagMSG</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">HWND</span><span class="w">   </span><span class="n">hwnd</span><span class="p">;</span><span class="w">      </span><span class="c1">// 메시지를 수신할 윈도우의 핸들</span>
+<span class="w">  </span><span class="n">UINT</span><span class="w">   </span><span class="n">message</span><span class="p">;</span><span class="w">   </span><span class="c1">// 메시지 식별자</span>
+<span class="w">  </span><span class="n">WPARAM</span><span class="w"> </span><span class="n">wParam</span><span class="p">;</span><span class="w">    </span><span class="c1">// 메시지의 추가 정보 (첫 번째 매개변수)</span>
+<span class="w">  </span><span class="n">LPARAM</span><span class="w"> </span><span class="n">lParam</span><span class="p">;</span><span class="w">    </span><span class="c1">// 메시지의 추가 정보 (두 번째 매개변수)</span>
+<span class="w">  </span><span class="n">DWORD</span><span class="w">  </span><span class="n">time</span><span class="p">;</span><span class="w">      </span><span class="c1">// 메시지가 생성된 시간</span>
+<span class="w">  </span><span class="n">POINT</span><span class="w">  </span><span class="n">pt</span><span class="p">;</span><span class="w">        </span><span class="c1">// 메시지가 발생한 커서 위치</span>
+<span class="cp">#ifdef _MAC</span>
+<span class="w">  </span><span class="n">DWORD</span><span class="w">  </span><span class="n">lPrivate</span><span class="p">;</span><span class="w">  </span><span class="c1">// 내부적으로 사용되는 값</span>
+<span class="cp">#endif</span>
+<span class="p">}</span><span class="w"> </span><span class="n">MSG</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">PMSG</span><span class="p">;</span>
+</pre></div>
 </div>
+<p>각 멤버 변수를 하나씩 살펴보자.</p>
+<ul class="simple">
+<li><p>hwnd</p>
+<ul>
+<li><p>타입: HWND</p></li>
+<li><p>설명: 메시지를 수신할 윈도우의 핸들이다. 이 핸들을 통해 어떤 윈도우가 메시지를 수신하는지 알 수 있다.</p></li>
+</ul>
+</li>
+<li><p>message</p>
+<ul>
+<li><p>타입: UINT</p></li>
+<li><p>설명: 메시지 식별자이다. 메시지의 종류를 나타내며, WM_PAINT, WM_KEYDOWN 등의 값이 올 수 있다.</p></li>
+</ul>
+</li>
+<li><p>wParam</p>
+<ul>
+<li><p>타입: WPARAM</p></li>
+<li><p>설명: 메시지의 추가 정보로 사용된다. 메시지에 따라 다양한 정보를 담을 수 있다.</p></li>
+<li><p>예: 키보드 메시지(WM_KEYDOWN)의 경우, 눌린 키의 코드 값이 들어 있다.</p></li>
+</ul>
+</li>
+<li><p>lParam</p>
+<ul>
+<li><p>타입: LPARAM</p></li>
+<li><p>설명: 메시지의 추가 정보로 사용된다. 메시지에 따라 다양한 정보를 담을 수 있다.</p></li>
+<li><p>예: 마우스 메시지(WM_MOUSEMOVE)의 경우, 마우스 커서의 위치 좌표가 들어 있다.</p></li>
+</ul>
+</li>
+<li><p>time</p>
+<ul>
+<li><p>타입: DWORD</p></li>
+<li><p>설명: 메시지가 생성된 시간을 밀리초 단위로 나타낸다. 시스템 시작 이후 경과된 시간을 기준으로 한다.</p></li>
+</ul>
+</li>
+<li><p>pt</p>
+<ul>
+<li><p>타입: POINT</p></li>
+<li><p>설명: 메시지가 발생한 커서 위치를 나타낸다. POINT 구조체는 x와 y 좌표를 포함한다.</p></li>
+</ul>
+</li>
+<li><p>lPrivate</p>
+<ul>
+<li><p>타입: DWORD</p></li>
+<li><p>설명: 내부적으로 사용되는 값으로, 애플리케이션에서 직접 사용할 필요는 없다. Windows 내부 구현에서 사용된다.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id2">
+<h2>메시지 큐에서 메시지를 가져오는 함수<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>메시지 큐에서 메시지를 가져오는 함수로는 GetMessage와 PeekMessage 함수가 있다.</p>
+<p>두 함수 모두 Windows 애플리케이션에서 메시지 루프를 구현하는 데 사용되지만, 동작 방식과 사용 목적에 따라 차이가 있다.</p>
+<section id="getmessage">
+<h3>GetMessage<a class="headerlink" href="#getmessage" title="Permalink to this heading">#</a></h3>
+<p>GetMessage 함수는 Windows API에서 메시지 큐에서 메시지를 가져오는 함수다.</p>
+<p>이 함수는 메시지가 큐에 있을 때 해당 메시지를 반환하고, 메시지가 없으면 새로운 메시지가 도착할 때까지 대기한다.</p>
+<p>GetMessage 함수의 시그니쳐는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BOOL</span><span class="w"> </span><span class="nf">GetMessage</span><span class="p">(</span>
+<span class="w">  </span><span class="n">LPMSG</span><span class="w"> </span><span class="n">lpMsg</span><span class="p">,</span>
+<span class="w">  </span><span class="n">HWND</span><span class="w"> </span><span class="n">hWnd</span><span class="p">,</span>
+<span class="w">  </span><span class="n">UINT</span><span class="w"> </span><span class="n">wMsgFilterMin</span><span class="p">,</span>
+<span class="w">  </span><span class="n">UINT</span><span class="w"> </span><span class="n">wMsgFilterMax</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>각 매개 변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>lpMsg</p>
+<ul>
+<li><p>메시지를 받을 MSG 구조체에 대한 포인터다.</p></li>
+<li><p>이 구조체에 메시지 정보가 채워진다.</p></li>
+</ul>
+</li>
+<li><p>hWnd</p>
+<ul>
+<li><p>메시지를 가져올 창의 핸들이다.</p></li>
+<li><p>특정 창의 메시지만 가져오려면 그 창의 핸들을 지정하고, 모든 창의 메시지를 가져오려면 NULL을 지정한다.</p></li>
+</ul>
+</li>
+<li><p>wMsgFilterMin</p>
+<ul>
+<li><p>처리할 메시지 범위의 최솟값이다.</p></li>
+<li><p>특정 메시지 범위를 지정하려면 해당 메시지의 시작 범위를 지정하고, 모든 메시지를 처리하려면 0을 지정한다.</p></li>
+</ul>
+</li>
+<li><p>wMsgFilterMax</p>
+<ul>
+<li><p>처리할 메시지 범위의 최댓값이다.</p></li>
+<li><p>특정 메시지 범위를 지정하려면 해당 메시지의 끝 범위를 지정하고, 모든 메시지를 처리하려면 0을 지정한다.</p></li>
+</ul>
+</li>
+</ul>
+<p>반환 값은 다음과 같다.</p>
+<ul class="simple">
+<li><p>TRUE</p>
+<ul>
+<li><p>WM_QUIT 메시지를 제외한 모든 메시지를 성공적으로 가져왔을 때 반환된다.</p></li>
+</ul>
+</li>
+<li><p>FALSE</p>
+<ul>
+<li><p>WM_QUIT 메시지를 가져왔을 때 반환된다.</p></li>
+</ul>
+</li>
+</ul>
+<p>이를 이용한 간단한 message loop는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">MSG</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">GetMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">TranslateMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">msg</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DispatchMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">msg</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="peekmessage">
+<h3>PeekMessage<a class="headerlink" href="#peekmessage" title="Permalink to this heading">#</a></h3>
+<p>PeekMessage 함수는 Windows 애플리케이션에서 메시지 큐에 있는 메시지를 확인하고, 필요에 따라 해당 메시지를 제거하는 데 사용된다.</p>
+<p>PeekMessage는 메시지가 있을 때만 메시지를 처리하고, 메시지가 없으면 바로 FALSE를 반환하여 애플리케이션이 다른 작업을 계속할 수 있게 한다.</p>
+<p>PeekMessage 함수의 시그니쳐는 다음과 같습니다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BOOL</span><span class="w"> </span><span class="nf">PeekMessage</span><span class="p">(</span>
+<span class="w">  </span><span class="n">LPMSG</span><span class="w"> </span><span class="n">lpMsg</span><span class="p">,</span>
+<span class="w">  </span><span class="n">HWND</span><span class="w"> </span><span class="n">hWnd</span><span class="p">,</span>
+<span class="w">  </span><span class="n">UINT</span><span class="w"> </span><span class="n">wMsgFilterMin</span><span class="p">,</span>
+<span class="w">  </span><span class="n">UINT</span><span class="w"> </span><span class="n">wMsgFilterMax</span><span class="p">,</span>
+<span class="w">  </span><span class="n">UINT</span><span class="w"> </span><span class="n">wRemoveMsg</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>각 매개 변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>lpMsg</p>
+<ul>
+<li><p>메시지를 받을 MSG 구조체에 대한 포인터다.</p></li>
+</ul>
+</li>
+<li><p>hWnd</p>
+<ul>
+<li><p>메시지를 검색할 창의 핸들이다.</p></li>
+<li><p>특정 창의 메시지를 확인하려면 해당 창의 핸들을 전달하고, 모든 창의 메시지를 확인하려면 NULL을 전달한다.</p></li>
+</ul>
+</li>
+<li><p>wMsgFilterMin</p>
+<ul>
+<li><p>처리할 메시지 범위의 최솟값이다.</p></li>
+<li><p>특정 메시지 범위를 지정하려면 해당 메시지의 시작 범위를 지정하고, 모든 메시지를 처리하려면 0을 지정한다.</p></li>
+</ul>
+</li>
+<li><p>wMsgFilterMax</p>
+<ul>
+<li><p>처리할 메시지 범위의 최댓값이다.</p></li>
+<li><p>특정 메시지 범위를 지정하려면 해당 메시지의 끝 범위를 지정하고, 모든 메시지를 처리하려면 0을 지정한다.</p></li>
+</ul>
+</li>
+<li><p>wRemoveMsg</p>
+<ul>
+<li><p>메시지를 메시지 큐에서 제거할지 여부를 지정한다</p></li>
+<li><p>PM_NOREMOVE: 메시지를 큐에서 제거하지 않고 확인만 한다.</p></li>
+<li><p>PM_REMOVE: 메시지를 큐에서 제거한다.</p></li>
+</ul>
+</li>
+</ul>
+<p>반환 값은 메세지가 있으면 TRUE, 없으면 FALSE를 반환한다.</p>
+<p>이런 반환 값 특성을 이용해 비동기적으로 메시지를 처리하려면 다음과 같이 하면 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">MSG</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">WM_QUIT</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">msg</span><span class="p">.</span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">PeekMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">PM_REMOVE</span><span class="p">))</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">TranslateMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">msg</span><span class="p">);</span>
+<span class="w">        </span><span class="n">DispatchMessage</span><span class="p">(</span><span class="o">&amp;</span><span class="n">msg</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// 메시지가 없을 때 수행할 작업</span>
+<span class="w">    </span><span class="p">}</span><span class="w">    </span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>따라서, PeekMessage는 게임이나 애니메이션, 멀티미디어 애플리케이션 등에서 사용된다. 예를 들어, 게임에서는 프레임을 계속해서 그려야 하므로 PeekMessage를 사용하여 메시지가 없는 동안에도 게임 로직을 처리할 수 있다.</p>
+</section>
+</section>
+<section id="id3">
+<h2>키보드 메시지를 변환해서 텍스트 입력을 처리하는 함수<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p>TranslateMessage 함수는 Windows 애플리케이션에서 키보드 입력 메시지를 해석하여 문자 메시지로 변환하는 역할을 한다. 이 함수는 키보드 이벤트를 처리할 때, 키보드로 입력된 메시지를 더 높은 수준의 문자 메시지로 변환하여 애플리케이션이 더 쉽게 처리할 수 있도록 도와준다.</p>
+<p>함수의 시그니쳐는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">BOOL</span><span class="w"> </span><span class="nf">TranslateMessage</span><span class="p">(</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">MSG</span><span class="w"> </span><span class="o">*</span><span class="n">lpMsg</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>사용자가 키보드를 통해 ‘A’ 키를 눌렀을 때의 메시지 처리 과정을 보면 다음과 같다.</p>
+<ul class="simple">
+<li><p>사용자가 ‘A’ 키를 누른다.</p></li>
+<li><p>시스템은 WM_KEYDOWN 메시지를 생성하여 메시지 큐에 넣는다.</p></li>
+<li><p>GetMessage 혹은 PeekMessage 함수로 이 메시지를 가져온다.</p></li>
+<li><p>TranslateMessage 함수가 WM_KEYDOWN 메시지를 받아서 WM_CHAR 메시지로 변환한다. 이 떄, 변환된 WM_CHAR 메시지는 문자 ‘A’를 나타낸다.</p></li>
+<li><p>변환된 WM_CHAR 메시지를 메시지 큐에 다시 넣는다.</p></li>
+<li><p>DispatchMessage 함수가 WM_CHAR 메시지를 가져와서 윈도우 프로시저로 전달한다.</p></li>
+<li><p>윈도우 프로시저는 WM_CHAR 메시지를 처리하여 사용자 입력을 적절히 반영한다.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>메시지를 윈도우 프로시저로 전달하는 함수<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<p>DispatchMessage 함수는 Windows 애플리케이션에서 메시지 큐에 있는 메시지를 해당 윈도우의 윈도우 프로시저로 전달하는 역할을 한다.</p>
+<p>이 함수는 GetMessage나 PeekMessage 함수를 통해 얻은 메시지를 처리하는 데 사용된다.</p>
+<p>함수의 시그니쳐는 다음과같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">LRESULT</span><span class="w"> </span><span class="nf">DispatchMessage</span><span class="p">(</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">MSG</span><span class="w"> </span><span class="o">*</span><span class="n">lpMsg</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>매개변수 lpmsg는 처리할 메시지를 포함하는 MSG 구조체에 대한 포인터다.</p>
+<p>반환 값은 윈도우 프로시저가 반환하는 결과 값인데 대부분의 경우, 이 값은 무시된다.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -795,20 +1048,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../01%20C%2B%2B/99%20Miscelleneous.html"
+       href="02%20COM.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Miscellaneous</p>
+        <p class="prev-next-title">COM</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Window%20Programming.html"
+       href="50%20DirectX/DirectX.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Window Programming</p>
+        <p class="prev-next-title">DirectX</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -818,6 +1071,27 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">메시지 정보를 담는 구조체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">메시지 큐에서 메시지를 가져오는 함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getmessage">GetMessage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#peekmessage">PeekMessage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">키보드 메시지를 변환해서 텍스트 입력을 처리하는 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">메시지를 윈도우 프로시저로 전달하는 함수</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

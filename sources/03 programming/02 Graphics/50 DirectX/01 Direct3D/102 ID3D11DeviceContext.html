@@ -494,6 +494,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../../Graphics.html">Graphics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../01%20Window%20Programming.html">Window Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02%20COM.html">COM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20Message%20Loop.html">Message Loop</a></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="../DirectX.html">DirectX</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="Direct3D.html">Direct3D</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-38"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="06%20Geometry%20Shader.html">Geometry Shader</a></li>
@@ -559,6 +562,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/22%20Vertex%20Shader.html">Vertex Shader</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/23%20Pixel%20Shader.html">Pixel Shader</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/50%20Buffer.html">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/51%20Texture.html">Texture</a></li>
 </ul>
 </li>
 </ul>
@@ -763,7 +767,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#omsetrendertargets">OMSetRenderTargets 멤버함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rssetviewports">RSSetViewports 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-unmap">Map/Unmap 멤버 함수</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maptype">MapType</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cpuaccessflags-maptype">CPUAccessFlags와 MapType</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-maptype">USAGE와 MapType</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unmap">Unmap 멤버 함수</a></li>
@@ -1228,8 +1233,8 @@ document.write(`
 </ul>
 </li>
 </ul>
-<section id="maptype">
-<h3>MapType<a class="headerlink" href="#maptype" title="Permalink to this heading">#</a></h3>
+<section id="cpuaccessflags-maptype">
+<h3>CPUAccessFlags와 MapType<a class="headerlink" href="#cpuaccessflags-maptype" title="Permalink to this heading">#</a></h3>
 <p>만약, pResource로 주어진 Buffer가 만들어 질 때, CPUAccessFlags의 인자로 D3D11_CPU_ACCESS_READ가 주어진 경우 Map 함수의 MapType의 인자로 D3D11_MAP_WRITE가 주어지면 다음과 같은 오류가 발생한다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D11</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">ID3D11DeviceContext</span><span class="p">::</span><span class="n">Map</span><span class="p">:</span> <span class="n">Map</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">called</span> <span class="k">with</span> <span class="n">MAP_READ</span> <span class="n">access</span><span class="p">,</span> <span class="n">because</span> <span class="n">the</span> <span class="n">Resource</span> <span class="n">was</span> <span class="ow">not</span> <span class="n">created</span> <span class="k">with</span> <span class="n">the</span> <span class="n">D3D11_CPU_ACCESS_READ</span> <span class="n">flag</span><span class="o">.</span>
 </pre></div>
@@ -1238,7 +1243,19 @@ document.write(`
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D11</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">ID3D11DeviceContext</span><span class="p">::</span><span class="n">Map</span><span class="p">:</span> <span class="n">Map</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">called</span> <span class="k">with</span> <span class="n">MAP_WRITE</span> <span class="n">access</span><span class="p">,</span> <span class="n">because</span> <span class="n">the</span> <span class="n">Resource</span> <span class="n">was</span> <span class="ow">not</span> <span class="n">created</span> <span class="k">with</span> <span class="n">the</span> <span class="n">D3D11_CPU_ACCESS_WRITE</span> <span class="n">flag</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>즉, Buffer와 짝을 맞추어서 MapType을 설정해주어야 한다.</p>
+<p>즉, CPUAccessFlags와 짝을 맞추어서 MapType을 설정해주어야 한다.</p>
+</section>
+<section id="usage-maptype">
+<h3>USAGE와 MapType<a class="headerlink" href="#usage-maptype" title="Permalink to this heading">#</a></h3>
+<p>만약, pResource로 주어진 Buffer가 만들어 질 때, Usage의 인자로 D3D11_USAGE_DYNAMIC 주어진 경우 Map 함수의 MapType의 인자로 D3D11_MAP_WRITE가 주어지면 다음과 같은 오류가 발생한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D11</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">ID3D11DeviceContext</span><span class="p">::</span><span class="n">Map</span><span class="p">:</span> <span class="n">Map</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">called</span> <span class="k">with</span> <span class="n">MAP_WRITE</span> <span class="n">access</span><span class="p">,</span> <span class="n">because</span> <span class="n">the</span> <span class="n">Resource</span> <span class="n">was</span> <span class="n">created</span> <span class="k">as</span> <span class="n">D3D11_USAGE_DYNAMIC</span><span class="o">.</span> <span class="n">D3D11_USAGE_DYNAMIC</span> <span class="n">Resources</span> <span class="n">must</span> <span class="n">use</span> <span class="n">either</span> <span class="n">MAP_WRITE_DISCARD</span> <span class="ow">or</span> <span class="n">MAP_WRITE_NO_OVERWRITE</span> <span class="k">with</span> <span class="n">Map</span><span class="o">.</span> <span class="p">[</span> <span class="n">RESOURCE_MANIPULATION</span> <span class="n">ERROR</span> <span class="c1">#2097210: RESOURCE_MAP_INVALIDMAPTYPE]</span>
+</pre></div>
+</div>
+<p>그리고 Usage의 인자로 D3D11_USAGE_STAGING이 주어진 경우 Map 함수의 MapType의 인자로 D3D11_MAP_WRITE_DISCARD가 주어지면 다음과 같은 오류가 발생한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D11</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">ID3D11DeviceContext</span><span class="p">::</span><span class="n">Map</span><span class="p">:</span> <span class="n">Map</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">called</span> <span class="k">with</span> <span class="n">MAP_WRITE_DISCARD</span> <span class="n">access</span><span class="p">,</span> <span class="n">because</span> <span class="n">the</span> <span class="n">Resource</span> <span class="n">was</span> <span class="ow">not</span> <span class="n">created</span> <span class="k">as</span> <span class="n">D3D11_USAGE_DYNAMIC</span><span class="o">.</span> <span class="n">D3D11_USAGE_DYNAMIC</span> <span class="n">Resources</span> <span class="n">must</span> <span class="n">use</span> <span class="n">either</span> <span class="n">MAP_WRITE_DISCARD</span> <span class="ow">or</span> <span class="n">MAP_WRITE_NO_OVERWRITE</span> <span class="k">with</span> <span class="n">Map</span><span class="o">.</span> <span class="p">[</span> <span class="n">RESOURCE_MANIPULATION</span> <span class="n">ERROR</span> <span class="c1">#2097210: RESOURCE_MAP_INVALIDMAPTYPE]</span>
+</pre></div>
+</div>
+<p>즉, USAGE와 짝을 맞추어서 MapType을 설정해주어야 한다.</p>
 </section>
 </section>
 <section id="unmap">
@@ -2109,7 +2126,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#omsetrendertargets">OMSetRenderTargets 멤버함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rssetviewports">RSSetViewports 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-unmap">Map/Unmap 멤버 함수</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maptype">MapType</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cpuaccessflags-maptype">CPUAccessFlags와 MapType</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-maptype">USAGE와 MapType</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unmap">Unmap 멤버 함수</a></li>

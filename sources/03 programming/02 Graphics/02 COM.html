@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Graphics &#8212; MS Study Book</title>
+    <title>COM &#8212; MS Study Book</title>
   
   
   
@@ -64,11 +64,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/Graphics';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/02 COM';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Window Programming" href="01%20Window%20Programming.html" />
-    <link rel="prev" title="Miscellaneous" href="../01%20C%2B%2B/99%20Miscelleneous.html" />
+    <link rel="next" title="Message Loop" href="03%20Message%20Loop.html" />
+    <link rel="prev" title="Window Programming" href="01%20Window%20Programming.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -493,9 +493,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../01%20C%2B%2B/99%20Miscelleneous.html">Miscellaneous</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Graphics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="Graphics.html">Graphics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="01%20Window%20Programming.html">Window Programming</a></li>
-<li class="toctree-l2"><a class="reference internal" href="02%20COM.html">COM</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">COM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03%20Message%20Loop.html">Message Loop</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="50%20DirectX/DirectX.html">DirectX</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="50%20DirectX/01%20Direct3D/Direct3D.html">Direct3D</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-38"><i class="fa-solid fa-chevron-down"></i></label><ul>
@@ -662,7 +662,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/02 Graphics/Graphics.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/02 Graphics/02 COM.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -733,7 +733,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -744,11 +746,31 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Graphics</h1>
+    <h1>COM</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comptr">ComPtr</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#as">As</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reset">Reset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getaddressof">GetAddressOf</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">주의</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operator">operator&amp;</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#internalrelease">InternalRelease</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#releaseandgetaddressof">ReleaseAndGetAddressOf</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comptrref">ComPtrRef</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -758,10 +780,180 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="graphics">
-<h1>Graphics<a class="headerlink" href="#graphics" title="Permalink to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="com">
+<h1>COM<a class="headerlink" href="#com" title="Permalink to this heading">#</a></h1>
+<p>COM은 Component Object Model은 마이크로소프트가 개발한 인터페이스 기반의 객체지향 기술로, 소프트웨어 컴포넌트 간의 상호작용을 가능하게 한다. COM은 다양한 프로그래밍 언어와 환경에서 사용할 수 있는 바이너리 표준을 제공하여, 재사용 가능한 소프트웨어 컴포넌트를 쉽게 만들고 사용할 수 있게 한다.</p>
+<p>COM은 인터페이스를 통해 객체와 상호작용한다. 인터페이스는 순수 가상 함수만을 포함하는 추상 클래스이다. 모든 COM 인터페이스는 IUnknown 인터페이스를 상속받으며 IUnknown 인터페이스는 참조 카운팅과 인터페이스 쿼리를 위한 세 가지 메서드(QueryInterface, AddRef, Release)를 정의한다.</p>
+<p>AddRef, Release 메서드는 COM 객체의 참조 카운팅을 관리하는데 사용된다. COM 객체는 참조 카운팅을 사용하여 객체의 생명 주기를 관리하는데 AddRef 메서드는 참조 카운트를 증가시키고, Release 메서드는 참조 카운트를 감소시킨다. 참조 카운트가 0이 되면 객체가 메모리에서 해제된다.</p>
+<p>QueryInterface 메서드는 객체가 지원하는 다른 인터페이스로의 포인터를 요청하는 데 사용된다. 이 메서드는 인터페이스 식별자를 사용하여 요청된 인터페이스가 객체에서 지원되는지 확인하고, 지원되는 경우 해당 인터페이스 포인터를 반환한다.</p>
+<p>COM 클래스의 간단한 예제는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;Windows.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;combaseapi.h&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MyCOMObject</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">IUnknown</span><span class="w"> </span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">LONG</span><span class="w"> </span><span class="n">refCount</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">MyCOMObject</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">refCount</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="n">HRESULT</span><span class="w"> </span><span class="kr">__stdcall</span><span class="w"> </span><span class="n">QueryInterface</span><span class="p">(</span><span class="n">REFIID</span><span class="w"> </span><span class="n">riid</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="n">ppvObject</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">riid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">IID_IUnknown</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="o">*</span><span class="n">ppvObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">IUnknown</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">            </span><span class="n">AddRef</span><span class="p">();</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">S_OK</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="o">*</span><span class="n">ppvObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">E_NOINTERFACE</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">ULONG</span><span class="w"> </span><span class="kr">__stdcall</span><span class="w"> </span><span class="n">AddRef</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">InterlockedIncrement</span><span class="p">(</span><span class="o">&amp;</span><span class="n">refCount</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">ULONG</span><span class="w"> </span><span class="kr">__stdcall</span><span class="w"> </span><span class="n">Release</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ULONG</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">InterlockedDecrement</span><span class="p">(</span><span class="o">&amp;</span><span class="n">refCount</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">delete</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">count</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
 </div>
+<section id="comptr">
+<h2>ComPtr<a class="headerlink" href="#comptr" title="Permalink to this heading">#</a></h2>
+<p>ComPtr는 COM 객체를 관리하는 데 사용되는 스마트 포인터로, 참조 카운팅을 자동으로 관리하여 메모리 누수를 방지한다. Microsoft의 Windows Runtime Library (WRL) 또는 C++/WinRT와 함께 제공된다. ComPtr은 COM 객체 포인터의 수명 주기를 관리하여, 객체의 수동 해제와 참조 카운팅을 자동화한다.</p>
+<section id="as">
+<h3>As<a class="headerlink" href="#as" title="Permalink to this heading">#</a></h3>
+<p>ComPtr는 As 메서드를 통해 쉽게 다른 인터페이스로의 포인터를 요청할 수 있는 메서드를 제공한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">As</span><span class="p">(</span><span class="n">_Inout_</span><span class="w"> </span><span class="n">Details</span><span class="o">::</span><span class="n">ComPtrRef</span><span class="o">&lt;</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">throw</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ptr_</span><span class="o">-&gt;</span><span class="n">QueryInterface</span><span class="p">(</span><span class="n">__uuidof</span><span class="p">(</span><span class="n">U</span><span class="p">),</span><span class="w"> </span><span class="n">p</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>다음 예제를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;wrl.h&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">Microsoft</span><span class="o">::</span><span class="nn">WRL</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">UseComObject</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ComPtr를 사용하여 COM 객체 생성 및 관리</span>
+<span class="w">    </span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">MyCOMObject</span><span class="o">&gt;</span><span class="w"> </span><span class="n">spMyCOMObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Make</span><span class="o">&lt;</span><span class="n">MyCOMObject</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// 다른 인터페이스로의 포인터 요청</span>
+<span class="w">    </span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IUnknown</span><span class="o">&gt;</span><span class="w"> </span><span class="n">spUnknown</span><span class="p">;</span>
+<span class="w">    </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">hr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spMyCOMObject</span><span class="p">.</span><span class="n">As</span><span class="p">(</span><span class="o">&amp;</span><span class="n">spUnknown</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">SUCCEEDED</span><span class="p">(</span><span class="n">hr</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// spUnknown를 통해 IUnknown 인터페이스에 접근 가능</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// spMyCOMObject와 spUnknown는 범위를 벗어날 때 자동으로 Release 호출</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">HRESULT</span> <span class="pre">hr</span> <span class="pre">=</span> <span class="pre">spMyCOMObject.As(&amp;spUnknown);</span></code>를 통해 spUnknown이 spMyCOMObject의 값을 가지게 된다. 즉, spUnknown은 spMyCOMObject이 가르키고 있는 주소값을 가지게 된다.</p>
+</section>
+<section id="reset">
+<h3>Reset<a class="headerlink" href="#reset" title="Permalink to this heading">#</a></h3>
+<p>Reset 메서드는 ComPtr이 현재 가리키고 있는 인터페이스 포인터를 해제하고, ComPtr을 초기화된 상태로 만드는 함수이다.</p>
+</section>
+<section id="getaddressof">
+<h3>GetAddressOf<a class="headerlink" href="#getaddressof" title="Permalink to this heading">#</a></h3>
+<p>GetAddressOf 메서드는 ComPtr 객체가 관리하는 포인터의 주소를 반환하는 함수이다.</p>
+<p>함수의 정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">**</span><span class="w"> </span><span class="nf">GetAddressOf</span><span class="p">()</span><span class="w"> </span><span class="k">throw</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ptr_</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>T pointer의 주소를 반환해야 함으로, 리턴 타입은 T pointer의 pointer로 이중 포인터가 된다.</p>
+<p>다음 예제를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;wrl.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;d3d11.h&gt;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">Microsoft</span><span class="o">::</span><span class="nn">WRL</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">ID3D11Device</span><span class="o">&gt;</span><span class="w"> </span><span class="n">spDevice</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">spDevice</span><span class="p">.</span><span class="n">Get</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">spDevice</span><span class="p">.</span><span class="n">GetAddressOf</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>첫번째 출력에서는 ComPtr 객체가 관리하는 내부 포인터(ptr_)의 값이 출력된다. 초기 상태에서는 nullptr이므로 0000000000000000이 출력된다.</p>
+<p>그리고 두번재 출력에서는 ComPtr 객체가 관리하는 내부 포인터(ptr_)의 주소가 출력된다.</p>
+<section id="id1">
+<h4>주의<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="w"> </span><span class="o">**&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">spDevice</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>위 코드로도 ComPtr 객체가 관리하는 내부 포인터(ptr_)의 주소를 출력할 수 있다.</p>
+<p>그러나 &amp;spDevice의 결과인 ComPtrRef 객체는 내부적으로 void** 타입으로 형변환 할 때, pointer를 통해 <code class="docutils literal notranslate"><span class="pre">ReleaseAndGetAddressOf</span></code> 메서드를 호출하고 그 결과 ComPtr 객체가 관리하는 내부 포인터가 nullptr이 된다.</p>
+<p>위의 예제에서는 애초에 nullptr이라 문제가 없지만, 아닌 경우에는 위와 같은 형변환을 조심해야 한다.</p>
+</section>
+</section>
+<section id="operator">
+<h3>operator&amp;<a class="headerlink" href="#operator" title="Permalink to this heading">#</a></h3>
+<p>ComPtr에는 ComPtrRef 객체를 return하는 주소변환 연산자가 정의되어 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">Details</span><span class="o">::</span><span class="n">ComPtrRef</span><span class="o">&lt;</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="k">operator</span><span class="o">&amp;</span><span class="p">()</span><span class="w"> </span><span class="k">throw</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Details</span><span class="o">::</span><span class="n">ComPtrRef</span><span class="o">&lt;</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="internalrelease">
+<h3>InternalRelease<a class="headerlink" href="#internalrelease" title="Permalink to this heading">#</a></h3>
+<p>InternalRelease 메서드는 ComPtr이 관리하는 포인터가 가르키는 주소를 nullptr로 만들고 포인터가 원래 가르키던 주소를 return한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">InternalRelease</span><span class="p">()</span><span class="w"> </span><span class="k">throw</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr_</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">temp</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">ptr_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">            </span><span class="n">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">Release</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ref</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="releaseandgetaddressof">
+<h3>ReleaseAndGetAddressOf<a class="headerlink" href="#releaseandgetaddressof" title="Permalink to this heading">#</a></h3>
+<p>ReleaseAndGetAddressOf 메서드는 ComPtr이 관리하는 포인터가 가르키는 주소를 nullptr로 만들고 포인터의 주소를 return한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">T</span><span class="o">**</span><span class="w"> </span><span class="nf">ReleaseAndGetAddressOf</span><span class="p">()</span><span class="w"> </span><span class="k">throw</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">InternalRelease</span><span class="p">();</span><span class="w"> </span><span class="c1">// ptr_ = nullptr이 된다.</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ptr_</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="comptrref">
+<h2>ComPtrRef<a class="headerlink" href="#comptrref" title="Permalink to this heading">#</a></h2>
+<p>ComPtrRef에는 void**으로의 형변환 연산자가 정의되어 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">return</span><span class="w"> </span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="o">**&gt;</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">ptr_</span><span class="o">-&gt;</span><span class="n">ReleaseAndGetAddressOf</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>이는 내부적으로 ComPtr 객체의 <code class="docutils literal notranslate"><span class="pre">ReleaseAndGetAddressOf</span></code> 메서드를 호출한다.</p>
+<blockquote>
+<div><p>REFERENCE<br />
+<a class="reference external" href="https://github.com/Microsoft/DirectXTK/wiki/ComPtr">GITHUB - ComPtr</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/cpp/cppcx/wrl/comptr-class?view=msvc-170">MSDN - ComPtr class</a></p>
+</div></blockquote>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -795,20 +987,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../01%20C%2B%2B/99%20Miscelleneous.html"
+       href="01%20Window%20Programming.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Miscellaneous</p>
+        <p class="prev-next-title">Window Programming</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Window%20Programming.html"
+       href="03%20Message%20Loop.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Window Programming</p>
+        <p class="prev-next-title">Message Loop</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -818,6 +1010,32 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comptr">ComPtr</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#as">As</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reset">Reset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getaddressof">GetAddressOf</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">주의</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#operator">operator&amp;</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#internalrelease">InternalRelease</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#releaseandgetaddressof">ReleaseAndGetAddressOf</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comptrref">ComPtrRef</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

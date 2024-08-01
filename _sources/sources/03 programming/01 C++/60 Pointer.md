@@ -126,3 +126,18 @@ int main(void)
 }
 ```
 
+## static constexpr pointer
+
+class 내부에서 다음과 같이 정적멤버변수를 초기화 하려고 하면 오류가 발생한다.
+
+```cpp
+static constexpr wchar_t* class_name = L"MSGraphics";
+```
+
+이는 `L"MSGraphics"`의 타입은 `const wchar_t*`인데 `constexpr wchar_t*`의 타입은 `wchar_t* const`이기 때문이다.
+
+따라서 이를 해결하기 위해서는 다음과 같이 초기화하면 된다.
+
+```cpp
+static constexpr const wchar_t* class_name = L"MSGraphics";
+```
