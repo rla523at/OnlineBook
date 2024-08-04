@@ -494,6 +494,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../01%20Window%20Programming.html">Window Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20COM.html">COM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03%20Message%20Loop.html">Message Loop</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../50%20DirectX/DirectX.html">DirectX</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/Direct3D.html">Direct3D</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-38"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/06%20Geometry%20Shader.html">Geometry Shader</a></li>
@@ -559,6 +562,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l3"><a class="reference internal" href="22%20Vertex%20Shader.html">Vertex Shader</a></li>
 <li class="toctree-l3"><a class="reference internal" href="23%20Pixel%20Shader.html">Pixel Shader</a></li>
 <li class="toctree-l3"><a class="reference internal" href="50%20Buffer.html">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="51%20Texture.html">Texture</a></li>
 </ul>
 </li>
 </ul>
@@ -754,6 +758,10 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clip">clip</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#length">Length</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#groupmemorybarrierwithgroupsync">GroupMemoryBarrierWithGroupSync</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">조건문</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -794,6 +802,42 @@ document.write(`
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-length">learn.microsoft - dx-graphics-hlsl-length</a></p>
 </div></blockquote>
+</section>
+<section id="groupmemorybarrierwithgroupsync">
+<h2>GroupMemoryBarrierWithGroupSync<a class="headerlink" href="#groupmemorybarrierwithgroupsync" title="Permalink to this heading">#</a></h2>
+<p>GroupMemoryBarrierWithGroupSync 함수는 HLSL(High-Level Shader Language)에서 사용하는 동기화 함수로, 주로 Compute Shader에서 워크그룹 내 스레드 간의 메모리 일관성을 보장하고 동기화하는 데 사용된다.</p>
+<p>이 함수는 그룹 공유 메모리에 대한 모든 이전 읽기 및 쓰기 연산이 완료될 때까지 현재 스레드를 일시 중지시키고, 같은 워크그룹 내의 모든 스레드가 이 함수에 도달할 때까지 기다린다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/groupmemorybarrierwithgroupsync">learn.microsoft - windows/win32/direct3dhlsl/groupmemorybarrierwithgroupsync</a></p>
+</div></blockquote>
+<section id="id1">
+<h3>조건문<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>다음과 같은 코드가 있다고 하자.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">uint</span> <span class="n">stride</span> <span class="o">=</span> <span class="n">NUM_THREAD</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">stride</span><span class="p">;</span> <span class="n">stride</span> <span class="o">/=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">stride</span> <span class="o">&lt;=</span> <span class="n">Gindex</span><span class="p">)</span>
+    <span class="k">continue</span><span class="p">;</span>
+  
+  <span class="n">shared_data</span><span class="p">[</span><span class="n">Gindex</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">shared_data</span><span class="p">[</span><span class="n">Gindex</span><span class="p">],</span> <span class="n">shared_data</span><span class="p">[</span><span class="n">Gindex</span> <span class="o">+</span> <span class="n">stride</span><span class="p">]);</span>
+  
+  <span class="n">GroupMemoryBarrierWithGroupSync</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>이 경우에는 Gindex가 stride보다 큰 경우에는 GroupMemoryBarrierWithGroupSync() 함수에 도달할 수 없다. 즉, 모든 thread들이 GroupMemoryBarrierWithGroupSync()에 도달할 수 없는 경우이다.</p>
+<p>이 경우에는 컴파일 에러가 발생한다.</p>
+<p>이를 해결하기 위해서는, 모든 thread들이 GroupMemoryBarrierWithGroupSync 함수에 도달할 수 있게 아래와 같이 수정하면 된다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="k">for</span> <span class="p">(</span><span class="n">uint</span> <span class="n">stride</span> <span class="o">=</span> <span class="n">NUM_THREAD</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">stride</span><span class="p">;</span> <span class="n">stride</span> <span class="o">/=</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">Gindex</span> <span class="o">&lt;</span> <span class="n">stride</span><span class="p">)</span>
+      <span class="n">shared_data</span><span class="p">[</span><span class="n">Gindex</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">shared_data</span><span class="p">[</span><span class="n">Gindex</span><span class="p">],</span> <span class="n">shared_data</span><span class="p">[</span><span class="n">Gindex</span> <span class="o">+</span> <span class="n">stride</span><span class="p">]);</span>
+    
+    <span class="n">GroupMemoryBarrierWithGroupSync</span><span class="p">();</span>
+  <span class="p">}</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -862,6 +906,10 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clip">clip</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#length">Length</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#groupmemorybarrierwithgroupsync">GroupMemoryBarrierWithGroupSync</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">조건문</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

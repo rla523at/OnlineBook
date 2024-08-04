@@ -580,7 +580,7 @@ SV_GroupID는 (0,0,0)부터 시작한다.
 > Reference  
 > [learn.microsoft - dispatch](https://learn.microsoft.com/en-us/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-dispatch)
 
-Groupshared memory는 그룹당 최대 16KB를 갖을 수 있다.
+Groupshared memory는 Group 내에서 share 하는 메모리로 그룹당 최대 16KB를 갖을 수 있다.
 
 각 Thread는 Groupshared memory중 256byte에만 writing 할 수 있다.
 

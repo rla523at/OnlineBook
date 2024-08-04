@@ -18,32 +18,17 @@ clip(x)
 > Reference  
 > [learn.microsoft - hlsl-clip](https://learn.microsoft.com/ko-kr/windows/win32/direct3dhlsl/dx-graphics-hlsl-clip)  
 
-## 데이터 형식
+## for loop
+for loop은 다음과 같은 형태를 갖는다.
 
+```
+[Attribute] for ( Initializer; Conditional; Iterator ) { Statement Block; }
+```
 
- 
+> Reference
+> [learn.microsoft - windows/win32/direct3dhlsl/dx-graphics-hlsl-for](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-for)
 
-## Register
-셰이더 모델 5 리소스 구문은 register 키워드(keyword) 사용하여 리소스를 HLSL 컴파일러에 바인딩합니다
-
-register 키워드는 특정 리소스를 GPU 레지스터에 수동으로 할당하는 데 사용된다. 이 키워드를 사용하면 상수 버퍼, 텍스처, 샘플러 등을 특정 슬롯에 매핑할 수 있다. 이를 통해 셰이더와 Direct3D API 간의 데이터 바인딩을 명시적으로 관리할 수 있습니다.
-
-사용가능한 레지스터 종류는 다음과 같다
-* b#
-  * 상수 버퍼(Constant Buffer)용 레지스터.
-* t#
-  * 셰이더 리소스 뷰(Shader Resource View, SRV)용 레지스터. 
-  * 텍스처, 버퍼, 구조화된 버퍼 등이 여기에 포함 된다
-* s#
-  * 샘플러(Sampler State)용 레지스터.
-* u#
-  * 언오더드 액세스 뷰(Unordered Access View, UAV)용 레지스터.
-
-> Refernce  
-> [learn.microsoft - dx-graphics-hlsl-variable-register](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-variable-register)  
-> [learn.microsoft - resource-binding-in-hlsl](https://learn.microsoft.com/en-us/windows/win32/direct3d12/resource-binding-in-hlsl)  
-
-## for attribute
+### Attribute
 HLSL에서 [unroll]은 루프 언롤링(Loop Unrolling)을 수행하도록 컴파일러에게 지시하는 속성이다. 
 
 이는 반복문을 컴파일 타임에 고정된 횟수만큼 반복하도록 변환하여 실행 시 반복문 조건 검사 및 분기 명령을 제거함으로써 성능을 최적화하는 기법이다.
@@ -66,4 +51,29 @@ for (int i = 0; i < 4; ++i) {
 ```
 
 단, 언롤링된 코드는 반복 횟수가 정적으로 결정될 때만 유효하다. 동적 반복 횟수가 필요한 경우에는 적합하지 않다.
+
+### Conditional
+Conditional은 매 iteration 마다 검사를 한다.
+
+
+
+## Register
+셰이더 모델 5 리소스 구문은 register 키워드(keyword) 사용하여 리소스를 HLSL 컴파일러에 바인딩합니다
+
+register 키워드는 특정 리소스를 GPU 레지스터에 수동으로 할당하는 데 사용된다. 이 키워드를 사용하면 상수 버퍼, 텍스처, 샘플러 등을 특정 슬롯에 매핑할 수 있다. 이를 통해 셰이더와 Direct3D API 간의 데이터 바인딩을 명시적으로 관리할 수 있습니다.
+
+사용가능한 레지스터 종류는 다음과 같다
+* b#
+  * 상수 버퍼(Constant Buffer)용 레지스터.
+* t#
+  * 셰이더 리소스 뷰(Shader Resource View, SRV)용 레지스터. 
+  * 텍스처, 버퍼, 구조화된 버퍼 등이 여기에 포함 된다
+* s#
+  * 샘플러(Sampler State)용 레지스터.
+* u#
+  * 언오더드 액세스 뷰(Unordered Access View, UAV)용 레지스터.
+
+> Refernce  
+> [learn.microsoft - dx-graphics-hlsl-variable-register](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-variable-register)  
+> [learn.microsoft - resource-binding-in-hlsl](https://learn.microsoft.com/en-us/windows/win32/direct3d12/resource-binding-in-hlsl)  
 
