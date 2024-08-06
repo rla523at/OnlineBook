@@ -1,20 +1,14 @@
 # ID3D11UnorderedAccessView
 ID3D11UnorderedAccessView는 Direct3D 11에서 셰이더 프로그램이 리소스에 임의로 접근할 수 있게 하는 인터페이스다. 
 
-이 클래스는 주로 컴퓨트 셰이더 또는 픽셀 셰이더에서 사용되며, 읽기와 쓰기를 모두 허용하는 버퍼나 텍스처 리소스를 관리한다. 이는 복잡한 계산이나 데이터 처리가 필요한 그래픽 및 컴퓨팅 작업에서 매우 유용하다.
+ID3D11UnorderedAccessView의 주요 역할은 셰이더가 리소스에 임의로 접근하여 읽기 및 쓰기 작업을 수행할 수 있도록 하는 것이다. 
 
-ID3D11UnorderedAccessView의 주요 역할은 셰이더가 리소스에 임의로 접근하여 읽기 및 쓰기 작업을 수행할 수 있도록 하는 것이다. 이를 통해 셰이더 프로그램은 비순차적인 데이터 접근과 병렬 처리를 수행할 수 있다. 예를 들어, 컴퓨트 셰이더에서 큰 데이터 배열을 처리하거나, 렌더링 후처리에서 특정 픽셀에 직접 쓰기 작업을 수행할 수 있다.
+이 클래스는 ID3D11Device를 사용하여 생성된다. 이를 위해 D3D11_UNORDERED_ACCESS_VIEW_DESC 구조체를 사용하여 접근할 리소스의 속성을 정의하고, 해당 속성에 따라 ID3D11UnorderedAccessView를 초기화한다. 그런 다음, CreateUnorderedAccessView 메서드를 호출하여 ID3D11UnorderedAccessView 객체를 생성한다.
 
-이 클래스는 ID3D11Device를 사용하여 생성된다. 이를 위해 D3D11_UNORDERED_ACCESS_VIEW_DESC 구조체를 사용하여 접근할 리소스의 속성을 정의하고, 해당 속성에 따라 임의 접근 뷰를 초기화한다. 그런 다음, CreateUnorderedAccessView 메서드를 호출하여 임의 접근 뷰 객체를 생성한다.
-
-ID3D11UnorderedAccessView는 ID3D11DeviceContext를 통해 그래픽 또는 컴퓨팅 파이프라인에 바인딩된다. 이를 통해 셰이더가 해당 리소스에 접근할 수 있게 된다. 예를 들어, CSSetUnorderedAccessViews 메서드를 사용하여 컴퓨트 셰이더에 임의 접근 뷰를 바인딩하거나, OMSetRenderTargetsAndUnorderedAccessViews 메서드를 사용하여 렌더 타겟과 함께 임의 접근 뷰를 설정할 수 있다.
-
-이 인터페이스는 고성능 데이터 처리와 복잡한 그래픽 효과 구현에 필수적이다. 예를 들어, 실시간 물리 계산, 입자 시스템, 이미지 처리 및 필터링 작업에서 임의 접근 뷰를 사용하여 효율적인 데이터 처리를 수행할 수 있다. ID3D11UnorderedAccessView는 Direct3D 11 애플리케이션에서 다양한 고급 기능을 지원하는 중요한 구성 요소다.
+ID3D11UnorderedAccessView는 ID3D11DeviceContext를 통해 그래픽 또는 컴퓨팅 파이프라인에 바인딩된다. 이를 통해 셰이더가 해당 리소스에 접근할 수 있게 된다. 예를 들어, CSSetUnorderedAccessViews 메서드를 사용하여 컴퓨트 셰이더에 ID3D11UnorderedAccessView를 바인딩하거나, OMSetRenderTargetsAndUnorderedAccessViews 메서드를 사용하여 렌더 타겟과 함께 ID3D11UnorderedAccessView를 설정할 수 있다.
 
 ## D3D11_UNORDERED_ACCESS_VIEW_DESC 구조체
-D3D11_UNORDERED_ACCESS_VIEW_DESC 구조체는 Direct3D 11에서 무순서 접근 뷰(Unordered Access View)를 정의하기 위한 구조체이다. 
-
-이 구조체는 셰이더가 리소스에 대해 임의의 읽기/쓰기 접근을 할 수 있게 한다.
+D3D11_UNORDERED_ACCESS_VIEW_DESC 구조체는 Direct3D 11에서 ID3D11UnorderedAccessView를 정의하기 위한 구조체이다. 
 
 정의는 다음과 같다.
 ```cpp
@@ -105,3 +99,13 @@ void ID3D11UnorderedAccessView::GetResource(
 
 이 함수는 언오더드 액세스 뷰가 참조하는 리소스에 대한 포인터를 반환하며, 호출자는 반환된 리소스 포인터를 사용하여 해당 리소스에 접근할 수 있다. 이 함수가 호출되면 반환된 리소스의 참조 카운트가 증가하므로, 사용 후에는 반드시 Release 메서드를 호출하여 참조 카운트를 감소시켜야 한다.
 
+## Typed UAV loads
+UAV는 지원하는 format에 대해서만 만들 수 있다.
+
+만약, DXGI_FORMAT_R32G32B32_FLOAT과 같이 지원하지 않는 format에 대해 UAV를 만들려고 하면 다음과 같은 오류가 발생한다.
+
+```
+X4596	typed UAV stores must write all declared components.	
+```
+
+UAV에서 지원하는 Format은 [learn.microsoft - windows/win32/direct3d12/typed-unordered-access-view-loads](https://learn.microsoft.com/en-us/windows/win32/direct3d12/typed-unordered-access-view-loads)에서 확인해볼 수 있다.

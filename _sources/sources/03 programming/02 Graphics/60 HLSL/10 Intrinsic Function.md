@@ -25,6 +25,30 @@ ret length(x)
 > Reference  
 > [learn.microsoft - dx-graphics-hlsl-length](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-length)  
 
+## dst
+distance vector를 계산해준다.
+
+시그니쳐는 다음과 같다.
+```
+fVector dst(
+  in fVector src0,
+  in fVector src1
+);
+```
+
+distance vector의 정의는 다음과 같다.
+
+```
+dest.x = 1;
+dest.y = src0.y * src1.y;
+dest.z = src0.z;
+dest.w = src1.w;
+```
+
+> Reference  
+> [learn.microsoft - direct3dhlsl/dst](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dst)  
+> [learn.microsoft - direct3dhlsl/dst---vs](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dst---vs)  
+> [stackoverflow - what-is-the-hlsl-dst-instruction-for](https://stackoverflow.com/questions/8525803/what-is-the-hlsl-dst-instruction-for)  
 
 ## GroupMemoryBarrierWithGroupSync 
 GroupMemoryBarrierWithGroupSync 함수는 HLSL(High-Level Shader Language)에서 사용하는 동기화 함수로, 주로 Compute Shader에서 워크그룹 내 스레드 간의 메모리 일관성을 보장하고 동기화하는 데 사용된다. 

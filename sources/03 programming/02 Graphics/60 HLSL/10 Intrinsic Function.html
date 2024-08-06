@@ -758,6 +758,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clip">clip</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#length">Length</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dst">dst</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#groupmemorybarrierwithgroupsync">GroupMemoryBarrierWithGroupSync</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">조건문</a></li>
 </ul>
@@ -801,6 +802,30 @@ document.write(`
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-length">learn.microsoft - dx-graphics-hlsl-length</a></p>
+</div></blockquote>
+</section>
+<section id="dst">
+<h2>dst<a class="headerlink" href="#dst" title="Permalink to this heading">#</a></h2>
+<p>distance vector를 계산해준다.</p>
+<p>시그니쳐는 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fVector</span> <span class="n">dst</span><span class="p">(</span>
+  <span class="ow">in</span> <span class="n">fVector</span> <span class="n">src0</span><span class="p">,</span>
+  <span class="ow">in</span> <span class="n">fVector</span> <span class="n">src1</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>distance vector의 정의는 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dest</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">dest</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">src0</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">src1</span><span class="o">.</span><span class="n">y</span><span class="p">;</span>
+<span class="n">dest</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">src0</span><span class="o">.</span><span class="n">z</span><span class="p">;</span>
+<span class="n">dest</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">src1</span><span class="o">.</span><span class="n">w</span><span class="p">;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dst">learn.microsoft - direct3dhlsl/dst</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dst---vs">learn.microsoft - direct3dhlsl/dst—vs</a><br />
+<a class="reference external" href="https://stackoverflow.com/questions/8525803/what-is-the-hlsl-dst-instruction-for">stackoverflow - what-is-the-hlsl-dst-instruction-for</a></p>
 </div></blockquote>
 </section>
 <section id="groupmemorybarrierwithgroupsync">
@@ -906,6 +931,7 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clip">clip</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#length">Length</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dst">dst</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#groupmemorybarrierwithgroupsync">GroupMemoryBarrierWithGroupSync</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">조건문</a></li>
 </ul>

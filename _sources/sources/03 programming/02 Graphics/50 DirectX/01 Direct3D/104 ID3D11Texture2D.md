@@ -3,26 +3,9 @@ ID3D11Texture2D는 Direct3D 11에서 2D 텍스처를 나타내는 인터페이�
 
 이 클래스는 2차원 배열로 구성된 텍스처 데이터를 관리한다.
 
-ID3D11Texture2D의 주요 역할은 2D 텍스처 리소스를 정의하고 관리하는 것이다. 이 클래스는 텍스처 데이터를 저장하고, 셰이더 프로그램에서 접근할 수 있도록 한다. 예를 들어, 게임 개발에서 캐릭터의 스킨이나 환경 텍스처를 저장하는 데 사용될 수 있다. 또한, 렌더 타겟이나 깊이 스텐실 버퍼로도 사용될 수 있어, 다양한 그래픽 연산에 활용된다.
+이 클래스는 ID3D11Device를 사용하여 생성된다. 이를 위해 D3D11_TEXTURE2D_DESC 구조체를 사용하여 텍스처의 속성을 정의하고, 해당 속성에 따라 텍스처를 초기화한다. 그런 다음, CreateTexture2D 메서드를 호출하여 텍스처 객체를 생성한다.
 
-이 클래스는 ID3D11Device를 사용하여 생성된다. 이를 위해 D3D11_TEXTURE2D_DESC 구조체를 사용하여 텍스처의 속성을 정의하고, 해당 속성에 따라 텍스처를 초기화한다. 이 구조체는 텍스처의 너비, 높이, MIP 맵 레벨 수, 포맷, 샘플링 설정, 사용 용도 등을 포함한다. 그런 다음, CreateTexture2D 메서드를 호출하여 텍스처 객체를 생성한다.
-
-또한, ID3D11Texture2D는 다양한 그래픽 파이프라인 단계에서 사용될 수 있다. 텍스처는 셰이더 리소스로서 셰이더 프로그램에 바인딩되어 텍스처 매핑에 사용될 수 있으며, 렌더 타겟으로서 렌더링 결과를 저장하는 데 사용될 수도 있다. 이를 위해 ID3D11DeviceContext를 사용하여 텍스처를 적절한 파이프라인 단계에 바인딩한다.
-
-예를 들어, 텍스처를 셰이더 리소스로 사용하려면 ID3D11ShaderResourceView를 생성하고, 이를 셰이더에 바인딩한다. 렌더 타겟으로 사용하려면 ID3D11RenderTargetView를 생성하여 렌더 타겟으로 설정할 수 있다. 또한, 깊이 스텐실 버퍼로 사용하기 위해 ID3D11DepthStencilView를 생성하여 깊이 스텐실 버퍼로 설정할 수 있다.
-
-이 클래스는 2D 텍스처 데이터를 효율적으로 관리하고, 다양한 그래픽 효과를 구현하는 데 필수적인 역할을 한다. ID3D11Texture2D는 Direct3D 애플리케이션에서 고품질의 텍스처 매핑과 다양한 그래픽 연산을 지원하는 중요한 구성 요소다.
-
-## 2D 이미지 데이터 저장
-ID3D11Texture2D 객체는 2D 배열 형식으로 이미지 데이터를 저장한다.
-
-ID3D11Texture2D 객체는 D3D11_TEXTURE2D_DESC에 정의된 방식으로 생성되며, D3D11_TEXTURE2D_DESC에 따라 이미지 데이터를 저장하는 방법이 다르다.
-
-### ID3D11DeviceContext의 UpdateSubresource 함수
-UpdateSubresource 함수는 D3D11_TEXTURE2D_DESC의 Usage 변수가 D3D11_USAGE_DEFAULT로 정의된 리소스를 업데이트 할 때 사용된다.
-
-### ID3D11DeviceContext의 Map/UnMap 함수
-Map/UnMap 함수는 D3D11_TEXTURE2D_DESC의 Usage 변수가 D3D11_USAGE_DYNAMIC으로 정의된 리소스를 업데이트 할 때 사용된다.
+텍스처를 셰이더 리소스로 사용하려면 ID3D11ShaderResourceView를 생성하고, 이를 셰이더에 바인딩한다. 렌더 타겟으로 사용하려면 ID3D11RenderTargetView를 생성하여 렌더 타겟으로 설정할 수 있다. 또한, 깊이 스텐실 버퍼로 사용하기 위해 ID3D11DepthStencilView를 생성하여 깊이 스텐실 버퍼로 설정할 수 있다.
 
 ## D3D11_TEXTURE2D_DESC 구조체
 D3D11_TEXTURE2D_DESC 구조체는 Direct3D 11에서 2D 텍스처를 생성할 때 사용되는 속성들을 정의한다. 
@@ -97,3 +80,25 @@ typedef struct D3D11_TEXTURE2D_DESC {
       * enum D3D11_RESOURCE_MISC_FLAG 값
   * 기본값은 0이다.
 
+## 2D 이미지 데이터 저장
+ID3D11Texture2D 객체는 2D 배열 형식으로 이미지 데이터를 저장한다.
+
+ID3D11Texture2D 객체는 D3D11_TEXTURE2D_DESC에 정의된 방식으로 생성되며, D3D11_TEXTURE2D_DESC에 따라 이미지 데이터를 저장하는 방법이 다르다.
+
+### ID3D11DeviceContext의 UpdateSubresource 함수
+UpdateSubresource 함수는 D3D11_TEXTURE2D_DESC의 Usage 변수가 D3D11_USAGE_DEFAULT로 정의된 리소스를 업데이트 할 때 사용된다.
+
+### ID3D11DeviceContext의 Map/UnMap 함수
+Map/UnMap 함수는 D3D11_TEXTURE2D_DESC의 Usage 변수가 D3D11_USAGE_DYNAMIC/D3D11_USAGE_STAGING으로 정의된 리소스를 업데이트 할 때 사용된다.
+
+## Tiling 
+Texutre2D는 GPU 메모리에서 텍스처 데이터를 효율적으로 접근하고 저장하기 위해 타일 단위로 데이터를 관리하며 이를 타일링(Tiling)이라고 한다. 
+
+각 타일은 일정한 크기의 픽셀 블록을 나타낸다(예: 8x8 또는 16x16 픽셀).
+
+Tiling을 하는 이유는 보통 pixel 관련 연산을 할 때 주변 픽셀에 접근하는 경우가 많음으로 텍스처 데이터를 작은 타일 단위로 나누어 놓으면 필요한 데이터가 더 높은 확률로 캐시에 상주하게 되어 캐시 미스(cache miss)를 줄일 수 있으며, 주변 픽셀과의 데이터 지역성이 향상된다.
+
+예를 들어, 256x256 텍스처 이미지를 16x16 타일로 나눈다고 가정하면, 각 타일은 16x16 픽셀을 포함하며 
+전체 텍스처는 16x16 타일로 구성된다.
+
+이 때, 픽셀 좌표 (32, 32)의 픽셀 데이터를 접근할 때, 이는 (2, 2) 타일 내에 위치하게 되며 타일 내 오프셋은 (32 % 16, 32 % 16) = (0, 0)이다.
