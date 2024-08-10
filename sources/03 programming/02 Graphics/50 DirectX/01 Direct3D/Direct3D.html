@@ -506,6 +506,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="104%20ID3D11Texture2D.html">ID3D11Texture2D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="105%20ID3D11InputLayout.html">ID3D11InputLayout</a></li>
 <li class="toctree-l4"><a class="reference internal" href="106%20ID3D11VertexShader.html">ID3D11VertexShader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="107%20ID3D11Query.html">ID3D11Query</a></li>
 <li class="toctree-l4"><a class="reference internal" href="107%20ID3DBlob.html">ID3DBlob</a></li>
 <li class="toctree-l4"><a class="reference internal" href="110%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="111%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
@@ -536,6 +537,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="414%20enum%20D3D11_CREATE_DEVICE_FLAG.html">enum D3D11_CREATE_DEVICE_FLAG</a></li>
 <li class="toctree-l4"><a class="reference internal" href="415%20enum%20D3D11_BLEND.html">enum D3D11_BLEND</a></li>
 <li class="toctree-l4"><a class="reference internal" href="416%20enum%20D3D11_BLEND_OP.html">enum D3D11_BLEND_OP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="417%20enum%20D3D11_QUERY.html">enum D3D11_QUERY</a></li>
 <li class="toctree-l4"><a class="reference internal" href="450%20enum%20D3D_SRV_DIMENSION.html">enum D3D_SRV_DIMENSION</a></li>
 <li class="toctree-l4"><a class="reference internal" href="451%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
 </ul>
@@ -544,7 +546,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../02%20DirectXTex/100%20enum%20WIC_FLAGS.html">enum WIC_FLAGS</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../11%20DXGI/DXGI.html">DirectX Graphics Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-40"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../11%20DXGI/DXGI.html">DXGI</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-40"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/01%20IDXGIDevice.html">IDXGIDevice</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/02%20IDXGIFactory.html">IDXGIFactory</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/03%20IDXGIAdapter.html">IDXGIAdapter</a></li>
@@ -1654,10 +1656,12 @@ document.write(`
 <h2>Compute Shader<a class="headerlink" href="#compute-shader" title="Permalink to this heading">#</a></h2>
 <p>Compute Shader에서 그룹별 실행 순서는 특정한 규칙 없으며 GPU는 가능한 한 많은 스레드 그룹을 동시에 실행하려고 한다.</p>
 <p>따라서, 스레드 그룹 간에는 동기화가 불가능하며 실행 순서가 정의되지 않는다.</p>
-<p>SV_GroupID : 그룹의 3차원 고유 아이디
-SV_GroupThreadID : 그룹 내에서 Thread의 3차원 고유 아이디
-SV_GroupIndex : 그룹 내에서 Thread의 1차원 고유 아이디
-SV_DispatchThreadID : 전체에서 Thread의 3차원 고유 아이디</p>
+<ul class="simple">
+<li><p>SV_GroupID : 그룹의 3차원 고유 아이디</p></li>
+<li><p>SV_GroupThreadID : 그룹 내에서 Thread의 3차원 고유 아이디</p></li>
+<li><p>SV_GroupIndex : 그룹 내에서 Thread의 1차원 고유 아이디</p></li>
+<li><p>SV_DispatchThreadID : 전체에서 Thread의 3차원 고유 아이디</p></li>
+</ul>
 <p>SV_GroupID는 (0,0,0)부터 시작한다.</p>
 <blockquote>
 <div><p>Reference<br />

@@ -866,4 +866,251 @@ void ID3D11DeviceContext::CopyStructureCount(
 
 이 함수는 UAV의 카운트 값을 대상 버퍼의 특정 위치에 복사하며, 셰이더에서 쓰여진 데이터를 CPU 측에서 읽기 위해 유용하다. 이 작업은 컴퓨트 셰이더의 결과를 CPU에서 확인하거나 후속 처리를 수행하는 데 사용된다.
 
+### StructuredBuffer as pDstBuffer
+StructuredBuffer를 pDstBuffer에 인자로 주면 다음과 같은 오류가 발생한다.
 
+```
+D3D11 ERROR: ID3D11DeviceContext::CopyStructureCount: Cannot invoke CopyStructureCount when the destination Resource is a Structured Buffer. [ RESOURCE_MANIPULATION ERROR #2097399: COPYSTRUCTURECOUNT_INVALIDDESTINATIONSTATE]
+```
+
+
+## CopySubresourceRegion 멤버 함수
+CopySubresourceRegion 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 리소스의 특정 서브 리소스의 데이터를 다른 리소스의 서브 리소스에 복사하는 함수다. 이 함수는 주로 텍스처의 특정 영역이나 mipmap 레벨 간에 데이터를 복사할 때 사용된다.
+
+시그니처는 다음과 같다.
+
+```cpp
+void ID3D11DeviceContext::CopySubresourceRegion(
+    ID3D11Resource *pDstResource,
+    UINT DstSubresource,
+    UINT DstX,
+    UINT DstY,
+    UINT DstZ,
+    ID3D11Resource *pSrcResource,
+    UINT SrcSubresource,
+    const D3D11_BOX *pSrcBox
+);
+```
+
+매개변수는 다음과 같다.
+
+* ID3D11Resource* pDstResource
+  * 데이터를 복사할 대상 리소스
+  * 사용 가능한 값
+    * 유효한 ID3D11Resource 객체
+    * NULL: 유효한 대상 리소스가 필요함
+  * 기본값: 없음
+
+* UINT DstSubresource
+  * 대상 리소스에서 복사할 서브 리소스의 인덱스
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* UINT DstX
+  * 대상 리소스에서 복사할 시작 X 좌표 (텍스처 좌표계에서)
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* UINT DstY
+  * 대상 리소스에서 복사할 시작 Y 좌표 (텍스처 좌표계에서)
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* UINT DstZ
+  * 대상 리소스에서 복사할 시작 Z 좌표 (텍스처 좌표계에서)
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* ID3D11Resource* pSrcResource
+  * 데이터를 복사할 원본 리소스
+  * 사용 가능한 값
+    * 유효한 ID3D11Resource 객체
+    * NULL: 유효한 원본 리소스가 필요함
+  * 기본값: 없음
+
+* UINT SrcSubresource
+  * 원본 리소스에서 복사할 서브 리소스의 인덱스
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* const D3D11_BOX* pSrcBox
+  * 원본 리소스에서 복사할 영역을 정의하는 박스
+  * 사용 가능한 값
+    * NULL: 전체 원본 리소스를 복사할 때 사용
+    * 유효한 D3D11_BOX 구조체: 복사할 영역의 좌표와 크기를 정의
+  * 기본값: NULL
+
+`D3D11_BOX` 구조체는 복사할 영역을 정의하며, `pSrcBox`가 NULL인 경우 원본 리소스의 전체 서브 리소스가 복사된다. `D3D11_BOX` 구조체는 다음과 같은 필드를 가진다:
+
+* `left`: 복사할 영역의 왼쪽 X 좌표
+* `top`: 복사할 영역의 상단 Y 좌표
+* `front`: 복사할 영역의 전방 Z 좌표
+* `right`: 복사할 영역의 오른쪽 X 좌표
+* `bottom`: 복사할 영역의 하단 Y 좌표
+* `back`: 복사할 영역의 후방 Z 좌표
+
+이 함수는 주로 텍스처의 특정 영역이나 mipmap 레벨 간에 데이터를 이동할 때 사용되며, 렌더링 파이프라인에서 필요한 데이터의 준비와 업데이트에 유용하다.
+
+## Begin 멤버 함수
+Begin 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 렌더링 파이프라인의 특정 작업을 시작하기 위한 기능을 제공한다. 
+
+주로 스키드 프레임을 캡처하거나 디버깅 및 성능 측정을 위해 사용된다. 
+
+이 함수는 이벤트나 마커를 렌더링 명령의 시작과 끝을 구분하는 데 사용할 수 있다.
+
+시그니처는 다음과 같다.
+
+```cpp
+void ID3D11DeviceContext::Begin(
+    ID3D11Asynchronous *pAsync
+);
+```
+
+매개변수는 다음과 같다.
+
+* ID3D11Asynchronous* pAsync
+  * 시작할 비동기 작업 또는 이벤트
+  * 사용 가능한 값
+    * 유효한 ID3D11Asynchronous 객체
+    * NULL: 비동기 작업 없이 시작할 수 없음
+  * 기본값: 없음
+
+이 함수는 `ID3D11Asynchronous` 인터페이스를 구현하는 비동기 객체를 사용하여 렌더링 작업의 시작점을 정의한다. 
+
+비동기 객체는 GPU에서 작업을 비동기적으로 실행할 수 있도록 하며, 주로 타이밍 측정, GPU 작업의 완료 여부 확인, 작업을 표시하기 위한 이벤트를 설정하는 데 사용된다. 
+
+이 함수 호출 후, `ID3D11Asynchronous::End` 함수로 작업의 완료를 확인할 수 있다. 
+
+`Begin` 함수는 주로 디버깅, 프로파일링, 성능 분석에서 중요하며, GPU와 CPU 간의 작업 동기화를 관리하는 데 유용하다.
+
+## End 멤버 함수
+End 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 이전에 `Begin` 함수로 시작된 비동기 작업의 완료를 표시한다. 이 함수는 GPU 작업의 완료를 기다리거나 비동기 작업의 상태를 확인하는 데 사용된다.
+
+시그니처는 다음과 같다.
+
+```cpp
+HRESULT ID3D11DeviceContext::End(
+    ID3D11Asynchronous *pAsync
+);
+```
+
+매개변수는 다음과 같다.
+
+* ID3D11Asynchronous* pAsync
+  * 완료를 기다릴 비동기 작업
+  * 사용 가능한 값
+    * 유효한 ID3D11Asynchronous 객체
+    * NULL: 유효한 비동기 작업이 필요함
+  * 기본값: 없음
+
+이 함수는 `Begin` 함수로 시작된 비동기 작업의 완료 상태를 확인하며, `pAsync`로 지정된 비동기 객체의 작업이 완료될 때까지 기다린다. 
+
+`End` 함수 호출이 성공적으로 완료되면, 비동기 작업의 상태를 확인하거나 추가 작업을 진행할 수 있다.
+
+반환값은 다음과 같다.
+
+* S_OK: 비동기 작업이 성공적으로 완료됨
+* E_FAIL: 비동기 작업이 실패하거나, `pAsync`가 유효하지 않음
+
+이 함수는 주로 GPU에서 비동기 작업의 완료를 확인하고, 작업이 완료된 후 후속 처리를 수행할 때 사용된다. 
+
+또한, 디버깅과 성능 측정에서 중요한 역할을 하며, 작업의 완료 상태를 확인하여 시스템의 안정성과 성능을 보장할 수 있다.
+
+## GetData 멤버 함수
+GetData 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 비동기 작업의 결과를 가져오는 함수다. 이 함수는 비동기 작업이 완료된 후 그 결과를 CPU로 가져오는데 사용되며, 주로 타이밍 측정, GPU 작업의 결과 확인, 프로파일링 등에 활용된다.
+
+시그니처는 다음과 같다.
+
+```cpp
+HRESULT ID3D11DeviceContext::GetData(
+    ID3D11Asynchronous *pAsync,
+    void *pData,
+    UINT DataSize,
+    UINT GetDataFlags
+);
+```
+
+매개변수는 다음과 같다.
+
+* ID3D11Asynchronous* pAsync
+  * 결과를 가져올 비동기 작업
+  * 사용 가능한 값
+    * 유효한 ID3D11Asynchronous 객체
+    * NULL: 유효한 비동기 작업이 필요함
+  * 기본값: 없음
+
+* void* pData
+  * 비동기 작업의 결과를 저장할 버퍼
+  * 사용 가능한 값
+    * 유효한 메모리 주소 (비동기 작업의 결과를 받을 메모리)
+    * NULL: 데이터를 받을 버퍼가 필요함
+  * 기본값: 없음
+
+* UINT DataSize
+  * `pData` 버퍼의 크기 (바이트 단위)
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+* UINT GetDataFlags
+  * 데이터를 가져오는 방법을 지정하는 플래그
+  * 사용 가능한 값
+    * D3D11_ASYNC_GETDATA_DONOTFLUSH: 현재 GPU 작업을 플러시하지 않고 데이터를 가져옴
+    * D3D11_ASYNC_GETDATA_FLUSH: 현재 GPU 작업을 플러시하고 데이터를 가져옴
+  * 기본값: D3D11_ASYNC_GETDATA_DONOTFLUSH
+
+반환값은 다음과 같다.
+
+* S_OK: 데이터 가져오기 성공
+* S_FALSE: 비동기 작업이 아직 완료되지 않았음
+* E_FAIL: 비동기 작업이 실패했거나 `pAsync`가 유효하지 않음
+* E_INVALIDARG: 잘못된 인수 (예: `pData`가 NULL이거나 `DataSize`가 올바르지 않음)
+
+이 함수는 비동기 작업의 결과를 CPU에서 확인할 때 사용되며, GPU의 작업 결과를 바탕으로 후속 처리를 진행할 수 있다. `GetData` 호출 후, 작업의 완료 상태와 결과를 확인하여 디버깅과 성능 분석을 수행할 수 있다.
+
+## DispatchIndirect 멤버함수
+DispatchIndirect 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 간접적인 방법으로 컴퓨트 셰이더 작업을 디스패치하는 함수다. 
+
+이 함수는 컴퓨트 셰이더를 실행할 때 디스패치의 매개변수를 메모리에 저장된 데이터에서 읽어오는 데 사용된다.
+
+시그니처는 다음과 같다.
+```cpp
+void ID3D11DeviceContext::DispatchIndirect(
+    ID3D11Buffer *pBufferForArgs,
+    UINT AlignedByteOffsetForArgs
+);
+```
+
+매개변수는 다음과 같다.
+
+* ID3D11Buffer* pBufferForArgs
+  * 디스패치 매개변수를 저장하는 버퍼
+  * 사용 가능한 값
+    * 유효한 ID3D11Buffer 객체
+    * NULL: 유효한 버퍼가 필요함
+  * 기본값: 없음
+
+* UINT AlignedByteOffsetForArgs
+  * 버퍼에서 디스패치 매개변수의 오프셋 (바이트 단위)
+  * 사용 가능한 값
+    * 0 이상의 정수 값
+  * 기본값: 없음
+
+이 함수는 `pBufferForArgs`로 지정된 버퍼에서 디스패치 매개변수를 읽어와 컴퓨트 셰이더를 실행한다. 매개변수는 `AlignedByteOffsetForArgs`에서 지정된 오프셋을 기준으로 읽어지며, 이 값은 16바이트로 정렬되어야 한다. 
+
+`pBufferForArgs`는 디스패치할 작업의 그리드 크기와 같은 정보를 담고 있어야 하며, 이 정보는 컴퓨트 셰이더의 실행 시 작업 단위의 수를 결정하는 데 사용된다. 
+
+이 함수는 효율적인 데이터 전송과 다양한 작업 설정에 유용하며, 동적으로 변경될 수 있는 디스패치 매개변수를 사용할 때 특히 유용하다. 예를 들어, 다양한 그리드 크기를 설정하거나 작업에 따라 다르게 구성된 매개변수를 적용할 때 사용할 수 있다.
+
+### pBufferForArgs
+pBufferForArgs로 주어지는 버퍼는 D3D11_RESOURCE_MISC_DRAWINDIRECT_ARGS로 생성해야 한다.
+
+그렇지 않을 경우 다음과 같은 오류가 발생한다.
+```
+D3D11 ERROR: ID3D11DeviceContext::DispatchIndirect: pBufferForArgs must be created with D3D11_RESOURCE_MISC_DRAWINDIRECT_ARGS. [ EXECUTION ERROR #2097360: DEVICE_DISPATCHINDIRECT_INVALID_ARG_BUFFER]
+```

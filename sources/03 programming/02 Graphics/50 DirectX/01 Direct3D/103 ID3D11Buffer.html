@@ -494,6 +494,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../../Graphics.html">Graphics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../01%20Window%20Programming.html">Window Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02%20COM.html">COM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20Message%20Loop.html">Message Loop</a></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="../DirectX.html">DirectX</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="Direct3D.html">Direct3D</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-38"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="06%20Geometry%20Shader.html">Geometry Shader</a></li>
@@ -503,6 +506,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="104%20ID3D11Texture2D.html">ID3D11Texture2D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="105%20ID3D11InputLayout.html">ID3D11InputLayout</a></li>
 <li class="toctree-l4"><a class="reference internal" href="106%20ID3D11VertexShader.html">ID3D11VertexShader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="107%20ID3D11Query.html">ID3D11Query</a></li>
 <li class="toctree-l4"><a class="reference internal" href="107%20ID3DBlob.html">ID3DBlob</a></li>
 <li class="toctree-l4"><a class="reference internal" href="110%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="111%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
@@ -533,6 +537,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="414%20enum%20D3D11_CREATE_DEVICE_FLAG.html">enum D3D11_CREATE_DEVICE_FLAG</a></li>
 <li class="toctree-l4"><a class="reference internal" href="415%20enum%20D3D11_BLEND.html">enum D3D11_BLEND</a></li>
 <li class="toctree-l4"><a class="reference internal" href="416%20enum%20D3D11_BLEND_OP.html">enum D3D11_BLEND_OP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="417%20enum%20D3D11_QUERY.html">enum D3D11_QUERY</a></li>
 <li class="toctree-l4"><a class="reference internal" href="450%20enum%20D3D_SRV_DIMENSION.html">enum D3D_SRV_DIMENSION</a></li>
 <li class="toctree-l4"><a class="reference internal" href="451%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
 </ul>
@@ -541,7 +546,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../02%20DirectXTex/100%20enum%20WIC_FLAGS.html">enum WIC_FLAGS</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../11%20DXGI/DXGI.html">DirectX Graphics Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-40"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../11%20DXGI/DXGI.html">DXGI</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-40"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/01%20IDXGIDevice.html">IDXGIDevice</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/02%20IDXGIFactory.html">IDXGIFactory</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/03%20IDXGIAdapter.html">IDXGIAdapter</a></li>
@@ -551,13 +556,15 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/102%20enum%20DXGI_SWAP_CHAIN_FLAG.html">enum DXGI_SWAP_CHAIN_FLAG</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../20%20HLSL/HLSL.html">HLSL</a><input class="toctree-checkbox" id="toctree-checkbox-41" name="toctree-checkbox-41" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-41"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/21%20Sementic.html">Semantic</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/22%20Vertex%20Shader.html">Vertex Shader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/23%20Pixel%20Shader.html">Pixel Shader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/50%20Buffer.html">Buffer</a></li>
 </ul>
 </li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../60%20HLSL/HLSL.html">HLSL</a><input class="toctree-checkbox" id="toctree-checkbox-41" name="toctree-checkbox-41" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-41"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/10%20Intrinsic%20Function.html">Intrinsic Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/21%20Sementic.html">Semantic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/22%20Vertex%20Shader.html">Vertex Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/23%20Pixel%20Shader.html">Pixel Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/50%20Buffer.html">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/51%20Texture.html">Texture</a></li>
 </ul>
 </li>
 </ul>
@@ -755,6 +762,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-dynamic-cpu-acess-read">USAGE_DYNAMIC &amp; CPU_ACESS_READ</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-dynamic-unordered-access">USAGE_DYNAMIC &amp; UNORDERED_ACCESS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-staging-bindflags">USAGE_STAGING &amp; BindFlags</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#misc-drawindirect-args-buffer-structured">MISC DRAWINDIRECT_ARGS &amp; BUFFER_STRUCTURED</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structuredbuffer">StructuredBuffer</a></li>
@@ -905,6 +913,13 @@ document.write(`
 </div>
 <p>STAGING buffer는 GPU에 있는 데이터를 CPU로 옮기기 위한 buffer임으로 Graphics Pipeline에 binding되는 것은 오류이다.</p>
 </section>
+<section id="misc-drawindirect-args-buffer-structured">
+<h3>MISC DRAWINDIRECT_ARGS &amp; BUFFER_STRUCTURED<a class="headerlink" href="#misc-drawindirect-args-buffer-structured" title="Permalink to this heading">#</a></h3>
+<p>MiscFlags의 인자로 <code class="docutils literal notranslate"><span class="pre">D3D11_RESOURCE_MISC_DRAWINDIRECT_ARGS</span> <span class="pre">|</span> <span class="pre">D3D11_RESOURCE_MISC_BUFFER_STRUCTURED</span></code>가 주어지면 다음과 같은 오류가 발생한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D11</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">ID3D11Device</span><span class="p">::</span><span class="n">CreateBuffer</span><span class="p">:</span> <span class="n">A</span> <span class="n">resource</span> <span class="n">cannot</span> <span class="n">created</span> <span class="k">with</span> <span class="n">both</span> <span class="n">D3D11_RESOURCE_MISC_DRAWINDIRECT_ARGS</span> <span class="ow">and</span> <span class="n">D3D11_RESOURCE_MISC_BUFFER_STRUCTURED</span><span class="o">.</span> <span class="p">[</span> <span class="n">STATE_CREATION</span> <span class="n">ERROR</span> <span class="c1">#68: CREATEBUFFER_INVALIDMISCFLAGS]</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="structuredbuffer">
 <h2>StructuredBuffer<a class="headerlink" href="#structuredbuffer" title="Permalink to this heading">#</a></h2>
@@ -980,6 +995,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-dynamic-cpu-acess-read">USAGE_DYNAMIC &amp; CPU_ACESS_READ</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-dynamic-unordered-access">USAGE_DYNAMIC &amp; UNORDERED_ACCESS</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage-staging-bindflags">USAGE_STAGING &amp; BindFlags</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#misc-drawindirect-args-buffer-structured">MISC DRAWINDIRECT_ARGS &amp; BUFFER_STRUCTURED</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structuredbuffer">StructuredBuffer</a></li>

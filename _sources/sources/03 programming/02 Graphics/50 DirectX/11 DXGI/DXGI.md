@@ -1,4 +1,4 @@
-# DirectX Graphics Infrastructure
+# DXGI
 `DirectX Graphics Infrastructure (DXGI)`는 DirectX API의 일부로, 그래픽 어댑터와 디스플레이를 관리하고 조작하는 데 필요한 기능을 제공하는 라이브러리다. DXGI는 Direct3D와 같은 그래픽 API와 함께 사용되어 그래픽 리소스, 디스플레이 모드, 스왑 체인 등의 관리를 단순화하는 역할을 한다.
 
 ## DXGI 역할

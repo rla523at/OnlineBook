@@ -117,7 +117,16 @@ A D3D11_USAGE_STAGING Resource cannot be bound to any parts of the graphics pipe
 
 STAGING buffer는 GPU에 있는 데이터를 CPU로 옮기기 위한 buffer임으로 Graphics Pipeline에 binding되는 것은 오류이다.
 
+### MISC DRAWINDIRECT_ARGS & BUFFER_STRUCTURED
+MiscFlags의 인자로 `D3D11_RESOURCE_MISC_DRAWINDIRECT_ARGS | D3D11_RESOURCE_MISC_BUFFER_STRUCTURED`가 주어지면 다음과 같은 오류가 발생한다.
+
+```
+D3D11 ERROR: ID3D11Device::CreateBuffer: A resource cannot created with both D3D11_RESOURCE_MISC_DRAWINDIRECT_ARGS and D3D11_RESOURCE_MISC_BUFFER_STRUCTURED. [ STATE_CREATION ERROR #68: CREATEBUFFER_INVALIDMISCFLAGS]
+```
+
+
 ## StructuredBuffer
 Buffer를 사용할 수 있는 상황에서도 StructuredBuffer를 사용하는 것이 편하다.
 
 왜냐하면, Buffer의 경우에는 UAV를 생성할 때, D3D11_UNORDERED_ACCESS_VIEW_DESC를 일일이 작성해줘야 하지만, StructuredBuffer의 경우에는 nullptr을 넘겨줘도 자동으로 생성해주기 때문이다.
+

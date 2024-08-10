@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>DirectX Graphics Infrastructure &#8212; MS Study Book</title>
+    <title>DXGI &#8212; MS Study Book</title>
   
   
   
@@ -494,6 +494,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../../Graphics.html">Graphics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-36"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../01%20Window%20Programming.html">Window Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02%20COM.html">COM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20Message%20Loop.html">Message Loop</a></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="../DirectX.html">DirectX</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-37"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3 has-children"><a class="reference internal" href="../01%20Direct3D/Direct3D.html">Direct3D</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-38"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/06%20Geometry%20Shader.html">Geometry Shader</a></li>
@@ -503,6 +506,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/104%20ID3D11Texture2D.html">ID3D11Texture2D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/105%20ID3D11InputLayout.html">ID3D11InputLayout</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/106%20ID3D11VertexShader.html">ID3D11VertexShader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/107%20ID3D11Query.html">ID3D11Query</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/107%20ID3DBlob.html">ID3DBlob</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/110%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/111%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
@@ -533,6 +537,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/414%20enum%20D3D11_CREATE_DEVICE_FLAG.html">enum D3D11_CREATE_DEVICE_FLAG</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/415%20enum%20D3D11_BLEND.html">enum D3D11_BLEND</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/416%20enum%20D3D11_BLEND_OP.html">enum D3D11_BLEND_OP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/417%20enum%20D3D11_QUERY.html">enum D3D11_QUERY</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/450%20enum%20D3D_SRV_DIMENSION.html">enum D3D_SRV_DIMENSION</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../01%20Direct3D/451%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
 </ul>
@@ -541,7 +546,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../02%20DirectXTex/100%20enum%20WIC_FLAGS.html">enum WIC_FLAGS</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">DirectX Graphics Infrastructure</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-40"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">DXGI</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-40"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="01%20IDXGIDevice.html">IDXGIDevice</a></li>
 <li class="toctree-l4"><a class="reference internal" href="02%20IDXGIFactory.html">IDXGIFactory</a></li>
 <li class="toctree-l4"><a class="reference internal" href="03%20IDXGIAdapter.html">IDXGIAdapter</a></li>
@@ -551,13 +556,15 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="102%20enum%20DXGI_SWAP_CHAIN_FLAG.html">enum DXGI_SWAP_CHAIN_FLAG</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../20%20HLSL/HLSL.html">HLSL</a><input class="toctree-checkbox" id="toctree-checkbox-41" name="toctree-checkbox-41" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-41"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/21%20Sementic.html">Semantic</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/22%20Vertex%20Shader.html">Vertex Shader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/23%20Pixel%20Shader.html">Pixel Shader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../20%20HLSL/50%20Constant%20Buffer.html">Constant Buffer</a></li>
 </ul>
 </li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../60%20HLSL/HLSL.html">HLSL</a><input class="toctree-checkbox" id="toctree-checkbox-41" name="toctree-checkbox-41" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-41"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/10%20Intrinsic%20Function.html">Intrinsic Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/21%20Sementic.html">Semantic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/22%20Vertex%20Shader.html">Vertex Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/23%20Pixel%20Shader.html">Pixel Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/50%20Buffer.html">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/51%20Texture.html">Texture</a></li>
 </ul>
 </li>
 </ul>
@@ -741,7 +748,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>DirectX Graphics Infrastructure</h1>
+    <h1>DXGI</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -751,15 +758,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi">DXGI 역할</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">하드웨어 추상화</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">스왑체인 관리</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">디스플레이 모드 관리</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">멀티 어댑터 지원</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">DXGI 역할</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">하드웨어 추상화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">스왑체인 관리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">디스플레이 모드 관리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">멀티 어댑터 지원</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">DXGI 객체와 인터페이스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">DXGI 객체 계층 구조</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">DXGI 객체와 인터페이스</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">DXGI 객체 계층 구조</a></li>
 </ul>
             </nav>
         </div>
@@ -771,35 +778,35 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="directx-graphics-infrastructure">
-<h1>DirectX Graphics Infrastructure<a class="headerlink" href="#directx-graphics-infrastructure" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="dxgi">
+<h1>DXGI<a class="headerlink" href="#dxgi" title="Permalink to this heading">#</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">DirectX</span> <span class="pre">Graphics</span> <span class="pre">Infrastructure</span> <span class="pre">(DXGI)</span></code>는 DirectX API의 일부로, 그래픽 어댑터와 디스플레이를 관리하고 조작하는 데 필요한 기능을 제공하는 라이브러리다. DXGI는 Direct3D와 같은 그래픽 API와 함께 사용되어 그래픽 리소스, 디스플레이 모드, 스왑 체인 등의 관리를 단순화하는 역할을 한다.</p>
-<section id="dxgi">
-<h2>DXGI 역할<a class="headerlink" href="#dxgi" title="Permalink to this heading">#</a></h2>
-<p>DXGI의 역할을 조금더 자세하게 살펴보자.</p>
 <section id="id1">
-<h3>하드웨어 추상화<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h2>DXGI 역할<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>DXGI의 역할을 조금더 자세하게 살펴보자.</p>
+<section id="id2">
+<h3>하드웨어 추상화<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>그래픽 어댑터와 디스플레이 장치 간의 추상화 계층을 제공하여 개발자가 하드웨어 세부 사항에 신경 쓰지 않고도 작업을 수행할 수 있게 한다. 이를 통해 다양한 하드웨어 환경에서 일관된 성능과 기능을 제공할 수 있다.</p>
 </section>
-<section id="id2">
-<h3>스왑체인 관리<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<section id="id3">
+<h3>스왑체인 관리<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>프레임 버퍼를 관리하여 더블 버퍼링, 트리플 버퍼링 등의 기술을 지원하고, 스크린 티어링을 방지하는 데 도움을 준다. 스왑 체인은 두 개 이상의 프레임 버퍼를 사용하여 새로운 프레임을 준비하는 동안 기존 프레임을 디스플레이에 표시할 수 있게 한다.</p>
 </section>
-<section id="id3">
-<h3>디스플레이 모드 관리<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<section id="id4">
+<h3>디스플레이 모드 관리<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>디스플레이 해상도, 리프레시율 등의 설정을 관리하고 변경할 수 있게 한다. 이를 통해 다양한 디스플레이 환경에 맞게 동적으로 화면 설정을 조정할 수 있다</p>
 </section>
-<section id="id4">
-<h3>멀티 어댑터 지원<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<section id="id5">
+<h3>멀티 어댑터 지원<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <p>여러 개의 그래픽 어댑터를 지원하여, 다중 디스플레이 환경이나 고성능 컴퓨팅 환경에서 효율적인 자원 관리를 가능하게 한다. 이를 통해 복잡한 렌더링 작업을 여러 어댑터에 분산시켜 성능을 향상시킬 수 있다.</p>
 </section>
 </section>
-<section id="id5">
-<h2>DXGI 객체와 인터페이스<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<section id="id6">
+<h2>DXGI 객체와 인터페이스<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
 <p>DXGI는 COM(Component Object Model) 기반의 객체인 인터페이스를 통해 다양한 기능을 제공한다. 주요 인터페이스는 다음과 같다:</p>
 </section>
-<section id="id6">
-<h2>DXGI 객체 계층 구조<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<section id="id7">
+<h2>DXGI 객체 계층 구조<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
 <p>DXGI는 그래픽 어댑터, 출력 장치, 스왑 체인 등의 관리와 상호작용을 위한 다양한 인터페이스를 제공하며, 이들 인터페이스는 계층 구조를 형성한다.</p>
 <p>IDXGIFactory의 자식 객체는 IDXGIAdapter와 IDXGISwapChain이며, IDXGIAdapter의 자식 객체는 IDXGIOutput이다.</p>
 <p>이를 그림으로 나타내면 다음과 같다.</p>
@@ -878,15 +885,15 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi">DXGI 역할</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">하드웨어 추상화</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">스왑체인 관리</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">디스플레이 모드 관리</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">멀티 어댑터 지원</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">DXGI 역할</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">하드웨어 추상화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">스왑체인 관리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">디스플레이 모드 관리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">멀티 어댑터 지원</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">DXGI 객체와 인터페이스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">DXGI 객체 계층 구조</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">DXGI 객체와 인터페이스</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">DXGI 객체 계층 구조</a></li>
 </ul>
   </nav></div>
 

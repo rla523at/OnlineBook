@@ -3,6 +3,32 @@
 > Reference  
 > [learn.microsoft - dx-graphics-hlsl-intrinsic-functions](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-intrinsic-functions)  
 
+## InterlockedAdd
+원자적 덧셈을 보장하는 함수이다.
+
+여러 Thread Group간의 원자적 동작까지 보장한다.
+
+시그니쳐는 다음과 같다.
+
+```
+void InterlockedAdd(
+  in  R dest,
+  in  T value,
+  out T original_value
+);
+```
+
+* dest
+  * 기존의 값이 저장되어 있는 값이다.
+  * 새로운 값이 저장된다.
+* value
+  * 더해질 값
+* original_value
+  * dest에 원래 있던 값이 return 된다.
+
+> Reference  
+> [learn.microsoft - direct3dhlsl/interlockedadd](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/interlockedadd)
+
 ## clip
 인자가 0보다 작으면 현재 픽셀을 버린다.
 

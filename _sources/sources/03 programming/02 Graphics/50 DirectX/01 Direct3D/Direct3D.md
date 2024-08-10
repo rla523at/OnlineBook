@@ -570,10 +570,10 @@ Compute Shader에서 그룹별 실행 순서는 특정한 규칙 없으며 GPU�
 
 따라서, 스레드 그룹 간에는 동기화가 불가능하며 실행 순서가 정의되지 않는다. 
 
-SV_GroupID : 그룹의 3차원 고유 아이디
-SV_GroupThreadID : 그룹 내에서 Thread의 3차원 고유 아이디
-SV_GroupIndex : 그룹 내에서 Thread의 1차원 고유 아이디
-SV_DispatchThreadID : 전체에서 Thread의 3차원 고유 아이디
+* SV_GroupID : 그룹의 3차원 고유 아이디
+* SV_GroupThreadID : 그룹 내에서 Thread의 3차원 고유 아이디
+* SV_GroupIndex : 그룹 내에서 Thread의 1차원 고유 아이디
+* SV_DispatchThreadID : 전체에서 Thread의 3차원 고유 아이디
 
 SV_GroupID는 (0,0,0)부터 시작한다.
 
