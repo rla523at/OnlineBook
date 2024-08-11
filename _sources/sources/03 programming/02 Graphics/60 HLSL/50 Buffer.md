@@ -136,3 +136,17 @@ struct Cbuffer_Data
 
 > Reference  
 > [learn.microsoft - hlsl-packing-rules](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-packing-rules)
+
+
+## ConsumeStructuredBuffer
+
+### Consume
+buffer의 마지막 값을 리턴후 제거하는 함수이다.
+
+함수의 시그니쳐는 다음과 같다.
+```
+T Consume(void);
+```
+
+Consume 함수는 buffer에 더이상 원소가 없는 경우, 예외를 발생시키지 않고 0으로 초기화된 값을 return 한다.
+

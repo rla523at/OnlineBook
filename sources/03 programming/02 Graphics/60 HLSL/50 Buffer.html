@@ -506,6 +506,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/104%20ID3D11Texture2D.html">ID3D11Texture2D</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/105%20ID3D11InputLayout.html">ID3D11InputLayout</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/106%20ID3D11VertexShader.html">ID3D11VertexShader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/107%20ID3D11Query.html">ID3D11Query</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/107%20ID3DBlob.html">ID3DBlob</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/110%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/111%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
@@ -536,6 +537,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/414%20enum%20D3D11_CREATE_DEVICE_FLAG.html">enum D3D11_CREATE_DEVICE_FLAG</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/415%20enum%20D3D11_BLEND.html">enum D3D11_BLEND</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/416%20enum%20D3D11_BLEND_OP.html">enum D3D11_BLEND_OP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/417%20enum%20D3D11_QUERY.html">enum D3D11_QUERY</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/450%20enum%20D3D_SRV_DIMENSION.html">enum D3D_SRV_DIMENSION</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/451%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
 </ul>
@@ -544,7 +546,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/02%20DirectXTex/100%20enum%20WIC_FLAGS.html">enum WIC_FLAGS</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../50%20DirectX/11%20DXGI/DXGI.html">DirectX Graphics Infrastructure</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-40"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../50%20DirectX/11%20DXGI/DXGI.html">DXGI</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-40"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/11%20DXGI/01%20IDXGIDevice.html">IDXGIDevice</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/11%20DXGI/02%20IDXGIFactory.html">IDXGIFactory</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/11%20DXGI/03%20IDXGIAdapter.html">IDXGIAdapter</a></li>
@@ -763,6 +765,10 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer-padding">Constant Buffer Padding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consumestructuredbuffer">ConsumeStructuredBuffer</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consume">Consume</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -903,6 +909,18 @@ document.write(`
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-packing-rules">learn.microsoft - hlsl-packing-rules</a></p>
 </div></blockquote>
 </section>
+<section id="consumestructuredbuffer">
+<h2>ConsumeStructuredBuffer<a class="headerlink" href="#consumestructuredbuffer" title="Permalink to this heading">#</a></h2>
+<section id="consume">
+<h3>Consume<a class="headerlink" href="#consume" title="Permalink to this heading">#</a></h3>
+<p>buffer의 마지막 값을 리턴후 제거하는 함수이다.</p>
+<p>함수의 시그니쳐는 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="n">Consume</span><span class="p">(</span><span class="n">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Consume 함수는 buffer에 더이상 원소가 없는 경우, 예외를 발생시키지 않고 0으로 초기화된 값을 return 한다.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -975,6 +993,10 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer-padding">Constant Buffer Padding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consumestructuredbuffer">ConsumeStructuredBuffer</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#consume">Consume</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
