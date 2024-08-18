@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/custom.css?v=61612f5f" />
@@ -510,7 +510,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../03%20Message%20Loop.html">Message Loop</a></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="../DirectX.html">DirectX</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="Direct3D.html">Direct3D</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="02%20Vertex%20Shader.html">Vertex Shader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="06%20Geometry%20Shader.html">Geometry Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="10%20Compute%20Shader.html">Compute Shader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="101%20ID3D11Device.html">ID3D11Device</a></li>
 <li class="toctree-l4"><a class="reference internal" href="102%20ID3D11DeviceContext.html">ID3D11DeviceContext</a></li>
 <li class="toctree-l4"><a class="reference internal" href="103%20ID3D11Buffer.html">ID3D11Buffer</a></li>
@@ -746,9 +748,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -764,14 +764,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">기타</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -831,15 +823,6 @@ document.write(`
 </ul>
 </li>
 </ul>
-<section id="id1">
-<h2>기타<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p>3D 공간에서의 깊이 값(Z값)은 원근 투영 변환을 통해 정규화된다. 이 변환 후, 깊이 값은 [0.0, 1.0] 범위로 맵핑된다.</p>
-<p>원근 투영 변환은 Update 함수에서 발생하며, 이 때, near plane과 far plane의 z값이 몇인지 정한다. 그리고 이 값들이 각각 0.0과 1.0 범위로 맵핑된다.</p>
-<p>객체는 모델 좌표에서 정의 된다.</p>
-<p>모델 좌표는 모델 행렬을 통해 월드 좌표계로 변환된다.</p>
-<p>월드 좌표계는 뷰 행렬을 통해 카메라 좌표계로 변환된다.</p>
-<p>카메라 좌표계는 원근 투영 행렬을 사용하여 클립 좌표계로 변환된다.</p>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -896,21 +879,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">기타</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
