@@ -6,6 +6,9 @@
 > Reference   
 > [User Installer,System Installer 버전 차이는?](https://gocoder.tistory.com/1611)
 
+### 설치 경로
+`AppData\Local\Programs\Microsoft VS Code`
+
 ## 계정
 Github로 로그인 및 sync한다.
 

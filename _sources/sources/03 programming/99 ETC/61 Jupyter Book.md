@@ -238,9 +238,7 @@ python -m make Rebuild
 > [jupyterbook - overview](https://jupyterbook.org/en/stable/start/overview.html)   
 > [jupyterbook - build](https://jupyterbook.org/en/stable/start/build.html)  
 
-### 문제해결
-
-#### install by conda
+### install by conda
 Jupyter book을 설취하기 위해 conda를 사용하면 왜 인지 안된다
 ```
 conda install -c conda-forge jupyter-book
@@ -251,8 +249,48 @@ conda install -c conda-forge mamba
 mamba install -c conda-forge jupyter-book
 ```
 
-#### mamba install fail
+### mamba install fail
 경로에 한글이 있는 경우 mamba install이 안될 수 있다. 예를 들어 `C/User/(계정명)`에서 계정명이 한글이면 install이 안된다.
+
+### Anaconda 명령어
+가상환경 리스트 확인
+conda info --envs
+
+가상환경 추가
+conda create -n 가상환경 이름 python = 파이썬 버전
+
+가상환경 삭제
+conda remove --name [가상환경명] --all
+
+가상환경 실행
+conda activate [가상환경 이름]
+
+### cmd로 ananconda 사용하기
+anaconda를 cmd에서 사용하려면 환경변수 설정을 해야한다.
+
+anaconda prompt에서 `where conda`와 `where python`로 conda.exe와 python.exe의 경로를 찾은뒤 환경변수에 등록해준다.
+
+cmd창에서 `conda --version`을 입력하여 정상동작하면 환경변수가 제대로 설정된 것이다.
+
+anaconda prompt에서 `conda init cmd.exe` 명령어를 실행해주면 cmd를 ananconda prompt처럼 사용할 수 있다.
+
+### .bat 파일에서 anaconda 사용하기
+anaconda prompt에서 conda로 시작하는 명령어들은 사실 전부 `call conda.bat`과 같다. 
+
+따라서 .bat 파일로 anaconda prompt의 명령어들을 사용하려면 conda로 시작하는 명령어들 앞에 전부 call conda.bat을 붙여줘야 한다.
+
+```
+call conda.bat activate
+call conda.bat info --envs
+call conda.bat deactivate
+```
+
+만약, `call conda.bat`이 정상동작하지 않는다면 conda.bat 파일이 있는 경로가 환경변수에 등록되어 있는지 확인해야한다.
+
+> Reference  
+> [blog - [Python] 윈도10 환경 아나콘다3에서 conda.bat 를 이용하여 파이썬 가상환경 구축하기](https://resumetmachine.tistory.com/entry/%EC%9C%88%EB%8F%8410-%ED%99%98%EA%B2%BD-%EC%95%84%EB%82%98%EC%BD%98%EB%8B%A43%EC%97%90%EC%84%9C-condabat-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-%EA%B0%80%EC%83%81%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0)  
+> [stackoverflow - How to make batch files run in anaconda prompt](https://stackoverflow.com/questions/46305569/how-to-make-batch-files-run-in-anaconda-prompt)  
+> [stackoverflow - Why does my batch script stop after activating a new conda env?](https://stackoverflow.com/questions/42693320/why-does-my-batch-script-stop-after-activating-a-new-conda-env)  
 
 
 ## 배포

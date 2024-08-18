@@ -6,6 +6,15 @@ Windows, macOS, Linux를 모두 지원하며, 다양한 라이브러리를 포�
 > Reference  
 > [learn.microsoft - vcpkg](https://learn.microsoft.com/en-us/vcpkg/)  
 
+## 설치
+1. repository clone
+2. cd vcpkg && bootstrap-vcpkg.bat
+3. vcpkg.exe integrate install
+
+
+> Reference  
+> [learn.microsoft - vcpkg/get_started/get-started-msbuild?pivots=shell-cmd](https://learn.microsoft.com/ko-kr/vcpkg/get_started/get-started-msbuild?pivots=shell-cmd)  
+
 ## 패키지 설치
 ```
 vcpkg install <name>
@@ -27,6 +36,9 @@ triplet은 다음과 같은 종류가 있다.
 ```
 vcpkg install <name> --triplet x64-windows
 ```
+
+### 패키지 설치 오류
+모든 패키지가 설치가 정상적으로 안되서 vcpkg를 지우고 다시 설치하니 해결되었다.
 
 ## 명령어
 

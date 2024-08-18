@@ -203,7 +203,17 @@ HRESULT D3D11CreateDevice(
     * ID3D11DeviceContext: 생성된 즉시 컨텍스트 객체를 반환한다.
   * 기본값: 없음
 
+### Flags D3D11_CREATE_DEVICE_DEBUG SDK 문제
+Flags 인자로 D3D11_CREATE_DEVICE_DEBUG를 주었을 때, 다음과 같은 오류가 발생하는 경우가 있다. 
 
+```
+D3D11CreateDevice: Flags (0x2) were specified which require the D3D11 SDK Layers for Windows 10, but they are not present on the system.
+These flags must be removed, or the Windows 10 SDK must be installed.
+```
+
+이 때, `window >> "선택적 기능" 검색 >> 기능 추가 >> 그래픽 도구 설치`를 하면 문제가 해결된다.
+
+windows11의 경우 선택적 기능은 `설정 >> 시스템`의 하위 항목에 존재한다.
 
 ## D3D11CreateDeviceAndSwapChain
 D3D11CreateDeviceAndSwapChain 함수는 Direct3D 11 디바이스와 디바이스 컨텍스트 그리고 스왑 체인을 동시에 생성하는 함수다.
