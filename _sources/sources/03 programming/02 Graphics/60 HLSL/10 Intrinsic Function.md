@@ -3,6 +3,78 @@
 > Reference  
 > [learn.microsoft - dx-graphics-hlsl-intrinsic-functions](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-intrinsic-functions)  
 
+## All
+모든 값이 0이면 Ture 아니면 False를 return 하는 함수이다.
+
+시그니쳐는 다음과 같다.
+```
+ret all(x)
+```
+
+### vector 간의 equal 연산
+예를 들어 uint3 변수 a,b가 있을 때, 다음과 같은 코드가 있다고 하자.
+```cpp
+if (a==b)
+```
+
+이 경우에 if 문에서 오류가 발생한다.
+
+왜냐하면 uint3 끼리 비교연산을하면 bool3가 return이 되지만 if문에는 단일 bool값이 필요하기 때문이다.
+
+이를 해결하기 위해서 다음과 같이 코드를 수정하면 된다.
+
+```cpp
+if(all(a==b))
+```
+
+> Reference  
+> [learn.microsoft - dx-graphics-hlsl-all](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-all)  
+> [learn.microsoft - dx-graphics-hlsl-operators#comparison-operators](https://learn.microsoft.com/ko-kr/windows/win32/direct3dhlsl/dx-graphics-hlsl-operators#comparison-operators)  
+
+## Any
+하나라도 0이 아닌 값이 있으면 True 아니면 False를 return 하는 함수이다.
+
+시그니쳐는 다음과 같다.
+```
+ret any(x)
+```
+
+### vector 간의 nequal 연산
+예를 들어 uint3 변수 a,b가 있을 때, 다음과 같은 코드가 있다고 하자.
+```cpp
+if (a!=b)
+```
+
+이 경우에 if 문에서 오류가 발생한다.
+
+왜냐하면 uint3 끼리 비교연산을하면 bool3가 return이 되지만 if문에는 단일 bool값이 필요하기 때문이다.
+
+이를 해결하기 위해서 다음과 같이 코드를 수정하면 된다.
+
+```cpp
+if(any(a!=b))
+```
+
+> Reference  
+> [learn.microsoft - dx-graphics-hlsl-any](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-any)
+
+## firstbithigh
+비트 중 가장 높은 위치에 있는 1값의 위치를 return 한다.
+
+시그니쳐는 다음과 같다.
+```
+int2 firstbithigh(int2 value);
+int3 firstbithigh(int3 value);
+int4 firstbithigh(int4 value);
+uint firstbithigh(uint value);
+uint2 firstbithigh(uint2 value);
+uint3 firstbithigh(uint3 value);
+uint4 firstbithigh(uint4 value);
+```
+
+> Reference  
+> [learn.microsoft - firstbithigh](https://learn.microsoft.com/ko-kr/windows/win32/direct3dhlsl/firstbithigh)  
+
 ## InterlockedAdd
 원자적 덧셈을 보장하는 함수이다.
 

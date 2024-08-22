@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=61612f5f" />
@@ -508,9 +508,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../01%20Window%20Programming.html">Window Programming</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20COM.html">COM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03%20Message%20Loop.html">Message Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../50%20Diffuse%20Reflection.html">Diffuse Reflection</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../50%20DirectX/DirectX.html">DirectX</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/Direct3D.html">Direct3D</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/02%20Vertex%20Shader.html">Vertex Shader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/06%20Geometry%20Shader.html">Geometry Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/10%20Compute%20Shader.html">Compute Shader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/101%20ID3D11Device.html">ID3D11Device</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/102%20ID3D11DeviceContext.html">ID3D11DeviceContext</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../50%20DirectX/01%20Direct3D/103%20ID3D11Buffer.html">ID3D11Buffer</a></li>
@@ -769,6 +772,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#all">All</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-equal">vector 간의 equal 연산</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#any">Any</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-nequal">vector 간의 nequal 연산</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#firstbithigh">firstbithigh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interlockedadd">InterlockedAdd</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clip">clip</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#length">Length</a></li>
@@ -794,6 +806,75 @@ document.write(`
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-intrinsic-functions">learn.microsoft - dx-graphics-hlsl-intrinsic-functions</a></p>
 </div></blockquote>
+<section id="all">
+<h2>All<a class="headerlink" href="#all" title="Link to this heading">#</a></h2>
+<p>모든 값이 0이면 Ture 아니면 False를 return 하는 함수이다.</p>
+<p>시그니쳐는 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ret</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="vector-equal">
+<h3>vector 간의 equal 연산<a class="headerlink" href="#vector-equal" title="Link to this heading">#</a></h3>
+<p>예를 들어 uint3 변수 a,b가 있을 때, 다음과 같은 코드가 있다고 하자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="o">==</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>이 경우에 if 문에서 오류가 발생한다.</p>
+<p>왜냐하면 uint3 끼리 비교연산을하면 bool3가 return이 되지만 if문에는 단일 bool값이 필요하기 때문이다.</p>
+<p>이를 해결하기 위해서 다음과 같이 코드를 수정하면 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">all</span><span class="p">(</span><span class="n">a</span><span class="o">==</span><span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-all">learn.microsoft - dx-graphics-hlsl-all</a><br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/direct3dhlsl/dx-graphics-hlsl-operators#comparison-operators">learn.microsoft - dx-graphics-hlsl-operators#comparison-operators</a></p>
+</div></blockquote>
+</section>
+</section>
+<section id="any">
+<h2>Any<a class="headerlink" href="#any" title="Link to this heading">#</a></h2>
+<p>하나라도 0이 아닌 값이 있으면 True 아니면 False를 return 하는 함수이다.</p>
+<p>시그니쳐는 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ret</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="vector-nequal">
+<h3>vector 간의 nequal 연산<a class="headerlink" href="#vector-nequal" title="Link to this heading">#</a></h3>
+<p>예를 들어 uint3 변수 a,b가 있을 때, 다음과 같은 코드가 있다고 하자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="o">!=</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>이 경우에 if 문에서 오류가 발생한다.</p>
+<p>왜냐하면 uint3 끼리 비교연산을하면 bool3가 return이 되지만 if문에는 단일 bool값이 필요하기 때문이다.</p>
+<p>이를 해결하기 위해서 다음과 같이 코드를 수정하면 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="p">(</span><span class="n">any</span><span class="p">(</span><span class="n">a</span><span class="o">!=</span><span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-any">learn.microsoft - dx-graphics-hlsl-any</a></p>
+</div></blockquote>
+</section>
+</section>
+<section id="firstbithigh">
+<h2>firstbithigh<a class="headerlink" href="#firstbithigh" title="Link to this heading">#</a></h2>
+<p>비트 중 가장 높은 위치에 있는 1값의 위치를 return 한다.</p>
+<p>시그니쳐는 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">int2</span> <span class="n">firstbithigh</span><span class="p">(</span><span class="n">int2</span> <span class="n">value</span><span class="p">);</span>
+<span class="n">int3</span> <span class="n">firstbithigh</span><span class="p">(</span><span class="n">int3</span> <span class="n">value</span><span class="p">);</span>
+<span class="n">int4</span> <span class="n">firstbithigh</span><span class="p">(</span><span class="n">int4</span> <span class="n">value</span><span class="p">);</span>
+<span class="n">uint</span> <span class="n">firstbithigh</span><span class="p">(</span><span class="n">uint</span> <span class="n">value</span><span class="p">);</span>
+<span class="n">uint2</span> <span class="n">firstbithigh</span><span class="p">(</span><span class="n">uint2</span> <span class="n">value</span><span class="p">);</span>
+<span class="n">uint3</span> <span class="n">firstbithigh</span><span class="p">(</span><span class="n">uint3</span> <span class="n">value</span><span class="p">);</span>
+<span class="n">uint4</span> <span class="n">firstbithigh</span><span class="p">(</span><span class="n">uint4</span> <span class="n">value</span><span class="p">);</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/direct3dhlsl/firstbithigh">learn.microsoft - firstbithigh</a></p>
+</div></blockquote>
+</section>
 <section id="interlockedadd">
 <h2>InterlockedAdd<a class="headerlink" href="#interlockedadd" title="Link to this heading">#</a></h2>
 <p>원자적 덧셈을 보장하는 함수이다.</p>
@@ -979,6 +1060,15 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#all">All</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-equal">vector 간의 equal 연산</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#any">Any</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-nequal">vector 간의 nequal 연산</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#firstbithigh">firstbithigh</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interlockedadd">InterlockedAdd</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clip">clip</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#length">Length</a></li>

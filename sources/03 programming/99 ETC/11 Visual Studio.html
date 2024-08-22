@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=61612f5f" />
@@ -508,9 +508,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/01%20Window%20Programming.html">Window Programming</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/02%20COM.html">COM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/03%20Message%20Loop.html">Message Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/50%20Diffuse%20Reflection.html">Diffuse Reflection</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../02%20Graphics/50%20DirectX/DirectX.html">DirectX</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../02%20Graphics/50%20DirectX/01%20Direct3D/Direct3D.html">Direct3D</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/50%20DirectX/01%20Direct3D/02%20Vertex%20Shader.html">Vertex Shader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/50%20DirectX/01%20Direct3D/06%20Geometry%20Shader.html">Geometry Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/50%20DirectX/01%20Direct3D/10%20Compute%20Shader.html">Compute Shader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/50%20DirectX/01%20Direct3D/101%20ID3D11Device.html">ID3D11Device</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/50%20DirectX/01%20Direct3D/102%20ID3D11DeviceContext.html">ID3D11DeviceContext</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/50%20DirectX/01%20Direct3D/103%20ID3D11Buffer.html">ID3D11Buffer</a></li>
@@ -769,6 +772,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-bash">Git Bash 사용하기</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">수정사항이 없어도 만료된 프로젝트로 판단되서 재빌드 하는 경우</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-file">Map File</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pdata-unwind">$pdata$, $unwind$</a></li>
@@ -804,6 +808,20 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="visual-studio">
 <h1>Visual Studio<a class="headerlink" href="#visual-studio" title="Link to this heading">#</a></h1>
+<section id="git-bash">
+<h2>Git Bash 사용하기<a class="headerlink" href="#git-bash" title="Link to this heading">#</a></h2>
+<p>도구 &gt;&gt; 옵션 &gt;&gt; 환경 &gt;&gt; Terminal &gt;&gt; 추가</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">이름</span> <span class="p">:</span> <span class="n">Git</span> <span class="n">Bash</span>
+<span class="n">위치</span> <span class="p">:</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Program</span> <span class="n">Files</span>\<span class="n">Git</span>\<span class="nb">bin</span>\<span class="n">sh</span><span class="o">.</span><span class="n">exe</span>
+<span class="n">인수</span> <span class="p">:</span> <span class="o">--</span><span class="n">login</span> <span class="o">-</span><span class="n">i</span> <span class="p">(</span><span class="n">선택</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>ctrl + ` 로 Terminal 연 후 왼쪽 위에서 Git Bash 선택</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://stackoverflow.com/a/65386291">stackoverflow - integrating Git Bash with Visual Studio</a></p>
+</div></blockquote>
+</section>
 <section id="id1">
 <h2>수정사항이 없어도 만료된 프로젝트로 판단되서 재빌드 하는 경우<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -983,6 +1001,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-bash">Git Bash 사용하기</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">수정사항이 없어도 만료된 프로젝트로 판단되서 재빌드 하는 경우</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-file">Map File</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pdata-unwind">$pdata$, $unwind$</a></li>

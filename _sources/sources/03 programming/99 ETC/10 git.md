@@ -120,6 +120,8 @@ global config file --> 모든 git repository
 현재 로컬 브랜치가 리모트 저장소의 특정 브랜치를 추적하게 한다.
 * `git remote show [remove-name]`
 리모트 저장소의 브랜치들을 전부 보여준다.
+* `git push [remote-name] -d [branch-name]`
+  * 리모트 브랜치 삭제
 
 ## Stash
 Stash는 Modified이면서 Tracked 상태인 파일과 Staging Area에 있는 파일들을 보관해두는 장소다.

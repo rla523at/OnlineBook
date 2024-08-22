@@ -1,5 +1,20 @@
 # Visual Studio
 
+## Git Bash 사용하기
+
+도구 >> 옵션 >> 환경 >> Terminal >> 추가 
+
+```
+이름 : Git Bash
+위치 : C:\Program Files\Git\bin\sh.exe
+인수 : --login -i (선택)
+```
+
+ctrl + ` 로 Terminal 연 후 왼쪽 위에서 Git Bash 선택
+
+> Reference  
+> [stackoverflow - integrating Git Bash with Visual Studio](https://stackoverflow.com/a/65386291)  
+
 ## 수정사항이 없어도 만료된 프로젝트로 판단되서 재빌드 하는 경우
 * 클린 빌드를 수행해 본다.
   * 클린 빌드는 프로젝트의 모든 빌드 출력 파일을 제거한 다음 다시 빌드하는 것이다. 

@@ -510,9 +510,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/01%20Window%20Programming.html">Window Programming</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/02%20COM.html">COM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/03%20Message%20Loop.html">Message Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/50%20Diffuse%20Reflection.html">Diffuse Reflection</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../02%20Graphics/50%20DirectX/DirectX.html">DirectX</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../02%20Graphics/50%20DirectX/01%20Direct3D/Direct3D.html">Direct3D</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/50%20DirectX/01%20Direct3D/02%20Vertex%20Shader.html">Vertex Shader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/50%20DirectX/01%20Direct3D/06%20Geometry%20Shader.html">Geometry Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/50%20DirectX/01%20Direct3D/10%20Compute%20Shader.html">Compute Shader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/50%20DirectX/01%20Direct3D/101%20ID3D11Device.html">ID3D11Device</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/50%20DirectX/01%20Direct3D/102%20ID3D11DeviceContext.html">ID3D11DeviceContext</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/50%20DirectX/01%20Direct3D/103%20ID3D11Buffer.html">ID3D11Buffer</a></li>
@@ -775,6 +778,13 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="etc">
 <h1>ETC<a class="headerlink" href="#etc" title="Link to this heading">#</a></h1>
+<p>Memory Bandwidth는 Memory Clock X Memory Bus로 결정된다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://blog.naver.com/shakey7/221435517430">blog - 메모리 반도체 대역폭 (클럭 / 버스 / 입출력 라인 / 노스브릿지 / FSB / GDDR / 듀얼 채널)</a></p>
+</div></blockquote>
+<p>Memory에 접근하는데 소요되는 시간을 계산하려면, 먼저 Memory에 접근하는데 몇 clock이 소요되는 지 파악한다. 다음으로 Memory Clock 성능을 파악하여 특정 Memory에 접근하는데 몇초가걸리는지 알 수 있다.</p>
+<p>예를 들어, Memory 접근하는데 10 clock이 필요하고, Memory Clock이 2GHZ면 Memory clock당 0.5ns가 필요함으로 memory 접근에는 총 5ns가 필요하다.</p>
 <div class="toctree-wrapper compound">
 </div>
 </section>
