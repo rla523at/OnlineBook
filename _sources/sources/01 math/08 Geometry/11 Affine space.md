@@ -2,15 +2,15 @@
 ## 정의
 집합 $A$와 vector space $V_A/\F$와 right group action $+:A\times V_A \rightarrow A$가 있다고 하자.
 
-임의의 $p\in A$에 의존하여 정의되는 함수 $T_p$가 다음을 만족하는 경우 $(A,V_A,+)$를 `affine space`라고 한다.
+임의의 $p\in A$에 의존하여 정의되는 함수 $\phi_p$가 다음을 만족하는 경우 $(A,V_A,+)$를 `affine space`라고 한다.
 
-$$ T_p : V_A \rightarrow A \st v \mapsto p + v \text{ is bijective} $$
+$$ \phi_p : V_A \rightarrow A \st v \mapsto p + v \text{ is bijective} $$
 
 > Reference  
 > [wiki - Affine space](https://en.wikipedia.org/wiki/Affine_space#Definition)  
 
 ### 참고1
-집합 $A$의 원소를 `점(point)`, $V_A$의 원소를 `vector` 혹은  `translation`이라고 하며 $T_p$에서 $p$를 `원점(origin)`이라고 한다. 
+집합 $A$의 원소를 `점(point)`, $V_A$의 원소를 `vector` 혹은  `translation`이라고 하며 $\phi_p$에서 $p$를 `원점(origin)`이라고 한다. 
 
 ### 참고2
 $+$가 right group action이기 때문에 well defined, right indenity와 associativity가 성립한다.
@@ -32,11 +32,11 @@ $$ \forall v ,w \in V_A, \quad \forall a \in A, \quad (a+v) +w = a + (v+w) $$
 ### 참고3
 $p \in A$, $v_1,v_2 \in V_A$라고 하자.
 
-$T_p$가 well defined 함수이기 때문에 다음이 성립한다.
+$\phi_p$가 well defined 함수이기 때문에 다음이 성립한다.
 
 $$ v_1 = v_2 \implies p+v_1 = p+v_2 $$
 
-또 한, $T_p$가 injective 함수이기 때문에 다음이 성립한다.
+또 한, $\phi_p$가 injective 함수이기 때문에 다음이 성립한다.
 
 $$ v_1 = v_2 \impliedby p+v_1 = p+v_2 $$
 
@@ -47,16 +47,16 @@ $$ v_1 = v_2 \iff p+v_1 = p+v_2 $$
 ### 참고4
 $p \in A$, $v \in V$가 있다고 하자.
 
-$T_p$가 well defined 함수이기 때문에 다음이 성립한다.
+$\phi_p$가 well defined 함수이기 때문에 다음이 성립한다.
 
-$$ \exist! q \in A \st q = T_p(v) = p+v $$
+$$ \exist! q \in A \st q = \phi_p(v) = p+v $$
 
 ### 참고5
-origin $p$가 주어진 경우, $T_p$는 bijective 이기 때문에, $A$와 $V_A$는 isomorphic하다.
+origin $p$가 주어진 경우, $\phi_p$는 bijective 이기 때문에, $A$와 $V_A$는 isomorphic하다.
 
 따라서, point를 vector로 vector를 point로 볼 수 있게 된다.
 
-$$ A \xtofrom[T_p]{T_p^{-1}} V_A$$
+$$ A \xtofrom[\phi_p]{\phi_p^{-1}} V_A$$
 
 참고로, Affine space 정의 자체에는 origin이 주어져 있지 않다.
 
@@ -139,12 +139,12 @@ $$ \exist! v \in V_A \st p+v = q $$
 
 **Proof**
 
-Affine space의 정의에 의해 $T_p$는 bijective function임으로 다음이 성립한다.
+Affine space의 정의에 의해 $\phi_p$는 bijective function임으로 다음이 성립한다.
 
-$$ \exist! v \in V_A \st T_p(v) = p+v = q \qed $$
+$$ \exist! v \in V_A \st \phi_p(v) = p+v = q \qed $$
 
 #### 참고1
-$p,q \in A$면 $T_p(v) = q$인 $v$가 $p,q$의 선택에 의존하여 유일하게 존재함으로 $v$를 다음과 같이 표현할 수 있다.
+$p,q \in A$면 $\phi_p(v) = q$인 $v$가 $p,q$의 선택에 의존하여 유일하게 존재함으로 $v$를 다음과 같이 표현할 수 있다.
 
 $$ v \equiv q-p $$
 
@@ -257,7 +257,7 @@ affine space $A$와 subspace $B,C \le A$가 있다고 하자.
 > Reference  
 > [wikipedia - Affine_space#Affine_subspaces_and_parallelism](https://en.wikipedia.org/wiki/Affine_space#Affine_subspaces_and_parallelism)  
 
-## Coordinate System of Affine Space
+## Coordinate System
 affine space $A$가 있다고 하자.
 
 $A$의 임의의 점을 $p_0$라고 하고 $V_A$의 임의의 기저를 $\beta$라고 할 때, $(p_0,\beta)$를 $A$의 coordinate system이라고 한다.
@@ -321,7 +321,7 @@ $$ \forall x \in \R^n, \quad \exist! p \in A \st x= \phi(p) \qed $$
 > [must-vectors-in-mathbbrn-have-their-tail-at-origin - mathematics](https://math.stackexchange.com/questions/627616/must-vectors-in-mathbbrn-have-their-tail-at-origin)
 > [Euclidean space - wiki](https://en.wikipedia.org/wiki/Euclidean_space) 
 
-## Change of Coordinate of Affine Space
+## Change of Coordinate System
 affine space $A$와 두개의 coordinate system $(p_1, \beta), (p_2, \gamma)$가 있다고 하자.
 
 임의의 $p \in A$에 대해서 $[p]_{(p_1, \beta)}$와 $[p]_{(p_2, \gamma)}$ coordinate 사이에 관계는 다음과 같다.

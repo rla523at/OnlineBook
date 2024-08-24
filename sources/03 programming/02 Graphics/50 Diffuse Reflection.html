@@ -774,8 +774,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lambertian-reflection">Lambertian Reflection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lambert-s-cosine-law">Lambert’s Cosine Law</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lambert-s-cosine-law">Lambert’s Cosine Law</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equal-brightness-effect">Equal Brightness Effect</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -795,26 +797,44 @@ document.write(`
 <div><p>Reference<br />
 <a class="reference external" href="https://en.wikipedia.org/wiki/Diffuse_reflection">wikipedia - Diffuse_reflection</a></p>
 </div></blockquote>
-<section id="lambertian-reflection">
-<h2>Lambertian Reflection<a class="headerlink" href="#lambertian-reflection" title="Link to this heading">#</a></h2>
-<p>Lambertian reflection은 이상적인 diffuse reflection 모델이다.</p>
-<p>Lamber reflection에서는 표면에서 반사되는 빛의 밝기가 모든 방향에 일정하여 관찰자의 시선에 관계 없이 일정하다고 가정한다.</p>
-<p>따라서, 표면의 밝기는 표면의 법선 벡터와 광원으로의 벡터간의 각도에 의해서만 결정된다.</p>
-<p><span class="math notranslate nohighlight">\(I_L\)</span>을 광원의 강도, <span class="math notranslate nohighlight">\(l\)</span>을 광원으로의 벡터, <span class="math notranslate nohighlight">\(n\)</span>을 법선벡터 그리고 <span class="math notranslate nohighlight">\(C\)</span>를 광원의 색깔이라고 하면 Diffuse reflection에 의한 반사광 <span class="math notranslate nohighlight">\(B_D\)</span>는 다음과 같이 계산된다.</p>
+<section id="lambert-s-cosine-law">
+<h2>Lambert’s Cosine Law<a class="headerlink" href="#lambert-s-cosine-law" title="Link to this heading">#</a></h2>
+<p>표면의 법선 벡터와 표면에서 관측자로의 벡터의 각도를 <span class="math notranslate nohighlight">\(\theta\)</span>라고 하자.</p>
+<p>이 때, 표면의 reflected radiant intensity가 <span class="math notranslate nohighlight">\(\cos\theta\)</span>에 비례한다는 법칙이다.</p>
+<p>Lambert’s cosine law를 만족하는 표면을 Lambertian surface라고 하며, Lambertian sruface에서 발생하는 반사현상을 Lambertian reflection이라고 한다.</p>
+<p>Lambertian reflection이 발생하면, 모든 방향으로의 radiance가 일정하게 되며 이를 equal brightness effect라고 한다.</p>
+<p>따라서, Lambertian reflection은 관측자 각도와 관계 없이 동일한 밝기로 보이게 됨으로 이상적인 diffuse reflection 모델이다.</p>
+<p>Lambertian reflection의 경우 equal brightness effect에 의해 brightness는 관측자와 무관하게 표면의 법선 벡터와 광원으로의 벡터간의 각도에 의해서만 결정된다.</p>
+<p><span class="math notranslate nohighlight">\(I_L\)</span>을 광원의 강도, <span class="math notranslate nohighlight">\(l\)</span>을 광원으로의 벡터, <span class="math notranslate nohighlight">\(n\)</span>을 법선벡터 그리고 <span class="math notranslate nohighlight">\(C\)</span>를 광원의 색깔이라고 하면 brightness <span class="math notranslate nohighlight">\(B_D\)</span>는 다음과 같이 계산된다.</p>
 <div class="math notranslate nohighlight">
 \[ B_D = I_L (l\cdot n) C \]</div>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://en.wikipedia.org/wiki/Lambertian_reflectance">wikipedia - Lambertian_reflectance</a></p>
+<a class="reference external" href="https://en.wikipedia.org/wiki/Lambertian_reflectance">wikipedia - Lambertian_reflectance</a><br />
+<a class="reference external" href="https://en.wikipedia.org/wiki/Lambert%27s_cosine_law">wikipedia - Lambert%27s_cosine_law</a><br />
+[<span id="id1">[<a class="reference internal" href="../../99%20References/references.html#id18">Luna, 2016</a>]</span> Chpater8.4]</p>
 </div></blockquote>
-</section>
-<section id="lambert-s-cosine-law">
-<h2>Lambert’s Cosine Law<a class="headerlink" href="#lambert-s-cosine-law" title="Link to this heading">#</a></h2>
+<section id="equal-brightness-effect">
+<h3>Equal Brightness Effect<a class="headerlink" href="#equal-brightness-effect" title="Link to this heading">#</a></h3>
+<p>radiance source의 넓이를 <span class="math notranslate nohighlight">\(dA\)</span>, 임의의 solid angle을 <span class="math notranslate nohighlight">\(d\Omega\)</span> surface normal 방향으로 방출되는 radiance를 <span class="math notranslate nohighlight">\(I\)</span>라고 하자.</p>
+<p>Lambert’s cosine law를 만족함으로 surface normal과의 각도를 <span class="math notranslate nohighlight">\(\theta\)</span>라고 할 때, 방출되는 radiant energy는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ I \cos\theta d\Omega dA \]</div>
+<p>다음으로, 관측자가 radiant energy를 받아들이는 넓이를 <span class="math notranslate nohighlight">\(dA_0\)</span> 그리고 source를 보는 solid angle을 <span class="math notranslate nohighlight">\(d\Omega_0\)</span>라고 하자.</p>
+<p>이 때, <span class="math notranslate nohighlight">\(d\Omega\)</span>를 <span class="math notranslate nohighlight">\(d\Omega_0\)</span>와 같다고 두어 source가 특정 각도로 방출하는 radiant energy를 전부 관측자가 관찰한다고 일반성을 잃지 않고 가정하면 관측자가 관측한 radiance는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ I_0 = \frac{I \cos\theta d\Omega dA}{d\Omega_0 \cos\theta dA_0} = \frac{I d\Omega dA}{d\Omega_0 dA_0}  \]</div>
+<p>따라서, 관측자와의 각도와 관계없이 radiance는 일정하다.</p>
 <blockquote>
 <div><p>Reference<br />
-[<span id="id1">[<a class="reference internal" href="../../99%20References/references.html#id18">Luna, 2016</a>]</span> Chpater8.4]<br />
-<a class="reference external" href="https://en.wikipedia.org/wiki/Lambert%27s_cosine_law">wikipedia - Lambert%27s_cosine_law</a></p>
+<a class="reference external" href="https://en.wikipedia.org/wiki/Lambert%27s_cosine_law">wikipedia - Lambert%27s_cosine_law</a><br />
+<a class="reference external" href="https://en.wikipedia.org/wiki/Radiant_intensity">wikipedia - Radiant_intensity</a><br />
+<a class="reference external" href="https://en.wikipedia.org/wiki/Radiance">wikipedia - Radiance</a><br />
+<a class="reference external" href="https://en.wikipedia.org/wiki/Radiant_flux">wikipedia - Radiant_flux</a><br />
+<a class="reference external" href="https://en.wikipedia.org/wiki/Solid_angle">wikipeida - Solid_angle</a><br />
+<a class="reference external" href="https://mathworld.wolfram.com/SolidAngle.html">wolfram - SolidAngle</a></p>
 </div></blockquote>
+</section>
 </section>
 </section>
 
@@ -882,8 +902,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lambertian-reflection">Lambertian Reflection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lambert-s-cosine-law">Lambert’s Cosine Law</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lambert-s-cosine-law">Lambert’s Cosine Law</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equal-brightness-effect">Equal Brightness Effect</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

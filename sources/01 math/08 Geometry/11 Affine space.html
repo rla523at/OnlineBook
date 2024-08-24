@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=61612f5f" />
@@ -510,9 +510,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/01%20Window%20Programming.html">Window Programming</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/02%20COM.html">COM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/03%20Message%20Loop.html">Message Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20Diffuse%20Reflection.html">Diffuse Reflection</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/DirectX.html">DirectX</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/01%20Direct3D/Direct3D.html">Direct3D</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/01%20Direct3D/02%20Vertex%20Shader.html">Vertex Shader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/01%20Direct3D/06%20Geometry%20Shader.html">Geometry Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/01%20Direct3D/10%20Compute%20Shader.html">Compute Shader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/01%20Direct3D/101%20ID3D11Device.html">ID3D11Device</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/01%20Direct3D/102%20ID3D11DeviceContext.html">ID3D11DeviceContext</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/50%20DirectX/01%20Direct3D/103%20ID3D11Buffer.html">ID3D11Buffer</a></li>
@@ -802,12 +805,12 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">참고2</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-system-of-affine-space">Coordinate System of Affine Space</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-system">Coordinate System</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-of-affine-space">Coordinate of Affine Space</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">명제1</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-of-coordinate-of-affine-space">Change of Coordinate of Affine Space</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-of-coordinate-system">Change of Coordinate System</a></li>
 </ul>
             </nav>
         </div>
@@ -824,16 +827,16 @@ document.write(`
 <section id="id1">
 <h2>정의<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>집합 <span class="math notranslate nohighlight">\(A\)</span>와 vector space <span class="math notranslate nohighlight">\(V_A/\F\)</span>와 right group action <span class="math notranslate nohighlight">\(+:A\times V_A \rightarrow A\)</span>가 있다고 하자.</p>
-<p>임의의 <span class="math notranslate nohighlight">\(p\in A\)</span>에 의존하여 정의되는 함수 <span class="math notranslate nohighlight">\(T_p\)</span>가 다음을 만족하는 경우 <span class="math notranslate nohighlight">\((A,V_A,+)\)</span>를 <code class="docutils literal notranslate"><span class="pre">affine</span> <span class="pre">space</span></code>라고 한다.</p>
+<p>임의의 <span class="math notranslate nohighlight">\(p\in A\)</span>에 의존하여 정의되는 함수 <span class="math notranslate nohighlight">\(\phi_p\)</span>가 다음을 만족하는 경우 <span class="math notranslate nohighlight">\((A,V_A,+)\)</span>를 <code class="docutils literal notranslate"><span class="pre">affine</span> <span class="pre">space</span></code>라고 한다.</p>
 <div class="math notranslate nohighlight">
-\[ T_p : V_A \rightarrow A \st v \mapsto p + v \text{ is bijective} \]</div>
+\[ \phi_p : V_A \rightarrow A \st v \mapsto p + v \text{ is bijective} \]</div>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://en.wikipedia.org/wiki/Affine_space#Definition">wiki - Affine space</a></p>
 </div></blockquote>
 <section id="id2">
 <h3>참고1<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<p>집합 <span class="math notranslate nohighlight">\(A\)</span>의 원소를 <code class="docutils literal notranslate"><span class="pre">점(point)</span></code>, <span class="math notranslate nohighlight">\(V_A\)</span>의 원소를 <code class="docutils literal notranslate"><span class="pre">vector</span></code> 혹은  <code class="docutils literal notranslate"><span class="pre">translation</span></code>이라고 하며 <span class="math notranslate nohighlight">\(T_p\)</span>에서 <span class="math notranslate nohighlight">\(p\)</span>를 <code class="docutils literal notranslate"><span class="pre">원점(origin)</span></code>이라고 한다.</p>
+<p>집합 <span class="math notranslate nohighlight">\(A\)</span>의 원소를 <code class="docutils literal notranslate"><span class="pre">점(point)</span></code>, <span class="math notranslate nohighlight">\(V_A\)</span>의 원소를 <code class="docutils literal notranslate"><span class="pre">vector</span></code> 혹은  <code class="docutils literal notranslate"><span class="pre">translation</span></code>이라고 하며 <span class="math notranslate nohighlight">\(\phi_p\)</span>에서 <span class="math notranslate nohighlight">\(p\)</span>를 <code class="docutils literal notranslate"><span class="pre">원점(origin)</span></code>이라고 한다.</p>
 </section>
 <section id="id3">
 <h3>참고2<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
@@ -852,10 +855,10 @@ document.write(`
 <section id="id4">
 <h3>참고3<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p><span class="math notranslate nohighlight">\(p \in A\)</span>, <span class="math notranslate nohighlight">\(v_1,v_2 \in V_A\)</span>라고 하자.</p>
-<p><span class="math notranslate nohighlight">\(T_p\)</span>가 well defined 함수이기 때문에 다음이 성립한다.</p>
+<p><span class="math notranslate nohighlight">\(\phi_p\)</span>가 well defined 함수이기 때문에 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
 \[ v_1 = v_2 \implies p+v_1 = p+v_2 \]</div>
-<p>또 한, <span class="math notranslate nohighlight">\(T_p\)</span>가 injective 함수이기 때문에 다음이 성립한다.</p>
+<p>또 한, <span class="math notranslate nohighlight">\(\phi_p\)</span>가 injective 함수이기 때문에 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
 \[ v_1 = v_2 \impliedby p+v_1 = p+v_2 \]</div>
 <p>결론적으로 다음이 성립한다.</p>
@@ -865,16 +868,16 @@ document.write(`
 <section id="id5">
 <h3>참고4<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p><span class="math notranslate nohighlight">\(p \in A\)</span>, <span class="math notranslate nohighlight">\(v \in V\)</span>가 있다고 하자.</p>
-<p><span class="math notranslate nohighlight">\(T_p\)</span>가 well defined 함수이기 때문에 다음이 성립한다.</p>
+<p><span class="math notranslate nohighlight">\(\phi_p\)</span>가 well defined 함수이기 때문에 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
-\[ \exist! q \in A \st q = T_p(v) = p+v \]</div>
+\[ \exist! q \in A \st q = \phi_p(v) = p+v \]</div>
 </section>
 <section id="id6">
 <h3>참고5<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<p>origin <span class="math notranslate nohighlight">\(p\)</span>가 주어진 경우, <span class="math notranslate nohighlight">\(T_p\)</span>는 bijective 이기 때문에, <span class="math notranslate nohighlight">\(A\)</span>와 <span class="math notranslate nohighlight">\(V_A\)</span>는 isomorphic하다.</p>
+<p>origin <span class="math notranslate nohighlight">\(p\)</span>가 주어진 경우, <span class="math notranslate nohighlight">\(\phi_p\)</span>는 bijective 이기 때문에, <span class="math notranslate nohighlight">\(A\)</span>와 <span class="math notranslate nohighlight">\(V_A\)</span>는 isomorphic하다.</p>
 <p>따라서, point를 vector로 vector를 point로 볼 수 있게 된다.</p>
 <div class="math notranslate nohighlight">
-\[ A \xtofrom[T_p]{T_p^{-1}} V_A\]</div>
+\[ A \xtofrom[\phi_p]{\phi_p^{-1}} V_A\]</div>
 <p>참고로, Affine space 정의 자체에는 origin이 주어져 있지 않다.</p>
 <p>따라서, 특정한 origin이 정해지기 전까지는 vector는 어떤 point와도 1:1 대응될 수 없다.</p>
 <blockquote>
@@ -944,12 +947,12 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[ \exist! v \in V_A \st p+v = q \]</div>
 <p><strong>Proof</strong></p>
-<p>Affine space의 정의에 의해 <span class="math notranslate nohighlight">\(T_p\)</span>는 bijective function임으로 다음이 성립한다.</p>
+<p>Affine space의 정의에 의해 <span class="math notranslate nohighlight">\(\phi_p\)</span>는 bijective function임으로 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
-\[ \exist! v \in V_A \st T_p(v) = p+v = q \qed \]</div>
+\[ \exist! v \in V_A \st \phi_p(v) = p+v = q \qed \]</div>
 <section id="id11">
 <h4>참고1<a class="headerlink" href="#id11" title="Link to this heading">#</a></h4>
-<p><span class="math notranslate nohighlight">\(p,q \in A\)</span>면 <span class="math notranslate nohighlight">\(T_p(v) = q\)</span>인 <span class="math notranslate nohighlight">\(v\)</span>가 <span class="math notranslate nohighlight">\(p,q\)</span>의 선택에 의존하여 유일하게 존재함으로 <span class="math notranslate nohighlight">\(v\)</span>를 다음과 같이 표현할 수 있다.</p>
+<p><span class="math notranslate nohighlight">\(p,q \in A\)</span>면 <span class="math notranslate nohighlight">\(\phi_p(v) = q\)</span>인 <span class="math notranslate nohighlight">\(v\)</span>가 <span class="math notranslate nohighlight">\(p,q\)</span>의 선택에 의존하여 유일하게 존재함으로 <span class="math notranslate nohighlight">\(v\)</span>를 다음과 같이 표현할 수 있다.</p>
 <div class="math notranslate nohighlight">
 \[ v \equiv q-p \]</div>
 <p>이를 substraction이라고 한다.</p>
@@ -1056,8 +1059,8 @@ document.write(`
 </div></blockquote>
 </section>
 </section>
-<section id="coordinate-system-of-affine-space">
-<h2>Coordinate System of Affine Space<a class="headerlink" href="#coordinate-system-of-affine-space" title="Link to this heading">#</a></h2>
+<section id="coordinate-system">
+<h2>Coordinate System<a class="headerlink" href="#coordinate-system" title="Link to this heading">#</a></h2>
 <p>affine space <span class="math notranslate nohighlight">\(A\)</span>가 있다고 하자.</p>
 <p><span class="math notranslate nohighlight">\(A\)</span>의 임의의 점을 <span class="math notranslate nohighlight">\(p_0\)</span>라고 하고 <span class="math notranslate nohighlight">\(V_A\)</span>의 임의의 기저를 <span class="math notranslate nohighlight">\(\beta\)</span>라고 할 때, <span class="math notranslate nohighlight">\((p_0,\beta)\)</span>를 <span class="math notranslate nohighlight">\(A\)</span>의 coordinate system이라고 한다.</p>
 </section>
@@ -1114,8 +1117,8 @@ document.write(`
 </div></blockquote>
 </section>
 </section>
-<section id="change-of-coordinate-of-affine-space">
-<h2>Change of Coordinate of Affine Space<a class="headerlink" href="#change-of-coordinate-of-affine-space" title="Link to this heading">#</a></h2>
+<section id="change-of-coordinate-system">
+<h2>Change of Coordinate System<a class="headerlink" href="#change-of-coordinate-system" title="Link to this heading">#</a></h2>
 <p>affine space <span class="math notranslate nohighlight">\(A\)</span>와 두개의 coordinate system <span class="math notranslate nohighlight">\((p_1, \beta), (p_2, \gamma)\)</span>가 있다고 하자.</p>
 <p>임의의 <span class="math notranslate nohighlight">\(p \in A\)</span>에 대해서 <span class="math notranslate nohighlight">\([p]_{(p_1, \beta)}\)</span>와 <span class="math notranslate nohighlight">\([p]_{(p_2, \gamma)}\)</span> coordinate 사이에 관계는 다음과 같다.</p>
 <div class="math notranslate nohighlight">
@@ -1224,12 +1227,12 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">참고2</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-system-of-affine-space">Coordinate System of Affine Space</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-system">Coordinate System</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-of-affine-space">Coordinate of Affine Space</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">명제1</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-of-coordinate-of-affine-space">Change of Coordinate of Affine Space</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-of-coordinate-system">Change of Coordinate System</a></li>
 </ul>
   </nav></div>
 

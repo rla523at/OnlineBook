@@ -53,11 +53,11 @@ affine space $A$와 $p_0 \in A$가 있다고 하자.
 
 $T \in \End(V_A)$가 있으면, $p_0$와 $T$로 부터 $L:A\rightarrow A$을 다음과 같이 정의할 수 있다.
 
-$$ L : A \rightarrow A \st p \mapsto (F_{p_0} \circ T \circ F_{p_0}^{-1})(p) $$
+$$ L : A \rightarrow A \st p \mapsto (\phi_{p_0} \circ T \circ \phi_{p_0}^{-1})(p) $$
 
 $$ \begin{CD} 
 A                   @>L>>     A \\ 
-@V{F_{p_0}^{-1}}VV            @AA{F_{p_0}}A \\ 
+@V{\phi_{p_0}^{-1}}VV            @AA{\phi_{p_0}}A \\ 
 V_A                 @>>T>     V_A \\
 \end{CD} $$
 
@@ -65,13 +65,15 @@ V_A                 @>>T>     V_A \\
 
 $$ \begin{aligned}
 L(p) &= L(p_0 +v) \\
-     &= (F_{p_0} \circ T \circ F_{p_0}^{-1})(p_0 +v) \\
-     &= (F_{p_0} \circ T)(v) \\
-     &= F_{p_0}(T(v)) \\
+     &= (\phi_{p_0} \circ T \circ \phi_{p_0}^{-1})(p_0 +v) \\
+     &= (\phi_{p_0} \circ T)(v) \\
+     &= \phi_{p_0}(T(v)) \\
      &= p_0 + T(v) \\
 \end{aligned}   $$
 
-> Reference
+즉, linear endomorphism이 있으면 affine transformation을 정의할 수 있다.
+
+> Reference  
 > [wikipedia - Affine_transformation#Structure](https://en.wikipedia.org/wiki/Affine_transformation#Structure)  
 
 
@@ -80,7 +82,7 @@ L(p) &= L(p_0 +v) \\
 
 $V_A$의 임의의 endomorphism $T$에 대해서, 함수 $F(p_0, T)$를 다음과 같이 정의하자.
 
-$$ F(p_0,T):A \rightarrow A \st p \mapsto f_{p_0}^{-1}(T(f_{p_0}(p))) $$
+$$ F(p_0,T):A \rightarrow A \st p \mapsto \phi_{p_0}^{-1}(T(\phi_{p_0}(p))) $$
 
 그러면 다음이 성립한다.
 
