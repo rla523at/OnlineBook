@@ -1,0 +1,1878 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Direct3D &#8212; MS Study Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/custom.css?v=61612f5f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/50 DirectX11/01 Direct3D/Direct3D';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="Vertex Shader" href="02%20Vertex%20Shader.html" />
+    <link rel="prev" title="DirectX" href="../DirectX11.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../cover.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">MS Study Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../cover.html">
+                    MS Study Book
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">math</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../01%20math/01%20Set/Set.html">Set</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/01%20Set/01%20Power%20Set.html">Power Set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/01%20Set/02%20Product%20Set.html">Product Set</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/01%20Set/04%20Order/Order.html">Order</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/04%20Order/01%20Partial%20Order.html">Partial Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/04%20Order/02%20Partially%20Order%20Set.html">Partially Ordered Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/04%20Order/03%20Maximal%20and%20Minimal%20Element.html">Minimal and Maximal Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/04%20Order/04%20Greatest%20and%20Least%20Element.html">Greatest and Least Element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/04%20Order/05-1%20Upper%20Bound.html">Upper Bound and Lower Bound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/04%20Order/05-2%20Bounded%20Above%20and%20Below.html">Bounded Above and Below</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/04%20Order/06%20Supremum%20and%20Infimum.html">Sumpremum and Infimum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/04%20Order/07%20Completeness.html">Completeness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/04%20Order/08%20Total%20Order.html">Total Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/04%20Order/09%20Totally%20Ordered%20Set.html">Totally Ordered Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/04%20Order/10%20Well-order.html">Well-ordered Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/04%20Order/11%20Induction.html">Induction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/04%20Order/12%20Chain.html">Chain</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/01%20Set/05%20Function/Function.html">Function</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/05%20Function/05%20Image.html">Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/05%20Function/06%20Preimage.html">Preimage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/05%20Function/07%20Injective%20Function.html">Injective Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/05%20Function/08%20Surjective%20Function.html">Surjective Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/05%20Function/09%20Bijective%20Function.html">Bijective Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/01%20Set/05%20Function/10%20Inverse%20Function.html">Inverse Function</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/01%20Set/10%20Partition.html">Partition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/01%20Set/11%20Relations.html">Relation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/01%20Set/12%20Equivalence%20Relation.html">Equivalence Relation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/01%20Set/13%20Equivalence%20Class.html">Equivalence Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/01%20Set/14%20Quotient%20Set.html">Quotient Set</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/Abstract%20Algebra.html">Abstract Algebra</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/01%20Binary%20Operation/Binary%20Operation.html">Binary Operation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/01%20Binary%20Operation/01%20Closed.html">Closed Under Binary Operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/01%20Binary%20Operation/02%20Associative%20Property.html">Associative Property</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/01%20Binary%20Operation/03%20Commutative%20Property.html">Commutative Property</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/02%20Algebraic%20Structure.html">Algebraic Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/03%20Semi-group.html">Semi-group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/04%20Monoid.html">Monoid</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/Group.html">Group</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/01%20Commutative%20Group.html">Commutative Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/02%20Abelian%20Group.html">Abelian Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/03%20Group%20Homomorphism.html">Group Homomorphism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/04%20Kernel.html">Kernel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/05%20Image.html">Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/11%20Subgroup.html">Subgroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/12%20Span.html">Span</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/21%20Span%20%26%20Cyclic%20Group.html">Span &amp; Cyclic Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/31%20Group%20and%20Relation.html">Group and Relation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/32%20Normal%20Subgroup.html">Normal Subgroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/51%20Group%20Action.html">Group Action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/52%20Symmetric%20Group.html">Symmetric Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/53%20Permutation%20Representation.html">Permutation Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/05%20Group/54%20G-Orbit.html">G-Orbit</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/06%20Distributive%20Property.html">Distributive Property</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/07%20Ring/Ring.html">Ring</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/07%20Ring/04%20Commutative%20Ring.html">Commutative Ring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/07%20Ring/05%20Ring%20Homeomorphism.html">Ring Homeomorphism</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/08%20Field/Field.html">Field</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/08%20Field/01%20Ordered%20Field.html">Ordered Field</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/09%20Module/Module.html">Module</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/09%20Module/01%20Left%20Module.html">Left Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/09%20Module/02%20Right%20Module.html">Right Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/09%20Module/03%20Bimodule.html">Bimodule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/09%20Module/04%20R-Module.html">R-Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/02%20Abstract%20Algebra/09%20Module/05%20Module%20Homeomorphism.html">Module Homeomorphism</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../01%20math/03%20Analysis/Analysis.html">Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/03%20Analysis/01%20Integer%20Number.html">Integer Number</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/03%20Analysis/02%20Archimedean%20Property.html">Archimedean Property</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/03%20Analysis/03%20Absolute.html">Absolute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/03%20Analysis/04%20Rational%20Number.html">Rational Number</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/03%20Analysis/05%20Real%20Number.html">Real Number</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/03%20Analysis/06%20Maximum%20and%20Minimum.html">Maximum and Minimum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/03%20Analysis/07%20Convergence%20of%20Sequence.html">Convergence of Sequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/03%20Analysis/08%20Bounded%20Sequence.html">Bounded Sequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/03%20Analysis/09%20liminf%20%26%20limsup.html">Limit Inferior &amp; Superior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/03%20Analysis/50%20Inequality.html">Inequality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/Metric%20Space.html">Metric Space</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/01-1%20Metric.html">Metric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/01-2%20Metric%20Subspace.html">Metric Subspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/02%20Open%20Ball.html">Open ball</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/03%20Open%20Set.html">Open set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/04%20Closed%20set.html">Closed set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/05-1%20Neighborhood.html">Neighborhood</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/05-2%20Adherent%20Point.html">Adherent Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/05-3%20Accumulation%20Point.html">Accumulation Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/05-4%20Isolated%20Point.html">Isolated Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/06%20Closure.html">Closure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/07%20Interior.html">Interior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/08%20Boudnary.html">Boundary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/09%20Bounded%20set.html">Bounded Set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/09-1%20Bounded%20sequence.html">Bounded Sequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/10%20Compact%20Set.html">Compact Set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/11%20Convergence%20of%20Sequence.html">Convergence of Sequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/12%20Convergence%20of%20Function.html">Convergence of Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/13%20Continuous%20at%20a%20Point.html">Continuous at a Point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/04%20Metric%20Space/14%20Continuous%20Function.html">Continuous Function</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../01%20math/05%20Topology/Topology.html">Topology</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/Topologies.html">Topologies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/01-1%20Topology.html">Topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/01-2%20Topological%20Spaces.html">Topological Space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/02%20Open%20Set.html">Open Set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/03-1%20Closed%20set.html">Closed set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/03-2%20Clopen%20set.html">Clopen set</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/04%20Neighborhood.html">Neighborhood</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/05%20Subspace%20Topology.html">Subspace Topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/06%20Subspace.html">Subspace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/07%20Closure.html">Closure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/08%20Interior.html">Interior</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/09%20Exteriror.html">Exteriror</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/10%20Boundary.html">Boundary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/11-1%20Adherent%20Point.html">Adherent Point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/11-2%20Limit%20Point.html">Limit Point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/12%20Isolated%20Point.html">Isolated Point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/01%20Topologies/13%20Dense.html">Dense</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/05%20Topology/02%20Convergence%20and%20Continuity/Convergence%20and%20Continuity.html">Convergence and Continuity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/02%20Convergence%20and%20Continuity/1%20Convergence.html">Convergence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/02%20Convergence%20and%20Continuity/2%20Continuity.html">Continuity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/02%20Convergence%20and%20Continuity/3%20Homeomorphism.html">Homeomorphism</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/05%20Topology/03%20Hausdorff%20Space.html">Hausdorff Space</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/05%20Topology/04%20Bases/Bases.html">Bases</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/04%20Bases/01%20Basis.html">Basis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/04%20Bases/02%20Neighborhood%20Basis.html">Neighborhood Basis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/04%20Bases/03%20Nested%20Neighborhood%20Basis.html">Nested Neighborhood Basis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/05%20Topology/05%20Countability%20Properties/Countability%20Properties.html">Countability Properties</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/05%20Countability%20Properties/20%20First%20Countable.html">First Countable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/05%20Countability%20Properties/21%20Eventually%20in.html">Eventually in</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/05%20Countability%20Properties/22%20Second%20Countable.html">Second Countable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/05%20Countability%20Properties/23%20Cover.html">Cover</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/05%20Countability%20Properties/24%20Seperable.html">Seperable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/05%20Countability%20Properties/25%20Lindelof%20Space.html">Lindelof Space</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/05%20Topology/06%20Manifolds/Manifolds.html">Manifolds</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/06%20Manifolds/26%20Locally%20Euclidean.html">Locally Euclidean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/06%20Manifolds/27%20Coordinate.html">Coordinate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/06%20Manifolds/28%20Topological%20Manifold.html">Topological Manifold</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/05%20Topology/07%20Product%20Spaces/Product%20Spaces.html">Product Spaces</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/07%20Product%20Spaces/01%20Product%20Topology.html">Product Bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/07%20Product%20Spaces/02%20Product%20Space.html">Product Space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/05%20Topology/07%20Product%20Spaces/03%20Product%20Open%20Set.html">Product Open Set</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../01%20math/06%20Calculus/Calculus.html">Calculus</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/01%20Derivatives.html">Derivatives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/02%20Directional%20Derivative.html">Directional Derivative</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/03%20Total%20Derivative.html">Total Derivative</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/11%20Definite%20Integral.html">Definite Integral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/21%20Fundamental%20Theorem%20of%20Calculus.html">Fundamental Theorem of Calculus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/40%20Differential.html">Differential</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/50%20Leibniz%20Integral%20Rule.html">Libniz Integral Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/51%20Taylor%27s%20Theorem.html">Taylor’s Theorem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/52%20Inverse%20Function%20Theorem.html">Inverse Function Theorem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/Divergence%20Theorem.html">Divergence Theorem</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/Linear%20Algebra.html">Linear Algebra</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/01%20Vector%20Space.html">Vector Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/02%20Subspace.html">Subspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/03%20Span.html">Span</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/04%20Linearly%20Independet.html">Linearly Independet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/05%20Basis.html">Basis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/06%20Coordinate.html">Coordinate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/10%20Linear%20Map.html">Linear Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/11%20Kernel.html">Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/12%20Image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/13%20Vector%20Space%20Isomorphism.html">Vector Space Isomorphism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/20%20Matrix%20Representation.html">Matrix representation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/21%20Change%20of%20Basis%20and%20Coordinate%20Matrix.html">Change of Basis and Coordinate Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/22%20Eigenvector%20%26%20Eigenvalue%20%26%20EigenSpace.html">Eigenvector &amp; Eigenvalue</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/31%20Orthogonal%20Map.html">Orthogonal Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/41%20Dual%20Space.html">Dual space</a></li>
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../01%20math/08%20Geometry/Geometry.html">Geometry</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/08%20Geometry/02%20Smooth%20Manifold/Smooth%20Manifold.html">Smooth Manifold</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/08%20Geometry/02%20Smooth%20Manifold/01%20Ambient%20Space.html">Ambient space</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/08%20Geometry/04%20Curve/Curve.html">Curve</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/08%20Geometry/04%20Curve/01%20Parametric%20Curve.html">Parametric Curve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/08%20Geometry/04%20Curve/02%20Tangent%20Vector.html">Tangent Vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/08%20Geometry/04%20Curve/03%20Curvature.html">Curvature</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/08%20Geometry/05%20Conic%20Section.html">Conic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/08%20Geometry/11%20Affine%20space.html">Affine space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/08%20Geometry/12%20Affine%20Transformation.html">Affine Transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/08%20Geometry/13%20Affine%20Combination.html">Affine Combination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/08%20Geometry/21%20Euclidean%20Space.html">Euclidean Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/08%20Geometry/31%20Cylidrical%20Coordinates.html">Cylindrical Coordinates</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/Numerical%20Analysis.html">Numerical Analysis</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/Boundary%20Value%20Problem.html">Boundary Value Problem</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/01%20Strong%20formulation.html">Strong formulation</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/02%20Weighted%20Residual%20Methods/Weighted%20Residual%20Methods.html">Weighted Residual Methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/02%20Weighted%20Residual%20Methods/01%20Weighted%20Residual%20Formulation.html">Weighted Residual Formulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/02%20Weighted%20Residual%20Methods/02%20Dimensional%20Reduction.html">Dimensional Reduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/02%20Weighted%20Residual%20Methods/03%20Reduced%20Function%20Space.html">Reduced Function Space</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/Weak%20Formulation.html">Weak Formulation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/01%20Strong%20Formulation.html">Strong Formulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/02%20Weighted%20Residual%20Formulation.html">Weighted Residual Formulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/03%20Weak%20Formulation.html">Weak Formulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/04%20Dimensional%20Reduction.html">Dimensional Reduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/03%20Weak%20Formulation/05%20Reduced%20Function%20Space.html">Reduced Function Space</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/04%20Model%20Problems/Model%20Problems.html">Model Problems</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/04%20Model%20Problems/01%20Model%20Problem1.html">Model Problem1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/04%20Model%20Problems/02%20Model%20Problem2.html">Model Problem2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../01%20math/09%20Numerical%20Analysis/01%20Boundary%20Value%20Problem/04%20Model%20Problems/03%20Model%20Problem3.html">Model Problem3</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../01%20math/10%20PDEs/PDEs.html">Partial Differential Equations</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/10%20PDEs/01%20Linear%20PDE.html">Linear PDE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/10%20PDEs/02%20Semilinear%20PDE.html">Semilinear PDE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/10%20PDEs/03%20Quasilinear%20PDE.html">Quasilinear PDE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/10%20PDEs/04%20Second%20Order%20PDE%20Classification.html">Second Order PDE Classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html">Heat Conducting in Bar</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../01%20C%2B%2B/C%2B%2B.html">C++</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../01%20C%2B%2B/01%20Build/Build.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/01%20Build/02%20Compile.html">Compile</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../01%20C%2B%2B/01%20Build/03%20Linking/Linking.html">Linking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../01%20C%2B%2B/01%20Build/03%20Linking/02%20Name%20Mangling.html">Name Mangling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../01%20C%2B%2B/01%20Build/03%20Linking/03%20Link.html">Link</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../01%20C%2B%2B/01%20Build/03%20Linking/04%20Relocation.html">Relocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../01%20C%2B%2B/01%20Build/03%20Linking/05%20LinkingMethod.html">Linking Method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../01%20C%2B%2B/01%20Build/03%20Linking/06%20Static%20Library.html">Static Library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../01%20C%2B%2B/01%20Build/03%20Linking/07%20Shared%20Library.html">Shared Library</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../01%20C%2B%2B/02%20Memory/Memory.html">Memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/02%20Memory/01%20Memory%20Allocation.html">Memory Allocation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/02%20Memory/02%20Virtual%20Memory.html">Virtual Memeory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/02%20Memory/03%20Virtual%20Memory%20Structure.html">Virtual Memory Space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/02%20Memory/04%20Stack%20Frame.html">Stack Frame</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/02%20Memory/05%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/03%20Polymorphism.html">Polymorphism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/04%20Value%20Category.html">Value Category</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/05%20Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/06%20Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/11%20Class.html">Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/12%20Struct%20Memory%20Padding.html">Struct Memory Padding</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../01%20C%2B%2B/21%20Smart%20Pointer/Smart%20Pointer.html">Smart Pointer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/21%20Smart%20Pointer/01%20unique_ptr.html">unique_ptr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/21%20Smart%20Pointer/02%20shared_ptr.html">shared_ptr Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/21%20Smart%20Pointer/03%20weak_ptr.html">weak_ptr Class</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/22%20Reference.html">Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/23%20Lambda%20Expression.html">Lambda Expression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/31%20Template.html">Template</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/32%20concept.html">concept</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/33%20Require.html">Require</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/34%20hpp.html">hpp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/41%20Multi%20Thread.html">Multi thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/51%20static.html">Static</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/52%20Name%20Space.html">Namespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/53%20One%20Definition%20Rule.html">One Definition Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/54%20inline.html">inline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/55%20Enum.html">Enum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/56%20Forward%20Declaration.html">Forward Declaration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/57%20Initialization.html">initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/58%20Keyword.html">Keyword</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/59%20Type%20Casting.html">Type Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/60%20Pointer.html">Pointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/70%20Performance.html">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/80%20Google%20Benchmark.html">Google Benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/99%20Miscelleneous.html">Miscellaneous</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../Graphics.html">Graphics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../01%20Window%20Programming.html">Window Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02%20COM.html">COM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20Message%20Loop.html">Message Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../50%20Diffuse%20Reflection.html">Diffuse Reflection</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../DirectX11.html">DirectX</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">Direct3D</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="02%20Vertex%20Shader.html">Vertex Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="06%20Geometry%20Shader.html">Geometry Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="10%20Compute%20Shader.html">Compute Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="101%20ID3D11Device.html">ID3D11Device</a></li>
+<li class="toctree-l4"><a class="reference internal" href="102%20ID3D11DeviceContext.html">ID3D11DeviceContext</a></li>
+<li class="toctree-l4"><a class="reference internal" href="103%20ID3D11Buffer.html">ID3D11Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="104%20ID3D11Texture2D.html">ID3D11Texture2D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="105%20ID3D11InputLayout.html">ID3D11InputLayout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="106%20ID3D11VertexShader.html">ID3D11VertexShader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="107%20ID3D11Query.html">ID3D11Query</a></li>
+<li class="toctree-l4"><a class="reference internal" href="107%20ID3DBlob.html">ID3DBlob</a></li>
+<li class="toctree-l4"><a class="reference internal" href="110%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="111%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="112%20ID3D11ShaderResourceView.html">ID3D11ShaderResourceView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="113%20ID3D11UnorderedAccessView.html">ID3D11UnorderedAccessView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="130%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="131%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="132%20ID3D11SamplerState.html">ID3D11SamplerState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="133%20ID3D11BlendState.html">ID3D11BlendState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="140%20D3D11_VIEWPORT.html">D3D11_VIEWPORT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="141%20D3D11_MAPPED_SUBRESOURCE.html">D3D11_MAPPED_SUBRESOURCE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="142%20D3D11_SUBRESOURCE_DATA.html">D3D11_SUBRESOURCE_DATA 구조체</a></li>
+<li class="toctree-l4"><a class="reference internal" href="143%20D3D11_SAMPLER_DESC.html">D3D11_SAMPLER_DESC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="400%20enum%20D3D11_USAGE.html">enum D3D11_USAGE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="401%20enum%20D3D11_BIND_FLAG.html">enum D3D11_BIND_FLAG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="402%20enum%20D3D11_CPU_ACCESS_FLAG.html">enum D3D11_CPU_ACCESS_FLAG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="403%20enum%20D3D11_RESOURCE_MISC_FLAG.html">enum D3D11_RESOURCE_MISC_FLAG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="404%20enum%20D3D11_INPUT_CLASSIFICATION.html">enum D3D11_INPUT_CLASSIFICATION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="405%20enum%20D3D11_RTV_DIMENSION.html">enum D3D11_RTV_DIMENSION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="406%20enum%20D3D11_DSV_DIMENSION.html">enum D3D11_DSV_DIMENSION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="407%20enum%20D3D11_DSV_FLAG.html">enum D3D11_DSV_FLAG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="408%20enum%20D3D11_FILL_MODE.html">enum D3D11_FILL_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="409%20enum%20D3D11_CULL_MODE.html">enum D3D11_CULL_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="410%20enum%20D3D11_FILTER.html">enum D3D11_FILTER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="411%20enum%20D3D11_TEXTURE_ADDRESS_MODE.html">enum D3D11_TEXTURE_ADDRESS_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="412%20enum%20D3D11_COMPARISON_FUNC.html">enum D3D11_COMPARISON_FUNC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="413%20enum%20D3D11_STENCIL_OP.html">enum D3D11_STENCIL_OP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="414%20enum%20D3D11_CREATE_DEVICE_FLAG.html">enum D3D11_CREATE_DEVICE_FLAG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="415%20enum%20D3D11_BLEND.html">enum D3D11_BLEND</a></li>
+<li class="toctree-l4"><a class="reference internal" href="416%20enum%20D3D11_BLEND_OP.html">enum D3D11_BLEND_OP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="417%20enum%20D3D11_QUERY.html">enum D3D11_QUERY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="450%20enum%20D3D_SRV_DIMENSION.html">enum D3D_SRV_DIMENSION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="451%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../02%20DirectXTex/DirectXTex.html">DirectXTex</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../02%20DirectXTex/100%20enum%20WIC_FLAGS.html">enum WIC_FLAGS</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../11%20DXGI/DXGI.html">DXGI</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/01%20IDXGIDevice.html">IDXGIDevice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/02%20IDXGIFactory.html">IDXGIFactory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/03%20IDXGIAdapter.html">IDXGIAdapter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/04%20IDXGISwapChain.html">IDXGISwapChain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/100%20enum%20DXGI_FORMAT.html">enum DXGI_FORMAT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/101%20enum%20DXGI_SWAP_EFFECT.html">enum DXGI_SWAP_EFFECT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../11%20DXGI/102%20enum%20DXGI_SWAP_CHAIN_FLAG.html">enum DXGI_SWAP_CHAIN_FLAG</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../51%20DirectX12/DirectX12.html">DirectX12</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../51%20DirectX12/101%20ID3D12CommandQueue.html">ID3D12CommandQueue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../51%20DirectX12/101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../51%20DirectX12/103%20ID3D12Device.html">ID3D12Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../51%20DirectX12/400%20enum%20D3D12_COMMAND_LIST_TYPE.html">enum D3D12_COMMAND_LIST_TYPE</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/10%20Intrinsic%20Function.html">Intrinsic Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/21%20Sementic.html">Semantic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/22%20Vertex%20Shader.html">Vertex Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/23%20Pixel%20Shader.html">Pixel Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/50%20Buffer.html">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../60%20HLSL/51%20Texture.html">Texture</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../99%20Miscelleneous.html">Miscelleneous</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../99%20ETC/ETC.html">ETC</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/1%20OOP.html">Procedural Programming</a></li>
+
+
+
+
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/10%20git.html">Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/11%20Visual%20Studio.html">Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/12%20Clang-format.html">Clang-format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/13%20vcpkg.html">vcpkg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/2%20Process.html">Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/21%20CMake.html">Cmake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/30%20OpenMP.html">OpenMP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/61%20Jupyter%20Book.html">Jupyter Book</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Mechanics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../10%20Mechanics/01%20Continuum/Continuum.html">Continuum</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../10%20Mechanics/01%20Continuum/01%20Deformation.html">Deformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../10%20Mechanics/01%20Continuum/02%20Material%20%26%20spatial%20description.html">Lagrangian &amp; Eulerian Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../10%20Mechanics/01%20Continuum/03%20Material%20Derivative.html">Material Derivative</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../10%20Mechanics/01%20Continuum/04%20Deformation%20Gradient.html">Deformation Gradient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../10%20Mechanics/01%20Continuum/05%20Time%20Rate%20of%20Change.html">Time Rate of Change</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../10%20Mechanics/11%20Fluid/Fluid.html">Fluid</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../10%20Mechanics/11%20Fluid/01%20Governing%20Equation.html">Governing Equation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../99%20References/references.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../../../_sources/sources/03 programming/02 Graphics/50 DirectX11/01 Direct3D/Direct3D.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Direct3D</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rendering-pipeline">Rendering Pipeline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-assembler-stage">입력 어셈블러 단계 (Input Assembler Stage)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vertex-shader-stage">정점 셰이더 단계 (Vertex Shader Stage)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hull-shader-stage">허황 셰이더 단계 (Hull Shader Stage) [선택적]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tessellator-stage">테셀레이터 단계 (Tessellator Stage) [선택적]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-shader-stage">도메인 셰이더 단계 (Domain Shader Stage) [선택적]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometry-shader-stage">기하 셰이더 단계 (Geometry Shader Stage) [선택적]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rasterizer-stage">래스터라이저 단계 (Rasterizer Stage)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pixel-shader-stage">픽셀 셰이더 단계 (Pixel Shader Stage)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-merger-stage">출력 병합 단계 (Output Merger Stage)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">자원 바인딩 경고</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anti-aliasing">Anti-aliasing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa-and-flip-model">MSAA and Flip model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa">MSAA</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#checkmultisamplequalitylevels">CheckMultisampleQualityLevels 함수</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa-vs-ssaa">멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11createdevice">D3D11CreateDevice 함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flags-d3d11-create-device-debug-sdk">Flags D3D11_CREATE_DEVICE_DEBUG SDK 문제</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11createdeviceandswapchain">D3D11CreateDeviceAndSwapChain</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiadapter-padapter">IDXGIAdapter* pAdapter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d-driver-type-drivertype">D3D_DRIVER_TYPE DriverType</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hmodule-software">HMODULE Software</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-flags">UINT Flags</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#const-d3d-feature-level-pfeaturelevels">const D3D_FEATURE_LEVEL* pFeatureLevels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-featurelevels">UINT FeatureLevels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-sdkversion">UINT SDKVersion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#const-dxgi-swap-chain-desc-pswapchaindesc">const DXGI_SWAP_CHAIN_DESC* pSwapChainDesc</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d11device-ppdevice">ID3D11Device** ppDevice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d-feature-level-pfeaturelevel">D3D_FEATURE_LEVEL* pFeatureLevel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d11devicecontext-ppimmediatecontext">ID3D11DeviceContext** ppImmediateContext</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3dcompilefromfile">D3DCompileFromFile 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer-vs-shader-resource-view">Constant Buffer vs Shader Resource View</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer">constant buffer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-resource">shader resource</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">정리</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixlookatlh">XMMatrixLookAtLH 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixlooktolh">XMMatrixLookToLH 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixperspectivefovlh">XMMatrixPerspectiveFovLH 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixorthographicoffcenterlh">XMMatrixOrthographicOffCenterLH함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-test-list">Performance Test List</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="direct3d">
+<h1>Direct3D<a class="headerlink" href="#direct3d" title="Link to this heading">#</a></h1>
+<section id="rendering-pipeline">
+<h2>Rendering Pipeline<a class="headerlink" href="#rendering-pipeline" title="Link to this heading">#</a></h2>
+<section id="input-assembler-stage">
+<h3>입력 어셈블러 단계 (Input Assembler Stage)<a class="headerlink" href="#input-assembler-stage" title="Link to this heading">#</a></h3>
+<p>이 단계에서는 정점 데이터와 인덱스 데이터를 GPU로 가져온다. 정점 데이터는 3D 모델의 점들에 대한 정보이며, 인덱스 데이터는 이러한 정점들이 어떻게 결합되어 폴리곤을 이루는지에 대한 정보를 포함한다. 이 단계에서 정점 버퍼와 인덱스 버퍼가 GPU에 바인딩되어 후속 단계에서 사용할 수 있도록 준비된다.</p>
+<p>input assembler stage에서는 graphics pipe line에 input data인 vertex buffer를 설정하고 vertex buffer가 어떤 형태의 data인지 알려주는 input layout을 설정한다. 그리고 각 data의 고유한 index가 저장된 index buffer를 설정하고 index buffer를 어떻게 해석할지를 결정하는 primitive topology를 설정한다.</p>
+</section>
+<section id="vertex-shader-stage">
+<h3>정점 셰이더 단계 (Vertex Shader Stage)<a class="headerlink" href="#vertex-shader-stage" title="Link to this heading">#</a></h3>
+<p>정점 셰이더는 각 정점에 대해 실행되며, 주로 정점의 변환과 조명을 계산한다. 이 단계에서는 3D 모델의 정점이 월드 공간, 뷰 공간, 클립 공간으로 변환된다. 또한 조명 계산을 통해 정점의 색상과 조명 효과를 결정할 수 있다. 정점 셰이더는 고유의 셰이더 프로그램으로 작성되며, HLSL을 사용하여 정의된다.</p>
+</section>
+<section id="hull-shader-stage">
+<h3>허황 셰이더 단계 (Hull Shader Stage) [선택적]<a class="headerlink" href="#hull-shader-stage" title="Link to this heading">#</a></h3>
+<p>허황 셰이더는 테셀레이션 과정을 제어한다. 이 단계는 패치 데이터를 받아 세부적인 곡면을 생성하기 위해 테셀레이션 레벨을 계산한다. 고정밀 모델링에서 사용되며, 입력된 패치를 분할하여 더 많은 정점을 생성하는 과정의 일부이다. 허황 셰이더는 복잡한 기하학적 세부 사항을 렌더링할 때 유용하다.</p>
+</section>
+<section id="tessellator-stage">
+<h3>테셀레이터 단계 (Tessellator Stage) [선택적]<a class="headerlink" href="#tessellator-stage" title="Link to this heading">#</a></h3>
+<p>테셀레이터는 허황 셰이더와 도메인 셰이더 사이에 위치하며, 입력 패치를 분할하여 더 많은 정점을 생성한다. 이 단계는 테셀레이션 레벨에 따라 입력 패치를 세분화하고, 각 패치를 작은 삼각형이나 다른 기본 프리미티브로 나누어 렌더링을 위한 추가 정점을 생성한다.</p>
+</section>
+<section id="domain-shader-stage">
+<h3>도메인 셰이더 단계 (Domain Shader Stage) [선택적]<a class="headerlink" href="#domain-shader-stage" title="Link to this heading">#</a></h3>
+<p>도메인 셰이더는 테셀레이터에 의해 생성된 정점을 처리하여 최종 정점 위치를 계산한다. 이 단계에서는 테셀레이션된 정점들이 최종적으로 어떻게 배치될지를 결정하며, 월드 공간에서의 위치와 관련된 추가 계산을 수행한다. 도메인 셰이더는 주로 테셀레이션된 표면의 세부 사항을 추가적으로 조정하는 데 사용된다.</p>
+</section>
+<section id="geometry-shader-stage">
+<h3>기하 셰이더 단계 (Geometry Shader Stage) [선택적]<a class="headerlink" href="#geometry-shader-stage" title="Link to this heading">#</a></h3>
+<p>기하 셰이더는 프리미티브(점, 선, 삼각형)를 입력으로 받아 새로운 프리미티브를 생성할 수 있다. 이 단계는 입력된 프리미티브를 변형하거나 확장하여 새로운 기하 구조를 생성할 수 있다. 이를 통해 점에서 선을 생성하거나, 선에서 삼각형을 생성하는 등 다양한 기하학적 변환이 가능하다.</p>
+</section>
+<section id="rasterizer-stage">
+<h3>래스터라이저 단계 (Rasterizer Stage)<a class="headerlink" href="#rasterizer-stage" title="Link to this heading">#</a></h3>
+<p>래스터라이저는 3D 공간의 프리미티브를 2D 화면 공간으로 변환하고, 프래그먼트(픽셀)을 생성한다. 이 단계에서 프리미티브 클리핑, 뷰포트 변환, 백페이스 컬링 등이 이루어진다. 래스터라이저는 최종적으로 화면에 렌더링될 프래그먼트를 생성하고, 이를 픽셀 셰이더로 전달한다.</p>
+</section>
+<section id="pixel-shader-stage">
+<h3>픽셀 셰이더 단계 (Pixel Shader Stage)<a class="headerlink" href="#pixel-shader-stage" title="Link to this heading">#</a></h3>
+<p>픽셀 셰이더는 각 픽셀에 대해 실행되며, 최종 색상을 계산한다. 이 단계에서는 텍스처 샘플링, 조명 계산, 그림자 처리 등을 수행하여 최종적으로 디스플레이에 출력될 색상을 결정한다. 픽셀 셰이더는 복잡한 조명 모델과 텍스처 매핑 기술을 통해 현실감 있는 이미지를 생성하는 데 사용된다.</p>
+</section>
+<section id="output-merger-stage">
+<h3>출력 병합 단계 (Output Merger Stage)<a class="headerlink" href="#output-merger-stage" title="Link to this heading">#</a></h3>
+<p>출력 병합 단계에서는 여러 렌더 타겟과 깊이-스텐실 버퍼를 결합하여 최종 렌더링된 이미지를 생성한다. 이 단계에서는 알파 블렌딩, 깊이 테스트, 스텐실 테스트 등이 이루어진다. 최종적으로 생성된 이미지가 렌더 타겟에 출력되며, 화면에 표시될 준비를 마친다.</p>
+<blockquote>
+<div><p>REFERENCE<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage">MSDN - input-assembler-stage</a></p>
+</div></blockquote>
+</section>
+</section>
+<section id="id1">
+<h2>자원 바인딩 경고<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>백 버퍼를 렌더 타겟 뷰(RTV)로 바인딩한 후에 동일한 자원을 언오더드 액세스 뷰(UAV)로 바인딩하려고 하면</p>
+<p>동일한 자원을 여러 파이프라인 단계에서 동시에 읽거나 쓰려는 시도에 대한 문제를 경고한다.</p>
+<p>예를 들어, _cptr_back_buffer_RTV를 OMSetRenderTargets를 통해 렌더 타겟 뷰로 바인딩한 후, 동일한 자원을 CSSetUnorderedAccessViews를 통해 컴퓨트 셰이더의 UAV로 바인딩하려고 하면 Direct3D 11은 동일한 자원이 여러 파이프라인 단계에서 동시에 쓰기 가능 상태로 바인딩되는 것을 허용하지 않는다.</p>
+<p>따라서, UAV로 설정하려는 자원이 이미 다른 파이프라인 단계(이 경우 출력 병합 단계)에서 RTV로 바인딩되어 있으면, UAV로 바인딩할 때 자동으로 RTV가 해제된다.</p>
+<p>그러면 이로 인해 픽셀 셰이더에서 예상하는 RTV가 없다는 경고 메시지가 발생하게 된다.</p>
+</section>
+<section id="anti-aliasing">
+<h2>Anti-aliasing<a class="headerlink" href="#anti-aliasing" title="Link to this heading">#</a></h2>
+<section id="msaa-and-flip-model">
+<h3>MSAA and Flip model<a class="headerlink" href="#msaa-and-flip-model" title="Link to this heading">#</a></h3>
+<p>플립 모델 스왑 체인은 성능과 효율성을 높이기 위해 설계되었으며, 블릿 모델(Blt model) 스왑 체인은 구식으로 간주된다.</p>
+<p>Direct3D 11에서 멀티샘플링(MSAA)을 사용하려면 블릿 모델을 사용해야 하지만, 이는 성능 및 최신 기능 면에서 최적의 선택이 아닐 수 있다.</p>
+<p>MSAA 대신 다른 안티앨리어싱 기술을 사용하는 것이 일반적으로 더 선호된다.</p>
+<p>이는 특히 플립 모델 스왑 체인을 사용할 때 성능과 효율성을 유지할 수 있기 때문이다.</p>
+<p><strong>현대적 안티앨리어싱 기술</strong></p>
+<p>현대적인 안티앨리어싱 기술은 주로 포스트 프로세싱 단계에서 수행되며, MSAA보다 성능 효율적이다. 대표적인 기술로는 다음과 같다:</p>
+<p><strong>FXAA (Fast Approximate Anti-Aliasing)</strong></p>
+<ul class="simple">
+<li><p>빠른 속도로 계단 현상을 줄이는 기술.</p></li>
+<li><p>포스트 프로세싱 단계에서 적용.</p></li>
+<li><p>이미지 품질은 MSAA보다 낮을 수 있지만, 성능은 더 우수하다.</p></li>
+</ul>
+<p><strong>SMAA (Subpixel Morphological Anti-Aliasing)</strong></p>
+<ul class="simple">
+<li><p>FXAA보다 향상된 품질을 제공.</p></li>
+<li><p>여전히 포스트 프로세싱 단계에서 수행되며 성능 효율적.</p></li>
+<li><p>Subpixel 정보를 활용하여 더 부드러운 가장자리를 생성.</p></li>
+</ul>
+<p><strong>TAA (Temporal Anti-Aliasing)</strong></p>
+<ul class="simple">
+<li><p>시간적 정보를 사용하여 계단 현상을 줄이는 기술.</p></li>
+<li><p>이전 프레임의 데이터를 활용하여 부드러운 이미지를 생성.</p></li>
+<li><p>고정된 장면에서는 매우 효과적이나, 빠르게 움직이는 장면에서는 아티팩트가 발생할 수 있다.</p></li>
+</ul>
+</section>
+<section id="msaa">
+<h3>MSAA<a class="headerlink" href="#msaa" title="Link to this heading">#</a></h3>
+<section id="checkmultisamplequalitylevels">
+<h4>CheckMultisampleQualityLevels 함수<a class="headerlink" href="#checkmultisamplequalitylevels" title="Link to this heading">#</a></h4>
+<p>CheckMultisampleQualityLevels 함수는 지정된 포맷 및 샘플 수에 대해 사용할 수 있는 <code class="docutils literal notranslate"><span class="pre">멀티샘플링(Multi-Sample</span> <span class="pre">Anti-Aliasing;</span> <span class="pre">MSAA)</span></code> 품질 수준의 수를 확인하는 함수다.</p>
+<p>멀티샘플링은 렌더링 품질을 향상시키기 위해 여러 샘플을 사용하여 픽셀의 가장자리 부드럽게 하는 기술이다.</p>
+<p>함수의 시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CheckMultisampleQualityLevels</span><span class="p">(</span>
+<span class="w">    </span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">Format</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">SampleCount</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="o">*</span><span class="n">pNumQualityLevels</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>각각의 매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>Format</p>
+<ul>
+<li><p>DXGI_FORMAT 열거형으로, 확인할 멀티샘플링을 지원하는 텍스처 포맷을 지정한다.</p></li>
+<li><p>예를 들어, DXGI_FORMAT_R8G8B8A8_UNORM은 일반적인 32비트 RGBA 포맷이다.</p></li>
+</ul>
+</li>
+<li><p>SampleCount</p>
+<ul>
+<li><p>멀티샘플링에 사용할 샘플의 수를 지정한다.</p></li>
+<li><p>이 값은 보통 1, 2, 4, 8, 16 등의 값을 가지며, 특정 하드웨어가 지원하는 샘플 수에 따라 다를 수 있다.</p></li>
+</ul>
+</li>
+<li><p>pNumQualityLevels</p>
+<ul>
+<li><p>지정된 포맷과 샘플 수에 대해 사용 가능한 품질 수준의 수를 반환하는 포인터다.</p></li>
+<li><p>이 값은 0부터 시작하며, 값이 1 이상이면 멀티샘플링을 사용할 수 있는 품질 수준이 있음을 의미한다.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="msaa-vs-ssaa">
+<h4>멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)<a class="headerlink" href="#msaa-vs-ssaa" title="Link to this heading">#</a></h4>
+<p>MSAA는 각 픽셀을 여러 개의 서브픽셀로 나누고, 경계선에서만 다중 샘플링을 수행한다. 이는 주로 삼각형의 가장자리에서 앨리어싱을 줄이는 데 집중된다. 따라서 경계선 내부의 픽셀은 다중 샘플링을 하지 않으므로, 전체 화면에서 필요한 샘플 수를 줄인다.</p>
+<p>SSAA는 화면을 고해상도로 렌더링한 다음, 결과를 다운샘플링하여 최종 이미지를 생성한다. 예를 들어, 2x SSAA는 화면을 원래 해상도의 두 배로 렌더링하고 이를 다시 원래 해상도로 축소한다. 따라서 화면의 모든 픽셀에 대해 다중 샘플링을 수행하여 모든 부분에서 앨리어싱을 줄인다.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>특성</p></th>
+<th class="head"><p>SSAA</p></th>
+<th class="head"><p>MSAA</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>샘플링 방식</p></td>
+<td><p>모든 픽셀에 대해 다중 샘플링</p></td>
+<td><p>경계선에서만 다중 샘플링</p></td>
+</tr>
+<tr class="row-odd"><td><p>이미지 품질</p></td>
+<td><p>매우 높음</p></td>
+<td><p>높음</p></td>
+</tr>
+<tr class="row-even"><td><p>성능 비용</p></td>
+<td><p>매우 높음</p></td>
+<td><p>낮음</p></td>
+</tr>
+<tr class="row-odd"><td><p>메모리 사용량</p></td>
+<td><p>높음</p></td>
+<td><p>낮음</p></td>
+</tr>
+<tr class="row-even"><td><p>적용 범위</p></td>
+<td><p>전체 이미지</p></td>
+<td><p>경계선 주로</p></td>
+</tr>
+<tr class="row-odd"><td><p>복잡성</p></td>
+<td><p>간단</p></td>
+<td><p>복잡</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+<section id="d3d11createdevice">
+<h2>D3D11CreateDevice 함수<a class="headerlink" href="#d3d11createdevice" title="Link to this heading">#</a></h2>
+<p>D3D11CreateDevice 함수는 Direct3D 11 디바이스와 해당 디바이스의 즉시 컨텍스트를 생성하는 함수다. 이 함수는 Direct3D 애플리케이션의 기본 구성 요소로, 그래픽 하드웨어와 상호 작용할 수 있게 한다.</p>
+<p>시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">D3D11CreateDevice</span><span class="p">(</span>
+<span class="w">    </span><span class="n">IDXGIAdapter</span><span class="w"> </span><span class="o">*</span><span class="n">pAdapter</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D_DRIVER_TYPE</span><span class="w"> </span><span class="n">DriverType</span><span class="p">,</span>
+<span class="w">    </span><span class="n">HMODULE</span><span class="w"> </span><span class="n">Software</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Flags</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">D3D_FEATURE_LEVEL</span><span class="w"> </span><span class="o">*</span><span class="n">pFeatureLevels</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">FeatureLevels</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">SDKVersion</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ID3D11Device</span><span class="w"> </span><span class="o">**</span><span class="n">ppDevice</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ID3D11DeviceContext</span><span class="w"> </span><span class="o">**</span><span class="n">ppImmediateContext</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>IDXGIAdapter* pAdapter</p>
+<ul>
+<li><p>디바이스가 연결될 어댑터를 지정하는 포인터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>NULL: 기본 어댑터를 사용한다.</p></li>
+<li><p>IDXGIAdapter: 특정 어댑터를 지정한다.</p></li>
+</ul>
+</li>
+<li><p>기본값: NULL</p></li>
+</ul>
+</li>
+<li><p>D3D_DRIVER_TYPE DriverType</p>
+<ul>
+<li><p>디바이스 드라이버의 유형을 지정하는 열거형</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>enum D3D_DRIVER_TYPE 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>HMODULE Software</p>
+<ul>
+<li><p>사용자 지정 소프트웨어 래스터라이저 모듈의 핸들</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>NULL: 소프트웨어 드라이버를 사용하지 않는다.</p></li>
+<li><p>HMODULE: 특정 소프트웨어 드라이버 모듈을 지정한다.</p></li>
+</ul>
+</li>
+<li><p>기본값: NULL</p></li>
+</ul>
+</li>
+<li><p>UINT Flags</p>
+<ul>
+<li><p>디바이스 생성에 대한 추가 옵션을 지정하는 플래그</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0: 기본 설정을 사용한다.</p></li>
+<li><p>D3D11_CREATE_DEVICE_FLAG enum 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 0</p></li>
+</ul>
+</li>
+<li><p>const D3D_FEATURE_LEVEL* pFeatureLevels</p>
+<ul>
+<li><p>지원하려는 기능 수준의 배열에 대한 포인터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>D3D_FEATURE_LEVEL_11_0: Direct3D 11.0 기능 수준</p></li>
+<li><p>D3D_FEATURE_LEVEL_10_1: Direct3D 10.1 기능 수준</p></li>
+<li><p>D3D_FEATURE_LEVEL_10_0: Direct3D 10.0 기능 수준</p></li>
+<li><p>D3D_FEATURE_LEVEL_9_3: Direct3D 9.3 기능 수준</p></li>
+<li><p>D3D_FEATURE_LEVEL_9_2: Direct3D 9.2 기능 수준</p></li>
+<li><p>D3D_FEATURE_LEVEL_9_1: Direct3D 9.1 기능 수준</p></li>
+</ul>
+</li>
+<li><p>기본값: NULL (Direct3D 11.0을 기본으로 설정)</p></li>
+</ul>
+</li>
+<li><p>UINT FeatureLevels</p>
+<ul>
+<li><p>pFeatureLevels 배열의 크기</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0: pFeatureLevels가 NULL일 때 사용한다.</p></li>
+<li><p>1 이상의 정수: pFeatureLevels 배열의 요소 수</p></li>
+</ul>
+</li>
+<li><p>기본값: 0</p></li>
+</ul>
+</li>
+<li><p>UINT SDKVersion</p>
+<ul>
+<li><p>Direct3D SDK의 버전을 지정</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>D3D11_SDK_VERSION: 현재 SDK 버전을 사용한다.</p></li>
+</ul>
+</li>
+<li><p>기본값: D3D11_SDK_VERSION</p></li>
+</ul>
+</li>
+<li><p>ID3D11Device** ppDevice</p>
+<ul>
+<li><p>생성된 디바이스 객체에 대한 포인터의 주소</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>NULL: 유효한 디바이스 객체를 반환하지 않는다.</p></li>
+<li><p>ID3D11Device: 생성된 디바이스 객체를 반환한다.</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>ID3D11DeviceContext** ppImmediateContext</p>
+<ul>
+<li><p>생성된 즉시 컨텍스트 객체에 대한 포인터의 주소</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>NULL: 유효한 즉시 컨텍스트 객체를 반환하지 않는다.</p></li>
+<li><p>ID3D11DeviceContext: 생성된 즉시 컨텍스트 객체를 반환한다.</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+</ul>
+<section id="flags-d3d11-create-device-debug-sdk">
+<h3>Flags D3D11_CREATE_DEVICE_DEBUG SDK 문제<a class="headerlink" href="#flags-d3d11-create-device-debug-sdk" title="Link to this heading">#</a></h3>
+<p>Flags 인자로 D3D11_CREATE_DEVICE_DEBUG를 주었을 때, 다음과 같은 오류가 발생하는 경우가 있다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D11CreateDevice</span><span class="p">:</span> <span class="n">Flags</span> <span class="p">(</span><span class="mh">0x2</span><span class="p">)</span> <span class="n">were</span> <span class="n">specified</span> <span class="n">which</span> <span class="n">require</span> <span class="n">the</span> <span class="n">D3D11</span> <span class="n">SDK</span> <span class="n">Layers</span> <span class="k">for</span> <span class="n">Windows</span> <span class="mi">10</span><span class="p">,</span> <span class="n">but</span> <span class="n">they</span> <span class="n">are</span> <span class="ow">not</span> <span class="n">present</span> <span class="n">on</span> <span class="n">the</span> <span class="n">system</span><span class="o">.</span>
+<span class="n">These</span> <span class="n">flags</span> <span class="n">must</span> <span class="n">be</span> <span class="n">removed</span><span class="p">,</span> <span class="ow">or</span> <span class="n">the</span> <span class="n">Windows</span> <span class="mi">10</span> <span class="n">SDK</span> <span class="n">must</span> <span class="n">be</span> <span class="n">installed</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>이 때, <code class="docutils literal notranslate"><span class="pre">window</span> <span class="pre">&gt;&gt;</span> <span class="pre">&quot;선택적</span> <span class="pre">기능&quot;</span> <span class="pre">검색</span> <span class="pre">&gt;&gt;</span> <span class="pre">기능</span> <span class="pre">추가</span> <span class="pre">&gt;&gt;</span> <span class="pre">그래픽</span> <span class="pre">도구</span> <span class="pre">설치</span></code>를 하면 문제가 해결된다.</p>
+<p>windows11의 경우 선택적 기능은 <code class="docutils literal notranslate"><span class="pre">설정</span> <span class="pre">&gt;&gt;</span> <span class="pre">시스템</span></code>의 하위 항목에 존재한다.</p>
+</section>
+</section>
+<section id="d3d11createdeviceandswapchain">
+<h2>D3D11CreateDeviceAndSwapChain<a class="headerlink" href="#d3d11createdeviceandswapchain" title="Link to this heading">#</a></h2>
+<p>D3D11CreateDeviceAndSwapChain 함수는 Direct3D 11 디바이스와 디바이스 컨텍스트 그리고 스왑 체인을 동시에 생성하는 함수다.</p>
+<p>이 함수의 시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">D3D11CreateDeviceAndSwapChain</span><span class="p">(</span>
+<span class="w">    </span><span class="n">IDXGIAdapter</span><span class="o">*</span><span class="w"> </span><span class="n">pAdapter</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D_DRIVER_TYPE</span><span class="w"> </span><span class="n">DriverType</span><span class="p">,</span>
+<span class="w">    </span><span class="n">HMODULE</span><span class="w"> </span><span class="n">Software</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Flags</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">D3D_FEATURE_LEVEL</span><span class="o">*</span><span class="w"> </span><span class="n">pFeatureLevels</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">FeatureLevels</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">SDKVersion</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">DXGI_SWAP_CHAIN_DESC</span><span class="o">*</span><span class="w"> </span><span class="n">pSwapChainDesc</span><span class="p">,</span>
+<span class="w">    </span><span class="n">IDXGISwapChain</span><span class="o">**</span><span class="w"> </span><span class="n">ppSwapChain</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ID3D11Device</span><span class="o">**</span><span class="w"> </span><span class="n">ppDevice</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D_FEATURE_LEVEL</span><span class="o">*</span><span class="w"> </span><span class="n">pFeatureLevel</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ID3D11DeviceContext</span><span class="o">**</span><span class="w"> </span><span class="n">ppImmediateContext</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>각각의 매개변수는 다음과 같다.</p>
+<section id="idxgiadapter-padapter">
+<h3>IDXGIAdapter* pAdapter<a class="headerlink" href="#idxgiadapter-padapter" title="Link to this heading">#</a></h3>
+<p>사용할 DXGI 어댑터를 지정하기 위한 매개변수이다.</p>
+<p>nullptr로 설정하면 기본 어댑터가 사용되고 특정 GPU를 선택하려면 IDXGIAdapter 객체를 전달해야 한다.</p>
+</section>
+<section id="d3d-driver-type-drivertype">
+<h3>D3D_DRIVER_TYPE DriverType<a class="headerlink" href="#d3d-driver-type-drivertype" title="Link to this heading">#</a></h3>
+<p>디바이스의 드라이버 유형을 지정하기 위한 매개변수이다.</p>
+<p>사용 가능한 드라이버 유형은 다음과 같다:</p>
+<ul class="simple">
+<li><p>D3D_DRIVER_TYPE_HARDWARE</p>
+<ul>
+<li><p>하드웨어 가속을 사용하는 디바이스.</p></li>
+</ul>
+</li>
+<li><p>D3D_DRIVER_TYPE_REFERENCE</p>
+<ul>
+<li><p>소프트웨어로 구현된 디바이스. 디버깅 및 테스트 목적으로 사용된다.</p></li>
+</ul>
+</li>
+<li><p>D3D_DRIVER_TYPE_NULL</p>
+<ul>
+<li><p>출력이 없는 디바이스. 주로 성능 테스트에 사용된다.</p></li>
+</ul>
+</li>
+<li><p>D3D_DRIVER_TYPE_SOFTWARE</p>
+<ul>
+<li><p>사용자 지정 소프트웨어 렌더러를 사용하는 디바이스.</p></li>
+</ul>
+</li>
+<li><p>D3D_DRIVER_TYPE_WARP</p>
+<ul>
+<li><p>WARP(WIndows Advanced Rasterization Platform) 소프트웨어 렌더러를 사용하는 디바이스.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="hmodule-software">
+<h3>HMODULE Software<a class="headerlink" href="#hmodule-software" title="Link to this heading">#</a></h3>
+<p>소프트웨어 드라이버의 경우 사용되는 DLL의 핸들을 지정하기 위한 매개변수이다.</p>
+<p>DriverType이 D3D_DRIVER_TYPE_SOFTWARE인 경우 유효한 핸들이 필요하지만 그렇지 않으면 nullptr로 설정한다.</p>
+</section>
+<section id="uint-flags">
+<h3>UINT Flags<a class="headerlink" href="#uint-flags" title="Link to this heading">#</a></h3>
+<p>디바이스 생성 시 사용할 플래그를 지정하기 위한 매개변수이다.</p>
+<p>사용 가능한 주요 플래그는 다음과 같다:</p>
+<ul class="simple">
+<li><p>D3D11_CREATE_DEVICE_DEBUG</p>
+<ul>
+<li><p>디버그 디바이스를 생성하여 디버깅 정보를 활성화한다.</p></li>
+</ul>
+</li>
+<li><p>D3D11_CREATE_DEVICE_SINGLETHREADED</p>
+<ul>
+<li><p>디바이스가 단일 스레드에서만 사용됨을 나타낸다.</p></li>
+</ul>
+</li>
+</ul>
+<p>만약 이 값에 0을 주는 경우 Direct3D 11 디바이스가 아무런 추가 디버그 기능이나 특수 모드를 사용하지 않고 기본 설정으로 생성된다.</p>
+</section>
+<section id="const-d3d-feature-level-pfeaturelevels">
+<h3>const D3D_FEATURE_LEVEL* pFeatureLevels<a class="headerlink" href="#const-d3d-feature-level-pfeaturelevels" title="Link to this heading">#</a></h3>
+<p>지원할 기능 수준을 나열한 배열을 지정하기 위한 매개변수이다.</p>
+<p>이 배열의 첫 번째 요소부터 적용이 시작됨으로 선호하는 기능 수준 순서로 배열을 만들어야 한다.</p>
+</section>
+<section id="uint-featurelevels">
+<h3>UINT FeatureLevels<a class="headerlink" href="#uint-featurelevels" title="Link to this heading">#</a></h3>
+<p>기능 수준 배열의 크기를 지정하기 위한 매개변수이다.</p>
+<p>일반적으로 ARRAYSIZE(featureLevels)를 사용한다.</p>
+</section>
+<section id="uint-sdkversion">
+<h3>UINT SDKVersion<a class="headerlink" href="#uint-sdkversion" title="Link to this heading">#</a></h3>
+<p>SDK 버전을 지정하기 위한 매개변수이다.</p>
+<p>일반적으로 D3D11_SDK_VERSION을 사용한다.</p>
+</section>
+<section id="const-dxgi-swap-chain-desc-pswapchaindesc">
+<h3>const DXGI_SWAP_CHAIN_DESC* pSwapChainDesc<a class="headerlink" href="#const-dxgi-swap-chain-desc-pswapchaindesc" title="Link to this heading">#</a></h3>
+<p>스왑 체인을 생성하기 위해 필요한 DXGI_SWAP_CHAIN_DESC을 지정하기 위한 매개변수이다.</p>
+<p>DXGI_SWAP_CHAIN_DESC 구조체는 DirectX Graphics Infrastructure (DXGI)에서 스왑 체인의 속성을 정의하며 스왑 체인 생성에 사용된다.</p>
+</section>
+<section id="id3d11device-ppdevice">
+<h3>ID3D11Device** ppDevice<a class="headerlink" href="#id3d11device-ppdevice" title="Link to this heading">#</a></h3>
+<p>생성된 디바이스 객체를 받을 포인터의 주소를 지정하기 위한 매개변수이다.</p>
+</section>
+<section id="d3d-feature-level-pfeaturelevel">
+<h3>D3D_FEATURE_LEVEL* pFeatureLevel<a class="headerlink" href="#d3d-feature-level-pfeaturelevel" title="Link to this heading">#</a></h3>
+<p>생성된 디바이스의 기능 수준을 받을 포인터를 지정하기 위한 매개변수이다.</p>
+<p>nullptr로 설정하면 이 값을 무시한다.</p>
+</section>
+<section id="id3d11devicecontext-ppimmediatecontext">
+<h3>ID3D11DeviceContext** ppImmediateContext<a class="headerlink" href="#id3d11devicecontext-ppimmediatecontext" title="Link to this heading">#</a></h3>
+<p>생성된 디바이스 컨텍스트 객체를 받을 포인터의 주소를 지정하기 위한 매개변수이다.</p>
+</section>
+</section>
+<section id="d3dcompilefromfile">
+<h2>D3DCompileFromFile 함수<a class="headerlink" href="#d3dcompilefromfile" title="Link to this heading">#</a></h2>
+<p>D3DCompileFromFile 함수는 HLSL(High-Level Shader Language) 파일로부터 셰이더 코드를 컴파일하는 함수다.</p>
+<p>이 함수는 파일에서 셰이더 코드를 읽어와서 지정된 프로필에 맞게 컴파일하고, 컴파일된 셰이더 바이트 코드를 반환한다.</p>
+<p>시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">D3DCompileFromFile</span><span class="p">(</span>
+<span class="w">    </span><span class="n">LPCWSTR</span><span class="w"> </span><span class="n">pFileName</span><span class="p">,</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">D3D_SHADER_MACRO</span><span class="w"> </span><span class="o">*</span><span class="n">pDefines</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ID3DInclude</span><span class="w"> </span><span class="o">*</span><span class="n">pInclude</span><span class="p">,</span>
+<span class="w">    </span><span class="n">LPCSTR</span><span class="w"> </span><span class="n">pEntryPoint</span><span class="p">,</span>
+<span class="w">    </span><span class="n">LPCSTR</span><span class="w"> </span><span class="n">pTarget</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Flags1</span><span class="p">,</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Flags2</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ID3DBlob</span><span class="w"> </span><span class="o">**</span><span class="n">ppCode</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ID3DBlob</span><span class="w"> </span><span class="o">**</span><span class="n">ppErrorMsgs</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>LPCWSTR pFileName</p>
+<ul>
+<li><p>셰이더 소스 코드가 포함된 파일의 이름</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 파일 경로를 나타내는 문자열</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>const D3D_SHADER_MACRO* pDefines</p>
+<ul>
+<li><p>셰이더 컴파일에 사용할 매크로 정의</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>NULL: 매크로 정의를 사용하지 않는다.</p></li>
+<li><p>유효한 D3D_SHADER_MACRO 구조체 배열</p></li>
+</ul>
+</li>
+<li><p>기본값: NULL</p></li>
+</ul>
+</li>
+<li><p>ID3DInclude* pInclude</p>
+<ul>
+<li><p>셰이더 코드에서 포함 파일을 처리하는 인터페이스</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>NULL: 포함 파일을 사용하지 않는다.</p></li>
+<li><p>유효한 ID3DInclude 인터페이스 구현 객체</p></li>
+</ul>
+</li>
+<li><p>기본값: NULL</p></li>
+</ul>
+</li>
+<li><p>LPCSTR pEntryPoint</p>
+<ul>
+<li><p>셰이더의 진입점 함수 이름</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 함수 이름 문자열</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>LPCSTR pTarget</p>
+<ul>
+<li><p>컴파일할 셰이더의 타겟 프로필</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 셰이더 프로필 문자열 (예: “vs_5_0”은 버텍스 셰이더 모델 5.0을 의미)</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>UINT Flags1</p>
+<ul>
+<li><p>셰이더 컴파일 옵션 플래그</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0: 기본 설정</p></li>
+<li><p>D3DCOMPILE_DEBUG: 디버그 정보를 생성한다.</p></li>
+<li><p>D3DCOMPILE_SKIP_VALIDATION: 컴파일러가 셰이더의 유효성을 검사하지 않도록 한다.</p></li>
+<li><p>D3DCOMPILE_SKIP_OPTIMIZATION: 셰이더 최적화를 건너뛴다.</p></li>
+<li><p>D3DCOMPILE_PACK_MATRIX_ROW_MAJOR: 행 우선 순서로 행렬을 패킹한다.</p></li>
+<li><p>D3DCOMPILE_PACK_MATRIX_COLUMN_MAJOR: 열 우선 순서로 행렬을 패킹한다.</p></li>
+</ul>
+</li>
+<li><p>기본값: 0</p></li>
+</ul>
+</li>
+<li><p>UINT Flags2</p>
+<ul>
+<li><p>셰이더 컴파일 이펙트 옵션 플래그</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0: 기본 설정</p></li>
+</ul>
+</li>
+<li><p>기본값: 0</p></li>
+</ul>
+</li>
+<li><p>ID3DBlob** ppCode</p>
+<ul>
+<li><p>컴파일된 셰이더 코드의 바이트 코드를 저장할 버퍼의 포인터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>NULL: 컴파일된 셰이더 코드를 반환하지 않는다.</p></li>
+<li><p>유효한 ID3DBlob 객체 포인터</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>ID3DBlob** ppErrorMsgs</p>
+<ul>
+<li><p>컴파일 오류 메시지를 저장할 버퍼의 포인터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>NULL: 오류 메시지를 반환하지 않는다.</p></li>
+<li><p>유효한 ID3DBlob 객체 포인터</p></li>
+</ul>
+</li>
+<li><p>기본값: NULL</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="constant-buffer-vs-shader-resource-view">
+<h2>Constant Buffer vs Shader Resource View<a class="headerlink" href="#constant-buffer-vs-shader-resource-view" title="Link to this heading">#</a></h2>
+<section id="constant-buffer">
+<h3>constant buffer<a class="headerlink" href="#constant-buffer" title="Link to this heading">#</a></h3>
+<p>상수 버퍼는 작은 양의 데이터를 셰이더에 전달할 때 매우 효율적이다. 이는 주로 매트릭스, 벡터, 스칼라 값과 같은 데이터를 전달하는 데 사용된다.</p>
+<p>constant buffer는 효율성: 상수 버퍼는 작은 데이터 집합을 매우 빠르게 전달할 수 있도록 최적화되어 있다.
+간단한 사용: 상수 버퍼는 설정이 비교적 간단하고, Direct3D에서 효율적으로 관리된다.
+동기화: 상수 버퍼는 CPU와 GPU 간의 동기화가 필요 없으며, 빠르게 업데이트할 수 있다.</p>
+</section>
+<section id="shader-resource">
+<h3>shader resource<a class="headerlink" href="#shader-resource" title="Link to this heading">#</a></h3>
+<p>셰이더 리소스는 텍스처, 구조화된 버퍼, 버퍼 배열 등 더 큰 데이터 세트를 전달하는 데 사용된다. 이는 주로 텍스처 맵핑 또는 복잡한 데이터 구조를 전달하는 데 적합하다.</p>
+<p>장점
+유연성: 다양한 유형의 데이터(텍스처, 버퍼 등)를 전달할 수 있다.
+큰 데이터 세트 처리: 더 큰 데이터 세트를 효율적으로 처리할 수 있다</p>
+</section>
+<section id="id2">
+<h3>정리<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>특성</p></th>
+<th class="head"><p>상수 버퍼 (Constant Buffer)</p></th>
+<th class="head"><p>셰이더 리소스 (Shader Resource)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>데이터 크기</strong></p></td>
+<td><p>작은 데이터 (예: 매트릭스, 벡터)</p></td>
+<td><p>큰 데이터 (예: 텍스처, 구조화된 버퍼)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>사용 빈도</strong></p></td>
+<td><p>매 프레임 업데이트 가능</p></td>
+<td><p>자주 변경되지 않는 데이터</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>유형</strong></p></td>
+<td><p>단순 데이터 구조</p></td>
+<td><p>복잡한 데이터 구조</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>성능</strong></p></td>
+<td><p>매우 효율적</p></td>
+<td><p>대규모 데이터 전송에 적합</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>동기화</strong></p></td>
+<td><p>필요 없음</p></td>
+<td><p>일반적으로 필요 없음</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>유연성</strong></p></td>
+<td><p>제한적</p></td>
+<td><p>매우 유연</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="xmmatrixlookatlh">
+<h2>XMMatrixLookAtLH 함수<a class="headerlink" href="#xmmatrixlookatlh" title="Link to this heading">#</a></h2>
+<p>XMMatrixLookAtLH 함수는 DirectXMath 라이브러리의 함수로, 좌측좌표계(Left-Handed Coordinate System)에서 뷰 행렬을 생성하는 함수다.</p>
+<p>이 함수는 카메라의 위치, 카메라가 바라보는 대상, 그리고 카메라의 상향 벡터를 기반으로 뷰 행렬을 계산한다.</p>
+<p>시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">XMMATRIX</span><span class="w"> </span><span class="nf">XMMatrixLookAtLH</span><span class="p">(</span>
+<span class="w">    </span><span class="n">FXMVECTOR</span><span class="w"> </span><span class="n">EyePosition</span><span class="p">,</span>
+<span class="w">    </span><span class="n">FXMVECTOR</span><span class="w"> </span><span class="n">FocusPosition</span><span class="p">,</span>
+<span class="w">    </span><span class="n">FXMVECTOR</span><span class="w"> </span><span class="n">UpDirection</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>FXMVECTOR EyePosition</p>
+<ul>
+<li><p>카메라의 위치를 지정하는 3차원 벡터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>FXMVECTOR FocusPosition</p>
+<ul>
+<li><p>카메라가 바라보는 대상의 위치를 지정하는 3차원 벡터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>FXMVECTOR UpDirection</p>
+<ul>
+<li><p>카메라의 상향 벡터를 지정하는 3차원 벡터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="xmmatrixlooktolh">
+<h2>XMMatrixLookToLH 함수<a class="headerlink" href="#xmmatrixlooktolh" title="Link to this heading">#</a></h2>
+<p>XMMatrixLookToLH 함수는 DirectXMath 라이브러리의 함수로, 좌측좌표계(Left-Handed Coordinate System)에서 뷰 행렬을 생성하는 함수다.</p>
+<p>이 함수는 카메라의 위치, 카메라가 바라보는 방향, 그리고 카메라의 상향 벡터를 기반으로 뷰 행렬을 계산한다.</p>
+<p>시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">XMMATRIX</span><span class="w"> </span><span class="nf">XMMatrixLookToLH</span><span class="p">(</span>
+<span class="w">    </span><span class="n">FXMVECTOR</span><span class="w"> </span><span class="n">EyePosition</span><span class="p">,</span>
+<span class="w">    </span><span class="n">FXMVECTOR</span><span class="w"> </span><span class="n">EyeDirection</span><span class="p">,</span>
+<span class="w">    </span><span class="n">FXMVECTOR</span><span class="w"> </span><span class="n">UpDirection</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>FXMVECTOR EyePosition</p>
+<ul>
+<li><p>카메라의 위치를 지정하는 3차원 벡터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>FXMVECTOR EyeDirection</p>
+<ul>
+<li><p>카메라가 바라보는 방향을 지정하는 3차원 벡터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>FXMVECTOR UpDirection</p>
+<ul>
+<li><p>카메라의 상향 벡터를 지정하는 3차원 벡터</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>유효한 3차원 벡터 (예: XMVectorSet(x, y, z, w))</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="xmmatrixperspectivefovlh">
+<h2>XMMatrixPerspectiveFovLH 함수<a class="headerlink" href="#xmmatrixperspectivefovlh" title="Link to this heading">#</a></h2>
+<p>XMMatrixPerspectiveFovLH 함수는 DirectXMath 라이브러리의 함수로, 좌측좌표계(Left-Handed Coordinate System)에서 주어진 시야각(FOV), 종횡비, 그리고 근/원거리 평면을 기반으로 원근 투영 행렬을 생성하는 함수다.</p>
+<p>시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">XMMATRIX</span><span class="w"> </span><span class="nf">XMMatrixPerspectiveFovLH</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">FovAngleY</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">AspectRatio</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">NearZ</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">FarZ</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>float FovAngleY</p>
+<ul>
+<li><p>Y축 방향의 시야각을 라디안 단위로 지정</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0보다 크고, π(파이)보다 작은 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float AspectRatio</p>
+<ul>
+<li><p>뷰포트의 종횡비를 지정 (너비 / 높이)</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0보다 큰 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float NearZ</p>
+<ul>
+<li><p>근거리 평면의 깊이를 지정</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>0보다 크고, FarZ보다 작은 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float FarZ</p>
+<ul>
+<li><p>원거리 평면의 깊이를 지정</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>NearZ보다 큰 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="xmmatrixorthographicoffcenterlh">
+<h2>XMMatrixOrthographicOffCenterLH함수<a class="headerlink" href="#xmmatrixorthographicoffcenterlh" title="Link to this heading">#</a></h2>
+<p>XMMatrixOrthographicOffCenterLH 함수는 DirectXMath 라이브러리의 함수로, 좌측좌표계(Left-Handed Coordinate System)에서 원근이 없는 직교 투영 행렬을 생성하는 함수다.</p>
+<p>이 함수는 사용자 지정 좌표로 정의된 평면을 기준으로 하는 직교 투영을 설정한다.</p>
+<p>시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">XMMATRIX</span><span class="w"> </span><span class="nf">XMMatrixOrthographicOffCenterLH</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ViewLeft</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ViewRight</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ViewBottom</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">ViewTop</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">NearZ</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">FarZ</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>매개변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>float ViewLeft</p>
+<ul>
+<li><p>투영 평면의 왼쪽 좌표</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>임의의 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float ViewRight</p>
+<ul>
+<li><p>투영 평면의 오른쪽 좌표</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>임의의 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float ViewBottom</p>
+<ul>
+<li><p>투영 평면의 아래쪽 좌표</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>임의의 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float ViewTop</p>
+<ul>
+<li><p>투영 평면의 위쪽 좌표</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>임의의 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float NearZ</p>
+<ul>
+<li><p>근거리 평면의 깊이</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>임의의 부동 소수점 값 (일반적으로 0보다 큰 값)</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+<li><p>float FarZ</p>
+<ul>
+<li><p>원거리 평면의 깊이</p></li>
+<li><p>사용 가능한 값</p>
+<ul>
+<li><p>NearZ보다 큰 부동 소수점 값</p></li>
+</ul>
+</li>
+<li><p>기본값: 없음</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="performance-test-list">
+<h2>Performance Test List<a class="headerlink" href="#performance-test-list" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Map 성능 테스트</p>
+<ul>
+<li><p>MapType이 D3D11_MAP_READ일 때와 D3D11_MAP_WRITE일 때 읽기 속도 비교</p></li>
+<li><p>MapType이 D3D11_MAP_WRITE일 때와 D3D11_MAP_WRITE_DISCARD일 때 쓰기 속도 비교</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./sources\03 programming\02 Graphics\50 DirectX11\01 Direct3D"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../DirectX11.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">DirectX</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02%20Vertex%20Shader.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Vertex Shader</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rendering-pipeline">Rendering Pipeline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#input-assembler-stage">입력 어셈블러 단계 (Input Assembler Stage)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vertex-shader-stage">정점 셰이더 단계 (Vertex Shader Stage)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hull-shader-stage">허황 셰이더 단계 (Hull Shader Stage) [선택적]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tessellator-stage">테셀레이터 단계 (Tessellator Stage) [선택적]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-shader-stage">도메인 셰이더 단계 (Domain Shader Stage) [선택적]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometry-shader-stage">기하 셰이더 단계 (Geometry Shader Stage) [선택적]</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rasterizer-stage">래스터라이저 단계 (Rasterizer Stage)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pixel-shader-stage">픽셀 셰이더 단계 (Pixel Shader Stage)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-merger-stage">출력 병합 단계 (Output Merger Stage)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">자원 바인딩 경고</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anti-aliasing">Anti-aliasing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa-and-flip-model">MSAA and Flip model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa">MSAA</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#checkmultisamplequalitylevels">CheckMultisampleQualityLevels 함수</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#msaa-vs-ssaa">멀티 샘플링 안티앨리어싱(MSAA) vs 슈퍼 샘플링 안티앨리어싱(SSAA)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11createdevice">D3D11CreateDevice 함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flags-d3d11-create-device-debug-sdk">Flags D3D11_CREATE_DEVICE_DEBUG SDK 문제</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d11createdeviceandswapchain">D3D11CreateDeviceAndSwapChain</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiadapter-padapter">IDXGIAdapter* pAdapter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d-driver-type-drivertype">D3D_DRIVER_TYPE DriverType</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hmodule-software">HMODULE Software</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-flags">UINT Flags</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#const-d3d-feature-level-pfeaturelevels">const D3D_FEATURE_LEVEL* pFeatureLevels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-featurelevels">UINT FeatureLevels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uint-sdkversion">UINT SDKVersion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#const-dxgi-swap-chain-desc-pswapchaindesc">const DXGI_SWAP_CHAIN_DESC* pSwapChainDesc</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d11device-ppdevice">ID3D11Device** ppDevice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d-feature-level-pfeaturelevel">D3D_FEATURE_LEVEL* pFeatureLevel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d11devicecontext-ppimmediatecontext">ID3D11DeviceContext** ppImmediateContext</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3dcompilefromfile">D3DCompileFromFile 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer-vs-shader-resource-view">Constant Buffer vs Shader Resource View</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-buffer">constant buffer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-resource">shader resource</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">정리</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixlookatlh">XMMatrixLookAtLH 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixlooktolh">XMMatrixLookToLH 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixperspectivefovlh">XMMatrixPerspectiveFovLH 함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#xmmatrixorthographicoffcenterlh">XMMatrixOrthographicOffCenterLH함수</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-test-list">Performance Test List</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By MS
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

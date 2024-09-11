@@ -35,9 +35,11 @@ Lambert's cosine law를 만족함으로 surface normal과의 각도를 $\theta$�
 
 $$ I \cos\theta d\Omega dA $$
 
-다음으로, 관측자가 radiant energy를 받아들이는 넓이를 $dA_0$ 그리고 source를 보는 solid angle을 $d\Omega_0$라고 하자.
+다음으로, 관측자가 radiant energy를 받아들이는 넓이를 $dA_0$ 그리고 surface normal 위치에 있을 때 source를 보는 solid angle을 $d\Omega_0$라고 하자.
 
-이 때, $d\Omega$를 $d\Omega_0$와 같다고 두어 source가 특정 각도로 방출하는 radiant energy를 전부 관측자가 관찰한다고 일반성을 잃지 않고 가정하면 관측자가 관측한 radiance는 다음과 같다.
+관측자와 surface normal 과의 각도를 $\theta$라고 하면, source가 차지하는 solid angle은 $d\Omega_0\cos\theta$가 된다.
+
+이 때, source가 특정 각도로 방출하는 radiant energy를 전부 관측자가 관찰한다고 일반성을 잃지 않고 가정하면 관측자가 관측한 radiance는 다음과 같다.
 
 $$ I_0 = \frac{I \cos\theta d\Omega dA}{d\Omega_0 \cos\theta dA_0} = \frac{I d\Omega dA}{d\Omega_0 dA_0}  $$
 
@@ -45,8 +47,3 @@ $$ I_0 = \frac{I \cos\theta d\Omega dA}{d\Omega_0 \cos\theta dA_0} = \frac{I d\O
 
 > Reference  
 > [wikipedia - Lambert%27s_cosine_law](https://en.wikipedia.org/wiki/Lambert%27s_cosine_law)  
-> [wikipedia - Radiant_intensity](https://en.wikipedia.org/wiki/Radiant_intensity)  
-> [wikipedia - Radiance](https://en.wikipedia.org/wiki/Radiance)  
-> [wikipedia - Radiant_flux](https://en.wikipedia.org/wiki/Radiant_flux)    
-> [wikipeida - Solid_angle](https://en.wikipedia.org/wiki/Solid_angle)  
-> [wolfram - SolidAngle](https://mathworld.wolfram.com/SolidAngle.html)  
