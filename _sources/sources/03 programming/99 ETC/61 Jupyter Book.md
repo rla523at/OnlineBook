@@ -84,7 +84,7 @@ sphinx:
 @misc{ Nobody06,
        author = "Nobody Jr",
        title = "My Article",
-       year = "2006" 
+       year = "2006",
        publisher = "My Pusblisher"}
 ```
 
