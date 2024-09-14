@@ -366,7 +366,9 @@ void UpdateSubresource(
 * 내부적으로 메모리 할당과 해제를 수반할 수 있다. 매 프레임마다 이러한 작업이 반복되면 메모리 관리 오버헤드가 발생할 수 있다.
 
 ## VSSetConstantBuffers 멤버 함수
-VSSetConstantBuffers 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 버텍스 shader 단계에서 사용할 상수 버퍼를 설정하는 함수다. 이 함수는 shader 프로그램에 상수 데이터를 전달하는 데 사용된다.
+VSSetConstantBuffers 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 버텍스 shader 단계에서 사용할 상수 버퍼를 설정하는 함수다. 
+
+이 함수는 shader 프로그램에 상수 데이터를 전달하는 데 사용된다.
 
 시그니처는 다음과 같다.
 ```cpp
@@ -397,6 +399,10 @@ void ID3D11DeviceContext::VSSetConstantBuffers(
     * NULL: 상수 버퍼를 설정하지 않는다.
     * 유효한 ID3D11Buffer 객체의 포인터 배열
   * 기본값: NULL
+
+참고로 이 함수가 호출되는 순간 상수 데이터는 바로 GPU에 전달된다. 
+
+따라서, 함수 호출 후에 ppConstantBuffers의 내용이 달라져도 아무런 영향을 주지 않는다.
 
 ### StartSlot 인자
 StartSlot 인자는 상수 버퍼를 바인딩할 register의 시작 slot 값을 지정한다.

@@ -1401,7 +1401,8 @@ document.write(`
 </section>
 <section id="vssetconstantbuffers">
 <h2>VSSetConstantBuffers 멤버 함수<a class="headerlink" href="#vssetconstantbuffers" title="Link to this heading">#</a></h2>
-<p>VSSetConstantBuffers 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 버텍스 shader 단계에서 사용할 상수 버퍼를 설정하는 함수다. 이 함수는 shader 프로그램에 상수 데이터를 전달하는 데 사용된다.</p>
+<p>VSSetConstantBuffers 함수는 ID3D11DeviceContext 인터페이스의 멤버 함수로, 버텍스 shader 단계에서 사용할 상수 버퍼를 설정하는 함수다.</p>
+<p>이 함수는 shader 프로그램에 상수 데이터를 전달하는 데 사용된다.</p>
 <p>시그니처는 다음과 같다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">ID3D11DeviceContext::VSSetConstantBuffers</span><span class="p">(</span>
 <span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">StartSlot</span><span class="p">,</span>
@@ -1447,6 +1448,8 @@ document.write(`
 </ul>
 </li>
 </ul>
+<p>참고로 이 함수가 호출되는 순간 상수 데이터는 바로 GPU에 전달된다.</p>
+<p>따라서, 함수 호출 후에 ppConstantBuffers의 내용이 달라져도 아무런 영향을 주지 않는다.</p>
 <section id="startslot">
 <h3>StartSlot 인자<a class="headerlink" href="#startslot" title="Link to this heading">#</a></h3>
 <p>StartSlot 인자는 상수 버퍼를 바인딩할 register의 시작 slot 값을 지정한다.</p>
