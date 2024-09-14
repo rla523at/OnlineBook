@@ -399,32 +399,30 @@ void ID3D11DeviceContext::VSSetConstantBuffers(
   * 기본값: NULL
 
 ### StartSlot 인자
-StartSlot 인자는 상수 버퍼를 바인딩할 첫 번째 슬롯을 지정하며, 그 뒤의 슬롯에 순차적으로 상수 버퍼를 바인딩한다.
+StartSlot 인자는 상수 버퍼를 바인딩할 register의 시작 slot 값을 지정한다.
 
 예를 들어 다음과 같은 C++ 코드가 있다고 하자.
 ```cpp
-// 상수 버퍼 배열 준비
 ID3D11Buffer* constantBuffers[2] = { pConstantBuffer0, pConstantBuffer1 };
 
-// Vertex Shader에 상수 버퍼 설정 (슬롯 0과 슬롯 1에 바인딩)
-deviceContext->VSSetConstantBuffers(0, 2, constantBuffers);
+deviceContext->VSSetConstantBuffers(1, 2, constantBuffers);
 ```
 
-상수 버퍼는 슬롯 0과 슬롯 1에 바인딩된다. 그리고 shader 코드에서 아래와 같이 슬롯을 참조하여 상수 버퍼에 접근할 수 있다.
+그러면 상수 버퍼는 register의 1번 slot 부터 설정되며
+
+shader 코드에서 아래와 같이 슬롯을 참조하여 상수 버퍼에 접근할 수 있다.
+
 ```
-cbuffer ConstantBuffer0 : register(b0) // StartSlot = 0
+cbuffer ConstantBuffer0 : register(b1) // StartSlot = 1
 {
     //pConstantBuffer0의 내용
 };
 
-cbuffer ConstantBuffer1 : register(b1) // StartSlot = 1
+cbuffer ConstantBuffer1 : register(b2) // StartSlot = 2
 {
     //pConstantBuffer1의 내용
 };
 ```
-
-
-
 
 ## Immediate Context와 Deferred Context
 

@@ -509,7 +509,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../02%20COM.html">COM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20Message%20Loop.html">Message Loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../50%20Diffuse%20Reflection.html">Diffuse Reflection</a></li>
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="../DirectX11.html">DirectX</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../DirectX11.html">DirectX11</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="Direct3D.html">Direct3D</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="02%20Vertex%20Shader.html">Vertex Shader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="06%20Geometry%20Shader.html">Geometry Shader</a></li>
@@ -1449,22 +1449,21 @@ document.write(`
 </ul>
 <section id="startslot">
 <h3>StartSlot 인자<a class="headerlink" href="#startslot" title="Link to this heading">#</a></h3>
-<p>StartSlot 인자는 상수 버퍼를 바인딩할 첫 번째 슬롯을 지정하며, 그 뒤의 슬롯에 순차적으로 상수 버퍼를 바인딩한다.</p>
+<p>StartSlot 인자는 상수 버퍼를 바인딩할 register의 시작 slot 값을 지정한다.</p>
 <p>예를 들어 다음과 같은 C++ 코드가 있다고 하자.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// 상수 버퍼 배열 준비</span>
-<span class="n">ID3D11Buffer</span><span class="o">*</span><span class="w"> </span><span class="n">constantBuffers</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pConstantBuffer0</span><span class="p">,</span><span class="w"> </span><span class="n">pConstantBuffer1</span><span class="w"> </span><span class="p">};</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ID3D11Buffer</span><span class="o">*</span><span class="w"> </span><span class="n">constantBuffers</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">pConstantBuffer0</span><span class="p">,</span><span class="w"> </span><span class="n">pConstantBuffer1</span><span class="w"> </span><span class="p">};</span>
 
-<span class="c1">// Vertex Shader에 상수 버퍼 설정 (슬롯 0과 슬롯 1에 바인딩)</span>
-<span class="n">deviceContext</span><span class="o">-&gt;</span><span class="n">VSSetConstantBuffers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">constantBuffers</span><span class="p">);</span>
+<span class="n">deviceContext</span><span class="o">-&gt;</span><span class="n">VSSetConstantBuffers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">constantBuffers</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>상수 버퍼는 슬롯 0과 슬롯 1에 바인딩된다. 그리고 shader 코드에서 아래와 같이 슬롯을 참조하여 상수 버퍼에 접근할 수 있다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cbuffer</span> <span class="n">ConstantBuffer0</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">b0</span><span class="p">)</span> <span class="o">//</span> <span class="n">StartSlot</span> <span class="o">=</span> <span class="mi">0</span>
+<p>그러면 상수 버퍼는 register의 1번 slot 부터 설정되며</p>
+<p>shader 코드에서 아래와 같이 슬롯을 참조하여 상수 버퍼에 접근할 수 있다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cbuffer</span> <span class="n">ConstantBuffer0</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">b1</span><span class="p">)</span> <span class="o">//</span> <span class="n">StartSlot</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="p">{</span>
     <span class="o">//</span><span class="n">pConstantBuffer0의</span> <span class="n">내용</span>
 <span class="p">};</span>
 
-<span class="n">cbuffer</span> <span class="n">ConstantBuffer1</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">b1</span><span class="p">)</span> <span class="o">//</span> <span class="n">StartSlot</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">cbuffer</span> <span class="n">ConstantBuffer1</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">b2</span><span class="p">)</span> <span class="o">//</span> <span class="n">StartSlot</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="p">{</span>
     <span class="o">//</span><span class="n">pConstantBuffer1의</span> <span class="n">내용</span>
 <span class="p">};</span>
