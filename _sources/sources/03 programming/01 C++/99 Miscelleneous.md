@@ -1,5 +1,14 @@
 # Miscellaneous
 
+## Array
+배열 선언 시 배열 크기를 따로 지정하지 않고 초기화를 진행하여도 초기화한 원소의 수에 맞는 고정크기 배열이 생성된다.
+
+```cpp
+int arr1[3] = {1,2,3};
+int arr2[]  = {1,2,3};  //arr1과 동일
+```
+
+
 ## Checking TypeName
 Compile error message를 통해 void가 아닌 typename을 알아낼 수가 있다.
 
