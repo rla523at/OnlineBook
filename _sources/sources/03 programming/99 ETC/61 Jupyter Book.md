@@ -78,17 +78,15 @@ sphinx:
 > [jupyterbook - create-a-bibtex-file](https://jupyterbook.org/en/stable/tutorials/references.html#create-a-bibtex-file)  
 
 ### 참고1
-`_reference.bib` 파일에 Bibtex를 입력할 떄, name, author, title, year은 필수로 작성해야 된다.
+`_reference.bib` 파일에 Bibtex를 입력할 떄, name, author, title, year, publisher은 필수로 작성해야 된다.
 
 ```
 @misc{ Nobody06,
        author = "Nobody Jr",
        title = "My Article",
-       year = "2006" }
+       year = "2006" 
+       publisher = "My Pusblisher"}
 ```
-
-> Reference  
-> [bibtex](https://www.bibtex.org/Using/)  
 
 ### 참고2
 [bibtex - author](https://bibtex.eu/fields/author/)을 참고해서 저자명(`author = `)을 작성하면 된다.
