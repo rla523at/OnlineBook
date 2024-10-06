@@ -1,5 +1,91 @@
 # Miscellaneous
 
+## GetLastError
+
+Window 함수가 실패하면 GetLastError 함수에 의해 오류 코드가 반환된다.
+
+오류에 대한 설명
+
+https://learn.microsoft.com/ko-kr/windows/win32/debug/system-error-codes--1300-1699
+
+## wcout, wprintf 한글 출력
+
+```
+setlocale(LC_ALL, "");
+```
+
+> Reference  
+> [psychoria.tistory - wcout, wprintf 등에서 한글 출력 안될 때 해결법](https://psychoria.tistory.com/132)  
+
+## vsprintf_s
+
+### format specifiers
+
+|specifier|expected arguement|representation|
+|---|---|---|
+|s|pointer to the array of character(char* or wchar_t*)|character string|
+|d|signed integer|decimical representation|
+|u|unsigned integer| decimical representation|
+
+> Reference  
+> [cppreference - vfprintf](https://en.cppreference.com/w/c/io/vfprintf)  
+
+## regex
+
+> Reference  
+> [modoocode - 17 - 2. C++ 정규 표현식(<regex>) 라이브러리 소개](https://modoocode.com/303#google_vignette)  
+
+### capture group
+
+regex 와 일치하는 문자열 중에서 특정 부분을 얻고 싶다면 capture group 을 갖는 regex 를 사용하면 된다.
+
+caputre group 은 `()`로 감싸서 만들 수 있다.
+
+전화번호의 가운데 번호를 caputre group 으로 갖는 regex를 만드는 예시를 보자.
+
+```
+std::regex re(R"[01]{3}-(\d{3,4})-\d{4}")
+```
+
+### smatch
+
+n == 0 이면 regular expression 과 일치하는 전체 문자열을 나타내는 std::sub_match 객체를 리턴한다.
+
+0 < n < size() 이면 regular expression 과 일치하는 전체 문자열중에서 n 번째 captured marked subexpression 과 일치하는 문자열을 나타내는 std::sub_match 객체를 리턴한다.
+
+
+
+> Reference  
+> [cppreference - match_results/operator_at](https://en.cppreference.com/w/cpp/regex/match_results/operator_at)  
+
+## Raw String Literal
+
+Raw String Literal 은 다음과 같은 형태로 작성된다.
+
+```
+R"(...)"
+```
+
+Raw String Literal 의 경우 R 뒤에 오는 (...) 안에 있는 모든 문자는 그대로 문자열로 간주된다.
+
+```cpp
+const auto str1 = R"(.*_(.*)\.ref)"; 
+const auto str2 = ".*_(.*)\\.ref";
+// str1 == str2
+```
+
+Raw String Literal 의 경우 특수 문자들도 그대로 표현할 수 있어 특수 문자가 많은 문자열을 표현할 때 유용하다.
+
+
+## fread
+
+fread-is-reading-the-last-part-of-my-text-file-twice
+
+> Reference
+> [stackoverflow - fread-is-reading-the-last-part-of-my-text-file-twice](https://stackoverflow.com/questions/76246014/fread-is-reading-the-last-part-of-my-text-file-twice)
+> [cppreference - fread](https://en.cppreference.com/w/c/io/fread)  
+> [stackoverflow - why-does-fread-always-return-0](https://stackoverflow.com/questions/3594475/why-does-fread-always-return-0)  
+
 ## Array
 배열 선언 시 배열 크기를 따로 지정하지 않고 초기화를 진행하여도 초기화한 원소의 수에 맞는 고정크기 배열이 생성된다.
 
