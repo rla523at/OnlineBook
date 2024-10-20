@@ -474,6 +474,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
 </ul>
 </details></li>
@@ -503,13 +504,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/70%20Performance.html">Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/80%20Google%20Benchmark.html">Google Benchmark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/99%20Miscelleneous.html">Miscellaneous</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Macro.html">Macro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/char.html">char</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Hash.html">Hash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/new.html">new</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/POD.html">POD (Plain Old Data)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Pragma.html">Pragma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Using.html">Using</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../01%20Window%20Programming.html">Window Programming</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../02%20COM.html">COM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../03%20Message%20Loop.html">Message Loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../50%20Diffuse%20Reflection.html">Diffuse Reflection</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../50%20DirectX11/DirectX11.html">DirectX11</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/Direct3D.html">Direct3D</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -583,8 +587,13 @@
 <li class="toctree-l3"><a class="reference internal" href="D3D12_SHADER_INPUT_BIND_DESC.html">D3D12_SHADER_INPUT_BIND_DESC</a></li>
 
 <li class="toctree-l3"><a class="reference internal" href="Descriptors.html">Descriptors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DxcBuffer.html">DxcBuffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Fence.html">Fence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ID3D12Debug.html">ID3D12Debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ID3D12Device.html">ID3D12Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ID3D12ShaderReflection.html">ID3D12ShaderReflection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="RootSignature.html">Root Signature</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ShaderCompiler.html">Shader Compiler</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -596,7 +605,27 @@
 <li class="toctree-l3"><a class="reference internal" href="../60%20HLSL/51%20Texture.html">Texture</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../61%20GDK/GDK.html">GDK</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../61%20GDK/GameInputDeviceInfo.html">GameInputDeviceInfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../61%20GDK/IGameInput.html">IGameInput</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../61%20GDK/IGameInputDevice.html">IGameInputDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../61%20GDK/IGameInputReading.html">IGameInputReading</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Depth%20Buffer.html">Depth Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DirectXMath.html">DirectXMath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Sampling.html">Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ShaderCompiler.html">Shader Compiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Stencil%20Buffer.html">Stencil Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Xbox.html">Xbox</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03%20Window%20Programming/Window%20Programming.html">Window Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/Component%20Objeect%20Model.html">Component Object Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/CreateFile.html">CreateFileA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/File%20Buffering.html">File Buffering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/Message%20Loop.html">Message Loop</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../99%20ETC/ETC.html">ETC</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -620,18 +649,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/61%20Jupyter%20Book.html">Jupyter Book</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/SAL.html">SAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/Text%20Encoding.html">Text Encoding</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Python.html">정규 표현식</a></li>
-
-
-
-
-
-
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="../../Python.html">Python</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Mechanics</span></p>
 <ul class="nav bd-sidenav">
@@ -799,6 +820,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-slot">Register Slot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-spaces">Register Spaces</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-state-object-pso">Pipeline State Object (PSO)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-bytecode">shader bytecode</a></li>
@@ -842,6 +867,84 @@ document.write(`
 <a class="reference external" href="https://dafher-diary.tistory.com/category/DirectX12">blog - dafher-diary.tistory</a><br />
 <a class="reference external" href="https://www.3dgep.com/learning-directx-12-1/">3dgep</a></p>
 </div></blockquote>
+<section id="register-slot">
+<h2>Register Slot<a class="headerlink" href="#register-slot" title="Link to this heading">#</a></h2>
+<p>Register Slot 을 명시하지 않으면 compiler 가 자동으로 slot 을 지정해준다.</p>
+<p>아래와 같은 hlsl 파일을 컴파일해서 test.cso 파일을 만들었다고 하자.</p>
+<div class="highlight-hlsl notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="n">VS_INPUT</span>
+<span class="p">{</span>
+<span class="kt">float4</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SV_POSITION</span><span class="p">;</span>
+<span class="kt">float4</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">TEXCOORD0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">cbuffer</span><span class="w"> </span><span class="n">MyVar1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="kt">matrix</span><span class="w"> </span><span class="n">projection1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">cbuffer</span><span class="w"> </span><span class="n">MyVar2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="kt">matrix</span><span class="w"> </span><span class="n">projection2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">cbuffer</span><span class="w"> </span><span class="n">MyVar3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="kt">matrix</span><span class="w"> </span><span class="n">projection3</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">float4</span><span class="w"> </span><span class="n">mainVS</span><span class="p">(</span><span class="n">VS_INPUT</span><span class="w"> </span><span class="n">input</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SV_POSITION</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="kt">matrix</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">projection1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">projection2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">projection3</span><span class="p">;</span>
+<span class="w">	</span><span class="kt">float4</span><span class="w"> </span><span class="n">out_pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">mul</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">position</span><span class="p">);</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="n">out_pos</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>컴파일 된 결과를 ID3D12ShaderReflection 을 이용해서 읽어와보면 실제로 BindPoint(slot) 이 자동으로 0,1,2 로 지정되어 있음을 알 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dxcapi.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;d3d12shader.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;wrl.h&gt;</span>
+<span class="cp">#pragma comment(lib, &quot;dxcompiler.lib&quot;)</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  	</span><span class="k">using</span><span class="w"> </span><span class="n">Microsoft</span><span class="o">::</span><span class="n">WRL</span><span class="o">::</span><span class="n">ComPtr</span><span class="p">;</span>
+
+<span class="w">	</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDxcUtils</span><span class="o">&gt;</span><span class="w"> </span><span class="n">utils</span><span class="p">;</span>
+<span class="w">	</span><span class="n">DxcCreateInstance</span><span class="p">(</span><span class="n">CLSID_DxcUtils</span><span class="p">,</span><span class="w"> </span><span class="n">IID_PPV_ARGS</span><span class="p">(</span><span class="o">&amp;</span><span class="n">utils</span><span class="p">));</span>
+
+<span class="w">	</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDxBlobEncoding</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sourceBlob</span><span class="p">;</span>
+<span class="w">	</span><span class="p">{</span>
+<span class="w">		</span><span class="k">const</span><span class="w"> </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utils</span><span class="o">-&gt;</span><span class="n">LoadFile</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;test.cso&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">,</span><span class="w"> </span><span class="n">sourceBlob</span><span class="p">.</span><span class="n">GetAddressOf</span><span class="p">());</span>
+<span class="w">	</span><span class="p">}</span>
+
+<span class="w">	</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">ID3D12ShaderReflection</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shaderRefelction</span><span class="p">;</span>
+<span class="w">	</span><span class="p">{</span>
+<span class="w">		</span><span class="n">DxcBuffer</span><span class="w"> </span><span class="n">sourceBuffer</span><span class="p">;</span>
+<span class="w">		</span><span class="n">sourceBuffer</span><span class="p">.</span><span class="n">Ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sourceBlob</span><span class="o">-&gt;</span><span class="n">GetBufferPointer</span><span class="p">();</span>
+<span class="w">		</span><span class="n">sourceBuffer</span><span class="p">.</span><span class="n">Size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sourceBlob</span><span class="o">-&gt;</span><span class="n">GetBufferSize</span><span class="p">();</span>
+<span class="w">		</span><span class="n">sourceBuffer</span><span class="p">.</span><span class="n">Encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DXC_CP_ACP</span><span class="p">;</span>
+
+<span class="w">		</span><span class="k">const</span><span class="w"> </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utils</span><span class="o">-&gt;</span><span class="n">CreateReflection</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sourceBuffer</span><span class="p">,</span><span class="w"> </span><span class="n">IID_PPV_ARGS</span><span class="p">(</span><span class="o">&amp;</span><span class="n">shaderReflection</span><span class="p">));</span>
+<span class="w">	</span><span class="p">}</span>
+
+<span class="w">	</span><span class="n">D3D12_SHADER_DESC</span><span class="w"> </span><span class="n">shaderDesc</span><span class="p">{};</span>
+<span class="w">	</span><span class="n">shaderReflection</span><span class="o">-&gt;</span><span class="n">GetDesc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">shaderDesc</span><span class="p">);</span>
+
+<span class="w">	</span><span class="k">for</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="w"> </span><span class="n">shaderDesc</span><span class="p">.</span><span class="n">BoundResources</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="w">	</span><span class="p">{</span>
+<span class="w">		</span><span class="n">D3D12_SHADER_INPUT_BIND_DESC</span><span class="w"> </span><span class="n">bindingResourceDesc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">		</span><span class="n">shaderReflection</span><span class="o">-&gt;</span><span class="n">GetResourceBindingDesc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bindingResourceDesc</span><span class="p">);</span>
+<span class="w">	</span><span class="p">}</span>
+
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="id1">
+<h3>참고<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>hlsl 에서 Cbuffer 를 코드에서 사용하지 않을 경우 compiler 가 최적화하는 과정에서 무시하게 되어 컴파일 된 결과를 읽어 들였을 때 BoundResource 개수에 포함되지 않을 수 있다.</p>
+</section>
+</section>
 <section id="register-spaces">
 <h2>Register Spaces<a class="headerlink" href="#register-spaces" title="Link to this heading">#</a></h2>
 <p>HLSL register space 는 컴파일러가 모호성을 명확하게 하는 데 사용하는 추가 구문이다.</p>
@@ -1313,6 +1416,10 @@ rootParameters[0].InitAsUnorderedAccessView( … );
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-slot">Register Slot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-spaces">Register Spaces</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-state-object-pso">Pipeline State Object (PSO)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-bytecode">shader bytecode</a></li>

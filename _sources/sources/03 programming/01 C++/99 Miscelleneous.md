@@ -1,5 +1,59 @@
 # Miscellaneous
 
+## std::set_terminate
+
+프로그램이 정상적으로 예외를 처리할 수 없을 때 호출되는 종료 처리기(terminate handler)를 등록하는 함수이다.
+
+예외를 던졌지만 적절한 예외 핸들러를 찾지 못하거나, 예외 처리 중 또 다른 예외가 발생한 경우 std::terminate() 함수가 호출이 되는데, 이 때 프로그램 종료 직전에 실행될 함수를 설정할 수 있다.
+
+아래 코드를 빌드해서 생긴 .exe 파일을 실행하면 terminal 에 Unhandled exception 이 출력되는 걸 확인할 수 있다.
+
+단, visual studio 에서 실행한 터미널에서는 확인할 수 없다.
+
+```cpp
+#include <cstdlib>
+#include <exception>
+#include <iostream>
+ 
+int main()
+{
+    std::set_terminate([]()
+    {
+        std::cout << "Unhandled exception\n" << std::flush;
+    });
+    throw 1;
+}
+```
+
+
+> Reference  
+> [cppreference - set_terminate](https://en.cppreference.com/w/cpp/error/set_terminate)  
+> [cppreference - terminate_handler](https://en.cppreference.com/w/cpp/error/terminate_handler)  
+
+## bit 단위 연산자
+
+### &
+비트단위로 AND 연산을 한다.
+
+| A | B | A & B |
+|---|---|-------|
+| 0 | 0 | 0     |
+| 0 | 1 | 0     |
+| 1 | 0 | 0     |
+| 1 | 1 | 1     |
+
+## Boolean 값으로 정규화
+
+```
+!!(value)
+```
+
+c++ 에서는 숫자 값이나 포인터 혹은 기타 표현식의 결과가 boolean 으로 사용될 때, 0 이 아닌 값은 true 로 0 은 false 로 간주된다.
+
+이 때, 부정 연산자를 두번 연속으로 사용하면 `!!` 0 이 아닌 값은 항상 true 로 변환되며 0 인 경우 false 로 변환된다.
+
+즉, boolean 값으로 표준화가 된다.
+
 ## GetLastError
 
 Window 함수가 실패하면 GetLastError 함수에 의해 오류 코드가 반환된다.

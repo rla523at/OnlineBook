@@ -1,5 +1,60 @@
 # Root Signature 
-Root Siganutre 는 command list 와 pipeline 에서 사용 되는 resource 간의 link 를 나타내는 객체이다.
+Root Signature 는 그래픽 파이프라인에 바인딩되는 리소스를 정의한다.
+
+이를 위해 Root Siganutre 는 command list 와 pipeline 에서 사용 되는 resource 을 연결한다.
+
+Root signature 은 API 함수 서명과 유사하게 shader 에 바인딩 될 리소스를 결정하지만 실제 메모리나 데이터를 정의하지는 않는다.
+
+> Reference  
+> [learn.microsoft - root-signatures](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures)  
+> [learn.microsoft - root-signatures-overview](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview)  
+
+## Root Parameter & Root Argument
+Root signature 는 root parameter 들로 정의되며, 런타임에 설정 및 변경되는 root parameter 의 실제 값을 root argument 라고 한다. 따라서, root argument 를 변경하면 shader 가 읽는 데이터가 변경된다.
+
+> Reference  
+> [learn.microsoft - root-signatures-overview#root-parameters-and-arguments](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-parameters-and-arguments)  
+
+## Root constants, descriptors and descriptor tables
+Root Signature 에는 다음 세 가지 유형의 parameter 가 포함될 수 있다
+* root constants (root argument 에 포함된 constants)
+* root descriptors (root argument 에 포함된 descriptor)
+* descriptor tables (descriptor heap 에 일정 범위에 있는 descriptor 에 대한 포인터)
+
+### Root Constants
+Root Constants 는 셰이더에 Constant Buffer 로 표시되는 인라인 32비트 값이다.
+
+### Root Descriptors
+Root descriptors 는 CBV 와 raw buffer 또는 structured buufer 의 SRV 나 UAV 로 제한된다.
+
+이 외에 2D 텍스처의 SRV 와 같이 더 복잡한 유형은 root descriptor로 사용할 수 없다. 
+
+root descriptors 는 크기 제한이 없으므로 out-of-bounds 검사를 진행하지 않는다. 단, descriptor heap 에 존재하는 descriptor 의 경우 크기 정보를 포함하기 때문에 out-of-bounds 검사가 진행된다.
+
+> Reference  
+> [learn.microsoft - root-signatures-overview#root-constants-descriptors-and-tables](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-constants-descriptors-and-tables)  
+
+## Creating a Root Signature
+
+### Root Signature Definition
+
+> Reference  
+> [learn.microsoft - creating-a-root-signature#root-signature-definition](https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-root-signature#root-signature-definition)  
+
+### Root Signature Data Structure Serialization / Deserialization
+
+> Reference  
+> [learn.microsoft - creating-a-root-signature#root-signature-data-structure-serialization--deserialization](https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-root-signature#root-signature-data-structure-serialization--deserialization)  
+
+## serealized
+Root Signature 을 생성하는 API는 직렬화된(자체 포함, 포인터가 없는) 버전을 사용한다. 
+
+C++ 데이터 구조에서 이 직렬화된 버전을 생성하는 방법이 제공되지만, 직렬화된 Root Signature 정의를 얻는 또 다른 방법은 Root Signature 를 포함해 컴파일된 셰이더에서 이를 검색하는 방식이다.
+
+> Reference
+> [learn.microsoft - creating-a-root-signature](https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-root-signature)
+
+## ??
 
 Root Signature 객체는 static sampler descriptors 와 root parameter 로 구성된다.
 
@@ -11,9 +66,25 @@ root parameter 의 종류로는 root constant, root descriptor, root table 가 �
 
 DirectX Spec 에 따르면 Root Signature 를 구성하는 root parameter 들의 최대 크기는 DWORD 64개 이다.
 
-> Reference  
+> Reference
 > [microsoft.github - DirectX-Specs](https://microsoft.github.io/DirectX-Specs/)  
 > [microsoft.github - ResourceBinding](https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html)  
+
+## ??
+하드웨어 수준에 관계없이 애플리케이션은 효율성을 극대화하기 위해 항상 Root Signature 을 가능한 작게 만들어야 한다.
+
+> Reference  
+> [learn.microsoft - root-signatures-overview#root-constants-descriptors-and-tables](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-constants-descriptors-and-tables)  
+
+## ??
+PSO 에 지정된 모든 shader 는 PSO 에 지정된 Root signature 와 호환되어야 한다.
+
+만약 PSO 에 root signature 를 따로 지정되어 있지 않다면 개별 shader 에 shader 와 호환되는 내장된 root signature 가 포함되어 있어야 한다.
+
+그렇지 않을 경우 PSO 생성에 실패하게 된다.
+
+> Reference  
+> [learn.microsoft - using-a-root-signature](https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-a-root-signature)   
 
 ## Version 1.1
 
@@ -59,11 +130,18 @@ version 1.1 에서 UAV 와 관련된 data 는 volatile 로 간주된다.
 Root Signature 는 HLSL 에 직접 정의할 수도 있으며, HLSL 에 직접 정의하지 않고 애플리케이션 코드에서 Direct3D 12 API 를 사용하여 명시적으로 설정할 수 있다.
 
 ### HLSL에 Root Signature를 작성하는 경우
-HLSL 코드 내에서 RootSignature attribute 를 사용하여 직접 Root Signature 를 정의할 수 있다.
+아래 예시와 같이 HLSL 코드에서 Entry function 위에 RootSignature attribute 를 사용하여 직접 Root Signature 를 정의할 수 있다.
 
-이 경우에 HLSL 에 Root Signature 와 관련된 내용이 문자열로 작성 되며 문자열은 root signature 의 구성 성분을 설명하는 comma-seperated 구문의 모음으로 구성되어 있다.
+```
+[RootSignature(MyRS1)]
+float4 main(float4 coord : COORD) : SV_Target
+```
 
-root signaute 는 하나의 PSO 에 대해서 전체 shader 에 동일해야 한다.
+이 경우에 MyRS1 매크로는 root signature 의 구성 성분을 설명하는 comma-seperated 문자열로 정의되어 있어야 한다.
+
+그러면 컴파일러는 컴파일할 때 shader 의 root signature blob 을 생성한다. 그리고 shader blob 에 shader byte code와 함께 삽입한다.
+
+참고로, root signaute 는 하나의 PSO 에 대해서 전체 shader 에 동일해야 한다. 따라서 하나의 pipe line 에 속한 모든 shader 의 entry function 위에 root signaute attribute 가 존재해야 하며, 모든 shader blob 에는 root signature blob 정보가 포함되어 있다.
 
 * 장점
 셰이더 코드와 Root Signature 정의가 한 곳에 있기 때문에, 셰이더 개발 시 어떤 자원 레이아웃을 사용할지 쉽게 확인할 수 있다.
@@ -79,11 +157,12 @@ HLSL에 Root Signature를 직접 작성하면, 그 셰이더는 해당 Root Sign
 
 그리고 다양한 렌더링 상황에서 다른 Root Signature를 사용해야 할 경우, 코드를 통해 각 상황에 맞게 변경하기 어렵다.
 
-> Reference  
+> Reference   
 > [learn.microsoft - specifying-root-signatures-in-hlsl](https://learn.microsoft.com/en-us/windows/win32/direct3d12/specifying-root-signatures-in-hlsl)  
+> [learn.microsoft - specifying-root-signatures-in-hlsl#compiling-an-hlsl-root-signature](https://learn.microsoft.com/en-us/windows/win32/direct3d12/specifying-root-signatures-in-hlsl#compiling-an-hlsl-root-signature)  
 
-### HLSL에 Root Signature를 작성하지 않는 경우
-Root Signature를 HLSL에서 정의하지 않고, 애플리케이션 코드에서 Direct3D 12 API를 사용하여 명시적으로 설정한다.
+### HLSL 에 Root Signature 를 작성하지 않는 경우
+Root Signature를 HLSL에서 정의하지 않고, 애플리케이션 코드에서 Direct3D 12 API 를 사용하여 명시적으로 설정한다.
 
 HLSL 코드에는 Root Signature에 대한 정보가 없으며, 컴파일된 셰이더 바이트코드에도 Root Signature 정보가 포함되지 않는다.
 

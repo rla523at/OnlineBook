@@ -62,7 +62,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Macro" href="Macro.html" />
+    <link rel="next" title="char" href="char.html" />
     <link rel="prev" title="Google Benchmark" href="80%20Google%20Benchmark.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -474,6 +474,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/bitset.html">bitset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/format.html">format</a></li>
 </ul>
 </details></li>
@@ -503,13 +504,16 @@
 <li class="toctree-l2"><a class="reference internal" href="70%20Performance.html">Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="80%20Google%20Benchmark.html">Google Benchmark</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Miscellaneous</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Macro.html">Macro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="char.html">char</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Hash.html">Hash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="new.html">new</a></li>
+<li class="toctree-l2"><a class="reference internal" href="POD.html">POD (Plain Old Data)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Pragma.html">Pragma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Preprocessor%20Directives.html">Preprocessor Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Using.html">Using</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../02%20Graphics/Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/01%20Window%20Programming.html">Window Programming</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/02%20COM.html">COM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/03%20Message%20Loop.html">Message Loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/50%20Diffuse%20Reflection.html">Diffuse Reflection</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../02%20Graphics/50%20DirectX11/DirectX11.html">DirectX11</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../02%20Graphics/50%20DirectX11/01%20Direct3D/Direct3D.html">Direct3D</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -583,8 +587,13 @@
 <li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/D3D12_SHADER_INPUT_BIND_DESC.html">D3D12_SHADER_INPUT_BIND_DESC</a></li>
 
 <li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/Descriptors.html">Descriptors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/DxcBuffer.html">DxcBuffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/Fence.html">Fence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/ID3D12Debug.html">ID3D12Debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/ID3D12Device.html">ID3D12Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/ID3D12ShaderReflection.html">ID3D12ShaderReflection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/RootSignature.html">Root Signature</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/ShaderCompiler.html">Shader Compiler</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../02%20Graphics/60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -596,7 +605,28 @@
 <li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/60%20HLSL/51%20Texture.html">Texture</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../02%20Graphics/61%20GDK/GDK.html">GDK</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/61%20GDK/GameInputDeviceInfo.html">GameInputDeviceInfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/61%20GDK/IGameInput.html">IGameInput</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/61%20GDK/IGameInputDevice.html">IGameInputDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/61%20GDK/IGameInputReading.html">IGameInputReading</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/Depth%20Buffer.html">Depth Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/DirectXMath.html">DirectXMath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/Sampling.html">Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/ShaderCompiler.html">Shader Compiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/Stencil%20Buffer.html">Stencil Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/Xbox.html">Xbox</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../03%20Window%20Programming/Window%20Programming.html">Window Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../03%20Window%20Programming/Component%20Objeect%20Model.html">Component Object Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03%20Window%20Programming/CreateFile.html">CreateFileA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03%20Window%20Programming/File%20Buffering.html">File Caching</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../03%20Window%20Programming/Message%20Loop.html">Message Loop</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../99%20ETC/ETC.html">ETC</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -620,9 +650,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20ETC/61%20Jupyter%20Book.html">Jupyter Book</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20ETC/SAL.html">SAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../99%20ETC/Text%20Encoding.html">Text Encoding</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../Python.html">정규 표현식</a></li>
+
 
 
 
@@ -799,6 +831,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-set-terminate">std::set_terminate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bit">bit 단위 연산자</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">&amp;</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boolean">Boolean 값으로 정규화</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getlasterror">GetLastError</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wcout-wprintf">wcout, wprintf 한글 출력</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vsprintf-s">vsprintf_s</a><ul class="nav section-nav flex-column">
@@ -830,6 +868,75 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="miscellaneous">
 <h1>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Link to this heading">#</a></h1>
+<section id="std-set-terminate">
+<h2>std::set_terminate<a class="headerlink" href="#std-set-terminate" title="Link to this heading">#</a></h2>
+<p>프로그램이 정상적으로 예외를 처리할 수 없을 때 호출되는 종료 처리기(terminate handler)를 등록하는 함수이다.</p>
+<p>예외를 던졌지만 적절한 예외 핸들러를 찾지 못하거나, 예외 처리 중 또 다른 예외가 발생한 경우 std::terminate() 함수가 호출이 되는데, 이 때 프로그램 종료 직전에 실행될 함수를 설정할 수 있다.</p>
+<p>아래 코드를 빌드해서 생긴 .exe 파일을 실행하면 terminal 에 Unhandled exception 이 출력되는 걸 확인할 수 있다.</p>
+<p>단, visual studio 에서 실행한 터미널에서는 확인할 수 없다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;exception&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="w"> </span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">set_terminate</span><span class="p">([]()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Unhandled exception</span><span class="se">\n</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">flush</span><span class="p">;</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/error/set_terminate">cppreference - set_terminate</a><br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/error/terminate_handler">cppreference - terminate_handler</a></p>
+</div></blockquote>
+</section>
+<section id="bit">
+<h2>bit 단위 연산자<a class="headerlink" href="#bit" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>&amp;<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>비트단위로 AND 연산을 한다.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+<th class="head"><p>A &amp; B</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="boolean">
+<h2>Boolean 값으로 정규화<a class="headerlink" href="#boolean" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!!(value)
+</pre></div>
+</div>
+<p>c++ 에서는 숫자 값이나 포인터 혹은 기타 표현식의 결과가 boolean 으로 사용될 때, 0 이 아닌 값은 true 로 0 은 false 로 간주된다.</p>
+<p>이 때, 부정 연산자를 두번 연속으로 사용하면 <code class="docutils literal notranslate"><span class="pre">!!</span></code> 0 이 아닌 값은 항상 true 로 변환되며 0 인 경우 false 로 변환된다.</p>
+<p>즉, boolean 값으로 표준화가 된다.</p>
+</section>
 <section id="getlasterror">
 <h2>GetLastError<a class="headerlink" href="#getlasterror" title="Link to this heading">#</a></h2>
 <p>Window 함수가 실패하면 GetLastError 함수에 의해 오류 코드가 반환된다.</p>
@@ -1056,11 +1163,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="Macro.html"
+       href="char.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Macro</p>
+        <p class="prev-next-title">char</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1080,6 +1187,12 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-set-terminate">std::set_terminate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bit">bit 단위 연산자</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">&amp;</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boolean">Boolean 값으로 정규화</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getlasterror">GetLastError</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wcout-wprintf">wcout, wprintf 한글 출력</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vsprintf-s">vsprintf_s</a><ul class="nav section-nav flex-column">

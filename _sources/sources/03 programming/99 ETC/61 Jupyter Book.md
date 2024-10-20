@@ -113,7 +113,6 @@ web page의 TOC 구성은 `_toc.yml`파일에 의해 결정된다.
 `_toc/TOC_Writer.py`은 아래 규칙에 맞춰 작성되었다고 가정한다.
 
 ### 규칙1
-
 TOC에 나타나는 순서를 정해주기 위해서 폴더나 md파일 이름을 `## [name]` 형태로 작성한다.
 예를들면 `01 math`, `01 Power Set.md`와 같다.
 

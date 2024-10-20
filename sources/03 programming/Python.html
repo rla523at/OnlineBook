@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>정규 표현식 &#8212; MS Study Book</title>
+    <title>Python &#8212; MS Study Book</title>
   
   
   
@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Continuum" href="../10%20Mechanics/01%20Continuum/Continuum.html" />
-    <link rel="prev" title="SAL" href="99%20ETC/SAL.html" />
+    <link rel="prev" title="Text Encoding" href="99%20ETC/Text%20Encoding.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -474,6 +474,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
 </ul>
 </details></li>
@@ -503,13 +504,16 @@
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/70%20Performance.html">Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/80%20Google%20Benchmark.html">Google Benchmark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/99%20Miscelleneous.html">Miscellaneous</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Macro.html">Macro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/char.html">char</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Hash.html">Hash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/new.html">new</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/POD.html">POD (Plain Old Data)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Pragma.html">Pragma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Using.html">Using</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="02%20Graphics/Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="02%20Graphics/01%20Window%20Programming.html">Window Programming</a></li>
-<li class="toctree-l2"><a class="reference internal" href="02%20Graphics/02%20COM.html">COM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="02%20Graphics/03%20Message%20Loop.html">Message Loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02%20Graphics/50%20Diffuse%20Reflection.html">Diffuse Reflection</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="02%20Graphics/50%20DirectX11/DirectX11.html">DirectX11</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="02%20Graphics/50%20DirectX11/01%20Direct3D/Direct3D.html">Direct3D</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -583,8 +587,13 @@
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/D3D12_SHADER_INPUT_BIND_DESC.html">D3D12_SHADER_INPUT_BIND_DESC</a></li>
 
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/Descriptors.html">Descriptors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/DxcBuffer.html">DxcBuffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/Fence.html">Fence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/ID3D12Debug.html">ID3D12Debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/ID3D12Device.html">ID3D12Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/ID3D12ShaderReflection.html">ID3D12ShaderReflection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/RootSignature.html">Root Signature</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/ShaderCompiler.html">Shader Compiler</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="02%20Graphics/60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -596,7 +605,27 @@
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/60%20HLSL/51%20Texture.html">Texture</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="02%20Graphics/61%20GDK/GDK.html">GDK</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/61%20GDK/GameInputDeviceInfo.html">GameInputDeviceInfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/61%20GDK/IGameInput.html">IGameInput</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/61%20GDK/IGameInputDevice.html">IGameInputDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/61%20GDK/IGameInputReading.html">IGameInputReading</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="02%20Graphics/99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02%20Graphics/Depth%20Buffer.html">Depth Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02%20Graphics/DirectXMath.html">DirectXMath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02%20Graphics/Sampling.html">Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02%20Graphics/ShaderCompiler.html">Shader Compiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02%20Graphics/Stencil%20Buffer.html">Stencil Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02%20Graphics/Xbox.html">Xbox</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="03%20Window%20Programming/Window%20Programming.html">Window Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="03%20Window%20Programming/Component%20Objeect%20Model.html">Component Object Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03%20Window%20Programming/CreateFile.html">CreateFileA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03%20Window%20Programming/File%20Buffering.html">File Buffering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03%20Window%20Programming/Message%20Loop.html">Message Loop</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="99%20ETC/ETC.html">ETC</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -620,18 +649,10 @@
 <li class="toctree-l2"><a class="reference internal" href="99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="99%20ETC/61%20Jupyter%20Book.html">Jupyter Book</a></li>
 <li class="toctree-l2"><a class="reference internal" href="99%20ETC/SAL.html">SAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="99%20ETC/Text%20Encoding.html">Text Encoding</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">정규 표현식</a></li>
-
-
-
-
-
-
-
-
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Python</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Mechanics</span></p>
 <ul class="nav bd-sidenav">
@@ -789,7 +810,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>정규 표현식</h1>
+    <h1>Python</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -799,34 +820,38 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">정규 표현식</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">그룹화</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">비 캡처 그룹</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metacharacters">Metacharacters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">비탐욕적 수량자</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#match">match</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#search">search</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#etc">ETC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">정규 표현식</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">그룹화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">비 캡처 그룹</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#negative-lookahead">부정형 전방탐색(negative lookahead)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metacharacters">Metacharacters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">비탐욕적 수량자</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#match">match</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#search">search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etc">ETC</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">리스트</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#append">append</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehension">List Comprehension</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">리스트</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#append">append</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehension">List Comprehension</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-comprehension">Generate Comprehension</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loop-with-if">for loop with if</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-comprehension">Generate Comprehension</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loop-with-if">for loop with if</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#strip">strip</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerate">enumerate</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#join">join</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">조건부 표현식</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#format-string">Format String</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">변수 스코프</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#false">False 로 형변환 되는 경우</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strip">strip</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerate">enumerate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#join">join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">조건부 표현식</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#format-string">Format String</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">변수 스코프</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#false">False 로 형변환 되는 경우</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">생성</a></li>
 </ul>
-
+</li>
+</ul>
             </nav>
         </div>
     </div>
@@ -837,7 +862,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p>파이썬에서 함수 내부에서 인자로 전달된 변수에 대한 재할당(assignment)이 이루어지면, 그 변수는 함수의 지역 범위에서만 수정된다.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="python">
+<h1>Python<a class="headerlink" href="#python" title="Link to this heading">#</a></h1>
+<p>파이썬에서 함수 내부에서 인자로 전달된 변수에 대한 재할당(assignment)이 이루어지면, 그 변수는 함수의 지역 범위에서만 수정된다.</p>
 <p>만약 변경 사항을 함수 밖에서도 유지하고 싶다면, 함수가 값을 반환하도록 하고 호출하는 측에서 그 값을 받아 처리해야 한다.</p>
 <p>가변 객체(Mutable Objects)인 경우
 리스트(list), 딕셔너리(dict), 집합(set) 등 가변 객체는 내부 상태를 변경할 수 있다. 이 경우, 함수 내부에서 객체의 내용이 변경되면 원본 객체에도 영향을 미친다. 하지만 변수 자체를 재할당하는 경우라면 새로운 객체를 참조하게 되고, 원본은 변경되지 않는다.</p>
@@ -852,9 +879,9 @@ document.write(`
 </div>
 <p>lst.append(4)는 가변 객체인 my_list의 내용을 직접 변경하므로 원본이 바뀌게 된다. 그러나 lst = [1, 2, 3]에서는 lst가 완전히 새로운 리스트 객체를 참조하도록 재할당되므로, my_list에는 영향을 주지 않는다.</p>
 <section id="id1">
-<h1>정규 표현식<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<h2>정규 표현식<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <section id="id2">
-<h2>그룹화<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<h3>그룹화<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>그룹화는 말 그대로 그룹으로 묶어주는 것이다.</p>
 <p>예를 들어 <code class="docutils literal notranslate"><span class="pre">12</span></code> 가 1번 이상 반복되는 문자열을 찾고 싶은 상황을 생각해보자.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;12+&quot;</span><span class="p">)</span>
@@ -871,7 +898,7 @@ document.write(`
 <p>이 경우에는 의도와 같이 <code class="docutils literal notranslate"><span class="pre">1212</span></code> 모두가 match 된다.</p>
 </section>
 <section id="id3">
-<h2>비 캡처 그룹<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<h3>비 캡처 그룹<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>그룹화를 위해 소괄호를 반드시 써야 하는데, 굳이 캡처하고 싶지 않을 때 사용한다.</p>
 <p>비 캡처 그룹은 <code class="docutils literal notranslate"><span class="pre">(?:&lt;regex&gt;)</span></code>와 같이 사용한다.</p>
 <blockquote>
@@ -879,8 +906,22 @@ document.write(`
 <a class="reference external" href="https://greeksharifa.github.io/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D(re)/2018/07/28/regex-usage-04-intermediate/">greeksharifa.github - 파이썬 정규표현식(re) 사용법 - 04. 그룹, 캡처</a></p>
 </div></blockquote>
 </section>
+<section id="negative-lookahead">
+<h3>부정형 전방탐색(negative lookahead)<a class="headerlink" href="#negative-lookahead" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(?!pattern)
+</pre></div>
+</div>
+<p>특정 패턴이 앞에 존재하지 않는 경우에만 매칭을 허용하는 Zero-width Assertion 이다.</p>
+<p>부정형 전방탐색은 현재 위치에서 특정 패턴이 앞에 오지 않는지를 검사한다.</p>
+<p>만약 해당 패턴이 존재하지 않으면, 전방탐색은 성공하고 정규 표현식의 나머지 부분과 매칭을 시도한다.</p>
+<p>만약 해당 패턴이 존재한다면 바로 매칭을 실패하게 된다.</p>
+<p>예를 들어 앞에 공백을 무시하고 return 으로 시작하지 않는 문자열을 찾으려면 regex pattern 을 다음과 같이 작성 할 수 있다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(\s*?!return\\b)\s+\w+\s+
+</pre></div>
+</div>
+</section>
 <section id="metacharacters">
-<h2>Metacharacters<a class="headerlink" href="#metacharacters" title="Link to this heading">#</a></h2>
+<h3>Metacharacters<a class="headerlink" href="#metacharacters" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>.</p>
 <ul>
@@ -905,6 +946,13 @@ document.write(`
 <li><p>[^ \t\n\r\f\v]와 동등하다</p></li>
 </ul>
 </li>
+<li><p>\b</p>
+<ul>
+<li><p>단어 경계와 일치한다.</p></li>
+<li><p>\w 에 일치되는 한 문자와 그 뒤에 \W 에 일치되는 한 문자가 있으면 \W 자리에서 매칭된다.</p></li>
+<li><p>\b 는  escape sequence 의 백스페이스와 일치한다. 따라서 그냥 문자열에 \b 로 쓰면 마치 \n 을 썻을 때 와 같이 백스페이스로 인식이 된다. 따라서 정확히 \b 를 나타내기 위해서는 문자열 앞에 r 을 붙여주거나 \b 로 작성해주어야 한다.</p></li>
+</ul>
+</li>
 </ul>
 <blockquote>
 <div><p>Reference<br />
@@ -912,7 +960,7 @@ document.write(`
 </div></blockquote>
 </section>
 <section id="id4">
-<h2>비탐욕적 수량자<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<h3>비탐욕적 수량자<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(.*?)
 </pre></div>
 </div>
@@ -920,7 +968,7 @@ document.write(`
 <p>그러나 <code class="docutils literal notranslate"><span class="pre">*?</span></code>로 사용하게 되면 가능한 적은 수의 문자와 매칭 하려고 한다.</p>
 </section>
 <section id="match">
-<h2>match<a class="headerlink" href="#match" title="Link to this heading">#</a></h2>
+<h3>match<a class="headerlink" href="#match" title="Link to this heading">#</a></h3>
 <p>match 메서드는 처음부터 가능한 가장 긴 부분 까지 정규식과 매치되는지 조사한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[a-z]+&quot;</span><span class="p">)</span>
 <span class="n">m1</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">match</span><span class="p">(</span> <span class="s2">&quot;python&quot;</span> <span class="p">)</span>
@@ -930,7 +978,7 @@ document.write(`
 <p>m2의 경우 앞의 3이 정규식과 일치하지 않음으로 None이 된다.</p>
 </section>
 <section id="search">
-<h2>search<a class="headerlink" href="#search" title="Link to this heading">#</a></h2>
+<h3>search<a class="headerlink" href="#search" title="Link to this heading">#</a></h3>
 <p>문자열 전체를 검색하여 정규식과 매치되는 부분문자열이 있는지 조사한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;[a-z]+&quot;</span><span class="p">)</span>
 <span class="n">m1</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">search</span><span class="p">(</span> <span class="s2">&quot;pthon&quot;</span> <span class="p">)</span>
@@ -944,7 +992,7 @@ document.write(`
 </div></blockquote>
 </section>
 <section id="etc">
-<h2>ETC<a class="headerlink" href="#etc" title="Link to this heading">#</a></h2>
+<h3>ETC<a class="headerlink" href="#etc" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>metacharacter 가 아닌 문자에 <code class="docutils literal notranslate"><span class="pre">\</span></code> 를 추가해 주어도 아무런 영향을 주지 않는다</p>
 <ul>
@@ -962,9 +1010,9 @@ document.write(`
 </section>
 </section>
 <section id="id5">
-<h1>리스트<a class="headerlink" href="#id5" title="Link to this heading">#</a></h1>
+<h2>리스트<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
 <section id="append">
-<h2>append<a class="headerlink" href="#append" title="Link to this heading">#</a></h2>
+<h3>append<a class="headerlink" href="#append" title="Link to this heading">#</a></h3>
 <p>리스트의 끝에 항목을 더하는 함수이다.</p>
 <p>형태는 다음과 같다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -980,7 +1028,7 @@ document.write(`
 </div></blockquote>
 </section>
 <section id="list-comprehension">
-<h2>List Comprehension<a class="headerlink" href="#list-comprehension" title="Link to this heading">#</a></h2>
+<h3>List Comprehension<a class="headerlink" href="#list-comprehension" title="Link to this heading">#</a></h3>
 <p>일반적으로 1부터 10까지 정수를 순서대로 가지고 있는 리스트를 생성하는 코드는 다음과 같다.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">numbers</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
@@ -1016,12 +1064,12 @@ document.write(`
 </section>
 </section>
 <section id="generate-comprehension">
-<h1>Generate Comprehension<a class="headerlink" href="#generate-comprehension" title="Link to this heading">#</a></h1>
+<h2>Generate Comprehension<a class="headerlink" href="#generate-comprehension" title="Link to this heading">#</a></h2>
 <p>generate comprehension 은 list comprehension 과 유사하지만 list 가 아닌 generator 객체를 생성한다</p>
 <p>generator 는 값을 한 번에 모두 메모리에 올리지 않고 필요할 때마다 값을 생성하기 때문에 메모리 효율이 높다.</p>
 <p>generator 는 반복자이므로 for 루프, next() 함수 등을 통해 값을 순회할 수 있다.</p>
 <section id="for-loop-with-if">
-<h2>for loop with if<a class="headerlink" href="#for-loop-with-if" title="Link to this heading">#</a></h2>
+<h3>for loop with if<a class="headerlink" href="#for-loop-with-if" title="Link to this heading">#</a></h3>
 <p>list 에서 특정 조건을 만족하는 Elem 만 for loop를 돌고 싶다고 하자.</p>
 <p>그러면 다음과 같이 코드를 작성할 수 있다.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">:</span>
@@ -1041,7 +1089,7 @@ document.write(`
 </section>
 </section>
 <section id="strip">
-<h1>strip<a class="headerlink" href="#strip" title="Link to this heading">#</a></h1>
+<h2>strip<a class="headerlink" href="#strip" title="Link to this heading">#</a></h2>
 <p>파이썬 라이브러리에서 사용할 수 있는 내장 함수의 일부로써, 원래 문자열의 시작과 끝에서 주어진 문자를 제거한다.</p>
 <p>기본적으로 strip() 함수는 문자열의 시작과 끝에서 공백을 제거한 후 반환한다.</p>
 <p>만약, 괄호 안에 특정 값을 넣을 경우에는 공백과 함께 해당하는 문자열을 제거할 수 있다.</p>
@@ -1061,7 +1109,7 @@ document.write(`
 </div>
 </section>
 <section id="enumerate">
-<h1>enumerate<a class="headerlink" href="#enumerate" title="Link to this heading">#</a></h1>
+<h2>enumerate<a class="headerlink" href="#enumerate" title="Link to this heading">#</a></h2>
 <p>enumerate() 함수는 기본적으로 인덱스와 원소로 이루어진 튜플(tuple)을 만들어줍니다.</p>
 <p>따라서 인덱스와 원소를 각각 다른 변수에 할당하고 싶다면 인자 풀기(unpacking)를 해줘야 합니다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]):</span>
@@ -1082,7 +1130,7 @@ document.write(`
 </div>
 </section>
 <section id="join">
-<h1>join<a class="headerlink" href="#join" title="Link to this heading">#</a></h1>
+<h2>join<a class="headerlink" href="#join" title="Link to this heading">#</a></h2>
 <p>join 함수의 형태는 다음과 같다</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;delimiter&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
 </pre></div>
@@ -1091,21 +1139,21 @@ document.write(`
 <p>그러면 <code class="docutils literal notranslate"><span class="pre">',</span> <span class="pre">'.join(list)</span></code>의 결과는 ‘a, b, c’ 형태의 문자열을 만들어서 반환해준다.</p>
 </section>
 <section id="id6">
-<h1>조건부 표현식<a class="headerlink" href="#id6" title="Link to this heading">#</a></h1>
+<h2>조건부 표현식<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
 <p>파이썬에서는 다음과 같은 형태로 조건부 표현식(ternary operator)을 사용할 수 있다</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">value_when_true</span><span class="p">]</span> <span class="k">if</span> <span class="p">[</span><span class="n">condition</span><span class="p">]</span> <span class="k">else</span> <span class="p">[</span><span class="n">value_when_false</span><span class="p">]</span>
 </pre></div>
 </div>
 </section>
 <section id="format-string">
-<h1>Format String<a class="headerlink" href="#format-string" title="Link to this heading">#</a></h1>
+<h2>Format String<a class="headerlink" href="#format-string" title="Link to this heading">#</a></h2>
 <p>파이썬에서는 다음과 같은 형태로 format string 을 사용할 수 있다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">format_string</span> <span class="o">%</span> <span class="p">(</span><span class="n">param1</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">paramN</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="id7">
-<h1>변수 스코프<a class="headerlink" href="#id7" title="Link to this heading">#</a></h1>
+<h2>변수 스코프<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
 <p>python 에서는 블록 스코핑을 사용하지 않고 함수나 클래스 단위의 스코핑을 사용하기 때문에 if-else 블록 외부에서도 그 안에서 생성한 변수에 접근이 가능하다.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
     <span class="n">A</span> <span class="o">=</span> <span class="mi">1</span>
@@ -1117,12 +1165,51 @@ document.write(`
 </div>
 </section>
 <section id="false">
-<h1>False 로 형변환 되는 경우<a class="headerlink" href="#false" title="Link to this heading">#</a></h1>
+<h2>False 로 형변환 되는 경우<a class="headerlink" href="#false" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>빈 문자열</p></li>
 <li><p>None</p></li>
 <li><p>0</p></li>
 </ul>
+</section>
+<section id="set">
+<h2>Set<a class="headerlink" href="#set" title="Link to this heading">#</a></h2>
+<p>set 은 Python 에서 사용되는 데이터 타입 중 하나로, 중복을 허용하지 않고, 순서가 없는 데이터의 집합을 표현하는 데 사용된다.</p>
+<ul class="simple">
+<li><p>add</p>
+<ul>
+<li><p>요소를 추가한다.</p></li>
+<li><p>이미 존재하는 요소의 경우 아무 일도 발생하지 않는다.</p></li>
+</ul>
+</li>
+<li><p>remove</p>
+<ul>
+<li><p>요소를 제거한다.</p></li>
+<li><p>존재하지 않는 요소의 경우 KeyError 가 발생한다.</p></li>
+</ul>
+</li>
+<li><p>discard</p>
+<ul>
+<li><p>요소를 제거한다.</p></li>
+<li><p>존재하지 않는 요소의 경우 아무 일도 발생하지 않는다.</p></li>
+</ul>
+</li>
+<li><p>difference</p>
+<ul>
+<li><p>set1.difference(set2) = set1 - set2</p></li>
+<li><p>set1 에만 존재하는 요소들의 set 을 반환한다</p></li>
+</ul>
+</li>
+</ul>
+<section id="id8">
+<h3>생성<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">my_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">my_set_with_value</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>수학에서의 집합과 유사한 개념으로 생각할 수 있습니다. set은 중복된 요소를 자동으로 제거하며, 요소의 순서에는 신경 쓰지 않습니다.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1156,12 +1243,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="99%20ETC/SAL.html"
+       href="99%20ETC/Text%20Encoding.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">SAL</p>
+        <p class="prev-next-title">Text Encoding</p>
       </div>
     </a>
     <a class="right-next"
@@ -1189,34 +1276,38 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">정규 표현식</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">그룹화</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">비 캡처 그룹</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metacharacters">Metacharacters</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">비탐욕적 수량자</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#match">match</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#search">search</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#etc">ETC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">정규 표현식</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">그룹화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">비 캡처 그룹</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#negative-lookahead">부정형 전방탐색(negative lookahead)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metacharacters">Metacharacters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">비탐욕적 수량자</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#match">match</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#search">search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etc">ETC</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">리스트</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#append">append</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehension">List Comprehension</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">리스트</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#append">append</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehension">List Comprehension</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-comprehension">Generate Comprehension</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loop-with-if">for loop with if</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-comprehension">Generate Comprehension</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for-loop-with-if">for loop with if</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#strip">strip</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerate">enumerate</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#join">join</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">조건부 표현식</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#format-string">Format String</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">변수 스코프</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#false">False 로 형변환 되는 경우</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strip">strip</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerate">enumerate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#join">join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">조건부 표현식</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#format-string">Format String</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">변수 스코프</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#false">False 로 형변환 되는 경우</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">생성</a></li>
 </ul>
-
+</li>
+</ul>
   </nav></div>
 
 </div></div>

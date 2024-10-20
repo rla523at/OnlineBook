@@ -62,7 +62,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="Root Signature" href="RootSignature.html" />
+    <link rel="next" title="DxcBuffer" href="DxcBuffer.html" />
     <link rel="prev" title="D3D12_SHADER_INPUT_BIND_DESC" href="D3D12_SHADER_INPUT_BIND_DESC.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -474,6 +474,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
 </ul>
 </details></li>
@@ -503,13 +504,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/70%20Performance.html">Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/80%20Google%20Benchmark.html">Google Benchmark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/99%20Miscelleneous.html">Miscellaneous</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Macro.html">Macro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/char.html">char</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Hash.html">Hash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/new.html">new</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/POD.html">POD (Plain Old Data)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Pragma.html">Pragma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Using.html">Using</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../01%20Window%20Programming.html">Window Programming</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../02%20COM.html">COM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../03%20Message%20Loop.html">Message Loop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../50%20Diffuse%20Reflection.html">Diffuse Reflection</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../50%20DirectX11/DirectX11.html">DirectX11</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/Direct3D.html">Direct3D</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -583,8 +587,13 @@
 <li class="toctree-l3"><a class="reference internal" href="D3D12_SHADER_INPUT_BIND_DESC.html">D3D12_SHADER_INPUT_BIND_DESC</a></li>
 
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">Descriptors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DxcBuffer.html">DxcBuffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Fence.html">Fence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ID3D12Debug.html">ID3D12Debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ID3D12Device.html">ID3D12Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ID3D12ShaderReflection.html">ID3D12ShaderReflection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="RootSignature.html">Root Signature</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ShaderCompiler.html">Shader Compiler</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -596,7 +605,28 @@
 <li class="toctree-l3"><a class="reference internal" href="../60%20HLSL/51%20Texture.html">Texture</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../61%20GDK/GDK.html">GDK</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../61%20GDK/GameInputDeviceInfo.html">GameInputDeviceInfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../61%20GDK/IGameInput.html">IGameInput</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../61%20GDK/IGameInputDevice.html">IGameInputDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../61%20GDK/IGameInputReading.html">IGameInputReading</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Depth%20Buffer.html">Depth Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DirectXMath.html">DirectXMath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Sampling.html">Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ShaderCompiler.html">Shader Compiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Stencil%20Buffer.html">Stencil Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Xbox.html">Xbox</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03%20Window%20Programming/Window%20Programming.html">Window Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/Component%20Objeect%20Model.html">Component Object Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/CreateFile.html">CreateFileA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/File%20Buffering.html">File Caching</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/Message%20Loop.html">Message Loop</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../99%20ETC/ETC.html">ETC</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -620,9 +650,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/61%20Jupyter%20Book.html">Jupyter Book</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/SAL.html">SAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/Text%20Encoding.html">Text Encoding</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Python.html">정규 표현식</a></li>
+
 
 
 
@@ -776,7 +808,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -792,6 +826,16 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-handles">Descriptor handles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-heaps">Descriptor Heaps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-tables">Descriptor Tables</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -803,12 +847,51 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="descriptors">
 <h1>Descriptors<a class="headerlink" href="#descriptors" title="Link to this heading">#</a></h1>
-<p>Descriptors 는 D3D12 binding 의 기본 단위이다.</p>
-<p>Descriptors 는 GPU 전용 포맷으로 GPU 에 오브젝트를 완전히 설명하는 작은 데이터 블록이다.</p>
+<p>Descriptors 는 GPU 전용 포맷으로 GPU 에 오브젝트를 완전히 설명하는 작은 데이터 블록으로 D3D12 binding 의 기본 단위이다.</p>
+<p>Descriptors 에는 다음과 같은 다양한 type 이 있다.</p>
+<ul class="simple">
+<li><p>render target views (RTVs)</p></li>
+<li><p>depth stencil views (DSVs)</p></li>
+<li><p>shader resource views (SRVs)</p></li>
+<li><p>unordered access views (UAVs)</p></li>
+<li><p>constant buffer views (CBVs), and samplers</p></li>
+</ul>
+<p>드라이버는 descriptor 에 대한 참조를 추적하거나 보유하지 않으며, 올바른 descriptor type 이 사용되고 있는지, 정보가 최신 상태인지 확인하는 것은 앱의 책임이다.</p>
+<p>단, 한가지 예외로 드라이버는 swap chain 이 올바르게 작동하는지 확인하기 위해 RTV 의 바인딩을 검사한다.</p>
+<p>descriptor 를 사용하는 기본 방법은 descriptor 를 위한 보조 메모리인 descriptor heap 에 descriptor 를 배치하는 것이다.</p>
+<p>그리고 이 경우에는 반드시 descriptor table 을 정의해야 한다. descriptor table 은 파이프라인에 대한 descriptor heap 의 범위를 식별하여 사용할 descriptor 를 찾기 위해 어디를 찾아야 하는지 알 수 있도록 힌다.</p>
 <blockquote>
-<div><p>Reference
-<a class="reference external" href="https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html#descriptors">microsoft.github - ResourceBinding.html#descriptors</a></p>
+<div><p>Reference<br />
+<a class="reference external" href="https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html#descriptors">microsoft.github - ResourceBinding.html#descriptors</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/descriptors-overview">learn.microsoft - descriptors-overview</a></p>
 </div></blockquote>
+<section id="descriptor-handles">
+<h2>Descriptor handles<a class="headerlink" href="#descriptor-handles" title="Link to this heading">#</a></h2>
+<p>Descritpor handle 은 Descriptor 고유의 주소이다.</p>
+<p>포인터와 비슷하지만 하드웨어에 따라 구현이 달라지기 때문에 코드레벨에서 조작 및 참조 할 수 없다.</p>
+<p>그리고 Descriptor handle 은 전체 descriptor heap 에서 고유하다. 다시 말해 여러 descriptor heap 에 정의된 모든 descriptor 는 고유한 descriptor handle 을 갖는다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/descriptors-overview#descriptor-handles">learn.microsoft - descriptors-overview#descriptor-handles</a></p>
+</div></blockquote>
+</section>
+<section id="descriptor-heaps">
+<h2>Descriptor Heaps<a class="headerlink" href="#descriptor-heaps" title="Link to this heading">#</a></h2>
+<p>Descriptor Heap 은 Descriptor 들을 저장하기 위해 연속적으로 할당된 메모리 풀(pool) 이다.</p>
+<p>Descriptor heap 의 주요 목적은 GPU 가 사용할 리소스에 빠르게 접근할 수 있도록, 해당 리소스에 대한 정보를 한 곳에 모아 두는 것이다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/descriptor-heaps-overview">learn.microsoft - descriptor-heaps-overview</a></p>
+</div></blockquote>
+</section>
+<section id="descriptor-tables">
+<h2>Descriptor Tables<a class="headerlink" href="#descriptor-tables" title="Link to this heading">#</a></h2>
+<p>Descriptor Tables 는 Descriptor 의 배열이다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/descriptor-tables">learn.microsoft - descriptor-tables</a></p>
+</div></blockquote>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -851,11 +934,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="RootSignature.html"
+       href="DxcBuffer.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Root Signature</p>
+        <p class="prev-next-title">DxcBuffer</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -865,6 +948,23 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-handles">Descriptor handles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-heaps">Descriptor Heaps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-tables">Descriptor Tables</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

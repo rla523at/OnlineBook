@@ -6,8 +6,88 @@ DirectX는 Microsoft에서 개발한 API(응용 프로그램 인터페이스) �
 > [blog - dafher-diary.tistory](https://dafher-diary.tistory.com/category/DirectX12)   
 > [3dgep](https://www.3dgep.com/learning-directx-12-1/)  
 
-## Register Spaces
+## Register Slot
+Register Slot 을 명시하지 않으면 compiler 가 자동으로 slot 을 지정해준다.
 
+아래와 같은 hlsl 파일을 컴파일해서 test.cso 파일을 만들었다고 하자.
+
+```hlsl
+struct VS_INPUT
+{
+float4 position : SV_POSITION;
+float4 color : TEXCOORD0;
+}
+
+cbuffer MyVar1 : register(space1)
+{
+matrix projection1;
+}
+cbuffer MyVar2 : register(space1)
+{
+matrix projection2;
+}
+cbuffer MyVar3 : register(space1)
+{
+matrix projection3;
+}
+
+float4 mainVS(VS_INPUT input) : SV_POSITION
+{
+	matrix m = projection1 + projection2 + projection3;
+	float4 out_pos = mul(m, input.position);
+	return out_pos;
+}
+```
+
+컴파일 된 결과를 ID3D12ShaderReflection 을 이용해서 읽어와보면 실제로 BindPoint(slot) 이 자동으로 0,1,2 로 지정되어 있음을 알 수 있다.
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <dxcapi.h>
+#include <d3d12shader.h>
+#include <wrl.h>
+#pragma comment(lib, "dxcompiler.lib")
+
+int main(void) {
+  	using Microsoft::WRL::ComPtr;
+
+	ComPtr<IDxcUtils> utils;
+	DxcCreateInstance(CLSID_DxcUtils, IID_PPV_ARGS(&utils));
+
+	ComPtr<IDxBlobEncoding> sourceBlob;
+	{
+		const HRESULT result = utils->LoadFile(L"test.cso", nullptr, sourceBlob.GetAddressOf());
+	}
+
+	ComPtr<ID3D12ShaderReflection> shaderRefelction;
+	{
+		DxcBuffer sourceBuffer;
+		sourceBuffer.Ptr = sourceBlob->GetBufferPointer();
+		sourceBuffer.Size = sourceBlob->GetBufferSize();
+		sourceBuffer.Encoding = DXC_CP_ACP;
+
+		const HRESULT result = utils->CreateReflection(&sourceBuffer, IID_PPV_ARGS(&shaderReflection));
+	}
+
+	D3D12_SHADER_DESC shaderDesc{};
+	shaderReflection->GetDesc(&shaderDesc);
+
+	for(uint32_t i=0; i< shaderDesc.BoundResources; ++i)
+	{
+		D3D12_SHADER_INPUT_BIND_DESC bindingResourceDesc = {};
+		shaderReflection->GetResourceBindingDesc(i, &bindingResourceDesc);
+	}
+
+	return 0;
+}
+```
+
+### 참고
+hlsl 에서 Cbuffer 를 코드에서 사용하지 않을 경우 compiler 가 최적화하는 과정에서 무시하게 되어 컴파일 된 결과를 읽어 들였을 때 BoundResource 개수에 포함되지 않을 수 있다.
+
+
+## Register Spaces
 HLSL register space 는 컴파일러가 모호성을 명확하게 하는 데 사용하는 추가 구문이다.
 
 c++ 의 namespace 와 동일한 역할을 한다.

@@ -1,3 +1,5 @@
+# Python
+
 파이썬에서 함수 내부에서 인자로 전달된 변수에 대한 재할당(assignment)이 이루어지면, 그 변수는 함수의 지역 범위에서만 수정된다.
 
 만약 변경 사항을 함수 밖에서도 유지하고 싶다면, 함수가 값을 반환하도록 하고 호출하는 측에서 그 값을 받아 처리해야 한다.
@@ -52,6 +54,24 @@ m = p.match("1212")
 > Reference  
 > [greeksharifa.github - 파이썬 정규표현식(re) 사용법 - 04. 그룹, 캡처](https://greeksharifa.github.io/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D(re)/2018/07/28/regex-usage-04-intermediate/)  
 
+### 부정형 전방탐색(negative lookahead)
+```
+(?!pattern)
+```
+
+특정 패턴이 앞에 존재하지 않는 경우에만 매칭을 허용하는 Zero-width Assertion 이다.
+
+부정형 전방탐색은 현재 위치에서 특정 패턴이 앞에 오지 않는지를 검사한다.
+
+만약 해당 패턴이 존재하지 않으면, 전방탐색은 성공하고 정규 표현식의 나머지 부분과 매칭을 시도한다.
+
+만약 해당 패턴이 존재한다면 바로 매칭을 실패하게 된다.
+
+예를 들어 앞에 공백을 무시하고 return 으로 시작하지 않는 문자열을 찾으려면 regex pattern 을 다음과 같이 작성 할 수 있다.
+
+```
+(\s*?!return\\b)\s+\w+\s+
+```
 
 ### Metacharacters
 
@@ -69,6 +89,11 @@ m = p.match("1212")
 * \S
     * 모든 비 공백 문자와 일치한다.
     * [^ \t\n\r\f\v]와 동등하다
+
+* \b
+    * 단어 경계와 일치한다.
+    * \w 에 일치되는 한 문자와 그 뒤에 \W 에 일치되는 한 문자가 있으면 \W 자리에서 매칭된다.
+    * \b 는  escape sequence 의 백스페이스와 일치한다. 따라서 그냥 문자열에 \b 로 쓰면 마치 \n 을 썻을 때 와 같이 백스페이스로 인식이 된다. 따라서 정확히 \b 를 나타내기 위해서는 문자열 앞에 r 을 붙여주거나 \\b 로 작성해주어야 한다.
 
 > Reference  
 > [docs.python - regex](https://docs.python.org/ko/3/howto/regex.html)  
@@ -211,7 +236,6 @@ for elem in (x for x in list if condition):
     // algorithm
 ```
 
-
 > Reference  
 > [제대로 파이썬 - 리스트 컴프리헨션](https://wikidocs.net/22805)
 
@@ -312,5 +336,30 @@ print(A)  # 옳바른 코드
 * None
 * 0
 
+## Set
+set 은 Python 에서 사용되는 데이터 타입 중 하나로, 중복을 허용하지 않고, 순서가 없는 데이터의 집합을 표현하는 데 사용된다. 
 
+* add
+  * 요소를 추가한다.
+  * 이미 존재하는 요소의 경우 아무 일도 발생하지 않는다.
+* remove
+  * 요소를 제거한다.
+  * 존재하지 않는 요소의 경우 KeyError 가 발생한다.
+* discard
+  * 요소를 제거한다.
+  * 존재하지 않는 요소의 경우 아무 일도 발생하지 않는다.
+* difference
+  * set1.difference(set2) = set1 - set2
+  * set1 에만 존재하는 요소들의 set 을 반환한다
+
+### 생성
+
+```py
+my_set = set()
+my_set_with_value = {1,2,3}
+```
+
+
+
+수학에서의 집합과 유사한 개념으로 생각할 수 있습니다. set은 중복된 요소를 자동으로 제거하며, 요소의 순서에는 신경 쓰지 않습니다.
 
