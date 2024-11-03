@@ -88,7 +88,7 @@ HRESULT CreateCommittedResource(
   * 오류가 발생한 경우, 코드 값에 따라 리소스 생성에 실패한 원인을 진단할 수 있다.
 
 > Reference  
-> [learn.microsoft - nf-d3d12-id3d12device-createcommittedresource)](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource)
+> [learn.microsoft - nf-d3d12-id3d12device-createcommittedresource](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource)
 
 ## D3D12_RESOURCE_DESC 구조체
 resource 의 특성을 정의하는 데 사용되는 구조체이다.
@@ -191,7 +191,7 @@ resource 의 상태를 정의하는 플래그를 나타낸다.
 
 정의는 다음과 같다.
 
-```cppp
+```cpp
 typedef enum D3D12_RESOURCE_STATES
 {
     D3D12_RESOURCE_STATE_COMMON                     = 0,
@@ -336,5 +336,5 @@ persistent map 을 사용할 때, 애플리케이션은 GPU가 메모리를 읽�
 단, resource 가 release 되고 난 후에는 Map 에서 반환된 주소를 더 이상 사용하지 않아야 한다. 
 
 > Reference  
-> [learn.microsoft - nf-d3d12-id3d12resource-map#advanced-usage-models)]([nf-d3d12-id3d12resource-map#simple-usage-models](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map#advanced-usage-models))  
+> [learn.microsoft - nf-d3d12-id3d12resource-map#advanced-usage-models](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map#advanced-usage-models)  
 

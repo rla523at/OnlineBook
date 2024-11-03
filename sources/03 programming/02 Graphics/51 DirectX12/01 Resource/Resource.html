@@ -984,7 +984,7 @@ document.write(`
 </ul>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource">learn.microsoft - nf-d3d12-id3d12device-createcommittedresource)</a></p>
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource">learn.microsoft - nf-d3d12-id3d12device-createcommittedresource</a></p>
 </div></blockquote>
 </section>
 <section id="d3d12-resource-desc">
@@ -1111,36 +1111,36 @@ document.write(`
 <h2>enum D3D12_RESOURCE_STATES<a class="headerlink" href="#enum-d3d12-resource-states" title="Link to this heading">#</a></h2>
 <p>resource 의 상태를 정의하는 플래그를 나타낸다.</p>
 <p>정의는 다음과 같다.</p>
-<div class="highlight-cppp notranslate"><div class="highlight"><pre><span></span>typedef enum D3D12_RESOURCE_STATES
-{
-    D3D12_RESOURCE_STATE_COMMON                     = 0,
-    D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER = 0x1,
-    D3D12_RESOURCE_STATE_INDEX_BUFFER               = 0x2,
-    D3D12_RESOURCE_STATE_RENDER_TARGET              = 0x4,
-    D3D12_RESOURCE_STATE_UNORDERED_ACCESS           = 0x8,
-    D3D12_RESOURCE_STATE_DEPTH_WRITE                = 0x10,
-    D3D12_RESOURCE_STATE_DEPTH_READ                 = 0x20,
-    D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE  = 0x40,
-    D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE      = 0x80,
-    D3D12_RESOURCE_STATE_STREAM_OUT                 = 0x100,
-    D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT          = 0x200,
-    D3D12_RESOURCE_STATE_COPY_DEST                  = 0x400,
-    D3D12_RESOURCE_STATE_COPY_SOURCE                = 0x800,
-    D3D12_RESOURCE_STATE_RESOLVE_DEST               = 0x1000,
-    D3D12_RESOURCE_STATE_RESOLVE_SOURCE             = 0x2000,
-    D3D12_RESOURCE_STATE_RAYTRACING_ACCELERATION_STRUCTURE = 0x400000,
-    D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE        = 0x1000000,
-    D3D12_RESOURCE_STATE_GENERIC_READ               = D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER |
-                                                      D3D12_RESOURCE_STATE_INDEX_BUFFER |
-                                                      D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE |
-                                                      D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE |
-                                                      D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT |
-                                                      D3D12_RESOURCE_STATE_COPY_SOURCE,
-    D3D12_RESOURCE_STATE_ALL_SHADER_RESOURCE        = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE |
-                                                      D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
-    D3D12_RESOURCE_STATE_PRESENT                    = 0,
-    D3D12_RESOURCE_STATE_PREDICATION                = 0x200
-} D3D12_RESOURCE_STATES;
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">D3D12_RESOURCE_STATES</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_COMMON</span><span class="w">                     </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x1</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_INDEX_BUFFER</span><span class="w">               </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_RENDER_TARGET</span><span class="w">              </span><span class="o">=</span><span class="w"> </span><span class="mh">0x4</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_UNORDERED_ACCESS</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="mh">0x8</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_DEPTH_WRITE</span><span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="mh">0x10</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_DEPTH_READ</span><span class="w">                 </span><span class="o">=</span><span class="w"> </span><span class="mh">0x20</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mh">0x40</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mh">0x80</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_STREAM_OUT</span><span class="w">                 </span><span class="o">=</span><span class="w"> </span><span class="mh">0x100</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="mh">0x200</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_COPY_DEST</span><span class="w">                  </span><span class="o">=</span><span class="w"> </span><span class="mh">0x400</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_COPY_SOURCE</span><span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="mh">0x800</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_RESOLVE_DEST</span><span class="w">               </span><span class="o">=</span><span class="w"> </span><span class="mh">0x1000</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_RESOLVE_SOURCE</span><span class="w">             </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2000</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_RAYTRACING_ACCELERATION_STRUCTURE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x400000</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mh">0x1000000</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_GENERIC_READ</span><span class="w">               </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER</span><span class="w"> </span><span class="o">|</span>
+<span class="w">                                                      </span><span class="n">D3D12_RESOURCE_STATE_INDEX_BUFFER</span><span class="w"> </span><span class="o">|</span>
+<span class="w">                                                      </span><span class="n">D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE</span><span class="w"> </span><span class="o">|</span>
+<span class="w">                                                      </span><span class="n">D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE</span><span class="w"> </span><span class="o">|</span>
+<span class="w">                                                      </span><span class="n">D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT</span><span class="w"> </span><span class="o">|</span>
+<span class="w">                                                      </span><span class="n">D3D12_RESOURCE_STATE_COPY_SOURCE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_ALL_SHADER_RESOURCE</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE</span><span class="w"> </span><span class="o">|</span>
+<span class="w">                                                      </span><span class="n">D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_PRESENT</span><span class="w">                    </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_PREDICATION</span><span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="mh">0x200</span>
+<span class="p">}</span><span class="w"> </span><span class="n">D3D12_RESOURCE_STATES</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>각 enum의 의미는 다음과 같다.</p>
@@ -1329,7 +1329,7 @@ document.write(`
 <p>단, resource 가 release 되고 난 후에는 Map 에서 반환된 주소를 더 이상 사용하지 않아야 한다.</p>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference internal" href="#%5Bnf-d3d12-id3d12resource-map#simple-usage-models%5D(https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map#advanced-usage-models)"><span class="xref myst">learn.microsoft - nf-d3d12-id3d12resource-map#advanced-usage-models)</span></a></p>
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map#advanced-usage-models">learn.microsoft - nf-d3d12-id3d12resource-map#advanced-usage-models</a></p>
 </div></blockquote>
 </section>
 </section>
