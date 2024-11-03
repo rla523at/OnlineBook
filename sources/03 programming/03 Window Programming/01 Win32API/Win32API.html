@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>STD &#8212; MS Study Book</title>
+    <title>Win32 API &#8212; MS Study Book</title>
   
   
   
@@ -58,14 +58,12 @@
     <script async="async" src="../../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/20 Standard Library/Standard Library';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/03 Window Programming/01 Win32API/Win32API';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="type-traits" href="01%20type-traits.html" />
-    <link rel="prev" title="Struct Memory Padding" href="../12%20Struct%20Memory%20Padding.html" />
+    <link rel="next" title="Message Loop" href="Message%20Loop.html" />
+    <link rel="prev" title="Window Programming" href="../Window%20Programming.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -444,76 +442,76 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../C%2B%2B.html">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 has-children"><a class="reference internal" href="../01%20Build/Build.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../01%20Build/02%20Compile.html">Compile</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../01%20Build/03%20Linking/Linking.html">Linking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/02%20Name%20Mangling.html">Name Mangling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/03%20Link.html">Link</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/04%20Relocation.html">Relocation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/05%20LinkingMethod.html">Linking Method</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/06%20Static%20Library.html">Static Library</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/07%20Shared%20Library.html">Shared Library</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01%20C%2B%2B/C%2B%2B.html">C++</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/Build.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/02%20Compile.html">Compile</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/03%20Linking/Linking.html">Linking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/03%20Linking/02%20Name%20Mangling.html">Name Mangling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/03%20Linking/03%20Link.html">Link</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/03%20Linking/04%20Relocation.html">Relocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/03%20Linking/05%20LinkingMethod.html">Linking Method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/03%20Linking/06%20Static%20Library.html">Static Library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/03%20Linking/07%20Shared%20Library.html">Shared Library</a></li>
 </ul>
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../02%20Memory/Memory.html">Memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../02%20Memory/01%20Memory%20Allocation.html">Memory Allocation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../02%20Memory/02%20Virtual%20Memory.html">Virtual Memeory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../02%20Memory/03%20Virtual%20Memory%20Structure.html">Virtual Memory Space</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../02%20Memory/04%20Stack%20Frame.html">Stack Frame</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../02%20Memory/05%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20C%2B%2B/02%20Memory/Memory.html">Memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/02%20Memory/01%20Memory%20Allocation.html">Memory Allocation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/02%20Memory/02%20Virtual%20Memory.html">Virtual Memeory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/02%20Memory/03%20Virtual%20Memory%20Structure.html">Virtual Memory Space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/02%20Memory/04%20Stack%20Frame.html">Stack Frame</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/02%20Memory/05%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="../03%20Polymorphism.html">Polymorphism</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../04%20Value%20Category.html">Value Category</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../05%20Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../06%20Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../11%20Class.html">Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../12%20Struct%20Memory%20Padding.html">Struct Memory Padding</a></li>
-<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">STD</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="01%20type-traits.html">type-traits</a></li>
-<li class="toctree-l3"><a class="reference internal" href="11%20vector.html">vector</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bitset.html">bitset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="format.html">format</a></li>
-<li class="toctree-l3"><a class="reference internal" href="function.html">function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/03%20Polymorphism.html">Polymorphism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/04%20Value%20Category.html">Value Category</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/05%20Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/06%20Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/11%20Class.html">Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/12%20Struct%20Memory%20Padding.html">Struct Memory Padding</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/function.html">function</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../21%20Smart%20Pointer/Smart%20Pointer.html">Smart Pointer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../21%20Smart%20Pointer/01%20unique_ptr.html">unique_ptr</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../21%20Smart%20Pointer/02%20shared_ptr.html">shared_ptr Class</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../21%20Smart%20Pointer/03%20weak_ptr.html">weak_ptr Class</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20C%2B%2B/21%20Smart%20Pointer/Smart%20Pointer.html">Smart Pointer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/21%20Smart%20Pointer/01%20unique_ptr.html">unique_ptr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/21%20Smart%20Pointer/02%20shared_ptr.html">shared_ptr Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/21%20Smart%20Pointer/03%20weak_ptr.html">weak_ptr Class</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="../22%20Reference.html">Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../23%20Lambda%20Expression.html">Lambda Expression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../31%20Template.html">Template</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../32%20concept.html">concept</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../33%20Require.html">Require</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../34%20hpp.html">hpp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../41%20Multi%20Thread.html">Multi thread</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../51%20static.html">Static</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../52%20Name%20Space.html">Namespace</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../53%20One%20Definition%20Rule.html">One Definition Rule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../54%20inline.html">inline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../55%20Enum.html">Enum</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../56%20Forward%20Declaration.html">Forward Declaration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../57%20Initialization.html">initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../58%20Keyword.html">Keyword</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../59%20Type%20Casting.html">Type Casting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../60%20Pointer.html">Pointer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../70%20Performance.html">Performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../80%20Google%20Benchmark.html">Google Benchmark</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../99%20Miscelleneous.html">Miscellaneous</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../char.html">char</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Hash.html">Hash</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../new.html">new</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../POD.html">POD (Plain Old Data)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Pragma.html">Pragma</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Preprocessor%20Directives.html">Preprocessor Directives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Using.html">Using</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/22%20Reference.html">Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/23%20Lambda%20Expression.html">Lambda Expression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/31%20Template.html">Template</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/32%20concept.html">concept</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/33%20Require.html">Require</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/34%20hpp.html">hpp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/41%20Multi%20Thread.html">Multi thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/51%20static.html">Static</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/52%20Name%20Space.html">Namespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/53%20One%20Definition%20Rule.html">One Definition Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/54%20inline.html">inline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/55%20Enum.html">Enum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/56%20Forward%20Declaration.html">Forward Declaration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/57%20Initialization.html">initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/58%20Keyword.html">Keyword</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/59%20Type%20Casting.html">Type Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/60%20Pointer.html">Pointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/70%20Performance.html">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/80%20Google%20Benchmark.html">Google Benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/99%20Miscelleneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/char.html">char</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Hash.html">Hash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/new.html">new</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/POD.html">POD (Plain Old Data)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Pragma.html">Pragma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Using.html">Using</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../02%20Graphics/Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -628,17 +626,17 @@
 <li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/Xbox.html">Xbox</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../03%20Window%20Programming/Window%20Programming.html">Window Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../03%20Window%20Programming/01%20Win32API/Win32API.html">Win32 API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20Window%20Programming/01%20Win32API/Message%20Loop.html">Message Loop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20Window%20Programming/01%20Win32API/Message.html">Message</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20Window%20Programming/01%20Win32API/WindowClass.html">Window Class</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20Window%20Programming/01%20Win32API/winuser.html">Winuser</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../Window%20Programming.html">Window Programming</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">Win32 API</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="Message%20Loop.html">Message Loop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Message.html">Message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="WindowClass.html">Window Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="winuser.html">Winuser</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/Component%20Objeect%20Model.html">Component Object Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/CreateFile.html">CreateFileA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/File%20Buffering.html">File Buffering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Component%20Objeect%20Model.html">Component Object Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CreateFile.html">CreateFileA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../File%20Buffering.html">File Buffering</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../99%20ETC/ETC.html">ETC</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -743,7 +741,7 @@
       
       
       
-      <li><a href="../../../../_sources/sources/03 programming/01 C++/20 Standard Library/Standard Library.md" target="_blank"
+      <li><a href="../../../../_sources/sources/03 programming/03 Window Programming/01 Win32API/Win32API.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -827,7 +825,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>STD</h1>
+    <h1>Win32 API</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -837,24 +835,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-location">source_location</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stacktrace">stacktrace</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filesystem">filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chrono">Chrono</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getline">getline</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cin">cin</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">주의사항1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">주의사항2</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iomanip">iomanip</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#queue">Queue</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">멤버 함수</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#insert">insert</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#erase">erase</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createeventexa">CreateEventExA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#registerappstatechangenotification">RegisterAppStateChangeNotification 함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pappstate-change-routine-callback-function">PAPPSTATE_CHANGE_ROUTINE callback function</a></li>
 </ul>
 </li>
 </ul>
@@ -868,235 +851,142 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="std">
-<h1>STD<a class="headerlink" href="#std" title="Link to this heading">#</a></h1>
-<section id="source-location">
-<h2>source_location<a class="headerlink" href="#source-location" title="Link to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="win32-api">
+<h1>Win32 API<a class="headerlink" href="#win32-api" title="Link to this heading">#</a></h1>
+<p>Win32 API 또는 Windows API 는 Windows 및 하드웨어에 직접 액세스해야 하는 네이티브 C/C++ Windows 애플리케이션을 위한 original platform 이다.</p>
+<p>.NET 및 WinRT(Windows 10용 UWP 앱용) 와 같은 managed runtime environment 에 의존하지 않고도 최고 수준의 개발 환경을 제공한다.</p>
+<p>Win32 API는 가장 높은 수준의 성능과 시스템 하드웨어에 대한 직접 액세스가 필요한 애플리케이션에 적합한 platform 이다.</p>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://en.cppreference.com/w/cpp/utility/source_location">cppreference</a></p>
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/desktop-programming">learn.microsoft - win32/desktop-programming</a></p>
 </div></blockquote>
-</section>
-<section id="stacktrace">
-<h2>stacktrace<a class="headerlink" href="#stacktrace" title="Link to this heading">#</a></h2>
+<section id="createeventexa">
+<h2>CreateEventExA<a class="headerlink" href="#createeventexa" title="Link to this heading">#</a></h2>
+<p>CreateEventExA 함수는 지정된 이름을 가진 이벤트 객체를 생성하거나 열어주는 함수다.</p>
+<p>SetEvent 함수로 이벤트를 신호 상태로 설정하거나, ResetEvent 함수로 신호가 아닌 상태로 재설정할 수 있다.</p>
+<p>함수의 시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HANDLE</span><span class="w"> </span><span class="nf">CreateEventExA</span><span class="p">(</span>
+<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="p">]</span><span class="w"> </span><span class="n">LPSECURITY_ATTRIBUTES</span><span class="w"> </span><span class="n">lpEventAttributes</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="p">]</span><span class="w"> </span><span class="n">LPCSTR</span><span class="w">                </span><span class="n">lpName</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">           </span><span class="n">DWORD</span><span class="w">                 </span><span class="n">dwFlags</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">           </span><span class="n">DWORD</span><span class="w">                 </span><span class="n">dwDesiredAccess</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>인자는 다음과 같다.</p>
+<ul class="simple">
+<li><p>LPSECURITY_ATTRIBUTES lpEventAttributes</p>
+<ul>
+<li><p>이벤트 객체의 보안 속성을 지정하는 포인터다.</p></li>
+<li><p>기본 보안 설정을 사용하려면 NULL을 전달할 수 있다.</p></li>
+</ul>
+</li>
+<li><p>LPCSTR lpName</p>
+<ul>
+<li><p>생성하거나 열 이벤트 객체의 이름을 지정하는 ANSI 문자열이다.</p></li>
+<li><p>이벤트 객체는 이름을 통해 다른 프로세스에서도 접근 가능하다.</p></li>
+<li><p>이름이 필요 없을 경우 NULL을 전달할 수 있다.</p></li>
+</ul>
+</li>
+<li><p>DWORD dwFlags</p>
+<ul>
+<li><p>이벤트 객체의 초기 상태 및 자동 재설정 여부를 지정하는 플래그다.</p></li>
+</ul>
+</li>
+<li><p>DWORD dwDesiredAccess</p>
+<ul>
+<li><p>이벤트 객체에 대한 접근 권한을 지정한다.</p></li>
+<li><p>가능한 값은 <a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/sync/synchronization-object-security-and-access-rights">여기</a>를 참고하면 된다.</p></li>
+</ul>
+</li>
+</ul>
+<p>반환값은 다음과 같다.</p>
+<ul class="simple">
+<li><p>성공 시</p>
+<ul>
+<li><p>이벤트 객체의 핸들(HANDLE)을 반환한다.</p></li>
+<li><p>만약, 동일한 이름의 이벤트가 존재하는 경우, 이전에 정의된 이벤트의 handle 을 반환하고 GetLastError 에서는 <code class="docutils literal notranslate"><span class="pre">ERROR_ALREADY_EXISTS</span></code>를 반환한다.</p></li>
+</ul>
+</li>
+<li><p>실패 시</p>
+<ul>
+<li><p>NULL을 반환한다.</p></li>
+<li><p>오류 원인은 <code class="docutils literal notranslate"><span class="pre">GetLastError()</span></code>를 호출하여 확인할 수 있다.</p></li>
+</ul>
+</li>
+</ul>
 <blockquote>
-<div><p>Reference
-<a class="reference external" href="https://en.cppreference.com/w/cpp/header/stacktrace">cppreference</a><br />
-<a class="reference external" href="https://www.sandordargo.com/blog/2022/09/21/cpp23-stacktrace-library">blog</a></p>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/synchapi/nf-synchapi-createeventexa">learn.microsoft - nf-synchapi-createeventexa</a></p>
 </div></blockquote>
 </section>
-<section id="filesystem">
-<h2>filesystem<a class="headerlink" href="#filesystem" title="Link to this heading">#</a></h2>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="c1">$$</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;filesystem&gt;</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">filesystem</span><span class="o">::</span><span class="n">path</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="s">&quot;RSC&quot;</span><span class="p">);</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;current  path  : &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">filesystem</span><span class="o">::</span><span class="n">current_path</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;relative path  : &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">relative_path</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;absolute path  : &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">filesystem</span><span class="o">::</span><span class="n">absolute</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;canonical path : &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">filesystem</span><span class="o">::</span><span class="n">canonical</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="c1">// current  path  : &quot;C:\\Users\\KimMinSeok\\source\\repos\\MS_Test\\GoogleTest&quot;</span>
-<span class="c1">// relative path  : &quot;RSC&quot;</span>
-<span class="c1">// absolute path  : &quot;C:\\Users\\KimMinSeok\\source\\repos\\MS_Test\\GoogleTest\\RSC&quot;</span>
-<span class="c1">// canonical path : &quot;C:\\Users\\KimMinSeok\\source\\repos\\MS_Test\\GoogleTest\\RSC&quot;</span>
+<section id="registerappstatechangenotification">
+<h2>RegisterAppStateChangeNotification 함수<a class="headerlink" href="#registerappstatechangenotification" title="Link to this heading">#</a></h2>
+<p>RegisterAppStateChangeNotification 함수는 애플리케이션의 suspend state 를 모니터링하고 해당 상태 변경 시 알림을 받을 call back 함수를 등록하는 함수이다.</p>
+<p>함수의 시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">APICONTRACT</span><span class="w"> </span><span class="n">ULONG</span><span class="w"> </span><span class="n">RegisterAppStateChangeNotification</span><span class="p">(</span>
+<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">           </span><span class="n">PAPPSTATE_CHANGE_ROUTINE</span><span class="w"> </span><span class="n">Routine</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="p">]</span><span class="w"> </span><span class="n">PVOID</span><span class="w">                    </span><span class="n">Context</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="n">out</span><span class="p">]</span><span class="w">          </span><span class="n">PAPPSTATE_REGISTRATION</span><span class="w">   </span><span class="o">*</span><span class="n">Registration</span>
+<span class="p">);</span>
 </pre></div>
 </div>
-</section>
-<section id="chrono">
-<h2>Chrono<a class="headerlink" href="#chrono" title="Link to this heading">#</a></h2>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vec</span><span class="p">;</span>
+<p>인자는 다음과 같다.</p>
+<ul class="simple">
+<li><p>PAPPSTATE_CHANGE_ROUTINE Routine</p>
+<ul>
+<li><p>애플리케이션 상태가 변경될 때 호출될 콜백 함수의 포인터다.</p></li>
+<li><p>애플리케이션의 상태가 변경되면, 이 함수가 호출되어 상태에 따른 작업을 수행할 수 있다.</p></li>
+</ul>
+</li>
+<li><p>PVOID Context</p>
+<ul>
+<li><p>콜백 함수에 전달될 사용자 정의 데이터이다.</p></li>
+<li><p>필요하지 않으면 <code class="docutils literal notranslate"><span class="pre">NULL</span></code>을 전달할 수 있다.</p></li>
+</ul>
+</li>
+<li><p>PAPPSTATE_REGISTRATION *Registration</p>
+<ul>
+<li><p>등록된 알림 정보를 저장할 핸들 포인터이다.</p></li>
+<li><p>함수가 성공하면 이 포인터는 등록 정보를 가리키게 된다.</p></li>
+</ul>
+</li>
+</ul>
+<p>반환값은 다음과 같다.</p>
+<ul class="simple">
+<li><p>성공 시</p>
+<ul>
+<li><p>0이 아닌 ULONG 값으로, 이 값은 등록된 알림의 핸들 역할을 한다.</p></li>
+</ul>
+</li>
+<li><p>실패 시</p>
+<ul>
+<li><p>0을 반환한다.</p></li>
+<li><p>실패 시 적절한 오류 코드를 분석하여 문제를 진단해야 한다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/appnotify/nf-appnotify-registerappstatechangenotification">learn.microsoft - nf-appnotify-registerappstatechangenotification</a></p>
+</div></blockquote>
+<section id="pappstate-change-routine-callback-function">
+<h3>PAPPSTATE_CHANGE_ROUTINE callback function<a class="headerlink" href="#pappstate-change-routine-callback-function" title="Link to this heading">#</a></h3>
+<p>어플리케이션의 suspend state 변경 시 호출 될 call back 함수의 포인터이다.</p>
+<p>call back 함수는 다음과 같은 형태를 갖어야 한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">PAPPSTATE_CHANGE_ROUTINE</span><span class="w"> </span><span class="n">PappstateChangeRoutine</span><span class="p">;</span>
 
-<span class="w">	</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">time_point1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">steady_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
-<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10000000</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
-<span class="w">		</span><span class="n">vec</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span>
-<span class="w">	</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">time_point2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">steady_clock</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
-
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">nanoseconds</span><span class="w"> </span><span class="n">nanosec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time_point2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">time_point1</span><span class="p">;</span>
-
-<span class="w">	</span><span class="c1">//기본 시간 단위는 암시적 형변환 안됨</span>
-<span class="w">	</span><span class="c1">//std::chrono::microseconds microsec = time_point2 - time_point1;	//signed integer 55bits</span>
-<span class="w">	</span><span class="c1">//std::chrono::milliseconds milisec = time_point2 - time_point1;	//signed integer 45bits</span>
-<span class="w">	</span><span class="c1">//std::chrono::seconds sec = time_point2 - time_point1;				//signed integer 35bits</span>
-
-<span class="w">	</span><span class="c1">//기본 시간 단위는 duration_cast로 형변환 해야됨</span>
-<span class="w">	</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">microsec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">microseconds</span><span class="o">&gt;</span><span class="p">(</span><span class="n">nanosec</span><span class="p">);</span><span class="w">	</span>
-<span class="w">	</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">millisec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">milliseconds</span><span class="o">&gt;</span><span class="p">(</span><span class="n">nanosec</span><span class="p">);</span><span class="w">	</span>
-<span class="w">	</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">sec</span><span class="w">		</span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="o">&gt;</span><span class="p">(</span><span class="n">nanosec</span><span class="p">);</span><span class="w">		</span>
-
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;nanosec: </span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">nanosec</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;microsec: </span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">microsec</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;milisec: </span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">millisec</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;sec: </span><span class="se">\t\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">sec</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-
-<span class="w">	</span><span class="c1">//사용자 정의 시간 단위는 암시적 형변한 됨</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">micro</span><span class="o">&gt;</span><span class="w">	</span><span class="n">d_microsec</span><span class="w">	</span><span class="o">=</span><span class="w"> </span><span class="n">time_point2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">time_point1</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">milli</span><span class="o">&gt;</span><span class="w">	</span><span class="n">d_millisec</span><span class="w">	</span><span class="o">=</span><span class="w"> </span><span class="n">time_point2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">time_point1</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w">				</span><span class="n">d_sec</span><span class="w">		</span><span class="o">=</span><span class="w"> </span><span class="n">time_point2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">time_point1</span><span class="p">;</span>
-
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;d_microsec: </span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">d_microsec</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;d_milisec: </span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">d_millisec</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;d_sec: </span><span class="se">\t\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">d_sec</span><span class="p">.</span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">PappstateChangeRoutine</span><span class="p">(</span>
+<span class="w">       </span><span class="n">BOOLEAN</span><span class="w"> </span><span class="n">Quiesced</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w"> </span><span class="n">PVOID</span><span class="w"> </span><span class="n">Context</span>
+<span class="p">)</span>
+<span class="p">{...}</span>
 </pre></div>
 </div>
-</section>
-<section id="getline">
-<h2>getline<a class="headerlink" href="#getline" title="Link to this heading">#</a></h2>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span>
-<span class="p">{</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">input_string</span><span class="p">;</span>
-<span class="w">	</span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">,</span><span class="w"> </span><span class="n">input_string</span><span class="p">))</span>
-<span class="w">	</span><span class="p">{</span><span class="w">		</span>
-<span class="w">		</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">input_string</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="p">}</span>
-<span class="w">	</span><span class="c1">//Window에서 ctrl + z 를 입력하면 EOF가 입력됨.</span>
-<span class="w">	</span><span class="c1">//이 경우 static_cast&lt;bool&gt;(std::cin)는 false가 됨</span>
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="cin">
-<h2>cin<a class="headerlink" href="#cin" title="Link to this heading">#</a></h2>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span>
-<span class="p">{</span>
-<span class="w">	</span><span class="kt">size_t</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">num</span><span class="p">;</span><span class="w">	</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<section id="id1">
-<h3>주의사항1<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>모든 공백문자 (띄어쓰기나 엔터, 탭 등)을 입력시에 분리해서 입력받는다.</p>
-<p>아래 예시 코드를 보자.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-
-<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span><span class="w">	</span>
-<span class="w">	</span><span class="n">string</span><span class="w"> </span><span class="n">str</span><span class="p">;</span>
-<span class="w">	</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">str</span><span class="p">;</span>
-<span class="w">  	</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
-<span class="w">  	</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">str</span><span class="p">;</span>
-<span class="w">  	</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
-<span class="w">  	</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">str</span><span class="p">;</span>
-<span class="w">  	</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>입력이 <code class="docutils literal notranslate"><span class="pre">abc</span></code>인 경우, <code class="docutils literal notranslate"><span class="pre">abc</span></code>를 출력하고 두번 더 input을 받을 준비를 한다. 하지만 입력이 <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">b</span> <span class="pre">c</span></code>인 경우, 각 줄에 a,b,c를 출력하고 끝난다. 왜냐하면 <code class="docutils literal notranslate"><span class="pre">a</span></code>,<code class="docutils literal notranslate"><span class="pre">b</span></code>,<code class="docutils literal notranslate"><span class="pre">c</span></code>를 각각 입력받아 총 3번 입력이 되었다고 인식하기 때문이다.</p>
-</section>
-<section id="id2">
-<h3>주의사항2<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<p>cin과 getline을 섞어 쓰면 예상하지 못한 버그가 발생할 수 있다.</p>
-<p>아래 예시 코드를 보자</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;enter number : &quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="kt">int</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">number</span><span class="p">;</span><span class="w">	</span>
-<span class="w">	</span><span class="c1">//std::cin&gt;&gt;는 변수에 &#39;\n&#39;을 담지 않는다.</span>
-<span class="w">	</span><span class="c1">//std::cin의 buffer에는 &#39;\n&#39;이 남아있음.</span>
-<span class="w">		</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;enter name : &quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">);</span>
-<span class="w">	</span><span class="c1">//새로 입력받지 않고 std::cin buffer에 남아있는 &#39;\n&#39;을 name에 할당함.</span>
-<span class="w">	</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">input: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
-
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">std::cin</span> <span class="pre">&gt;&gt;</span> <span class="pre">number;</span></code>을 실행하고 나면 std::cin의 buffer에는 ‘\n’이 남아있다.</p>
-<p>따라서 <code class="docutils literal notranslate"><span class="pre">std::getline(std::cin,</span> <span class="pre">name);</span></code>를 실행할 떄, 새로 입력받지 않고 std::cin buffer에 남아있는 ‘\n’을 name에 할당한다.</p>
-<p>이와 같이 cin과 getline을 섞어 쓰면 버그가 발생한다.</p>
-<p>cin은 담는 변수가 std::string이더라도 ‘\n’을 담지 않는다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;enter name : &quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
-<span class="w">	</span><span class="c1">//std::cin&gt;&gt;는 변수에 &#39;\n&#39;을 담지 않는다.</span>
-<span class="w">	</span><span class="c1">//std::cin의 buffer에는 &#39;\n&#39;이 남아있음.</span>
-
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;enter family name : &quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">family_name</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">getline</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">,</span><span class="w"> </span><span class="n">family_name</span><span class="p">);</span>
-<span class="w">	</span><span class="c1">//똑같은 문제 발생</span>
-
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">input: </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">family_name</span><span class="p">;</span>
-
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-</section>
-<section id="iomanip">
-<h2>iomanip<a class="headerlink" href="#iomanip" title="Link to this heading">#</a></h2>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
-<span class="w">	</span><span class="kt">size_t</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">	</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="w">  </span><span class="c1">//기본으로 std::right</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">left</span><span class="p">;</span><span class="w">         </span><span class="c1">//한번 설정하면 계속 유지</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">//setw는 바로 다음 입력에만 영향을 줌	</span>
-
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.2345</span><span class="p">;</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">fixed</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="c1">// 2자리 고정소수점으로 출력, 한번 설정으로 계속 유지</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">defaultfloat</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span><span class="w"> </span><span class="c1">//initial precision</span>
-<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="queue">
-<h2>Queue<a class="headerlink" href="#queue" title="Link to this heading">#</a></h2>
-<p>FIFO(First in first out) container.</p>
-<p>pop시 앞의 메모리를 낭비하거나, 모든 데이터를 옮기는 경우를 방지하기 위해 원형 큐를 사용해서 구현</p>
-</section>
-<section id="set">
-<h2>Set<a class="headerlink" href="#set" title="Link to this heading">#</a></h2>
-<section id="id3">
-<h3>멤버 함수<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<section id="insert">
-<h4>insert<a class="headerlink" href="#insert" title="Link to this heading">#</a></h4>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
-<span class="n">s</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
-<span class="n">s</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
-<span class="n">s</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w">    </span><span class="c1">// nothing happen!</span>
-</pre></div>
-</div>
-</section>
-<section id="erase">
-<h4>erase<a class="headerlink" href="#erase" title="Link to this heading">#</a></h4>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">};</span>
-
-<span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">result1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// fail erase return size_t 0</span>
-<span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">result2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">// success erase return size_t 1</span>
-</pre></div>
-</div>
-</section>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/appnotify/nc-appnotify-pappstate_change_routine">learn.microsoft - nc-appnotify-pappstate_change_routine</a></p>
+</div></blockquote>
 </section>
 </section>
 <div class="toctree-wrapper compound">
@@ -1116,7 +1006,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./sources\03 programming\01 C++\20 Standard Library"
+            path: "./sources\03 programming\03 Window Programming\01 Win32API"
         },
         predefinedOutput: true
     }
@@ -1134,20 +1024,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../12%20Struct%20Memory%20Padding.html"
+       href="../Window%20Programming.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Struct Memory Padding</p>
+        <p class="prev-next-title">Window Programming</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20type-traits.html"
+       href="Message%20Loop.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">type-traits</p>
+        <p class="prev-next-title">Message Loop</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1167,24 +1057,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-location">source_location</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stacktrace">stacktrace</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filesystem">filesystem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chrono">Chrono</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getline">getline</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cin">cin</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">주의사항1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">주의사항2</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iomanip">iomanip</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#queue">Queue</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">멤버 함수</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#insert">insert</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#erase">erase</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#createeventexa">CreateEventExA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#registerappstatechangenotification">RegisterAppStateChangeNotification 함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pappstate-change-routine-callback-function">PAPPSTATE_CHANGE_ROUTINE callback function</a></li>
 </ul>
 </li>
 </ul>

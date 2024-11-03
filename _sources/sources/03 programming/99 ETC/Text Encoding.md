@@ -10,6 +10,8 @@
 ASCII (American Standard Code for Information Interchange) 는 7비트로 구성된 인코딩 방식으로 영어 알파벳, 숫자, 기호만 매핑 가능하다.
 
 ## ANSI
+"ANSI"라는 용어는 엄밀히 말하면 특정 인코딩을 지칭하지 않지만, Windows 운영체제에서는 종종 "로케일 기반 인코딩"을 의미하는 용어로 사용된다.
+
 ASCII(7비트 인코딩)의 확장판으로, 8비트(256개 문자)로 구성된 인코딩 방식이다.
 
 128개 이하의 문자는 ASCII 문자 집합과 동일하고, 나머지 128개 문자는 각 코드 페이지에 맞춰 정의된다.
@@ -53,3 +55,49 @@ BOM(Byte Order Mark) 은 유니코드 텍스트 파일의 시작 부분에 인�
 
 > Reference  
 > [learn.microsoft - byte-order-and-byte-order-marks](https://learn.microsoft.com/en-us/globalization/encoding/unicode-standard#byte-order-and-byte-order-marks)  
+
+## char
+
+##  Locale
+
+locale name 은 [여기](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c)에서 Language tag 를 살펴보면 된다.
+
+> Reference  
+> [learn.microsoft - UCRT Locale names, Languages, and Country/Region strings](https://learn.microsoft.com/en-us/cpp/c-runtime-library/locale-names-languages-and-country-region-strings?view=msvc-170)    
+
+## String Literal
+
+The encoding of unprefixed string literals in C++ is platform dependent.
+
+MSVC 에서는 unprefixe string literal 의 encoding 방식으로 시스템의 code page 를 사용하는 것 같다.
+
+시스템의 code page 는 Win32 API 의 GetACP 함수로 확인할 수 있다.
+
+execution-charset-set 에 무엇을 설정하느냐에 따라 str = "가"; 가 실행될 때 encoding 방식이 결정된다.
+
+이로 인해 str 에 저장되는 bit 가 결정된다.
+
+```cpp
+void print(const std::string& str)
+{
+for (const char c : str)
+{
+std::bitset<8> bs(c);
+std::cout << std::uppercase << std::hex << bs.to_ulong() << " " ;
+}
+std::cout << "\n";
+}
+
+int main(void){
+  std::string str;
+  str = "가";
+
+  print(str);
+}
+```
+
+> Reference  
+> [cppreference - string_literal](https://en.cppreference.com/w/cpp/language/string_literal)    
+> [stackoverflow - What is the encoding of unprefixed string literals in C++?](https://stackoverflow.com/questions/75172318/what-is-the-encoding-of-unprefixed-string-literals-in-c)  
+> [learn.microsoft - source-charset-set-source-character-set](https://learn.microsoft.com/ko-kr/cpp/build/reference/source-charset-set-source-character-set?view=msvc-170)  
+> [learn.microsoft - execution-charset-set-execution-character-set?view=msvc-170](https://learn.microsoft.com/en-us/cpp/build/reference/execution-charset-set-execution-character-set?view=msvc-170)  

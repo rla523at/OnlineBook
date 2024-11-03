@@ -1,121 +1,5 @@
 # Window Programming
 
-## WNDCLASSEX 구조체
-WNDCLASSEX 구조체는 Windows API에서 윈도우 클래스를 정의하는 데 사용되는 구조체로, 윈도우 클래스의 속성을 지정하여 그에 맞는 윈도우를 생성할 수 있게 한다.
-
-각 멤버 변수는 윈도우 클래스의 특성을 지정하는 데 중요한 역할을 한다.
-
-> REFERENCE  
-> [MSDN - WNDCLASSEX](https://learn.microsoft.com/ko-kr/windows/win32/api/winuser/ns-winuser-wndclassexw)  
-
-### cbSize
-구조체의 크기(바이트)를 지정하는 변수다. 따라서, 항상 `sizeof(WNDCLASSEX)`로 설정해야 한다.
-
-### style
-윈도우 클래스의 스타일을 지정하는 변수다.
-
-여러 스타일을 비트 OR 연산자로 결합하여 사용할 수 있다.
-
-#### CS_CLASSDC
-이 스타일은 클래스의 모든 창에서 공유할 하나의 `장치 컨텍스트(Device Context, DC)`를 할당할 때 사용한다.
-
-장치 컨텍스트는 윈도우의 그리기 작업을 관리하는 객체로, 그래픽 객체와 그리기 속성(예: 펜, 브러시, 색상 등)을 포함한다. 애플리케이션은 장치 컨텍스트를 사용하여 윈도우의 클라이언트 영역에 텍스트, 도형, 비트맵 등을 그린다.
-
-이 스타일을 사용하면 클래스의 모든 윈도우가 동일한 장치 컨텍스트를 공유하게 된다. 따라서 여러 윈도우가 개별적인 장치 컨텍스트를 가질 때보다 메모리 사용량이 줄어든다.
-
-하지만 다른 윈도우의 그리기 작업이 현재 윈도우에 영향을 미칠 수 있다. 그래서 여러 윈도우가 동시에 그리기 작업을 수행하면 예상치 못한 결과가 발생할 수 있다. 
-
-CS_CLASSDC는 일반적으로 권장되지 않으며, 특정 상황에서만 사용된다. 
-
-### lpfnWndProc
-윈도우 프로시저(윈도우 메세지를 처리할 함수)로 사용할 함수의 함수 포인터를 지정하는 변수다.
-
-WNDCLASSEX 구조체에 원하는 속성을 지정한다음 RegisterClassEx 함수를 통해 윈도우 클래스를 등록한 뒤 CreateWindow 함수를 호출하면 등록된 윈도우 클래스를 기반으로 윈도우를 생성한다. 
-
-이 떄, CreateWindow 함수는 내부적으로 CreateWindowExW를 호출하고, 여기서 생성된 윈도우에 대해 WNDCLASSEX 구조체에 지정된 lpfnWndProc 함수 포인터가 윈도우 프로시저로 설정된다.
-
-윈도우가 생성되고 나면, 메시지 루프를 통해 메시지를 대기하고 처리하게 된다.  메세지 루프 로직에서 DispatchMessage 함수는 메시지를 해당 윈도우의 윈도우 프로시저로 전달한다. 따라서 이때, lpfnWndProc에 지정된 함수가 호출이 되게 된다. 참고로 lpfnWndProc은 윈도우 클래스와 연결된 모든 윈도우 인스턴스에 대해 호출된다.
-
-### cbClsExtra
-클래스 구조체에 추가로 할당할 바이트 수를 지정하는 변수다.
-
-일반적으로 0으로 설정한다.
-
-### cbWndExtra
-윈도우 인스턴스에 추가로 할당할 바이트 수를 지정하는 변수다.
-
-일반적으로 0으로 설정한다.
-
-### hInstance
-해당 윈도우 클래스가 속한 애플리케이션의 인스턴스 핸들을 지정하는 변수다. 
-
-이를 통해 메시지가 올바른 윈도우 프로시저로 전달될 수 있다.
-
-GetModuleHandle 함수에 NULL을 전달하면, 현재 실행 중인 프로세스의 인스턴스 핸들을 반환한다.
-
-따라서 일반적으로 윈도우 클래스를 등록할 때 hInstance에 `GetModuleHandle(NULL)`값을 사용한다.
-
-### hIcon
-윈도우 클래스에 속한 모든 윈도우에 공통으로 사용될 아이콘을 지정하는 변수다.
-
-이 아이콘은 주로 윈도우의 제목 표시줄, 작업 표시줄, 그리고 Alt+Tab 작업 전환 창에 표시된다.
-
-만약 hIcon에 NULL 값을 주면, 윈도우는 기본 시스템 아이콘을 사용하게 된다.
-
-### hCursor
-윈도우 클래스에서 기본으로 사용할 커서를 지정하는 변수이다.
-
-이 커서는 윈도우가 생성되고 마우스가 윈도우의 클라이언트 영역 위에 있을 때 기본적으로 표시된다.
-
-hCursor 멤버 변수에는 커서 핸들(HCURSOR) 값을 대입해야 한다. 이 핸들은 보통 LoadCursor 함수나 LoadImage 함수를 사용하여 커서를 로드하여 얻는다.
-
-만약, hCursor에 NULL 값을 주면, 윈도우 클래스는 기본 커서를 지정하지 않은 것으로 간주된다. 이 경우, 시스템은 기본 커서를 사용하지 않으며, 커서가 윈도우의 클라이언트 영역 위에 있을 때 커서가 보이지 않거나, 다른 설정된 커서를 사용할 수 있다.
-
-커서가 표시되지 않으므로, 애플리케이션이 적절한 시점에 커서를 설정하거나 변경하는 로직을 추가로 구현해야 할 수 있다. 예를 들어, SetCursor 함수를 사용하여 커서를 수동으로 설정할 수 있다.
-
-### hbrBackground
-윈도우의 배경을 칠할 때 사용할 브러시를 지정하는 변수이다. 
-
-이 브러시는 윈도우가 그려질 때 사용되며, 기본 배경 색상을 설정하는 데 사용된다.
-
-hbrBackground에는 브러시 핸들(HBRUSH) 값을 대입해야 한다. 일반적으로 CreateSolidBrush 또는 CreatePatternBrush 같은 함수를 사용하여 브러시를 생성하거나, 미리 정의된 색상 값 또는 시스템 색상을 사용하는 경우가 많다.
-
-만약, hbrBackground에 NULL 값을 주면 윈도우 클래스는 기본 배경 브러시를 사용하지 않는다. 이 경우 윈도우의 배경을 자동으로 칠하지 않음으로 클라이언트 영역에서 그리기를 요청할 때마다 자체 배경을 그려야 한다.
-
-### lpszMenuName
-윈도우 클래스에 사용할 메뉴의 이름을 지정하는 변수이다.
-
-이 메뉴는 윈도우가 생성될 때 제목 표시줄 아래에 바로 표시된다.
-
-만약 lpszMenuName에 NULL 값을 주면, 윈도우 클래스에 기본적으로 연결된 메뉴가 없다는 의미이다. 따라서 이 클래스에 속한 윈도우는 생성될 때 기본 메뉴를 가지지 않는다.
-
-### lpszClassName
-윈도우 클래스의 이름을 지정하는 변수이다.
-
-이 이름은 윈도우 클래스를 식별하는 데 중요한 역할을 한다. 윈도우 클래스를 등록할 때 RegisterClassEx 함수에 의해 사용되고, CreateWindow 또는 CreateWindowEx 함수를 통해 윈도우를 생성할 때 해당 윈도우 클래스를 참조하는 데 사용된다.
-
-윈도우 클래스를 식별하는 데 사용하는 이름임으로 같은 이름을 가진 여러 윈도우 클래스를 등록할 수 없다. 따라서 클래스 이름은 애플리케이션 내에서 고유해야 한다.
-
-만약 lpszClassName에 NULL 값을 주면 RegisterClassEx 함수를 호출할 떄 오류 코드가 반환된다. 
-
-### hIconSm
-윈도우 클래스에 의해 생성된 윈도우의 작은 아이콘을 지정하는 변수이다. 
-
-이 아이콘은 주로 윈도우의 작업 표시줄이나 제목 표시줄의 왼쪽 모서리에 표시된다.
-
-hIconSm에는 작은 아이콘 핸들(HICON)을 설정해야 한다. 일반적으로 LoadIcon 또는 LoadImage 함수를 사용하여 아이콘을 로드하며 작은 아이콘은 일반적으로 크기가 16x16 픽셀이다.
-
-만약 hIconSm에 NULL 값을 주면, 시스템은 작은 아이콘을 사용하지 않는다. 이 경우, 시스템은 기본 아이콘을 사용하거나, 큰 아이콘(hIcon)을 작은 크기로 축소하여 사용할 수 있다.
-
-
-## RegisterClassEx 함수
-RegisterClassEx 함수는 WNDCLASSEX 구조체에 정의된 윈도우 클래스를 등록하는 데 사용된다. 이 함수는 애플리케이션이 해당 클래스를 기반으로 윈도우를 생성할 수 있도록 윈도우 클래스를 시스템에 등록한다. RegisterClassEx는 RegisterClass 함수의 확장 버전으로, 추가적인 멤버와 기능을 제공한다.
-
-RegisterClassEx 함수는 등록이 성공하면 반환값으로 고유한 클래스 원자(ATOM)를 반환한다. 이 값은 이후에 윈도우를 생성할 때 클래스 이름 대신 사용할 수 있다. 만약 등록이 실패하면, 0을 반환한다. 이 경우 GetLastError 함수를 호출하여 확장된 오류 정보를 얻을 수 있다.
-
-> REFERENCE  
-> [MSDN - RegisterClassEx](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-registerclassa?redirectedfrom=MSDN#return-value)
-
 ## AdjustWindowRect 함수
 AdjustWindowRect 함수는 지정된 클라이언트 영역이 포함될 수 있도록 윈도우의 전체 크기를 조정하는 함수이다.
 
@@ -141,64 +25,6 @@ BOOL AdjustWindowRect(
 > REFERENCE  
 > [MSDN - AdjustWindowRect 함수](https://learn.microsoft.com/ko-kr/windows/win32/api/winuser/nf-winuser-adjustwindowrect)  
 > [MSDN - 창 스타일](https://learn.microsoft.com/ko-kr/windows/win32/winmsg/window-styles)  
-
-## CreateWindow 함수
-CreateWindow 함수는 Windows 애플리케이션에서 새로운 윈도우를 생성하는 함수다. 이 함수는 윈도우의 여러 속성을 지정하고, 생성된 윈도우의 핸들을 반환한다. 이 핸들은 이후 윈도우 조작과 메시지 처리를 위해 사용된다.
-
-CreateWindow 함수의 시그니쳐는 다음과 같다.
-```cpp
-HWND CreateWindow(
-  LPCWSTR lpClassName,
-  LPCWSTR lpWindowName,
-  DWORD dwStyle,
-  int x,
-  int y,
-  int nWidth,
-  int nHeight,
-  HWND hWndParent,
-  HMENU hMenu,
-  HINSTANCE hInstance,
-  LPVOID lpParam
-);
-```
-
-각 인자는 다음과 같다.
-* lpClassName
-  * 윈도우 생성에 사용할 윈도우의 클래스 이름을 지정한다. 
-  * 이 클래스는 RegisterClass 또는 RegisterClassEx 함수를 사용하여 등록되어 있어야 한다.
-* lpWindowName
-  * 윈도우의 제목을 지정하는 문자열이다. 
-  * 이 문자열은 윈도우의 제목 표시줄에 나타난다.
-* dwStyle
-  * 윈도우의 스타일을 지정하는 DWORD 값이다. 
-  * 윈도우 스타일은 윈도우의 외관과 동작을 정의하며, 여러 스타일을 조합하여 사용할 수 있다. 
-  * 예를 들어, WS_OVERLAPPEDWINDOW, WS_VISIBLE, WS_CHILD 등이 있다.
-* x
-  * 윈도우의 초기 위치(왼쪽 상단 모서리의 x 좌표)이다. 
-  * CW_USEDEFAULT를 지정하면 시스템이 적절한 위치를 결정한다.
-* y
-  * 윈도우의 초기 위치(왼쪽 상단 모서리의 y 좌표)이다. 
-  * CW_USEDEFAULT를 지정하면 시스템이 적절한 위치를 결정한다.
-* nWidth
-  * 윈도우의 너비이다. 
-  * CW_USEDEFAULT를 지정하면 시스템이 적절한 너비를 결정한다.
-* nHeight
-  * 윈도우의 높이이다. 
-  * CW_USEDEFAULT를 지정하면 시스템이 적절한 높이를 결정한다.
-* hWndParent
-  * 부모 윈도우의 핸들이다. 
-  * 자식 윈도우를 생성할 때 사용하며, 최상위 윈도우를 생성할 경우 NULL로 지정한다.
-* hMenu
-  * 윈도우와 연결할 메뉴의 핸들이다. 
-  * 최상위 윈도우에서는 메뉴의 핸들을 지정하고, 자식 윈도우에서는 컨트롤 ID를 지정한다. 
-  * 메뉴가 없으면 NULL로 지정한다.
-* hInstance
-  * 윈도우를 생성하는 애플리케이션의 인스턴스 핸들이다.
-* lpParam
-  * 윈도우를 생성할 때 추가 데이터를 전달하는 용도로 사용된다.
-  * 이 데이터는 주로 윈도우 프로시저가 초기화 과정에서 필요한 정보를 포함한다.
-  * 윈도우가 생성되면, 시스템은 WM_CREATE 메시지를 윈도우 프로시저로 보낸다. 이 메시지의 lParam 매개변수는 CREATESTRUCT 구조체에 대한 포인터를 포함하며, 이 구조체의 lpCreateParams 멤버는 lpParam 인자의 값을 가리킨다.
-  * NULL 값을 주면, 윈도우를 생성할 때 추가 데이터를 전달하지 않는다는 의미다.
 
 ## ShowWindow 함수
 ShowWindow 함수는 지정된 윈도우의 표시 상태를 설정하는 데 사용하는 함수이다.
@@ -344,8 +170,7 @@ void OutputDebugStringA(
 > [learn.microsoft - nf-debugapi-outputdebugstringa](https://learn.microsoft.com/ko-kr/windows/win32/api/debugapi/nf-debugapi-outputdebugstringa)  
 
 ## SetThreadAffinityMask 함수
-
-SetThreadAffinityMask는 Windows API의 함수로, 특정 스레드를 지정된 CPU 코어(프로세서)에만 실행되도록 고정하는 데 사용되는 함수다.
+SetThreadAffinityMask는 Windows API의 함수로, 특정 thread 를 지정된 CPU 코어(프로세서)에만 실행되도록 고정하는데 사용되는 함수다.
 
 함수의 signature 는 다음과 같다.
 ```cpp
@@ -419,7 +244,7 @@ DWORD SetThreadIdealProcessorEx(
 ```
 인자는 다음과 같다.
 * HANDLE hThread
-  * 우선 실행할 프로세서를 설정할 **스레드의 핸들**입니다.
+  * 우선 실행할 프로세서를 설정할 스레드의 핸들이다
   * 이 핸들은 `CreateThread`나 `GetCurrentThread` 같은 함수로 가져올 수 있습니다.
 
 * PPROCESSOR_NUMBER lpIdealProcessor 
@@ -439,6 +264,9 @@ DWORD SetThreadIdealProcessorEx(
 * 실패 시  
   * `0`을 반환한다.
   * `GetLastError()`를 호출해 실패 원인을 확인할 수 있다.
+
+> Reference  
+> [learn.microsoft - nf-processthreadsapi-setthreadidealprocessorex](https://learn.microsoft.com/ko-kr/windows/win32/api/processthreadsapi/nf-processthreadsapi-setthreadidealprocessorex)  
 
 ## GlobalMemoryStatusEx 함수 
 GlobalMemoryStatusEx 함수는 Windows API 의 함수로, 시스템 메모리의 현재 상태를 확인한다. 
@@ -482,4 +310,136 @@ UINT GetACP();
 * 실패 시  
   * 오류는 발생하지 않으며, 항상 유효한 코드 페이지 식별자를 반환한다.
 
+## RegisterAppStateChangeNotification 함수
+RegisterAppStateChangeNotification 함수는 Windows에서 애플리케이션의 상태 변화를 모니터링하고 해당 상태 변화에 대한 알림을 받을 수 있도록 콜백을 등록하는 함수이다.
+
+함수의 시그니처는 다음과 같다.
+```cpp
+APICONTRACT ULONG RegisterAppStateChangeNotification(
+  PAPPSTATE_CHANGE_ROUTINE Routine,
+  PVOID                    Context,
+  PAPPSTATE_REGISTRATION   *Registration
+);
+```
+
+인자는 다음과 같다.
+* PAPPSTATE_CHANGE_ROUTINE Routine
+  * 앱이 일시 중단된 상태로 들어가거나 떠날 때 앱에 알리는 앱 정의 콜백 함수의 포인터이다.
+
+* PVOID Context
+  * 콜백 함수에 전달될 사용자 정의 데이터다. 필요하지 않으면 nullptr을 전달할 수 있다.
+
+* PAPPSTATE_REGISTRATION *Registration
+  * 등록된 알림 정보를 저장할 핸들 포인터다.
+  * 함수가 성공하면 이 포인터는 등록 정보를 가리키게 된다.
+
+반환값은 다음과 같다.
+* 표준 Win32 상태 코드다.
+  
+> Reference  
+> [learn.microsoft - nf-appnotify-registerappstatechangenotification](https://learn.microsoft.com/ko-kr/windows/win32/api/appnotify/nf-appnotify-registerappstatechangenotification)  
+
+### PAPPSTATE_CHANGE_ROUTINE
+앱이 일시 중단된 상태로 들어가거나 떠날 때 앱에 알리는 앱 정의 콜백 함수의 포인터이다.
+
+콜백 함수는 다음과 같은 형태를 갖어야 한다.
+
+```cpp
+PAPPSTATE_CHANGE_ROUTINE PappstateChangeRoutine;
+
+void PappstateChangeRoutine(
+       BOOLEAN Quiesced,
+  [in] PVOID Context
+)
+{...}
+```
+
+매개 변수는 다음과 같다.
+
+* BOOLEAN Quiesced
+  * 앱이 일시 중단된 상태로 들어가면 TRUE이고, 앱이 일시 중단된 상태를 벗어나는 경우 FALSE다.
+* PVOID Context
+  * 일시 중단 시 앱이 저장하고 다시 시작할 때 사용할 수 있는 데이터에 대한 포인터다.
+  * 이 값은 RegisterAppStateChangeNotification 함수에서 제공한다.
+  * 일반적으로 "this" 포인터다.
+
+> Reference  
+> [learn.microsoft - nc-appnotify-pappstate_change_routine](https://learn.microsoft.com/ko-kr/windows/win32/api/appnotify/nc-appnotify-pappstate_change_routine)
+
+## SetWindowLongPtr & GetWindowLongPtr
+```cpp
+SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(sample.get());
+
+// in WndProc function
+{
+  auto sample = reinterpret_cast<Sample*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+  //...
+}
+```
+
+### SetWindowLongPtr
+지정된 window 의 속성을 변경한다.
+
+이 함수는 또한 추가 window 메모리의 지정된 오프셋에 값을 설정한다.
+
+```cpp
+LONG_PTR SetWindowLongPtrA(
+  [in] HWND     hWnd,
+  [in] int      nIndex,
+  [in] LONG_PTR dwNewLong
+);
+```
+
+> Reference  
+> [learn.microsoft - nf-winuser-setwindowlongptra](https://learn.microsoft.com/ko-kr/windows/win32/api/winuser/nf-winuser-setwindowlongptra)  
+
+### GetWindowLongPtrA
+지정된 창에 대한 정보를 검색한다. 
+
+이 함수는 추가 window 메모리의 지정된 오프셋에 저장된 값을 검색한다.
+
+```cpp
+LONG_PTR GetWindowLongPtrA(
+  [in] HWND hWnd,
+  [in] int  nIndex
+);
+```
+
+> Reference  
+> [learn.microsoft - nf-winuser-getwindowlongptra](https://learn.microsoft.com/ko-kr/windows/win32/api/winuser/nf-winuser-getwindowlongptra)  
+
+## GetACP 함수
+`GetACP` 함수는 현재 시스템의 ANSI 코드 페이지( Active Code Page )를 가져오는 함수이다.
+
+ANSI 코드 페이지는 시스템의 기본 문자 인코딩을 정의하며, 여러 문자 세트를 지원하기 위해 사용된다.
+
+함수의 시그니처는 다음과 같다.
+```cpp
+UINT GetACP();
+```
+
+인자는 없다.
+
+반환값은 다음과 같다.
+* 성공 시
+  * 현재 시스템의 ANSI 코드 페이지 식별자(UINT)를 반환한다.
+  * 코드 페이지 식별자는 [여기](https://learn.microsoft.com/ko-kr/windows/win32/intl/code-page-identifiers) 를 참고하면 된다.
+
+* 실패 시
+  * 실패하는 경우는 거의 없으며, 반환값은 시스템의 현재 ANSI 코드 페이지로 지정된 값이다.
+
+### 참고
+GetACP 함수에 대응되는 시스템의 기본 코드 페이지 (Active Code Page, ACP )를 설정하는 직접적인 SetACP 함수는 Windows API에는 없다. 
+
+Windows에서는 시스템 전체의 ACP를 변경하는 API를 제공하지 않으며, 기본 코드 페이지는 Windows의 로케일 설정에 따라 결정된다.
+
+시스템 기본 코드 페이지를 변경하려면 Windows의 로케일 설정을 직접 수정해야 합니다:
+
+제어판 → 시계 및 국가 → 국가 또는 지역을 엽니다.
+관리자 옵션 탭에서 시스템 로캘 변경을 선택합니다.
+원하는 로캘을 선택하고 시스템을 재부팅하여 적용합니다.
+
+이 설정은 전체 시스템에 영향을 미치며, 특정 애플리케이션 내에서만 기본 코드 페이지를 변경하는 기능을 제공하지 않는다. 
+
+따라서, 특정 코드 페이지를 사용하려면 애플리케이션 내부에서 SetConsoleOutputCP와 SetConsoleCP를 사용하거나, 코드 페이지 변환을 위한 함수(예: MultiByteToWideChar 및 WideCharToMultiByte)를 사용하는 것이 일반적이다.
 

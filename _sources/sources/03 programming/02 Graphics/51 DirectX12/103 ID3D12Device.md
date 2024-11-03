@@ -45,3 +45,6 @@ HRESULT ID3D12Device::CreateCommandAllocator(
 * 기타 HRESULT 오류 코드
 
 이 함수는 커맨드 리스트의 기록을 위해 메모리를 할당하는 `ID3D12CommandAllocator` 객체를 생성하며, 다양한 커맨드 리스트 유형을 지원한다. `type` 매개변수는 커맨드 할당기의 용도를 결정하며, `riid`와 `ppvObject`를 통해 요청된 인터페이스를 반환받는다. 이 함수는 주로 GPU 명령의 효율적인 관리를 위해 사용된다.
+
+
+

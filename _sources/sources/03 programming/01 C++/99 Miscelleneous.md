@@ -1,5 +1,8 @@
 # Miscellaneous
 
+## std::cout and char
+std::cout 에 char 혹은 unsigned char 을 바로 전달하면 문자로 해석된다.
+
 ## std::set_terminate
 
 프로그램이 정상적으로 예외를 처리할 수 없을 때 호출되는 종료 처리기(terminate handler)를 등록하는 함수이다.

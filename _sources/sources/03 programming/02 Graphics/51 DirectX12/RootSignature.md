@@ -25,7 +25,7 @@ Root Signature 에는 다음 세 가지 유형의 parameter 가 포함될 수 �
 Root Constants 는 셰이더에 Constant Buffer 로 표시되는 인라인 32비트 값이다.
 
 ### Root Descriptors
-Root descriptors 는 CBV 와 raw buffer 또는 structured buufer 의 SRV 나 UAV 로 제한된다.
+Root descriptors 는 CBV 와 raw buffer 또는 structured buffer 의 SRV 나 UAV 로 제한된다.
 
 이 외에 2D 텍스처의 SRV 와 같이 더 복잡한 유형은 root descriptor로 사용할 수 없다. 
 
@@ -35,18 +35,169 @@ root descriptors 는 크기 제한이 없으므로 out-of-bounds 검사를 진�
 > [learn.microsoft - root-signatures-overview#root-constants-descriptors-and-tables](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-constants-descriptors-and-tables)  
 
 ## Creating a Root Signature
+D3D12_ROOT_SIGNATURE_DESC 구조체를 생성 및 초기화 하고 D3D12SerializeRootSignature 함수로 serialization 된 root signature 의 blob 을 얻고 이를 ID3D12Device::CreateRootSignature 함수에 인자로 넣어주면 root signature 객체를 생성할 수 있다.
 
-### Root Signature Definition
+만약, shader 에 root signature 가 포함되어 작성된 경우 compiled shader 에는 이미 serialized root signature 가 포함되어 있다.
+
+반대로, serialized root signature 를 가지고 D3D12_ROOT_SIGNATURE_DESC 데이터 구조를 얻을 수도 있다.
+
+애플리케이션에 이미 serialized root signature 가 있거나 root signature 가 포함된 compiled shader가 있고 코드로 D3D12_ROOT_SIGNATURE_DESC 를 찾으려고 하는 경우 ( 이를 refelction 이라고 한다) D3D12CreateRootSignatureDeserializer 함수를 활용하면 된다.
+
+D3D12CreateRootSignatureDeserializer 함수를 호출하면 역직렬화된 D3D12_ROOT_SIGNATURE_DESC 데이터 구조를 반환하는 메서드가 포함된 ID3D12RootSignatureDeserializer 인터페이스가 생성되며 이 인터페이스는 deserialized 된 데이터 구조의 수명을 소유한다.
 
 > Reference  
 > [learn.microsoft - creating-a-root-signature#root-signature-definition](https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-root-signature#root-signature-definition)  
-
-### Root Signature Data Structure Serialization / Deserialization
-
-> Reference  
 > [learn.microsoft - creating-a-root-signature#root-signature-data-structure-serialization--deserialization](https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-root-signature#root-signature-data-structure-serialization--deserialization)  
 
-## serealized
+### D3D12_VERSIONED_ROOT_SIGNATURE_DESC 구조체
+D3D12_VERSIONED_ROOT_SIGNATURE_DESC 구조체는 Direct3D 12에서 버전에 따라 달라진 루트 서명(Root Signature)을 정의하기 위해 사용되는 구조체이다. 
+
+이 구조체는 여러 버전의 루트 서명을 지원하며, Direct3D 12 API의 호환성을 유지하면서도 다양한 기능을 제공한다. 
+
+이를 통해 개발자는 D3D12_ROOT_SIGNATURE_DESC 또는 D3D12_ROOT_SIGNATURE_DESC1 버전을 선택적으로 사용할 수 있다.
+
+구조체의 정의는 다음과 같다.
+
+```cpp
+typedef struct D3D12_VERSIONED_ROOT_SIGNATURE_DESC {
+    D3D_ROOT_SIGNATURE_VERSION Version;
+    union {
+        D3D12_ROOT_SIGNATURE_DESC Desc_1_0;
+        D3D12_ROOT_SIGNATURE_DESC1 Desc_1_1;
+    };
+} D3D12_VERSIONED_ROOT_SIGNATURE_DESC;
+```
+
+각 멤버 변수는 다음과 같다.
+
+* Version (D3D_ROOT_SIGNATURE_VERSION):
+  * 루트 서명의 버전을 나타낸다.
+  * 이 값에 따라 루트 서명에서 사용할 구조체가 결정된다.
+
+* Desc_1_0 (D3D12_ROOT_SIGNATURE_DESC):
+  * 루트 서명 버전 1.0에 해당하는 루트 서명 구조체를 나타낸다. 
+
+* Desc_1_1 (D3D12_ROOT_SIGNATURE_DESC1):
+  * 루트 서명 버전 1.1에 해당하는 루트 서명 구조체를 나타낸다. 
+
+### D3D12_ROOT_SIGNATURE_DESC 구조체
+root signature version 1.0. 을 나타내는 구조체이다.
+
+구조체의 정의는 다음과 같다.
+
+```cpp
+typedef struct D3D12_ROOT_SIGNATURE_DESC {
+    UINT NumParameters;
+    const D3D12_ROOT_PARAMETER* pParameters;
+    UINT NumStaticSamplers;
+    const D3D12_STATIC_SAMPLER_DESC* pStaticSamplers;
+    D3D12_ROOT_SIGNATURE_FLAGS Flags;
+} D3D12_ROOT_SIGNATURE_DESC;
+```
+
+각 멤버 변수는 다음과 같다.
+
+* NumParameters (UINT):
+  * 루트 서명에 포함된 루트 파라미터의 수를 나타낸다.
+  * 루트 파라미터는 셰이더에 바인딩되는 상수, 테이블, 디스크립터 등을 정의하는 항목이다.
+
+* pParameters (const D3D12_ROOT_PARAMETER*):
+  * 루트 서명에 정의된 루트 파라미터 배열에 대한 포인터이다.
+  * 각 파라미터는 `D3D12_ROOT_PARAMETER` 구조체로 정의되며, 상수 버퍼, 디스크립터 테이블, 셰이더 리소스 등을 설정할 수 있다.
+
+* NumStaticSamplers (UINT):
+  * 루트 서명에 정의된 정적 샘플러의 수를 나타낸다.
+  * 정적 샘플러는 런타임 시 변경되지 않는 샘플러 상태를 의미한다.
+
+* pStaticSamplers (const D3D12_STATIC_SAMPLER_DESC*):
+  * 루트 서명에 정의된 정적 샘플러 배열에 대한 포인터이다.
+  * 각 정적 샘플러는 `D3D12_STATIC_SAMPLER_DESC` 구조체로 정의되며, 텍스처 필터링, 주소 지정 모드 등의 샘플러 상태를 포함한다.
+
+* Flags (D3D12_ROOT_SIGNATURE_FLAGS):
+  * 루트 서명에 적용할 플래그를 나타낸다.
+  * 이 플래그는 루트 서명의 특정 동작을 제어하는 데 사용되며, 다양한 최적화 옵션이나 리소스 바인딩 방법을 설정할 수 있다.
+
+> Reference  
+> [learn.microsoft - ns-d3d12-d3d12_root_signature_desc](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_signature_desc)  
+
+### D3D12_ROOT_SIGNATURE_DESC1 구조체
+root signature version 1.1. 을 나타내는 구조체이다.
+
+구조체의 정의는 다음과 같다.
+
+```cpp
+typedef struct D3D12_ROOT_SIGNATURE_DESC1 {
+    UINT NumParameters;
+    const D3D12_ROOT_PARAMETER1* pParameters;
+    UINT NumStaticSamplers;
+    const D3D12_STATIC_SAMPLER_DESC* pStaticSamplers;
+    D3D12_ROOT_SIGNATURE_FLAGS Flags;
+} D3D12_ROOT_SIGNATURE_DESC1;
+```
+
+각 멤버 변수는 다음과 같다.
+
+* **NumParameters (UINT)**:
+  * 루트 서명에 포함된 루트 파라미터의 수를 나타낸다.
+  * 루트 파라미터는 셰이더와 상호작용하는 리소스, 상수 버퍼, 디스크립터 테이블 등의 정보를 정의한다.
+
+* pParameters (const D3D12_ROOT_PARAMETER1*):
+  * 루트 서명에 포함된 루트 파라미터 배열에 대한 포인터이다.
+  * `D3D12_ROOT_PARAMETER1` 구조체는 `D3D12_ROOT_PARAMETER`의 개선된 버전으로, 더 세밀한 리소스 바인딩과 관리 기능을 제공한다.
+
+* **NumStaticSamplers (UINT)**:
+  * 루트 서명에 포함된 정적 샘플러의 수를 나타낸다.
+  * 정적 샘플러는 런타임 동안 변경되지 않는 샘플러 상태를 의미하며, 주로 텍스처 필터링과 주소 지정 모드를 설정한다.
+
+* pStaticSamplers (const D3D12_STATIC_SAMPLER_DESC*):
+  * 루트 서명에 정의된 정적 샘플러 배열에 대한 포인터이다.
+  * 각 샘플러는 `D3D12_STATIC_SAMPLER_DESC` 구조체로 정의되며, 특정 텍스처 샘플링 상태를 고정적으로 설정할 수 있다.
+
+* Flags (D3D12_ROOT_SIGNATURE_FLAGS):
+  * 루트 서명에 적용할 플래그를 나타낸다.
+  * 이 플래그는 루트 서명 동작을 제어하며, 리소스 바인딩 및 파이프라인 상태에 영향을 미친다. 
+
+> Reference  
+> [learn.microsoft - ns-d3d12-d3d12_root_signature_desc1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_signature_desc1)  
+
+### D3D12SerializeVersionedRootSignature 함수
+D3D12SerializeVersionedRootSignature 함수는 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 구조체를 serialize 하여 blob 으로 변환하는 함수이다. 
+
+함수의 시그니처는 다음과 같다.
+```cpp
+HRESULT D3D12SerializeVersionedRootSignature(
+  const D3D12_VERSIONED_ROOT_SIGNATURE_DESC *pRootSignature,
+  ID3DBlob                                  **ppBlob,
+  ID3DBlob                                  **ppErrorBlob
+);
+```
+
+인자는 다음과 같다.
+* const D3D12_VERSIONED_ROOT_SIGNATURE_DESC *pRootSignature
+  * 직렬화할 버전이 지정된 루트 시그니처의 설명이다.
+  * D3D12_VERSIONED_ROOT_SIGNATURE_DESC 구조체는 루트 시그니처의 다양한 버전을 지원한다.
+
+* ID3DBlob **ppBlob
+  * 직렬화된 루트 시그니처 데이터가 저장될 블롭이다.
+  * 함수가 성공적으로 완료되면, 이 포인터는 직렬화된 루트 시그니처 데이터를 가리킨다.
+
+* ID3DBlob **ppErrorBlob
+  * 오류 정보가 저장될 블롭이다.
+  * 직렬화 과정에서 문제가 발생하면 이 블롭에 오류 메시지가 저장된다.
+  * 필요하지 않을 경우 nullptr을 전달할 수 있다.
+
+반환값은 다음과 같다.
+* 성공 시
+  * S_OK를 반환한다.
+
+* 실패 시
+  * HRESULT 오류 코드를 반환한다.
+  * ppErrorBlob에 오류 메시지가 저장되므로 이를 통해 문제를 진단할 수 있다.
+
+> Reference  
+> [learn.microsoft - nf-d3d12-d3d12serializeversionedrootsignature](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-d3d12serializeversionedrootsignature)  
+
+### serealized
 Root Signature 을 생성하는 API는 직렬화된(자체 포함, 포인터가 없는) 버전을 사용한다. 
 
 C++ 데이터 구조에서 이 직렬화된 버전을 생성하는 방법이 제공되지만, 직렬화된 Root Signature 정의를 얻는 또 다른 방법은 Root Signature 를 포함해 컴파일된 셰이더에서 이를 검색하는 방식이다.

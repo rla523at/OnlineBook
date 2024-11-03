@@ -444,6 +444,16 @@ typedef struct D3D12_ROOT_DESCRIPTOR {
     * 0 이상의 정수 값
   * 기본값은 0이다.
 
+## Helper Classes
+The d3dx12.h header provides a number of helper classes intended to simplify the usage of the API when working with C++. These are all in the global C++ namespace, and are documented on Microsoft Docs.
+
+Note that d3dx12.h is not included in the Windows SDK, nor is it a part of the DirectX Tool Kit. It is included in the DirectX project templates built into Visual Studio and in the Direct3D Game VS Templates. You can find the latest version on GitHub.
+
+For Xbox One development d3dx12_x.h is included in the Xbox One XDK / Microsoft GDKX; for Xbox Series X|S development you use d3dx12_xs.h.
 
 
+
+> Reference  
+> [github.com/microsoft - DirectXHelpers](https://github.com/microsoft/DirectXTK12/wiki/DirectXHelpers)  
+> [github.com/microsoft - directx/d3dx12.h](https://github.com/microsoft/DirectX-Headers/blob/main/include/directx/d3dx12.h)  
 
