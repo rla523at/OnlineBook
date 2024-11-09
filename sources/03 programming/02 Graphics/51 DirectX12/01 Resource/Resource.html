@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/custom.css?v=61612f5f" />
@@ -58,6 +58,8 @@
     <script async="async" src="../../../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/01 Resource/Resource';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
@@ -582,23 +584,23 @@
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="../DirectX12.html">DirectX12</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">Resource</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="Descriptors.html">Descriptors</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Heap.html">Heap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Resource%20Binding.html">Resource Binding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Resource%20Creation.html">Resource Creation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="RootSignature.html">Root Signature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../103%20ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../400%20enum%20D3D12_COMMAND_LIST_TYPE.html">enum D3D12_COMMAND_LIST_TYPE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../D3D12_SHADER_DESC.html">D3D12_SHADER_DESC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../D3D12_SHADER_INPUT_BIND_DESC.html">D3D12_SHADER_INPUT_BIND_DESC</a></li>
-
 <li class="toctree-l3"><a class="reference internal" href="../DxcBuffer.html">DxcBuffer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Fence.html">Fence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../GPU%20Heap.html">GPU Heap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ID3D12Debug.html">ID3D12Debug</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ID3D12Device.html">ID3D12Device</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ID3D12ShaderReflection.html">ID3D12ShaderReflection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../IDXCUtils.html">IDXCUtils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../RootSignature.html">Root Signature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../NBuffering.html">NBuffering</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -658,6 +660,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/21%20CMake.html">Cmake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/30%20OpenMP.html">OpenMP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/Batch.html">Batch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/SAL.html">SAL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/Text%20Encoding.html">Text Encoding</a></li>
 </ul>
@@ -812,9 +815,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -830,27 +831,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commited-resource-and-placed-resource">Commited Resource and Placed Resource</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-cpu">GPU -&gt; CPU 데이터 전송</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cpu-gpu">CPU -&gt; GPU 데이터 전송</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommittedresource">ID3D12Device::CreateCommittedResource</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-resource-desc">D3D12_RESOURCE_DESC 구조체</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cd3dx12-resource-desc">CD3DX12_RESOURCE_DESC 구조체</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-resource-states">enum D3D12_RESOURCE_STATES</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12resource-map">ID3D12Resource::Map</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caution-with-read">Caution with Read</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persistent-map">Persistent Map</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -862,477 +842,6 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="resource">
 <h1>Resource<a class="headerlink" href="#resource" title="Link to this heading">#</a></h1>
-<ul class="simple">
-<li><p>개념과 API 를 나누면 좋지 않을까 싶다.</p></li>
-<li><p>ID3D12Resource::Release</p></li>
-<li><p>D3D12_Descriptor_HEAP_DESC</p></li>
-<li><p>ID3D12DescriptorHeap</p></li>
-<li><p>ID3D12Device::CreateDescriptorHeap</p></li>
-<li><p>D3D12_CPU_DESCRIPTOR_HANDLE</p></li>
-<li><p>D3D12_GPU_DESCRIPTOR_HANDLE</p></li>
-<li><p>D3D12_DESCRIPTOR_HEAP_TYPE</p></li>
-<li><p>ID3D12Device::GetDescriptorHandleIncrementSize</p></li>
-<li><p>GetGPUVirtualAdress</p></li>
-<li><p>D3D12_CONSTANT_BUFFER_VIEW_DESC</p></li>
-<li><p>D3D12_CPU_DESCRIPTOR_HANDLE</p></li>
-<li><p>CreateConstantBufferView</p></li>
-</ul>
-<section id="commited-resource-and-placed-resource">
-<h2>Commited Resource and Placed Resource<a class="headerlink" href="#commited-resource-and-placed-resource" title="Link to this heading">#</a></h2>
-<p>Committed Resource 는 resource 와 resource 를 저장하는데 필요한 독립적인 heap memory 공간이 동시에 할당되는 resource 를 의미한다.</p>
-<p>Committed Resource 의 경우 독립적인 heap memory 공간이 할당되기 때문에, commited resource 를 생성할때는 heap memory 공간에 대한 고려를 할 필요가 없다.</p>
-<p>이와 다르게 Placed Resource 의 경우 resource 를 생성할 때, resource 를 저장하는데 필요한 heap memory 공간을 함께 주어저야 하는 resource 를 의미한다.</p>
-<p>따라서, placed resource 의 경우 heap memory 를 공유하게 할 수 있어 resource 간 메모리 낭비를 줄여 memory 를 보다 효율적으로 사용할 수 있게 만들 수 있다.</p>
-</section>
-<section id="gpu-cpu">
-<h2>GPU -&gt; CPU 데이터 전송<a class="headerlink" href="#gpu-cpu" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>READBACK 리소스 생성</p>
-<ul>
-<li><p>D3D12_HEAP_TYPE_READBACK 힙에 있는 리소스를 생성하여, GPU에서 데이터를 복사할 공간을 마련한다.</p></li>
-</ul>
-</li>
-<li><p>데이터 복사</p>
-<ul>
-<li><p>CopyResource 명령을 통해 GPU에서 사용 중인 리소스 데이터를 READBACK 리소스로 복사한다.</p></li>
-</ul>
-</li>
-<li><p>동기화</p>
-<ul>
-<li><p>복사 작업이 완료될 때까지 Fence를 사용하여 CPU 를 대기시킨다.</p></li>
-</ul>
-</li>
-<li><p>Map으로 데이터 읽기</p>
-<ul>
-<li><p>Map을 통해 CPU가 READBACK 리소스의 데이터에 접근하여 데이터를 읽어온다.</p></li>
-</ul>
-</li>
-<li><p>Unmap으로 메모리 접근을 해제한다.</p></li>
-</ul>
-<p>D3D12_HEAP_TYPE_UPLOAD 인 heap 에 저장된 resourece 로 copy resource 를 하면 오류가 발생하는지 확인해보기</p>
-</section>
-<section id="cpu-gpu">
-<h2>CPU -&gt; GPU 데이터 전송<a class="headerlink" href="#cpu-gpu" title="Link to this heading">#</a></h2>
-<p>Map 하고 Unmap 안해도 문제 없는지 확인하기</p>
-</section>
-<section id="id3d12device-createcommittedresource">
-<h2>ID3D12Device::CreateCommittedResource<a class="headerlink" href="#id3d12device-createcommittedresource" title="Link to this heading">#</a></h2>
-<p>ID3D12Device::CreateCommittedResource 함수는 committed resource 를 생성하는 함수이다.</p>
-<p>함수의 시그니처는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CreateCommittedResource</span><span class="p">(</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_HEAP_PROPERTIES</span><span class="w"> </span><span class="o">*</span><span class="n">pHeapProperties</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">            </span><span class="n">D3D12_HEAP_FLAGS</span><span class="w">            </span><span class="n">HeapFlags</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">            </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_RESOURCE_DESC</span><span class="w">   </span><span class="o">*</span><span class="n">pDesc</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">            </span><span class="n">D3D12_RESOURCE_STATES</span><span class="w">       </span><span class="n">InitialResourceState</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="p">]</span><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_CLEAR_VALUE</span><span class="w">     </span><span class="o">*</span><span class="n">pOptimizedClearValue</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">            </span><span class="n">REFIID</span><span class="w">                      </span><span class="n">riidResource</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="p">]</span><span class="w"> </span><span class="kt">void</span><span class="w">                        </span><span class="o">**</span><span class="n">ppvResource</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>인자는 다음과 같다.</p>
-<ul class="simple">
-<li><p>const D3D12_HEAP_PROPERTIES *pHeapProperties</p>
-<ul>
-<li><p>리소스가 할당될 메모리 힙의 속성을 지정하는 포인터다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_HEAP_FLAGS HeapFlags</p>
-<ul>
-<li><p>힙의 플래그를 지정하는 값이다.</p></li>
-</ul>
-</li>
-<li><p>const D3D12_RESOURCE_DESC *pDesc</p>
-<ul>
-<li><p>생성할 리소스의 설명을 정의하는 구조체 포인터다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATES InitialResourceState</p>
-<ul>
-<li><p>생성된 리소스의 초기 상태를 정의한다.</p></li>
-</ul>
-</li>
-<li><p>const D3D12_CLEAR_VALUE *pOptimizedClearValue</p>
-<ul>
-<li><p>최적화된 클리어 값을 지정하는 포인터다. 리소스가 렌더 타겟 또는 깊이 스텐실 뷰인 경우 초기화에 사용할 클리어 값을 설정하며, 그렇지 않으면 <code class="docutils literal notranslate"><span class="pre">NULL</span></code>로 설정할 수 있다.</p></li>
-</ul>
-</li>
-<li><p>REFIID riidResource</p>
-<ul>
-<li><p>요청하는 리소스 인터페이스의 식별자다. 일반적으로 <code class="docutils literal notranslate"><span class="pre">ID3D12Resource</span></code> 인터페이스를 요청한다.</p></li>
-</ul>
-</li>
-<li><p>void **ppvResource</p>
-<ul>
-<li><p>성공 시, 생성된 리소스 객체의 포인터를 받을 포인터이다. 이 포인터는 <code class="docutils literal notranslate"><span class="pre">ID3D12Resource</span></code> 인터페이스를 가리킨다.</p></li>
-</ul>
-</li>
-</ul>
-<p>반환값은 다음과 같다.</p>
-<ul class="simple">
-<li><p>성공 시</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">S_OK</span></code>를 반환한다.</p></li>
-</ul>
-</li>
-<li><p>실패 시</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">HRESULT</span></code> 오류 코드를 반환한다.</p></li>
-<li><p>오류가 발생한 경우, 코드 값에 따라 리소스 생성에 실패한 원인을 진단할 수 있다.</p></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource">learn.microsoft - nf-d3d12-id3d12device-createcommittedresource</a></p>
-</div></blockquote>
-</section>
-<section id="d3d12-resource-desc">
-<h2>D3D12_RESOURCE_DESC 구조체<a class="headerlink" href="#d3d12-resource-desc" title="Link to this heading">#</a></h2>
-<p>resource 의 특성을 정의하는 데 사용되는 구조체이다.</p>
-<p>구조체의 정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_RESOURCE_DESC</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">D3D12_RESOURCE_DIMENSION</span><span class="w"> </span><span class="n">Dimension</span><span class="p">;</span>
-<span class="w">  </span><span class="n">UINT64</span><span class="w">                   </span><span class="n">Alignment</span><span class="p">;</span>
-<span class="w">  </span><span class="n">UINT64</span><span class="w">                   </span><span class="n">Width</span><span class="p">;</span>
-<span class="w">  </span><span class="n">UINT</span><span class="w">                     </span><span class="n">Height</span><span class="p">;</span>
-<span class="w">  </span><span class="n">UINT16</span><span class="w">                   </span><span class="n">DepthOrArraySize</span><span class="p">;</span>
-<span class="w">  </span><span class="n">UINT16</span><span class="w">                   </span><span class="n">MipLevels</span><span class="p">;</span>
-<span class="w">  </span><span class="n">DXGI_FORMAT</span><span class="w">              </span><span class="n">Format</span><span class="p">;</span>
-<span class="w">  </span><span class="n">DXGI_SAMPLE_DESC</span><span class="w">         </span><span class="n">SampleDesc</span><span class="p">;</span>
-<span class="w">  </span><span class="n">D3D12_TEXTURE_LAYOUT</span><span class="w">     </span><span class="n">Layout</span><span class="p">;</span>
-<span class="w">  </span><span class="n">D3D12_RESOURCE_FLAGS</span><span class="w">     </span><span class="n">Flags</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_RESOURCE_DESC</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>각 멤버 변수는 다음과 같다.</p>
-<ul class="simple">
-<li><p>D3D12_RESOURCE_DIMENSION Dimension</p>
-<ul>
-<li><p>리소스의 차원을 지정한다.</p></li>
-</ul>
-</li>
-<li><p>UINT64 Alignment</p>
-<ul>
-<li><p>리소스의 정렬(alignment) 요구 사항을 지정한다.</p></li>
-<li><p>정렬을 0으로 설정할 경우</p>
-<ul>
-<li><p>MSAA 텍스처에 4MB를 사용하고 다른 모든 텍스처에 64KB를 사용한다.</p></li>
-<li><p>텍스처가 작은 경우 애플리케이션은 몇 가지 텍스처 유형에 대해 이 기본값보다 작은 정렬을 선택할 수 있다.</p></li>
-<li><p>알 수 없는 레이아웃 및 MSAA 텍스처는 64KB 정렬로 만들 수 있습니다</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>UINT64 Width</p>
-<ul>
-<li><p>리소스의 너비를 지정한다.</p></li>
-<li><p>버퍼의 경우 전체 크기를 바이트 단위로 나타내며, 텍스처의 경우 픽셀 단위의 너비를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>UINT Height</p>
-<ul>
-<li><p>텍스처 리소스의 높이를 지정한다.</p></li>
-<li><p>버퍼 리소스의 경우에는 1로 설정된다.</p></li>
-</ul>
-</li>
-<li><p>UINT16 DepthOrArraySize</p>
-<ul>
-<li><p>3D 텍스처의 경우 깊이(depth)를, 1D 또는 2D 텍스처 배열의 경우 배열의 크기를 지정한다.</p></li>
-</ul>
-</li>
-<li><p>UINT16 MipLevels</p>
-<ul>
-<li><p>리소스의 MIP 맵 레벨 수를 지정한다.</p></li>
-<li><p>0으로 설정하면 가능한 최대 MIP 레벨이 자동으로 결정된다.</p></li>
-</ul>
-</li>
-<li><p>DXGI_FORMAT Format</p>
-<ul>
-<li><p>리소스의 데이터 형식을 지정한다.</p></li>
-</ul>
-</li>
-<li><p>DXGI_SAMPLE_DESC SampleDesc</p>
-<ul>
-<li><p>멀티샘플링에 대한 정보를 지정하는 구조체로, 샘플 수와 품질 수준을 설정한다.</p></li>
-<li><p>예를 들어, Count가 1이면 멀티샘플링이 적용되지 않는다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_TEXTURE_LAYOUT Layout</p>
-<ul>
-<li><p>리소스의 메모리 레이아웃을 지정한다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_FLAGS Flags</p>
-<ul>
-<li><p>리소스의 특성을 지정하는 플래그다.</p></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_desc">learn.microsoft - ns-d3d12-d3d12_resource_desc</a></p>
-</div></blockquote>
-<section id="cd3dx12-resource-desc">
-<h3>CD3DX12_RESOURCE_DESC 구조체<a class="headerlink" href="#cd3dx12-resource-desc" title="Link to this heading">#</a></h3>
-<p>D3D12_RESOURCE_DESC 구조체를 쉽게 생성하고 조작할 수 있도록 도와주는 헬퍼 클래스이다.</p>
-<p>구조체의 정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">CD3DX12_RESOURCE_DESC</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">D3D12_RESOURCE_DESC</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">CD3DX12_RESOURCE_DESC</span><span class="p">();</span>
-<span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">CD3DX12_RESOURCE_DESC</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_RESOURCE_DESC</span><span class="o">&amp;</span><span class="w"> </span><span class="n">o</span><span class="p">);</span>
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">CD3DX12_RESOURCE_DESC</span><span class="w"> </span><span class="nf">Buffer</span><span class="p">(</span><span class="n">UINT64</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_RESOURCE_FLAGS</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_RESOURCE_FLAG_NONE</span><span class="p">,</span><span class="w"> </span><span class="n">UINT64</span><span class="w"> </span><span class="n">alignment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">CD3DX12_RESOURCE_DESC</span><span class="w"> </span><span class="nf">Tex1D</span><span class="p">(</span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="n">UINT64</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">UINT16</span><span class="w"> </span><span class="n">arraySize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">UINT16</span><span class="w"> </span><span class="n">mipLevels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_RESOURCE_FLAGS</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_RESOURCE_FLAG_NONE</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_TEXTURE_LAYOUT</span><span class="w"> </span><span class="n">layout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_TEXTURE_LAYOUT_UNKNOWN</span><span class="p">,</span><span class="w"> </span><span class="n">UINT64</span><span class="w"> </span><span class="n">alignment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">CD3DX12_RESOURCE_DESC</span><span class="w"> </span><span class="nf">Tex2D</span><span class="p">(</span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="n">UINT64</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">height</span><span class="p">,</span><span class="w"> </span><span class="n">UINT16</span><span class="w"> </span><span class="n">arraySize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">UINT16</span><span class="w"> </span><span class="n">mipLevels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">sampleCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">sampleQuality</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_RESOURCE_FLAGS</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_RESOURCE_FLAG_NONE</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_TEXTURE_LAYOUT</span><span class="w"> </span><span class="n">layout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_TEXTURE_LAYOUT_UNKNOWN</span><span class="p">,</span><span class="w"> </span><span class="n">UINT64</span><span class="w"> </span><span class="n">alignment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="n">CD3DX12_RESOURCE_DESC</span><span class="w"> </span><span class="nf">Tex3D</span><span class="p">(</span><span class="n">DXGI_FORMAT</span><span class="w"> </span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="n">UINT64</span><span class="w"> </span><span class="n">width</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">height</span><span class="p">,</span><span class="w"> </span><span class="n">UINT16</span><span class="w"> </span><span class="n">depth</span><span class="p">,</span><span class="w"> </span><span class="n">UINT16</span><span class="w"> </span><span class="n">mipLevels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_RESOURCE_FLAGS</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_RESOURCE_FLAG_NONE</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_TEXTURE_LAYOUT</span><span class="w"> </span><span class="n">layout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_TEXTURE_LAYOUT_UNKNOWN</span><span class="p">,</span><span class="w"> </span><span class="n">UINT64</span><span class="w"> </span><span class="n">alignment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<span class="p">};</span>
-</pre></div>
-</div>
-<p>Buffer 함수를 호출하게 되면 다음과 같은 대입이 발생하게 된다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dimension</span>         <span class="o">=</span> <span class="n">D3D12_RESOURCE_DIMENSION_BUFFER</span>
-<span class="n">Alignment</span>         <span class="o">=</span> <span class="n">alignment</span>
-<span class="n">Width</span>             <span class="o">=</span> <span class="n">width</span>
-<span class="n">Height</span>            <span class="o">=</span> <span class="mi">1</span>
-<span class="n">DepthOrArraySize</span>  <span class="o">=</span> <span class="mi">1</span>
-<span class="n">MipLevels</span>         <span class="o">=</span> <span class="mi">1</span>
-<span class="n">Format</span>            <span class="o">=</span> <span class="n">DXGI_FORMAT_UNKNOWN</span>
-<span class="n">SampleDesc</span><span class="o">.</span><span class="n">Count</span>  <span class="o">=</span> <span class="mi">1</span>
-<span class="n">SampleDesc</span><span class="o">.</span><span class="n">Quality</span><span class="o">=</span> <span class="mi">0</span>
-<span class="n">Layout</span>            <span class="o">=</span> <span class="n">D3D12_TEXTURE_LAYOUT_ROW_MAJOR</span>
-<span class="n">Flags</span>             <span class="o">=</span> <span class="n">flags</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-resource-desc">learn.microsoft - cd3dx12-resource-desc</a></p>
-</div></blockquote>
-</section>
-</section>
-<section id="enum-d3d12-resource-states">
-<h2>enum D3D12_RESOURCE_STATES<a class="headerlink" href="#enum-d3d12-resource-states" title="Link to this heading">#</a></h2>
-<p>resource 의 상태를 정의하는 플래그를 나타낸다.</p>
-<p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">D3D12_RESOURCE_STATES</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_COMMON</span><span class="w">                     </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x1</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_INDEX_BUFFER</span><span class="w">               </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_RENDER_TARGET</span><span class="w">              </span><span class="o">=</span><span class="w"> </span><span class="mh">0x4</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_UNORDERED_ACCESS</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="mh">0x8</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_DEPTH_WRITE</span><span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="mh">0x10</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_DEPTH_READ</span><span class="w">                 </span><span class="o">=</span><span class="w"> </span><span class="mh">0x20</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mh">0x40</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mh">0x80</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_STREAM_OUT</span><span class="w">                 </span><span class="o">=</span><span class="w"> </span><span class="mh">0x100</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="mh">0x200</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_COPY_DEST</span><span class="w">                  </span><span class="o">=</span><span class="w"> </span><span class="mh">0x400</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_COPY_SOURCE</span><span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="mh">0x800</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_RESOLVE_DEST</span><span class="w">               </span><span class="o">=</span><span class="w"> </span><span class="mh">0x1000</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_RESOLVE_SOURCE</span><span class="w">             </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2000</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_RAYTRACING_ACCELERATION_STRUCTURE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x400000</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mh">0x1000000</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_GENERIC_READ</span><span class="w">               </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER</span><span class="w"> </span><span class="o">|</span>
-<span class="w">                                                      </span><span class="n">D3D12_RESOURCE_STATE_INDEX_BUFFER</span><span class="w"> </span><span class="o">|</span>
-<span class="w">                                                      </span><span class="n">D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE</span><span class="w"> </span><span class="o">|</span>
-<span class="w">                                                      </span><span class="n">D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE</span><span class="w"> </span><span class="o">|</span>
-<span class="w">                                                      </span><span class="n">D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT</span><span class="w"> </span><span class="o">|</span>
-<span class="w">                                                      </span><span class="n">D3D12_RESOURCE_STATE_COPY_SOURCE</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_ALL_SHADER_RESOURCE</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE</span><span class="w"> </span><span class="o">|</span>
-<span class="w">                                                      </span><span class="n">D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_PRESENT</span><span class="w">                    </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_RESOURCE_STATE_PREDICATION</span><span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="mh">0x200</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_RESOURCE_STATES</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>각 enum의 의미는 다음과 같다.</p>
-<ul class="simple">
-<li><p>D3D12_RESOURCE_STATE_COMMON</p>
-<ul>
-<li><p>리소스가 특정 사용 상태에 있지 않으며, 일반적인 상태이다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER</p>
-<ul>
-<li><p>리소스가 버텍스 또는 상수 버퍼로 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_INDEX_BUFFER</p>
-<ul>
-<li><p>리소스가 인덱스 버퍼로 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_RENDER_TARGET</p>
-<ul>
-<li><p>리소스가 렌더 타겟으로 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_UNORDERED_ACCESS</p>
-<ul>
-<li><p>리소스가 언오더드 액세스 뷰(UAV)로 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_DEPTH_WRITE</p>
-<ul>
-<li><p>리소스가 깊이 버퍼로 쓰기 작업에 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_DEPTH_READ</p>
-<ul>
-<li><p>리소스가 깊이 버퍼로 읽기 작업에 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE</p>
-<ul>
-<li><p>리소스가 픽셀 셰이더 이외의 셰이더에서 읽기 전용으로 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE</p>
-<ul>
-<li><p>리소스가 픽셀 셰이더에서 읽기 전용으로 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_STREAM_OUT</p>
-<ul>
-<li><p>리소스가 스트림 출력 타겟으로 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT</p>
-<ul>
-<li><p>리소스가 간접 명령 인수로 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_COPY_DEST</p>
-<ul>
-<li><p>리소스가 복사 작업의 대상으로 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_COPY_SOURCE</p>
-<ul>
-<li><p>리소스가 복사 작업의 소스로 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_RESOLVE_DEST</p>
-<ul>
-<li><p>리소스가 멀티샘플링 해상도 감소 작업의 대상으로 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_RESOLVE_SOURCE</p>
-<ul>
-<li><p>리소스가 멀티샘플링 해상도 감소 작업의 소스로 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_RAYTRACING_ACCELERATION_STRUCTURE</p>
-<ul>
-<li><p>리소스가 레이 트레이싱 가속 구조로 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE</p>
-<ul>
-<li><p>리소스가 셰이딩 레이트 소스로 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_GENERIC_READ</p>
-<ul>
-<li><p>일반적인 읽기 작업에 사용되는 상태로, 여러 읽기 전용 상태의 조합이다.</p></li>
-<li><p>upload heap 에서 생성할 resource 의 필수 시작 상태다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_ALL_SHADER_RESOURCE</p>
-<ul>
-<li><p>모든 셰이더에서 읽기 전용으로 사용되는 상태의 조합이다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_PRESENT</p>
-<ul>
-<li><p>리소스가 표시(present) 작업에 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_STATE_PREDICATION</p>
-<ul>
-<li><p>리소스가 조건부 렌더링(predication)에 사용된다.</p></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<div><p>Reference
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states">learn.microsoft - ne-d3d12-d3d12_resource_states</a></p>
-</div></blockquote>
-</section>
-<section id="id3d12resource-map">
-<h2>ID3D12Resource::Map<a class="headerlink" href="#id3d12resource-map" title="Link to this heading">#</a></h2>
-<p>resource 를 CPU가 접근할 수 있도록 CPU memory 에 mapping 하는 함수이다.</p>
-<p>함수의 시그니처는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">Map</span><span class="p">(</span>
-<span class="w">                  </span><span class="n">UINT</span><span class="w">              </span><span class="n">Subresource</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="p">]</span><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_RANGE</span><span class="w"> </span><span class="o">*</span><span class="n">pReadRange</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="p">]</span><span class="w"> </span><span class="kt">void</span><span class="w">              </span><span class="o">**</span><span class="n">ppData</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>인자는 다음과 같다.</p>
-<ul class="simple">
-<li><p>UINT Subresource</p>
-<ul>
-<li><p>매핑할 하위 리소스의 인덱스이다.</p></li>
-<li><p>일반적으로 리소스가 단일 서브리소스를 가지는 경우 <code class="docutils literal notranslate"><span class="pre">0</span></code>을 전달한다.</p></li>
-</ul>
-</li>
-<li><p>const D3D12_RANGE *pReadRange</p>
-<ul>
-<li><p>CPU가 읽을 범위를 지정하는 D3D12_RANGE 구조체의 포인터이다.</p></li>
-<li><p>이 구조체는 읽기 작업의 시작과 끝을 정의한다.</p></li>
-<li><p>nullptr 을 전달할 경우 CPU가 전체 하위 리소스를 읽을 수 있음을 나타낸다</p></li>
-<li><p>CPU가 메모리를 읽지 않을 경우 Range 의 End 가 Begine 보다 작게 하면 된다.</p></li>
-</ul>
-</li>
-<li><p>void **ppData</p>
-<ul>
-<li><p>성공 시, 매핑된 리소스의 메모리를 가리키는 포인터를 받는 포인터다.</p></li>
-<li><p>이 포인터를 통해 CPU는 리소스 데이터를 접근할 수 있게 된다.</p></li>
-</ul>
-</li>
-</ul>
-<p>반환값은 다음과 같다.</p>
-<ul class="simple">
-<li><p>성공 시</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">S_OK</span></code>를 반환한다.</p></li>
-</ul>
-</li>
-<li><p>실패 시</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">HRESULT</span></code> 오류 코드를 반환한다.</p></li>
-<li><p>오류가 발생한 경우, 적절한 오류 코드를 통해 매핑 실패 원인을 진단할 수 있다.</p></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map">learn.microsoft - nf-d3d12-id3d12resource-map</a></p>
-</div></blockquote>
-<section id="caution-with-read">
-<h3>Caution with Read<a class="headerlink" href="#caution-with-read" title="Link to this heading">#</a></h3>
-<p>Upload heap 에 있는 resource 를 mapping 하여 읽기를 시도하는 것을 피해야 한다. CPU 읽기는 정상적으로 수행되지만 많은 일반적인 GPU architecture 에서 엄청나게 느리다.</p>
-<p>D3D12_CPU_PAGE_PROPERTY_WRITE_COMBINE 를 CPU page property 로 갖는 heap 에 있는 resource 를 mapping 하여 읽기를 시도하는 것을 피해야 한다. 이 또한 엄청나게 느리다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map#simple-usage-models">learn.microsoft - nf-d3d12-id3d12resource-map#simple-usage-models</a></p>
-</div></blockquote>
-</section>
-<section id="persistent-map">
-<h3>Persistent Map<a class="headerlink" href="#persistent-map" title="Link to this heading">#</a></h3>
-<p>D3D11 에서는 resource 의 접근 권한과 상태를 API 가 자동으로 관리해주었다. 따라서 개발자가 명시적으로 관리할 필요가 없었지만 최적화를 하는데 한계점이 있었다.</p>
-<p>예를 들어, D3D11 의 경우 CPU와 GPU가 동시에 같은 리소스를 접근하려고 하면 동기화 문제가 발생할 수 있기 때문에, Map 함수를 호출한 경우 Unmap 을 호출하기 전까지 GPU 에서 접근이 불가능하게 막았다.이로 인해 resource 를 매번 Map 하고 Unmap 해야 했다.</p>
-<p>하지만 D3D12 에서는 리소스의 상태 전환과 접근 권한을 개발자가 직접 관리한다. 따라서 Map, Unmap 에 있떤 제약 조건은 사라졌고 CPU와 GPU가 서로 충돌 없이 resource 에 접근할 수 있도록 동기화 작업을 개발자가 제어하게 되었다.</p>
-<p>따라서, D3D12 에서는 CPU 에서 접근가능한 heap 에 존재하는 resource 는 영구적 매핑인 persistent map 을 사용할 수 있다. persistent map 은 resource 생성 직후에 Map 을 한 번만 호출하고 Unmap 을 호출하지 않음으로써 구현할 수 있다.</p>
-<p>persistent map 을 사용하면 매 frame 마다 map, unmap 을 반복하지 않아도 되어 성능상에 이점이 있다.</p>
-<p>persistent map 을 사용할 때, 애플리케이션은 GPU가 메모리를 읽거나 쓰는 command list 을 실행하기 전에 CPU 가 메모리에 데이터 쓰기를 완료해야 한다. 일반적인 시나리오에서는 애플리케이션이 ExecuteCommandLists 를 호출하기 전에 메모리에 쓰기만 하면 되지만, fence 를 사용하여 command list 실행을 지연시키는 방법도 작동한다.</p>
-<p>단, resource 가 release 되고 난 후에는 Map 에서 반환된 주소를 더 이상 사용하지 않아야 한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map#advanced-usage-models">learn.microsoft - nf-d3d12-id3d12resource-map#advanced-usage-models</a></p>
-</div></blockquote>
-</section>
-</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -1391,34 +900,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commited-resource-and-placed-resource">Commited Resource and Placed Resource</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-cpu">GPU -&gt; CPU 데이터 전송</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cpu-gpu">CPU -&gt; GPU 데이터 전송</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommittedresource">ID3D12Device::CreateCommittedResource</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-resource-desc">D3D12_RESOURCE_DESC 구조체</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cd3dx12-resource-desc">CD3DX12_RESOURCE_DESC 구조체</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-resource-states">enum D3D12_RESOURCE_STATES</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12resource-map">ID3D12Resource::Map</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caution-with-read">Caution with Read</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persistent-map">Persistent Map</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>

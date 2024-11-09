@@ -6,6 +6,26 @@ DirectX는 Microsoft에서 개발한 API(응용 프로그램 인터페이스) �
 > [blog - dafher-diary.tistory](https://dafher-diary.tistory.com/category/DirectX12)   
 > [3dgep](https://www.3dgep.com/learning-directx-12-1/)  
 
+## Sample Code
+
+ExecuteCommandLists 를 먼저 호출하여 준비된 command lists 를 GPU의 command queue 에 제출하여 GPU 가 command 를 실행하게 한다. 이로써 GPU가 그리기 작업을 수행하기 시작한다.
+
+다음에 Present 를 호출하여 GPU 가 그리기 작업을 완료한 Frame 을 화면에 표시한다. 이 함수는 swap chain 의 back buffer 와 front buffer 를 교환하여 화면에 최신 프레임을 나타낸다.
+
+Present 호출을 했을 떄, GPU 가 백 버퍼에서 렌더링 작업을 완료할 떄까지 실제 교환을 지연시킬 수 있는지 찾아보기.
+* https://gamedev.stackexchange.com/questions/109345/if-idxgiswapchainpresent-blocks-does-that-mean-im-gpu-bound
+* https://learn.microsoft.com/en-us/windows/win32/direct3ddxgi/dxgi-present
+* https://developer.nvidia.com/blog/advanced-api-performance-swap-chains/
+* https://stackoverflow.com/questions/71225739/direct3d-11-idxgiswapchainpresent-blocks-at-every-call-in-windows-10-windowe
+
+### HelloWindow
+D3D12HelloWindow.cpp 
+
+
+https://github.com/microsoft/DirectX-Graphics-Samples/tree/master
+
+https://directx.tistory.com/7
+
 ## Register Slot
 Register Slot 을 명시하지 않으면 compiler 가 자동으로 slot 을 지정해준다.
 

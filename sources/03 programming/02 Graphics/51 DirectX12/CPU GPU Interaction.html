@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=61612f5f" />
@@ -62,7 +62,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="D3D12_SHADER_DESC" href="D3D12_SHADER_DESC.html" />
+    <link rel="next" title="DxcBuffer" href="DxcBuffer.html" />
     <link rel="prev" title="enum D3D12_COMMAND_LIST_TYPE" href="400%20enum%20D3D12_COMMAND_LIST_TYPE.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -582,23 +582,23 @@
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="DirectX12.html">DirectX12</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 has-children"><a class="reference internal" href="01%20Resource/Resource.html">Resource</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Descriptors.html">Descriptors</a></li>
-<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Heap.html">Heap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/RootSignature.html">Root Signature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
 <li class="toctree-l3"><a class="reference internal" href="103%20ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="400%20enum%20D3D12_COMMAND_LIST_TYPE.html">enum D3D12_COMMAND_LIST_TYPE</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">CPU GPU Interaction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="D3D12_SHADER_DESC.html">D3D12_SHADER_DESC</a></li>
-<li class="toctree-l3"><a class="reference internal" href="D3D12_SHADER_INPUT_BIND_DESC.html">D3D12_SHADER_INPUT_BIND_DESC</a></li>
-
 <li class="toctree-l3"><a class="reference internal" href="DxcBuffer.html">DxcBuffer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Fence.html">Fence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GPU%20Heap.html">GPU Heap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ID3D12Debug.html">ID3D12Debug</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ID3D12Device.html">ID3D12Device</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ID3D12ShaderReflection.html">ID3D12ShaderReflection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="IDXCUtils.html">IDXCUtils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="RootSignature.html">Root Signature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NBuffering.html">NBuffering</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -658,6 +658,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/21%20CMake.html">Cmake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/30%20OpenMP.html">OpenMP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/Batch.html">Batch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/SAL.html">SAL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/Text%20Encoding.html">Text Encoding</a></li>
 </ul>
@@ -835,25 +836,35 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandqueue">ID3D12CommandQueue</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-command-queue-desc">D3D12_COMMAND_QUEUE_DESC 구조체</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-list-type">enum D3D12_COMMAND_LIST_TYPE</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-queue-priority">enum D3D12_COMMAND_QUEUE_PRIORITY</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-queue-flags">enum D3D12_COMMAND_QUEUE_FLAGS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandqueue">ID3D12Device::CreateCommandQueue 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandqueue-executecommandlists">ID3D12CommandQueue::ExecuteCommandLists 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandlist">ID3D12CommandList 인터페이스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12graphicscommandlist">ID3D12GraphicsCommandList 인터페이스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandlist">ID3D12Device::CreateCommandList 함수</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-creation">Multiple Creation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commandqueue">CommandQueue</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandqueue">ID3D12CommandQueue</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandqueue">ID3D12Device::CreateCommandQueue 함수</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-command-queue-desc">D3D12_COMMAND_QUEUE_DESC 구조체</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-list-type">enum D3D12_COMMAND_LIST_TYPE</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bundle">Bundle</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-queue-priority">enum D3D12_COMMAND_QUEUE_PRIORITY</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-queue-flags">enum D3D12_COMMAND_QUEUE_FLAGS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandqueue-executecommandlists">ID3D12CommandQueue::ExecuteCommandLists 함수</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-list">Command List</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandlist">ID3D12CommandList 인터페이스</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12graphicscommandlist">ID3D12GraphicsCommandList 인터페이스</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandlist">ID3D12Device::CreateCommandList 함수</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12graphicscommandlist-close">ID3D12GraphicsCommandList::Close 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandlist-reset">ID3D12CommandList::Reset 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandallocator">ID3D12CommandAllocator 인터페이스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandallocator">ID3D12Device::CreateCommandAllocator 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">enum D3D12_COMMAND_LIST_TYPE</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bundle">Bundle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandallocator">ID3D12CommandAllocator 인터페이스</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandallocator">ID3D12Device::CreateCommandAllocator 함수</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-creation">Multiple Creation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cpu-gpu-synchronization">CPU GPU Synchronization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soluition1-flushing-the-command-queue">Soluition1 : Flushing the Command Queue</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution2-frame-resource">Solution2 : Frame Resource</a></li>
 </ul>
 </li>
 </ul>
@@ -870,20 +881,68 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="cpu-gpu-interaction">
 <h1>CPU GPU Interaction<a class="headerlink" href="#cpu-gpu-interaction" title="Link to this heading">#</a></h1>
 <p>그래픽 프로그래밍에는 CPU 와 GPU 라는 두개의 프로세서가 작동하며, 병렬적으로 작동하나 때로는 동기화가 필요하다.</p>
-<p>따라서, 최대의 성능을 내기 위해서는 두개의 프로세서가 계속해서 동작하게 만들어줘야 한다. 이 때, 동기화는 하나의 processor 가 다른 processor 를 기다리게 만들 수 있기 때문에 동기화를 줄여야 한다.</p>
-<p>GPU 는 command queue 를 가지고 있으며, CPU 는 Direct3D API 를 이용해서 command queue 에 command 를 제출한다.</p>
-<p>이 때, 명심해야 할 점은 CPU 에서 command 를 command queue 에 제출했다고 해서 GPU 에서 바로 실행되는 것이 아니다. GPU 가 처리할 준비가 되어 command queue 에서 command 를 꺼내서 실행할 때 비로소 실행이 된다.</p>
-<p>만약 command queue 가 비어있을 경우 GPU 는 idle 상태가 된다. 반면에 command queue 가 가득 차 있을 경우 CPU 는 어느 시점에 idle 상태가 된다.</p>
+<p>따라서, 최대의 성능을 내기 위해서는 동기화를 최소화시켜 두개의 프로세서가 계속해서 동작하게 만들어줘야 한다. 왜냐하면, 동기화는 하나의 processor 가 다른 processor 를 기다리게 만들 수 있기 때문이다.</p>
+<section id="commandqueue">
+<h2>CommandQueue<a class="headerlink" href="#commandqueue" title="Link to this heading">#</a></h2>
+<p>GPU 는 command queue 를 가지고 있으며, CPU 는 Direct3D API 를 이용해서 command queue 에 command 를 제출한다. 이 때, 명심해야 할 점은 CPU 에서 command 를 command queue 에 제출했다고 해서 GPU 에서 바로 실행되는 것이 아니다. GPU 가 처리할 준비가 되어 command queue 에서 command 를 꺼내서 실행할 때 비로소 실행이 된다.</p>
+<p>만약 command queue 가 비어있을 경우 GPU 는 idle 상태가 된다. 반면에 command queue 가 가득 차 있을 경우 CPU 는 idle 상태가 된다.</p>
 <blockquote>
 <div><p>Reference<br />
 <span id="id1">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> Chapter 4.2</p>
 </div></blockquote>
 <section id="id3d12commandqueue">
-<h2>ID3D12CommandQueue<a class="headerlink" href="#id3d12commandqueue" title="Link to this heading">#</a></h2>
-<p>D3D12 에서 command queue 를 나타내는 interface 이다.</p>
+<h3>ID3D12CommandQueue<a class="headerlink" href="#id3d12commandqueue" title="Link to this heading">#</a></h3>
+<p>D3D12 에서 GPU 의 command queue 를 나타내는 interface 이다.</p>
+</section>
+<section id="id3d12device-createcommandqueue">
+<h3>ID3D12Device::CreateCommandQueue 함수<a class="headerlink" href="#id3d12device-createcommandqueue" title="Link to this heading">#</a></h3>
+<p>ID3D12CommandQueue 객체를 생성하는 함수다.</p>
+<p>함수의 시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CreateCommandQueue</span><span class="p">(</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_COMMAND_QUEUE_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pDesc</span><span class="p">,</span>
+<span class="w">  </span><span class="n">REFIID</span><span class="w">                         </span><span class="n">riid</span><span class="p">,</span>
+<span class="w">  </span><span class="kt">void</span><span class="w">                           </span><span class="o">**</span><span class="n">ppCommandQueue</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>인자는 다음과 같다.</p>
+<ul class="simple">
+<li><p>const D3D12_COMMAND_QUEUE_DESC *pDesc</p>
+<ul>
+<li><p>생성할 명령 큐의 속성을 지정하는 D3D12_COMMAND_QUEUE_DESC 구조체에 대한 포인터다.</p></li>
+</ul>
+</li>
+<li><p>REFIID riid</p>
+<ul>
+<li><p>요청하는 인터페이스의 식별자다. 일반적으로 __uuidof(ID3D12CommandQueue)를 사용하여 얻는다.</p></li>
+</ul>
+</li>
+<li><p>void **ppCommandQueue</p>
+<ul>
+<li><p>성공 시, 생성된 ID3D12CommandQueue 객체의 포인터를 받을 포인터다.</p></li>
+</ul>
+</li>
+</ul>
+<p>반환값은 다음과 같다.</p>
+<ul class="simple">
+<li><p>성공 시</p>
+<ul>
+<li><p>S_OK를 반환한다.</p></li>
+</ul>
+</li>
+<li><p>실패 시</p>
+<ul>
+<li><p>HRESULT 오류 코드를 반환한다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandqueue">learn.microsoft - id3d12device-createcommandqueue</a></p>
+</div></blockquote>
 </section>
 <section id="d3d12-command-queue-desc">
-<h2>D3D12_COMMAND_QUEUE_DESC 구조체<a class="headerlink" href="#d3d12-command-queue-desc" title="Link to this heading">#</a></h2>
+<h3>D3D12_COMMAND_QUEUE_DESC 구조체<a class="headerlink" href="#d3d12-command-queue-desc" title="Link to this heading">#</a></h3>
 <p>Command Queue 의 특성을 정의하기 위한 구조체이다.</p>
 <p>정의는 다음과 같다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_COMMAND_QUEUE_DESC</span><span class="w"> </span><span class="p">{</span>
@@ -924,11 +983,11 @@ document.write(`
 </ul>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_command_queue_desc">learn.microsoft - ns-d3d12-d3d12_command_queue_desc</a></p>
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_command_queue_desc">learn.microsoft - d3d12_command_queue_desc</a></p>
 </div></blockquote>
 </section>
 <section id="enum-d3d12-command-list-type">
-<h2>enum D3D12_COMMAND_LIST_TYPE<a class="headerlink" href="#enum-d3d12-command-list-type" title="Link to this heading">#</a></h2>
+<h3>enum D3D12_COMMAND_LIST_TYPE<a class="headerlink" href="#enum-d3d12-command-list-type" title="Link to this heading">#</a></h3>
 <p>Command list의 유형을 정의하는 enum이다.</p>
 <p>정의는 다음과 같다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">D3D12_COMMAND_LIST_TYPE</span>
@@ -992,12 +1051,23 @@ document.write(`
 </ul>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_command_list_type">learn.microsoft - ne-d3d12-d3d12_command_list_type</a></p>
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_command_list_type">learn.microsoft - d3d12_command_list_type</a></p>
+</div></blockquote>
+<section id="bundle">
+<h4>Bundle<a class="headerlink" href="#bundle" title="Link to this heading">#</a></h4>
+<p>command list 를 만들 때, CPU overhead 가 발생할 수 있기 때문에 D3D12 에서는 bundle 에 command list 를 기록할 수 있는 최적화를 제공한다.</p>
+<p>bundle 에 기록된 후에는 driver 는 rendering 중에 실행을 최적화하기 위해 bundle 에 기록된 command 를 전처리한다.</p>
+<p>따라서, bundle 은 초기화시에 기록되어야 한다.</p>
+<p>일반적으로 D3D12 API 는 매우 효율적이기 때문에 bundle 을 기본적으로 사용할 필요는 없으며, 프로파일링 결과 특정 command list 를 만드는 과정이 시간이 오래걸리는 경우에만 bundle 을 통한 최적화를 고려하면 된다.</p>
+<blockquote>
+<div><p>Reference<br />
+<span id="id2">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> p110</p>
 </div></blockquote>
 </section>
+</section>
 <section id="enum-d3d12-command-queue-priority">
-<h2>enum D3D12_COMMAND_QUEUE_PRIORITY<a class="headerlink" href="#enum-d3d12-command-queue-priority" title="Link to this heading">#</a></h2>
-<p>Command queue의 우선순위를 정의하는 enum 이다.</p>
+<h3>enum D3D12_COMMAND_QUEUE_PRIORITY<a class="headerlink" href="#enum-d3d12-command-queue-priority" title="Link to this heading">#</a></h3>
+<p>Command queue 의 우선순위를 정의하는 enum 이다.</p>
 <p>정의는 다음과 같다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">D3D12_COMMAND_QUEUE_PRIORITY</span>
 <span class="p">{</span>
@@ -1032,11 +1102,11 @@ document.write(`
 </ul>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_command_queue_priority">learn.microsoft - ne-d3d12-d3d12_command_queue_priority</a></p>
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_command_queue_priority">learn.microsoft - d3d12_command_queue_priority</a></p>
 </div></blockquote>
 </section>
 <section id="enum-d3d12-command-queue-flags">
-<h2>enum D3D12_COMMAND_QUEUE_FLAGS<a class="headerlink" href="#enum-d3d12-command-queue-flags" title="Link to this heading">#</a></h2>
+<h3>enum D3D12_COMMAND_QUEUE_FLAGS<a class="headerlink" href="#enum-d3d12-command-queue-flags" title="Link to this heading">#</a></h3>
 <p>Command queue의 플래그를 정의하는 enum 이다.</p>
 <p>정의는 다음과 같다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">D3D12_COMMAND_QUEUE_FLAGS</span>
@@ -1064,32 +1134,35 @@ document.write(`
 </ul>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_command_queue_flags">learn.microsoft - ne-d3d12-d3d12_command_queue_flags</a></p>
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_command_queue_flags">learn.microsoft - d3d12_command_queue_flags</a></p>
 </div></blockquote>
 </section>
-<section id="id3d12device-createcommandqueue">
-<h2>ID3D12Device::CreateCommandQueue 함수<a class="headerlink" href="#id3d12device-createcommandqueue" title="Link to this heading">#</a></h2>
-</section>
 <section id="id3d12commandqueue-executecommandlists">
-<h2>ID3D12CommandQueue::ExecuteCommandLists 함수<a class="headerlink" href="#id3d12commandqueue-executecommandlists" title="Link to this heading">#</a></h2>
+<h3>ID3D12CommandQueue::ExecuteCommandLists 함수<a class="headerlink" href="#id3d12commandqueue-executecommandlists" title="Link to this heading">#</a></h3>
 <p>command list 에 있는 commands 를 command queue 에 추가하는 함수이다.</p>
 <p>command list 에 있는 command 는 첫 번 째 배열 요소부터 시작하여 순서대로 command queue 에 추가된다.</p>
 </section>
+</section>
+<section id="command-list">
+<h2>Command List<a class="headerlink" href="#command-list" title="Link to this heading">#</a></h2>
+<p>CPU 가 GPU 에 command 를 제출하기 위해 사용하는 command 들의 list 이다.</p>
+<p>D3D12 에서는 CPU 와 GPU 간의 효율적인 병렬 처리를 위해 command lists 를 사용하여 CPU 에서 여러 GPU 명령을 미리 작성하고 한 번에 전달하는 방식을 채택하였다. 이 떄, CPU 에서 미리 작성 된 command 들을 command list 라고 한다.</p>
 <section id="id3d12commandlist">
-<h2>ID3D12CommandList 인터페이스<a class="headerlink" href="#id3d12commandlist" title="Link to this heading">#</a></h2>
+<h3>ID3D12CommandList 인터페이스<a class="headerlink" href="#id3d12commandlist" title="Link to this heading">#</a></h3>
+<p>command list 를 나타내는 인터페이스이다.</p>
 </section>
 <section id="id3d12graphicscommandlist">
-<h2>ID3D12GraphicsCommandList 인터페이스<a class="headerlink" href="#id3d12graphicscommandlist" title="Link to this heading">#</a></h2>
+<h3>ID3D12GraphicsCommandList 인터페이스<a class="headerlink" href="#id3d12graphicscommandlist" title="Link to this heading">#</a></h3>
 <p>ID3D12CommandList interface 를 상속받은 interface 로 graphics 에 대한 command list 를 나타내는 interface 이다.</p>
 <p>ID3D12GraphicsCommandList 는 command list 에 command 를 추가하기 위한 다양한 함수를 제공한다.</p>
 <p>이 떄, 주의할 점은 함수의 이름을 보면 마치 함수로 인해 command 가 바로 실행되는 것처럼 보이지만 실제로는 그저 command list 에 command 를 추가하는 역할만 한다.</p>
 <blockquote>
 <div><p>Reference<br />
-<span id="id2">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> p109</p>
+<span id="id3">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> p109</p>
 </div></blockquote>
 </section>
 <section id="id3d12device-createcommandlist">
-<h2>ID3D12Device::CreateCommandList 함수<a class="headerlink" href="#id3d12device-createcommandlist" title="Link to this heading">#</a></h2>
+<h3>ID3D12Device::CreateCommandList 함수<a class="headerlink" href="#id3d12device-createcommandlist" title="Link to this heading">#</a></h3>
 <p>command list 을 생성하는 함수다.</p>
 <p>함수의 시그니처는 다음과 같다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CreateCommandList</span><span class="p">(</span>
@@ -1155,19 +1228,6 @@ document.write(`
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist">learn.microsoft - nf-d3d12-id3d12device-createcommandlist</a></p>
 </div></blockquote>
-<section id="multiple-creation">
-<h3>Multiple Creation<a class="headerlink" href="#multiple-creation" title="Link to this heading">#</a></h3>
-<p>여러개의 command lists 에 하나의 allocator 를 할당할 수 있다.</p>
-<p>하지만 command 를 기록할 command list 를 제외한 다른 모든 command list 들은 closed 상태여야 한다.</p>
-<p>만약, 그렇지 않을 경우 다음과 같은 오류가 발생하게 된다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D12</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">ID3D12CommandList</span><span class="p">::{</span><span class="n">Create</span><span class="p">,</span><span class="n">Reset</span><span class="p">}</span><span class="n">CommandList</span><span class="p">:</span> <span class="n">The</span> <span class="n">command</span> <span class="n">allocator</span> <span class="ow">is</span> <span class="n">currently</span> <span class="ow">in</span><span class="o">-</span><span class="n">use</span> <span class="n">by</span> <span class="n">another</span> <span class="n">command</span> <span class="nb">list</span><span class="o">.</span>
-</pre></div>
-</div>
-<p>따라서, 하나의 command list 에 들어 있는 모든 command 들은 allocator 에 연속적으로 저장되게 된다.</p>
-<blockquote>
-<div><p>Reference<br />
-<span id="id3">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> p111</p>
-</div></blockquote>
 </section>
 </section>
 <section id="id3d12graphicscommandlist-close">
@@ -1181,6 +1241,7 @@ document.write(`
 </section>
 <section id="id3d12commandlist-reset">
 <h2>ID3D12CommandList::Reset 함수<a class="headerlink" href="#id3d12commandlist-reset" title="Link to this heading">#</a></h2>
+<p>ID3D12CommandList::Reset 함수가 호출되면 command list 와 연관된 command allocator 의 상태가 어떻게 바뀌는지 설명해주세요.</p>
 <p>만약 ID3D12CommandQueue::ExecuteCommandList 함수를 호출하였다면 ID3D12CommandList::Reset 를 호출하여 안전하게 command list 에 memory 를 새로운 command 들을 저장하는데 사용할 수 있다,</p>
 <p>ID3D12CommandList::Reset 은 command list 를 방금 생성한 것과 동일한 상태로 만들어준다.</p>
 <p>이로써 이전 command lists 에 할당된 memory 를 해제하고 새로운 memory 를 할당해주는 작업을 할 필요가 없이 allocator 를 재사용 할 수 있게 해준다.</p>
@@ -1188,13 +1249,11 @@ document.write(`
 </section>
 <section id="id3d12commandallocator">
 <h2>ID3D12CommandAllocator 인터페이스<a class="headerlink" href="#id3d12commandallocator" title="Link to this heading">#</a></h2>
-<p>command list 와 연관되어 있는 memory 관련 interface 이다.</p>
-<p>command 가 command list 에 추가된다는 것은 실제로 associated command allocator 에 저장된다는 것이다.</p>
-<p>그리고 ID3D12CommandQueue::ExecuteCommandLists 를 통해 command list 가 전달되면 command queue 는 allocator 에 저장된 의 commands 을 참조하게 된다.</p>
-</section>
+<p>command list 에 기록될 command 가 실제로 저장될 memory 를 나타내는 interface 이다.</p>
+<p>ID3D12CommandQueue::ExecuteCommandLists 를 호출하면 command queue 는 인자로 전달된 command list 의 allocator 에 접근해 저장된 command 를 참조하게 된다.</p>
 <section id="id3d12device-createcommandallocator">
-<h2>ID3D12Device::CreateCommandAllocator 함수<a class="headerlink" href="#id3d12device-createcommandallocator" title="Link to this heading">#</a></h2>
-<p>command list 을 저장하는 데 사용할 Command Allocator를 생성하는 함수다.</p>
+<h3>ID3D12Device::CreateCommandAllocator 함수<a class="headerlink" href="#id3d12device-createcommandallocator" title="Link to this heading">#</a></h3>
+<p>ID3D12CommandAllocator 객체를 생성하는 함수다.</p>
 <p>함수의 시그니처는 다음과 같다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CreateCommandAllocator</span><span class="p">(</span>
 <span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">  </span><span class="n">D3D12_COMMAND_LIST_TYPE</span><span class="w"> </span><span class="n">type</span><span class="p">,</span>
@@ -1232,7 +1291,6 @@ document.write(`
 <li><p>실패 시</p>
 <ul>
 <li><p>HRESULT 오류 코드를 반환한다.</p></li>
-<li><p>실패 시 오류 코드를 통해 생성 실패 원인을 진단할 수 있다.</p></li>
 </ul>
 </li>
 </ul>
@@ -1241,82 +1299,63 @@ document.write(`
 <a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandallocator">learn.microsoft - nf-d3d12-id3d12device-createcommandallocator</a></p>
 </div></blockquote>
 </section>
-<section id="id5">
-<h2>enum D3D12_COMMAND_LIST_TYPE<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
-<p>Command list의 유형을 정의하는 enum이다.</p>
-<p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">D3D12_COMMAND_LIST_TYPE</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">D3D12_COMMAND_LIST_TYPE_DIRECT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">  </span><span class="n">D3D12_COMMAND_LIST_TYPE_BUNDLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">  </span><span class="n">D3D12_COMMAND_LIST_TYPE_COMPUTE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
-<span class="w">  </span><span class="n">D3D12_COMMAND_LIST_TYPE_COPY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
-<span class="w">  </span><span class="n">D3D12_COMMAND_LIST_TYPE_VIDEO_DECODE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
-<span class="w">  </span><span class="n">D3D12_COMMAND_LIST_TYPE_VIDEO_PROCESS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
-<span class="w">  </span><span class="n">D3D12_COMMAND_LIST_TYPE_VIDEO_ENCODE</span><span class="p">,</span>
-<span class="w">  </span><span class="n">D3D12_COMMAND_LIST_TYPE_NONE</span>
-<span class="p">}</span><span class="w"> </span><span class="p">;</span>
+<section id="multiple-creation">
+<h3>Multiple Creation<a class="headerlink" href="#multiple-creation" title="Link to this heading">#</a></h3>
+<p>하나의 allocator 로 여러개의 command lists 를 생성할 수 있다.</p>
+<p>하지만, 여러개의 command lists 에 동시에 command 를 기록할 수는 없다. command 를 기록할 command list 를 제외한 다른 모든 command list 들은 closed 상태여야 한다.</p>
+<p>만약, 그렇지 않을 경우 다음과 같은 오류가 발생하게 된다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D12</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">ID3D12CommandList</span><span class="p">::{</span><span class="n">Create</span><span class="p">,</span><span class="n">Reset</span><span class="p">}</span><span class="n">CommandList</span><span class="p">:</span> <span class="n">The</span> <span class="n">command</span> <span class="n">allocator</span> <span class="ow">is</span> <span class="n">currently</span> <span class="ow">in</span><span class="o">-</span><span class="n">use</span> <span class="n">by</span> <span class="n">another</span> <span class="n">command</span> <span class="nb">list</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>각 enum의 의미는 다음과 같다.</p>
-<ul class="simple">
-<li><p>D3D12_COMMAND_LIST_TYPE_DIRECT</p>
-<ul>
-<li><p>그래픽 및 컴퓨트 명령을 모두 포함할 수 있는 기본 명령 리스트 타입이다.</p></li>
-<li><p>렌더링, 리소스 복사 등 다양한 작업에 사용된다.</p></li>
-<li><p>GPU의 그래픽 파이프라인을 직접 제어한다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_COMMAND_LIST_TYPE_BUNDLE</p>
-<ul>
-<li><p>재사용 가능한 명령 집합을 만들기 위한 번들 타입의 명령 리스트이다.</p></li>
-<li><p>다른 명령 리스트에서 호출되어 작업을 수행한다.</p></li>
-<li><p>주로 반복되는 명령 시퀀스를 최적화하기 위해 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_COMMAND_LIST_TYPE_COMPUTE</p>
-<ul>
-<li><p>컴퓨트 셰이더 작업에 특화된 명령 리스트이다.</p></li>
-<li><p>그래픽 렌더링 명령을 포함하지 않으며, 계산 작업에 집중한다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_COMMAND_LIST_TYPE_COPY</p>
-<ul>
-<li><p>리소스 간의 데이터 복사 작업에 최적화된 명령 리스트이다.</p></li>
-<li><p>복사 명령만을 포함하며, 그래픽이나 컴퓨트 작업은 포함하지 않는다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_COMMAND_LIST_TYPE_VIDEO_DECODE</p>
-<ul>
-<li><p>비디오 디코딩 작업에 사용되는 명령 리스트이다.</p></li>
-<li><p>비디오 스트림을 디코딩하여 프레임을 추출하는 데 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_COMMAND_LIST_TYPE_VIDEO_PROCESS</p>
-<ul>
-<li><p>비디오 프로세싱 작업에 사용되는 명령 리스트이다.</p></li>
-<li><p>비디오 프레임의 색상 보정, 필터 적용 등 후처리에 사용된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_COMMAND_LIST_TYPE_VIDEO_ENCODE</p>
-<ul>
-<li><p>비디오 인코딩 작업에 사용되는 명령 리스트이다.</p></li>
-<li><p>프레임을 인코딩하여 비디오 스트림을 생성하는 데 사용된다.</p></li>
-</ul>
-</li>
-</ul>
+<p>이런 제약 조건 때문에 하나의 command list 에 들어 있는 모든 command 들은 allocator 에 연속적으로 저장되게 된다.</p>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ne-d3d12-d3d12_command_list_type">learn.microsoft - ne-d3d12-d3d12_command_list_type</a></p>
+<span id="id5">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> p111</p>
 </div></blockquote>
-<section id="bundle">
-<h3>Bundle<a class="headerlink" href="#bundle" title="Link to this heading">#</a></h3>
-<p>command list 를 만들 때, CPU overhead 가 발생할 수 있기 때문에 D3D12 에서는 bundle 에 command list 를 기록할 수 있는 최적화를 제공한다.</p>
-<p>bundle 에 기록된 후에는 driver 는 rendering 중에 실행을 최적화하기 위해 bundle 에 기록된 command 를 전처리한다.</p>
-<p>따라서, bundle 은 초기화시에 기록되어야 한다.</p>
-<p>일반적으로 D3D12 API 는 매우 효율적이기 때문에 bundle 을 기본적으로 사용할 필요는 없으며, 프로파일링 결과 특정 command list 를 만드는 과정이 시간이 오래걸리는 경우에만 bundle 을 통한 최적화를 고려하면 된다.</p>
+</section>
+</section>
+<section id="cpu-gpu-synchronization">
+<h2>CPU GPU Synchronization<a class="headerlink" href="#cpu-gpu-synchronization" title="Link to this heading">#</a></h2>
+<p>CPU 와 GPU 라는 두개의 processor 가 병렬적으로 동작하기 때문에 다양한 synchronization 문제가 발생할 수 있다.</p>
+<p>예를 들어, resource R 이 있다고 하자. CPU 에서 R 에 그리고자 하는 정보 I1 을 저장하고 R 을 참고하여 rendering 을 하라는 draw command 를 command list 에 넣은 뒤 command queue 에 전달했다고 하자. command queue 에 전달한 것은 CPU 를 block 시키지 않음으로 CPU 는 바로 다음 동작으로 새로운 정보 I2 를 R 에 저장하는 순간 문제가 발생할 수 있다. 만약에 GPU 가 다른 작업 때문에 draw command 를 아직 실행하기 전인데 CPU 에서 새로운 정보 I2 를 R 에 저장하는 순간 draw command 를 실행할 때 R 에는 이미 I1 에 대한 정보가 없기 때문이다.</p>
+<section id="soluition1-flushing-the-command-queue">
+<h3>Soluition1 : Flushing the Command Queue<a class="headerlink" href="#soluition1-flushing-the-command-queue" title="Link to this heading">#</a></h3>
+<p>한가지 해결방법은 GPU 가 draw command 를 완료할 떄 까지 CPU 를 강제로 기다리게 하는 fence 를 만드는 방법이다. D3D12 에서 fence 는 ID3D12Fence interface 를 통해 나타내어지며 D3D12 에서 fence 의 동작 방식은 다음과 같다.</p>
+<p>command queue 에 ID3D12Fence interface 의 값을 특정 값으로 업데이트하라는 command 를 추가한다. 이 command 를 fence point 라고 하면 GPU 가 fence point 이전에 command 를 전부 실행하고 fence point 에 도달하는 순간 ID3D12Fence interface 의 값이 업데이트 되는 방식이다.</p>
+<p>아래 예제 코드를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">UINT64</span><span class="w"> </span><span class="n">mCurrentFence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">D3DApp::FlushCommandQueue</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w"> </span><span class="c1">// 업데이트 될 Fence 값 </span>
+<span class="w">  </span><span class="n">mCurrentFence</span><span class="o">++</span><span class="p">;</span>
+<span class="w"> </span>
+<span class="w"> </span><span class="c1">// Fence 를 mCurrentFence 라는 값으로 업데이트하는 command 를 Command Queue 에 추가</span>
+<span class="w"> </span><span class="n">ThrowIfFailed</span><span class="p">(</span><span class="n">mCommandQueue</span><span class="o">-&gt;</span><span class="n">Signal</span><span class="p">(</span><span class="n">mFence</span><span class="p">.</span><span class="n">Get</span><span class="p">(),</span><span class="w"> </span><span class="n">mCurrentFence</span><span class="p">));</span>
+<span class="w"> </span>
+<span class="w"> </span><span class="c1">// Fence 가 업데이트가 안되어 있을 경우 업데이트 될 떄 까지 기다리게 하는 코드</span>
+<span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">mFence</span><span class="o">-&gt;</span><span class="n">GetCompletedValue</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">mCurrentFence</span><span class="p">)</span>
+<span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="n">HANDLE</span><span class="w"> </span><span class="n">eventHandle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreateEventEx</span><span class="p">(</span><span class="k">nullptr</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="n">EVENT_ALL_ACCESS</span><span class="p">);</span>
+<span class="w"> </span>
+<span class="w"> </span><span class="n">ThrowIfFailed</span><span class="p">(</span><span class="n">mFence</span><span class="o">-&gt;</span><span class="n">SetEventOnCompletion</span><span class="p">(</span><span class="n">mCurrentFence</span><span class="p">,</span><span class="w"> </span><span class="n">eventHandle</span><span class="p">));</span>
+<span class="w"> </span>
+<span class="w"> </span><span class="n">WaitForSingleObject</span><span class="p">(</span><span class="n">eventHandle</span><span class="p">,</span><span class="w"> </span><span class="n">INFINITE</span><span class="p">);</span>
+<span class="w"> </span>
+<span class="w"> </span><span class="n">CloseHandle</span><span class="p">(</span><span class="n">eventHandle</span><span class="p">);</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="solution2-frame-resource">
+<h3>Solution2 : Frame Resource<a class="headerlink" href="#solution2-frame-resource" title="Link to this heading">#</a></h3>
+<p>첫번째 해결방법은 잘 동작하지만 성능 측면에서 문제가 있다.</p>
+<p>매 frame 마다 마지막에 Flushing the Command Queue 를 실행하게 되면 CPU 는 GPU 가 rendering 을 완료할 떄 까지 idle 상태로 대기하게 된다. 또한 매 frame 의 시작점에는 command queue 에 아무런 command 가 없게 됨으로 GPU 는 CPU 가 command 를 추가할 때 까지 idle 상태로 대기하게 된다.</p>
+<p>따라서 이를 해결하기 위해서는 CPU 가 매 frame 마다 수정해야 되는 resource 를 n 개 frame 에 필요한 resource 크기를 갖는 circular resource 로 만든 뒤에 GPU 가 i 번째 resource 를 활용하여 rendering 하고 있을 때, CPU 는 i+1 번째 resource 를 업데이트 하는 방식을 사용하면 된다. 이런 방식을 frame resource 라고 한다.</p>
+<p>일반적으로 n = 3 을 사용한다.</p>
 <blockquote>
 <div><p>Reference<br />
-<span id="id6">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> p110</p>
+<span id="id6">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> chpater 7.1</p>
 </div></blockquote>
 </section>
 </section>
@@ -1362,11 +1401,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="D3D12_SHADER_DESC.html"
+       href="DxcBuffer.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">D3D12_SHADER_DESC</p>
+        <p class="prev-next-title">DxcBuffer</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1386,25 +1425,35 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandqueue">ID3D12CommandQueue</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-command-queue-desc">D3D12_COMMAND_QUEUE_DESC 구조체</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-list-type">enum D3D12_COMMAND_LIST_TYPE</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-queue-priority">enum D3D12_COMMAND_QUEUE_PRIORITY</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-queue-flags">enum D3D12_COMMAND_QUEUE_FLAGS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandqueue">ID3D12Device::CreateCommandQueue 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandqueue-executecommandlists">ID3D12CommandQueue::ExecuteCommandLists 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandlist">ID3D12CommandList 인터페이스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12graphicscommandlist">ID3D12GraphicsCommandList 인터페이스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandlist">ID3D12Device::CreateCommandList 함수</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-creation">Multiple Creation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commandqueue">CommandQueue</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandqueue">ID3D12CommandQueue</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandqueue">ID3D12Device::CreateCommandQueue 함수</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-command-queue-desc">D3D12_COMMAND_QUEUE_DESC 구조체</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-list-type">enum D3D12_COMMAND_LIST_TYPE</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bundle">Bundle</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-queue-priority">enum D3D12_COMMAND_QUEUE_PRIORITY</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-queue-flags">enum D3D12_COMMAND_QUEUE_FLAGS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandqueue-executecommandlists">ID3D12CommandQueue::ExecuteCommandLists 함수</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-list">Command List</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandlist">ID3D12CommandList 인터페이스</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12graphicscommandlist">ID3D12GraphicsCommandList 인터페이스</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandlist">ID3D12Device::CreateCommandList 함수</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12graphicscommandlist-close">ID3D12GraphicsCommandList::Close 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandlist-reset">ID3D12CommandList::Reset 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandallocator">ID3D12CommandAllocator 인터페이스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandallocator">ID3D12Device::CreateCommandAllocator 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">enum D3D12_COMMAND_LIST_TYPE</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bundle">Bundle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandallocator">ID3D12CommandAllocator 인터페이스</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandallocator">ID3D12Device::CreateCommandAllocator 함수</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-creation">Multiple Creation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cpu-gpu-synchronization">CPU GPU Synchronization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soluition1-flushing-the-command-queue">Soluition1 : Flushing the Command Queue</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution2-frame-resource">Solution2 : Frame Resource</a></li>
 </ul>
 </li>
 </ul>
