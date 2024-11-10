@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/custom.css?v=61612f5f" />
@@ -58,8 +58,6 @@
     <script async="async" src="../../../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/01 Resource/ShaderReflection';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
@@ -591,7 +589,6 @@
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../103%20ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../400%20enum%20D3D12_COMMAND_LIST_TYPE.html">enum D3D12_COMMAND_LIST_TYPE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../DxcBuffer.html">DxcBuffer</a></li>
@@ -600,7 +597,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ID3D12Debug.html">ID3D12Debug</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../IDXCUtils.html">IDXCUtils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../NBuffering.html">NBuffering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Initializing%20Direct3D.html">Initializing Direct3D</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -862,6 +859,10 @@ document.write(`
 <h1>Shader Reflection<a class="headerlink" href="#shader-reflection" title="Link to this heading">#</a></h1>
 <p>shader reflection 은 shader code 의 메타데이터를 반영(reflection)한 정보로 주로 shader 의 입력 및 출력, 리소스 바인딩, 상수 버퍼, 텍스처 및 기타 정보를 명세하는 데 사용된다.</p>
 <p>Reflection 정보는 shader 를 컴파일할 때 생성된다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://rtarun9.github.io/blogs/shader_reflection/">https://rtarun9.github.io/blogs/shader_reflection/</a></p>
+</div></blockquote>
 <section id="shader-reflection-resource-binding">
 <h2>Shader Reflection 으로부터 Resource Binding 정보 읽어오기<a class="headerlink" href="#shader-reflection-resource-binding" title="Link to this heading">#</a></h2>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;wrl.h&quot;</span>
@@ -911,39 +912,39 @@ document.write(`
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="highlight-hlsl notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="n">VS_INPUT</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">VS_INPUT</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="kt">float4</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SV_POSITION</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">float4</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">TEXCOORD0</span><span class="p">;</span>
+  <span class="n">float4</span> <span class="n">position</span> <span class="p">:</span> <span class="n">SV_POSITION</span><span class="p">;</span>
+  <span class="n">float4</span> <span class="n">color</span> <span class="p">:</span> <span class="n">TEXCOORD0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">cbuffer</span><span class="w"> </span><span class="n">MyVar</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
+<span class="n">cbuffer</span> <span class="n">MyVar</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="kt">matrix</span><span class="w"> </span><span class="n">projection</span><span class="p">;</span>
+  <span class="n">matrix</span> <span class="n">projection</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">cbuffer</span><span class="w"> </span><span class="n">MyVar2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
+<span class="n">cbuffer</span> <span class="n">MyVar2</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="kt">matrix</span><span class="w"> </span><span class="n">projection2</span><span class="p">;</span>
+  <span class="n">matrix</span> <span class="n">projection2</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">static</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">sval</span><span class="w"> </span><span class="o">=</span><span class="mf">1.0</span><span class="p">;</span>
-<span class="kt">float</span><span class="w"> </span><span class="n">gval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.1</span><span class="p">;</span>
-<span class="kt">float</span><span class="w"> </span><span class="n">gval2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.1</span><span class="p">;</span>
-<span class="kt">matrix</span><span class="w"> </span><span class="n">gval3</span><span class="p">;</span>
-<span class="kt">float4</span><span class="w"> </span><span class="n">gval4</span><span class="p">;</span>
+<span class="n">static</span> <span class="nb">float</span> <span class="n">sval</span> <span class="o">=</span><span class="mf">1.0</span><span class="p">;</span>
+<span class="nb">float</span> <span class="n">gval</span> <span class="o">=</span> <span class="mf">1.1</span><span class="p">;</span>
+<span class="nb">float</span> <span class="n">gval2</span> <span class="o">=</span> <span class="mf">1.1</span><span class="p">;</span>
+<span class="n">matrix</span> <span class="n">gval3</span><span class="p">;</span>
+<span class="n">float4</span> <span class="n">gval4</span><span class="p">;</span>
 
-<span class="kt">float4</span><span class="w"> </span><span class="n">mainVS</span><span class="p">(</span><span class="n">VS_INPUT</span><span class="w"> </span><span class="n">input</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SV_POSITION</span>
+<span class="n">float4</span> <span class="n">mainVS</span><span class="p">(</span><span class="n">VS_INPUT</span> <span class="nb">input</span><span class="p">)</span> <span class="p">:</span> <span class="n">SV_POSITION</span>
 <span class="p">{</span>
-<span class="w">  </span><span class="kt">matrix</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gval</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">projection</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">projection2</span><span class="p">);</span>
-<span class="w">  </span><span class="kt">float4</span><span class="w"> </span><span class="n">out_pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">mul</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">position</span><span class="p">);</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">out_pos</span><span class="p">;</span>
+  <span class="n">matrix</span> <span class="n">m</span> <span class="o">=</span> <span class="n">gval</span> <span class="o">*</span> <span class="p">(</span><span class="n">projection</span> <span class="o">+</span> <span class="n">projection2</span><span class="p">);</span>
+  <span class="n">float4</span> <span class="n">out_pos</span> <span class="o">=</span> <span class="n">mul</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">input</span><span class="o">.</span><span class="n">position</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">out_pos</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>static 변수는 binding resource 로 취급되지 않는다.</p>
-<p>만약, extern 변수가 있는 경우 “<span class="math notranslate nohighlight">\(globlas&quot; 라는 이름을 갖은 Constant Buffer 가 생기게 되며, extern 변수가 여러개 있는 경우에는 &quot;\)</span>globals” 라는 constant buffer 에 묶여서 0 번 binding resource 가 된다.</p>
-<p>그리고 모든 extern 변수가 쓰이지 않으면 최적화에 의해 “<span class="math notranslate nohighlight">\(globals&quot; Constant Buffer 가 안만들어 질 수도 있으며, extern 변수중 하나라도 쓰인다면 나머지 변수들은 안쓰이더라도 &quot;\)</span>globals” constant buffer 가 생기게 된다.</p>
+<p>만약, extern 변수가 있는 경우 “$globlas” 라는 이름을 갖은 Constant Buffer 가 생기게 되며, extern 변수가 여러개 있는 경우에는 “$globals” 라는 constant buffer 에 묶여서 0 번 binding resource 가 된다.</p>
+<p>그리고 모든 extern 변수가 쓰이지 않으면 최적화에 의해 “$globals” Constant Buffer 가 안만들어 질 수도 있으며, extern 변수중 하나라도 쓰인다면 나머지 변수들은 안쓰이더라도 “$globals” constant buffer 가 생기게 된다.</p>
 <p>$globals 의 정보는 다음 코드로 확인해 볼 수 있다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">D3D12_SHADER_BUFFER_DESC</span><span class="w"> </span><span class="n">globalBufferDesc</span><span class="p">;</span>
 <span class="n">ID3D12ShaderReflectionConstantBuffer</span><span class="o">*</span><span class="w"> </span><span class="n">bufferPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cptrShaderReflection</span><span class="o">-&gt;</span><span class="n">GetConstantBufferByIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>

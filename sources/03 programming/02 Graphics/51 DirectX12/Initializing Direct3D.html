@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>DirectX12 &#8212; MS Study Book</title>
+    <title>Initializing Direct3D &#8212; MS Study Book</title>
   
   
   
@@ -58,12 +58,12 @@
     <script async="async" src="../../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/DirectX12';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/Initializing Direct3D';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="Resource" href="01%20Resource/Resource.html" />
-    <link rel="prev" title="enum DXGI_SWAP_CHAIN_FLAG" href="../50%20DirectX11/11%20DXGI/102%20enum%20DXGI_SWAP_CHAIN_FLAG.html" />
+    <link rel="next" title="&lt;no title&gt;" href="NBuffering.html" />
+    <link rel="prev" title="IDXCUtils" href="IDXCUtils.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -579,7 +579,7 @@
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">DirectX12</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="DirectX12.html">DirectX12</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 has-children"><a class="reference internal" href="01%20Resource/Resource.html">Resource</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Descriptors.html">Descriptors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
@@ -597,7 +597,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ID3D12Debug.html">ID3D12Debug</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="IDXCUtils.html">IDXCUtils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Initializing%20Direct3D.html">Initializing Direct3D</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Initializing Direct3D</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -741,7 +741,7 @@
       
       
       
-      <li><a href="../../../../_sources/sources/03 programming/02 Graphics/51 DirectX12/DirectX12.md" target="_blank"
+      <li><a href="../../../../_sources/sources/03 programming/02 Graphics/51 DirectX12/Initializing Direct3D.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -825,7 +825,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>DirectX12</h1>
+    <h1>Initializing Direct3D</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -835,38 +835,42 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-code">Sample Code</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hellowindow">HelloWindow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#device">Device</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-advanced-rasterization-platform-adapter">Windows Advanced Rasterization Platform adapter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12createdevice">D3D12CreateDevice 함수</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d-feature-level">D3D_FEATURE_LEVEL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device">ID3D12Device 인터페이스</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-slot">Register Slot</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-queue">Command Queue</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandqueue">ID3D12CommandQueue</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandqueue">ID3D12Device::CreateCommandQueue 함수</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-command-queue-desc">D3D12_COMMAND_QUEUE_DESC 구조체</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-list-type">enum D3D12_COMMAND_LIST_TYPE</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bundle">Bundle</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-spaces">Register Spaces</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-state-object-pso">Pipeline State Object (PSO)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-bytecode">shader bytecode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-queue-priority">enum D3D12_COMMAND_QUEUE_PRIORITY</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-queue-flags">enum D3D12_COMMAND_QUEUE_FLAGS</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-parameters">Root Parameters</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-root-parameter">D3D12_ROOT_PARAMETER 구조체</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-root-parameter1">D3D12_ROOT_PARAMETER1 구조체</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cd3dx12-root-parameter1">CD3DX12_ROOT_PARAMETER1 구조체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#swap-chain">Swap Chain</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nbuffering">NBuffering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flipping">Flipping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiswapchain1-vs-idxgiswapchain3">IDXGISwapChain1 VS IDXGISwapChain3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-swap-chain-desc1">DXGI_SWAP_CHAIN_DESC1 구조체</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-uage">DXGI_UAGE 매크로</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-dxgi-scaling">enum DXGI_SCALING</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-dxgi-swap-effect">enum DXGI_SWAP_EFFECT</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-dxgi-alpha-mode">enum DXGI_ALPHA_MODE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-dxgi-swap-chain-flag">enum DXGI_SWAP_CHAIN_FLAG</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgifactory2-createswapchainforhwnd">IDXGIFactory2::CreateSwapChainForHwnd 함수</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-constant">Root Constant</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#struct-d3d12-root-constants">struct D3D12_ROOT_CONSTANTS 구조체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commandallocator">CommandAllocator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandallocator">ID3D12Device::CreateCommandAllocator 함수</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-visibility">Shader Visibility</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-descriptor-range1">D3D12_DESCRIPTOR_RANGE1 구조체</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-range">Descriptor Range</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-table-bind-types">Descriptor Table Bind Types</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-descriptors">Root Descriptors</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-root-descriptor">D3D12_ROOT_DESCRIPTOR 구조체</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#helper-classes">Helper Classes</a></li>
 </ul>
             </nav>
         </div>
@@ -878,527 +882,958 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="directx12">
-<h1>DirectX12<a class="headerlink" href="#directx12" title="Link to this heading">#</a></h1>
-<p>DirectX는 Microsoft에서 개발한 API(응용 프로그램 인터페이스) 집합으로, 멀티미디어 애플리케이션, 특히 게임 및 비디오 애플리케이션을 쉽게 개발할 수 있게 도와준다. DirectX API는 다양한 하위 API로 구성되어 있으며, 각 하위 API는 특정 멀티미디어 기능을 처리하는 데 사용된다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://ssinyoung.tistory.com/category/PROGRAMMING/DirectX%2012">blog - ssinyoung.tistory</a><br />
-<a class="reference external" href="https://dafher-diary.tistory.com/category/DirectX12">blog - dafher-diary.tistory</a><br />
-<a class="reference external" href="https://www.3dgep.com/learning-directx-12-1/">3dgep</a></p>
-</div></blockquote>
-<section id="sample-code">
-<h2>Sample Code<a class="headerlink" href="#sample-code" title="Link to this heading">#</a></h2>
-<p>ExecuteCommandLists 를 먼저 호출하여 준비된 command lists 를 GPU의 command queue 에 제출하여 GPU 가 command 를 실행하게 한다. 이로써 GPU가 그리기 작업을 수행하기 시작한다.</p>
-<p>다음에 Present 를 호출하여 GPU 가 그리기 작업을 완료한 Frame 을 화면에 표시한다. 이 함수는 swap chain 의 back buffer 와 front buffer 를 교환하여 화면에 최신 프레임을 나타낸다.</p>
-<p>Present 호출을 했을 떄, GPU 가 백 버퍼에서 렌더링 작업을 완료할 떄까지 실제 교환을 지연시킬 수 있는지 찾아보기.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="initializing-direct3d">
+<h1>Initializing Direct3D<a class="headerlink" href="#initializing-direct3d" title="Link to this heading">#</a></h1>
 <ul class="simple">
-<li><p><a class="reference external" href="https://gamedev.stackexchange.com/questions/109345/if-idxgiswapchainpresent-blocks-does-that-mean-im-gpu-bound">https://gamedev.stackexchange.com/questions/109345/if-idxgiswapchainpresent-blocks-does-that-mean-im-gpu-bound</a></p></li>
-<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3ddxgi/dxgi-present">https://learn.microsoft.com/en-us/windows/win32/direct3ddxgi/dxgi-present</a></p></li>
-<li><p><a class="reference external" href="https://developer.nvidia.com/blog/advanced-api-performance-swap-chains/">https://developer.nvidia.com/blog/advanced-api-performance-swap-chains/</a></p></li>
-<li><p><a class="reference external" href="https://stackoverflow.com/questions/71225739/direct3d-11-idxgiswapchainpresent-blocks-at-every-call-in-windows-10-windowe">https://stackoverflow.com/questions/71225739/direct3d-11-idxgiswapchainpresent-blocks-at-every-call-in-windows-10-windowe</a></p></li>
+<li><p>Load pipeLine</p>
+<ul>
+<li><p>Device 만들기</p></li>
+<li><p>Command Queue 만들기</p></li>
+<li><p>Command Allocator 만들기</p></li>
+<li><p>Swap Chain 만들기</p></li>
+<li><p>RTV Descriptor Heap 만들기</p></li>
+<li><p>RTV Descriptor 만들기</p></li>
 </ul>
-<section id="hellowindow">
-<h3>HelloWindow<a class="headerlink" href="#hellowindow" title="Link to this heading">#</a></h3>
-<p>D3D12HelloWindow.cpp</p>
-<p><a class="github reference external" href="https://github.com/microsoft/DirectX-Graphics-Samples/tree/master">microsoft/DirectX-Graphics-Samples</a></p>
-<p><a class="reference external" href="https://directx.tistory.com/7">https://directx.tistory.com/7</a></p>
+</li>
+</ul>
+<section id="device">
+<h2>Device<a class="headerlink" href="#device" title="Link to this heading">#</a></h2>
+<p>device 란 display adapter 를 나타내는 개념으로 graphics card 와 같은 hardware 일 수도 있고 WARP adapter 와 같은 software 일 수 있다.</p>
+<p>Display adapter는 컴퓨터와 화면 표시 장치(모니터)를 연결하는 장치로써 화면 표시 장치에 정보를 표현할 수 있도록 그래픽을 처리하고 출력하는데 사용되는 장치를 말한다.</p>
+<section id="windows-advanced-rasterization-platform-adapter">
+<h3>Windows Advanced Rasterization Platform adapter<a class="headerlink" href="#windows-advanced-rasterization-platform-adapter" title="Link to this heading">#</a></h3>
+<p>Windows Advanced Rasterization Platform(WARP) adapter 는 Direct3D 10, 11, 12에서 제공되는 소프트웨어 기반의 그래픽 어댑터이다.</p>
+<p>하드웨어 GPU가 없거나, GPU 기능이 제한된 시스템에서 고성능 그래픽을 제공하기 위한 기술로 WARP는 CPU에서 그래픽 처리를 수행하며, 하드웨어 가속이 불가능할 때에도 Direct3D 기능을 사용할 수 있게 해준다.</p>
 </section>
-</section>
-<section id="register-slot">
-<h2>Register Slot<a class="headerlink" href="#register-slot" title="Link to this heading">#</a></h2>
-<p>Register Slot 을 명시하지 않으면 compiler 가 자동으로 slot 을 지정해준다.</p>
-<p>아래와 같은 hlsl 파일을 컴파일해서 test.cso 파일을 만들었다고 하자.</p>
-<div class="highlight-hlsl notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="n">VS_INPUT</span>
-<span class="p">{</span>
-<span class="kt">float4</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SV_POSITION</span><span class="p">;</span>
-<span class="kt">float4</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">TEXCOORD0</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">cbuffer</span><span class="w"> </span><span class="n">MyVar1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="kt">matrix</span><span class="w"> </span><span class="n">projection1</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">cbuffer</span><span class="w"> </span><span class="n">MyVar2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="kt">matrix</span><span class="w"> </span><span class="n">projection2</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">cbuffer</span><span class="w"> </span><span class="n">MyVar3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="kt">matrix</span><span class="w"> </span><span class="n">projection3</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">float4</span><span class="w"> </span><span class="n">mainVS</span><span class="p">(</span><span class="n">VS_INPUT</span><span class="w"> </span><span class="n">input</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SV_POSITION</span>
-<span class="p">{</span>
-<span class="w">	</span><span class="kt">matrix</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">projection1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">projection2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">projection3</span><span class="p">;</span>
-<span class="w">	</span><span class="kt">float4</span><span class="w"> </span><span class="n">out_pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">mul</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">position</span><span class="p">);</span>
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="n">out_pos</span><span class="p">;</span>
-<span class="p">}</span>
+<section id="d3d12createdevice">
+<h3>D3D12CreateDevice 함수<a class="headerlink" href="#d3d12createdevice" title="Link to this heading">#</a></h3>
+<p>ID3D12Device 객체를 생성하는 함수이다.</p>
+<p>함수의 시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">D3D12CreateDevice</span><span class="p">(</span>
+<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="p">]</span><span class="w">  </span><span class="n">IUnknown</span><span class="w">          </span><span class="o">*</span><span class="n">pAdapter</span><span class="p">,</span>
+<span class="w">                  </span><span class="n">D3D_FEATURE_LEVEL</span><span class="w"> </span><span class="n">MinimumFeatureLevel</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">            </span><span class="n">REFIID</span><span class="w">            </span><span class="n">riid</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="p">]</span><span class="w"> </span><span class="kt">void</span><span class="w">              </span><span class="o">**</span><span class="n">ppDevice</span>
+<span class="p">);</span>
 </pre></div>
 </div>
-<p>컴파일 된 결과를 ID3D12ShaderReflection 을 이용해서 읽어와보면 실제로 BindPoint(slot) 이 자동으로 0,1,2 로 지정되어 있음을 알 수 있다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dxcapi.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;d3d12shader.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;wrl.h&gt;</span>
-<span class="cp">#pragma comment(lib, &quot;dxcompiler.lib&quot;)</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  	</span><span class="k">using</span><span class="w"> </span><span class="n">Microsoft</span><span class="o">::</span><span class="n">WRL</span><span class="o">::</span><span class="n">ComPtr</span><span class="p">;</span>
-
-<span class="w">	</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDxcUtils</span><span class="o">&gt;</span><span class="w"> </span><span class="n">utils</span><span class="p">;</span>
-<span class="w">	</span><span class="n">DxcCreateInstance</span><span class="p">(</span><span class="n">CLSID_DxcUtils</span><span class="p">,</span><span class="w"> </span><span class="n">IID_PPV_ARGS</span><span class="p">(</span><span class="o">&amp;</span><span class="n">utils</span><span class="p">));</span>
-
-<span class="w">	</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDxBlobEncoding</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sourceBlob</span><span class="p">;</span>
-<span class="w">	</span><span class="p">{</span>
-<span class="w">		</span><span class="k">const</span><span class="w"> </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utils</span><span class="o">-&gt;</span><span class="n">LoadFile</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;test.cso&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">,</span><span class="w"> </span><span class="n">sourceBlob</span><span class="p">.</span><span class="n">GetAddressOf</span><span class="p">());</span>
-<span class="w">	</span><span class="p">}</span>
-
-<span class="w">	</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">ID3D12ShaderReflection</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shaderRefelction</span><span class="p">;</span>
-<span class="w">	</span><span class="p">{</span>
-<span class="w">		</span><span class="n">DxcBuffer</span><span class="w"> </span><span class="n">sourceBuffer</span><span class="p">;</span>
-<span class="w">		</span><span class="n">sourceBuffer</span><span class="p">.</span><span class="n">Ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sourceBlob</span><span class="o">-&gt;</span><span class="n">GetBufferPointer</span><span class="p">();</span>
-<span class="w">		</span><span class="n">sourceBuffer</span><span class="p">.</span><span class="n">Size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sourceBlob</span><span class="o">-&gt;</span><span class="n">GetBufferSize</span><span class="p">();</span>
-<span class="w">		</span><span class="n">sourceBuffer</span><span class="p">.</span><span class="n">Encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DXC_CP_ACP</span><span class="p">;</span>
-
-<span class="w">		</span><span class="k">const</span><span class="w"> </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utils</span><span class="o">-&gt;</span><span class="n">CreateReflection</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sourceBuffer</span><span class="p">,</span><span class="w"> </span><span class="n">IID_PPV_ARGS</span><span class="p">(</span><span class="o">&amp;</span><span class="n">shaderReflection</span><span class="p">));</span>
-<span class="w">	</span><span class="p">}</span>
-
-<span class="w">	</span><span class="n">D3D12_SHADER_DESC</span><span class="w"> </span><span class="n">shaderDesc</span><span class="p">{};</span>
-<span class="w">	</span><span class="n">shaderReflection</span><span class="o">-&gt;</span><span class="n">GetDesc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">shaderDesc</span><span class="p">);</span>
-
-<span class="w">	</span><span class="k">for</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="w"> </span><span class="n">shaderDesc</span><span class="p">.</span><span class="n">BoundResources</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
-<span class="w">	</span><span class="p">{</span>
-<span class="w">		</span><span class="n">D3D12_SHADER_INPUT_BIND_DESC</span><span class="w"> </span><span class="n">bindingResourceDesc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
-<span class="w">		</span><span class="n">shaderReflection</span><span class="o">-&gt;</span><span class="n">GetResourceBindingDesc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bindingResourceDesc</span><span class="p">);</span>
-<span class="w">	</span><span class="p">}</span>
-
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<section id="id1">
-<h3>참고<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>hlsl 에서 Cbuffer 를 코드에서 사용하지 않을 경우 compiler 가 최적화하는 과정에서 무시하게 되어 컴파일 된 결과를 읽어 들였을 때 BoundResource 개수에 포함되지 않을 수 있다.</p>
-</section>
-</section>
-<section id="register-spaces">
-<h2>Register Spaces<a class="headerlink" href="#register-spaces" title="Link to this heading">#</a></h2>
-<p>HLSL register space 는 컴파일러가 모호성을 명확하게 하는 데 사용하는 추가 구문이다.</p>
-<p>c++ 의 namespace 와 동일한 역할을 한다.</p>
-<p>예를 들어, 동일한 register 에 두개의 변수를 정의하면 컴파일 오류가 발생한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cbuffer</span> <span class="n">MyVar</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">b0</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="n">matrix</span> <span class="n">projection</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="n">cbuffer</span> <span class="n">MyVar2</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">b0</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="n">matrix</span> <span class="n">projection2</span><span class="p">;</span>
-<span class="p">};</span>
-</pre></div>
-</div>
-<p>하지만 register space 를 사용해서 서로 다른 register space에 둔다면 컴파일 오류를 해결할 수 있다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cbuffer</span> <span class="n">MyVar</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">b0</span><span class="p">,</span> <span class="n">space0</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="n">matrix</span> <span class="n">projection</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="n">cbuffer</span> <span class="n">MyVar2</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">b0</span><span class="p">,</span> <span class="n">space1</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="n">matrix</span> <span class="n">projection2</span><span class="p">;</span>
-<span class="p">};</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>Reference
-<a class="reference external" href="https://cml-a.com/content/2022/09/20/register-spaces/">cml-a.com - register-spaces</a></p>
-</div></blockquote>
-</section>
-<section id="pipeline-state-object-pso">
-<h2>Pipeline State Object (PSO)<a class="headerlink" href="#pipeline-state-object-pso" title="Link to this heading">#</a></h2>
-<p>PSO 는 graphics/compute pipeline 이 동작하기 위해 필요한 GPU 설정을 나타내는 객체이다.</p>
-<section id="shader-bytecode">
-<h3>shader bytecode<a class="headerlink" href="#shader-bytecode" title="Link to this heading">#</a></h3>
-<p>shader code 는 컴파일 된 후 binary blob data 로 바뀐다.</p>
-<p>컴파일 된 binary blob data 는 PSO 의 input 으로 사용된다.</p>
+<p>인자는 다음과 같다.</p>
+<ul class="simple">
+<li><p>IUnknown *pAdapter</p>
+<ul>
+<li><p>사용할 그래픽 어댑터를 지정하는 포인터이다.</p></li>
+<li><p>nullptr 을 전달하면 IDXGIFactory1::EnumAdapters 로 열거된 첫 번째 어댑터인 기본 어댑터가 선택된다.</p></li>
+</ul>
+</li>
+<li><p>D3D_FEATURE_LEVEL MinimumFeatureLevel</p>
+<ul>
+<li><p>생성하려는 디바이스가 지원해야 하는 최소 기능 수준을 나타낸다.</p></li>
+</ul>
+</li>
+<li><p>REFIID riid</p>
+<ul>
+<li><p>요청하는 인터페이스의 식별자이다.</p></li>
+<li><p>ID3D12Device 인터페이스가 요청된다.</p></li>
+</ul>
+</li>
+<li><p>void **ppDevice</p>
+<ul>
+<li><p>성공 시, 생성된 디바이스 객체를 받는 포인터다.</p></li>
+<li><p>이 포인터는 함수가 성공적으로 완료되면, ID3D12Device와 같은 인터페이스를 가리키게 된다.</p></li>
+</ul>
+</li>
+</ul>
+<p>반환값은 다음과 같다.</p>
+<ul class="simple">
+<li><p>성공 시</p>
+<ul>
+<li><p>S_OK를 반환한다.</p></li>
+</ul>
+</li>
+<li><p>실패 시</p>
+<ul>
+<li><p>HRESULT 오류 코드를 반환한다.</p></li>
+<li><p>실패 원인은 호환되지 않는 어댑터나 기능 수준 부족 등이 될 수 있으며, 적절한 진단을 위해 오류 코드를 확인해야 한다.</p></li>
+</ul>
+</li>
+</ul>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://logins.github.io/graphics/2020/04/12/DX12PipelineStateObject.html">logins.github - DX12PipelineStateObject</a></p>
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-d3d12createdevice">learn.microsoft - nf-d3d12-d3d12createdevice</a></p>
 </div></blockquote>
 </section>
-</section>
-<section id="root-parameters">
-<h2>Root Parameters<a class="headerlink" href="#root-parameters" title="Link to this heading">#</a></h2>
-<p>Root Parameter 는 root signature 에 한 요소이며, root parameter의 종류는 root constant, root descirtor, root table 가 있다.</p>
-<p>종류에 따라 크기와 resource에 접근하기 위해 필요한 복잡도를 나타내는 간접 참조 수준(level of indirection) 이 다르다.</p>
-<section id="d3d12-root-parameter">
-<h3>D3D12_ROOT_PARAMETER 구조체<a class="headerlink" href="#d3d12-root-parameter" title="Link to this heading">#</a></h3>
-<p>root signature version 1.0 에 사용되는 root parameter 구조체이다.</p>
+<section id="d3d-feature-level">
+<h3>D3D_FEATURE_LEVEL<a class="headerlink" href="#d3d-feature-level" title="Link to this heading">#</a></h3>
 <p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_ROOT_PARAMETER</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">D3D12_ROOT_PARAMETER_TYPE</span><span class="w"> </span><span class="n">ParameterType</span><span class="p">;</span>
-<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">D3D12_ROOT_DESCRIPTOR_TABLE</span><span class="w"> </span><span class="n">DescriptorTable</span><span class="p">;</span>
-<span class="w">        </span><span class="n">D3D12_ROOT_CONSTANTS</span><span class="w"> </span><span class="n">Constants</span><span class="p">;</span>
-<span class="w">        </span><span class="n">D3D12_ROOT_DESCRIPTOR</span><span class="w"> </span><span class="n">Descriptor</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-<span class="w">    </span><span class="n">D3D12_SHADER_VISIBILITY</span><span class="w"> </span><span class="n">ShaderVisibility</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_ROOT_PARAMETER</span><span class="p">;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">D3D_FEATURE_LEVEL</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">D3D_FEATURE_LEVEL_9_1</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mh">0x9100</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D_FEATURE_LEVEL_9_2</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mh">0x9200</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D_FEATURE_LEVEL_9_3</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mh">0x9300</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D_FEATURE_LEVEL_10_0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xa000</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D_FEATURE_LEVEL_10_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xa100</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D_FEATURE_LEVEL_11_0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xb000</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D_FEATURE_LEVEL_11_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xb100</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D_FEATURE_LEVEL_12_0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xc000</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D_FEATURE_LEVEL_12_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xc100</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D_FEATURE_LEVEL_12_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xc200</span>
+<span class="p">}</span><span class="w"> </span><span class="n">D3D_FEATURE_LEVEL</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>각 기능 수준마다 어떤 기능을 지원하는지는 <a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/direct3d11/overviews-direct3d-11-devices-downlevel-intro">여기</a>를 참고하면 된다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_feature_level">learn.microsoft - d3d_feature_level</a></p>
+</div></blockquote>
+</section>
+<section id="id3d12device">
+<h3>ID3D12Device 인터페이스<a class="headerlink" href="#id3d12device" title="Link to this heading">#</a></h3>
+<p>device 를 나타내는 interface 다.</p>
+</section>
+</section>
+<section id="command-queue">
+<h2>Command Queue<a class="headerlink" href="#command-queue" title="Link to this heading">#</a></h2>
+<p>GPU 가 실행할 command 의 목록을 가지고 있는 queue 이다.</p>
+<p>참고로, 실제 command 의 data 는 command allocator 가 가지고 있으며, command queue 는 allocator 에 저장된 data 를 참고하여 GPU 에서 command 가 실행되도록 한다.</p>
+<section id="id3d12commandqueue">
+<h3>ID3D12CommandQueue<a class="headerlink" href="#id3d12commandqueue" title="Link to this heading">#</a></h3>
+<p>D3D12 에서 GPU 의 command queue 를 나타내는 interface 이다.</p>
+</section>
+<section id="id3d12device-createcommandqueue">
+<h3>ID3D12Device::CreateCommandQueue 함수<a class="headerlink" href="#id3d12device-createcommandqueue" title="Link to this heading">#</a></h3>
+<p>ID3D12CommandQueue 객체를 생성하는 함수다.</p>
+<p>함수의 시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CreateCommandQueue</span><span class="p">(</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_COMMAND_QUEUE_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pDesc</span><span class="p">,</span>
+<span class="w">  </span><span class="n">REFIID</span><span class="w">                         </span><span class="n">riid</span><span class="p">,</span>
+<span class="w">  </span><span class="kt">void</span><span class="w">                           </span><span class="o">**</span><span class="n">ppCommandQueue</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>인자는 다음과 같다.</p>
+<ul class="simple">
+<li><p>const D3D12_COMMAND_QUEUE_DESC *pDesc</p>
+<ul>
+<li><p>생성할 command queue 의 속성을 지정하는 D3D12_COMMAND_QUEUE_DESC 구조체에 대한 포인터다.</p></li>
+</ul>
+</li>
+<li><p>REFIID riid</p>
+<ul>
+<li><p>요청하는 인터페이스의 식별자다.</p></li>
+<li><p>일반적으로 __uuidof(ID3D12CommandQueue)를 사용하여 얻는다.</p></li>
+</ul>
+</li>
+<li><p>void **ppCommandQueue</p>
+<ul>
+<li><p>성공 시, 생성된 ID3D12CommandQueue 객체의 포인터를 받을 포인터다.</p></li>
+</ul>
+</li>
+</ul>
+<p>반환값은 다음과 같다.</p>
+<ul class="simple">
+<li><p>성공 시</p>
+<ul>
+<li><p>S_OK를 반환한다.</p></li>
+</ul>
+</li>
+<li><p>실패 시</p>
+<ul>
+<li><p>HRESULT 오류 코드를 반환한다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandqueue">learn.microsoft - id3d12device-createcommandqueue</a></p>
+</div></blockquote>
+</section>
+<section id="d3d12-command-queue-desc">
+<h3>D3D12_COMMAND_QUEUE_DESC 구조체<a class="headerlink" href="#d3d12-command-queue-desc" title="Link to this heading">#</a></h3>
+<p>Command Queue 의 특성을 정의하기 위한 구조체이다.</p>
+<p>정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_COMMAND_QUEUE_DESC</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">D3D12_COMMAND_LIST_TYPE</span><span class="w">   </span><span class="n">Type</span><span class="p">;</span>
+<span class="w">  </span><span class="n">INT</span><span class="w">                       </span><span class="n">Priority</span><span class="p">;</span>
+<span class="w">  </span><span class="n">D3D12_COMMAND_QUEUE_FLAGS</span><span class="w"> </span><span class="n">Flags</span><span class="p">;</span>
+<span class="w">  </span><span class="n">UINT</span><span class="w">                      </span><span class="n">NodeMask</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">D3D12_COMMAND_QUEUE_DESC</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>각각의 멤버변수는 다음과 같다.</p>
 <ul class="simple">
-<li><p>D3D12_ROOT_PARAMETER_TYPE ParameterType</p>
+<li><p>D3D12_COMMAND_LIST_TYPE Type</p>
 <ul>
-<li><p>Root Parameter 의 유형을 지정한다.</p></li>
-<li><p>enum D3D12_ROOT_PARAMETER_TYPE 값</p></li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
+<li><p>명령 큐에서 실행할 명령 리스트의 유형을 지정한다.</p></li>
+<li><p>enum D3D12_COMMAND_LIST_TYPE 값을 사용한다.</p></li>
 </ul>
 </li>
-<li><p>union</p>
+<li><p>INT Priority</p>
 <ul>
-<li><p>Root Parameter 의 구체적인 데이터를 지정하는 union 이다.</p></li>
-<li><p>ParameterType 에 따라 사용되는 구조체가 달라진다.</p></li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
+<li><p>명령 큐의 우선 순위를 지정한다.</p></li>
+<li><p>우선 순위가 높을수록 더 자주 실행된다.</p></li>
+<li><p>enum D3D12_COMMAND_QUEUE_PRIORITY 의 값을 사용할 수 있다.</p></li>
 </ul>
 </li>
-<li><p>D3D12_SHADER_VISIBILITY ShaderVisibility</p>
+<li><p>D3D12_COMMAND_QUEUE_FLAGS Flags</p>
 <ul>
-<li><p>이 루트 파라미터가 노출될 셰이더 스테이지를 지정한다.</p></li>
-<li><p>기본값은 D3D12_SHADER_VISIBILITY_ALL이다.</p></li>
+<li><p>명령 큐의 플래그를 지정한다.</p></li>
+<li><p>enum D3D12_COMMAND_QUEUE_PRIORITY 값을 사용할 수 있다.</p></li>
+</ul>
+</li>
+<li><p>UINT NodeMask</p>
+<ul>
+<li><p>명령 큐가 실행될 노드를 지정한다.</p></li>
+<li><p>0은 단일 GPU 설정에서 기본값으로 사용된다.</p></li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<div><p>Reference
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter">learn.microsoft - root_parameter</a></p>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_command_queue_desc">learn.microsoft - d3d12_command_queue_desc</a></p>
 </div></blockquote>
 </section>
-<section id="d3d12-root-parameter1">
-<h3>D3D12_ROOT_PARAMETER1 구조체<a class="headerlink" href="#d3d12-root-parameter1" title="Link to this heading">#</a></h3>
-<p>root signature version 1.1 에 사용되는 root parameter 구조체이다.</p>
+<section id="enum-d3d12-command-list-type">
+<h3>enum D3D12_COMMAND_LIST_TYPE<a class="headerlink" href="#enum-d3d12-command-list-type" title="Link to this heading">#</a></h3>
+<p>Command list의 유형을 정의하는 enum이다.</p>
 <p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_ROOT_PARAMETER1</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">D3D12_ROOT_PARAMETER_TYPE</span><span class="w"> </span><span class="n">ParameterType</span><span class="p">;</span>
-<span class="w">  </span><span class="k">union</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">D3D12_ROOT_DESCRIPTOR_TABLE1</span><span class="w"> </span><span class="n">DescriptorTable</span><span class="p">;</span>
-<span class="w">    </span><span class="n">D3D12_ROOT_CONSTANTS</span><span class="w">         </span><span class="n">Constants</span><span class="p">;</span>
-<span class="w">    </span><span class="n">D3D12_ROOT_DESCRIPTOR1</span><span class="w">       </span><span class="n">Descriptor</span><span class="p">;</span>
-<span class="w">  </span><span class="p">};</span>
-<span class="w">  </span><span class="n">D3D12_SHADER_VISIBILITY</span><span class="w">   </span><span class="n">ShaderVisibility</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_ROOT_PARAMETER1</span><span class="p">;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span>
+<span class="k">enum</span><span class="w"> </span><span class="nc">D3D12_COMMAND_LIST_TYPE</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">D3D12_COMMAND_LIST_TYPE_DIRECT</span><span class="w">	</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">        </span><span class="n">D3D12_COMMAND_LIST_TYPE_BUNDLE</span><span class="w">	</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="n">D3D12_COMMAND_LIST_TYPE_COMPUTE</span><span class="w">	</span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">        </span><span class="n">D3D12_COMMAND_LIST_TYPE_COPY</span><span class="w">	</span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">        </span><span class="n">D3D12_COMMAND_LIST_TYPE_VIDEO_DECODE</span><span class="w">	</span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">        </span><span class="n">D3D12_COMMAND_LIST_TYPE_VIDEO_PROCESS</span><span class="w">	</span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">        </span><span class="n">D3D12_COMMAND_LIST_TYPE_VIDEO_ENCODE</span><span class="w">	</span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span>
+<span class="w">        </span><span class="n">D3D12_COMMAND_LIST_TYPE_NONE</span><span class="w">	</span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> 	</span><span class="n">D3D12_COMMAND_LIST_TYPE</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>각각의 멤버변수는 다음과 같다.</p>
+<p>각 enum의 의미는 다음과 같다.</p>
 <ul class="simple">
-<li><p>D3D12_ROOT_PARAMETER_TYPE ParameterType</p>
+<li><p>D3D12_COMMAND_LIST_TYPE_DIRECT</p>
 <ul>
-<li><p>Root Parameter 의 유형을 지정한다.</p></li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
+<li><p>그래픽 및 컴퓨트 명령을 모두 포함할 수 있는 기본 명령 리스트 타입이다.</p></li>
+<li><p>렌더링, 리소스 복사 등 다양한 작업에 사용된다.</p></li>
+<li><p>GPU의 그래픽 파이프라인을 직접 제어한다.</p></li>
 </ul>
 </li>
-<li><p>union</p>
+<li><p>D3D12_COMMAND_LIST_TYPE_BUNDLE</p>
 <ul>
-<li><p>Root Parameter 의 구체적인 데이터를 지정하는 union 이다.</p></li>
-<li><p>ParameterType 에 따라 사용되는 구조체가 달라진다.</p></li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
+<li><p>재사용 가능한 명령 집합을 만들기 위한 번들 타입의 명령 리스트이다.</p></li>
+<li><p>다른 명령 리스트에서 호출되어 작업을 수행한다.</p></li>
+<li><p>주로 반복되는 명령 시퀀스를 최적화하기 위해 사용된다.</p></li>
 </ul>
 </li>
-<li><p>D3D12_SHADER_VISIBILITY ShaderVisibility</p>
+<li><p>D3D12_COMMAND_LIST_TYPE_COMPUTE</p>
 <ul>
-<li><p>root parameter 가 노출될 shader 를 지정한다.</p></li>
-<li><p>기본값은 D3D12_SHADER_VISIBILITY_ALL이다.</p></li>
+<li><p>컴퓨트 셰이더 작업에 특화된 명령 리스트이다.</p></li>
+<li><p>그래픽 렌더링 명령을 포함하지 않으며, 계산 작업에 집중한다.</p></li>
+</ul>
+</li>
+<li><p>D3D12_COMMAND_LIST_TYPE_COPY</p>
+<ul>
+<li><p>리소스 간의 데이터 복사 작업에 최적화된 명령 리스트이다.</p></li>
+<li><p>복사 명령만을 포함하며, 그래픽이나 컴퓨트 작업은 포함하지 않는다.</p></li>
+</ul>
+</li>
+<li><p>D3D12_COMMAND_LIST_TYPE_VIDEO_DECODE</p>
+<ul>
+<li><p>비디오 디코딩 작업에 사용되는 명령 리스트이다.</p></li>
+<li><p>비디오 스트림을 디코딩하여 프레임을 추출하는 데 사용된다.</p></li>
+</ul>
+</li>
+<li><p>D3D12_COMMAND_LIST_TYPE_VIDEO_PROCESS</p>
+<ul>
+<li><p>비디오 프로세싱 작업에 사용되는 명령 리스트이다.</p></li>
+<li><p>비디오 프레임의 색상 보정, 필터 적용 등 후처리에 사용된다.</p></li>
+</ul>
+</li>
+<li><p>D3D12_COMMAND_LIST_TYPE_VIDEO_ENCODE</p>
+<ul>
+<li><p>비디오 인코딩 작업에 사용되는 명령 리스트이다.</p></li>
+<li><p>프레임을 인코딩하여 비디오 스트림을 생성하는 데 사용된다.</p></li>
 </ul>
 </li>
 </ul>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter1">learn.microsoft - root_parameter1</a></p>
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_command_list_type">learn.microsoft - d3d12_command_list_type</a></p>
 </div></blockquote>
-</section>
-<section id="cd3dx12-root-parameter1">
-<h3>CD3DX12_ROOT_PARAMETER1 구조체<a class="headerlink" href="#cd3dx12-root-parameter1" title="Link to this heading">#</a></h3>
-<p>D3D12_ROOT_PARAMETER1 구조체를 쉽게 초기화 하기 위한 helper 구조체이다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CD3DX12_ROOT_PARAMETER1 rootParameters[1];
-
-rootParameters[0].InitAsConstantBufferView( … );
-
-rootParameters[0].InitAsShaderResourceView( … );  
-
-rootParameters[0].InitAsUnorderedAccessView( … );
-</pre></div>
-</div>
+<section id="bundle">
+<h4>Bundle<a class="headerlink" href="#bundle" title="Link to this heading">#</a></h4>
+<p>command list 를 만들 때, CPU overhead 가 발생할 수 있기 때문에 D3D12 에서는 bundle 에 command list 를 기록할 수 있는 최적화를 제공한다.</p>
+<p>bundle 에 기록된 후에는 driver 는 rendering 중에 실행을 최적화하기 위해 bundle 에 기록된 command 를 전처리한다.</p>
+<p>따라서, bundle 은 초기화시에 기록되어야 한다.</p>
+<p>일반적으로 D3D12 API 는 매우 효율적이기 때문에 bundle 을 기본적으로 사용할 필요는 없으며, 프로파일링 결과 특정 command list 를 만드는 과정이 시간이 오래걸리는 경우에만 bundle 을 통한 최적화를 고려하면 된다.</p>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-root-parameter1">learn.microsoft - cd3dx12-root-parameter1</a></p>
+<span id="id1">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> p110</p>
 </div></blockquote>
 </section>
 </section>
-<section id="root-constant">
-<h2>Root Constant<a class="headerlink" href="#root-constant" title="Link to this heading">#</a></h2>
-<p>Root Constant 는 CPU 에서 GPU 로 작은 크기의 상수 값을 빠르게 전달할 수 있는 방법이다.</p>
-<p>정해진 개수의 상수 값들을 Root Signature 에 직접 포함하여 GPU 가 이 값을 shader 실행 시 사용하도록 한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html#root-constants">microsoft.github - ResourceBinding.html#root-constants</a></p>
-</div></blockquote>
-<section id="struct-d3d12-root-constants">
-<h3>struct D3D12_ROOT_CONSTANTS 구조체<a class="headerlink" href="#struct-d3d12-root-constants" title="Link to this heading">#</a></h3>
-<p>D3D12_ROOT_CONSTANTS 구조체는 Direct3D 12에서 Root Signature 에서 사용될 상수 데이터를 정의하기 위한 구조체이다.</p>
-<p>이 구조체는 shader 에서 사용할 32비트 상수를 루트 파라미터로 직접 전달하는 데 사용된다.</p>
-<p>D3D12_ROOT_PARAMETER 구조체의 멤버 변수로 존재하는 구조체로 D3D12_ROOT_PARAMETER 구조체의 SlotType 멤버 변수가 D3D12_PARAMETER_32BIT_CONSTANTS 일 때 사용된다.</p>
+<section id="enum-d3d12-command-queue-priority">
+<h3>enum D3D12_COMMAND_QUEUE_PRIORITY<a class="headerlink" href="#enum-d3d12-command-queue-priority" title="Link to this heading">#</a></h3>
+<p>Command queue 의 우선순위를 정의하는 enum 이다.</p>
 <p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_ROOT_CONSTANTS</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">ShaderRegister</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">RegisterSpace</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Num32BitValues</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_ROOT_CONSTANTS</span><span class="p">;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">D3D12_COMMAND_QUEUE_PRIORITY</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">D3D12_COMMAND_QUEUE_PRIORITY_NORMAL</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_COMMAND_QUEUE_PRIORITY_HIGH</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_COMMAND_QUEUE_PRIORITY_GLOBAL_REALTIME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10000</span>
+<span class="p">}</span><span class="w"> </span><span class="p">;</span>
 </pre></div>
 </div>
-<p>각각의 멤버변수는 다음과 같다.</p>
+<p>각 enum의 의미는 다음과 같다.</p>
 <ul class="simple">
-<li><p>UINT ShaderRegister</p>
+<li><p>D3D12_COMMAND_QUEUE_PRIORITY_NORMAL</p>
 <ul>
-<li><p>상수를 참조할 셰이더 레지스터를 지정한다. 셰이더 코드에서 사용할 레지스터 인덱스를 나타낸다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>0 이상의 정수 값</p></li>
+<li><p>기본 우선순위 수준이다.</p></li>
+<li><p>일반적인 렌더링 및 컴퓨트 작업에 적합하다.</p></li>
 </ul>
 </li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
+<li><p>D3D12_COMMAND_QUEUE_PRIORITY_HIGH</p>
+<ul>
+<li><p>높은 우선순위 수준이다.</p></li>
+<li><p>중요한 작업의 처리 시간을 단축하기 위해 사용된다.</p></li>
+<li><p>동일한 우선순위의 다른 큐보다 먼저 스케줄링된다.</p></li>
 </ul>
 </li>
-<li><p>UINT RegisterSpace</p>
+<li><p>D3D12_COMMAND_QUEUE_PRIORITY_GLOBAL_REALTIME</p>
 <ul>
-<li><p>상수 데이터가 속한 레지스터 공간을 지정한다. 셰이더 레지스터가 서로 다른 공간에 배치될 수 있다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>0 이상의 정수 값</p></li>
-</ul>
-</li>
-<li><p>기본값은 0이다.</p></li>
-</ul>
-</li>
-<li><p>UINT Num32BitValues</p>
-<ul>
-<li><p>루트 상수 데이터의 32비트 값 개수를 지정한다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>1 이상의 정수 값</p></li>
-</ul>
-</li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
+<li><p>글로벌 실시간 우선순위 수준이다.</p></li>
+<li><p>가장 높은 우선순위를 가지며, 최소한의 지연 시간이 필요한 실시간 응용 프로그램에서 사용된다.</p></li>
+<li><p>시스템 성능에 영향을 미칠 수 있으므로 주의해서 사용해야 한다.</p></li>
 </ul>
 </li>
 </ul>
-</section>
-</section>
-<section id="shader-visibility">
-<h2>Shader Visibility<a class="headerlink" href="#shader-visibility" title="Link to this heading">#</a></h2>
-<p>모든 root parameter는 어떤 shader type 에서 resource 에 접근할 수 있는지를 나타내는 shader visibility 항목을 가지고 있다.</p>
-<p>shader visibility 는 D3D12_SHADER_VISIBILITY enum 으로 나타내어 진다.</p>
-<p>shader visibility 는 프로그래머가 다양한 단계에서 필요한 리소스를 구분하기 위한 도구이다.</p>
-<p>예를 들어, 동일한 slot 에 bind 되는 서로 다른 두개의 리소스를 가르키는 두개의 root parameter 를 정의할 수 있다.</p>
-<p>이 때, 하나는 visibility 가 vertex shader 이고 다른 하나는 pixel shader 라고 하자.</p>
-<p>그러면 어떤 shader 가 리소스를 호출하는지에 따라 다른 리소스가 shader register 에 bind 된다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">VS</span><span class="o">.</span><span class="n">hlsl</span>
-<span class="n">Texture2D</span> <span class="n">myVertexInputTexture</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">t0</span><span class="p">);</span>
-
-<span class="o">//</span> <span class="n">PS</span><span class="o">.</span><span class="n">hlsl</span>
-<span class="n">Texture2D</span> <span class="n">MyPixelInputTexture</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">t0</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>예를 들어, 위와 같이 vertex shader 와 pixel shader 에서 동일한 register slot 에 접근하지만 각각이 실제로 접근하는 리소스는 다른 texture 이다.</p>
-<p>따라서, 동일한 네임스페이스(shader binding set)의 동일한 shader register 를 참조하는 서로 다른 root parameter 의 가시성이 겹치지 않는지 확인해야 한다.</p>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://logins.github.io/graphics/2020/06/26/DX12RootSignatureObject.html">logins.github - DX12RootSignatureObject</a></p>
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_command_queue_priority">learn.microsoft - d3d12_command_queue_priority</a></p>
 </div></blockquote>
 </section>
-<section id="d3d12-descriptor-range1">
-<h2>D3D12_DESCRIPTOR_RANGE1 구조체<a class="headerlink" href="#d3d12-descriptor-range1" title="Link to this heading">#</a></h2>
-<p>D3D12_DESCRIPTOR_RANGE1 구조체는 Direct3D 12에서 루트 서명에서 사용되는 서술자 테이블 내의 서술자 범위를 정의하기 위한 확장된 구조체이다.</p>
-<p>D3D12_DESCRIPTOR_RANGE와 유사하지만, 추가적인 플래그와 옵션을 제공한다.</p>
+<section id="enum-d3d12-command-queue-flags">
+<h3>enum D3D12_COMMAND_QUEUE_FLAGS<a class="headerlink" href="#enum-d3d12-command-queue-flags" title="Link to this heading">#</a></h3>
+<p>Command queue의 플래그를 정의하는 enum 이다.</p>
 <p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_DESCRIPTOR_RANGE1</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">D3D12_DESCRIPTOR_RANGE_TYPE</span><span class="w"> </span><span class="n">RangeType</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">NumDescriptors</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">BaseShaderRegister</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">RegisterSpace</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Flags</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">OffsetInDescriptorsFromTableStart</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_DESCRIPTOR_RANGE1</span><span class="p">;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">D3D12_COMMAND_QUEUE_FLAGS</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">D3D12_COMMAND_QUEUE_FLAG_NONE</span><span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">D3D12_COMMAND_QUEUE_FLAG_DISABLE_GPU_TIMEOUT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x1</span>
+<span class="p">}</span><span class="w"> </span><span class="n">D3D12_COMMAND_QUEUE_FLAGS</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>각각의 멤버변수는 다음과 같다.</p>
+<p>각 enum의 의미는 다음과 같다.</p>
 <ul class="simple">
-<li><p>D3D12_DESCRIPTOR_RANGE_TYPE RangeType</p>
+<li><p>D3D12_COMMAND_QUEUE_FLAG_NONE</p>
 <ul>
-<li><p>서술자 범위의 유형을 지정한다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>D3D12_DESCRIPTOR_RANGE_TYPE_SRV: 셰이더 리소스 뷰(SRV) 범위</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_TYPE_UAV: 무순서 접근 뷰(UAV) 범위</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_TYPE_CBV: 상수 버퍼 뷰(CBV) 범위</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_TYPE_SAMPLER: 샘플러 범위</p></li>
+<li><p>기본 설정으로, 특별한 플래그가 없다.</p></li>
+<li><p>GPU 시간 제한이 활성화되어 있어 장시간 실행되는 셰이더나 작업이 시간 제한에 걸릴 수 있다.</p></li>
 </ul>
 </li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
+<li><p>D3D12_COMMAND_QUEUE_FLAG_DISABLE_GPU_TIMEOUT</p>
+<ul>
+<li><p>GPU의 시간 제한을 비활성화한다.</p></li>
+<li><p>장시간 실행되는 컴퓨트 셰이더나 작업을 수행할 때 사용된다.</p></li>
+<li><p>시스템 안정성에 영향을 줄 수 있으므로 사용에 주의해야 한다.</p></li>
 </ul>
 </li>
-<li><p>UINT NumDescriptors</p>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_command_queue_flags">learn.microsoft - d3d12_command_queue_flags</a></p>
+</div></blockquote>
+</section>
+</section>
+<section id="swap-chain">
+<h2>Swap Chain<a class="headerlink" href="#swap-chain" title="Link to this heading">#</a></h2>
+<p>Swap Chain 은 화면에 렌더링된 이미지를 표시하기 위해 사용하는 버퍼들의 집합이다.</p>
+<p>버퍼들은 디스플레이에 출력되고 있는 front buffer 와 앞으로 출력될 데이터를 준비하고 있는 back buffer 로 구분되며, 이들을 교환하여 화면 전환을 구현한다.</p>
+<section id="nbuffering">
+<h3>NBuffering<a class="headerlink" href="#nbuffering" title="Link to this heading">#</a></h3>
+<p>N 버퍼링은 N 개의 buffer 를 사용하여 swap chain 을 구성하는 방식이다.</p>
+<p>트리플 버퍼링의 사용 예시를 보자.</p>
+<p>버퍼 A, B, C가 있다고 가정하고 초기 상태가 다음과 같다고 가정하자.</p>
+<ul class="simple">
+<li><p>버퍼 A: 디스플레이가 출력중인 frame</p></li>
+<li><p>버퍼 B: GPU가 디스플레이가 출력할 데이터를 렌더링중인 frame</p></li>
+<li><p>버퍼 C: CPU가 새로운 프레임 데이터를 준비하고 있는 frame</p></li>
+</ul>
+<p>다음 프레임에서는 swap chain 에서 flip 및 present 후 다음 상태가 된다.</p>
+<ul class="simple">
+<li><p>버퍼 A: CPU가 새로운 프레임 데이터를 준비하고 있는 frame</p></li>
+<li><p>버퍼 B: 디스플레이가 출력중인 frame</p></li>
+<li><p>버퍼 C: GPU가 디스플레이가 출력할 데이터를 렌더링중인 frame</p></li>
+</ul>
+<p>이런 과정을 반복하면서 다음과 같은 순서로 작업이 순환된다</p>
+<ul class="simple">
+<li><p>디스플레이는 준비된 버퍼에서 프레임을 출력.</p></li>
+<li><p>CPU는 출력되지 않는 버퍼에서 새로운 프레임 데이터를 준비.</p></li>
+<li><p>GPU는 CPU가 준비한 버퍼에서 프레임을 렌더링.</p></li>
+</ul>
+</section>
+<section id="flipping">
+<h3>Flipping<a class="headerlink" href="#flipping" title="Link to this heading">#</a></h3>
+<p>버퍼 교환 시, back buffer 의 내용을 front buffer 로 복사하는 대신, 두 버퍼의 포인터를 교환하는 방식을 flipping 이라고 한다.</p>
+<p>이 방법은 하드웨어적으로 매우 빠르게 수행되며, 효율적인 화면 전환을 가능하게 합니다.</p>
+</section>
+<section id="idxgiswapchain1-vs-idxgiswapchain3">
+<h3>IDXGISwapChain1 VS IDXGISwapChain3<a class="headerlink" href="#idxgiswapchain1-vs-idxgiswapchain3" title="Link to this heading">#</a></h3>
+<p>IDXGISwapChain1과 IDXGISwapChain3는 모두 DXGI의 스왑 체인 인터페이스이지만, DirectX의 발전에 따라 기능적 차이가 있다. IDXGISwapChain1은 DirectX 11.1에서 도입된 기본 스왑 체인 인터페이스이고, IDXGISwapChain3는 DirectX 12에서 추가된 기능을 포함하여 성능 최적화가 된 확장 인터페이스다.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>기능</p></th>
+<th class="head"><p>IDXGISwapChain1</p></th>
+<th class="head"><p>IDXGISwapChain3</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>지원 버전</p></td>
+<td><p>DirectX 11.1 이상</p></td>
+<td><p>DirectX 12 이상</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>현재 백 버퍼 인덱스 조회</strong></p></td>
+<td><p>미지원</p></td>
+<td><p>GetCurrentBackBufferIndex 메서드 지원</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>프레임 동기화 최적화</strong></p></td>
+<td><p>제한적</p></td>
+<td><p>DirectX 12 커맨드 큐와의 효율적인 연동 가능</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>사용 가능한 플래그</strong></p></td>
+<td><p>DirectX 11.1 수준</p></td>
+<td><p>DirectX 12에서 추가된 새로운 플래그 지원</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>다중 백 버퍼 관리</strong></p></td>
+<td><p>제한적</p></td>
+<td><p>효율적인 백 버퍼 동기화와 관리 기능 제공</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>참고로, IDXGISwapChain3 는 직접 생성할 수 없다.</p>
+<p>IDXGISwapChain3 인터페이스는 CreateSwapChainForHwnd 와 같은 DXGI 팩토리 메서드에서 반환되는 IDXGISwapChain1 을 통해 업그레이드(캐스팅)하여 사용하는 인터페이스다. DXGI 팩토리 메서드들은 기본적으로 IDXGISwapChain1 또는 IDXGISwapChain 타입의 객체를 반환하므로, 스왑 체인 생성 후 QueryInterface 또는 As 메서드를 통해 IDXGISwapChain3로 변환해야 한다.</p>
+</section>
+<section id="dxgi-swap-chain-desc1">
+<h3>DXGI_SWAP_CHAIN_DESC1 구조체<a class="headerlink" href="#dxgi-swap-chain-desc1" title="Link to this heading">#</a></h3>
+<p>swap chain 의 특성을 정의하는 데 사용된다.</p>
+<p>구조체의 정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">DXGI_SWAP_CHAIN_DESC1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w">             </span><span class="n">Width</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w">             </span><span class="n">Height</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_FORMAT</span><span class="w">      </span><span class="n">Format</span><span class="p">;</span>
+<span class="w">    </span><span class="n">BOOL</span><span class="w">             </span><span class="n">Stereo</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_SAMPLE_DESC</span><span class="w"> </span><span class="n">SampleDesc</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_USAGE</span><span class="w">       </span><span class="n">BufferUsage</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w">             </span><span class="n">BufferCount</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_SCALING</span><span class="w">     </span><span class="n">Scaling</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_EFFECT</span><span class="w"> </span><span class="n">SwapEffect</span><span class="p">;</span>
+<span class="w">    </span><span class="n">DXGI_ALPHA_MODE</span><span class="w">  </span><span class="n">AlphaMode</span><span class="p">;</span>
+<span class="w">    </span><span class="n">UINT</span><span class="w">             </span><span class="n">Flags</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">DXGI_SWAP_CHAIN_DESC1</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>각 멤버 변수는 다음과 같다.</p>
+<ul class="simple">
+<li><p>UINT Width</p>
 <ul>
-<li><p>서술자 범위에 포함된 서술자의 수를 지정한다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>1 이상의 정수 값</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_VOLATILE 플래그가 설정된 경우, <code class="docutils literal notranslate"><span class="pre">NumDescriptors</span></code>를 <code class="docutils literal notranslate"><span class="pre">-1</span></code>로 지정할 수 있다.</p></li>
+<li><p>백 버퍼의 너비를 지정한다.</p></li>
 </ul>
 </li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
+<li><p>UINT Height</p>
+<ul>
+<li><p>백 버퍼의 높이를 지정한다.</p></li>
 </ul>
 </li>
-<li><p>UINT BaseShaderRegister</p>
+<li><p>DXGI_FORMAT Format</p>
 <ul>
-<li><p>범위가 시작되는 첫 번째 셰이더 레지스터를 지정한다. 셰이더 코드에서 사용할 첫 번째 레지스터 인덱스를 의미한다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>0 이상의 정수 값</p></li>
+<li><p>백 버퍼의 픽셀 형식을 지정한다.</p></li>
 </ul>
 </li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
+<li><p>BOOL Stereo</p>
+<ul>
+<li><p>스왑 체인이 스테레오(3D) 모드를 지원하는지 여부를 지정한다.</p></li>
+<li><p>TRUE로 설정하면 스테레오 모드를 활성화한다.</p></li>
 </ul>
 </li>
-<li><p>UINT RegisterSpace</p>
+<li><p>DXGI_SAMPLE_DESC SampleDesc</p>
 <ul>
-<li><p>서술자 범위가 속한 레지스터 공간을 지정한다. 셰이더 레지스터가 서로 다른 공간에 배치될 수 있다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>0 이상의 정수 값</p></li>
+<li><p>멀티샘플링(안티앨리어싱) 매개변수를 지정하는 구조체이다.</p></li>
+<li><p>Count와 Quality를 설정하여 멀티샘플링 수준을 결정한다.</p></li>
 </ul>
 </li>
-<li><p>기본값은 0이다.</p></li>
+<li><p>DXGI_USAGE BufferUsage</p>
+<ul>
+<li><p>백 버퍼의 사용 방법을 지정하는 플래그이다.</p></li>
+<li><p>DXGI_USAGE_RENDER_TARGET_OUTPUT은 렌더 타겟으로 사용됨을 나타낸다.</p></li>
+</ul>
+</li>
+<li><p>UINT BufferCount</p>
+<ul>
+<li><p>스왑 체인에서 사용할 버퍼의 수를 지정한다.</p></li>
+<li><p>일반적으로 더블 버퍼링은 2, 트리플 버퍼링은 3으로 설정한다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SCALING Scaling</p>
+<ul>
+<li><p>백 버퍼의 크기가 출력 창과 다를 때의 스케일링 방법을 지정한다.</p></li>
+<li><p>DXGI_SCALING_STRETCH는 백 버퍼를 출력 창 크기에 맞게 늘린다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_EFFECT SwapEffect</p>
+<ul>
+<li><p>스왑 체인의 스왑 효과를 지정한다.</p></li>
+<li><p>DXGI_SWAP_EFFECT_FLIP_DISCARD는 플립 모델을 사용하며, 프레젠테이션 후 백 버퍼의 내용을 폐기한다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_ALPHA_MODE AlphaMode</p>
+<ul>
+<li><p>백 버퍼의 알파 모드(투명도)를 지정한다.</p></li>
+<li><p>DXGI_ALPHA_MODE_IGNORE는 알파 채널을 무시함을 나타낸다.</p></li>
 </ul>
 </li>
 <li><p>UINT Flags</p>
 <ul>
-<li><p>서술자 범위에 대한 추가적인 동작을 지정하는 플래그를 설정한다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>D3D12_DESCRIPTOR_RANGE_FLAG_NONE: 특별한 플래그 없음</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_VOLATILE: 서술자가 실행 중에 변경될 수 있음을 나타냄</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_FLAG_DATA_VOLATILE: 서술자가 참조하는 데이터가 실행 중에 변경될 수 있음을 나타냄</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE: 서술자가 설정될 때까지 데이터가 고정적임</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC: 서술자가 생성된 이후로 데이터가 변경되지 않음을 나타냄</p></li>
-</ul>
-</li>
-<li><p>기본값은 D3D12_DESCRIPTOR_RANGE_FLAG_NONE이다.</p></li>
-</ul>
-</li>
-<li><p>UINT OffsetInDescriptorsFromTableStart</p>
-<ul>
-<li><p>서술자 테이블 시작으로부터의 오프셋을 지정한다. 테이블에서 이 범위가 시작되는 위치를 바이트 단위로 나타낸다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND: 자동으로 범위가 이전 범위 뒤에 이어지도록 지정</p></li>
-</ul>
-</li>
-<li><p>기본값은 D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND이다.</p></li>
+<li><p>스왑 체인의 추가 옵션을 지정하는 플래그이다.</p></li>
+<li><p>NULL 을 전달하면 어떤 플래그도 설정되지 않는다.</p></li>
 </ul>
 </li>
 </ul>
 </section>
-<section id="descriptor-range">
-<h2>Descriptor Range<a class="headerlink" href="#descriptor-range" title="Link to this heading">#</a></h2>
-<p>descriptor table 내에서 지정된 유형의 descriptor 범위를 정의한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html#descriptor-range">microsoft.github - descriptor-range</a></p>
-</div></blockquote>
-</section>
-<section id="descriptor-table-bind-types">
-<h2>Descriptor Table Bind Types<a class="headerlink" href="#descriptor-table-bind-types" title="Link to this heading">#</a></h2>
-<p>descriptor table layout 정의의 일부로 참조할 수 있는 descriptor type 이다.</p>
-<p>예를 들어, descriptor table 의 일부에 100개의 SRV가 있는 경우 해당 범위를 100개가 아닌 하나의 항목으로 선언할 수 있도록 하는 범위입니다.</p>
-<p>따라서 descriptor table  정의는 범위의 모음입니다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">D3D12_DESCRIPTOR_RANGE_TYPE</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="n">D3D12_DESCRIPTOR_RANGE_SRV</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_DESCRIPTOR_RANGE_UAV</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_DESCRIPTOR_RANGE_CBV</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_DESCRIPTOR_RANGE_SAMPLER</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_DESCRIPTOR_RANGE_TYPE</span><span class="p">;</span>
+<section id="dxgi-uage">
+<h3>DXGI_UAGE 매크로<a class="headerlink" href="#dxgi-uage" title="Link to this heading">#</a></h3>
+<p>백 버퍼의 사용 방법을 지정하는 플래그다.</p>
+<p>정의는 다음과 같다</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define DXGI_CPU_ACCESS_NONE    ( 0 )</span>
+<span class="cp">#define DXGI_CPU_ACCESS_DYNAMIC    ( 1 )</span>
+<span class="cp">#define DXGI_CPU_ACCESS_READ_WRITE    ( 2 )</span>
+<span class="cp">#define DXGI_CPU_ACCESS_SCRATCH    ( 3 )</span>
+<span class="cp">#define DXGI_CPU_ACCESS_FIELD        15</span>
+<span class="cp">#define DXGI_USAGE_SHADER_INPUT             ( 1L &lt;&lt; (0 + 4) )</span>
+<span class="cp">#define DXGI_USAGE_RENDER_TARGET_OUTPUT     ( 1L &lt;&lt; (1 + 4) )</span>
+<span class="cp">#define DXGI_USAGE_BACK_BUFFER              ( 1L &lt;&lt; (2 + 4) )</span>
+<span class="cp">#define DXGI_USAGE_SHARED                   ( 1L &lt;&lt; (3 + 4) )</span>
+<span class="cp">#define DXGI_USAGE_READ_ONLY                ( 1L &lt;&lt; (4 + 4) )</span>
+<span class="cp">#define DXGI_USAGE_DISCARD_ON_PRESENT       ( 1L &lt;&lt; (5 + 4) )</span>
+<span class="cp">#define DXGI_USAGE_UNORDERED_ACCESS         ( 1L &lt;&lt; (6 + 4) )</span>
+<span class="k">typedef</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">DXGI_USAGE</span><span class="p">;</span>
 </pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>상수</p></th>
+<th class="head"><p>값</p></th>
+<th class="head"><p>설명</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DXGI_USAGE_BACK_BUFFER</p></td>
+<td><p>1L &lt;&lt; (2 + 4)</p></td>
+<td><p>표면 또는 리소스는 백 버퍼로 사용된다. 스왑 체인 생성 시 전달 필요 없음. IDXGIResource::GetUsage를 호출하여 리소스가 스왑 체인에 속하는지 확인 가능.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DXGI_USAGE_DISCARD_ON_PRESENT</p></td>
+<td><p>1L &lt;&lt; (5 + 4)</p></td>
+<td><p>내부 전용 플래그다.</p></td>
+</tr>
+<tr class="row-even"><td><p>DXGI_USAGE_READ_ONLY</p></td>
+<td><p>1L &lt;&lt; (4 + 4)</p></td>
+<td><p>읽기 전용으로 Surface 또는 리소스를 사용한다.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DXGI_USAGE_RENDER_TARGET_OUTPUT</p></td>
+<td><p>1L &lt;&lt; (1 + 4)</p></td>
+<td><p>표면 또는 리소스를 출력 렌더링 대상으로 사용한다.</p></td>
+</tr>
+<tr class="row-even"><td><p>DXGI_USAGE_SHADER_INPUT</p></td>
+<td><p>1L &lt;&lt; (0 + 4)</p></td>
+<td><p>셰이더에 대한 입력으로 표면 또는 리소스를 사용한다.</p></td>
+</tr>
+<tr class="row-odd"><td><p>DXGI_USAGE_SHARED</p></td>
+<td><p>1L &lt;&lt; (3 + 4)</p></td>
+<td><p>표면 또는 리소스를 공유한다.</p></td>
+</tr>
+<tr class="row-even"><td><p>DXGI_USAGE_UNORDERED_ACCESS</p></td>
+<td><p>1L &lt;&lt; (6 + 4)</p></td>
+<td><p>순서가 지정되지 않은 액세스에 Surface 또는 리소스를 사용한다.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html#descriptor-table-bind-types">microsoft.github - descriptor-table-bind-types</a></p>
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/direct3ddxgi/dxgi-usage">learn.microsoft - dxgi-usage</a></p>
 </div></blockquote>
 </section>
-<section id="root-descriptors">
-<h2>Root Descriptors<a class="headerlink" href="#root-descriptors" title="Link to this heading">#</a></h2>
-<p>Root Descriptor 는 GPU 리소스를 직접 가리키는 GPU Virtual Address(GPUVA) 를 Root Signature 에 포함시켜 하나의 리소스를 GPU 에서 바로 접근하도록 한다.</p>
-<p>GPUVA 는 64 bit 크기이기 때문에 Root Descriptor 에 크기는 2 DWORDs 이다.</p>
-<p>Root Descriptor 는 root argument 에 inline 되어 있는 descriptor 를 의미한다.</p>
-<p>지원되는 SRV/UAV format 은 32-bit FLOAT/UINT/SINT 이다.</p>
-<p>Root Descriptor는 level 1 의 indirection 을 갖는다. 이는, 리소스에 접근하기 위해서는 하나의 추가적인 객체에게 query 를 해야 함을 의미한다. 이로 인해 root constants 에 비해 리소스 접근 속도가 늦게 된다.</p>
-<p>참고로 Descriptor heaps 와 다르게 Root Descriptor 는 크기 검사를 하지 않는다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://logins.github.io/graphics/2020/06/26/DX12RootSignatureObject.html">logins.github - DX12RootSignatureObject</a></p>
-</div></blockquote>
-<section id="d3d12-root-descriptor">
-<h3>D3D12_ROOT_DESCRIPTOR 구조체<a class="headerlink" href="#d3d12-root-descriptor" title="Link to this heading">#</a></h3>
-<p>root parameter 의 종류중 root descriptor 를 나타내는 구조체이다.</p>
+<section id="enum-dxgi-scaling">
+<h3>enum DXGI_SCALING<a class="headerlink" href="#enum-dxgi-scaling" title="Link to this heading">#</a></h3>
+<p>스케일링 모드를 정의하는 enum이다.</p>
 <p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_ROOT_DESCRIPTOR</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">ShaderRegister</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">RegisterSpace</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_ROOT_DESCRIPTOR</span><span class="p">;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">DXGI_SCALING</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">DXGI_SCALING_STRETCH</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SCALING_NONE</span><span class="w">              </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SCALING_ASPECT_RATIO_STRETCH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+<span class="p">}</span><span class="w"> </span><span class="n">DXGI_SCALING</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>각각의 멤버변수는 다음과 같다.</p>
+<p>각 enum의 의미는 다음과 같다.</p>
 <ul class="simple">
-<li><p>UINT ShaderRegister</p>
+<li><p>DXGI_SCALING_STRETCH</p>
 <ul>
-<li><p>서술자를 참조할 셰이더 레지스터를 지정한다. 셰이더 코드에서 사용할 레지스터 인덱스를 나타낸다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>0 이상의 정수 값</p></li>
+<li><p>콘텐츠를 화면 전체에 맞춰 늘려서 표시한다.</p></li>
+<li><p>원본 해상도와 출력 해상도가 다를 경우, 비율이 유지되지 않아 왜곡될 수 있다.</p></li>
 </ul>
 </li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
+<li><p>DXGI_SCALING_NONE</p>
+<ul>
+<li><p>스케일링을 하지 않고 원본 해상도 그대로 출력한다.</p></li>
+<li><p>해상도 차이가 있는 경우, 화면 일부가 비어 있을 수 있다.</p></li>
 </ul>
 </li>
-<li><p>UINT RegisterSpace</p>
+<li><p>DXGI_SCALING_ASPECT_RATIO_STRETCH</p>
 <ul>
-<li><p>서술자가 속한 레지스터 공간을 지정한다. 셰이더 레지스터가 서로 다른 공간에 배치될 수 있다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>0 이상의 정수 값</p></li>
-</ul>
-</li>
-<li><p>기본값은 0이다.</p></li>
+<li><p>화면의 가로 세로 비율을 유지하면서 콘텐츠를 가능한 크게 늘려서 표시한다.</p></li>
+<li><p>해상도가 다르더라도 원본 비율을 유지하여 왜곡을 최소화한다.</p></li>
 </ul>
 </li>
 </ul>
-</section>
-</section>
-<section id="helper-classes">
-<h2>Helper Classes<a class="headerlink" href="#helper-classes" title="Link to this heading">#</a></h2>
-<p>The d3dx12.h header provides a number of helper classes intended to simplify the usage of the API when working with C++. These are all in the global C++ namespace, and are documented on Microsoft Docs.</p>
-<p>Note that d3dx12.h is not included in the Windows SDK, nor is it a part of the DirectX Tool Kit. It is included in the DirectX project templates built into Visual Studio and in the Direct3D Game VS Templates. You can find the latest version on GitHub.</p>
-<p>For Xbox One development d3dx12_x.h is included in the Xbox One XDK / Microsoft GDKX; for Xbox Series X|S development you use d3dx12_xs.h.</p>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://github.com/microsoft/DirectXTK12/wiki/DirectXHelpers">github.com/microsoft - DirectXHelpers</a><br />
-<a class="reference external" href="https://github.com/microsoft/DirectX-Headers/blob/main/include/directx/d3dx12.h">github.com/microsoft - directx/d3dx12.h</a></p>
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/dxgi1_2/ne-dxgi1_2-dxgi_scaling">learn.microsoft - dxgi_scaling</a></p>
 </div></blockquote>
 </section>
-<div class="toctree-wrapper compound">
+<section id="enum-dxgi-swap-effect">
+<h3>enum DXGI_SWAP_EFFECT<a class="headerlink" href="#enum-dxgi-swap-effect" title="Link to this heading">#</a></h3>
+<p>swap chain 의 swap effect 를 정의하는 enum이다.</p>
+<p>swap chain 에서 프레임을 교환하는 방식에 따라 화면에 출력되는 내용이 달라지며, 각각의 swap effect 는 메모리 및 성능에 영향을 줄 수 있다.</p>
+<p>정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">DXGI_SWAP_EFFECT</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_EFFECT_DISCARD</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_EFFECT_SEQUENTIAL</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_EFFECT_FLIP_DISCARD</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
+<span class="p">}</span><span class="w"> </span><span class="n">DXGI_SWAP_EFFECT</span><span class="p">;</span>
+</pre></div>
 </div>
+<p>각 enum의 의미는 다음과 같다.</p>
+<ul class="simple">
+<li><p>DXGI_SWAP_EFFECT_DISCARD</p>
+<ul>
+<li><p>swap chain 에서 프레임을 교환할 때 이전 프레임의 내용을 버린다.</p></li>
+<li><p>각 프레임이 독립적으로 렌더링되며, 메모리 사용이 효율적이다.</p></li>
+<li><p>일반적으로 풀스크린 응용 프로그램에서 사용된다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_EFFECT_SEQUENTIAL</p>
+<ul>
+<li><p>swap chain 에서 프레임을 순차적으로 교환한다.</p></li>
+<li><p>이전 프레임의 내용이 보존되므로 창 모드 애플리케이션에서 흔히 사용된다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</p>
+<ul>
+<li><p>프레임을 교환할 때 플립 방식으로 순차적으로 전환한다.</p></li>
+<li><p>DXGI_SWAP_EFFECT_SEQUENTIAL과 비슷하지만, Direct3D 11 이상에서 더 나은 성능을 제공하며 최신 그래픽 API에서 권장된다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_EFFECT_FLIP_DISCARD</p>
+<ul>
+<li><p>프레임을 플립 방식으로 전환하며 이전 프레임의 내용을 버린다.</p></li>
+<li><p>Direct3D 12 및 최신 Direct3D 11 응용 프로그램에서 권장되는 설정으로, 메모리와 성능 효율이 좋다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/dxgi/ne-dxgi-dxgi_swap_effect">learn.microsoft - dxgi_swap_effect</a></p>
+</div></blockquote>
+</section>
+<section id="enum-dxgi-alpha-mode">
+<h3>enum DXGI_ALPHA_MODE<a class="headerlink" href="#enum-dxgi-alpha-mode" title="Link to this heading">#</a></h3>
+<p>swap chain 에서 알파 채널을 처리하는 방식을 정의하는 enum이다.</p>
+<p>정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">DXGI_ALPHA_MODE</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">DXGI_ALPHA_MODE_UNSPECIFIED</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_ALPHA_MODE_PREMULTIPLIED</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_ALPHA_MODE_STRAIGHT</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_ALPHA_MODE_IGNORE</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_ALPHA_MODE_FORCE_DWORD</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mh">0xFFFFFFFF</span>
+<span class="p">}</span><span class="w"> </span><span class="n">DXGI_ALPHA_MODE</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>각 enum의 의미는 다음과 같다.</p>
+<ul class="simple">
+<li><p>DXGI_ALPHA_MODE_UNSPECIFIED</p>
+<ul>
+<li><p>알파 모드가 지정되지 않았다.</p></li>
+<li><p>시스템이 기본 설정을 사용하도록 하며, 특정한 알파 블렌딩이 필요하지 않은 경우에 사용된다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_ALPHA_MODE_PREMULTIPLIED</p>
+<ul>
+<li><p>알파가 미리 곱해진 방식이다.</p></li>
+<li><p>각 색상 값이 알파 값에 미리 곱해진 상태로 렌더링되며, 투명도 블렌딩 시 색상 및 알파 값이 함께 계산된다.</p></li>
+<li><p>대부분의 투명도 효과에서 사용되는 일반적인 설정이다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_ALPHA_MODE_STRAIGHT</p>
+<ul>
+<li><p>알파가 미리 곱해지지 않은 방식이다.</p></li>
+<li><p>색상 값과 알파 값이 별도로 저장되어 있으며, 블렌딩 시 별도로 알파 값을 곱해 계산한다.</p></li>
+<li><p>투명도와 색상을 독립적으로 조정할 수 있어 정밀한 블렌딩이 필요할 때 사용된다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_ALPHA_MODE_IGNORE</p>
+<ul>
+<li><p>알파 채널을 무시한다.</p></li>
+<li><p>색상 값만 사용되며, 알파 값이 없는 상태로 처리된다. 투명도를 적용하지 않는 경우에 적합하다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_ALPHA_MODE_FORCE_DWORD</p>
+<ul>
+<li><p>강제로 32비트 값으로 설정하여 enum 크기를 DWORD로 강제 지정한다.</p></li>
+<li><p>DXGI의 호환성을 위한 예약 값으로, 직접적으로 사용되지 않는다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/dxgi1_2/ne-dxgi1_2-dxgi_alpha_mode">learn.microsoft - dxgi_alpha_mode</a></p>
+</div></blockquote>
+</section>
+<section id="enum-dxgi-swap-chain-flag">
+<h3>enum DXGI_SWAP_CHAIN_FLAG<a class="headerlink" href="#enum-dxgi-swap-chain-flag" title="Link to this heading">#</a></h3>
+<p>swap chain 의 플래그를 정의하는 enum이다.</p>
+<p>각 플래그는 swap chain 의 동작 방식을 제어하며, 성능 및 기능적 특성에 영향을 줄 수 있다.</p>
+<p>정의는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">DXGI_SWAP_CHAIN_FLAG</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_CHAIN_FLAG_NONE</span><span class="w">                        </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_CHAIN_FLAG_NONPREROTATED</span><span class="w">               </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_CHAIN_FLAG_GDI_COMPATIBLE</span><span class="w">              </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_CHAIN_FLAG_RESTRICTED_CONTENT</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_CHAIN_FLAG_RESTRICT_SHARED_RESOURCE_DRIVER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_CHAIN_FLAG_DISPLAY_ONLY</span><span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_CHAIN_FLAG_FOREGROUND_LAYER</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="mi">128</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_CHAIN_FLAG_FULLSCREEN_VIDEO</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_CHAIN_FLAG_YUV_VIDEO</span><span class="w">                   </span><span class="o">=</span><span class="w"> </span><span class="mi">512</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_CHAIN_FLAG_HW_PROTECTED</span><span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span>
+<span class="w">    </span><span class="n">DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING</span><span class="w">               </span><span class="o">=</span><span class="w"> </span><span class="mi">2048</span>
+<span class="p">}</span><span class="w"> </span><span class="n">DXGI_SWAP_CHAIN_FLAG</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>각 enum의 의미는 다음과 같다.</p>
+<ul class="simple">
+<li><p>DXGI_SWAP_CHAIN_FLAG_NONE</p>
+<ul>
+<li><p>기본 설정으로, 특별한 플래그가 없다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_CHAIN_FLAG_NONPREROTATED</p>
+<ul>
+<li><p>swap chain 의 이미지를 회전하지 않은 상태로 유지한다.</p></li>
+<li><p>회전이 필요한 경우 디스플레이 드라이버가 아닌 응용 프로그램이 직접 회전 작업을 처리해야 한다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH</p>
+<ul>
+<li><p>풀스크린 모드와 창 모드 간 전환을 허용한다.</p></li>
+<li><p>응용 프로그램이 창 모드에서 풀스크린 모드로 전환할 때 디스플레이 해상도가 변경될 수 있다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_CHAIN_FLAG_GDI_COMPATIBLE</p>
+<ul>
+<li><p>GDI(Windows Graphics Device Interface)와 호환되도록 설정한다.</p></li>
+<li><p>GDI를 사용하여 swap chain 에 직접 그리기를 할 수 있다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_CHAIN_FLAG_RESTRICTED_CONTENT</p>
+<ul>
+<li><p>제한된 콘텐츠를 표시하기 위한 swap chain 을 생성할 때 사용된다.</p></li>
+<li><p>저작권 보호가 필요한 콘텐츠에 대해 보호된 출력 모드를 지원한다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_CHAIN_FLAG_RESTRICT_SHARED_RESOURCE_DRIVER</p>
+<ul>
+<li><p>swap chain 의 리소스가 공유되었을 때 일부 드라이버 기능을 제한한다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_CHAIN_FLAG_DISPLAY_ONLY</p>
+<ul>
+<li><p>디스플레이 전용으로 설정하며, GPU에 의한 렌더링이 아닌 디스플레이 업데이트만 수행한다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT</p>
+<ul>
+<li><p>프레임 지연을 제어할 수 있는 대기 가능 객체를 사용하여 프레임 렌더링 속도를 관리한다.</p></li>
+<li><p>프레임을 대기 상태로 유지하거나 조정할 수 있어, 타이밍 제어가 필요한 응용 프로그램에서 사용된다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_CHAIN_FLAG_FOREGROUND_LAYER</p>
+<ul>
+<li><p>응용 프로그램을 포어그라운드 레이어에 배치한다.</p></li>
+<li><p>다른 창보다 상위 레이어에 배치되는 특수 용도에 사용된다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_CHAIN_FLAG_FULLSCREEN_VIDEO</p>
+<ul>
+<li><p>비디오를 풀스크린 모드로 표시할 때 사용한다.</p></li>
+<li><p>비디오 콘텐츠에 최적화된 설정이다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_CHAIN_FLAG_YUV_VIDEO</p>
+<ul>
+<li><p>YUV 색상 공간을 사용하는 비디오 콘텐츠에 최적화된 설정이다.</p></li>
+<li><p>색상 변환 없이 YUV 형식의 콘텐츠를 출력할 수 있다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_CHAIN_FLAG_HW_PROTECTED</p>
+<ul>
+<li><p>하드웨어 보호된 콘텐츠를 표시하기 위한 플래그이다.</p></li>
+<li><p>저작권 보호가 필요한 콘텐츠의 보안을 강화한다.</p></li>
+</ul>
+</li>
+<li><p>DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING</p>
+<ul>
+<li><p>화면 찢김(테어링)을 허용하는 플래그이다.</p></li>
+<li><p>일반적으로 수직 동기화(VSync)가 비활성화된 경우에 사용되며, 게임이나 실시간 그래픽 응용 프로그램에서 프레임 속도를 최적화할 때 유용하다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/dxgi/ne-dxgi-dxgi_swap_chain_flag">learn.microsoft - dxgi_swap_chain_flag</a></p>
+</div></blockquote>
+</section>
+<section id="idxgifactory2-createswapchainforhwnd">
+<h3>IDXGIFactory2::CreateSwapChainForHwnd 함수<a class="headerlink" href="#idxgifactory2-createswapchainforhwnd" title="Link to this heading">#</a></h3>
+<p>지정된 HWND 핸들과 연결된 swap chain 을 생성하는 함수다.</p>
+<p>함수의 시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CreateSwapChainForHwnd</span><span class="p">(</span>
+<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">           </span><span class="n">IUnknown</span><span class="w">                              </span><span class="o">*</span><span class="n">pDevice</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">           </span><span class="n">HWND</span><span class="w">                                  </span><span class="n">hWnd</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">           </span><span class="k">const</span><span class="w"> </span><span class="n">DXGI_SWAP_CHAIN_DESC1</span><span class="w">           </span><span class="o">*</span><span class="n">pDesc</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="p">]</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">DXGI_SWAP_CHAIN_FULLSCREEN_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pFullscreenDesc</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="p">]</span><span class="w"> </span><span class="n">IDXGIOutput</span><span class="w">                           </span><span class="o">*</span><span class="n">pRestrictToOutput</span><span class="p">,</span>
+<span class="w">  </span><span class="p">[</span><span class="n">out</span><span class="p">]</span><span class="w">          </span><span class="n">IDXGISwapChain1</span><span class="w">                       </span><span class="o">**</span><span class="n">ppSwapChain</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>인자는 다음과 같다.</p>
+<ul class="simple">
+<li><p>IUnknown *pDevice</p>
+<ul>
+<li><p>Direct3D 11 및 이전 버전의 Direct3D의 경우, 스왑 체인용 Direct3D 디바이스에 대한 포인터다.</p></li>
+<li><p>Direct3D 12의 경우, direct command queue 에 대한 포인터다.</p></li>
+<li><p>이 매개변수는 NULL일 수 없다.</p></li>
+</ul>
+</li>
+<li><p>HWND hWnd</p>
+<ul>
+<li><p>생성할 스왑 체인과 연결된 창의 핸들이다.</p></li>
+<li><p>이 매개변수는 NULL일 수 없다.</p></li>
+</ul>
+</li>
+<li><p>const DXGI_SWAP_CHAIN_DESC1 *pDesc</p>
+<ul>
+<li><p>스왑 체인의 속성을 지정하는 DXGI_SWAP_CHAIN_DESC1 구조체에 대한 포인터다.</p></li>
+<li><p>이 매개변수는 NULL일 수 없다.</p></li>
+</ul>
+</li>
+<li><p>const DXGI_SWAP_CHAIN_FULLSCREEN_DESC *pFullscreenDesc</p>
+<ul>
+<li><p>전체 화면 스왑 체인의 속성을 지정하는 DXGI_SWAP_CHAIN_FULLSCREEN_DESC 구조체에 대한 포인터다.</p></li>
+<li><p>전체 화면 스왑 체인을 생성하려면 이 매개변수를 설정하고, 창 모드 스왑 체인을 생성하려면 NULL로 설정한다.</p></li>
+</ul>
+</li>
+<li><p>IDXGIOutput *pRestrictToOutput</p>
+<ul>
+<li><p>콘텐츠를 제한할 출력 대상의 IDXGIOutput 인터페이스에 대한 포인터다.</p></li>
+<li><p>콘텐츠를 특정 출력으로 제한하려면 이 매개변수를 설정하고, 그렇지 않으면 NULL로 설정한다.</p></li>
+</ul>
+</li>
+<li><p>IDXGISwapChain1 **ppSwapChain</p>
+<ul>
+<li><p>생성된 IDXGISwapChain1 인터페이스에 대한 포인터를 받을 포인터다.</p></li>
+<li><p>이 매개변수는 NULL일 수 없다.</p></li>
+</ul>
+</li>
+</ul>
+<p>반환값은 다음과 같다.</p>
+<ul class="simple">
+<li><p>성공 시</p>
+<ul>
+<li><p>S_OK를 반환한다.</p></li>
+</ul>
+</li>
+<li><p>실패 시</p>
+<ul>
+<li><p>HRESULT 오류 코드를 반환한다. 예를 들어, 메모리가 부족한 경우 E_OUTOFMEMORY를 반환할 수 있다. 호출 애플리케이션이 잘못된 데이터를 제공한 경우 DXGI_ERROR_INVALID_CALL을 반환할 수 있다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforhwnd">learn.microsoft - idxgifactory2-createswapchainforhwnd</a></p>
+</div></blockquote>
+</section>
+</section>
+<section id="commandallocator">
+<h2>CommandAllocator<a class="headerlink" href="#commandallocator" title="Link to this heading">#</a></h2>
+<p>command 가 실제로 저장될 memory 다.</p>
+<section id="id3d12device-createcommandallocator">
+<h3>ID3D12Device::CreateCommandAllocator 함수<a class="headerlink" href="#id3d12device-createcommandallocator" title="Link to this heading">#</a></h3>
+<p>ID3D12CommandAllocator 객체를 생성하는 함수다.</p>
+<p>함수의 시그니처는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CreateCommandAllocator</span><span class="p">(</span>
+<span class="w">  </span><span class="n">D3D12_COMMAND_LIST_TYPE</span><span class="w"> </span><span class="n">type</span><span class="p">,</span>
+<span class="w">  </span><span class="n">REFIID</span><span class="w">                  </span><span class="n">riid</span><span class="p">,</span>
+<span class="w">  </span><span class="kt">void</span><span class="w">                    </span><span class="o">**</span><span class="n">ppCommandAllocator</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>인자는 다음과 같다.</p>
+<ul class="simple">
+<li><p>D3D12_COMMAND_LIST_TYPE type</p>
+<ul>
+<li><p>생성할 명령 할당자의 유형을 지정한다.</p></li>
+</ul>
+</li>
+<li><p>REFIID riid</p>
+<ul>
+<li><p>요청하는 인터페이스의 식별자다.</p></li>
+<li><p>__uuidof(ID3D12CommandAllocator)를 사용하여 얻는다.</p></li>
+</ul>
+</li>
+<li><p>void **ppCommandAllocator</p>
+<ul>
+<li><p>성공 시, 생성된 ID3D12CommandAllocator 객체의 포인터를 받을 포인터다.</p></li>
+</ul>
+</li>
+</ul>
+<p>반환값은 다음과 같다.</p>
+<ul class="simple">
+<li><p>성공 시</p>
+<ul>
+<li><p>S_OK를 반환한다.</p></li>
+</ul>
+</li>
+<li><p>실패 시</p>
+<ul>
+<li><p>HRESULT 오류 코드를 반환한다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandallocator">learn.microsoft - id3d12device-createcommandallocator</a></p>
+</div></blockquote>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1432,20 +1867,20 @@ rootParameters[0].InitAsUnorderedAccessView( … );
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../50%20DirectX11/11%20DXGI/102%20enum%20DXGI_SWAP_CHAIN_FLAG.html"
+       href="IDXCUtils.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">enum DXGI_SWAP_CHAIN_FLAG</p>
+        <p class="prev-next-title">IDXCUtils</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Resource/Resource.html"
+       href="NBuffering.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Resource</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1465,38 +1900,42 @@ rootParameters[0].InitAsUnorderedAccessView( … );
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-code">Sample Code</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hellowindow">HelloWindow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#device">Device</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-advanced-rasterization-platform-adapter">Windows Advanced Rasterization Platform adapter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12createdevice">D3D12CreateDevice 함수</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d-feature-level">D3D_FEATURE_LEVEL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device">ID3D12Device 인터페이스</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-slot">Register Slot</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-queue">Command Queue</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandqueue">ID3D12CommandQueue</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandqueue">ID3D12Device::CreateCommandQueue 함수</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-command-queue-desc">D3D12_COMMAND_QUEUE_DESC 구조체</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-list-type">enum D3D12_COMMAND_LIST_TYPE</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bundle">Bundle</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-spaces">Register Spaces</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-state-object-pso">Pipeline State Object (PSO)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-bytecode">shader bytecode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-queue-priority">enum D3D12_COMMAND_QUEUE_PRIORITY</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-d3d12-command-queue-flags">enum D3D12_COMMAND_QUEUE_FLAGS</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-parameters">Root Parameters</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-root-parameter">D3D12_ROOT_PARAMETER 구조체</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-root-parameter1">D3D12_ROOT_PARAMETER1 구조체</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cd3dx12-root-parameter1">CD3DX12_ROOT_PARAMETER1 구조체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#swap-chain">Swap Chain</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nbuffering">NBuffering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flipping">Flipping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgiswapchain1-vs-idxgiswapchain3">IDXGISwapChain1 VS IDXGISwapChain3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-swap-chain-desc1">DXGI_SWAP_CHAIN_DESC1 구조체</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dxgi-uage">DXGI_UAGE 매크로</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-dxgi-scaling">enum DXGI_SCALING</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-dxgi-swap-effect">enum DXGI_SWAP_EFFECT</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-dxgi-alpha-mode">enum DXGI_ALPHA_MODE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enum-dxgi-swap-chain-flag">enum DXGI_SWAP_CHAIN_FLAG</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#idxgifactory2-createswapchainforhwnd">IDXGIFactory2::CreateSwapChainForHwnd 함수</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-constant">Root Constant</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#struct-d3d12-root-constants">struct D3D12_ROOT_CONSTANTS 구조체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commandallocator">CommandAllocator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandallocator">ID3D12Device::CreateCommandAllocator 함수</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-visibility">Shader Visibility</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-descriptor-range1">D3D12_DESCRIPTOR_RANGE1 구조체</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-range">Descriptor Range</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-table-bind-types">Descriptor Table Bind Types</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-descriptors">Root Descriptors</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-root-descriptor">D3D12_ROOT_DESCRIPTOR 구조체</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#helper-classes">Helper Classes</a></li>
 </ul>
   </nav></div>
 

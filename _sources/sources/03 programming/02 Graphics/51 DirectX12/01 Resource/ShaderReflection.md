@@ -3,6 +3,9 @@ shader reflection 은 shader code 의 메타데이터를 반영(reflection)한 �
 
 Reflection 정보는 shader 를 컴파일할 때 생성된다.
 
+> Reference    
+> https://rtarun9.github.io/blogs/shader_reflection/  
+
 ## Shader Reflection 으로부터 Resource Binding 정보 읽어오기
 
 ```cpp
@@ -53,7 +56,7 @@ void read_refelction_file(void)
 }
 ```
 
-```hlsl
+```
 struct VS_INPUT
 {
   float4 position : SV_POSITION;
@@ -86,11 +89,11 @@ float4 mainVS(VS_INPUT input) : SV_POSITION
 
 static 변수는 binding resource 로 취급되지 않는다.
 
-만약, extern 변수가 있는 경우 "$globlas" 라는 이름을 갖은 Constant Buffer 가 생기게 되며, extern 변수가 여러개 있는 경우에는 "$globals" 라는 constant buffer 에 묶여서 0 번 binding resource 가 된다.
+만약, extern 변수가 있는 경우 "\$globlas" 라는 이름을 갖은 Constant Buffer 가 생기게 되며, extern 변수가 여러개 있는 경우에는 "\$globals" 라는 constant buffer 에 묶여서 0 번 binding resource 가 된다.
 
-그리고 모든 extern 변수가 쓰이지 않으면 최적화에 의해 "$globals" Constant Buffer 가 안만들어 질 수도 있으며, extern 변수중 하나라도 쓰인다면 나머지 변수들은 안쓰이더라도 "$globals" constant buffer 가 생기게 된다.
+그리고 모든 extern 변수가 쓰이지 않으면 최적화에 의해 "\$globals" Constant Buffer 가 안만들어 질 수도 있으며, extern 변수중 하나라도 쓰인다면 나머지 변수들은 안쓰이더라도 "\$globals" constant buffer 가 생기게 된다.
 
-$globals 의 정보는 다음 코드로 확인해 볼 수 있다.
+\$globals 의 정보는 다음 코드로 확인해 볼 수 있다.
 
 ```cpp
 
