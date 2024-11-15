@@ -37,6 +37,27 @@ for /f [<parsingkeywords>] {%%|%}<variable> in ('<command>') do <command> [<comm
 > Reference    
 > [learn.microsoft - windows-commands/for](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/for)  
 
+## if
+
+Syntax 는 다음과 같다.
+```
+if [not] ERRORLEVEL <number> <command> [else <expression>]
+if [not] <string1>==<string2> <command> [else <expression>]
+if [not] exist <filename> <command> [else <expression>]
+```
+
+만약 여러줄로 if 문을 사용하고 싶으면 다음과 같이 쓰면된다.
+```
+if condition (
+  command
+)
+```
+
+이 떄, condition 과 ( 사이에 공백이 반드시 있어야 한다.
+
+> Reference  
+> [learn.microsoft - windows-commands/if](https://learn.microsoft.com/ko-kr/windows-server/administration/windows-commands/if)  
+
 ## dir
 Syntax 는 다음과 같다
 ```

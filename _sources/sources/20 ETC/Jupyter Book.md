@@ -1,5 +1,45 @@
 # Jupyter Book
 
+## 환경셋팅
+
+### Jupyterbook 설치
+손쉬운 가상 환경을 위해 [Anaconda](https://www.anaconda.com/download/#windows)를 사용한다.
+
+Anaconda prompt에서 Jupyterbook 가상환경을 만든다
+```
+conda create -n jb python=3.9
+```
+
+가상환경에 들어간다.
+
+```
+conda activate jb
+```
+
+conda를 업데이트 한다.
+
+```
+conda update --all
+```
+
+Jupyterbook을 설치한다
+
+```
+pip install -U jupyter-book
+```
+
+### cmd로 ananconda 사용하기
+anaconda 를 cmd 에서 사용하려면 환경변수 설정을 해야한다.
+* anaconda prompt에서 `where conda`와 `where python`로 conda.exe와 python.exe의 경로를 찾는다
+* 시작 >> 시스템 환경 변수 편집 >> 환경변수 >> 시스템 변수 >> Path >> 편집
+* conda.exe 가 있는 경로를 추가한다.
+
+cmd창에서 `conda --version`을 입력하여 정상동작하면 환경변수가 제대로 설정된 것이다.
+
+anaconda prompt에서 `conda init cmd.exe` 명령어를 실행해주면 cmd를 ananconda prompt처럼 사용할 수 있다.
+
+
+
 ## 기본 문서 작성 문법
 [jupyterbook - cheatsheet](https://jupyterbook.org/en/stable/reference/cheatsheet.html) 참고  
 
@@ -177,31 +217,6 @@ section의 이름은 section.md 파일 안에 있는 H1 header의 이름으로 �
 ```
 
 ## 빌드
-손쉬운 가상 환경을 위해 [Anaconda](https://www.anaconda.com/download/#windows)를 사용한다.
-
-Anaconda prompt에서 Jupyterbook 가상환경을 만든다
-```
-conda create -n jb python=3.9
-```
-
-가상환경에 들어간다.
-
-```
-conda activate jb
-```
-
-conda를 업데이트 한다.
-
-```
-conda update --all
-```
-
-Jupyterbook을 설치한다
-
-```
-pip install -U jupyter-book
-```
-
 anaconda prompt를 실행한다.
 
 jupyter 가상환경을 실행한다.
@@ -235,19 +250,24 @@ python -m make Rebuild
 > [jupyterbook - overview](https://jupyterbook.org/en/stable/start/overview.html)   
 > [jupyterbook - build](https://jupyterbook.org/en/stable/start/build.html)  
 
-### install by conda
+### ETC
+
+* Jupyter book install by conda
+
 Jupyter book을 설취하기 위해 conda를 사용하면 왜 인지 안된다
 ```
 conda install -c conda-forge jupyter-book
 ```
+
+* Jupyter book install by mamba
+
 mamba를 사용하여 설치하면 된다.
 ```
 conda install -c conda-forge mamba
 mamba install -c conda-forge jupyter-book
 ```
 
-### mamba install fail
-경로에 한글이 있는 경우 mamba install이 안될 수 있다. 예를 들어 `C/User/(계정명)`에서 계정명이 한글이면 install이 안된다.
+참고로 경로에 한글이 있는 경우 mamba install이 안될 수 있다. 예를 들어 `C/User/(계정명)`에서 계정명이 한글이면 install이 안된다.
 
 ### Anaconda 명령어
 가상환경 리스트 확인
@@ -261,15 +281,6 @@ conda remove --name [가상환경명] --all
 
 가상환경 실행
 conda activate [가상환경 이름]
-
-### cmd로 ananconda 사용하기
-anaconda를 cmd에서 사용하려면 환경변수 설정을 해야한다.
-
-anaconda prompt에서 `where conda`와 `where python`로 conda.exe와 python.exe의 경로를 찾은뒤 환경변수에 등록해준다.
-
-cmd창에서 `conda --version`을 입력하여 정상동작하면 환경변수가 제대로 설정된 것이다.
-
-anaconda prompt에서 `conda init cmd.exe` 명령어를 실행해주면 cmd를 ananconda prompt처럼 사용할 수 있다.
 
 ### .bat 파일에서 anaconda 사용하기
 anaconda prompt에서 conda로 시작하는 명령어들은 사실 전부 `call conda.bat`과 같다. 
@@ -358,3 +369,7 @@ https://rla523at.github.io/Study
 
 ### 렌더링이 제대로 안되는 경우
 OnlineBook Repository에 .nojekyll 파일을 만들면 해결된다.
+
+> Reference   
+> [981004.tistory - 작성한 문서 github page로 공유하기 (무료!) Sphinx(3)](https://981004.tistory.com/5)   
+> [velog.io/@drypot - GitHub-Pages-No-Jekyll](https://velog.io/@drypot/GitHub-Pages-No-Jekyll)  
