@@ -9,3 +9,10 @@ Memory Bandwidth는 Memory Clock X Memory Bus로 결정된다.
 Memory에 접근하는데 소요되는 시간을 계산하려면, 먼저 Memory에 접근하는데 몇 clock이 소요되는 지 파악한다. 다음으로 Memory Clock 성능을 파악하여 특정 Memory에 접근하는데 몇초가걸리는지 알 수 있다.
 
 예를 들어, Memory 접근하는데 10 clock이 필요하고, Memory Clock이 2GHZ면 Memory clock당 0.5ns가 필요함으로 memory 접근에는 총 5ns가 필요하다.
+
+
+## File Encoding 알아보기
+bash 에서 file * 를 입력하면 해당 경로에 있는 파일들의 Encoding 을 출력해준다.
+
+> Refernece
+> [vhxpffltm.tistory - [Encoding] Windows 파일 인코딩 확인](https://vhxpffltm.tistory.com/243)

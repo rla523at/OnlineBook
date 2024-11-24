@@ -574,7 +574,6 @@
 <li class="toctree-l4"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/RootSignature.html">Root Signature</a></li>
-<li class="toctree-l4"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -587,6 +586,7 @@
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/Initializing%20Direct3D.html">Initializing Direct3D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="02%20Graphics/60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -816,6 +816,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foramt-string">foramt string 출력</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">정규 표현식</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">그룹화</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">비 캡처 그룹</a></li>
@@ -874,6 +875,35 @@
 </pre></div>
 </div>
 <p>lst.append(4)는 가변 객체인 my_list의 내용을 직접 변경하므로 원본이 바뀌게 된다. 그러나 lst = [1, 2, 3]에서는 lst가 완전히 새로운 리스트 객체를 참조하도록 재할당되므로, my_list에는 영향을 주지 않는다.</p>
+<section id="foramt-string">
+<h2>foramt string 출력<a class="headerlink" href="#foramt-string" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>기존 <code class="docutils literal notranslate"><span class="pre">str.format()</span></code> 방식</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Alice&quot;</span>
+<span class="n">age</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;안녕하세요, 제 이름은 </span><span class="si">{}</span><span class="s2">이고 나이는 </span><span class="si">{}</span><span class="s2">살입니다.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">))</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">%</span></code> 포매팅 방식</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Alice&quot;</span>
+<span class="n">age</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;안녕하세요, 제 이름은 </span><span class="si">%s</span><span class="s2">이고 나이는 </span><span class="si">%d</span><span class="s2">살입니다.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">))</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>f-string 방식</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Alice&quot;</span>
+<span class="n">age</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;안녕하세요, 제 이름은 </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">이고 나이는 </span><span class="si">{</span><span class="n">age</span><span class="si">}</span><span class="s2">살입니다.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Python의 f-string (포매팅 문자열) 은 Python 3.6부터 도입된 기능으로, 문자열 내에 변수 또는 표현식을 간단하고 가독성 있게 삽입할 수 있는 방법이다.</p>
+<p>f-string은 문자열 앞에 <code class="docutils literal notranslate"><span class="pre">f</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">F</span></code>를 붙이고, 중괄호 <code class="docutils literal notranslate"><span class="pre">{}</span></code> 안에 변수를 넣어 사용한다.</p>
+</section>
 <section id="id1">
 <h2>정규 표현식<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <section id="id2">
@@ -1273,6 +1303,7 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foramt-string">foramt string 출력</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">정규 표현식</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">그룹화</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">비 캡처 그룹</a></li>

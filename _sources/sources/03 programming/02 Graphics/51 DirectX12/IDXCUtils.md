@@ -1,5 +1,5 @@
 # IDXCUtils
-IDXCUtils는 DirectX 12의 DXC 컴파일러에서 제공하는 유틸리티 인터페이스로, dxcapi.h 에 포함되어 있으며 주로 HLSL(High-Level Shading Language) 컴파일러의 작업을 도와주는 다양한 도구를 포함하고 있다. 
+IDXCUtils 는 DirectX 12의 DXC 컴파일러에서 제공하는 유틸리티 인터페이스로, dxcapi.h 에 포함되어 있으며 주로 HLSL(High-Level Shading Language) 컴파일러의 작업을 도와주는 다양한 도구를 포함하고 있다. 
 
 이를 사용하여 HLSL 코드 컴파일, Blob 관리, 리플렉션 등의 다양한 기능을 수행할 수 있다.
 
@@ -43,7 +43,9 @@ DXC_API_IMPORT HRESULT DxcCreateInstance(
   * 이 오류 코드는 다양한 원인에 의해 발생할 수 있으며, 적절한 진단을 위해 해당 코드를 분석해야 한다.
 
 ## LoadFile 멤버함수
-`IDxcUtils::LoadFile` 함수는 DXC(DXC Shader Compiler) 유틸리티 라이브러리의 멤버 함수로, 파일에서 데이터를 읽어 Blob을 만드는(메모리에 로드하는) 기능을 제공한다. 
+`IDxcUtils::LoadFile` 함수는 파일에서 데이터를 읽어 Blob 을 만드는(메모리에 로드하는) 기능을 제공한다. 
+
+이 함수는 IDxcLibrary::CreateBlobFromFile 함수를 대체한다.
 
 함수의 signature 는 다음과 같다
 
@@ -69,6 +71,11 @@ HRESULT LoadFile(
 
 > Reference
 > [learn.microsoft - nf-dxcapi-idxcutils-loadfile](https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/nf-dxcapi-idxcutils-loadfile)
+
+### 참고
+HLSL 파일을 UTF-8 with BOM 으로 저장하고 LoadFile 에 encoding 으로 CP_UTF8 을 전달할 경우 ComPtr<IDxcBlobEncoding> 객체가 소멸할 때 internal release 오류가 발생한다.
+
+UTF-8 with BOM econding 형식을 CP_UTF8 로 해석하는 과정에서 오류가 발생해서 internal release 오류가 발생하는걸로 보인다.
 
 ## CreateReflection 멤버함수
 CreateReflection 함수는 DirectX 12에서 셰이더의 메타데이터를 추출할 수 있도록 `ID3D12ShaderReflection` 인터페이스를 생성하는 함수다.

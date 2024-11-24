@@ -19,6 +19,33 @@ print(my_list)  # [0, 4]
 
 lst.append(4)는 가변 객체인 my_list의 내용을 직접 변경하므로 원본이 바뀌게 된다. 그러나 lst = [1, 2, 3]에서는 lst가 완전히 새로운 리스트 객체를 참조하도록 재할당되므로, my_list에는 영향을 주지 않는다.
 
+## foramt string 출력
+
+* 기존 `str.format()` 방식
+```python
+name = "Alice"
+age = 25
+print("안녕하세요, 제 이름은 {}이고 나이는 {}살입니다.".format(name, age))
+```
+
+* `%` 포매팅 방식
+```python
+name = "Alice"
+age = 25
+print("안녕하세요, 제 이름은 %s이고 나이는 %d살입니다." % (name, age))
+```
+
+* f-string 방식
+```python
+name = "Alice"
+age = 25
+print(f"안녕하세요, 제 이름은 {name}이고 나이는 {age}살입니다.")
+```
+
+Python의 f-string (포매팅 문자열) 은 Python 3.6부터 도입된 기능으로, 문자열 내에 변수 또는 표현식을 간단하고 가독성 있게 삽입할 수 있는 방법이다. 
+
+f-string은 문자열 앞에 `f` 또는 `F`를 붙이고, 중괄호 `{}` 안에 변수를 넣어 사용한다.
+
 ## 정규 표현식
 
 ### 그룹화

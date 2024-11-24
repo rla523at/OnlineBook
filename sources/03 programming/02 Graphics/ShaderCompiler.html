@@ -574,7 +574,6 @@
 <li class="toctree-l4"><a class="reference internal" href="51%20DirectX12/01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="51%20DirectX12/01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="51%20DirectX12/01%20Resource/RootSignature.html">Root Signature</a></li>
-<li class="toctree-l4"><a class="reference internal" href="51%20DirectX12/01%20Resource/ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="51%20DirectX12/101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -587,6 +586,7 @@
 <li class="toctree-l3"><a class="reference internal" href="51%20DirectX12/ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="51%20DirectX12/IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="51%20DirectX12/Initializing%20Direct3D.html">Initializing Direct3D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="51%20DirectX12/ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -818,7 +818,15 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fxc">FXC</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxc">DXC</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#command-line-flag">command line flag</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standalone-excutable">Standalone Excutable</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#command-line-flag">command line flag</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api">API</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#load-file-encoding">Load File encoding</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dll">DLL 로드</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
@@ -869,7 +877,9 @@
 </section>
 <section id="dxc">
 <h2>DXC<a class="headerlink" href="#dxc" title="Link to this heading">#</a></h2>
-<p>DXC 의 경우 standalone excutable 로 dxc.exe 를 가지고 있으며 이 또한 Windows SDK 에 포함되어 있다</p>
+<section id="standalone-excutable">
+<h3>Standalone Excutable<a class="headerlink" href="#standalone-excutable" title="Link to this heading">#</a></h3>
+<p>DXC 의 경우 standalone excutable 로 dxc.exe 를 가지고 있으며 Windows SDK 에 포함되어 있다</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="p">:</span>\<span class="n">Program</span> <span class="n">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)</span>\<span class="n">Windows</span> <span class="n">Kits</span>\<span class="mi">10</span>\<span class="nb">bin</span>\<span class="mf">10.0.17763.0</span>\<span class="n">x64</span>\<span class="n">dxc</span><span class="o">.</span><span class="n">exe</span>
 
 <span class="n">c</span><span class="p">:</span>\<span class="n">Program</span> <span class="n">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)</span>\<span class="n">Windows</span> <span class="n">Kits</span>\<span class="mi">10</span>\<span class="n">redist</span>\<span class="n">D3D</span>\<span class="n">x64</span>\<span class="n">dxc</span><span class="o">.</span><span class="n">exe</span>
@@ -879,20 +889,14 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dxc</span><span class="o">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">T</span> <span class="n">ps_6_0</span> <span class="o">-</span><span class="n">E</span> <span class="n">main</span> <span class="n">PS</span><span class="o">.</span><span class="n">hlsl</span> <span class="o">-</span><span class="n">Fo</span> <span class="n">PS</span><span class="o">.</span><span class="n">bin</span>
 </pre></div>
 </div>
-<p>참고로, dxc.exe 를 사용하려면 같은 경로에 반드시 dxcompiler.dll 이 있어야 한다.</p>
-<p>왜냐하면 dxc.exe 는 커맨드라인 프로그램이고 실제 로직 구현은 dxcompiler.dll 에 되어 있어 dxc.exe 에서 compile 을 수행하기 위해 dxcompiler.dll 를 호출하기 때문이다</p>
-<p>이런 방식을 채택하게 되면 유지보수와 확장성을 높일 수 있다. 변경이나 업데이트가 필요할 때, dxcompiler.dll만 교체하거나 업데이트함으로써 쉽게 대응할 수 있으며 다른 프로그램에서 dxcompiler.dll 의 기능이 필요할 때 DLL 을 로드만 하기 때문에 코드 재사용성이 높아진다.</p>
+<p>참고로, dxc.exe 를 사용하려면 같은 경로에 반드시 dxcompiler.dll 이 있어야 한다. 왜냐하면 dxc.exe 는 커맨드라인 프로그램이고 실제 로직 구현은 dxcompiler.dll 에 되어 있어 dxc.exe 에서 compile 을 수행하기 위해 dxcompiler.dll 를 호출하기 때문이다. 이런 방식을 사용하게되면 변경이나 업데이트가 필요할 때, dxcompiler.dll만 교체하거나 업데이트함으로써 쉽게 대응할 수 있으며 다른 프로그램에서 dxcompiler.dll 의 기능이 필요할 때 DLL 을 로드만 하기 때문에 코드 재사용성이 높아진다.</p>
 <p>그리고 dxc.exe 에서 제공하는 모든 command-line interface flag 는 <code class="docutils literal notranslate"><span class="pre">dxc.exe</span> <span class="pre">-?</span></code> 를 통해 알 수 있다.</p>
-<p>다음으로 DXC 를 API 로 호출하고 싶은 경우 dxcapi.h 에 있는 Compile 메서드를 호출하면 된다.</p>
-<p>이 때, dxcompiler.lib 와 dxcompiler.dll 를 링크 시켜줘야 한다.</p>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://asawicki.info/news_1719_two_shader_compilers_of_direct3d_12">sawicki - two_shader_compilers_of_direct3d_12</a><br />
-<a class="reference external" href="https://github.com/microsoft/DirectXShaderCompiler/wiki/Using-dxc.exe-and-dxcompiler.dll#using-the-compiler">github.com/microsoft - Using-dxc.exe-and-dxcompiler.dll#using-the-compiler)</a><br />
-<a class="reference external" href="https://lifeisforu.tistory.com/?page=9">lifeisforu.tistory - DXC 필수 바이너리 및 기본 테스트</a></p>
+<a class="reference external" href="https://asawicki.info/news_1719_two_shader_compilers_of_direct3d_12">sawicki - two_shader_compilers_of_direct3d_12</a></p>
 </div></blockquote>
 <section id="command-line-flag">
-<h3>command line flag<a class="headerlink" href="#command-line-flag" title="Link to this heading">#</a></h3>
+<h4>command line flag<a class="headerlink" href="#command-line-flag" title="Link to this heading">#</a></h4>
 <p>-Qstrip_reflect</p>
 <ul class="simple">
 <li><p>이 Flag 를 사용하면 binary shader object file 에 기본으로 저장되던 reflection data 를 제거 할 수 있다.</p></li>
@@ -905,6 +909,148 @@
 <div><p>Reference<br />
 <a class="reference external" href="https://github.com/microsoft/DirectXShaderCompiler/wiki/Using-dxc.exe-and-dxcompiler.dll#reflection">github.com/microsoft - Using-dxc.exe-and-dxcompiler.dll#reflection</a></p>
 </div></blockquote>
+</section>
+</section>
+<section id="api">
+<h3>API<a class="headerlink" href="#api" title="Link to this heading">#</a></h3>
+<p>dxcapi.h 에 있는 함수를 사용하기 위해서는 dxcompiler.lib 와 dxcompiler.dll, dxil.dll 를 로드시켜줘야한다.</p>
+<p>dxcapi.h 와 dxcompiler.lib 그리고 dxcompiler.dll, dxil.dll 은 windows kits 에 포함되어 있다.</p>
+<ul class="simple">
+<li><p>dxcapi.h</p>
+<ul>
+<li><p>C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um</p></li>
+</ul>
+</li>
+<li><p>dxcompiler.lib</p>
+<ul>
+<li><p>C:\Program Files (x86)\Windows Kits\10\Lib\10.0.26100.0\um\x64</p></li>
+</ul>
+</li>
+<li><p>dxcompiler.dll, dxil.dll</p>
+<ul>
+<li><p>C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64</p></li>
+</ul>
+</li>
+</ul>
+<p>redist 에 있는 파일들은 최신 파일들이 아닌것 같다.</p>
+<p>먼저, IDXCUtils 객체를 생성해준다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDxcUtils</span><span class="o">&gt;</span><span class="w"> </span><span class="n">utils_cptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">DxcCreateInstance</span><span class="p">(</span><span class="w"> </span><span class="n">CLSID_DxcUtils</span><span class="p">,</span><span class="w"> </span><span class="n">IID_PPV_ARGS</span><span class="p">(</span><span class="w"> </span><span class="o">&amp;</span><span class="n">utils_cptr</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>다음으로 compile 하고자 하는 shader file 을 memory 에 load 한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDxcBlobEncoding</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shader_blob_cptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">UINT32</span><span class="w"> </span><span class="n">encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CP_UTF8</span><span class="p">;</span>
+<span class="w">  </span><span class="k">auto</span><span class="w">   </span><span class="n">result</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">utils_cptr</span><span class="o">-&gt;</span><span class="n">LoadFile</span><span class="p">(</span><span class="w"> </span><span class="n">file_path</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">encoding</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">shader_blob_cptr</span><span class="w"> </span><span class="p">);</span>
+<span class="w">  </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">SUCCEEDED</span><span class="p">(</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">),</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;{}를 Load 하는데 실패하였습니다. 오류코드({})&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">file_path</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>이 때, shader_blob_cptr 객체가 memory 에 load 된 shader file 정보를 관리함으로 shader file 에 대한 사용이 끝날떄까지 shader_blob_cptr 객체가 소멸되지 않게 주의해야 한다. 만약 소멸될 경우, shader file 정보를 가르키던 포인터들은 전부 dangling pointer 가 되어 의도치 않은 동작을 할 수 있다.</p>
+<p>다음으로 memory 에 load 된 shader file 을 가르키는 DxcBuffer 와 compile argument 를 정의한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">DxcBuffer</span><span class="w"> </span><span class="n">shader_blob_buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">shader_blob_buffer</span><span class="p">.</span><span class="n">Ptr</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="n">shader_blob_cptr</span><span class="o">-&gt;</span><span class="n">GetBufferPointer</span><span class="p">();</span>
+<span class="w">  </span><span class="n">shader_blob_buffer</span><span class="p">.</span><span class="n">Size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">shader_blob_cptr</span><span class="o">-&gt;</span><span class="n">GetBufferSize</span><span class="p">();</span>
+<span class="w">  </span><span class="n">shader_blob_buffer</span><span class="p">.</span><span class="n">Encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DXC_CP_ACP</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">LPCWSTR</span><span class="w"> </span><span class="n">argument_arr</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">base_name</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w">               </span><span class="c1">// Optional shader source file name for error reporting and for PIX shader source view.</span>
+<span class="w">    </span><span class="sa">L</span><span class="s">&quot;-E&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;main&quot;</span><span class="p">,</span><span class="w">                 </span><span class="c1">// Entry point.</span>
+<span class="w">    </span><span class="sa">L</span><span class="s">&quot;-T&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">to_wchar_arr</span><span class="p">(</span><span class="w"> </span><span class="n">profile</span><span class="w"> </span><span class="p">),</span><span class="w"> </span><span class="c1">// Target.</span>
+<span class="w">    </span><span class="sa">L</span><span class="s">&quot;-Zi&quot;</span><span class="p">,</span><span class="w">                         </span><span class="c1">// Enable debug information (slim format)</span>
+<span class="w">    </span><span class="sa">L</span><span class="s">&quot;-Fo&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">bin_file_name</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span><span class="w">  </span><span class="c1">// Optional. Stored in the pdb.</span>
+<span class="w">    </span><span class="sa">L</span><span class="s">&quot;-Fd&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pdb_file_name</span><span class="p">.</span><span class="n">c_str</span><span class="p">(),</span><span class="w">  </span><span class="c1">// The file name of the pdb. This must either be supplied or the autogenerated file name must be used.</span>
+<span class="w">    </span><span class="sa">L</span><span class="s">&quot;-Qstrip_reflect&quot;</span><span class="p">,</span><span class="w">             </span><span class="c1">// Strip reflection into a separate blob.</span>
+<span class="w">  </span><span class="p">};</span>
+</pre></div>
+</div>
+<p>다음으로 IDxcCompiler3 객체를 생성한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDxcCompiler3</span><span class="o">&gt;</span><span class="w"> </span><span class="n">compiler_cptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DxcCreateInstance</span><span class="p">(</span><span class="w"> </span><span class="n">CLSID_DxcCompiler</span><span class="p">,</span><span class="w"> </span><span class="n">IID_PPV_ARGS</span><span class="p">(</span><span class="w"> </span><span class="o">&amp;</span><span class="n">compiler_cptr</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">);</span>
+<span class="w">  </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">SUCCEEDED</span><span class="p">(</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">),</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;IDxcCompiler3 객체를 만드는데 실패하였습니다. 오류코드({})&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>다음으로 IDxcCompiler3::Compile 함수를 호출한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDxcResult</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result_cptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">compiler_cptr</span><span class="o">-&gt;</span><span class="n">Compile</span><span class="p">(</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">shader_blob_buffer</span><span class="p">,</span><span class="w">         </span><span class="c1">// Source buffer.</span>
+<span class="w">    </span><span class="n">argument_arr</span><span class="p">,</span><span class="w">                </span><span class="c1">// Array of pointers to arguments.</span>
+<span class="w">    </span><span class="n">_countof</span><span class="p">(</span><span class="w"> </span><span class="n">argument_arr</span><span class="w"> </span><span class="p">),</span><span class="w">    </span><span class="c1">// Number of arguments.</span>
+<span class="w">    </span><span class="k">nullptr</span><span class="p">,</span><span class="w">                     </span><span class="c1">// User-provided interface to handle #include directives (optional).</span>
+<span class="w">    </span><span class="n">IID_PPV_ARGS</span><span class="p">(</span><span class="w"> </span><span class="o">&amp;</span><span class="n">result_cptr</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="c1">// Compiler output status, buffer, and errors.</span>
+<span class="w">  </span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">SUCCEEDED</span><span class="p">(</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">),</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;{} Compile 에 실패하였습니다. 오류코드({})&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">file_path</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>IDxcResult::GetOutput 함수로 compile 된 shader 에 대한 다양한 정보를 얻을 수 있다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/nf-dxcapi-idxcresult-getoutput">https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/nf-dxcapi-idxcresult-getoutput</a></p></li>
+<li><p><a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/ne-dxcapi-dxc_out_kind">https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/ne-dxcapi-dxc_out_kind</a></p></li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://github.com/microsoft/DirectXShaderCompiler/wiki/Using-dxc.exe-and-dxcompiler.dll#using-the-compiler-interface">github.com/microsoft - Using-dxc.exe-and-dxcompiler.dll#using-the-compiler-interface)</a><br />
+<a class="reference external" href="https://asawicki.info/news_1719_two_shader_compilers_of_direct3d_12">sawicki - two_shader_compilers_of_direct3d_12</a><br />
+<a class="reference external" href="https://lifeisforu.tistory.com/?page=9">lifeisforu.tistory - DXC 필수 바이너리 및 기본 테스트</a>
+<a class="reference external" href="https://github.com/microsoft/DirectXShaderCompiler/wiki/Using-dxc.exe-and-dxcompiler.dll">Using-dxc.exe-and-dxcompiler.dll</a></p>
+</div></blockquote>
+<section id="load-file-encoding">
+<h4>Load File encoding<a class="headerlink" href="#load-file-encoding" title="Link to this heading">#</a></h4>
+<p>encoding 을 명시적으로 정하지 않고 nullptr 을 넘겨도 정상적으로 동작한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDxcBlobEncoding</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shader_blob_cptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utils_cptr</span><span class="o">-&gt;</span><span class="n">LoadFile</span><span class="p">(</span><span class="w"> </span><span class="n">file_path</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">shader_blob_cptr</span><span class="w"> </span><span class="p">);</span>
+<span class="w">  </span><span class="n">REQUIRE</span><span class="p">(</span><span class="w"> </span><span class="n">SUCCEEDED</span><span class="p">(</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">),</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;{}를 Load 하는데 실패하였습니다. 오류코드({})&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">file_path</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="dll">
+<h4>DLL 로드<a class="headerlink" href="#dll" title="Link to this heading">#</a></h4>
+<p>DLL을 로드할 때 다음 순서로 경로를 검색한다.</p>
+<ul class="simple">
+<li><p>프로세스 실행 디렉터리</p>
+<ul>
+<li><p>현재 실행 중인 애플리케이션(예: MyApp.exe)이 위치한 디렉터리.</p></li>
+<li><p>Visual Studio 에서 속성 &gt;&gt; 일반 &gt;&gt; 출력 디렉터리를 보면 실행 파일이 어디에 위치하는지 알 수 있다.</p></li>
+</ul>
+</li>
+<li><p>작업 디렉터리 (Current Working Directory)</p>
+<ul>
+<li><p>프로그램이 실행될 때의 작업 디렉터리.</p></li>
+<li><p>Visual Studio에서 속성 &gt; 디버깅 &gt; 작업 디렉터리에 설정된 경로.</p></li>
+</ul>
+</li>
+<li><p>시스템 디렉터리</p>
+<ul>
+<li><p>Windows 시스템 디렉터리(예: C:\Windows\System32).</p></li>
+<li><p>시스템 DLL은 여기서 로드된다.</p></li>
+</ul>
+</li>
+<li><p>Windows 디렉터리</p>
+<ul>
+<li><p>Windows 설치 디렉터리(예: C:\Windows).</p></li>
+</ul>
+</li>
+<li><p>환경 변수 PATH에 지정된 디렉터리</p>
+<ul>
+<li><p>시스템 또는 사용자 환경 변수에서 PATH에 설정된 디렉터리 목록.</p></li>
+<li><p>Visual Studio에서는 디버깅 시 PATH 환경 변수에 추가된 경로도 고려된다.</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 </section>
 <section id="id1">
@@ -1021,7 +1167,15 @@
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fxc">FXC</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxc">DXC</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#command-line-flag">command line flag</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standalone-excutable">Standalone Excutable</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#command-line-flag">command line flag</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api">API</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#load-file-encoding">Load File encoding</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dll">DLL 로드</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>

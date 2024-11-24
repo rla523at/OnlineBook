@@ -39,7 +39,8 @@ fxc.exe 의 경우 설정가능한 command-line interface 에서 제공하는 �
 > [sawicki - two_shader_compilers_of_direct3d_12](https://asawicki.info/news_1719_two_shader_compilers_of_direct3d_12)  
 
 ## DXC
-DXC 의 경우 standalone excutable 로 dxc.exe 를 가지고 있으며 이 또한 Windows SDK 에 포함되어 있다
+### Standalone Excutable
+DXC 의 경우 standalone excutable 로 dxc.exe 를 가지고 있으며 Windows SDK 에 포함되어 있다
 
 ```
 c:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64\dxc.exe
@@ -53,24 +54,14 @@ c:\Program Files (x86)\Windows Kits\10\redist\D3D\x64\dxc.exe
 dxc.exe -T ps_6_0 -E main PS.hlsl -Fo PS.bin
 ```
 
-참고로, dxc.exe 를 사용하려면 같은 경로에 반드시 dxcompiler.dll 이 있어야 한다.
-
-왜냐하면 dxc.exe 는 커맨드라인 프로그램이고 실제 로직 구현은 dxcompiler.dll 에 되어 있어 dxc.exe 에서 compile 을 수행하기 위해 dxcompiler.dll 를 호출하기 때문이다
-
-이런 방식을 채택하게 되면 유지보수와 확장성을 높일 수 있다. 변경이나 업데이트가 필요할 때, dxcompiler.dll만 교체하거나 업데이트함으로써 쉽게 대응할 수 있으며 다른 프로그램에서 dxcompiler.dll 의 기능이 필요할 때 DLL 을 로드만 하기 때문에 코드 재사용성이 높아진다.
+참고로, dxc.exe 를 사용하려면 같은 경로에 반드시 dxcompiler.dll 이 있어야 한다. 왜냐하면 dxc.exe 는 커맨드라인 프로그램이고 실제 로직 구현은 dxcompiler.dll 에 되어 있어 dxc.exe 에서 compile 을 수행하기 위해 dxcompiler.dll 를 호출하기 때문이다. 이런 방식을 사용하게되면 변경이나 업데이트가 필요할 때, dxcompiler.dll만 교체하거나 업데이트함으로써 쉽게 대응할 수 있으며 다른 프로그램에서 dxcompiler.dll 의 기능이 필요할 때 DLL 을 로드만 하기 때문에 코드 재사용성이 높아진다.
 
 그리고 dxc.exe 에서 제공하는 모든 command-line interface flag 는 `dxc.exe -?` 를 통해 알 수 있다.
 
-다음으로 DXC 를 API 로 호출하고 싶은 경우 dxcapi.h 에 있는 Compile 메서드를 호출하면 된다.
-
-이 때, dxcompiler.lib 와 dxcompiler.dll 를 링크 시켜줘야 한다.
-
 > Reference  
-> [sawicki - two_shader_compilers_of_direct3d_12](https://asawicki.info/news_1719_two_shader_compilers_of_direct3d_12)  
-> [github.com/microsoft - Using-dxc.exe-and-dxcompiler.dll#using-the-compiler)](https://github.com/microsoft/DirectXShaderCompiler/wiki/Using-dxc.exe-and-dxcompiler.dll#using-the-compiler)  
-> [lifeisforu.tistory - DXC 필수 바이너리 및 기본 테스트](https://lifeisforu.tistory.com/?page=9)  
+> [sawicki - two_shader_compilers_of_direct3d_12](https://asawicki.info/news_1719_two_shader_compilers_of_direct3d_12)   
 
-### command line flag
+#### command line flag
 -Qstrip_reflect
 * 이 Flag 를 사용하면 binary shader object file 에 기본으로 저장되던 reflection data 를 제거 할 수 있다.
 
@@ -79,6 +70,132 @@ dxc.exe -T ps_6_0 -E main PS.hlsl -Fo PS.bin
 
 > Reference  
 > [github.com/microsoft - Using-dxc.exe-and-dxcompiler.dll#reflection](https://github.com/microsoft/DirectXShaderCompiler/wiki/Using-dxc.exe-and-dxcompiler.dll#reflection)  
+
+### API
+dxcapi.h 에 있는 함수를 사용하기 위해서는 dxcompiler.lib 와 dxcompiler.dll, dxil.dll 를 로드시켜줘야한다.
+
+dxcapi.h 와 dxcompiler.lib 그리고 dxcompiler.dll, dxil.dll 은 windows kits 에 포함되어 있다.
+* dxcapi.h
+  * C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um
+* dxcompiler.lib
+  * C:\Program Files (x86)\Windows Kits\10\Lib\10.0.26100.0\um\x64
+* dxcompiler.dll, dxil.dll
+  * C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64
+
+redist 에 있는 파일들은 최신 파일들이 아닌것 같다.
+
+먼저, IDXCUtils 객체를 생성해준다.
+
+```cpp
+  ComPtr<IDxcUtils> utils_cptr = nullptr;
+  {
+    DxcCreateInstance( CLSID_DxcUtils, IID_PPV_ARGS( &utils_cptr ) );
+  }
+```
+
+다음으로 compile 하고자 하는 shader file 을 memory 에 load 한다.
+
+```cpp
+ComPtr<IDxcBlobEncoding> shader_blob_cptr = nullptr;
+{
+  UINT32 encoding = CP_UTF8;
+  auto   result   = utils_cptr->LoadFile( file_path, &encoding, &shader_blob_cptr );
+  REQUIRE( SUCCEEDED( result ), L"{}를 Load 하는데 실패하였습니다. 오류코드({})", file_path, result );
+}
+```
+
+이 때, shader_blob_cptr 객체가 memory 에 load 된 shader file 정보를 관리함으로 shader file 에 대한 사용이 끝날떄까지 shader_blob_cptr 객체가 소멸되지 않게 주의해야 한다. 만약 소멸될 경우, shader file 정보를 가르키던 포인터들은 전부 dangling pointer 가 되어 의도치 않은 동작을 할 수 있다.
+
+다음으로 memory 에 load 된 shader file 을 가르키는 DxcBuffer 와 compile argument 를 정의한다. 
+
+```cpp
+DxcBuffer shader_blob_buffer = {};
+{
+  shader_blob_buffer.Ptr      = shader_blob_cptr->GetBufferPointer();
+  shader_blob_buffer.Size     = shader_blob_cptr->GetBufferSize();
+  shader_blob_buffer.Encoding = DXC_CP_ACP;
+}
+
+LPCWSTR argument_arr[] =
+  {
+    base_name.data(),               // Optional shader source file name for error reporting and for PIX shader source view.
+    L"-E", L"main",                 // Entry point.
+    L"-T", to_wchar_arr( profile ), // Target.
+    L"-Zi",                         // Enable debug information (slim format)
+    L"-Fo", bin_file_name.c_str(),  // Optional. Stored in the pdb.
+    L"-Fd", pdb_file_name.c_str(),  // The file name of the pdb. This must either be supplied or the autogenerated file name must be used.
+    L"-Qstrip_reflect",             // Strip reflection into a separate blob.
+  };
+```
+
+다음으로 IDxcCompiler3 객체를 생성한다.
+
+```cpp
+ComPtr<IDxcCompiler3> compiler_cptr = nullptr;
+{
+  const auto result = DxcCreateInstance( CLSID_DxcCompiler, IID_PPV_ARGS( &compiler_cptr ) );
+  REQUIRE( SUCCEEDED( result ), L"IDxcCompiler3 객체를 만드는데 실패하였습니다. 오류코드({})", result );
+}
+```
+
+다음으로 IDxcCompiler3::Compile 함수를 호출한다.
+
+```cpp
+ComPtr<IDxcResult> result_cptr = nullptr;
+{
+  const auto result = compiler_cptr->Compile(
+    &shader_blob_buffer,         // Source buffer.
+    argument_arr,                // Array of pointers to arguments.
+    _countof( argument_arr ),    // Number of arguments.
+    nullptr,                     // User-provided interface to handle #include directives (optional).
+    IID_PPV_ARGS( &result_cptr ) // Compiler output status, buffer, and errors.
+  );
+
+  REQUIRE( SUCCEEDED( result ), L"{} Compile 에 실패하였습니다. 오류코드({})", file_path, result );
+}
+```
+
+IDxcResult::GetOutput 함수로 compile 된 shader 에 대한 다양한 정보를 얻을 수 있다.
+
+* https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/nf-dxcapi-idxcresult-getoutput
+* https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/ne-dxcapi-dxc_out_kind
+
+
+
+> Reference  
+> [github.com/microsoft - Using-dxc.exe-and-dxcompiler.dll#using-the-compiler-interface)](https://github.com/microsoft/DirectXShaderCompiler/wiki/Using-dxc.exe-and-dxcompiler.dll#using-the-compiler-interface)  
+> [sawicki - two_shader_compilers_of_direct3d_12](https://asawicki.info/news_1719_two_shader_compilers_of_direct3d_12)  
+> [lifeisforu.tistory - DXC 필수 바이너리 및 기본 테스트](https://lifeisforu.tistory.com/?page=9)
+> [Using-dxc.exe-and-dxcompiler.dll](https://github.com/microsoft/DirectXShaderCompiler/wiki/Using-dxc.exe-and-dxcompiler.dll)
+
+#### Load File encoding
+encoding 을 명시적으로 정하지 않고 nullptr 을 넘겨도 정상적으로 동작한다.
+
+```cpp
+ComPtr<IDxcBlobEncoding> shader_blob_cptr = nullptr;
+{
+  auto result = utils_cptr->LoadFile( file_path, nullptr, &shader_blob_cptr );
+  REQUIRE( SUCCEEDED( result ), L"{}를 Load 하는데 실패하였습니다. 오류코드({})", file_path, result );
+}
+```
+
+#### DLL 로드
+DLL을 로드할 때 다음 순서로 경로를 검색한다. 
+
+* 프로세스 실행 디렉터리
+  * 현재 실행 중인 애플리케이션(예: MyApp.exe)이 위치한 디렉터리.
+  * Visual Studio 에서 속성 >> 일반 >> 출력 디렉터리를 보면 실행 파일이 어디에 위치하는지 알 수 있다.
+* 작업 디렉터리 (Current Working Directory)
+  * 프로그램이 실행될 때의 작업 디렉터리.
+  * Visual Studio에서 속성 > 디버깅 > 작업 디렉터리에 설정된 경로.
+* 시스템 디렉터리
+  * Windows 시스템 디렉터리(예: C:\Windows\System32).
+  * 시스템 DLL은 여기서 로드된다.
+* Windows 디렉터리
+  * Windows 설치 디렉터리(예: C:\Windows).
+* 환경 변수 PATH에 지정된 디렉터리
+  * 시스템 또는 사용자 환경 변수에서 PATH에 설정된 디렉터리 목록.
+  * Visual Studio에서는 디버깅 시 PATH 환경 변수에 추가된 경로도 고려된다.
 
 ## 참고
 binary shader object file 의 확장자로 visual studio 에서는 .cso 를 쓴다.

@@ -574,7 +574,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/RootSignature.html">Root Signature</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -587,6 +586,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/Initializing%20Direct3D.html">Initializing Direct3D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../02%20Graphics/60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -837,6 +837,19 @@
 <h1>format<a class="headerlink" href="#format" title="Link to this heading">#</a></h1>
 <section id="std-format">
 <h2>std::format<a class="headerlink" href="#std-format" title="Link to this heading">#</a></h2>
+<p>args 에 wide character 가 있으면 fmt 도 wformat_string 이어야 한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="w"> </span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="n">wstirng_view</span><span class="w"> </span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">wstring_view</span><span class="w"> </span><span class="n">wstr_view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;Char arr&quot;</span><span class="p">;</span>
+
+<span class="w">   </span><span class="c1">//const auto result = std::format( &quot;{}&quot;, wstr_view ); //불가능</span>
+<span class="w">   </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">wstr_view</span><span class="w"> </span><span class="p">);</span>
+
+<span class="w">   </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">wstring</span><span class="w"> </span><span class="n">ref</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;Char arr&quot;</span><span class="p">;</span>
+<span class="w">   </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="w"> </span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">ref</span><span class="w"> </span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://en.cppreference.com/w/cpp/utility/format/format">cppreference - format</a><br />
@@ -845,6 +858,7 @@
 </section>
 <section id="std-vformat">
 <h2>std::vformat<a class="headerlink" href="#std-vformat" title="Link to this heading">#</a></h2>
+<p>format string 이 동적으로 결정되어야 할 때 사용한다.</p>
 </section>
 <section id="standard-format-specification">
 <h2>Standard format specification<a class="headerlink" href="#standard-format-specification" title="Link to this heading">#</a></h2>
