@@ -1,5 +1,4 @@
 # Shader Compiler
-
 shader compiler 는 HLSL shader code 를 binary shader object file 로 컴파일 한다.
 
 이 때, legacy shader compiler 인 FXC 를 이용할 수도 있고 modern shader compiler 인 DXC 을 이용할 수도 있다.
