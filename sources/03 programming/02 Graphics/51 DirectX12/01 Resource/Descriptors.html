@@ -574,7 +574,6 @@
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Creation.html">Resource Creation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="RootSignature.html">Root Signature</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -587,6 +586,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Initializing%20Direct3D.html">Initializing Direct3D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -672,6 +672,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../20%20ETC/chatGPT.html">chatGPT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../20%20ETC/Jupyter%20Book.html">Jupyter Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../20%20ETC/MarkDown.html">Mark Down</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -857,7 +858,8 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="descriptors">
 <h1>Descriptors<a class="headerlink" href="#descriptors" title="Link to this heading">#</a></h1>
-<p>Descriptor 는 GPU memory 에 저장되어 있는 resource 에 대한 정보를 완전히 설명하는 작은 데이터 블록으로 D3D12 binding 의 기본 단위이다.</p>
+<p>Descriptor 는 GPU memory 에 저장되어 있는 resource 를 설명하는 작은 데이터 블록으로 D3D12 binding 의 기본 단위이다.</p>
+<p>Descriptor 는 GPU memory 에 대한 설명이지만 Descriptor 자체는 CPU memory 에 저장된다.</p>
 <p>Descriptor 의 종류에는 다음이 있다.</p>
 <ul class="simple">
 <li><p>render target views (RTVs)</p></li>

@@ -1,5 +1,7 @@
 # Descriptors
-Descriptor 는 GPU memory 에 저장되어 있는 resource 에 대한 정보를 완전히 설명하는 작은 데이터 블록으로 D3D12 binding 의 기본 단위이다.
+Descriptor 는 GPU memory 에 저장되어 있는 resource 를 설명하는 작은 데이터 블록으로 D3D12 binding 의 기본 단위이다.
+
+Descriptor 는 GPU memory 에 대한 설명이지만 Descriptor 자체는 CPU memory 에 저장된다.
 
 Descriptor 의 종류에는 다음이 있다.
 * render target views (RTVs)
