@@ -7,8 +7,6 @@ shader compiler 는 HLSL shader code 를 binary shader object file 로 컴파일
 
 만약 FXC 를 사용해 compile 한다면 cso 파일에는 DirectX Byte Code(DXBC) 로 컴파일 된 결과가 포함되어 있다.
 
-만약 DXC 을 사용해 compile 한다면 cso 파일에는 DirectX Intermedia Language(DXIL) 로 컴파일 된 결과가 포함되어 있다.
-
 그리고 compiler 를 이용해서 컴파일 하는 방법에는 크게 두가지가 있다.
 
 standalone excutable 을 사용해서 command line 을 활용하는 방법과 DirectX API 를 호출하는 방법이다.
@@ -38,6 +36,11 @@ fxc.exe 의 경우 설정가능한 command-line interface 에서 제공하는 �
 > [sawicki - two_shader_compilers_of_direct3d_12](https://asawicki.info/news_1719_two_shader_compilers_of_direct3d_12)  
 
 ## DXC
+DXC 을 사용해 compile 한다면 결과로 나오는 binary shader object 파일은 DirectX Intermedia Language(DXIL) 로 표현되어 있다.
+
+> Reference
+> [github.com/microsoft - DirectXShaderCompiler/wiki](https://github.com/microsoft/DirectXShaderCompiler/wiki)  
+
 ### Standalone Excutable
 DXC 의 경우 standalone excutable 로 dxc.exe 를 가지고 있으며 Windows SDK 에 포함되어 있다
 
@@ -64,8 +67,20 @@ dxc.exe -T ps_6_0 -E main PS.hlsl -Fo PS.bin
 -Qstrip_reflect
 * 이 Flag 를 사용하면 binary shader object file 에 기본으로 저장되던 reflection data 를 제거 할 수 있다.
 
--Fre
+-Fre <file>
 * reflection data 를 별도의 파일에 저장할 수 있다.
+
+<details>
+<summary> -Fd <file> </summary>
+
+* debug information 을 별도의 파일에 저장할 수 있다.
+  
+* /Zi 나 /Zs flag 없이 이 flag 를 사용할 경우 debug info 가 없다는 오류가 발생한다.
+  ```
+  /Fd specified, but no Debug Info was found in the shader, please use the /Zi or /Zs switch to generate debug information compiling this shader.
+  ```
+
+</details>
 
 > Reference  
 > [github.com/microsoft - Using-dxc.exe-and-dxcompiler.dll#reflection](https://github.com/microsoft/DirectXShaderCompiler/wiki/Using-dxc.exe-and-dxcompiler.dll#reflection)  
@@ -159,8 +174,6 @@ IDxcResult::GetOutput 함수로 compile 된 shader 에 대한 다양한 정보�
 * https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/nf-dxcapi-idxcresult-getoutput
 * https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/ne-dxcapi-dxc_out_kind
 
-
-
 > Reference  
 > [github.com/microsoft - Using-dxc.exe-and-dxcompiler.dll#using-the-compiler-interface)](https://github.com/microsoft/DirectXShaderCompiler/wiki/Using-dxc.exe-and-dxcompiler.dll#using-the-compiler-interface)  
 > [sawicki - two_shader_compilers_of_direct3d_12](https://asawicki.info/news_1719_two_shader_compilers_of_direct3d_12)  
@@ -203,20 +216,22 @@ binary shader object file 의 확장자로 visual studio 에서는 .cso 를 쓴�
 > [learn.microsoft - dx-graphics-hlsl-part1#using-shader-code-file-extensions](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-part1#using-shader-code-file-extensions)  
 > [stackoverflow - whats-the-relationship-between-cso-files-and-dxil](https://stackoverflow.com/questions/77252600/whats-the-relationship-between-cso-files-and-dxil)  
 
-## DXC_XS
-GDK 문서의 SHader Compiler 항목을 보면 Xbox 용 DXC compiler 는 Instruct Set Architecture(ISA) 를 만들어 낼 때, 비용이 많이 드는 compile step 이 xbox console 에서 runtime 에 발생하는 상황을 피하기 위해 기본적으로 development PC 에서 precompilation 이 이루어지도록 하며 이를 조절하는 매크로들을 정의해 두었다.
+### DXC_XS
+PC DXC compiler 는 Just in Time (JIT) 모드로 동작하는데 최적화가 되어있어 runtime 에 DXIL 을 Instruct Set Architecture(ISA) instructions 로 만드는데 부담이 없다. 하지만 Xbox DXC compiler (DXC_XS) 는 runtime 에 DXIL 을 ISA instructions 로 만드는데 부담이 되기 때문에 기본적으로 development PC 에서 precompilation 이 이루어지도록 한다.
 
-별다른 매크로 옵션을 안줄 경우 기본적으로 Offline precompile stripped dxil 방식으로 이루어진다.
+별다른 매크로 옵션을 안줄 경우 기본적으로 /D__XBOX_STRIP_DXIL=1 이 정의된거와 같으며 Offline precompile stripped dxil 방식으로 이루어진다.
 * DXC (offline) : HLSL -> DXIL -(RootSig)-> ISA
 * XBOX (Runtime) : ISA -(RootSig)-> use ISA if valid
 
 만약 /D__XBOX_STRIP_DXIL=0 매크로 옵션을 줄 경우 Offline precompile unstripped dxil 방식으로 이루어진다.
 * DXC (offline) : HLSL -> DXIL -(RootSig)-> DXIL + ISA
-* XBOX (Runtime) : DXIL + ISA -(RootSig)-> use ISA if valid
+* XBOX (Runtime) : DXIL + ISA -(RootSig)-> use ISA if valid, otherwise recompile from DXIL
 
 만약 /D__XBOX_DISABLE_PRECOMPILE 매크로 옵션을 줄 경우 Offline no-precompile 방식으로 이루어진다.
 * DXC (offline) : HLSL -> DXIL 
 * XBOX (Runtime) : DXIL -(RootSig)-> compile to ISA
+
+매크로로 조절하는 대신에 -noprecompile 이라는 컴파일 flag 옵션으로도 조절할 수 있다.
 
 ## DXIL
 DirectX Intermediate Language(DXIL) 는 DirectX 12 에서 도입된 HLSL 의 중간 표현 (intermediate representation, IR) 이다.

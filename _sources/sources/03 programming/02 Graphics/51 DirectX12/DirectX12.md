@@ -2,9 +2,36 @@
 DirectX는 Microsoft에서 개발한 API(응용 프로그램 인터페이스) 집합으로, 멀티미디어 애플리케이션, 특히 게임 및 비디오 애플리케이션을 쉽게 개발할 수 있게 도와준다. DirectX API는 다양한 하위 API로 구성되어 있으며, 각 하위 API는 특정 멀티미디어 기능을 처리하는 데 사용된다. 
 
 > Reference    
-> [blog - ssinyoung.tistory](https://ssinyoung.tistory.com/category/PROGRAMMING/DirectX%2012)  
-> [blog - dafher-diary.tistory](https://dafher-diary.tistory.com/category/DirectX12)   
+> [blog - ssinyoung.tistory](https://ssinyoung.tistory.com/category/PROGRAMMING/DirectX%2012)   
+> [blog - dafher-diary.tistory](https://dafher-diary.tistory.com/category/DirectX12)    
 > [3dgep](https://www.3dgep.com/learning-directx-12-1/)  
+
+
+<details> <summary> <h2 style="display:inline-block"> DirectX 12 Programming Guide </h2></summary>
+
+[Code Flow](https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-basic-direct3d-12-component)
+
+[주요 변경사항 - 개요](https://learn.microsoft.com/en-us/windows/win32/direct3d12/important-changes-from-directx-11-to-directx-12)
+
+[Command Queue & List Design Philosophy](https://learn.microsoft.com/en-us/windows/win32/direct3d12/design-philosophy-of-command-queues-and-command-lists) 
+
+[resource binding flow](https://learn.microsoft.com/en-us/windows/win32/direct3d12/resource-binding-flow-of-control#resource-binding-flow-of-control)
+
+> Reference    
+> [learn.microsoft - directx-12-programming-guide](https://learn.microsoft.com/en-us/windows/win32/direct3d12/directx-12-programming-guide)   
+
+</details>
+
+
+
+
+## Direct Memory Acess ( DMA )
+
+> Reference  
+> [wiki - Direct_memory_access](https://en.wikipedia.org/wiki/Direct_memory_access)  
+
+## Deffered Rendering
+각 오브젝트를 그릴 때 조명을 계산하는 Forward Rendering 과는 다르게 모든 오브젝트를 먼저 화면 버퍼에 그리고, 조명 계산은 그 후에 한꺼번에 수행하는 방식이다.
 
 ## Sample Code
 

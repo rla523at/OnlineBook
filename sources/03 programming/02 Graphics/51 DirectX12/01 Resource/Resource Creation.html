@@ -463,7 +463,9 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/array.html">array</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/Chrono.html">Chrono</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/function.html">function</a></li>
 </ul>
@@ -574,7 +576,6 @@
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">Resource Creation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="RootSignature.html">Root Signature</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -587,6 +588,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Initializing%20Direct3D.html">Initializing Direct3D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -606,6 +608,7 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../DirectXMath.html">DirectXMath</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Sampling.html">Sampling</a></li>
@@ -672,6 +675,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../20%20ETC/chatGPT.html">chatGPT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../20%20ETC/Jupyter%20Book.html">Jupyter Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../20%20ETC/MarkDown.html">Mark Down</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -816,7 +820,6 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commited-resource-and-placed-resource">Commited Resource and Placed Resource</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommittedresource">ID3D12Device::CreateCommittedResource</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-resource-desc">D3D12_RESOURCE_DESC 구조체</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cd3dx12-resource-desc">CD3DX12_RESOURCE_DESC 구조체</a></li>
@@ -842,13 +845,11 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="resource-creation">
 <h1>Resource Creation<a class="headerlink" href="#resource-creation" title="Link to this heading">#</a></h1>
-<section id="commited-resource-and-placed-resource">
-<h2>Commited Resource and Placed Resource<a class="headerlink" href="#commited-resource-and-placed-resource" title="Link to this heading">#</a></h2>
+<details> <summary> <h2 style="display:inline-block"> Commited Resource and Placed Resource </h2></summary>
 <p>Committed Resource 는 resource 와 resource 를 저장하는데 필요한 독립적인 GPU 의 heap memory 공간이 동시에 할당되는 resource 를 의미한다.</p>
 <p>Committed Resource 의 경우 독립적인 heap memory 공간이 할당되기 때문에, commited resource 를 생성할때는 heap memory 공간에 대한 고려를 할 필요가 없다.</p>
 <p>이와 다르게 Placed Resource 의 경우 resource 를 생성할 때, resource 를 저장하는데 필요한 heap memory 공간을 함께 주어저야 하는 resource 를 의미한다.</p>
 <p>따라서, placed resource 의 경우 heap memory 를 공유하게 할 수 있어 resource 간 메모리 낭비를 줄여 memory 를 보다 효율적으로 사용할 수 있게 만들 수 있다.</p>
-</section>
 <section id="id3d12device-createcommittedresource">
 <h2>ID3D12Device::CreateCommittedResource<a class="headerlink" href="#id3d12device-createcommittedresource" title="Link to this heading">#</a></h2>
 <p>ID3D12Device::CreateCommittedResource 함수는 committed resource 를 생성하는 함수이다.</p>
@@ -1039,6 +1040,7 @@
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-resource-desc">learn.microsoft - cd3dx12-resource-desc</a></p>
 </div></blockquote>
+</details>
 </section>
 </section>
 <section id="enum-d3d12-resource-states">
@@ -1296,6 +1298,13 @@
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map#advanced-usage-models">learn.microsoft - nf-d3d12-id3d12resource-map#advanced-usage-models</a></p>
 </div></blockquote>
+<details> <summary> <h2 style="display:inline-block"> Resource 를 만드는데 필요한 GPU memory 알아내기 </h2></summary>
+<p>ID3D12Device::GetResourceAllocationInfo</p>
+<blockquote>
+<div><p>Reference
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-getresourceallocationinfo(uint_uint_constd3d12_resource_desc)"></a></p>
+</div></blockquote>
+</details>
 </section>
 </section>
 </section>
@@ -1365,7 +1374,6 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commited-resource-and-placed-resource">Commited Resource and Placed Resource</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommittedresource">ID3D12Device::CreateCommittedResource</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-resource-desc">D3D12_RESOURCE_DESC 구조체</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cd3dx12-resource-desc">CD3DX12_RESOURCE_DESC 구조체</a></li>

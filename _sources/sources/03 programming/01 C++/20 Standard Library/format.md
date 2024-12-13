@@ -25,10 +25,36 @@ format string 이 동적으로 결정되어야 할 때 사용한다.
 
 ## Standard format specification
 
+```
+fill-and-align(optional) sign(optional) #(optional) 0(optional) width(optional) precision(optional) L(optional) type(optional)		
+```
+
 ### Fill and align
 
 ```
 {:[fill character][align options][width]}
+```
+
+> Reference  
+> [cppreference - format/spec](https://en.cppreference.com/w/cpp/utility/format/spec)  
+
+### Sign, #, and 0
+
+\# option causes the alternate form For integral types, when binary, octal, or hexadecimal presentation type is used, the alternate form inserts the prefix (0b, 0, or 0x) into the output value after the sign character (possibly space) if there is one, or add it before the output value otherwise.
+
+> Reference  
+> [cppreference - format/spec](https://en.cppreference.com/w/cpp/utility/format/spec)  
+
+### Type
+
+16진수 표현
+```
+{:x}
+```
+
+2진수 표현
+```
+{:b}
 ```
 
 > Reference  

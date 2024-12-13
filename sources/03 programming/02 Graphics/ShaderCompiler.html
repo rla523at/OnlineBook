@@ -463,7 +463,9 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/array.html">array</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/Chrono.html">Chrono</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/function.html">function</a></li>
 </ul>
@@ -606,6 +608,7 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="DirectXMath.html">DirectXMath</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Sampling.html">Sampling</a></li>
@@ -830,8 +833,10 @@
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxc-xs">DXC_XS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dxc-xs">DXC_XS</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxil">DXIL</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
 </ul>
@@ -851,7 +856,6 @@
 <p>이 때, legacy shader compiler 인 FXC 를 이용할 수도 있고 modern shader compiler 인 DXC 을 이용할 수도 있다.</p>
 <p>이 두개의 compiler 는 서로 다른 binary format을 갖는다.</p>
 <p>만약 FXC 를 사용해 compile 한다면 cso 파일에는 DirectX Byte Code(DXBC) 로 컴파일 된 결과가 포함되어 있다.</p>
-<p>만약 DXC 을 사용해 compile 한다면 cso 파일에는 DirectX Intermedia Language(DXIL) 로 컴파일 된 결과가 포함되어 있다.</p>
 <p>그리고 compiler 를 이용해서 컴파일 하는 방법에는 크게 두가지가 있다.</p>
 <p>standalone excutable 을 사용해서 command line 을 활용하는 방법과 DirectX API 를 호출하는 방법이다.</p>
 <blockquote>
@@ -878,6 +882,11 @@
 </section>
 <section id="dxc">
 <h2>DXC<a class="headerlink" href="#dxc" title="Link to this heading">#</a></h2>
+<p>DXC 을 사용해 compile 한다면 결과로 나오는 binary shader object 파일은 DirectX Intermedia Language(DXIL) 로 표현되어 있다.</p>
+<blockquote>
+<div><p>Reference
+<a class="reference external" href="https://github.com/microsoft/DirectXShaderCompiler/wiki">github.com/microsoft - DirectXShaderCompiler/wiki</a></p>
+</div></blockquote>
 <section id="standalone-excutable">
 <h3>Standalone Excutable<a class="headerlink" href="#standalone-excutable" title="Link to this heading">#</a></h3>
 <p>DXC 의 경우 standalone excutable 로 dxc.exe 를 가지고 있으며 Windows SDK 에 포함되어 있다</p>
@@ -902,10 +911,21 @@
 <ul class="simple">
 <li><p>이 Flag 를 사용하면 binary shader object file 에 기본으로 저장되던 reflection data 를 제거 할 수 있다.</p></li>
 </ul>
-<p>-Fre</p>
+<p>-Fre <file></p>
 <ul class="simple">
 <li><p>reflection data 를 별도의 파일에 저장할 수 있다.</p></li>
 </ul>
+<details>
+<summary> -Fd <file> </summary>
+<ul>
+<li><p>debug information 을 별도의 파일에 저장할 수 있다.</p></li>
+<li><p>/Zi 나 /Zs flag 없이 이 flag 를 사용할 경우 debug info 가 없다는 오류가 발생한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">Fd</span> <span class="n">specified</span><span class="p">,</span> <span class="n">but</span> <span class="n">no</span> <span class="n">Debug</span> <span class="n">Info</span> <span class="n">was</span> <span class="n">found</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">shader</span><span class="p">,</span> <span class="n">please</span> <span class="n">use</span> <span class="n">the</span> <span class="o">/</span><span class="n">Zi</span> <span class="ow">or</span> <span class="o">/</span><span class="n">Zs</span> <span class="n">switch</span> <span class="n">to</span> <span class="n">generate</span> <span class="n">debug</span> <span class="n">information</span> <span class="n">compiling</span> <span class="n">this</span> <span class="n">shader</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</details>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://github.com/microsoft/DirectXShaderCompiler/wiki/Using-dxc.exe-and-dxcompiler.dll#reflection">github.com/microsoft - Using-dxc.exe-and-dxcompiler.dll#reflection</a></p>
@@ -1062,11 +1082,10 @@
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-part1#using-shader-code-file-extensions">learn.microsoft - dx-graphics-hlsl-part1#using-shader-code-file-extensions</a><br />
 <a class="reference external" href="https://stackoverflow.com/questions/77252600/whats-the-relationship-between-cso-files-and-dxil">stackoverflow - whats-the-relationship-between-cso-files-and-dxil</a></p>
 </div></blockquote>
-</section>
 <section id="dxc-xs">
-<h2>DXC_XS<a class="headerlink" href="#dxc-xs" title="Link to this heading">#</a></h2>
-<p>GDK 문서의 SHader Compiler 항목을 보면 Xbox 용 DXC compiler 는 Instruct Set Architecture(ISA) 를 만들어 낼 때, 비용이 많이 드는 compile step 이 xbox console 에서 runtime 에 발생하는 상황을 피하기 위해 기본적으로 development PC 에서 precompilation 이 이루어지도록 하며 이를 조절하는 매크로들을 정의해 두었다.</p>
-<p>별다른 매크로 옵션을 안줄 경우 기본적으로 Offline precompile stripped dxil 방식으로 이루어진다.</p>
+<h3>DXC_XS<a class="headerlink" href="#dxc-xs" title="Link to this heading">#</a></h3>
+<p>PC DXC compiler 는 Just in Time (JIT) 모드로 동작하는데 최적화가 되어있어 runtime 에 DXIL 을 Instruct Set Architecture(ISA) instructions 로 만드는데 부담이 없다. 하지만 Xbox DXC compiler (DXC_XS) 는 runtime 에 DXIL 을 ISA instructions 로 만드는데 부담이 되기 때문에 기본적으로 development PC 에서 precompilation 이 이루어지도록 한다.</p>
+<p>별다른 매크로 옵션을 안줄 경우 기본적으로 /D__XBOX_STRIP_DXIL=1 이 정의된거와 같으며 Offline precompile stripped dxil 방식으로 이루어진다.</p>
 <ul class="simple">
 <li><p>DXC (offline) : HLSL -&gt; DXIL -(RootSig)-&gt; ISA</p></li>
 <li><p>XBOX (Runtime) : ISA -(RootSig)-&gt; use ISA if valid</p></li>
@@ -1074,13 +1093,15 @@
 <p>만약 /D__XBOX_STRIP_DXIL=0 매크로 옵션을 줄 경우 Offline precompile unstripped dxil 방식으로 이루어진다.</p>
 <ul class="simple">
 <li><p>DXC (offline) : HLSL -&gt; DXIL -(RootSig)-&gt; DXIL + ISA</p></li>
-<li><p>XBOX (Runtime) : DXIL + ISA -(RootSig)-&gt; use ISA if valid</p></li>
+<li><p>XBOX (Runtime) : DXIL + ISA -(RootSig)-&gt; use ISA if valid, otherwise recompile from DXIL</p></li>
 </ul>
 <p>만약 /D__XBOX_DISABLE_PRECOMPILE 매크로 옵션을 줄 경우 Offline no-precompile 방식으로 이루어진다.</p>
 <ul class="simple">
 <li><p>DXC (offline) : HLSL -&gt; DXIL</p></li>
 <li><p>XBOX (Runtime) : DXIL -(RootSig)-&gt; compile to ISA</p></li>
 </ul>
+<p>매크로로 조절하는 대신에 -noprecompile 이라는 컴파일 flag 옵션으로도 조절할 수 있다.</p>
+</section>
 </section>
 <section id="dxil">
 <h2>DXIL<a class="headerlink" href="#dxil" title="Link to this heading">#</a></h2>
@@ -1179,8 +1200,10 @@
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxc-xs">DXC_XS</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dxc-xs">DXC_XS</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dxil">DXIL</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflection">Reflection</a></li>
 </ul>

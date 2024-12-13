@@ -3,6 +3,17 @@
 > 참고  
 > [initialization - cppreference](https://en.cppreference.com/w/cpp/language/initialization)
 
+## Default Initialization
+
+The effects of default-initialization are:
+
+if T is a (possibly cv-qualified) non-POD(until C++11) class type, the constructors are considered and subjected to overload resolution against the empty argument list. The constructor selected (which is one of the default constructors) is called to provide the initial value for the new object;
+if T is an array type, every element of the array is default-initialized;
+otherwise, no initialization is performed (see notes).
+
+> Reference
+> [cppreference - default_initialization](https://en.cppreference.com/w/cpp/language/default_initialization)
+
 ## Zero Initialization
 
 만약 T 가 scalar type 이라면 객체는 0 을 T 로 한 값으로 초기화 된다.

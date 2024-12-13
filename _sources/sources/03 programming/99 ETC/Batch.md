@@ -1,5 +1,34 @@
 # Batch
 
+## robocopy
+Syntax 는 다음과 같다.
+```
+robocopy <source> <destination> [<file>[ ...]] [<options>]
+```
+
+### destination
+
+\로 끝나면 안된다.
+
+
+
+### file
+파일 또는 파일을 복사할 수를 지정한다. 
+
+와일드카드 문자(* 또는 ?)가 지원되며 이 매개 변수를 지정하지 않으면 *.* 이 기본값으로 사용된다.
+
+### options
+
+### ETC
+파일을 덮어쓴다.
+
+/njh /njs /nfl /ndl 는 robocopy가 상태 메세지를 띄우지 않게 만듬
+
+
+
+> Reference    
+> [learn.microsoft - windows-commands/robocopy](https://learn.microsoft.com/ko-kr/windows-server/administration/windows-commands/robocopy)  
+
 ## for
 
 Syntax 는 다음과 같다.

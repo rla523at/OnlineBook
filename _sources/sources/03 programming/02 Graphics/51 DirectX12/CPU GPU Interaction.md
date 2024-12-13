@@ -13,13 +13,53 @@ CPU 는 Direct3D API 를 이용해서 command queue 에 command 를 제출한다
 > Reference  
 > {cite}`Luna` Chapter 4.2
 
-### ID3D12CommandQueue
+
+<details> <summary> <h3 style="display:inline-block"> ID3D12CommandQueue </h3></summary>
+
 D3D12 에서 GPU 의 command queue 를 나타내는 interface 이다.
 
-### ID3D12CommandQueue::ExecuteCommandLists 함수
+</details>
+
+
+<details> <summary> <h3 style="display:inline-block"> ID3D12CommandQueue::ExecuteCommandLists 함수 </h3></summary>
+
 command list 에 있는 commands 를 command queue 에 추가하는 함수이다.
 
 command list 에 있는 command 는 첫 번 째 배열 요소부터 시작하여 순서대로 command queue 에 추가된다.
+
+</details>
+
+
+
+<details> <summary> <h3 style="display:inline-block"> ID3D12CommandQueue::Signal 함수 </h3></summary>
+
+command queue 에 Fence 가 관리하는 값을 특정 값으로 업데이트하라는 command 를 추가하는 함수이다.
+
+함수의 시그니처는 다음과 같다.
+```cpp
+HRESULT Signal(
+  ID3D12Fence *pFence,
+  UINT64      Value
+);
+```
+
+인자는 다음과 같다.
+
+- ID3D12Fence \*pFence
+  - 업데이트할 펜스 객체에 대한 포인터다.
+- UINT64 Value
+  - 업데이트 될 값이다.
+
+반환값은 다음과 같다.
+
+- 성공 시 `S_OK`를 반환한다.
+- 실패 시 적절한 HRESULT 오류 코드를 반환한다.
+
+> Reference   
+> [learn.microsoft - d3d12-id3d12commandqueue-signal](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-signal)   
+
+</details>
+
 
 ## Command List
 CPU 가 GPU 에 command 를 제출하기 위해 사용하는 command 들의 list 이다.
@@ -99,15 +139,17 @@ ID3D12CommandQueue::ExecuteCommandLists 함수에 인자로 ID3D12GraphicsComman
 > {cite}`Luna` p109
 
 ### ID3D12CommandList::Reset 함수
-ID3D12CommandList::Reset 함수가 호출되면 command list 와 연관된 command allocator 의 상태가 어떻게 바뀌는지 설명해주세요.
-
-만약 ID3D12CommandQueue::ExecuteCommandList 함수를 호출하였다면 ID3D12CommandList::Reset 를 호출하여 안전하게 command list 에 memory 를 새로운 command 들을 저장하는데 사용할 수 있다,
-
 ID3D12CommandList::Reset 은 command list 를 방금 생성한 것과 동일한 상태로 만들어준다.
 
 이로써 이전 command lists 에 할당된 memory 를 해제하고 새로운 memory 를 할당해주는 작업을 할 필요가 없이 allocator 를 재사용 할 수 있게 해준다.
 
 (?) Reset 함수를 호출하더라도 command queue 에 있는 command 들에는 아무런 영향이 없다. 왜냐하면 command 들이 저장되어 있는 command allocator 에는 여전히 command queue 가 참조하는 command 가 memroy 에 존재하기 때문이다.
+
+ID3D12CommandList::Reset 은 호출하기 전에 반드시 ID3D12CommandList::Close 를 호출해줘야 한다.
+
+> Reference  
+> [learn.microsoft - nf-d3d12-id3d12graphicscommandlist-reset](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset)    
+> [learn.microsoft - nf-d3d12-id3d12graphicscommandlist-reset#runtime-validation](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset#runtime-validation)  
 
 ## Command Allocator
 command list 에 기록될 command 가 실제로 저장될 memory 다.
@@ -172,11 +214,7 @@ CPU 와 GPU 라는 두개의 processor 가 병렬적으로 동작하기 때문�
 예를 들어, resource R 이 있다고 하자. CPU 에서 R 에 그리고자 하는 정보 I1 을 저장하고 R 을 참고하여 rendering 을 하라는 draw command 를 command list 에 넣은 뒤 command queue 에 전달했다고 하자. command queue 에 전달한 것은 CPU 를 block 시키지 않음으로 CPU 는 바로 다음 동작으로 새로운 정보 I2 를 R 에 저장하는 순간 문제가 발생할 수 있다. 만약에 GPU 가 다른 작업 때문에 draw command 를 아직 실행하기 전인데 CPU 에서 새로운 정보 I2 를 R 에 저장하는 순간 draw command 를 실행할 때 R 에는 이미 I1 에 대한 정보가 없기 때문이다.
 
 ### Soluition1 : Flushing the Command Queue
-한가지 해결방법은 GPU 가 draw command 를 완료할 떄 까지 CPU 를 강제로 기다리게 하는 fence 를 만드는 방법이다. D3D12 에서 fence 는 ID3D12Fence interface 를 통해 나타내어지며 D3D12 에서 fence 의 동작 방식은 다음과 같다.
-
-command queue 에 ID3D12Fence interface 의 값을 특정 값으로 업데이트하라는 command 를 추가한다. 이 command 를 fence point 라고 하면 GPU 가 fence point 이전에 command 를 전부 실행하고 fence point 에 도달하는 순간 ID3D12Fence interface 의 값이 업데이트 되는 방식이다.
-
-아래 예제 코드를 보자.
+한가지 해결방법은 GPU 가 draw command 를 완료할 떄 까지 CPU 를 강제로 기다리게 하는 fence 를 만드는 방법이다. D3D12 에서 fence 는 ID3D12Fence interface 를 통해 나타내어지며 D3D12 에서 fence 의 동작 방식을 이해하기 위해 아래 예제 코드를 보자.
 
 ```cpp
 UINT64 mCurrentFence = 0;
@@ -184,8 +222,7 @@ void D3DApp::FlushCommandQueue()
 {
  // 업데이트 될 Fence 값 
   mCurrentFence++;
- 
- // Fence 를 mCurrentFence 라는 값으로 업데이트하는 command 를 Command Queue 에 추가
+  
  ThrowIfFailed(mCommandQueue->Signal(mFence.Get(), mCurrentFence));
  
  // Fence 가 업데이트가 안되어 있을 경우 업데이트 될 떄 까지 기다리게 하는 코드
@@ -202,10 +239,20 @@ void D3DApp::FlushCommandQueue()
 }
 ```
 
+`mCommandQueue->Signal(mFence.Get(), mCurrentFence)` 코드에서 Signal 함수에 의해 mFence 객체가 관리하는 값을 mCurrentFence 라는 값으로 업데이트하는 command 가 Command Queue 에 추가하게 된다. 이 떄, 이 command 를 fence point 라고 하면 GPU 가 fence point 이전에 command 를 전부 실행하고 fence point 에 도달하는 순간 mFence 객체가 관리하는 값이 업데이트 된다.
+
+이 떄, GPU 가 아직 Signal command 를 실행하기 전에 CPU 가 if 문을 실행했다고 가정해보자.
+
+그러면 mFence 객체가 관리하는 값이 아직 업데이트가 되지 않아 if 문이 true 가 되게 된다. 그러면 Event 객체를 만들고 SetEventOnCompletion 함수를 호출해 mFence 객체가 관리하는 값이 SetEventOnCompletion 함수에 인자로 주어진 값이 되게 되면 eventHanlde 이 나타내는 event 객체를 신호 상태로 만들어주게 한다. 그리고 WaitForSingleObject 함수를 호출하여 eventHandle 이 나타내는 evenet 객체가 신호상태가 될 떄 까지 현재 Thread 를 block 상태로 만들어준다.
+
+이후에 GPU 가 Signal command 를 실행하게 되면 evenet 객체가 신호상태가 되며 현재 Thread 는 CloseHandle 함수를 호출하고 FLushCommandQueue 함수를 탈출하게 된다.
+
+이 떄, while loop 로 mFence 객체가 관리하는 값을 매번 확인하는 방식으로 대기 상태를 구현할 수도 있지만 WaitForSingleObject 함수를 사용하는 이유는 while 문을 사용할 경우 현재 thread 가 mFence 객체가 관리하는 값을 매번 확인하면서 CPU 자원을 낭비하게 되기 때문이다.
+
 ### Solution2 : Frame Resource
 첫번째 해결방법은 잘 동작하지만 성능 측면에서 문제가 있다.
 
-매 frame 마다 마지막에 Flushing the Command Queue 를 실행하게 되면 CPU 는 GPU 가 rendering 을 완료할 떄 까지 idle 상태로 대기하게 된다. 또한 매 frame 의 시작점에는 command queue 에 아무런 command 가 없게 됨으로 GPU 는 CPU 가 command 를 추가할 때 까지 idle 상태로 대기하게 된다.
+매 frame 마다 마지막에 Flushing the Command Queue 를 실행하게 되면 CPU 는 GPU 가 command queue 에 있는 모든 command 를 완료할 떄 까지 idle 상태로 대기하게 된다. 또한 매 frame 의 시작점에는 command queue 에 아무런 command 가 없게 됨으로 GPU 는 CPU 가 command 를 추가할 때 까지 idle 상태로 대기하게 된다.
 
 따라서 이를 해결하기 위해서는 CPU 가 매 frame 마다 수정해야 되는 resource 를 n 개 frame 에 필요한 resource 크기를 갖는 circular resource 로 만든 뒤에 GPU 가 i 번째 resource 를 활용하여 rendering 하고 있을 때, CPU 는 i+1 번째 resource 를 업데이트 하는 방식을 사용하면 된다. 이런 방식을 frame resource 라고 한다.
 

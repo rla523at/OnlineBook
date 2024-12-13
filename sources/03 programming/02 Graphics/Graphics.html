@@ -465,7 +465,9 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/array.html">array</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/Chrono.html">Chrono</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../01%20C%2B%2B/20%20Standard%20Library/function.html">function</a></li>
 </ul>
@@ -608,6 +610,7 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="DirectXMath.html">DirectXMath</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Sampling.html">Sampling</a></li>
@@ -823,6 +826,52 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="graphics">
 <h1>Graphics<a class="headerlink" href="#graphics" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Render Pass vs Pipeline Pass</p>
+<ul>
+<li><p>Render Pass</p>
+<ul>
+<li><p>Render Target 을 중심으로 수행되는 일련의 명령 집합이다.</p></li>
+</ul>
+</li>
+<li><p>Pipeline Pass</p>
+<ul>
+<li><p>graphics 또는 compute Pipe line 에서의 한 번의 실행 단위를 의미한다.</p></li>
+<li><p>각 Pipeline Pass 는 렌더링 파이프라인에서 각각의 작업 단위를 나타내며 특정 shader 를 실행한다.</p></li>
+<li><p>하나의 Render Pass 내에 여러개의 Pipeline Pass 가 실행될 수 있다.</p>
+<ul>
+<li><p>Compute Shader Pipeline Pass</p>
+<ul>
+<li><p>GPU 에서 데이터를 계산하고 텍스처에 결과를 기록</p></li>
+</ul>
+</li>
+<li><p>Vertex Processing Pipeline Pass</p>
+<ul>
+<li><p>정점 데이터를 변환하고 래스터화에 필요한 정보를 생성</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>GRP ( Graphics Render Pass ) 와 CRP ( Compute Render Pass )</p>
+<ul>
+<li><p>GRP</p>
+<ul>
+<li><p>그래픽스 명령( 드로우 호출… ) 으로 구성된 GPU 작업 단위를 의미</p></li>
+<li><p>PSO 에 의해 정의되며 Vertex Shader, Pixel Shader 등의 Shader stage 를 포함한다.</p></li>
+</ul>
+</li>
+<li><p>CRP</p>
+<ul>
+<li><p>compute shader 를 통해 데이터를 계산하거나 텍스처와 같은 자원에 결과를 기록한다.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <div class="toctree-wrapper compound">
 </div>
 </section>

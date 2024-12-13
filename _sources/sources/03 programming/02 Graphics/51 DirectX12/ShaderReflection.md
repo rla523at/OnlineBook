@@ -5,6 +5,7 @@ Reflection 정보는 shader 를 컴파일할 때 생성된다.
 
 > Reference    
 > https://rtarun9.github.io/blogs/shader_reflection/  
+> https://stackoverflow.com/questions/79186463/shader-signature-reflection  
 
 ## Shader Reflection 으로부터 Resource Binding 정보 읽어오기
 

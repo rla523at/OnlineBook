@@ -463,7 +463,9 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/array.html">array</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/bitset.html">bitset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/Chrono.html">Chrono</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/format.html">format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/function.html">function</a></li>
 </ul>
@@ -574,7 +576,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/RootSignature.html">Root Signature</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -587,6 +588,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/Initializing%20Direct3D.html">Initializing Direct3D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../02%20Graphics/60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -606,6 +608,7 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/DirectXMath.html">DirectXMath</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/Sampling.html">Sampling</a></li>
@@ -672,6 +675,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../20%20ETC/chatGPT.html">chatGPT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../20%20ETC/Jupyter%20Book.html">Jupyter Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../20%20ETC/MarkDown.html">Mark Down</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -816,6 +820,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integer-literal">integer literal</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-cout-and-char">std::cout and char</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-set-terminate">std::set_terminate</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bit">bit 단위 연산자</a><ul class="nav section-nav flex-column">
@@ -854,6 +859,16 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="miscellaneous">
 <h1>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Link to this heading">#</a></h1>
+<section id="integer-literal">
+<h2>integer literal<a class="headerlink" href="#integer-literal" title="Link to this heading">#</a></h2>
+<p>Allows values of integer type to be used in expressions directly.</p>
+<p>hex-literal   : 0x
+binary-literal: 0b</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/integer_literal">cppreference - integer_literal</a></p>
+</div></blockquote>
+</section>
 <section id="std-cout-and-char">
 <h2>std::cout and char<a class="headerlink" href="#std-cout-and-char" title="Link to this heading">#</a></h2>
 <p>std::cout 에 char 혹은 unsigned char 을 바로 전달하면 문자로 해석된다.</p>
@@ -1027,11 +1042,52 @@
 </section>
 <section id="array">
 <h2>Array<a class="headerlink" href="#array" title="Link to this heading">#</a></h2>
-<p>배열 선언 시 배열 크기를 따로 지정하지 않고 초기화를 진행하여도 초기화한 원소의 수에 맞는 고정크기 배열이 생성된다.</p>
+<details>
+<summary> 배열 크기 미지정 후 초기화 </summary>
+배열 선언 시 배열 크기를 따로 지정하지 않고 초기화를 진행하여도 초기화한 원소의 수에 맞는 고정크기 배열이 생성된다.
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">arr1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
 <span class="kt">int</span><span class="w"> </span><span class="n">arr2</span><span class="p">[]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span><span class="w">  </span><span class="c1">//arr1과 동일</span>
 </pre></div>
 </div>
+</details>
+<details>
+<summary> Multi Dimensional Array memory layout </summary>
+static 2d array 를 생성하면 memory 연속성이 보장된다.
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">};</span>
+</pre></div>
+</div>
+<p>위와 같은 변수가 있으면 memory layout 은 다음과 같다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>  <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>  <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>  <span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>  <span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>  <span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
+   <span class="p">[</span><span class="mi">0</span><span class="p">]</span>       <span class="p">[</span><span class="mi">1</span><span class="p">]</span>        <span class="p">[</span><span class="mi">2</span><span class="p">]</span>        <span class="p">[</span><span class="mi">3</span><span class="p">]</span>        <span class="p">[</span><span class="mi">4</span><span class="p">]</span>        <span class="p">[</span><span class="mi">5</span><span class="p">]</span>        <span class="p">[</span><span class="mi">6</span><span class="p">]</span>        <span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>즉 4개 짜리 배열 2개가 연속으로 있는 형태이며, 첫번째 4개 짜리 배열은 a[0] 두번째 4개 짜리 배열은 a[1] 이 된다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/book/arrays">cppreference - book/arrays</a></p>
+</div></blockquote>
+</details>
+<details>
+<summary> std::fill 로 초기화 </summary>
+std::fill 을 이용해서 배열을 초기화하려면 다음과 같이 해야 한다.
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">4</span><span class="p">];</span>
+<span class="n">std</span><span class="o">::</span><span class="n">fill</span><span class="p">(</span><span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>&amp;arr[0][0] 와 arr 이 주소가 같다고  다음과 같이 초기화 하면 오류가 발생한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">4</span><span class="p">];</span>
+<span class="n">std</span><span class="o">::</span><span class="n">fill</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="w"> </span><span class="n">arr</span><span class="o">+</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>왜냐하면 fill 함수가 instance 화가 되면 arr 의 타입은 char* 가 아니라 char[4] 배열을 가르키는 포인터 char(*)[4] 가 된다.</p>
+<p>따라서, 배열을 nullptr 로 초기화 하려고 해서 오류가 발생하게 된다. 거기다가 char[4] 배열을 가르키는 포인터에다가 + 8 을 했음으로 out of range 문제도 있다.</p>
+<p>단, 1차원 배열일 경우에는 두 방식 모두 정상동작한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+<span class="n">std</span><span class="o">::</span><span class="n">fill</span><span class="p">(</span><span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span><span class="w"> </span><span class="c1">// ok</span>
+<span class="n">std</span><span class="o">::</span><span class="n">fill</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="w"> </span><span class="n">arr</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">);</span><span class="w"> </span><span class="c1">// ok</span>
+</pre></div>
+</div>
+</details>
 </section>
 <section id="checking-typename">
 <h2>Checking TypeName<a class="headerlink" href="#checking-typename" title="Link to this heading">#</a></h2>
@@ -1178,6 +1234,7 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integer-literal">integer literal</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-cout-and-char">std::cout and char</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-set-terminate">std::set_terminate</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bit">bit 단위 연산자</a><ul class="nav section-nav flex-column">

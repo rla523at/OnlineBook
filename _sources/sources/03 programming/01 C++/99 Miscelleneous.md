@@ -1,5 +1,15 @@
 # Miscellaneous
 
+## integer literal
+Allows values of integer type to be used in expressions directly.
+
+hex-literal   : 0x
+binary-literal: 0b
+
+
+> Reference   
+> [cppreference - integer_literal](https://en.cppreference.com/w/cpp/language/integer_literal)  
+
 ## std::cout and char
 std::cout 에 char 혹은 unsigned char 을 바로 전달하면 문자로 해석된다.
 
@@ -144,12 +154,66 @@ fread-is-reading-the-last-part-of-my-text-file-twice
 > [stackoverflow - why-does-fread-always-return-0](https://stackoverflow.com/questions/3594475/why-does-fread-always-return-0)  
 
 ## Array
+
+<details>
+<summary> 배열 크기 미지정 후 초기화 </summary>
 배열 선언 시 배열 크기를 따로 지정하지 않고 초기화를 진행하여도 초기화한 원소의 수에 맞는 고정크기 배열이 생성된다.
 
 ```cpp
 int arr1[3] = {1,2,3};
 int arr2[]  = {1,2,3};  //arr1과 동일
 ```
+</details>
+
+<details>
+<summary> Multi Dimensional Array memory layout </summary>
+static 2d array 를 생성하면 memory 연속성이 보장된다.
+
+```cpp
+int arr[2][4] = {0,1,2,3,4,5,6,7};
+```
+
+위와 같은 변수가 있으면 memory layout 은 다음과 같다.
+
+```
+arr[0][0]  arr[0][1]  arr[0][2]  arr[0][3]  arr[1][0]  arr[1][1]  arr[1][2]  arr[1][3]
+   [0]       [1]        [2]        [3]        [4]        [5]        [6]        [7]
+```
+
+즉 4개 짜리 배열 2개가 연속으로 있는 형태이며, 첫번째 4개 짜리 배열은 a[0] 두번째 4개 짜리 배열은 a[1] 이 된다.
+
+> Reference  
+> [cppreference - book/arrays](https://en.cppreference.com/book/arrays)  
+</details>
+
+<details>
+<summary> std::fill 로 초기화 </summary>
+std::fill 을 이용해서 배열을 초기화하려면 다음과 같이 해야 한다.
+
+ ```cpp
+char* arr[2][4];
+std::fill(&arr[0][0], &arr[0][0]+8, nullptr);
+```
+	
+&arr[0][0] 와 arr 이 주소가 같다고  다음과 같이 초기화 하면 오류가 발생한다.
+
+```cpp
+char* arr[2][4];
+std::fill(arr, arr+8, nullptr);
+```
+
+왜냐하면 fill 함수가 instance 화가 되면 arr 의 타입은 char* 가 아니라 char[4] 배열을 가르키는 포인터 char(*)[4] 가 된다.
+
+따라서, 배열을 nullptr 로 초기화 하려고 해서 오류가 발생하게 된다. 거기다가 char[4] 배열을 가르키는 포인터에다가 + 8 을 했음으로 out of range 문제도 있다.
+
+단, 1차원 배열일 경우에는 두 방식 모두 정상동작한다.
+ ```cpp
+char* arr[2];
+std::fill(&arr[0], &arr[0]+2, nullptr); // ok
+std::fill(arr, arr+2, nullptr); // ok
+```
+</details>
+
 
 
 ## Checking TypeName

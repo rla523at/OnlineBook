@@ -1,6 +1,7 @@
 # Resource Creation
 
-## Commited Resource and Placed Resource
+<details> <summary> <h2 style="display:inline-block"> Commited Resource and Placed Resource </h2></summary>
+
 Committed Resource 는 resource 와 resource 를 저장하는데 필요한 독립적인 GPU 의 heap memory 공간이 동시에 할당되는 resource 를 의미한다.
 
 Committed Resource 의 경우 독립적인 heap memory 공간이 할당되기 때문에, commited resource 를 생성할때는 heap memory 공간에 대한 고려를 할 필요가 없다.
@@ -152,7 +153,10 @@ Flags             = flags
 ```
 
 > Reference  
-> [learn.microsoft - cd3dx12-resource-desc](https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-resource-desc)  
+> [learn.microsoft - cd3dx12-resource-desc](https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-resource-desc) 
+
+</details>
+
 
 ## enum D3D12_RESOURCE_STATES
 resource 의 상태를 정의하는 플래그를 나타낸다.
@@ -319,3 +323,14 @@ persistent map 을 사용할 때, 애플리케이션은 GPU가 메모리를 읽�
 
 > Reference  
 > [learn.microsoft - nf-d3d12-id3d12resource-map#advanced-usage-models](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map#advanced-usage-models)  
+
+
+
+<details> <summary> <h2 style="display:inline-block"> Resource 를 만드는데 필요한 GPU memory 알아내기 </h2></summary>
+
+ID3D12Device::GetResourceAllocationInfo
+
+> Reference
+> [](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-getresourceallocationinfo(uint_uint_constd3d12_resource_desc))
+
+</details>
