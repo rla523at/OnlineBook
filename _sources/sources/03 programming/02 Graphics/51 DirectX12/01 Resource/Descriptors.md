@@ -1,7 +1,7 @@
 # Descriptors
 Descriptor 는 GPU memory 에 저장되어 있는 resource 를 설명하는 작은 데이터 블록으로 D3D12 binding 의 기본 단위이다.
 
-Descriptor 는 GPU memory 에 대한 설명이지만 Descriptor 자체는 CPU memory 에 저장된다.
+Descriptor 는 GPU memory 에 저장되어 있는 resource 의 설명이지만 Descriptor 자체는 CPU memory 에 저장된다.
 
 Descriptor 의 종류에는 다음이 있다.
 * render target views (RTVs)
@@ -11,17 +11,14 @@ Descriptor 의 종류에는 다음이 있다.
 * constant buffer views (CBVs)
 * samplers
 
-드라이버는 descriptor 에 대한 참조를 추적하거나 보유하지 않으며, 올바른 descriptor type 이 사용되고 있는지, 정보가 최신 상태인지 확인하는 것은 앱의 책임이다.
-
-단, 한가지 예외로 드라이버는 swap chain 이 올바르게 작동하는지 확인하기 위해 RTV 의 바인딩을 검사한다.
-
-descriptor 를 사용하는 기본 방법은 descriptor 를 위한 보조 메모리인 descriptor heap 에 descriptor 를 배치하는 것이다. 그리고 이 경우에는 반드시 descriptor table 을 정의해야 한다. descriptor table 은 파이프라인에 대한 descriptor heap 의 범위를 식별하여 사용할 descriptor 를 찾기 위해 어디를 찾아야 하는지 알 수 있도록 힌다.
-
 > Reference  
 > [microsoft.github - ResourceBinding.html#descriptors](https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html#descriptors)  
 > [learn.microsoft - descriptors-overview](https://learn.microsoft.com/en-us/windows/win32/direct3d12/descriptors-overview)  
 
-## Descriptor Heaps
+
+
+<details> <summary> <h2 style="display:inline-block"> Descriptor Heaps </h2></summary>
+
 Descriptor Heap 은 Descriptor 들을 저장하기 위한 CPU memory 풀(pool) 이다.
 
 단, D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE 플래그를 사용하여 생성할 경우 GPU 가 접근 가능한 메모리 영역에 배치(GPU 에 mapping)되어 shader 에서 descriptor 에 접근할 수 있다.
@@ -31,154 +28,31 @@ Descriptor heap 의 주요 목적은 GPU 가 사용할 리소스에 빠르게 �
 > Reference      
 > [learn.microsoft - descriptor-heaps-overview](https://learn.microsoft.com/en-us/windows/win32/direct3d12/descriptor-heaps-overview)  
 
-### ID3D12DescriptorHeap 인터페이스
-Descriptor Heap 을 관리하는 객체다. 
-
-### ID3D12Device::CreateDescriptorHeap 함수
-ID3D12DescriptorHeap 객체를 생성하는 함수다.
-
-함수의 시그니처는 다음과 같다.
-
-```cpp
-HRESULT CreateDescriptorHeap(
-  [in]  const D3D12_DESCRIPTOR_HEAP_DESC *pDescriptorHeapDesc,
-        REFIID                           riid,
-  [out] void                             **ppvHeap
-);
-```
-
-인자는 다음과 같다.
-
-- const D3D12_DESCRIPTOR_HEAP_DESC *pDescriptorHeapDesc
-  - 생성할 ID3D12DescriptorHeap 의 속성을 지정하는 구조체에 대한 포인터다.
-
-- REFIID riid
-  - 요청하는 인터페이스의 식별자다.
-
-- void **ppvHeap
-  - 성공 시, 생성된 ID3D12DescriptorHeap 객체의 포인터를 받을 포인터다.
-
-반환값은 다음과 같다.
-
-- 성공 시
-  - S_OK를 반환한다.
-
-- 실패 시
-  - HRESULT 오류 코드를 반환한다.
-
-> Reference  
-> [learn.microsoft - nf-d3d12-id3d12device-createdescriptorheap](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12device-createdescriptorheap)  
-
-## D3D12_DESCRIPTOR_HEAP_DESC 구조체
-ID3D12DescriptorHeap 의 특성을 정의하는 데 사용된다.
-
-구조체의 정의는 다음과 같다.
-
-```cpp
-typedef struct D3D12_DESCRIPTOR_HEAP_DESC {
-  D3D12_DESCRIPTOR_HEAP_TYPE  Type;
-  UINT                        NumDescriptors;
-  D3D12_DESCRIPTOR_HEAP_FLAGS Flags;
-  UINT                        NodeMask;
-} D3D12_DESCRIPTOR_HEAP_DESC;
-```
-
-각 멤버 변수는 다음과 같다.
-
-* D3D12_DESCRIPTOR_HEAP_TYPE Type  
-  * Descriptor Heap 의 유형을 지정한다.
-
-* UINT NumDescriptors  
-  * descriptor heap 에 포함될 descriptor 의 개수를 지정한다.
-  * NumDescriptors의 최대 값은 시스템의 GPU 및 드라이버에 따라 달라질 수 있다.
-      * [learn.microsoft - hardware-support](https://learn.microsoft.com/en-us/windows/win32/direct3d12/hardware-support)
-
-* D3D12_DESCRIPTOR_HEAP_FLAGS Flags  
-  * 디스크립터 힙의 속성을 지정하는 플래그이다.
+## ID3D12DescriptorHeap 인터페이스
+Descriptor Heap 을 관리하는 객체로 [ID3D12Device::CreateDescriptorHeap](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12device-createdescriptorheap) 함수로 생성할 수 있다.
   
+이 때, ID3D12Device::CreateDescriptorHeap 함수의 인자로 사용되는 [D3D12_DESCRIPTOR_HEAP_DESC](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc) 구조체는 ID3D12DescriptorHeap 객체의 특성을 정의하는 데 사용된다. 
+
+<details> <summary> D3D12_DESCRIPTOR_HEAP_DESC 구조체 관련 사항 </summary>
+
+* UINT NumDescriptors
+  * NumDescriptors의 최대 값은 시스템의 GPU 및 드라이버에 따라 달라질 수 있다.
+  * [learn.microsoft - hardware-support](https://learn.microsoft.com/en-us/windows/win32/direct3d12/hardware-support)
 * UINT NodeMask  
   * 멀티 GPU 시스템에서 디스크립터 힙이 할당될 노드를 지정하는 마스크 값이다.
-  * 단일 GPU 환경에서는 0으로 설정한다.
+  * 단일 GPU 환경에서는 0으로 설정한다. 
+* [enum D3D12_DESCRIPTOR_HEAP_TYPE](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type)
+* [enum D3D12_DESCRIPTOR_HEAP_FLAGS](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_heap_flags)
+  * D3D12_DESCRIPTOR_HEAP_FLAG_NONE 는 CPU 에서만 descriptor heap 에 접근하는 경우 사용한다.
+  * D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE flag 로 descriptor heap 을 생성한 경우 CPU 에서도 GPU 에서도 접근 가능한 memory 가 된다. 이런 Descriptor heap 이 내부적으로 어떻게 작동하는지는 구현 세부 사항이지만, CPU 에 보이는 GPU 메모리의 특수 영역인 Base Address Register (BAR) 에 저장하고 CreateConstantBufferView 호출은 PCI Express 버스를 통해 데이터를 쓰는 구현을 상상해 볼 수 있다.
+    * [asawicki.info - direct3d_12_long_way_to_access_data](https://asawicki.info/news_1754_direct3d_12_long_way_to_access_data) 
+
+</details>
+
+</details>
+
+
  
-> Reference  
-> [learn.microsoft - ns-d3d12-d3d12_descriptor_heap_desc](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc)
-
-### enum D3D12_DESCRIPTOR_HEAP_TYPE
-Descriptor heap의 유형을 정의하는 enum이다.
-
-정의는 다음과 같다.
-
-```cpp
-typedef enum D3D12_DESCRIPTOR_HEAP_TYPE
-{
-    D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV = 0,
-    D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER     = 1,
-    D3D12_DESCRIPTOR_HEAP_TYPE_RTV         = 2,
-    D3D12_DESCRIPTOR_HEAP_TYPE_DSV         = 3,
-    D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES   = 4
-} D3D12_DESCRIPTOR_HEAP_TYPE;
-```
-
-각 enum의 의미는 다음과 같다.
-
-* D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
-  * Constant Buffer View(CBV), Shader Resource View(SRV), Unordered Access View(UAV) descriptor 를 저장하는 heap type 이다.
-  * 셰이더에서 리소스에 접근하기 위해 사용된다.
-
-* D3D12_DESCRIPTOR_HEAP_TYPE_SAMPLER
-  * 샘플러 디스크립터를 저장하는 heap type 이다.
-  * 텍스처 샘플링을 위한 샘플러 상태를 정의하는 데 사용된다.
-
-* D3D12_DESCRIPTOR_HEAP_TYPE_RTV
-  * Render Target View(RTV) 디스크립터를 저장하는 heap type 이다.
-  * 렌더링 출력 타깃을 지정하기 위해 사용된다.
-
-* D3D12_DESCRIPTOR_HEAP_TYPE_DSV
-  * Depth Stencil View(DSV) 디스크립터를 저장하는 heap type 이다.
-  * 깊이 및 스텐실 버퍼를 설정하기 위해 사용된다.
-
-* D3D12_DESCRIPTOR_HEAP_TYPE_NUM_TYPES
-  * 사용 가능한 디스크립터 힙 타입의 총 개수를 나타낸다.
-  * 힙 타입의 범위를 확인하는 데 사용된다.
-
-> Reference  
-> [learn.microsoft - ne-d3d12-d3d12_descriptor_heap_type](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type)  
-
-### enum D3D12_DESCRIPTOR_HEAP_FLAGS
-Descriptor heap 의 플래그를 정의하는 enum 이다.
-
-정의는 다음과 같다.
-
-```cpp
-typedef enum D3D12_DESCRIPTOR_HEAP_FLAGS
-{
-    D3D12_DESCRIPTOR_HEAP_FLAG_NONE           = 0,
-    D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE = 0x1
-} D3D12_DESCRIPTOR_HEAP_FLAGS;
-```
-
-각 enum의 의미는 다음과 같다.
-
-* D3D12_DESCRIPTOR_HEAP_FLAG_NONE
-  * 기본 설정으로, 특별한 플래그가 없다.
-  * shader 에서 descriptor heap 을 볼 수 없다.
-  * CPU 에서만 descriptor heap 에 접근하는 경우 사용한다.
-
-* D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE
-  * shader 에서 descriptor heap 을 볼 수 있게 한다.
-  * shader 프로그램에서 descriptor table 을 통해 리소스에 접근할 때 사용된다.
-  * GPU에 의해 descriptor heap 이 바인딩될 수 있다.
-
-> Reference  
-> [learn.microsoft - ne-d3d12-d3d12_descriptor_heap_flags](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_heap_flags)
-
-#### D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE and Memory
-D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE flag 로 descriptor heap 을 생성한 경우 CPU 에서도 GPU 에서도 접근 가능한 memory 가 된다.
-
-이런 Descriptor heap 이 내부적으로 어떻게 작동하는지는 구현 세부 사항이지만, CPU 에 보이는 GPU 메모리의 특수 영역인 Base Address Register (BAR) 에 저장하고 CreateConstantBufferView 호출은 PCI Express 버스를 통해 데이터를 쓰는 구현을 상상해 볼 수 있다.
-
-> Reference  
-> [asawicki.info - direct3d_12_long_way_to_access_data](https://asawicki.info/news_1754_direct3d_12_long_way_to_access_data)  
 
 ## Descriptor handles
 Descritpor handle 은 descriptor heap memory 의 고유한 주소를 나타낸다. 그리고 Descriptor handle 은 전체 descriptor heap 에서 고유하다. 다시 말해 여러 descriptor heap 에 존재하는 모든 memory 는 고유한 descriptor handle 을 갖는다.

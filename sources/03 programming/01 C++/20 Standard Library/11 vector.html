@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=61612f5f" />
@@ -65,7 +65,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="bitset" href="bitset.html" />
+    <link rel="next" title="array" href="array.html" />
     <link rel="prev" title="type-traits" href="01%20type-traits.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -463,7 +463,9 @@
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="Standard%20Library.html">STD</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3 current active"><a class="current reference internal" href="#">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="array.html">array</a></li>
 <li class="toctree-l3"><a class="reference internal" href="bitset.html">bitset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Chrono.html">Chrono</a></li>
 <li class="toctree-l3"><a class="reference internal" href="format.html">format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="function.html">function</a></li>
 </ul>
@@ -574,7 +576,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/RootSignature.html">Root Signature</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -587,6 +588,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/Initializing%20Direct3D.html">Initializing Direct3D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../02%20Graphics/60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -606,6 +608,7 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/DirectXMath.html">DirectXMath</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/Sampling.html">Sampling</a></li>
@@ -672,6 +675,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../20%20ETC/chatGPT.html">chatGPT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../20%20ETC/Jupyter%20Book.html">Jupyter Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../20%20ETC/MarkDown.html">Mark Down</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -904,11 +908,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="bitset.html"
+       href="array.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">bitset</p>
+        <p class="prev-next-title">array</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

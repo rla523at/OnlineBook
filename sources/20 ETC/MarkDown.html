@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=61612f5f" />
@@ -465,6 +465,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/01%20C%2B%2B/20%20Standard%20Library/array.html">array</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03%20programming/01%20C%2B%2B/20%20Standard%20Library/Chrono.html">Chrono</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/01%20C%2B%2B/20%20Standard%20Library/function.html">function</a></li>
 </ul>
@@ -869,28 +870,25 @@
 <section id="collapsible-text">
 <h2>Collapsible Text<a class="headerlink" href="#collapsible-text" title="Link to this heading">#</a></h2>
 <p>Collapsible Text 를 사용하고 싶으면 다음과 같이 하면 된다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">details</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">summary</span><span class="o">&gt;</span> <span class="n">제목</span> <span class="o">&lt;/</span><span class="n">summary</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">details</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">summary</span><span class="o">&gt;</span> <span class="n">제목</span> <span class="o">&lt;/</span><span class="n">summary</span><span class="o">&gt;</span>
 <span class="n">내용</span>
 <span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<details>
-<summary> 제목 </summary>
+<details> <summary> 제목 </summary>
 내용
 </details>
 <p></br></br></p>
 <p>만약 제목을 Heading 형태로 만들기 위해서는 추가 태그를 붙이면 된다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">details</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">summary</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">h3</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;display:inline-block&quot;</span><span class="o">&gt;</span> <span class="n">제목</span> <span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;&lt;/</span><span class="n">summary</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">details</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">summary</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">h3</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;display:inline-block&quot;</span><span class="o">&gt;</span> <span class="n">제목</span> <span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;&lt;/</span><span class="n">summary</span><span class="o">&gt;</span>
 <span class="n">내용</span>
 <span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<details>
-<summary> <h3 style="display:inline-block"> 제목 </h3></summary>
+<details> <summary> <h3 style="display:inline-block"> 제목 </h3></summary>
 내용
 </details>
+<p></br></br></p>
 <p>만약 말머리표를 사용하고 싶다면 한줄에 모든내용을 다 적어야 한다.</p>
 <p>하지만 이는 상당히 불편함으로 왠만하면 사용하지 않는게 좋다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="o">&lt;</span><span class="n">details</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">summary</span><span class="o">&gt;</span> <span class="n">제목</span> <span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;&lt;/</span><span class="n">summary</span><span class="o">&gt;</span> <span class="n">내용</span> <span class="o">&lt;/</span><span class="n">details</span><span class="o">&gt;</span>
