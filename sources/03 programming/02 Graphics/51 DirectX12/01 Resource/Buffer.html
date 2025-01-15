@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Resource Binding &#8212; MS Study Book</title>
+    <title>Buffer &#8212; MS Study Book</title>
   
   
   
@@ -61,12 +61,12 @@
     <script async="async" src="../../../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/01 Resource/Resource Binding';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/01 Resource/Buffer';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
-    <link rel="next" title="Resource Copy" href="Resource%20Copy.html" />
-    <link rel="prev" title="Descriptors" href="Descriptors.html" />
+    <link rel="next" title="Descriptors" href="Descriptors.html" />
+    <link rel="prev" title="Resource" href="Resource.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -572,9 +572,9 @@
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="../DirectX12.html">DirectX12</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="Resource.html">Resource</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="Buffer.html">Buffer</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Descriptors.html">Descriptors</a></li>
-<li class="toctree-l4 current active"><a class="current reference internal" href="#">Resource Binding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Creation.html">Resource Creation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20State.html">Resource State</a></li>
@@ -738,7 +738,7 @@
       
       
       
-      <li><a href="../../../../../_sources/sources/03 programming/02 Graphics/51 DirectX12/01 Resource/Resource Binding.md" target="_blank"
+      <li><a href="../../../../../_sources/sources/03 programming/02 Graphics/51 DirectX12/01 Resource/Buffer.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -814,7 +814,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Resource Binding</h1>
+    <h1>Buffer</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -824,7 +824,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specification">Specification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#buffer-alignment">Buffer Alignment</a></li>
 </ul>
             </nav>
         </div>
@@ -836,35 +836,20 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="resource-binding">
-<h1>Resource Binding<a class="headerlink" href="#resource-binding" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="buffer">
+<h1>Buffer<a class="headerlink" href="#buffer" title="Link to this heading">#</a></h1>
+<section id="buffer-alignment">
+<h2>Buffer Alignment<a class="headerlink" href="#buffer-alignment" title="Link to this heading">#</a></h2>
+<p>Buffer alignment restrictions:</p>
 <ul class="simple">
-<li><p>GPU memory 에 resource 생성 및 할당</p></li>
-<li><p>Descriptor Heap 및 Descriptor 생성</p>
-<ul>
-<li><p>GPU memory 에 생성한 resource 에 대한 descriptor 를 생성하여 descriptor heap 에 추가한다.</p></li>
+<li><p>Linear subresource copying must be aligned to 512 bytes (with the row pitch aligned to D3D12_TEXTURE_DATA_PITCH_ALIGNMENT bytes).</p></li>
+<li><p>Constant data reads must be a multiple of 256 bytes from the beginning of the heap (i.e. only from addresses that are 256-byte aligned).</p></li>
+<li><p>Index data reads must be a multiple of the index data type size (i.e. only from addresses that are naturally aligned for the data).</p></li>
+<li><p>ID3D12GraphicsCommandList::ExecuteIndirect data must be from offsets that are multiples of 4 (i.e. only from addresses that are DWORD aligned).</p></li>
 </ul>
-</li>
-<li><p>Root Signature 생성</p>
-<ul>
-<li><p>Shader 가 Resource 에 접근할 수 있는 구조를 정의하는 역할을 한다.</p></li>
-</ul>
-</li>
-<li><p>Command List 에서 Resource Binding 설정</p>
-<ul>
-<li><p>Command List 를 사용해 GPU 에 명령을 기록할 때, Root Signature 와 Descriptor Heap 을 설정하여 resource binding 을 완료한다.</p></li>
-<li><p>SetGraphicsRootSignature 로 Root Signature 를 Command List 에 설정하고 SetGraphicsRootDescriptorTable 을 사용해 Root Signature 의 Descriptor Table 에 Descriptor Heap 의 특정 위치를 binding 한다.</p></li>
-</ul>
-</li>
-</ul>
-<section id="specification">
-<h2>Specification<a class="headerlink" href="#specification" title="Link to this heading">#</a></h2>
-<p>Shader resources (such as textures, constant tables, images, buffers and so on) are not bound directly to the shader pipeline; instead, they are referenced through a descriptor. A descriptor is a small object that contains information about one resource.</p>
-<p>Descriptors are grouped together to form descriptor tables.</p>
-<p>The graphics and compute pipelines gain access to resources by referencing into descriptor tables by index.</p>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/resource-binding-flow-of-control">learn.microsoft - direct3d12/resource-binding-flow-of-control</a></p>
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/upload-and-readback-of-texture-data#buffer-alignment">learn.microsoft - upload-and-readback-of-texture-data#buffer-alignment</a></p>
 </div></blockquote>
 </section>
 </section>
@@ -900,20 +885,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="Descriptors.html"
+       href="Resource.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Descriptors</p>
+        <p class="prev-next-title">Resource</p>
       </div>
     </a>
     <a class="right-next"
-       href="Resource%20Copy.html"
+       href="Descriptors.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Resource Copy</p>
+        <p class="prev-next-title">Descriptors</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -934,7 +919,7 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specification">Specification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#buffer-alignment">Buffer Alignment</a></li>
 </ul>
   </nav></div>
 

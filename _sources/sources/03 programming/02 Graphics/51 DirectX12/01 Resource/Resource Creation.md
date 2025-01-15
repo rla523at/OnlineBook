@@ -1,7 +1,6 @@
 # Resource Creation
 
-<details> <summary> <h2 style="display:inline-block"> Commited Resource and Placed Resource </h2></summary>
-
+## Commited Resource and Placed Resource
 Committed Resource 는 resource 와 resource 를 저장하는데 필요한 독립적인 GPU 의 heap memory 공간이 동시에 할당되는 resource 를 의미한다.
 
 Committed Resource 의 경우 독립적인 heap memory 공간이 할당되기 때문에, commited resource 를 생성할때는 heap memory 공간에 대한 고려를 할 필요가 없다.
@@ -10,132 +9,23 @@ Committed Resource 의 경우 독립적인 heap memory 공간이 할당되기 �
 
 따라서, placed resource 의 경우 heap memory 를 공유하게 할 수 있어 resource 간 메모리 낭비를 줄여 memory 를 보다 효율적으로 사용할 수 있게 만들 수 있다.
 
-## ID3D12Device::CreateCommittedResource
-ID3D12Device::CreateCommittedResource 함수는 committed resource 를 생성하는 함수이다. 
+<details> <summary> <h3 style="display:inline-block"> CreateCommittedResource </h3></summary>
+ID3D12Device::CreateCommittedResource 함수로 생성할 수 있다.
 
-함수의 시그니처는 다음과 같다.
-```cpp
-HRESULT CreateCommittedResource(
-  [in]            const D3D12_HEAP_PROPERTIES *pHeapProperties,
-  [in]            D3D12_HEAP_FLAGS            HeapFlags,
-  [in]            const D3D12_RESOURCE_DESC   *pDesc,
-  [in]            D3D12_RESOURCE_STATES       InitialResourceState,
-  [in, optional]  const D3D12_CLEAR_VALUE     *pOptimizedClearValue,
-  [in]            REFIID                      riidResource,
-  [out, optional] void                        **ppvResource
-);
+> Reference   
+> [learn.microsoft - nf-d3d12-id3d12device-createcommittedresource](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource)  
+
+D3D12_HEAP_PROPERTIES 구조체의 enum D3D12_HEAP_TYPE 이 D3D12_HEAP_TYPE_UPLOAD 일 경우에는 반드시 enum D3D12_RESOURCE_STATES 는 D3D12_RESOURCE_STATE_GENERIC_READ 여야 한다. 만약 그렇지 않을 경우 다음과 같은 오류가 발생한다.
+```
+D3D12 ERROR: ID3D12Device::CreateCommittedResource: Certain resources are restricted to certain D3D12_RESOURCE_STATES states, and cannot be changed. Resources on D3D12_HEAP_TYPE_UPLOAD heaps requires D3D12_RESOURCE_STATE_GENERIC_READ. Reserved buffers used exclusively for texture placement requires D3D12_RESOURCE_STATE_COMMON. [ RESOURCE_MANIPULATION ERROR #741: RESOURCE_BARRIER_INVALID_HEAP]
 ```
 
-인자는 다음과 같다.
-* const D3D12_HEAP_PROPERTIES *pHeapProperties
-  * 리소스가 할당될 메모리 힙의 속성을 지정하는 포인터다.
+> Reference   
+> [learn.microsoft - d3d12_heap_properties](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_properties)  
+> [learn.microsoft - d3d12_heap_type](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_type)  
+> [learn.microsoft - d3d12_resource_states](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states)  
 
-* D3D12_HEAP_FLAGS HeapFlags
-  * 힙의 플래그를 지정하는 값이다.
-
-* const D3D12_RESOURCE_DESC *pDesc
-  * 생성할 리소스의 설명을 정의하는 구조체 포인터다. 
-
-* D3D12_RESOURCE_STATES InitialResourceState
-  * 생성된 리소스의 초기 상태를 정의한다. 
-
-* const D3D12_CLEAR_VALUE *pOptimizedClearValue
-  * 최적화된 클리어 값을 지정하는 포인터다. 리소스가 렌더 타겟 또는 깊이 스텐실 뷰인 경우 초기화에 사용할 클리어 값을 설정하며, 그렇지 않으면 `NULL`로 설정할 수 있다.
-
-* REFIID riidResource
-  * 요청하는 리소스 인터페이스의 식별자다. 일반적으로 `ID3D12Resource` 인터페이스를 요청한다.
-
-* void **ppvResource
-  * 성공 시, 생성된 리소스 객체의 포인터를 받을 포인터이다. 이 포인터는 `ID3D12Resource` 인터페이스를 가리킨다.
-
-반환값은 다음과 같다.
-* 성공 시
-  * `S_OK`를 반환한다.
-
-* 실패 시
-  * `HRESULT` 오류 코드를 반환한다.
-  * 오류가 발생한 경우, 코드 값에 따라 리소스 생성에 실패한 원인을 진단할 수 있다.
-
-> Reference  
-> [learn.microsoft - nf-d3d12-id3d12device-createcommittedresource](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource)
-
-## D3D12_RESOURCE_DESC 구조체
-resource 의 특성을 정의하는 데 사용되는 구조체이다.
-
-구조체의 정의는 다음과 같다.
-
-```cpp
-typedef struct D3D12_RESOURCE_DESC {
-  D3D12_RESOURCE_DIMENSION Dimension;
-  UINT64                   Alignment;
-  UINT64                   Width;
-  UINT                     Height;
-  UINT16                   DepthOrArraySize;
-  UINT16                   MipLevels;
-  DXGI_FORMAT              Format;
-  DXGI_SAMPLE_DESC         SampleDesc;
-  D3D12_TEXTURE_LAYOUT     Layout;
-  D3D12_RESOURCE_FLAGS     Flags;
-} D3D12_RESOURCE_DESC;
-```
-
-각 멤버 변수는 다음과 같다.
-
-* D3D12_RESOURCE_DIMENSION Dimension  
-  * 리소스의 차원을 지정한다. 
-
-* UINT64 Alignment  
-  * 리소스의 정렬(alignment) 요구 사항을 지정한다.
-  * 정렬을 0으로 설정할 경우
-    * MSAA 텍스처에 4MB를 사용하고 다른 모든 텍스처에 64KB를 사용한다.
-    * 텍스처가 작은 경우 애플리케이션은 몇 가지 텍스처 유형에 대해 이 기본값보다 작은 정렬을 선택할 수 있다.
-    * 알 수 없는 레이아웃 및 MSAA 텍스처는 64KB 정렬로 만들 수 있습니다
-
-* UINT64 Width  
-  * 리소스의 너비를 지정한다.
-  * 버퍼의 경우 전체 크기를 바이트 단위로 나타내며, 텍스처의 경우 픽셀 단위의 너비를 나타낸다.
-
-* UINT Height  
-  * 텍스처 리소스의 높이를 지정한다.
-  * 버퍼 리소스의 경우에는 1로 설정된다.
-
-* UINT16 DepthOrArraySize  
-  * 3D 텍스처의 경우 깊이(depth)를, 1D 또는 2D 텍스처 배열의 경우 배열의 크기를 지정한다.
-
-* UINT16 MipLevels  
-  * 리소스의 MIP 맵 레벨 수를 지정한다.
-  * 0으로 설정하면 가능한 최대 MIP 레벨이 자동으로 결정된다.
-
-* DXGI_FORMAT Format  
-  * 리소스의 데이터 형식을 지정한다. 
-
-* DXGI_SAMPLE_DESC SampleDesc  
-  * 멀티샘플링에 대한 정보를 지정하는 구조체로, 샘플 수와 품질 수준을 설정한다.
-  * 예를 들어, Count가 1이면 멀티샘플링이 적용되지 않는다.
-
-* D3D12_TEXTURE_LAYOUT Layout  
-  * 리소스의 메모리 레이아웃을 지정한다.
-
-* D3D12_RESOURCE_FLAGS Flags  
-  * 리소스의 특성을 지정하는 플래그다.
-
-> Reference  
-> [learn.microsoft - ns-d3d12-d3d12_resource_desc](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_desc)  
-
-### CD3DX12_RESOURCE_DESC 구조체
-D3D12_RESOURCE_DESC 구조체를 쉽게 생성하고 조작할 수 있도록 도와주는 헬퍼 클래스이다. 
-
-구조체의 정의는 다음과 같다.
-```cpp
-struct CD3DX12_RESOURCE_DESC : public D3D12_RESOURCE_DESC {
-    CD3DX12_RESOURCE_DESC();
-    explicit CD3DX12_RESOURCE_DESC(const D3D12_RESOURCE_DESC& o);
-    static CD3DX12_RESOURCE_DESC Buffer(UINT64 width, D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE, UINT64 alignment = 0);
-    static CD3DX12_RESOURCE_DESC Tex1D(DXGI_FORMAT format, UINT64 width, UINT16 arraySize = 1, UINT16 mipLevels = 0, D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE, D3D12_TEXTURE_LAYOUT layout = D3D12_TEXTURE_LAYOUT_UNKNOWN, UINT64 alignment = 0);
-    static CD3DX12_RESOURCE_DESC Tex2D(DXGI_FORMAT format, UINT64 width, UINT height, UINT16 arraySize = 1, UINT16 mipLevels = 0, UINT sampleCount = 1, UINT sampleQuality = 0, D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE, D3D12_TEXTURE_LAYOUT layout = D3D12_TEXTURE_LAYOUT_UNKNOWN, UINT64 alignment = 0);
-    static CD3DX12_RESOURCE_DESC Tex3D(DXGI_FORMAT format, UINT64 width, UINT height, UINT16 depth, UINT16 mipLevels = 0, D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE, D3D12_TEXTURE_LAYOUT layout = D3D12_TEXTURE_LAYOUT_UNKNOWN, UINT64 alignment = 0);
-};
-```
+CD3DX12_RESOURCE_DESC 구조체는 D3D12_RESOURCE_DESC 구조체를 쉽게 생성하고 조작할 수 있도록 도와주는 헬퍼 클래스이다. 
 
 Buffer 함수를 호출하게 되면 다음과 같은 대입이 발생하게 된다.
 ```
@@ -153,97 +43,13 @@ Flags             = flags
 ```
 
 > Reference  
-> [learn.microsoft - cd3dx12-resource-desc](https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-resource-desc) 
-
+> [learn.microsoft - cd3dx12-resource-desc](https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-resource-desc)  
 </details>
 
 
-## enum D3D12_RESOURCE_STATES
-resource 의 상태를 정의하는 플래그를 나타낸다.
 
-정의는 다음과 같다.
 
-```cpp
-typedef enum D3D12_RESOURCE_STATES
-{
-    D3D12_RESOURCE_STATE_COMMON                     = 0,
-    D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER = 0x1,
-    D3D12_RESOURCE_STATE_INDEX_BUFFER               = 0x2,
-    D3D12_RESOURCE_STATE_RENDER_TARGET              = 0x4,
-    D3D12_RESOURCE_STATE_UNORDERED_ACCESS           = 0x8,
-    D3D12_RESOURCE_STATE_DEPTH_WRITE                = 0x10,
-    D3D12_RESOURCE_STATE_DEPTH_READ                 = 0x20,
-    D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE  = 0x40,
-    D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE      = 0x80,
-    D3D12_RESOURCE_STATE_STREAM_OUT                 = 0x100,
-    D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT          = 0x200,
-    D3D12_RESOURCE_STATE_COPY_DEST                  = 0x400,
-    D3D12_RESOURCE_STATE_COPY_SOURCE                = 0x800,
-    D3D12_RESOURCE_STATE_RESOLVE_DEST               = 0x1000,
-    D3D12_RESOURCE_STATE_RESOLVE_SOURCE             = 0x2000,
-    D3D12_RESOURCE_STATE_RAYTRACING_ACCELERATION_STRUCTURE = 0x400000,
-    D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE        = 0x1000000,
-    D3D12_RESOURCE_STATE_GENERIC_READ               = D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER |
-                                                      D3D12_RESOURCE_STATE_INDEX_BUFFER |
-                                                      D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE |
-                                                      D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE |
-                                                      D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT |
-                                                      D3D12_RESOURCE_STATE_COPY_SOURCE,
-    D3D12_RESOURCE_STATE_ALL_SHADER_RESOURCE        = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE |
-                                                      D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
-    D3D12_RESOURCE_STATE_PRESENT                    = 0,
-    D3D12_RESOURCE_STATE_PREDICATION                = 0x200
-} D3D12_RESOURCE_STATES;
-```
 
-각 enum의 의미는 다음과 같다.
-
-* D3D12_RESOURCE_STATE_COMMON
-  * 리소스가 특정 사용 상태에 있지 않으며, 일반적인 상태이다.
-* D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER
-  * 리소스가 버텍스 또는 상수 버퍼로 사용된다.
-* D3D12_RESOURCE_STATE_INDEX_BUFFER
-  * 리소스가 인덱스 버퍼로 사용된다.
-* D3D12_RESOURCE_STATE_RENDER_TARGET
-  * 리소스가 렌더 타겟으로 사용된다.
-* D3D12_RESOURCE_STATE_UNORDERED_ACCESS
-  * 리소스가 언오더드 액세스 뷰(UAV)로 사용된다.
-* D3D12_RESOURCE_STATE_DEPTH_WRITE
-  * 리소스가 깊이 버퍼로 쓰기 작업에 사용된다.
-* D3D12_RESOURCE_STATE_DEPTH_READ
-  * 리소스가 깊이 버퍼로 읽기 작업에 사용된다.
-* D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE
-  * 리소스가 픽셀 셰이더 이외의 셰이더에서 읽기 전용으로 사용된다.
-* D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE
-  * 리소스가 픽셀 셰이더에서 읽기 전용으로 사용된다.
-* D3D12_RESOURCE_STATE_STREAM_OUT
-  * 리소스가 스트림 출력 타겟으로 사용된다.
-* D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT
-  * 리소스가 간접 명령 인수로 사용된다.
-* D3D12_RESOURCE_STATE_COPY_DEST
-  * 리소스가 복사 작업의 대상으로 사용된다.
-* D3D12_RESOURCE_STATE_COPY_SOURCE
-  * 리소스가 복사 작업의 소스로 사용된다.
-* D3D12_RESOURCE_STATE_RESOLVE_DEST
-  * 리소스가 멀티샘플링 해상도 감소 작업의 대상으로 사용된다.
-* D3D12_RESOURCE_STATE_RESOLVE_SOURCE
-  * 리소스가 멀티샘플링 해상도 감소 작업의 소스로 사용된다.
-* D3D12_RESOURCE_STATE_RAYTRACING_ACCELERATION_STRUCTURE
-  * 리소스가 레이 트레이싱 가속 구조로 사용된다.
-* D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE
-  * 리소스가 셰이딩 레이트 소스로 사용된다.
-* D3D12_RESOURCE_STATE_GENERIC_READ
-  * 일반적인 읽기 작업에 사용되는 상태로, 여러 읽기 전용 상태의 조합이다.
-  * upload heap 에서 생성할 resource 의 필수 시작 상태다.
-* D3D12_RESOURCE_STATE_ALL_SHADER_RESOURCE
-  * 모든 셰이더에서 읽기 전용으로 사용되는 상태의 조합이다.
-* D3D12_RESOURCE_STATE_PRESENT
-  * 리소스가 표시(present) 작업에 사용된다.
-* D3D12_RESOURCE_STATE_PREDICATION
-  * 리소스가 조건부 렌더링(predication)에 사용된다.
-
-> Reference  
-> [learn.microsoft - ne-d3d12-d3d12_resource_states](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states)
 
 ## ID3D12Resource::Map
 Map 함수는 GPU memory 중 CPU 접근이 가능한 영역과 CPU 에서 접근 가능한 virtual memory adrress 를 mapping 하고 mapping 된 virtual memory adrress 를 반환하는 함수이다.
@@ -326,11 +132,8 @@ persistent map 을 사용할 때, 애플리케이션은 GPU가 메모리를 읽�
 
 
 
-<details> <summary> <h2 style="display:inline-block"> Resource 를 만드는데 필요한 GPU memory 알아내기 </h2></summary>
-
+## Resource 를 만드는데 필요한 GPU memory 알아내기
 ID3D12Device::GetResourceAllocationInfo
 
-> Reference
-> [](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-getresourceallocationinfo(uint_uint_constd3d12_resource_desc))
-
-</details>
+> Reference  
+> [learn.microsoft - getresourceallocationinfo](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-getresourceallocationinfo(uint_uint_constd3d12_resource_desc))  

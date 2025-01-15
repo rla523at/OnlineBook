@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=61612f5f" />
@@ -572,9 +572,12 @@
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">DirectX12</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="01%20Resource/Resource.html">Resource</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Descriptors.html">Descriptors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20State.html">Resource State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/RootSignature.html">Root Signature</a></li>
 </ul>
 </details></li>
@@ -589,6 +592,7 @@
 <li class="toctree-l3"><a class="reference internal" href="IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Initializing%20Direct3D.html">Initializing Direct3D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ShaderReflection.html">Shader Reflection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Work%20Submission.html">Work Submission</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -820,12 +824,9 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#execute-command-list-presnet">Execute Command List 후 바로 Presnet 호출</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-memory-acess-dma">Direct Memory Acess ( DMA )</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deffered-rendering">Deffered Rendering</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-code">Sample Code</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hellowindow">HelloWindow</a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-slot">Register Slot</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
 </ul>
@@ -867,23 +868,37 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="directx12">
 <h1>DirectX12<a class="headerlink" href="#directx12" title="Link to this heading">#</a></h1>
-<p>DirectX는 Microsoft에서 개발한 API(응용 프로그램 인터페이스) 집합으로, 멀티미디어 애플리케이션, 특히 게임 및 비디오 애플리케이션을 쉽게 개발할 수 있게 도와준다. DirectX API는 다양한 하위 API로 구성되어 있으며, 각 하위 API는 특정 멀티미디어 기능을 처리하는 데 사용된다.</p>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://ssinyoung.tistory.com/category/PROGRAMMING/DirectX%2012">blog - ssinyoung.tistory</a><br />
 <a class="reference external" href="https://dafher-diary.tistory.com/category/DirectX12">blog - dafher-diary.tistory</a><br />
 <a class="reference external" href="https://www.3dgep.com/learning-directx-12-1/">3dgep</a></p>
 </div></blockquote>
-<details> <summary> <h2 style="display:inline-block"> DirectX 12 Programming Guide </h2></summary>
-<p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-basic-direct3d-12-component">Code Flow</a></p>
-<p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/important-changes-from-directx-11-to-directx-12">주요 변경사항 - 개요</a></p>
-<p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/design-philosophy-of-command-queues-and-command-lists">Command Queue &amp; List Design Philosophy</a></p>
-<p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/resource-binding-flow-of-control#resource-binding-flow-of-control">resource binding flow</a></p>
+<section id="execute-command-list-presnet">
+<h2>Execute Command List 후 바로 Presnet 호출<a class="headerlink" href="#execute-command-list-presnet" title="Link to this heading">#</a></h2>
+<p>Microsoft Sample code 를 보면 다음과 같이 되어 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">D3D12HelloTriangle::OnRender</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="c1">// Record all the commands we need to render the scene into the command list.</span>
+<span class="n">PopulateCommandList</span><span class="p">();</span>
+
+<span class="c1">// Execute the command list.</span>
+<span class="n">ID3D12CommandList</span><span class="o">*</span><span class="w"> </span><span class="n">ppCommandLists</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">m_commandList</span><span class="p">.</span><span class="n">Get</span><span class="p">()</span><span class="w"> </span><span class="p">};</span>
+<span class="n">m_commandQueue</span><span class="o">-&gt;</span><span class="n">ExecuteCommandLists</span><span class="p">(</span><span class="n">_countof</span><span class="p">(</span><span class="n">ppCommandLists</span><span class="p">),</span><span class="w"> </span><span class="n">ppCommandLists</span><span class="p">);</span>
+
+<span class="c1">// Present the frame.</span>
+<span class="n">ThrowIfFailed</span><span class="p">(</span><span class="n">m_swapChain</span><span class="o">-&gt;</span><span class="n">Present</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
+
+<span class="n">WaitForPreviousFrame</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>맨 처음 실행단계에서 ExecuteCommandLists 는 비동기 수행임으로 만약 GPU 작업이 완료되지 못한채로 바로 Present 가 호출이 된다면 어떻게 되는가?</p>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/directx-12-programming-guide">learn.microsoft - directx-12-programming-guide</a></p>
+<a class="reference external" href="https://stackoverflow.com/questions/33416715/directx12-executecommandlists-and-present-function">stackoverflow - directx12-executecommandlists-and-present-function</a></p>
 </div></blockquote>
-</details>
+</section>
 <section id="direct-memory-acess-dma">
 <h2>Direct Memory Acess ( DMA )<a class="headerlink" href="#direct-memory-acess-dma" title="Link to this heading">#</a></h2>
 <blockquote>
@@ -894,24 +909,6 @@
 <section id="deffered-rendering">
 <h2>Deffered Rendering<a class="headerlink" href="#deffered-rendering" title="Link to this heading">#</a></h2>
 <p>각 오브젝트를 그릴 때 조명을 계산하는 Forward Rendering 과는 다르게 모든 오브젝트를 먼저 화면 버퍼에 그리고, 조명 계산은 그 후에 한꺼번에 수행하는 방식이다.</p>
-</section>
-<section id="sample-code">
-<h2>Sample Code<a class="headerlink" href="#sample-code" title="Link to this heading">#</a></h2>
-<p>ExecuteCommandLists 를 먼저 호출하여 준비된 command lists 를 GPU의 command queue 에 제출하여 GPU 가 command 를 실행하게 한다. 이로써 GPU가 그리기 작업을 수행하기 시작한다.</p>
-<p>다음에 Present 를 호출하여 GPU 가 그리기 작업을 완료한 Frame 을 화면에 표시한다. 이 함수는 swap chain 의 back buffer 와 front buffer 를 교환하여 화면에 최신 프레임을 나타낸다.</p>
-<p>Present 호출을 했을 떄, GPU 가 백 버퍼에서 렌더링 작업을 완료할 떄까지 실제 교환을 지연시킬 수 있는지 찾아보기.</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://gamedev.stackexchange.com/questions/109345/if-idxgiswapchainpresent-blocks-does-that-mean-im-gpu-bound">https://gamedev.stackexchange.com/questions/109345/if-idxgiswapchainpresent-blocks-does-that-mean-im-gpu-bound</a></p></li>
-<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3ddxgi/dxgi-present">https://learn.microsoft.com/en-us/windows/win32/direct3ddxgi/dxgi-present</a></p></li>
-<li><p><a class="reference external" href="https://developer.nvidia.com/blog/advanced-api-performance-swap-chains/">https://developer.nvidia.com/blog/advanced-api-performance-swap-chains/</a></p></li>
-<li><p><a class="reference external" href="https://stackoverflow.com/questions/71225739/direct3d-11-idxgiswapchainpresent-blocks-at-every-call-in-windows-10-windowe">https://stackoverflow.com/questions/71225739/direct3d-11-idxgiswapchainpresent-blocks-at-every-call-in-windows-10-windowe</a></p></li>
-</ul>
-<section id="hellowindow">
-<h3>HelloWindow<a class="headerlink" href="#hellowindow" title="Link to this heading">#</a></h3>
-<p>D3D12HelloWindow.cpp</p>
-<p><a class="github reference external" href="https://github.com/microsoft/DirectX-Graphics-Samples/tree/master">microsoft/DirectX-Graphics-Samples</a></p>
-<p><a class="reference external" href="https://directx.tistory.com/7">https://directx.tistory.com/7</a></p>
-</section>
 </section>
 <section id="register-slot">
 <h2>Register Slot<a class="headerlink" href="#register-slot" title="Link to this heading">#</a></h2>
@@ -1474,12 +1471,9 @@ rootParameters[0].InitAsUnorderedAccessView( … );
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#execute-command-list-presnet">Execute Command List 후 바로 Presnet 호출</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-memory-acess-dma">Direct Memory Acess ( DMA )</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deffered-rendering">Deffered Rendering</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-code">Sample Code</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hellowindow">HelloWindow</a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-slot">Register Slot</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
 </ul>

@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=61612f5f" />
@@ -572,9 +572,12 @@
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="DirectX12.html">DirectX12</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 has-children"><a class="reference internal" href="01%20Resource/Resource.html">Resource</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Descriptors.html">Descriptors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20State.html">Resource State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/RootSignature.html">Root Signature</a></li>
 </ul>
 </details></li>
@@ -589,6 +592,7 @@
 <li class="toctree-l3"><a class="reference internal" href="IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Initializing%20Direct3D.html">Initializing Direct3D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ShaderReflection.html">Shader Reflection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Work%20Submission.html">Work Submission</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -820,21 +824,6 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commandqueue">CommandQueue</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-list">Command List</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandlist">ID3D12CommandList 인터페이스</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12graphicscommandlist">ID3D12GraphicsCommandList 인터페이스</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandlist">ID3D12Device::CreateCommandList 함수</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12graphicscommandlist-close">ID3D12GraphicsCommandList::Close 함수</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandlist-reset">ID3D12CommandList::Reset 함수</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-allocator">Command Allocator</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandallocator">ID3D12CommandAllocator 인터페이스</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandallocator">ID3D12Device::CreateCommandAllocator 함수</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-creation">Multiple Creation</a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cpu-gpu-synchronization">CPU GPU Synchronization</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soluition1-flushing-the-command-queue">Soluition1 : Flushing the Command Queue</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution2-frame-resource">Solution2 : Frame Resource</a></li>
@@ -855,234 +844,6 @@
 <h1>CPU GPU Interaction<a class="headerlink" href="#cpu-gpu-interaction" title="Link to this heading">#</a></h1>
 <p>그래픽 프로그래밍에는 CPU 와 GPU 라는 두개의 프로세서가 작동하며, 병렬적으로 작동하나 때로는 동기화가 필요하다.</p>
 <p>따라서, 최대의 성능을 내기 위해서는 동기화를 최소화시켜 두개의 프로세서가 계속해서 동작하게 만들어줘야 한다. 왜냐하면, 동기화는 하나의 processor 가 다른 processor 를 기다리게 만들 수 있기 때문이다.</p>
-<section id="commandqueue">
-<h2>CommandQueue<a class="headerlink" href="#commandqueue" title="Link to this heading">#</a></h2>
-<p>GPU 가 실행할 command 의 목록을 가지고 있는 queue 이다.</p>
-<p>CPU 는 Direct3D API 를 이용해서 command queue 에 command 를 제출한다. 이 때, 명심해야 할 점은 CPU 에서 command 를 command queue 에 제출했다고 해서 GPU 에서 바로 실행되는 것이 아니다. GPU 가 처리할 준비가 되어 command queue 에서 command 를 꺼내서 실행할 때 비로소 실행이 된다.</p>
-<p>만약 command queue 가 비어있을 경우 GPU 는 idle 상태가 된다. 반면에 command queue 가 가득 차 있을 경우 CPU 는 idle 상태가 된다.</p>
-<blockquote>
-<div><p>Reference<br />
-<span id="id1">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> Chapter 4.2</p>
-</div></blockquote>
-<details> <summary> <h3 style="display:inline-block"> ID3D12CommandQueue </h3></summary>
-<p>D3D12 에서 GPU 의 command queue 를 나타내는 interface 이다.</p>
-</details>
-<details> <summary> <h3 style="display:inline-block"> ID3D12CommandQueue::ExecuteCommandLists 함수 </h3></summary>
-<p>command list 에 있는 commands 를 command queue 에 추가하는 함수이다.</p>
-<p>command list 에 있는 command 는 첫 번 째 배열 요소부터 시작하여 순서대로 command queue 에 추가된다.</p>
-</details>
-<details> <summary> <h3 style="display:inline-block"> ID3D12CommandQueue::Signal 함수 </h3></summary>
-<p>command queue 에 Fence 가 관리하는 값을 특정 값으로 업데이트하라는 command 를 추가하는 함수이다.</p>
-<p>함수의 시그니처는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">Signal</span><span class="p">(</span>
-<span class="w">  </span><span class="n">ID3D12Fence</span><span class="w"> </span><span class="o">*</span><span class="n">pFence</span><span class="p">,</span>
-<span class="w">  </span><span class="n">UINT64</span><span class="w">      </span><span class="n">Value</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>인자는 다음과 같다.</p>
-<ul class="simple">
-<li><p>ID3D12Fence *pFence</p>
-<ul>
-<li><p>업데이트할 펜스 객체에 대한 포인터다.</p></li>
-</ul>
-</li>
-<li><p>UINT64 Value</p>
-<ul>
-<li><p>업데이트 될 값이다.</p></li>
-</ul>
-</li>
-</ul>
-<p>반환값은 다음과 같다.</p>
-<ul class="simple">
-<li><p>성공 시 <code class="docutils literal notranslate"><span class="pre">S_OK</span></code>를 반환한다.</p></li>
-<li><p>실패 시 적절한 HRESULT 오류 코드를 반환한다.</p></li>
-</ul>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-signal">learn.microsoft - d3d12-id3d12commandqueue-signal</a></p>
-</div></blockquote>
-</details>
-</section>
-<section id="command-list">
-<h2>Command List<a class="headerlink" href="#command-list" title="Link to this heading">#</a></h2>
-<p>CPU 가 GPU 에 command 를 제출하기 위해 사용하는 command 들의 list 이다.</p>
-<p>D3D12 에서는 CPU 와 GPU 간의 효율적인 병렬 처리를 위해 command lists 를 사용하여 CPU 에서 여러 GPU 명령을 미리 작성하고 한 번에 전달하는 방식을 채택하였다. 이 떄, CPU 에서 미리 작성 된 command 들을 command list 라고 한다.</p>
-<section id="id3d12commandlist">
-<h3>ID3D12CommandList 인터페이스<a class="headerlink" href="#id3d12commandlist" title="Link to this heading">#</a></h3>
-<p>command list 를 나타내는 인터페이스이다.</p>
-</section>
-<section id="id3d12graphicscommandlist">
-<h3>ID3D12GraphicsCommandList 인터페이스<a class="headerlink" href="#id3d12graphicscommandlist" title="Link to this heading">#</a></h3>
-<p>ID3D12CommandList interface 를 상속받은 interface 로 graphics 에 대한 command list 를 나타내는 interface 이다.</p>
-<p>ID3D12GraphicsCommandList 는 command list 에 command 를 추가하기 위한 다양한 함수를 제공한다.</p>
-<p>이 떄, 주의할 점은 함수의 이름을 보면 마치 함수로 인해 command 가 바로 실행되는 것처럼 보이지만 실제로는 그저 command list 에 command 를 추가하는 역할만 한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<span id="id2">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> p109</p>
-</div></blockquote>
-</section>
-<section id="id3d12device-createcommandlist">
-<h3>ID3D12Device::CreateCommandList 함수<a class="headerlink" href="#id3d12device-createcommandlist" title="Link to this heading">#</a></h3>
-<p>command list 을 생성하는 함수다.</p>
-<p>함수의 시그니처는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CreateCommandList</span><span class="p">(</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">           </span><span class="n">UINT</span><span class="w">                    </span><span class="n">nodeMask</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">           </span><span class="n">D3D12_COMMAND_LIST_TYPE</span><span class="w"> </span><span class="n">type</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">           </span><span class="n">ID3D12CommandAllocator</span><span class="w">  </span><span class="o">*</span><span class="n">pCommandAllocator</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="p">]</span><span class="w"> </span><span class="n">ID3D12PipelineState</span><span class="w">     </span><span class="o">*</span><span class="n">pInitialState</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">           </span><span class="n">REFIID</span><span class="w">                  </span><span class="n">riid</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">out</span><span class="p">]</span><span class="w">          </span><span class="kt">void</span><span class="w">                    </span><span class="o">**</span><span class="n">ppCommandList</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>인자는 다음과 같다.</p>
-<ul class="simple">
-<li><p>UINT nodeMask</p>
-<ul>
-<li><p>단일 GPU 환경에서는 0으로 설정한다.</p></li>
-<li><p>다중 GPU 노드가 있는 경우, command list 을 생성할 노드를 식별하는 비트를 설정한다.</p></li>
-<li><p>각 비트는 하나의 노드에 해당하며, 하나의 비트만 설정해야 한다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_COMMAND_LIST_TYPE type</p>
-<ul>
-<li><p>생성할 command list 의 유형을 지정한다.</p></li>
-<li><p>enum D3D12_COMMAND_LIST_TYPE 을 사용한다.</p></li>
-</ul>
-</li>
-<li><p>ID3D12CommandAllocator *pCommandAllocator</p>
-<ul>
-<li><p>명령 목록을 생성할 때 사용할 명령 할당자에 대한 포인터다.</p></li>
-</ul>
-</li>
-<li><p>ID3D12PipelineState *pInitialState</p>
-<ul>
-<li><p>선택적 매개변수로, 명령 목록의 초기 파이프라인 상태를 지정하는 파이프라인 상태 객체에 대한 포인터다. nullptr로 설정하면 런타임에서 기본 초기 파이프라인 상태를 설정한다.</p></li>
-</ul>
-</li>
-<li><p>REFIID riid</p>
-<ul>
-<li><p>요청하는 인터페이스의 식별자다.</p></li>
-</ul>
-</li>
-<li><p>void **ppCommandList</p>
-<ul>
-<li><p>성공 시, 생성된 ID3D12CommandList 또는 ID3D12GraphicsCommandList 인터페이스에 대한 포인터를 받을 포인터다.</p></li>
-</ul>
-</li>
-</ul>
-<p>반환값은 다음과 같다.</p>
-<ul class="simple">
-<li><p>성공 시</p>
-<ul>
-<li><p>S_OK를 반환한다.</p></li>
-</ul>
-</li>
-<li><p>실패 시</p>
-<ul>
-<li><p>HRESULT 오류 코드를 반환한다. 예를 들어, 메모리가 부족한 경우 E_OUTOFMEMORY를 반환할 수 있다. 다른 가능한 반환 값은 Direct3D 12 반환 코드를 참고한다.</p></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist">learn.microsoft - nf-d3d12-id3d12device-createcommandlist</a></p>
-</div></blockquote>
-</section>
-<section id="id3d12graphicscommandlist-close">
-<h3>ID3D12GraphicsCommandList::Close 함수<a class="headerlink" href="#id3d12graphicscommandlist-close" title="Link to this heading">#</a></h3>
-<p>command 추가를 완료했음을 나타내는 함수이다.</p>
-<p>ID3D12CommandQueue::ExecuteCommandLists 함수에 인자로 ID3D12GraphicsCommandList 를 넘겨주기 전에 반드시 Close 함수를 호출해야 한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<span id="id3">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> p109</p>
-</div></blockquote>
-</section>
-<section id="id3d12commandlist-reset">
-<h3>ID3D12CommandList::Reset 함수<a class="headerlink" href="#id3d12commandlist-reset" title="Link to this heading">#</a></h3>
-<p>ID3D12CommandList::Reset 은 command list 를 방금 생성한 것과 동일한 상태로 만들어준다.</p>
-<p>이로써 이전 command lists 에 할당된 memory 를 해제하고 새로운 memory 를 할당해주는 작업을 할 필요가 없이 allocator 를 재사용 할 수 있게 해준다.</p>
-<p>(?) Reset 함수를 호출하더라도 command queue 에 있는 command 들에는 아무런 영향이 없다. 왜냐하면 command 들이 저장되어 있는 command allocator 에는 여전히 command queue 가 참조하는 command 가 memroy 에 존재하기 때문이다.</p>
-<p>ID3D12CommandList::Reset 은 호출하기 전에 반드시 ID3D12CommandList::Close 를 호출해줘야 한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset">learn.microsoft - nf-d3d12-id3d12graphicscommandlist-reset</a><br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset#runtime-validation">learn.microsoft - nf-d3d12-id3d12graphicscommandlist-reset#runtime-validation</a></p>
-</div></blockquote>
-</section>
-</section>
-<section id="command-allocator">
-<h2>Command Allocator<a class="headerlink" href="#command-allocator" title="Link to this heading">#</a></h2>
-<p>command list 에 기록될 command 가 실제로 저장될 memory 다.</p>
-<p>ID3D12CommandQueue::ExecuteCommandLists 를 호출하면 command queue 는 인자로 전달된 command list 의 allocator 에 접근해 저장된 command 를 참조하게 된다. 따라서 GPU 에서 command 가 실행이 되는 동안에는 해당하는 command allocator 가 유지되어야 한다.</p>
-<section id="id3d12commandallocator">
-<h3>ID3D12CommandAllocator 인터페이스<a class="headerlink" href="#id3d12commandallocator" title="Link to this heading">#</a></h3>
-<p>Command Allocator 를 나타내는 interface 이다.</p>
-</section>
-<section id="id3d12device-createcommandallocator">
-<h3>ID3D12Device::CreateCommandAllocator 함수<a class="headerlink" href="#id3d12device-createcommandallocator" title="Link to this heading">#</a></h3>
-<p>ID3D12CommandAllocator 객체를 생성하는 함수다.</p>
-<p>함수의 시그니처는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">CreateCommandAllocator</span><span class="p">(</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">  </span><span class="n">D3D12_COMMAND_LIST_TYPE</span><span class="w"> </span><span class="n">type</span><span class="p">,</span>
-<span class="w">        </span><span class="n">REFIID</span><span class="w">                  </span><span class="n">riid</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">out</span><span class="p">]</span><span class="w"> </span><span class="kt">void</span><span class="w">                    </span><span class="o">**</span><span class="n">ppCommandAllocator</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>인자는 다음과 같다.</p>
-<ul class="simple">
-<li><p>D3D12_COMMAND_LIST_TYPE type</p>
-<ul>
-<li><p>생성할 커맨드 할로케이터의 유형을 지정한다.</p></li>
-<li><p>enum D3D12_COMMAND_LIST_TYPE 을 사용한다.</p></li>
-</ul>
-</li>
-<li><p>REFIID riid</p>
-<ul>
-<li><p>요청하는 인터페이스의 식별자이다.</p></li>
-</ul>
-</li>
-<li><p>void **ppCommandAllocator</p>
-<ul>
-<li><p>성공 시, 생성된 ID3D12CommandAllocator 객체의 포인터를 받을 포인터다.</p></li>
-</ul>
-</li>
-</ul>
-<p>반환값은 다음과 같다.</p>
-<ul class="simple">
-<li><p>성공 시</p>
-<ul>
-<li><p>S_OK를 반환한다.</p></li>
-</ul>
-</li>
-<li><p>실패 시</p>
-<ul>
-<li><p>HRESULT 오류 코드를 반환한다.</p></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandallocator">learn.microsoft - nf-d3d12-id3d12device-createcommandallocator</a></p>
-</div></blockquote>
-</section>
-<section id="multiple-creation">
-<h3>Multiple Creation<a class="headerlink" href="#multiple-creation" title="Link to this heading">#</a></h3>
-<p>하나의 allocator 로 여러개의 command lists 를 생성할 수 있다.</p>
-<p>하지만, 여러개의 command lists 에 동시에 command 를 기록할 수는 없다. command 를 기록할 command list 를 제외한 다른 모든 command list 들은 closed 상태여야 한다.</p>
-<p>만약, 그렇지 않을 경우 다음과 같은 오류가 발생하게 된다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D12</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">ID3D12CommandList</span><span class="p">::{</span><span class="n">Create</span><span class="p">,</span><span class="n">Reset</span><span class="p">}</span><span class="n">CommandList</span><span class="p">:</span> <span class="n">The</span> <span class="n">command</span> <span class="n">allocator</span> <span class="ow">is</span> <span class="n">currently</span> <span class="ow">in</span><span class="o">-</span><span class="n">use</span> <span class="n">by</span> <span class="n">another</span> <span class="n">command</span> <span class="nb">list</span><span class="o">.</span>
-</pre></div>
-</div>
-<p>이런 제약 조건 때문에 하나의 command list 에 들어 있는 모든 command 들은 allocator 에 연속적으로 저장되게 된다.</p>
-<blockquote>
-<div><p>Reference<br />
-<span id="id4">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> p111</p>
-</div></blockquote>
-</section>
-</section>
 <section id="cpu-gpu-synchronization">
 <h2>CPU GPU Synchronization<a class="headerlink" href="#cpu-gpu-synchronization" title="Link to this heading">#</a></h2>
 <p>CPU 와 GPU 라는 두개의 processor 가 병렬적으로 동작하기 때문에 다양한 synchronization 문제가 발생할 수 있다.</p>
@@ -1126,7 +887,7 @@
 <p>일반적으로 n = 3 을 사용한다.</p>
 <blockquote>
 <div><p>Reference<br />
-<span id="id5">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> chpater 7.1</p>
+<span id="id1">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> chpater 7.1</p>
 </div></blockquote>
 </section>
 </section>
@@ -1197,21 +958,6 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commandqueue">CommandQueue</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-list">Command List</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandlist">ID3D12CommandList 인터페이스</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12graphicscommandlist">ID3D12GraphicsCommandList 인터페이스</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandlist">ID3D12Device::CreateCommandList 함수</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12graphicscommandlist-close">ID3D12GraphicsCommandList::Close 함수</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandlist-reset">ID3D12CommandList::Reset 함수</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-allocator">Command Allocator</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12commandallocator">ID3D12CommandAllocator 인터페이스</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createcommandallocator">ID3D12Device::CreateCommandAllocator 함수</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-creation">Multiple Creation</a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cpu-gpu-synchronization">CPU GPU Synchronization</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soluition1-flushing-the-command-queue">Soluition1 : Flushing the Command Queue</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution2-frame-resource">Solution2 : Frame Resource</a></li>

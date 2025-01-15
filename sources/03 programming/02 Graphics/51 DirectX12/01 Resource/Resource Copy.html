@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Shader Reflection &#8212; MS Study Book</title>
+    <title>Resource Copy &#8212; MS Study Book</title>
   
   
   
@@ -61,12 +61,12 @@
     <script async="async" src="../../../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/01 Resource/ShaderReflection';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/01 Resource/Resource Copy';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
-    <link rel="next" title="ID3D12GraphicsCommandList" href="../101%20ID3D12GraphicsCommandList.html" />
-    <link rel="prev" title="Root Signature" href="RootSignature.html" />
+    <link rel="next" title="Resource Creation" href="Resource%20Creation.html" />
+    <link rel="prev" title="Resource Binding" href="Resource%20Binding.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -463,7 +463,9 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/array.html">array</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/Chrono.html">Chrono</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/function.html">function</a></li>
 </ul>
@@ -570,11 +572,13 @@
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="../DirectX12.html">DirectX12</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="Resource.html">Resource</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Descriptors.html">Descriptors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Binding.html">Resource Binding</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Creation.html">Resource Creation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Resource%20State.html">Resource State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="RootSignature.html">Root Signature</a></li>
-<li class="toctree-l4 current active"><a class="current reference internal" href="#">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -587,6 +591,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Initializing%20Direct3D.html">Initializing Direct3D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ShaderReflection.html">Shader Reflection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Work%20Submission.html">Work Submission</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -606,6 +612,7 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../DirectXMath.html">DirectXMath</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Sampling.html">Sampling</a></li>
@@ -672,6 +679,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../20%20ETC/chatGPT.html">chatGPT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../20%20ETC/Jupyter%20Book.html">Jupyter Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../20%20ETC/MarkDown.html">Mark Down</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -730,7 +738,7 @@
       
       
       
-      <li><a href="../../../../../_sources/sources/03 programming/02 Graphics/51 DirectX12/01 Resource/ShaderReflection.md" target="_blank"
+      <li><a href="../../../../../_sources/sources/03 programming/02 Graphics/51 DirectX12/01 Resource/Resource Copy.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -806,7 +814,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Shader Reflection</h1>
+    <h1>Resource Copy</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -816,15 +824,8 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-reflection-resource-binding">Shader Reflection 으로부터 Resource Binding 정보 읽어오기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-shader-buffer-desc">D3D12_SHADER_BUFFER_DESC 구조체</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12functionreflection-getconstantbufferbyindex">ID3D12FunctionReflection::GetConstantBufferByIndex 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12shaderreflectionconstantbuffer">ID3D12ShaderReflectionConstantBuffer 인터페이스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12shaderreflection">ID3D12ShaderReflection 인터페이스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12shaderreflection-getdesc">ID3D12ShaderReflection::GetDesc 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-shader-desc">D3D12_SHADER_DESC 구조체</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12shaderreflection-getresourcebindingdesc">ID3D12ShaderReflection::GetResourceBindingDesc 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-shader-input-bind-desc">D3D12_SHADER_INPUT_BIND_DESC 구조체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-resource-state-generic-read">D3D12_RESOURCE_STATE_GENERIC_READ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-resource-vs-copy-buffer-region">Copy Resource vs Copy Buffer Region</a></li>
 </ul>
             </nav>
         </div>
@@ -836,505 +837,70 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="shader-reflection">
-<h1>Shader Reflection<a class="headerlink" href="#shader-reflection" title="Link to this heading">#</a></h1>
-<p>shader reflection 은 shader code 의 메타데이터를 반영(reflection)한 정보로 주로 shader 의 입력 및 출력, 리소스 바인딩, 상수 버퍼, 텍스처 및 기타 정보를 명세하는 데 사용된다.</p>
-<p>Reflection 정보는 shader 를 컴파일할 때 생성된다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://rtarun9.github.io/blogs/shader_reflection/">https://rtarun9.github.io/blogs/shader_reflection/</a></p>
-</div></blockquote>
-<section id="shader-reflection-resource-binding">
-<h2>Shader Reflection 으로부터 Resource Binding 정보 읽어오기<a class="headerlink" href="#shader-reflection-resource-binding" title="Link to this heading">#</a></h2>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;wrl.h&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;d3d12shader.h&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;dxcapi.h&quot;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
-
-<span class="cp">#pragma comment(lib, &quot;dxcompiler.lib&quot;)</span>
-
-<span class="kt">void</span><span class="w"> </span><span class="nf">read_refelction_file</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="n">Microsoft</span><span class="o">::</span><span class="n">WRL</span><span class="o">::</span><span class="n">Comptr</span><span class="p">;</span>
-
-<span class="w">  </span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">ID3D12ShaderReflection</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cptrShaderReflection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
-<span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDxcUtils</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cptrDXCUtils</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="n">DxcCreateInstance</span><span class="p">(</span><span class="n">CLSID_DxcUtils</span><span class="p">,</span><span class="w"> </span><span class="n">IID_PPV_ARGS</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cptrDXCUtils</span><span class="p">));</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDxcBlobEncoding</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cptrRefelctionBlob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="n">cptrDXCUtils</span><span class="o">-&gt;</span><span class="n">LoadFile</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cptrReflectionBlob</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-
-<span class="w">    </span><span class="n">DxcBuffer</span><span class="w"> </span><span class="n">refelctionData</span><span class="p">;</span>
-<span class="w">    </span><span class="n">refelctionData</span><span class="p">.</span><span class="n">Ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cptrReflectionBlob</span><span class="o">-&gt;</span><span class="n">GetBufferPointer</span><span class="p">();</span>
-<span class="w">    </span><span class="n">reflectionData</span><span class="p">.</span><span class="n">Size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cptrReflectionBlob</span><span class="o">-&gt;</span><span class="n">GetBufferSize</span><span class="p">();</span>
-<span class="w">    </span><span class="n">reflectionData</span><span class="p">.</span><span class="n">Encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DXC_CP_ACP</span><span class="p">;</span>
-
-<span class="w">    </span><span class="n">cptrDXCUtils</span><span class="o">-&gt;</span><span class="n">CreateReflection</span><span class="p">(</span><span class="o">&amp;</span><span class="n">reflectionData</span><span class="p">,</span><span class="w"> </span><span class="n">IID_PPV_ARGS</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cptrShaderReflection</span><span class="p">));</span>
-<span class="w">  </span><span class="p">}</span>
-
-<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">numBindResource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="n">D3D12_Shader_DESC</span><span class="w"> </span><span class="n">shaderDesc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
-<span class="w">    </span><span class="n">cptrShaderReflection</span><span class="o">-&gt;</span><span class="n">GetDesc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">shaderDesc</span><span class="p">);</span>
-
-<span class="w">    </span><span class="n">numBindResource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shaderDesc</span><span class="p">.</span><span class="n">BoundResources</span><span class="p">;</span>
-<span class="w">  </span><span class="p">}</span>
-
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">D3D12_SHADER_INPUT_BIND_DESC</span><span class="o">&gt;</span><span class="w"> </span><span class="n">bindingResourceDescs</span><span class="p">(</span><span class="n">numBindResource</span><span class="p">);</span>
-<span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="w"> </span><span class="n">numBindResource</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
-<span class="w">      </span><span class="n">cptrShaderReflection</span><span class="o">-&gt;</span><span class="n">GetResourceBindingDesc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bindingResourceDescs</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">VS_INPUT</span>
-<span class="p">{</span>
-  <span class="n">float4</span> <span class="n">position</span> <span class="p">:</span> <span class="n">SV_POSITION</span><span class="p">;</span>
-  <span class="n">float4</span> <span class="n">color</span> <span class="p">:</span> <span class="n">TEXCOORD0</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="n">cbuffer</span> <span class="n">MyVar</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">matrix</span> <span class="n">projection</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="n">cbuffer</span> <span class="n">MyVar2</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">matrix</span> <span class="n">projection2</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="n">static</span> <span class="nb">float</span> <span class="n">sval</span> <span class="o">=</span><span class="mf">1.0</span><span class="p">;</span>
-<span class="nb">float</span> <span class="n">gval</span> <span class="o">=</span> <span class="mf">1.1</span><span class="p">;</span>
-<span class="nb">float</span> <span class="n">gval2</span> <span class="o">=</span> <span class="mf">1.1</span><span class="p">;</span>
-<span class="n">matrix</span> <span class="n">gval3</span><span class="p">;</span>
-<span class="n">float4</span> <span class="n">gval4</span><span class="p">;</span>
-
-<span class="n">float4</span> <span class="n">mainVS</span><span class="p">(</span><span class="n">VS_INPUT</span> <span class="nb">input</span><span class="p">)</span> <span class="p">:</span> <span class="n">SV_POSITION</span>
-<span class="p">{</span>
-  <span class="n">matrix</span> <span class="n">m</span> <span class="o">=</span> <span class="n">gval</span> <span class="o">*</span> <span class="p">(</span><span class="n">projection</span> <span class="o">+</span> <span class="n">projection2</span><span class="p">);</span>
-  <span class="n">float4</span> <span class="n">out_pos</span> <span class="o">=</span> <span class="n">mul</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">input</span><span class="o">.</span><span class="n">position</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">out_pos</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>static 변수는 binding resource 로 취급되지 않는다.</p>
-<p>만약, extern 변수가 있는 경우 “$globlas” 라는 이름을 갖은 Constant Buffer 가 생기게 되며, extern 변수가 여러개 있는 경우에는 “$globals” 라는 constant buffer 에 묶여서 0 번 binding resource 가 된다.</p>
-<p>그리고 모든 extern 변수가 쓰이지 않으면 최적화에 의해 “$globals” Constant Buffer 가 안만들어 질 수도 있으며, extern 변수중 하나라도 쓰인다면 나머지 변수들은 안쓰이더라도 “$globals” constant buffer 가 생기게 된다.</p>
-<p>$globals 의 정보는 다음 코드로 확인해 볼 수 있다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">D3D12_SHADER_BUFFER_DESC</span><span class="w"> </span><span class="n">globalBufferDesc</span><span class="p">;</span>
-<span class="n">ID3D12ShaderReflectionConstantBuffer</span><span class="o">*</span><span class="w"> </span><span class="n">bufferPtr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cptrShaderReflection</span><span class="o">-&gt;</span><span class="n">GetConstantBufferByIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="n">bufferPtr</span><span class="o">-&gt;</span><span class="n">GetDesc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">globalBufferDesc</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>참고로, float gval 과 같이 별도의 storage class 가 없을 경우 extern 으로 취급된다. <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-variable-syntax">learn.microsoft - variable-syntax</a></p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://asawicki.info/news_1719_two_shader_compilers_of_direct3d_12">asawicki.info - two_shader_compilers_of_direct3d_12</a></p>
-</div></blockquote>
-</section>
-<section id="d3d12-shader-buffer-desc">
-<h2>D3D12_SHADER_BUFFER_DESC 구조체<a class="headerlink" href="#d3d12-shader-buffer-desc" title="Link to this heading">#</a></h2>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12shader/ns-d3d12shader-d3d12_shader_buffer_desc">learn.microsoft - d3d12_shader_buffer_desc</a></p>
-</div></blockquote>
-</section>
-<section id="id3d12functionreflection-getconstantbufferbyindex">
-<h2>ID3D12FunctionReflection::GetConstantBufferByIndex 함수<a class="headerlink" href="#id3d12functionreflection-getconstantbufferbyindex" title="Link to this heading">#</a></h2>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getconstantbufferbyindex">learn.microsoft - id3d12functionreflection-getconstantbufferbyindex</a></p>
-</div></blockquote>
-</section>
-<section id="id3d12shaderreflectionconstantbuffer">
-<h2>ID3D12ShaderReflectionConstantBuffer 인터페이스<a class="headerlink" href="#id3d12shaderreflectionconstantbuffer" title="Link to this heading">#</a></h2>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectionconstantbuffer">learn.microsoft - id3d12shaderreflectionconstantbuffer</a></p>
-</div></blockquote>
-</section>
-<section id="id3d12shaderreflection">
-<h2>ID3D12ShaderReflection 인터페이스<a class="headerlink" href="#id3d12shaderreflection" title="Link to this heading">#</a></h2>
-<p>ID3D12ShaderReflection 은 shader reflection 을 나타내는 인터페이스다.</p>
-</section>
-<section id="id3d12shaderreflection-getdesc">
-<h2>ID3D12ShaderReflection::GetDesc 함수<a class="headerlink" href="#id3d12shaderreflection-getdesc" title="Link to this heading">#</a></h2>
-<p>D3D12_SHADER_DESC 을 가져오는 함수이다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">GetDesc</span><span class="p">(</span>
-<span class="w">  </span><span class="p">[</span><span class="n">out</span><span class="p">]</span><span class="w"> </span><span class="n">D3D12_SHADER_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pDesc</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflection-getdesc">learn.microsoft - id3d12shaderreflection-getdesc</a></p>
-</div></blockquote>
-</section>
-<section id="d3d12-shader-desc">
-<h2>D3D12_SHADER_DESC 구조체<a class="headerlink" href="#d3d12-shader-desc" title="Link to this heading">#</a></h2>
-<p>shader 에 대한 다양한 정보를 제공하는 구조체이다.</p>
-<p>구조체의 정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_SHADER_DESC</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Version</span><span class="p">;</span>
-<span class="w">    </span><span class="n">LPCSTR</span><span class="w"> </span><span class="n">Creator</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Flags</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">ConstantBuffers</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">BoundResources</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">InputParameters</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">OutputParameters</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">InstructionCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">TempRegisterCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">TempArrayCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">DefCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">DclCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">TextureNormalInstructions</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">TextureLoadInstructions</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">TextureCompInstructions</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">TextureBiasInstructions</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">TextureGradientInstructions</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">FloatInstructionCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">IntInstructionCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">UintInstructionCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">StaticFlowControlCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">DynamicFlowControlCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">MacroInstructionCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">ArrayInstructionCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">CutInstructionCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">EmitInstructionCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">D3D_PRIMITIVE_TOPOLOGY</span><span class="w"> </span><span class="n">GSOutputTopology</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">GSMaxOutputVertexCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">D3D_PRIMITIVE</span><span class="w"> </span><span class="n">InputPrimitive</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">PatchConstantParameters</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">cGSInstanceCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">cControlPoints</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">HSOutputPrimitive</span><span class="p">;</span>
-<span class="w">    </span><span class="n">D3D_TESSELLATOR_OUTPUT_PRIMITIVE</span><span class="w"> </span><span class="n">HSPartitioning</span><span class="p">;</span>
-<span class="w">    </span><span class="n">D3D_TESSELLATOR_DOMAIN</span><span class="w"> </span><span class="n">TessellatorDomain</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">cBarrierInstructions</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">cInterlockedInstructions</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">cTextureStoreInstructions</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_SHADER_DESC</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>각 멤버 변수는 다음과 같다.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="resource-copy">
+<h1>Resource Copy<a class="headerlink" href="#resource-copy" title="Link to this heading">#</a></h1>
+<section id="d3d12-resource-state-generic-read">
+<h2>D3D12_RESOURCE_STATE_GENERIC_READ<a class="headerlink" href="#d3d12-resource-state-generic-read" title="Link to this heading">#</a></h2>
+<p>D3D12_RESOURCE_STATE_GENERIC_READ 는 다음 read-only state 들의 bit or 연산자로 정의되어 있다.</p>
 <ul class="simple">
-<li><p>Version (UINT):</p>
-<ul>
-<li><p>셰이더의 버전 번호를 나타낸다. 상위 16비트는 주요 버전, 하위 16비트는 부 버전으로 구성된다.</p></li>
+<li><p>D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER</p></li>
+<li><p>D3D12_RESOURCE_STATE_INDEX_BUFFER</p></li>
+<li><p>D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE</p></li>
+<li><p>D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE</p></li>
+<li><p>D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT</p></li>
+<li><p>D3D12_RESOURCE_STATE_COPY_SOURCE</p></li>
 </ul>
-</li>
-<li><p>Creator (LPCSTR):</p>
-<ul>
-<li><p>이 셰이더를 생성한 도구 또는 API의 이름을 나타내는 문자열이다.</p></li>
-</ul>
-</li>
-<li><p>Flags (UINT):</p>
-<ul>
-<li><p>셰이더의 특성을 나타내는 플래그 값이다.</p></li>
-</ul>
-</li>
-<li><p>ConstantBuffers (UINT):</p>
-<ul>
-<li><p>셰이더에서 사용되는 상수 버퍼의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>BoundResources (UINT):</p>
-<ul>
-<li><p>셰이더에 바인딩된 리소스(텍스처, 샘플러, 상수 버퍼 등)의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>InputParameters (UINT):</p>
-<ul>
-<li><p>셰이더에 대한 입력 파라미터의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>OutputParameters (UINT):</p>
-<ul>
-<li><p>셰이더에 대한 출력 파라미터의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>InstructionCount (UINT):</p>
-<ul>
-<li><p>셰이더에 포함된 명령어의 총 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>TempRegisterCount (UINT):</p>
-<ul>
-<li><p>셰이더가 사용하는 임시 레지스터의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>TempArrayCount (UINT):</p>
-<ul>
-<li><p>셰이더에서 사용되는 임시 배열의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>DefCount (UINT):</p>
-<ul>
-<li><p>셰이더에서 정의된 명령어의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>DclCount (UINT):</p>
-<ul>
-<li><p>셰이더에 선언된 명령어의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>TextureNormalInstructions (UINT):</p>
-<ul>
-<li><p>셰이더에서 텍스처의 일반 명령어 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>TextureLoadInstructions (UINT):</p>
-<ul>
-<li><p>셰이더에서 텍스처의 로드 명령어 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>TextureCompInstructions (UINT):</p>
-<ul>
-<li><p>셰이더에서 텍스처의 비교 명령어 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>TextureBiasInstructions (UINT):</p>
-<ul>
-<li><p>셰이더에서 텍스처의 바이어스 명령어 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>TextureGradientInstructions (UINT):</p>
-<ul>
-<li><p>셰이더에서 텍스처의 그라디언트 명령어 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>FloatInstructionCount (UINT):</p>
-<ul>
-<li><p>부동 소수점 명령어의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>IntInstructionCount (UINT):</p>
-<ul>
-<li><p>정수 명령어의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>UintInstructionCount (UINT):</p>
-<ul>
-<li><p>부호 없는 정수 명령어의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>StaticFlowControlCount (UINT):</p>
-<ul>
-<li><p>셰이더에서 정적 흐름 제어 명령어의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>DynamicFlowControlCount (UINT):</p>
-<ul>
-<li><p>셰이더에서 동적 흐름 제어 명령어의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>MacroInstructionCount (UINT):</p>
-<ul>
-<li><p>매크로 명령어의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>ArrayInstructionCount (UINT):</p>
-<ul>
-<li><p>배열과 관련된 명령어의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>CutInstructionCount (UINT):</p>
-<ul>
-<li><p>컷 명령어의 수를 나타낸다 (주로 기하 셰이더에서 사용).</p></li>
-</ul>
-</li>
-<li><p>EmitInstructionCount (UINT):</p>
-<ul>
-<li><p>방출 명령어의 수를 나타낸다 (주로 기하 셰이더에서 사용).</p></li>
-</ul>
-</li>
-<li><p>GSOutputTopology (D3D_PRIMITIVE_TOPOLOGY):</p>
-<ul>
-<li><p>기하 셰이더의 출력 토폴로지를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>GSMaxOutputVertexCount (UINT):</p>
-<ul>
-<li><p>기하 셰이더에서 생성될 수 있는 최대 출력 정점 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>InputPrimitive (D3D_PRIMITIVE):</p>
-<ul>
-<li><p>셰이더에 전달되는 입력 프리미티브 유형을 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>PatchConstantParameters (UINT):</p>
-<ul>
-<li><p>패치 상수 파라미터의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>cGSInstanceCount (UINT):</p>
-<ul>
-<li><p>기하 셰이더 인스턴스의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>cControlPoints (UINT):</p>
-<ul>
-<li><p>제어점을 위한 개수이다.</p></li>
-</ul>
-</li>
-<li><p>HSOutputPrimitive (UINT):</p>
-<ul>
-<li><p>Hull 셰이더에서 출력 프리미티브의 개수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>HSPartitioning (D3D_TESSELLATOR_OUTPUT_PRIMITIVE):</p>
-<ul>
-<li><p>Hull 셰이더의 파티셔닝을 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>HSOutputPrimitive (D3D_TESSELLATOR_DOMAIN):</p>
-<ul>
-<li><p>Tessellation 도메인을 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>cBarrierInstructions (UINT):</p>
-<ul>
-<li><p>셰이더의 배리어 명령어 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>cInterlockedInstructions (UINT):</p>
-<ul>
-<li><p>상호 배제 명령어의 수를 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>cTextureStoreInstructions (UINT):</p>
-<ul>
-<li><p>텍스처 저장 명령어의 수를 나타낸다.</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="id3d12shaderreflection-getresourcebindingdesc">
-<h2>ID3D12ShaderReflection::GetResourceBindingDesc 함수<a class="headerlink" href="#id3d12shaderreflection-getresourcebindingdesc" title="Link to this heading">#</a></h2>
-<p>shader 의 리소스 바인딩 정보를 가져오는 함수다.</p>
-<p>함수의 시그니처는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">GetResourceBindingDesc</span><span class="p">(</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">]</span><span class="w">  </span><span class="n">UINT</span><span class="w">                         </span><span class="n">ResourceIndex</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">out</span><span class="p">]</span><span class="w"> </span><span class="n">D3D12_SHADER_INPUT_BIND_DESC</span><span class="w"> </span><span class="o">*</span><span class="n">pDesc</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>인자는 다음과 같다.</p>
-<ul class="simple">
-<li><p>UINT ResourceIndex</p>
-<ul>
-<li><p>가져올 리소스 바인딩의 인덱스다.</p></li>
-<li><p>이 인덱스는 리소스 바인딩이 정의된 순서에 따라 결정된다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_RESOURCE_BINDING_DESC *pDesc</p>
-<ul>
-<li><p>리소스 바인딩의 정보를 저장할 구조체에 대한 포인터다.</p></li>
-</ul>
-</li>
-</ul>
+<p>따라서, resource state 가 D3D12_RESOURCE_STATE_GENERIC_READ 인 resource 는 별도의 resource transition 없이 copy source 로 사용할 수 있다.</p>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getresourcebindingdesc">learn.microsoft - id3d12functionreflection-getresourcebindingdesc</a></p>
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states">learn.microsoft - d3d12-d3d12_resource_states</a><br />
+<a class="reference external" href="https://github.com/microsoft/DirectX-Headers/blob/main/include/directx/d3d12.h">github.microsoft - directx/d3d12.h</a></p>
 </div></blockquote>
 </section>
-<section id="d3d12-shader-input-bind-desc">
-<h2>D3D12_SHADER_INPUT_BIND_DESC 구조체<a class="headerlink" href="#d3d12-shader-input-bind-desc" title="Link to this heading">#</a></h2>
-<p>shader 가 사용하는 리소스의 바인딩 정보를 설명하는 데 사용되는 구조체이다.</p>
-<p>구조체의 정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_SHADER_INPUT_BIND_DESC</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">LPCSTR</span><span class="w"> </span><span class="n">Name</span><span class="p">;</span>
-<span class="w">    </span><span class="n">D3D_SHADER_INPUT_TYPE</span><span class="w"> </span><span class="n">Type</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">BindPoint</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">BindCount</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">uFlags</span><span class="p">;</span>
-<span class="w">    </span><span class="n">D3D_RESOURCE_RETURN_TYPE</span><span class="w"> </span><span class="n">ReturnType</span><span class="p">;</span>
-<span class="w">    </span><span class="n">D3D_SRV_DIMENSION</span><span class="w"> </span><span class="n">Dimension</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">NumSamples</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Space</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">uID</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_SHADER_INPUT_BIND_DESC</span><span class="p">;</span>
-</pre></div>
+<section id="copy-resource-vs-copy-buffer-region">
+<h2>Copy Resource vs Copy Buffer Region<a class="headerlink" href="#copy-resource-vs-copy-buffer-region" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>특성</p></th>
+<th class="head"><p>CopyResource</p></th>
+<th class="head"><p>CopyBufferRegion</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>대상 리소스</strong></p></td>
+<td><p>모든 리소스 유형</p></td>
+<td><p>버퍼 리소스만</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>복사 범위</strong></p></td>
+<td><p>전체 리소스</p></td>
+<td><p>특정 영역</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>소스/대상 리소스 크기</strong></p></td>
+<td><p>동일해야 함</p></td>
+<td><p>다를 수 있음</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>유연성</strong></p></td>
+<td><p>낮음 (전체 복사)</p></td>
+<td><p>높음 (부분 복사 가능)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>주요 사용 사례</strong></p></td>
+<td><p>리소스 전체 복사</p></td>
+<td><p>버퍼의 일부 복사</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-<p>각 멤버 변수는 다음과 같다.</p>
-<ul class="simple">
-<li><p>Name (LPCSTR):</p>
-<ul>
-<li><p>셰이더에서 리소스를 선언할 때 사용된 이름을 나타내는 문자열이다.</p></li>
-<li><p>예를 들어 HLSL 코드에서 Texture2D MyTexture;로 선언했다면, Name은 “MyTexture”가 된다.</p></li>
-<li><p>만약 HLSL 코드에서 extern 으로 간주되는 변수의 경우 Name 은 “$Globals” 가 된다.</p>
-<ul>
-<li><p>HLSL 에 float globalVariable; 으로 되어 있으면 기본적으로 extern 으로 간주된다.</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Type (D3D_SHADER_INPUT_TYPE):</p>
-<ul>
-<li><p>셰이더에서 사용되는 리소스의 종류를 나타낸다.</p></li>
-<li><p>D3D_SHADER_INPUT_TYPE은 이 열거형 값이며, 예를 들어 D3D_SIT_CBUFFER는 상수 버퍼(Constant Buffer), D3D_SIT_TBUFFER는 텍스처 버퍼(Texture Buffer), D3D_SIT_TEXTURE는 일반 텍스처(Texture), D3D_SIT_SAMPLER는 샘플러(Sampler)를 의미한다.</p></li>
-</ul>
-</li>
-<li><p>BindPoint (UINT):</p>
-<ul>
-<li><p>셰이더 코드에서 해당 리소스가 바인딩되는 레지스터 슬롯의 시작 위치를 나타낸다.</p></li>
-<li><p>예를 들어, HLSL 코드에서 Texture2D가 t3 레지스터에 바인딩된다면, BindPoint 값은 3이 된다.</p></li>
-<li><p>이는 해당 리소스가 어느 레지스터에 바인딩되는지를 명확하게 알려준다.</p></li>
-</ul>
-</li>
-<li><p>BindCount (UINT):</p>
-<ul>
-<li><p>리소스가 사용 가능한 레지스터의 개수를 나타낸다.</p></li>
-<li><p>단일 리소스인 경우 BindCount는 1이 되지만, 배열로 선언된 리소스의 경우 배열의 크기가 된다.</p></li>
-<li><p>예를 들어, Texture2D MyTextures[4];로 선언되었다면, BindCount는 4이다.</p></li>
-</ul>
-</li>
-<li><p>uFlags (UINT):</p>
-<ul>
-<li><p>리소스에 적용된 플래그를 나타내며, 비트 필드 형식으로 저장된다.</p></li>
-<li><p>대부분의 경우에는 0으로 설정되지만, 특정 상황에서 리소스에 추가 정보를 표시하는 데 사용될 수 있다.</p></li>
-<li><p>이는 주로 Direct3D 12 내부에서 사용되는 정보이다.</p></li>
-</ul>
-</li>
-<li><p>ReturnType (D3D_RESOURCE_RETURN_TYPE):</p>
-<ul>
-<li><p>리소스가 반환하는 데이터 타입을 나타낸다.</p></li>
-<li><p>D3D_RESOURCE_RETURN_TYPE은 텍스처나 다른 리소스에서 반환되는 값의 타입을 지정하는 열거형으로, 예를 들어 D3D_RETURN_TYPE_FLOAT는 float형 데이터를 반환함을 의미하며, D3D_RETURN_TYPE_INT나 D3D_RETURN_TYPE_UINT 등도 포함된다.</p></li>
-<li><p>주로 텍스처 리소스에서 사용된다.</p></li>
-</ul>
-</li>
-<li><p>Dimension (D3D_SRV_DIMENSION):</p>
-<ul>
-<li><p>리소스의 차원(Dimension)을 나타내는 열거형 값으로, 해당 리소스가 1D, 2D, 3D 텍스처인지 또는 큐브 맵인지 등을 나타낸다.</p></li>
-</ul>
-</li>
-<li><p>NumSamples (UINT):</p>
-<ul>
-<li><p>리소스가 멀티샘플링을 지원하는 경우, 해당 리소스가 가지고 있는 샘플의 개수를 나타낸다.</p></li>
-<li><p>예를 들어, 멀티샘플링이 적용된 2D 텍스처의 경우 샘플 수를 나타내지만, 일반 텍스처인 경우 이 값은 1이 된다.</p></li>
-</ul>
-</li>
-<li><p>Space (UINT):</p>
-<ul>
-<li><p>HLSL에서 지정된 리소스의 “Register Space”를 나타낸다.</p></li>
-<li><p>이는 DirectX 12의 “Root Signature”와 관련된 개념으로, 레지스터 바인딩 시 서로 다른 공간을 분리하여 지정할 수 있게 한다.</p></li>
-<li><p>예를 들어, space0, space1 등의 형태로 HLSL 코드에서 명시될 수 있다.</p></li>
-</ul>
-</li>
-<li><p>uID (UINT):</p>
-<ul>
-<li><p>이 구조체에 대한 Direct3D 내부 고유 식별자(ID)로 사용된다.</p></li>
-<li><p>Direct3D 12가 내부적으로 리소스를 식별하고 관리할 때 활용되며, 개발자가 직접 사용하는 경우는 거의 없다.</p></li>
-</ul>
-</li>
-</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copyresource">learn.microsoft - id3d12graphicscommandlist-copyresource</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copybufferregion">learn.microsoft - id3d12graphicscommandlist-copybufferregion</a></p>
+</div></blockquote>
+<p>CopyResource can be used to initialize resources that alias the same heap memory.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copyresource">learn.microsoft - id3d12graphicscommandlist-copyresource</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createplacedresource">learn.microsoft - id3d12device-createplacedresource</a></p>
+</div></blockquote>
 </section>
 </section>
 
@@ -1369,20 +935,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="RootSignature.html"
+       href="Resource%20Binding.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Root Signature</p>
+        <p class="prev-next-title">Resource Binding</p>
       </div>
     </a>
     <a class="right-next"
-       href="../101%20ID3D12GraphicsCommandList.html"
+       href="Resource%20Creation.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">ID3D12GraphicsCommandList</p>
+        <p class="prev-next-title">Resource Creation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1403,15 +969,8 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-reflection-resource-binding">Shader Reflection 으로부터 Resource Binding 정보 읽어오기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-shader-buffer-desc">D3D12_SHADER_BUFFER_DESC 구조체</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12functionreflection-getconstantbufferbyindex">ID3D12FunctionReflection::GetConstantBufferByIndex 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12shaderreflectionconstantbuffer">ID3D12ShaderReflectionConstantBuffer 인터페이스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12shaderreflection">ID3D12ShaderReflection 인터페이스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12shaderreflection-getdesc">ID3D12ShaderReflection::GetDesc 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-shader-desc">D3D12_SHADER_DESC 구조체</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12shaderreflection-getresourcebindingdesc">ID3D12ShaderReflection::GetResourceBindingDesc 함수</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-shader-input-bind-desc">D3D12_SHADER_INPUT_BIND_DESC 구조체</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-resource-state-generic-read">D3D12_RESOURCE_STATE_GENERIC_READ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copy-resource-vs-copy-buffer-region">Copy Resource vs Copy Buffer Region</a></li>
 </ul>
   </nav></div>
 

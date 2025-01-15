@@ -1,7 +1,25 @@
 # Visual Studio
 
-## Git Bash 사용하기
+## 프로젝트 속성
 
+### 링커
+명령줄 >> 추가옵션에 /Force:MULTIPLE 을 추가하면 라이브러리 충돌을 무시하고 링크를 강제로 진행할 수 있다.
+
+### 미리 컴파일된 헤더
+프로젝트 전체적으로는 미리 컴파일된 헤더 사용으로 되어 있어야 하지만, 미리 컴파일된 헤더를 생성하는 .cpp 는 개별적으로 미리 컴파일 된 헤더 만들기 옵션으로 되어 있어야 한다.
+
+### .props
+속성 관리자에서 정의된 .props 의 값을 그대로 사용하려면 속성에서 부모 또는 프로젝트 기본값에서 상속을 선택하면 된다.
+* .props 파일의 값이 다 평가된 후 .vcxproj 의 값을 평가한다.
+* 프로젝트 속성에서 직접 값을 수정하면 .vcxproj 파일에 그 내용이 저장됨으로 .props 파일의 값은 프로젝트 속성을 수정한 값으로 전부 덮어씌워진다.
+
+### 매크로
+$(TargetDir) 은 C/C++ 탭이나 링커탭에서는 사용할 수 있지만, 일반 또는 VC++ 디렉터리 등에서는 사용할 수 없다. 왜인지는 모르겠다.
+
+> Reference  
+> [learn.microsoft - common-macros-for-build-commands-and-properties?view=msvc-170](https://learn.microsoft.com/en-us/cpp/build/reference/common-macros-for-build-commands-and-properties?view=msvc-170)   
+
+## Git Bash 사용하기
 도구 >> 옵션 >> 환경 >> Terminal >> 추가 
 
 ```

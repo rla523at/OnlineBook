@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; MS Study Book</title>
+    <title>Work Submission &#8212; MS Study Book</title>
   
   
   
@@ -16,17 +16,19 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
@@ -37,10 +39,11 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=61612f5f" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
@@ -58,14 +61,15 @@
     <script async="async" src="../../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/103 ID3D12Device';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/Work Submission';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="enum D3D12_COMMAND_LIST_TYPE" href="400%20enum%20D3D12_COMMAND_LIST_TYPE.html" />
-    <link rel="prev" title="ID3D12GraphicsCommandList" href="101%20ID3D12GraphicsCommandList.html" />
+    <link rel="next" title="HLSL" href="../60%20HLSL/HLSL.html" />
+    <link rel="prev" title="Shader Reflection" href="ShaderReflection.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -81,19 +85,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../../search.html"
       method="get">
@@ -101,7 +94,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -109,8 +101,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -126,7 +118,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -156,15 +149,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -441,7 +430,7 @@
 </details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../01%20C%2B%2B/C%2B%2B.html">C++</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/Build.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
@@ -474,7 +463,9 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/array.html">array</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/Chrono.html">Chrono</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/function.html">function</a></li>
 </ul>
@@ -514,7 +505,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Using.html">Using</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../50%20Diffuse%20Reflection.html">Diffuse Reflection</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../50%20DirectX11/DirectX11.html">DirectX11</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/Direct3D.html">Direct3D</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -579,13 +570,15 @@
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="DirectX12.html">DirectX12</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="DirectX12.html">DirectX12</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 has-children"><a class="reference internal" href="01%20Resource/Resource.html">Resource</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Descriptors.html">Descriptors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20State.html">Resource State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/RootSignature.html">Root Signature</a></li>
-<li class="toctree-l4"><a class="reference internal" href="01%20Resource/ShaderReflection.html">Shader Reflection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -598,6 +591,8 @@
 <li class="toctree-l3"><a class="reference internal" href="ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Initializing%20Direct3D.html">Initializing Direct3D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ShaderReflection.html">Shader Reflection</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Work Submission</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -617,6 +612,7 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../DirectXMath.html">DirectXMath</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Sampling.html">Sampling</a></li>
@@ -683,6 +679,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../20%20ETC/chatGPT.html">chatGPT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../20%20ETC/Jupyter%20Book.html">Jupyter Book</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../20%20ETC/MarkDown.html">Mark Down</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
 <ul class="nav bd-sidenav">
@@ -741,7 +738,7 @@
       
       
       
-      <li><a href="../../../../_sources/sources/03 programming/02 Graphics/51 DirectX12/103 ID3D12Device.md" target="_blank"
+      <li><a href="../../../../_sources/sources/03 programming/02 Graphics/51 DirectX12/Work Submission.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -794,24 +791,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -825,7 +814,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><no title></h1>
+    <h1>Work Submission</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -834,9 +823,11 @@ document.write(`
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="simple visible nav section-nav flex-column">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commandqueue">CommandQueue</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-allocator">Command Allocator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-list">Command List</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -847,7 +838,108 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  
+  <section class="tex2jax_ignore mathjax_ignore" id="work-submission">
+<h1>Work Submission<a class="headerlink" href="#work-submission" title="Link to this heading">#</a></h1>
+<section id="commandqueue">
+<h2>CommandQueue<a class="headerlink" href="#commandqueue" title="Link to this heading">#</a></h2>
+<p>GPU 가 실행할 command 의 목록을 가지고 있는 queue 이다.</p>
+<p>CPU 는 Direct3D API 를 이용해서 command queue 에 command 를 제출한다. 이 때, 명심해야 할 점은 CPU 에서 command 를 command queue 에 제출했다고 해서 GPU 에서 바로 실행되는 것이 아니다. GPU 가 처리할 준비가 되어 command queue 에서 command 를 꺼내서 실행할 때 비로소 실행이 된다.</p>
+<p>만약 command queue 가 비어있을 경우 GPU 는 idle 상태가 된다. 반면에 command queue 가 가득 차 있을 경우 CPU 는 idle 상태가 된다.</p>
+<blockquote>
+<div><p>Reference<br />
+<span id="id1">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> Chapter 4.2</p>
+</div></blockquote>
+<details> <summary> <h3 style="display:inline-block"> ID3D12CommandQueue </h3></summary>
+D3D12 에서 GPU 의 command queue 를 나타내는 interface 이다.
+</details>
+<details> <summary> <h3 style="display:inline-block"> ID3D12CommandQueue::ExecuteCommandLists 함수 </h3></summary>
+command list 에 있는 commands 를 command queue 에 추가하는 함수이다.
+<p>command list 에 있는 command 는 첫 번 째 배열 요소부터 시작하여 순서대로 command queue 에 추가된다.</p>
+</details>
+<details> <summary> <h3 style="display:inline-block"> ID3D12CommandQueue::Signal 함수 </h3></summary>
+command queue 에 Fence 가 관리하는 값을 특정 값으로 업데이트하라는 command 를 추가하는 함수이다.
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-signal">learn.microsoft - d3d12-id3d12commandqueue-signal</a></p>
+</div></blockquote>
+</details>
+</section>
+<section id="command-allocator">
+<h2>Command Allocator<a class="headerlink" href="#command-allocator" title="Link to this heading">#</a></h2>
+<p>command list 에 기록될 command 가 실제로 저장될 memory 다.</p>
+<p>ID3D12CommandQueue::ExecuteCommandLists 를 호출하면 command queue 는 인자로 전달된 command list 의 allocator 에 접근해 저장된 command 를 참조하게 된다. 따라서 GPU 에서 command 가 실행이 되는 동안에는 해당하는 command allocator 가 유지되어야 한다.</p>
+<details> <summary> <h3 style="display:inline-block"> ID3D12CommandAllocator 인터페이스 </h3></summary>
+Command Allocator 를 나타내는 interface 이다.
+</details>
+<details> <summary> <h3 style="display:inline-block"> 생성 </h3></summary>
+commnad allocator 는 ID3D12Device::CreateCommandAllocator 함수로 생성된다.
+<p>이 때, enum D3D12_COMMAND_LIST_TYPE 을 통해 앞으로 commnad allocator 에 어떤 타입의 command list 에 기록된 command 를 저장할지 결정한다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandallocator">learn.microsoft - id3d12device-createcommandallocator</a></p>
+</div></blockquote>
+<p>Multiple Creation</p>
+<p>하나의 allocator 로 여러개의 command lists 를 생성할 수 있다. 하지만, 여러개의 command lists 에 동시에 command 를 기록할 수는 없다. command 를 기록할 command list 를 제외한 다른 모든 command list 들은 closed 상태여야 한다. 만약, 그렇지 않을 경우 다음과 같은 오류가 발생하게 된다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D12</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">ID3D12CommandList</span><span class="p">::{</span><span class="n">Create</span><span class="p">,</span><span class="n">Reset</span><span class="p">}</span><span class="n">CommandList</span><span class="p">:</span> <span class="n">The</span> <span class="n">command</span> <span class="n">allocator</span> <span class="ow">is</span> <span class="n">currently</span> <span class="ow">in</span><span class="o">-</span><span class="n">use</span> <span class="n">by</span> <span class="n">another</span> <span class="n">command</span> <span class="nb">list</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>이런 제약 조건 때문에 하나의 command list 에 들어 있는 모든 command 들은 allocator 에 연속적으로 저장되게 된다.</p>
+<blockquote>
+<div><p>Reference<br />
+<span id="id2">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> p111</p>
+</div></blockquote>
+</details>
+</section>
+<section id="command-list">
+<h2>Command List<a class="headerlink" href="#command-list" title="Link to this heading">#</a></h2>
+<p>CPU 가 GPU 에 command 를 제출하기 위해 사용하는 command 들의 list 이다.</p>
+<p>D3D12 에서는 CPU 와 GPU 간의 효율적인 병렬 처리를 위해 command lists 를 사용하여 CPU 에서 여러 GPU 명령을 미리 작성하고 한 번에 전달하는 방식을 채택하였다.</p>
+<p>이 떄, 주의할 점은 함수의 이름을 보면 마치 함수로 인해 command 가 바로 실행되는 것처럼 보이지만 실제로는 그저 command list 에 command 를 추가하는 역할만 한다.</p>
+<details> <summary> <h3 style="display:inline-block"> ID3D12CommandList 인터페이스 </h3></summary>
+command list 를 나타내는 인터페이스이다.
+<p>ID3D12GraphicsCommandList 인터페이스는 ID3D12CommandList interface 를 상속받은 interface 로 graphics 에 대한 command list 를 나타내는 interface 이다.</p>
+<blockquote>
+<div><p>Reference<br />
+<span id="id3">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> p109</p>
+</div></blockquote>
+</details>
+<details> <summary> <h3 style="display:inline-block"> 생성 </h3></summary>
+ID3D12Device::CreateCommandList 함수를 사용해서 command list 를 생성하기 위해서는 command allocator 가 주어져야 한다. 하지만 ID3D12Device4::CreateCommandList1 함수를 사용하면 command allocator 가 주어지지 않아도 된다.
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist">learn.microsoft - id3d12device-createcommandlist</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createcommandlist1">learn.microsoft - id3d12device4-createcommandlist1</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/recording-command-lists-and-bundles#creating-command-lists">learn.microsoft - creating-command-lists</a></p>
+</div></blockquote>
+<p>API 를 통해 객체를 생성할 때, enum D3D12_COMMAND_LIST_TYPE 을 통해 command list 의 타입을 결정한다. command list 의 타입은 direct command list, a bundle, a compute command list, or a copy command list 가 될 수 있다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_command_list_type">learn.microsoft - d3d12_command_list_type</a></p>
+</div></blockquote>
+</details>
+<details> <summary> <h3 style="display:inline-block"> ID3D12GraphicsCommandList::Close 함수 </h3></summary>
+command 추가를 완료했음을 나타내는 함수이다.
+<p>ID3D12CommandQueue::ExecuteCommandLists 함수에 인자로 ID3D12GraphicsCommandList 를 넘겨주기 전에 반드시 Close 함수를 호출해야 한다.</p>
+<blockquote>
+<div><p>Reference<br />
+<span id="id4">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> p109<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close">learn.microsoft - id3d12graphicscommandlist-close</a></p>
+</div></blockquote>
+</details>
+<details> <summary> <h3 style="display:inline-block"> ID3D12CommandList::Reset 함수 </h3></summary>
+ID3D12CommandList::Reset 은 command list 를 방금 생성한 것과 동일한 상태로 만들어준다. 이로써 이전 command lists 에 할당된 memory 를 해제하고 새로운 memory 를 할당해주는 작업을 할 필요가 없이 allocator 를 재사용 할 수 있게 해준다.
+<p>함수의 인자로 주어지는 ID3D12CommandAllocator 객체를 생성할 떄 사용한 enum D3D12_COMMAND_LIST_TYPE 과 ID3D12CommandList 객체를 생성할 때 사용한 enum D3D12_COMMAND_LIST_TYPE 은 반드시 일치해야 한다.</p>
+<p>Reset 함수를 호출하더라도 command queue 에 있는 command 들에는 아무런 영향이 없다. 왜냐하면 command 들이 저장되어 있는 command allocator 에는 여전히 command queue 가 참조하는 command 가 memroy 에 존재하기 때문이다.</p>
+<p>ID3D12CommandList::Reset 은 호출하기 전에 반드시 ID3D12CommandList::Close 를 호출해줘야 한다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset">learn.microsoft - nf-d3d12-id3d12graphicscommandlist-reset</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset#runtime-validation">learn.microsoft - nf-d3d12-id3d12graphicscommandlist-reset#runtime-validation</a></p>
+</div></blockquote>
+</details>
+</section>
+</section>
+
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -879,20 +971,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="101%20ID3D12GraphicsCommandList.html"
+       href="ShaderReflection.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">ID3D12GraphicsCommandList</p>
+        <p class="prev-next-title">Shader Reflection</p>
       </div>
     </a>
     <a class="right-next"
-       href="400%20enum%20D3D12_COMMAND_LIST_TYPE.html"
+       href="../60%20HLSL/HLSL.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">enum D3D12_COMMAND_LIST_TYPE</p>
+        <p class="prev-next-title">HLSL</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -903,7 +995,8 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -911,9 +1004,11 @@ document.write(`
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
-    <ul class="simple visible nav section-nav flex-column">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commandqueue">CommandQueue</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-allocator">Command Allocator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-list">Command List</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
@@ -961,8 +1056,8 @@ By MS
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

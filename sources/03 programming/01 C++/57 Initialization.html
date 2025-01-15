@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=61612f5f" />
@@ -572,9 +572,12 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/DirectX12.html">DirectX12</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource.html">Resource</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Descriptors.html">Descriptors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20State.html">Resource State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/RootSignature.html">Root Signature</a></li>
 </ul>
 </details></li>
@@ -589,6 +592,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/Initializing%20Direct3D.html">Initializing Direct3D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/ShaderReflection.html">Shader Reflection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/Work%20Submission.html">Work Submission</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../02%20Graphics/60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -822,6 +826,10 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#default-initialization">Default Initialization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-initialization">Zero Initialization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate-initialization">Aggregate initialization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#designated-initializers">Designated initializers</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -872,6 +880,51 @@ otherwise, no initialization is performed (see notes).</p>
 <div><p>Reference<br />
 <a class="reference external" href="https://en.cppreference.com/w/cpp/language/zero_initialization">cppreference - zero_initialization)</a></p>
 </div></blockquote>
+</section>
+<section id="aggregate-initialization">
+<h2>Aggregate initialization<a class="headerlink" href="#aggregate-initialization" title="Link to this heading">#</a></h2>
+<p>An aggregate is one of the following types:</p>
+<ul class="simple">
+<li><p>array types</p></li>
+<li><p>class types that has</p>
+<ul>
+<li><p>no user-declared or inherited constructors (since C++20)</p>
+<ul>
+<li><p>no user-declared constructors (until C++11)</p></li>
+<li><p>no user-provided, inherited, or explicit constructors (since C++11) (until C++20)</p></li>
+</ul>
+</li>
+<li><p>no private or protected direct non-static data members</p></li>
+<li><p>no virtual base classes &amp; no private or protected direct base classes (since C++17)</p>
+<ul>
+<li><p>no base classes(until C++17)</p></li>
+</ul>
+</li>
+<li><p>no virtual member functions</p></li>
+<li><p>no default member initializers (since C++11) (until C++14)</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/aggregate_initialization">cppreference - aggregate_initialization</a></p>
+</div></blockquote>
+<section id="designated-initializers">
+<h3>Designated initializers<a class="headerlink" href="#designated-initializers" title="Link to this heading">#</a></h3>
+<p>Since C++20, aggregate class only.</p>
+<p>each designator must name a direct non-static data member of T</p>
+<p>all designators used in the expression must appear in the same order as the data members of T</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">z</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="w"> </span>
+<span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">{.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">};</span><span class="w"> </span><span class="c1">// error; designator order does not match declaration order</span>
+<span class="n">A</span><span class="w"> </span><span class="n">b</span><span class="p">{.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">};</span><span class="w"> </span><span class="c1">// ok, b.y initialized to 0</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/aggregate_initialization#Designated_initializers">cppreference - Designated_initializers</a></p>
+</div></blockquote>
+</section>
 </section>
 </section>
 
@@ -942,6 +995,10 @@ otherwise, no initialization is performed (see notes).</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#default-initialization">Default Initialization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-initialization">Zero Initialization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate-initialization">Aggregate initialization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#designated-initializers">Designated initializers</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

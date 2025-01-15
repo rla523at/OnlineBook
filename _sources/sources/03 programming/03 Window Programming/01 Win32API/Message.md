@@ -1,44 +1,19 @@
 # Message
 
-## PostMessageA 함수
-PostMessageA 함수는 지정된 window 에 비동기적으로 메시지를 전달하는 함수다. 
+<details> <summary> <h2 style="display:inline-block"> PostMessage vs SendMessage </h2></summary>
 
-이 함수는 호출한 스레드가 메시지 처리를 기다리지 않고 즉시 반환되므로, 비동기 작업에서 유용하다. 
+SendMessage 와 PostMessage 는 윈도우에 메시지를 전달하는 용도로 사용되는 함수이다. 이 때, 두 함수의 핵심적인 차이는 메시지 전달 방식과 동기/비동기적 동작에 있다.
 
-`PostMessageA`는 ANSI 버전이므로, ANSI 문자 인코딩을 사용하여 메시지를 전달한다.
+1. **동기 vs 비동기**  
+   - SendMessage: 동기적으로 동작한다. 함수를 호출한 스레드는 해당 메시지를 받은 window procedure 가 메시지를 처리할 때까지 대기한다. 즉, SendMessage 를 호출한 다음 메시지를 수신한 쪽의 처리 함수가 반환할 때까지 호출한 스레드는 Blocking 상태가 된다.  
+   - PostMessage: 비동기적으로 동작한다. 메시지를 대상 윈도우의 메시지 큐에 단순히 등록해두고 PostMessage 함수는 즉시 반환된다. 메시지를 받은 측에서는 메시지 큐에서 메시지를 꺼내 순서에 따라 처리하므로, 호출한 스레드는 메시지 처리 완료를 기다리지 않고 바로 다음 코드로 진행할 수 있다.
 
-함수의 시그니처는 다음과 같다.
-```cpp
-BOOL PostMessageA(
-  [in, optional] HWND   hWnd,
-  [in]           UINT   Msg,
-  [in]           WPARAM wParam,
-  [in]           LPARAM lParam
-);
-```
+2. **메시지 처리 순서와 방법**  
+   - SendMessage: 메시지가 호출되면 대상 window procedure 는 곧바로 해당 메시지를 처리하게 된다. 처리 과정에서 UI가 잠시 멈추거나(Block) 다른 메시지 처리가 지연될 수 있으나, 호출한 쪽에서는 메시지 처리가 완료된 시점에 정확한 결과를 알 수 있다.  
+   - PostMessage: 메시지를 메시지 큐에 넣어두기 때문에, 실제 메시지 처리는 Message Loop 에서 GetMessage 나 PeekMessage 로 해당 메시지를 꺼낼 때 수행됩니다. 따라서 호출 측에서 메시지 처리 완료 시점을 알 수 없고, 메시지를 받은 쪽에서 나중에 처리하게 된다.
 
-인자는 다음과 같다.
-* HWND hWnd
-  * 메시지를 받을 window 의 핸들이다.
-  * HWND_BROADCAST 를 사용하면 시스템의 모든 최상위 window 에 메세지가 전달된다.
-    * 단, 메세지는 자식 window 에는 전달되지 않는다.
-  * NULL 를 사용하면 현재 스레드에 식별자로 설정된 dwThreadID 매개 변수를 사용하여 PostThreadMessage 에 대한 호출처럼 동작한다.
-
-* UINT Msg
-  * 전달할 메시지의 식별자이다. 
-
-* WPARAM wParam
-  * 메시지에 대한 추가 정보다.
-
-* LPARAM lParam
-  * 메시지에 대한 추가 정보다.
-
-반환값은 다음과 같다.
-* 성공 시
-  * `TRUE`를 반환한다.
-
-* 실패 시
-  * `FALSE`를 반환하며, 오류 원인은 GetLastError()를 호출하여 확인할 수 있다.
-  
-> Reference  
+> Reference   
 > [learn.microsoft - nf-winuser-postmessagea](https://learn.microsoft.com/ko-kr/windows/win32/api/winuser/nf-winuser-postmessagea)  
+> [learn.microsoft - winuser-sendmessage](https://learn.microsoft.com/ko-kr/windows/win32/api/winuser/nf-winuser-sendmessage)  
+
+</details>

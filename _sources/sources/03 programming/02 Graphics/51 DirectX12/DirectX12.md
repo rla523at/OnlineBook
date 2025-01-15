@@ -1,29 +1,33 @@
 # DirectX12
-DirectX는 Microsoft에서 개발한 API(응용 프로그램 인터페이스) 집합으로, 멀티미디어 애플리케이션, 특히 게임 및 비디오 애플리케이션을 쉽게 개발할 수 있게 도와준다. DirectX API는 다양한 하위 API로 구성되어 있으며, 각 하위 API는 특정 멀티미디어 기능을 처리하는 데 사용된다. 
 
 > Reference    
 > [blog - ssinyoung.tistory](https://ssinyoung.tistory.com/category/PROGRAMMING/DirectX%2012)   
 > [blog - dafher-diary.tistory](https://dafher-diary.tistory.com/category/DirectX12)    
 > [3dgep](https://www.3dgep.com/learning-directx-12-1/)  
 
+## Execute Command List 후 바로 Presnet 호출
+Microsoft Sample code 를 보면 다음과 같이 되어 있다.
+```cpp
+void D3D12HelloTriangle::OnRender()
+{
+// Record all the commands we need to render the scene into the command list.
+PopulateCommandList();
 
-<details> <summary> <h2 style="display:inline-block"> DirectX 12 Programming Guide </h2></summary>
+// Execute the command list.
+ID3D12CommandList* ppCommandLists[] = { m_commandList.Get() };
+m_commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
 
-[Code Flow](https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-basic-direct3d-12-component)
+// Present the frame.
+ThrowIfFailed(m_swapChain->Present(1, 0));
 
-[주요 변경사항 - 개요](https://learn.microsoft.com/en-us/windows/win32/direct3d12/important-changes-from-directx-11-to-directx-12)
+WaitForPreviousFrame();
+}
+```
 
-[Command Queue & List Design Philosophy](https://learn.microsoft.com/en-us/windows/win32/direct3d12/design-philosophy-of-command-queues-and-command-lists) 
+맨 처음 실행단계에서 ExecuteCommandLists 는 비동기 수행임으로 만약 GPU 작업이 완료되지 못한채로 바로 Present 가 호출이 된다면 어떻게 되는가?
 
-[resource binding flow](https://learn.microsoft.com/en-us/windows/win32/direct3d12/resource-binding-flow-of-control#resource-binding-flow-of-control)
-
-> Reference    
-> [learn.microsoft - directx-12-programming-guide](https://learn.microsoft.com/en-us/windows/win32/direct3d12/directx-12-programming-guide)   
-
-</details>
-
-
-
+> Reference  
+> [stackoverflow - directx12-executecommandlists-and-present-function](https://stackoverflow.com/questions/33416715/directx12-executecommandlists-and-present-function)  
 
 ## Direct Memory Acess ( DMA )
 
@@ -32,26 +36,6 @@ DirectX는 Microsoft에서 개발한 API(응용 프로그램 인터페이스) �
 
 ## Deffered Rendering
 각 오브젝트를 그릴 때 조명을 계산하는 Forward Rendering 과는 다르게 모든 오브젝트를 먼저 화면 버퍼에 그리고, 조명 계산은 그 후에 한꺼번에 수행하는 방식이다.
-
-## Sample Code
-
-ExecuteCommandLists 를 먼저 호출하여 준비된 command lists 를 GPU의 command queue 에 제출하여 GPU 가 command 를 실행하게 한다. 이로써 GPU가 그리기 작업을 수행하기 시작한다.
-
-다음에 Present 를 호출하여 GPU 가 그리기 작업을 완료한 Frame 을 화면에 표시한다. 이 함수는 swap chain 의 back buffer 와 front buffer 를 교환하여 화면에 최신 프레임을 나타낸다.
-
-Present 호출을 했을 떄, GPU 가 백 버퍼에서 렌더링 작업을 완료할 떄까지 실제 교환을 지연시킬 수 있는지 찾아보기.
-* https://gamedev.stackexchange.com/questions/109345/if-idxgiswapchainpresent-blocks-does-that-mean-im-gpu-bound
-* https://learn.microsoft.com/en-us/windows/win32/direct3ddxgi/dxgi-present
-* https://developer.nvidia.com/blog/advanced-api-performance-swap-chains/
-* https://stackoverflow.com/questions/71225739/direct3d-11-idxgiswapchainpresent-blocks-at-every-call-in-windows-10-windowe
-
-### HelloWindow
-D3D12HelloWindow.cpp 
-
-
-https://github.com/microsoft/DirectX-Graphics-Samples/tree/master
-
-https://directx.tistory.com/7
 
 ## Register Slot
 Register Slot 을 명시하지 않으면 compiler 가 자동으로 slot 을 지정해준다.
