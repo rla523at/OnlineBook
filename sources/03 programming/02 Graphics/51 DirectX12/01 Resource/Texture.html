@@ -828,6 +828,7 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-subresource-data">D3D12_SUBRESOURCE_DATA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-resource-view">Shader Resource View 만들기</a></li>
 </ul>
             </nav>
         </div>
@@ -849,6 +850,28 @@
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_subresource_data">learn.microsoft - d3d12_subresource_data</a></p>
 </div></blockquote>
+</section>
+<section id="shader-resource-view">
+<h2>Shader Resource View 만들기<a class="headerlink" href="#shader-resource-view" title="Link to this heading">#</a></h2>
+<details> <summary> <h3 style="display:inline-block"> D3D12_SHADER_RESOURCE_VIEW_DESC 의 Shader4ComponentMapping 멤버변수 </h3></summary>
+Shader4ComponentMapping 은 Texture의 각 (R, G, B, A) 컴포넌트를 셰이더에서 어떤 식으로 매핑해서 사용할지를 지정하는 멤버입니다. 
+즉, Texture의 실제 채널(R, G, B, A)을 셰이더에서 R에 가져올지, G에 가져올지, 혹은 1.0이나 0.0 같은 상수로 채울지 등을 지정할 수 있습니다.
+<p>예를 들어, R -&gt; R, G -&gt; G, B -&gt; B, A -&gt; A 와 같이 기본적인 Mapping 을 할 경우에는 D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING 매크로를 인자로 주면 된다.</p>
+<p>만약 텍스쳐의 (R,G,B,A) 를 Shader 에서 (B,G,R,1.0) 으로 보게 하고 싶다면 D3D12_ENCODE_SHADER_4_COMPONENT_MAPPING 매크로로 다음과 같이 스위즐을 설정할 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">D3D12_ENCODE_SHADER_4_COMPONENT_MAPPING</span><span class="p">(</span>
+<span class="w">    </span><span class="n">D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_2</span><span class="p">,</span><span class="w"> </span><span class="c1">// R &lt;- 텍스처 B</span>
+<span class="w">    </span><span class="n">D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_1</span><span class="p">,</span><span class="w"> </span><span class="c1">// G &lt;- 텍스처 G</span>
+<span class="w">    </span><span class="n">D3D12_SHADER_COMPONENT_MAPPING_FROM_MEMORY_COMPONENT_0</span><span class="p">,</span><span class="w"> </span><span class="c1">// B &lt;- 텍스처 R</span>
+<span class="w">    </span><span class="n">D3D12_SHADER_COMPONENT_MAPPING_FORCE_VALUE_1</span><span class="w">            </span><span class="c1">// A &lt;- 1.0</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_shader_component_mapping">learn.microsoft - d3d12_shader_component_mapping</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_shader_resource_view_desc">learn.microsoft - d3d12_shader_resource_view_desc</a></p>
+</div></blockquote>
+</details>
 </section>
 </section>
 
@@ -918,6 +941,7 @@
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-subresource-data">D3D12_SUBRESOURCE_DATA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-resource-view">Shader Resource View 만들기</a></li>
 </ul>
   </nav></div>
 

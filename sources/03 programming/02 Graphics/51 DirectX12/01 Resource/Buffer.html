@@ -502,6 +502,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/POD.html">POD (Plain Old Data)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/Pragma.html">Pragma</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/SIMD.html">SIMD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/Using.html">Using</a></li>
 </ul>
 </details></li>
@@ -574,11 +575,13 @@
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="Resource.html">Resource</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Descriptors.html">Descriptors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GPU%20Heap.html">GPU Heap</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Creation.html">Resource Creation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20State.html">Resource State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="RootSignature.html">Root Signature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Texture.html">Texture</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -586,7 +589,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../DxcBuffer.html">DxcBuffer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Fence.html">Fence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../GPU%20Heap.html">GPU Heap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ID3D12Debug.html">ID3D12Debug</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../IDXCUtils.html">IDXCUtils</a></li>
@@ -615,6 +617,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../DirectXMath.html">DirectXMath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quaternion.html">Quaternion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Sampling.html">Sampling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ShaderCompiler.html">Shader Compiler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Stencil%20Buffer.html">Stencil Buffer</a></li>
@@ -825,6 +828,7 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#buffer-alignment">Buffer Alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-resource-view">Shader Resource View 만들기</a></li>
 </ul>
             </nav>
         </div>
@@ -851,6 +855,18 @@
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/upload-and-readback-of-texture-data#buffer-alignment">learn.microsoft - upload-and-readback-of-texture-data#buffer-alignment</a></p>
 </div></blockquote>
+</section>
+<section id="shader-resource-view">
+<h2>Shader Resource View 만들기<a class="headerlink" href="#shader-resource-view" title="Link to this heading">#</a></h2>
+<details> <summary> <h3 style="display:inline-block"> D3D12_SHADER_RESOURCE_VIEW_DESC 의 Shader4ComponentMapping 멤버변수 </h3></summary>
+Buffer resource 에 대한 SRV 를 생성할 때는 특별히 스위즐을 조작할 일이 없기 때문에 srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING 로 설정한다.
+<p>필수 필드이기 때문에(D3D12에서 SRV 생성 시 반드시 채워야 하는 값), “쓰지 않는다”거나 “무시”가 아니라 “그냥 기본 매핑”을 넣어주면 됩니다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_shader_component_mapping">learn.microsoft - d3d12_shader_component_mapping</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_shader_resource_view_desc">learn.microsoft - d3d12_shader_resource_view_desc</a></p>
+</div></blockquote>
+</details>
 </section>
 </section>
 
@@ -920,6 +936,7 @@
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#buffer-alignment">Buffer Alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-resource-view">Shader Resource View 만들기</a></li>
 </ul>
   </nav></div>
 
