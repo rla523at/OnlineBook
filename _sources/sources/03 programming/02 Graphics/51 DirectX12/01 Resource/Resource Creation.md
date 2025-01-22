@@ -15,7 +15,7 @@ ID3D12Device::CreateCommittedResource 함수로 생성할 수 있다.
 > Reference   
 > [learn.microsoft - nf-d3d12-id3d12device-createcommittedresource](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource)  
 
-D3D12_HEAP_PROPERTIES 구조체의 enum D3D12_HEAP_TYPE 이 D3D12_HEAP_TYPE_UPLOAD 일 경우에는 반드시 enum D3D12_RESOURCE_STATES 는 D3D12_RESOURCE_STATE_GENERIC_READ 여야 한다. 만약 그렇지 않을 경우 다음과 같은 오류가 발생한다.
+D3D12_HEAP_PROPERTIES 구조체의 enum D3D12_HEAP_TYPE 이 D3D12_HEAP_TYPE_UPLOAD 일 경우에는 반드시 enum D3D12_RESOURCE_STATES 는 D3D12_RESOURCE_STATE_GENERIC_READ 여야 한다. 만약 그렇지 않을 경우 Debug Layer 에서 다음과 같은 오류 메세지가 출력된다.
 ```
 D3D12 ERROR: ID3D12Device::CreateCommittedResource: Certain resources are restricted to certain D3D12_RESOURCE_STATES states, and cannot be changed. Resources on D3D12_HEAP_TYPE_UPLOAD heaps requires D3D12_RESOURCE_STATE_GENERIC_READ. Reserved buffers used exclusively for texture placement requires D3D12_RESOURCE_STATE_COMMON. [ RESOURCE_MANIPULATION ERROR #741: RESOURCE_BARRIER_INVALID_HEAP]
 ```
@@ -46,54 +46,46 @@ Flags             = flags
 > [learn.microsoft - cd3dx12-resource-desc](https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-resource-desc)  
 </details>
 
+## Map
+Map 은 GPU memory 중 CPU 접근이 가능한 영역과 CPU 에서 접근 가능한 virtual memory adrress 를 mapping 하고 mapping 된 virtual memory adrress 를 반환하는 과정이다.
 
 
+<details> <summary> <h3 style="display:inline-block"> ID3D12Resource::Map </h3></summary>
+Map 은 ID3D12Resource::Map 함수를 통해서 이루어진다. 
 
+인자중 UINT Subresource 는 subresource 의 index 를 나타내는 값이다.
 
+인자중 const D3D12_RANGE *pReadRange 는 CPU가 읽을 범위를 지정하는 D3D12_RANGE 구조체의 포인터이다. 만약 nullptr 을 전달할 경우 CPU가 전체 하위 리소스를 읽을 수 있음을 나타낸다. 그리고 CPU가 메모리를 읽지 않을 경우 Range 의 End 가 Begine 보다 작거나 같게 하면 된다.
 
-## ID3D12Resource::Map
-Map 함수는 GPU memory 중 CPU 접근이 가능한 영역과 CPU 에서 접근 가능한 virtual memory adrress 를 mapping 하고 mapping 된 virtual memory adrress 를 반환하는 함수이다.
-
-함수의 시그니처는 다음과 같다.
-```cpp
-HRESULT Map(
-                  UINT              Subresource,
-  [in, optional]  const D3D12_RANGE *pReadRange,
-  [out, optional] void              **ppData
-);
+만약, Resource 가 존재하는 GPU Heap 의 Heap Type 이 D3D12_HEAP_TYPE_UPLOAD, D3D12_HEAP_TYPE_READBACK 이 아닌데 Map 함수를 호출하면 다음과 같은 오류가 발생한다.
+```
+D3D12 ERROR: ID3D12Resource2::ID3D12Resource::Map: Map and Unmap can not be called on a resource associated with a heap that has the CPU page properties of D3D12_CPU_PAGE_PROPERTY_NOT_AVAILABLE. Heaps of the type D3D12_HEAP_TYPE_DEFAULT should be assumed to have these properties. [ EXECUTION ERROR #822: MAP_INVALIDHEAP]
 ```
 
-인자는 다음과 같다.
-* UINT Subresource
-  * 매핑할 하위 리소스의 인덱스이다.
-  * 일반적으로 리소스가 단일 서브리소스를 가지는 경우 `0`을 전달한다.
+> Reference  
+> [learn.microsoft - id3d12resource-map](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map)  
+</details>
 
-* const D3D12_RANGE *pReadRange
-  * CPU가 읽을 범위를 지정하는 D3D12_RANGE 구조체의 포인터이다.
-  * 이 구조체는 읽기 작업의 시작과 끝을 정의한다.
-  * nullptr 을 전달할 경우 CPU가 전체 하위 리소스를 읽을 수 있음을 나타낸다
-  * CPU가 메모리를 읽지 않을 경우 Range 의 End 가 Begine 보다 작게 하면 된다.
 
-* void **ppData
-  * mapping 된 virtual address 를 가리키는 포인터를 받는 포인터다.
-  * 이 포인터를 통해 CPU 는 GPU memory 에 접근할 수 있게 된다.
+<details> <summary> <h3 style="display:inline-block"> Persistenet Map </h3></summary>
+D3D11 에서는 resource 의 접근 권한과 상태를 API 가 자동으로 관리해주었다. 따라서 개발자가 명시적으로 관리할 필요가 없었지만 최적화를 하는데 한계점이 있었다. 예를 들어, D3D11 의 경우 CPU와 GPU가 동시에 같은 리소스를 접근하려고 하면 동기화 문제가 발생할 수 있기 때문에, Map 함수를 호출한 경우 Unmap 을 호출하기 전까지 GPU 에서 접근이 불가능하게 막았다.이로 인해 resource 를 매번 Map 하고 Unmap 해야 했다.
 
-반환값은 다음과 같다.
-* 성공 시
-  * `S_OK`를 반환한다.
+하지만 D3D12 에서는 리소스의 상태 전환과 접근 권한을 개발자가 직접 관리한다. 따라서 Map, Unmap 에 있떤 제약 조건은 사라졌고 CPU와 GPU가 서로 충돌 없이 resource 에 접근할 수 있도록 동기화 작업을 개발자가 제어하게 되었다. 따라서, D3D12 에서는 CPU 에서 접근가능한 heap 에 존재하는 resource 는 영구적 매핑인 persistent map 을 사용할 수 있다. persistent map 은 resource 생성 직후에 Map 을 한 번만 호출하고 Unmap 을 호출하지 않음으로써 구현할 수 있다. 
 
-* 실패 시
-  * `HRESULT` 오류 코드를 반환한다.
-  * 오류가 발생한 경우, 적절한 오류 코드를 통해 매핑 실패 원인을 진단할 수 있다.
+persistent map 을 사용하면 매 frame 마다 map, unmap 을 반복하지 않아도 되어 성능상에 이점이 있다.
 
-주의사항
-* D3D12_HEAP_PROPERTIES 구조체를 정의할 때 Type 을 D3D12_HEAP_TYPE_UPLOAD, D3D12_HEAP_TYPE_READBACK 으로 해야 CPU 접근이 가능한 GPU memory 영역을 얻을 수 있다.
-*  
+persistent map 을 사용할 때, 애플리케이션은 GPU가 메모리를 읽거나 쓰는 command list 을 실행하기 전에 CPU 가 메모리에 데이터 쓰기를 완료해야 한다. 일반적인 시나리오에서는 애플리케이션이 ExecuteCommandLists 를 호출하기 전에 메모리에 쓰기만 하면 되지만, fence 를 사용하여 command list 실행을 지연시키는 방법도 작동한다.
+
+단, resource 가 release 되고 난 후에는 Map 에서 반환된 주소를 더 이상 사용하지 않아야 한다. 
 
 > Reference  
-> [learn.microsoft - nf-d3d12-id3d12resource-map](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map)  
+> [learn.microsoft - id3d12resource-map#advanced-usage-models](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map#advanced-usage-models)  
+</details>
 
-### GPU -> CPU 데이터 전송
+
+
+
+## GPU -> CPU 데이터 전송
 * READBACK 리소스 생성
   * D3D12_HEAP_TYPE_READBACK 힙에 있는 리소스를 생성하여, GPU에서 데이터를 복사할 공간을 마련한다.
 * 데이터 복사
@@ -104,33 +96,13 @@ HRESULT Map(
   * Map을 통해 CPU가 READBACK 리소스의 데이터에 접근하여 데이터를 읽어온다.
 * Unmap으로 메모리 접근을 해제한다.  
 
-### Caution with Read
+### Caution
 Upload heap 에 있는 resource 를 mapping 하여 읽기를 시도하는 것을 피해야 한다. CPU 읽기는 정상적으로 수행되지만 많은 일반적인 GPU architecture 에서 엄청나게 느리다.
 
 D3D12_CPU_PAGE_PROPERTY_WRITE_COMBINE 를 CPU page property 로 갖는 heap 에 있는 resource 를 mapping 하여 읽기를 시도하는 것을 피해야 한다. 이 또한 엄청나게 느리다.
 
 > Reference  
 > [learn.microsoft - nf-d3d12-id3d12resource-map#simple-usage-models](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map#simple-usage-models)
-
-### Persistent Map
-D3D11 에서는 resource 의 접근 권한과 상태를 API 가 자동으로 관리해주었다. 따라서 개발자가 명시적으로 관리할 필요가 없었지만 최적화를 하는데 한계점이 있었다.
-
-예를 들어, D3D11 의 경우 CPU와 GPU가 동시에 같은 리소스를 접근하려고 하면 동기화 문제가 발생할 수 있기 때문에, Map 함수를 호출한 경우 Unmap 을 호출하기 전까지 GPU 에서 접근이 불가능하게 막았다.이로 인해 resource 를 매번 Map 하고 Unmap 해야 했다.
-
-하지만 D3D12 에서는 리소스의 상태 전환과 접근 권한을 개발자가 직접 관리한다. 따라서 Map, Unmap 에 있떤 제약 조건은 사라졌고 CPU와 GPU가 서로 충돌 없이 resource 에 접근할 수 있도록 동기화 작업을 개발자가 제어하게 되었다.
-
-따라서, D3D12 에서는 CPU 에서 접근가능한 heap 에 존재하는 resource 는 영구적 매핑인 persistent map 을 사용할 수 있다. persistent map 은 resource 생성 직후에 Map 을 한 번만 호출하고 Unmap 을 호출하지 않음으로써 구현할 수 있다. 
-
-persistent map 을 사용하면 매 frame 마다 map, unmap 을 반복하지 않아도 되어 성능상에 이점이 있다.
-
-persistent map 을 사용할 때, 애플리케이션은 GPU가 메모리를 읽거나 쓰는 command list 을 실행하기 전에 CPU 가 메모리에 데이터 쓰기를 완료해야 한다. 일반적인 시나리오에서는 애플리케이션이 ExecuteCommandLists 를 호출하기 전에 메모리에 쓰기만 하면 되지만, fence 를 사용하여 command list 실행을 지연시키는 방법도 작동한다.
-
-단, resource 가 release 되고 난 후에는 Map 에서 반환된 주소를 더 이상 사용하지 않아야 한다. 
-
-> Reference  
-> [learn.microsoft - nf-d3d12-id3d12resource-map#advanced-usage-models](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map#advanced-usage-models)  
-
-
 
 ## Resource 를 만드는데 필요한 GPU memory 알아내기
 ID3D12Device::GetResourceAllocationInfo

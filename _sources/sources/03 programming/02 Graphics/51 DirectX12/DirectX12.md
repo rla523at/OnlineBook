@@ -24,7 +24,9 @@ WaitForPreviousFrame();
 }
 ```
 
-맨 처음 실행단계에서 ExecuteCommandLists 는 비동기 수행임으로 만약 GPU 작업이 완료되지 못한채로 바로 Present 가 호출이 된다면 어떻게 되는가?
+맨 처음 실행단계에서 ExecuteCommandLists 는 비동기 수행임으로 만약 GPU 작업이 완료되지 못한채로 바로 Present 가 호출이 된다면 어떻게 될까?
+
+Present 는 Display 에게 back buffer 가 준비가 완료되면 front buffer 로 두고 scan out 을 시작하라고 비동기적으로 명령을 내려 놓는다. 따라서, GPU 작업이 완료되지 않았다면 기다렸다가 Display 가 scan out 을 하며, 이 과정은 비동기적으로 이루어지기 때문에 Present 함수에서 CPU wait 은 발생하지 않는것으로 유추된다. 하지만 실제로 이렇다는 문서를 찾을 수가 없다.
 
 > Reference  
 > [stackoverflow - directx12-executecommandlists-and-present-function](https://stackoverflow.com/questions/33416715/directx12-executecommandlists-and-present-function)  

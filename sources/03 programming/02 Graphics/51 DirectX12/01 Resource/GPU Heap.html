@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Resource State &#8212; MS Study Book</title>
+    <title>GPU Heap &#8212; MS Study Book</title>
   
   
   
@@ -61,12 +61,12 @@
     <script async="async" src="../../../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/01 Resource/Resource State';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/01 Resource/GPU Heap';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
-    <link rel="next" title="Root Signature" href="RootSignature.html" />
-    <link rel="prev" title="Resource Creation" href="Resource%20Creation.html" />
+    <link rel="next" title="Resource Binding" href="Resource%20Binding.html" />
+    <link rel="prev" title="Descriptors" href="Descriptors.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -575,11 +575,11 @@
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="Resource.html">Resource</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Descriptors.html">Descriptors</a></li>
-<li class="toctree-l4"><a class="reference internal" href="GPU%20Heap.html">GPU Heap</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">GPU Heap</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Creation.html">Resource Creation</a></li>
-<li class="toctree-l4 current active"><a class="current reference internal" href="#">Resource State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Resource%20State.html">Resource State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="RootSignature.html">Root Signature</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Texture.html">Texture</a></li>
 </ul>
@@ -741,7 +741,7 @@
       
       
       
-      <li><a href="../../../../../_sources/sources/03 programming/02 Graphics/51 DirectX12/01 Resource/Resource State.md" target="_blank"
+      <li><a href="../../../../../_sources/sources/03 programming/02 Graphics/51 DirectX12/01 Resource/GPU Heap.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -817,7 +817,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Resource State</h1>
+    <h1>GPU Heap</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -827,11 +827,8 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-resource-state-vertex-and-constant-buffer-vs-d3d12-resource-state-generic-read">D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER vs D3D12_RESOURCE_STATE_GENERIC_READ</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">두 상태의 의미</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heap">어떤 힙(Heap)에서 주로 쓰이는가?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">실제로는 어떤 방식을 많이 쓰나요?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">정리</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#base-address-register">Base Address Register</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-combine-vs-write-back">WRITE_COMBINE vs WRITE_BACK</a></li>
 </ul>
             </nav>
         </div>
@@ -843,92 +840,61 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="resource-state">
-<h1>Resource State<a class="headerlink" href="#resource-state" title="Link to this heading">#</a></h1>
-<section id="d3d12-resource-state-vertex-and-constant-buffer-vs-d3d12-resource-state-generic-read">
-<h2>D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER vs D3D12_RESOURCE_STATE_GENERIC_READ<a class="headerlink" href="#d3d12-resource-state-vertex-and-constant-buffer-vs-d3d12-resource-state-generic-read" title="Link to this heading">#</a></h2>
-<p>단순히 Vertex, Constant Buffer 를 위한 Read Only resource 를 만들기 위해서라면 어느 것을 사용해도 기능적으로 큰 차이는 없다.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="gpu-heap">
+<h1>GPU Heap<a class="headerlink" href="#gpu-heap" title="Link to this heading">#</a></h1>
+<p>ID3D12Device::CreateHeap 함수로 placed resources 와 reserved resources 에 사용할 수 있는 GPU heap 을 생성할 수 있다.</p>
+<p>A placed resource object holds a reference on the heap it is created on; but a reserved resource doesn’t hold a reference for each mapping made to a heap.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createheap">learn.microsoft - id3d12device-createheap</a></p>
+</div></blockquote>
+<p>D3D12_HEAP_DESC 구조체는 GPU Heap 을 만들기 위해 필요한 정보를 정의한다.</p>
+<p>Alignment 멤버 변수로 사용가능한 값은 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_desc#members">명세</a>에 정해져있다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_desc">learn.microsoft - d3d12_heap_desc</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_flags">learn.microsoft - ne-d3d12-d3d12_heap_flags</a></p>
+</div></blockquote>
+<p>D3D12_HEAP_PROPERTIES 구조체는 GPU Heap 의 속성을 정의하는 구조체이다.</p>
+<p>CPUPageProperty 멤버 변수는 D3D12_HEAP_TYPE이 CUSTOM으로 설정된 경우에만 유효하며, 다른 값으로 설정된 경우에는 D3D12_CPU_PAGE_PROPERTY_UNKNOWN이 기본적으로 사용된다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_properties">learn.microsoft - ns-d3d12-d3d12_heap_properties</a></p>
+</div></blockquote>
+<p>CD3DX12_HEAP_PROPERTIES 구조체는 D3D12_HEAP_PROPERTIES 구조체를 쉽게 초기화할 수 있는 helper 구조체다. CD3DX12_HEAP_PROPERTIES 의 생성자에 enum D3D12_HEAP_TYPE 만 전달하면 다음과 같은 값을 갖는 D3D12_HEAP_PROPERTIES 구조체가 생성된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">type</span><span class="p">;</span>
+<span class="n">CPUPageProperty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_CPU_PAGE_PROPERTY_UNKNOWN</span><span class="p">;</span>
+<span class="n">MemoryPoolPreference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_MEMORY_POOL_UNKNOWN</span><span class="p">;</span>
+<span class="n">CreationNodeMask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="n">VisibleNodeMask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>enum D3D12_MEMORY_POOL 은 Heap 의 메모리 풀이 할당될 물리적 메모리의 위치를 지정하는 enum 이다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-heap-properties">learn.microsoft - cd3dx12-heap-properties</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_type">learn.microsoft - d3d12_heap_type</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_cpu_page_property">learn.microsoft - d3d12_cpu_page_property</a><br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_memory_pool">learn.microsoft - d3d12_memory_pool)</a></p>
+</div></blockquote>
+<section id="base-address-register">
+<h2>Base Address Register<a class="headerlink" href="#base-address-register" title="Link to this heading">#</a></h2>
+<p>Base Adress Register (BAR) 는 GPU의 전용 메모리( VRAM )를 CPU 메모리 공간에 맵핑하는 데 사용된다.</p>
+<p>VRAM 이 BAR 를 통해 CPU 의 가상 주소 공간에 나타나면, CPU 는 제한된 크기(보통 수백 MB에서 몇 GB)까지 GPU 메모리에 직접 접근할 수 있게 된다.</p>
+<p>그리고 D3D12_HEAP_TYPE_UPLOAD, D3D12_HEAP_TYPE_READBACK 의 경우 BAR 를 사용하는 것 같다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://microsoft.github.io/DirectX-Specs/d3d/D3D12GPUUploadHeaps.html">microsoft.github - D3D12GPUUploadHeaps.html</a><br />
+<a class="reference external" href="https://therealmjp.github.io/posts/gpu-memory-pool/">therealmjp.github - gpu-memory-pool</a></p>
+</div></blockquote>
 </section>
-<hr class="docutils" />
-<section id="id1">
-<h2>두 상태의 의미<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER</span></code></strong><br />
-말 그대로 “정점 버퍼(vertex buffer) 또는 상수 버퍼(constant buffer)로 GPU가 읽을 준비가 된 상태”를 의미합니다.</p>
-<ul class="simple">
-<li><p>이 상태로 설정해두면, 파이프라인에서 이 리소스를 <code class="docutils literal notranslate"><span class="pre">VSSetConstantBuffers</span></code>나 <code class="docutils literal notranslate"><span class="pre">IASetVertexBuffers</span></code> 같은 명령으로 그대로 사용할 수 있습니다.</p></li>
-<li><p>다른 읽기 용도(Index Buffer, Shader Resource, Copy Source 등)로 사용하려면 리소스 배리어(transition)를 거쳐 다른 상태로 전환해야 합니다.</p></li>
-</ul>
-</li>
-<li><p><strong><code class="docutils literal notranslate"><span class="pre">D3D12_RESOURCE_STATE_GENERIC_READ</span></code></strong><br />
-여러 “읽기 전용” 상태를 묶어놓은 상위(슈퍼셋) 상태입니다.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">VERTEX_AND_CONSTANT_BUFFER</span></code>, <code class="docutils literal notranslate"><span class="pre">INDEX_BUFFER</span></code>, <code class="docutils literal notranslate"><span class="pre">NON_PIXEL_SHADER_RESOURCE</span></code>, <code class="docutils literal notranslate"><span class="pre">PIXEL_SHADER_RESOURCE</span></code>, <code class="docutils literal notranslate"><span class="pre">INDIRECT_ARGUMENT</span></code>, <code class="docutils literal notranslate"><span class="pre">COPY_SOURCE</span></code> 등의 읽기 용도를 전부 포괄합니다.</p></li>
-<li><p>즉, “GPU 쪽에서 읽기 전용으로 사용”하기 위한 대부분의 상황을 한 번에 커버합니다.</p></li>
-</ul>
-</li>
-</ol>
-</section>
-<hr class="docutils" />
-<section id="heap">
-<h2>어떤 힙(Heap)에서 주로 쓰이는가?<a class="headerlink" href="#heap" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><strong>업로드 힙(Upload Heap)</strong>:<br />
-CPU가 데이터를 자주 갱신하는(업로드하는) 용도로 주로 사용합니다. 업로드 힙은 항상 <code class="docutils literal notranslate"><span class="pre">D3D12_HEAP_TYPE_UPLOAD</span></code> 속성을 갖고, 리소스 상태로 보통 <code class="docutils literal notranslate"><span class="pre">D3D12_RESOURCE_STATE_GENERIC_READ</span></code>를 사용합니다.</p>
-<ul>
-<li><p>업로드 힙에 올라간 버퍼는 GPU 입장에서는 읽기 전용으로 사용되고, CPU가 수시로 쓸 수 있도록 맵핑이 되어 있기 때문에, 보통 <code class="docutils literal notranslate"><span class="pre">GENERIC_READ</span></code> 상태로 고정한 뒤 별도의 상태 전환 없이 사용합니다.</p></li>
-<li><p>Vertex/Constant 용도로만 쓰더라도 업로드 힙에서는 굳이 상태를 <code class="docutils literal notranslate"><span class="pre">VERTEX_AND_CONSTANT_BUFFER</span></code>로 바꿀 필요가 없습니다.</p></li>
-</ul>
-</li>
-<li><p><strong>디폴트 힙(Default Heap)</strong>:<br />
-GPU가 주로 접근(읽고 쓰는)을 담당하는 힙입니다. 여기서는 리소스를 만들 때 초기 상태를 지정한 후, 파이프라인 사용 시점에 따라 적절히 <code class="docutils literal notranslate"><span class="pre">D3D12_RESOURCE_BARRIER</span></code>로 상태 전환을 해줘야 합니다.</p>
-<ul>
-<li><p>만약 “오직 정점/상수 버퍼”로만 사용할 예정이라면, 미리 <code class="docutils literal notranslate"><span class="pre">D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER</span></code>로 세팅하거나, 혹은 필요 시점에 그 상태로 전환해서 사용합니다.</p></li>
-<li><p>여러 가지 용도(복사, 쉐이더 리소스, 인덱스 버퍼 등)로 쓰인다면, <code class="docutils literal notranslate"><span class="pre">GENERIC_READ</span></code> 같은 상위 상태를 사용하거나, 필요에 따라 상태를 바꿔가며 쓸 수 있습니다.</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<hr class="docutils" />
-<section id="id2">
-<h2>실제로는 어떤 방식을 많이 쓰나요?<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><strong>업로드 힙으로 정점/상수 데이터를 올리는 경우</strong><br />
-보통 리소스를 생성할 때 <code class="docutils literal notranslate"><span class="pre">D3D12_RESOURCE_STATE_GENERIC_READ</span></code>로 두고(혹은 생성 시 <code class="docutils literal notranslate"><span class="pre">D3D12_HEAP_TYPE_UPLOAD</span></code>이면 드라이버에서 자동으로 세팅), CPU에서 데이터를 업데이트한 뒤에 GPU에 넘깁니다.</p>
-<ul>
-<li><p>이 때 GPU에서 쓸 때도 별도 상태 전환 없이 그대로 <code class="docutils literal notranslate"><span class="pre">VERTEX/CONSTANT</span> <span class="pre">BUFFER</span></code>로 읽습니다(“GENERIC_READ ⊇ VERTEX_AND_CONSTANT_BUFFER” 관계).</p></li>
-</ul>
-</li>
-<li><p><strong>디폴트 힙에 두고, 초기에 업로드 → 이후에 정점/상수만 쓰는 경우</strong></p>
-<ol class="arabic simple">
-<li><p>업로드 힙에서 디폴트 힙으로 복사(Copy) 작업을 진행할 때는 <code class="docutils literal notranslate"><span class="pre">COPY_DEST</span></code> 상태로 전환해둡니다.</p></li>
-<li><p>복사가 끝나면, 실제 렌더링에서 필요한 상태(<code class="docutils literal notranslate"><span class="pre">VERTEX_AND_CONSTANT_BUFFER</span></code>)로 전환합니다.</p></li>
-<li><p>이후 계속 정점/상수 버퍼 용도로만 쓸 예정이라면 굳이 다른 상태로 전환할 일은 많지 않습니다.</p></li>
-</ol>
-</li>
-<li><p><strong>여러 용도로 함께 사용해야 하는 경우</strong><br />
-가령 동일한 버퍼를 <strong>Index Buffer</strong>나 **Shader Resource(StructuredBuffer, ByteAddressBuffer 등)**로도 사용해야 한다면, <code class="docutils literal notranslate"><span class="pre">D3D12_RESOURCE_STATE_GENERIC_READ</span></code> 상태 하나로 여러 용도를 커버할 수 있어 편리합니다(필요 시점에 상태 전환을 자주 하지 않아도 됨).</p></li>
-</ul>
-</section>
-<hr class="docutils" />
-<section id="id3">
-<h2>정리<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p><strong>사용할 힙</strong>(Upload인지 Default인지)에 따라 기본적으로 쓰이는 상태가 달라집니다.</p></li>
-<li><p>버퍼를 어느 용도로만 한정해서 쓰는지, 아니면 다른 용도로도 겸해서 쓰는지에 따라 달라질 수 있습니다.</p></li>
-<li><p><strong>기능적인 차이</strong>(GPU에서 읽기에 문제 되는지 여부)는 거의 없지만, **최적화(不要한 상태 전환을 줄이는 것)**나 <strong>사용 편의성</strong> 면에서 선택이 달라집니다.</p></li>
-</ol>
-<ul class="simple">
-<li><p><strong>업로드 힙(Upload Heap)에 있는 버퍼라면 보통 <code class="docutils literal notranslate"><span class="pre">GENERIC_READ</span></code>로 충분</strong>합니다.</p></li>
-<li><p>**디폴트 힙(Default Heap)에 있는 버퍼를 전용으로 쓴다면 <code class="docutils literal notranslate"><span class="pre">VERTEX_AND_CONSTANT_BUFFER</span></code>**로 두는 것이 명시적이며 상태 전환도 단순합니다.</p></li>
-<li><p><strong>다른 용도까지 함께 쓸 계획이 있다면</strong> <code class="docutils literal notranslate"><span class="pre">GENERIC_READ</span></code>로 묶어서 한 번에 쓰거나, 필요 시점에 배리어를 통해 정확한 상태로 전환해가며 사용할 수 있습니다.</p></li>
-</ul>
-<p>즉, “딱히 다른 용도로 안 쓰고, 오직 정점/상수 버퍼만 쓴다”면 <strong>둘 중 어느 걸 써도 큰 문제는 없지만</strong>,</p>
-<ul class="simple">
-<li><p><strong>Upload Heap</strong>이라면 -&gt; <code class="docutils literal notranslate"><span class="pre">GENERIC_READ</span></code>가 일반적</p></li>
-<li><p><strong>Default Heap</strong>이라면 -&gt; 상황에 따라 <code class="docutils literal notranslate"><span class="pre">VERTEX_AND_CONSTANT_BUFFER</span></code>로 두고 쓰는 것이 조금 더 명시적</p></li>
-</ul>
-<p>정도로 이해하시면 됩니다.</p>
+<section id="write-combine-vs-write-back">
+<h2>WRITE_COMBINE vs WRITE_BACK<a class="headerlink" href="#write-combine-vs-write-back" title="Link to this heading">#</a></h2>
+<p>Write-Combine 과 Write-Back 은 CPU가 메모리에 접근할 때의 캐시 정책에 따라 다르게 동작하는 메모리 유형이다.</p>
+<p>Write-Combine 메모리는 CPU 가 메모리에 데이터를 기록할 때 데이터를 임시 버퍼에 모았다가 한 번에 기록하는 방식으로 동작한다. 따라서, 캐시를 사용하지 않는다.</p>
+<p>이 방식은 순차적인 쓰기 작업에 최적화되어 있으며, GPU에 데이터를 빠르게 전송해야 하는 경우에 주로 사용된다.</p>
+<p>Write-Back 메모리는 CPU가 데이터를 메모리에 쓰기 전에 캐시에 저장하고, 이후에 캐시에서 메모리로 기록하는 방식으로 동작한다. 따라서, CPU가 동일 데이터를 여러 번 쓰거나 읽을 때 성능이 향상됩니다.</p>
+<p>이는 일반적으로 읽기와 쓰기가 혼합된 작업에 최적화되어 있으며, 캐시 메모리를 통해 성능이 크게 향상됩니다.</p>
 </section>
 </section>
 
@@ -963,20 +929,20 @@ GPU가 주로 접근(읽고 쓰는)을 담당하는 힙입니다. 여기서는 �
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="Resource%20Creation.html"
+       href="Descriptors.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Resource Creation</p>
+        <p class="prev-next-title">Descriptors</p>
       </div>
     </a>
     <a class="right-next"
-       href="RootSignature.html"
+       href="Resource%20Binding.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Root Signature</p>
+        <p class="prev-next-title">Resource Binding</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -997,11 +963,8 @@ GPU가 주로 접근(읽고 쓰는)을 담당하는 힙입니다. 여기서는 �
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-resource-state-vertex-and-constant-buffer-vs-d3d12-resource-state-generic-read">D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER vs D3D12_RESOURCE_STATE_GENERIC_READ</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">두 상태의 의미</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heap">어떤 힙(Heap)에서 주로 쓰이는가?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">실제로는 어떤 방식을 많이 쓰나요?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">정리</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#base-address-register">Base Address Register</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-combine-vs-write-back">WRITE_COMBINE vs WRITE_BACK</a></li>
 </ul>
   </nav></div>
 

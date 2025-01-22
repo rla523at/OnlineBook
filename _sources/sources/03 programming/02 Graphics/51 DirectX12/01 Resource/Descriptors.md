@@ -307,4 +307,60 @@ SRV 는 텍스처, 버퍼, 구조화된 버퍼 등 다양한 형태의 자원을
 반면 CBV는 상수 버퍼, 즉 256바이트 정렬 된 데이터를 가르킨다. 따라서 CreateConstantBufferView 는 resource 에 대한 시작 주소와 크기만 알면 되며, 추가적인 형식 정보나 차원 정보가 필요하지 않아 D3D12_CONSTANT_BUFFER_VIEW_DESC 구조체에서 상수 버퍼의 GPU 메모리 주소와 크기만을 요구하는 형태로 되어 있다.
 
 
+## Null Descriptor
+
+Null Descriptor가 필요한 이유
+* 명시적 리소스 바인딩
+  * D3D12에서 디스크립터 테이블은 ‘슬롯’ 수가 고정되어 있고, 이를 하드웨어에서 참조할 때 빈 상태로 두면 GPU 충돌이나 TDR(Timeout Detection & Recovery) 위험이 있다
+  * 즉, 사용하지 않는다고 해서 디스크립터를 생략할 수 없고, 반드시 어떤 형태로든 ‘유효한 디스크립터’여야 합니다.
+  * 이때 “유효하지만 실제 리소스는 없는” 상태를 나타내는 것이 바로 Null Descriptor입니다.
+* 안전한 접근 보장
+  * 셰이더 단계에서 어떤 리소스가 필요하지 않은 상황이라도, 잘못된 주소를 참조하거나 GPU 크래시를 일으키지 않도록 예방해야 합니다.
+  * D3D12에서는 셰이더가 해당 슬롯을 읽더라도 의미 없는 값(일반적으로 0, 투명, 블랙 등)만 반환되도록 “Null Descriptor”를 바인딩해 둘 수 있습니다.
+  * 이를 통해 잘못된 리소스를 바인딩하여 발생할 수 있는 GPU 액세스 위반, TDR(Timeout Detection & Recovery) 등을 예방하는 역할을 합니다
+
+Null Descritpor 가 필요한 상황 예시
+* 예를 들어, 게임 엔진에서 여러 종류의 머티리얼(매테리얼)들을 처리하기 위해 공통 루트 시그니처를 만들었다고 가정해 봅시다.
+* 디자인 목표: 모든 머티리얼이 ‘최대 8장의 텍스처(SRV)’를 사용할 수 있도록 통일된 인터페이스 제공
+* 구현 방법:
+  * 루트 시그니처에 Descriptor Table을 하나 두고, 그 범위(Range)를 “SRV 8개”로 고정해둔다.
+  * 셰이더 코드에서도 Texture2D gTexArray[8] : register(t0, space0); 처럼 선언해둔다.
+  * 즉, 어떤 머티리얼이든 최대 8개까지 텍스처를 바인딩할 수 있는 구조로 만들어 둔 것입니다.
+* 머티리얼 A가 베이스 컬러 텍스처(t0)와 노멀 맵(t1) 2개만 사용하는 경우
+  * D3D12에서는 머티리얼별로 “SRV 디스크립터 힙에 실제 리소스를 작성”하여, 루트 시그니처의 Descriptor Table로 전달해야 합니다.
+  * “8개의 슬롯”이라는 개수는 고정이므로, 머티리얼 A의 경우 실제로 2개만 필요하지만 나머지 6개 슬롯도 Null Descriptor로 채워 넣어야 합니다.
+```cpp
+// 1) 디스크립터 힙에 SRV를 만들 위치(8슬롯) 확보
+D3D12_CPU_DESCRIPTOR_HANDLE baseCpuHandle = srvHeap->GetCPUDescriptorHandleForHeapStart();
+UINT descriptorSize = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+
+// 2) t0, t1용 실제 SRV 생성
+D3D12_CPU_DESCRIPTOR_HANDLE slot0Handle = baseCpuHandle;
+device->CreateShaderResourceView(gTexBaseColorResource, &srvDescBaseColor, slot0Handle);
+
+D3D12_CPU_DESCRIPTOR_HANDLE slot1Handle = { slot0Handle.ptr + descriptorSize };
+device->CreateShaderResourceView(gTexNormalMapResource, &srvDescNormal, slot1Handle);
+
+// 3) t2 ~ t7 슬롯은 Null Descriptor 생성
+D3D12_CPU_DESCRIPTOR_HANDLE nullSlotHandle = { slot1Handle.ptr + descriptorSize };
+
+D3D12_SHADER_RESOURCE_VIEW_DESC nullSrvDesc = {};
+nullSrvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+nullSrvDesc.Format = DXGI_FORMAT_UNKNOWN;
+// MipLevels, MostDetailedMip 등을 0으로 설정
+for (int slotIndex = 2; slotIndex < 8; ++slotIndex)
+{
+    device->CreateShaderResourceView(nullptr, &nullSrvDesc, nullSlotHandle);
+    nullSlotHandle.ptr += descriptorSize;
+}
+```
+
+
+
+* In many cases, there is a defined behavior for accessing an unbound resource, such as SRVs which return default values. Those will be honored when accessing a NULL descriptor as long as the type of shader access is compatible with the descriptor type.
+  * Shader 에서 Null Descriptor 로 접근하면 default value 가 return 된다.
+
+> Reference  
+> [learn.microsoft - descriptors-overview#null-descriptors](https://learn.microsoft.com/en-us/windows/win32/direct3d12/descriptors-overview#null-descriptors)  
+
 

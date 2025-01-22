@@ -65,7 +65,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
-    <link rel="next" title="Resource Binding" href="Resource%20Binding.html" />
+    <link rel="next" title="GPU Heap" href="GPU%20Heap.html" />
     <link rel="prev" title="Buffer" href="Buffer.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -502,6 +502,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/POD.html">POD (Plain Old Data)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/Pragma.html">Pragma</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/SIMD.html">SIMD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/Using.html">Using</a></li>
 </ul>
 </details></li>
@@ -574,11 +575,13 @@
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="Resource.html">Resource</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="Buffer.html">Buffer</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">Descriptors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GPU%20Heap.html">GPU Heap</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Creation.html">Resource Creation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20State.html">Resource State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="RootSignature.html">Root Signature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Texture.html">Texture</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -586,7 +589,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../DxcBuffer.html">DxcBuffer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Fence.html">Fence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../GPU%20Heap.html">GPU Heap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ID3D12Debug.html">ID3D12Debug</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../IDXCUtils.html">IDXCUtils</a></li>
@@ -615,6 +617,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../DirectXMath.html">DirectXMath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quaternion.html">Quaternion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Sampling.html">Sampling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ShaderCompiler.html">Shader Compiler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Stencil%20Buffer.html">Stencil Buffer</a></li>
@@ -840,6 +843,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-constant-buffer-view-desc">D3D12_CONSTANT_BUFFER_VIEW_DESC 구조체</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createshaderresourceview">ID3D12Device::CreateShaderResourceView 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createconstantbufferview-vs-id3d12device-createshaderresourceview">ID3D12Device::CreateConstantBufferView vs ID3D12Device::CreateShaderResourceView</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#null-descriptor">Null Descriptor</a></li>
 </ul>
             </nav>
         </div>
@@ -1181,6 +1185,80 @@
 <p>SRV 는 텍스처, 버퍼, 구조화된 버퍼 등 다양한 형태의 자원을 가르킬 수 있다. 따라서 CreateShaderResourceView 는 resource 에 대한 세부 정보가 필요하기 때문에 SRV 가 참조할 자원을 정확하게 지정해줘야 한다.</p>
 <p>반면 CBV는 상수 버퍼, 즉 256바이트 정렬 된 데이터를 가르킨다. 따라서 CreateConstantBufferView 는 resource 에 대한 시작 주소와 크기만 알면 되며, 추가적인 형식 정보나 차원 정보가 필요하지 않아 D3D12_CONSTANT_BUFFER_VIEW_DESC 구조체에서 상수 버퍼의 GPU 메모리 주소와 크기만을 요구하는 형태로 되어 있다.</p>
 </section>
+<section id="null-descriptor">
+<h2>Null Descriptor<a class="headerlink" href="#null-descriptor" title="Link to this heading">#</a></h2>
+<p>Null Descriptor가 필요한 이유</p>
+<ul class="simple">
+<li><p>명시적 리소스 바인딩</p>
+<ul>
+<li><p>D3D12에서 디스크립터 테이블은 ‘슬롯’ 수가 고정되어 있고, 이를 하드웨어에서 참조할 때 빈 상태로 두면 GPU 충돌이나 TDR(Timeout Detection &amp; Recovery) 위험이 있다</p></li>
+<li><p>즉, 사용하지 않는다고 해서 디스크립터를 생략할 수 없고, 반드시 어떤 형태로든 ‘유효한 디스크립터’여야 합니다.</p></li>
+<li><p>이때 “유효하지만 실제 리소스는 없는” 상태를 나타내는 것이 바로 Null Descriptor입니다.</p></li>
+</ul>
+</li>
+<li><p>안전한 접근 보장</p>
+<ul>
+<li><p>셰이더 단계에서 어떤 리소스가 필요하지 않은 상황이라도, 잘못된 주소를 참조하거나 GPU 크래시를 일으키지 않도록 예방해야 합니다.</p></li>
+<li><p>D3D12에서는 셰이더가 해당 슬롯을 읽더라도 의미 없는 값(일반적으로 0, 투명, 블랙 등)만 반환되도록 “Null Descriptor”를 바인딩해 둘 수 있습니다.</p></li>
+<li><p>이를 통해 잘못된 리소스를 바인딩하여 발생할 수 있는 GPU 액세스 위반, TDR(Timeout Detection &amp; Recovery) 등을 예방하는 역할을 합니다</p></li>
+</ul>
+</li>
+</ul>
+<p>Null Descritpor 가 필요한 상황 예시</p>
+<ul class="simple">
+<li><p>예를 들어, 게임 엔진에서 여러 종류의 머티리얼(매테리얼)들을 처리하기 위해 공통 루트 시그니처를 만들었다고 가정해 봅시다.</p></li>
+<li><p>디자인 목표: 모든 머티리얼이 ‘최대 8장의 텍스처(SRV)’를 사용할 수 있도록 통일된 인터페이스 제공</p></li>
+<li><p>구현 방법:</p>
+<ul>
+<li><p>루트 시그니처에 Descriptor Table을 하나 두고, 그 범위(Range)를 “SRV 8개”로 고정해둔다.</p></li>
+<li><p>셰이더 코드에서도 Texture2D gTexArray[8] : register(t0, space0); 처럼 선언해둔다.</p></li>
+<li><p>즉, 어떤 머티리얼이든 최대 8개까지 텍스처를 바인딩할 수 있는 구조로 만들어 둔 것입니다.</p></li>
+</ul>
+</li>
+<li><p>머티리얼 A가 베이스 컬러 텍스처(t0)와 노멀 맵(t1) 2개만 사용하는 경우</p>
+<ul>
+<li><p>D3D12에서는 머티리얼별로 “SRV 디스크립터 힙에 실제 리소스를 작성”하여, 루트 시그니처의 Descriptor Table로 전달해야 합니다.</p></li>
+<li><p>“8개의 슬롯”이라는 개수는 고정이므로, 머티리얼 A의 경우 실제로 2개만 필요하지만 나머지 6개 슬롯도 Null Descriptor로 채워 넣어야 합니다.</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// 1) 디스크립터 힙에 SRV를 만들 위치(8슬롯) 확보</span>
+<span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="n">baseCpuHandle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">srvHeap</span><span class="o">-&gt;</span><span class="n">GetCPUDescriptorHandleForHeapStart</span><span class="p">();</span>
+<span class="n">UINT</span><span class="w"> </span><span class="n">descriptorSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">device</span><span class="o">-&gt;</span><span class="n">GetDescriptorHandleIncrementSize</span><span class="p">(</span><span class="n">D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV</span><span class="p">);</span>
+
+<span class="c1">// 2) t0, t1용 실제 SRV 생성</span>
+<span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="n">slot0Handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">baseCpuHandle</span><span class="p">;</span>
+<span class="n">device</span><span class="o">-&gt;</span><span class="n">CreateShaderResourceView</span><span class="p">(</span><span class="n">gTexBaseColorResource</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">srvDescBaseColor</span><span class="p">,</span><span class="w"> </span><span class="n">slot0Handle</span><span class="p">);</span>
+
+<span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="n">slot1Handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">slot0Handle</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">descriptorSize</span><span class="w"> </span><span class="p">};</span>
+<span class="n">device</span><span class="o">-&gt;</span><span class="n">CreateShaderResourceView</span><span class="p">(</span><span class="n">gTexNormalMapResource</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">srvDescNormal</span><span class="p">,</span><span class="w"> </span><span class="n">slot1Handle</span><span class="p">);</span>
+
+<span class="c1">// 3) t2 ~ t7 슬롯은 Null Descriptor 생성</span>
+<span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="n">nullSlotHandle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">slot1Handle</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">descriptorSize</span><span class="w"> </span><span class="p">};</span>
+
+<span class="n">D3D12_SHADER_RESOURCE_VIEW_DESC</span><span class="w"> </span><span class="n">nullSrvDesc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="n">nullSrvDesc</span><span class="p">.</span><span class="n">ViewDimension</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_SRV_DIMENSION_TEXTURE2D</span><span class="p">;</span>
+<span class="n">nullSrvDesc</span><span class="p">.</span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DXGI_FORMAT_UNKNOWN</span><span class="p">;</span>
+<span class="c1">// MipLevels, MostDetailedMip 등을 0으로 설정</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">slotIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">slotIndex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">slotIndex</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">device</span><span class="o">-&gt;</span><span class="n">CreateShaderResourceView</span><span class="p">(</span><span class="k">nullptr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">nullSrvDesc</span><span class="p">,</span><span class="w"> </span><span class="n">nullSlotHandle</span><span class="p">);</span>
+<span class="w">    </span><span class="n">nullSlotHandle</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">descriptorSize</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>In many cases, there is a defined behavior for accessing an unbound resource, such as SRVs which return default values. Those will be honored when accessing a NULL descriptor as long as the type of shader access is compatible with the descriptor type.</p>
+<ul>
+<li><p>Shader 에서 Null Descriptor 로 접근하면 default value 가 return 된다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/descriptors-overview#null-descriptors">learn.microsoft - descriptors-overview#null-descriptors</a></p>
+</div></blockquote>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1223,11 +1301,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="Resource%20Binding.html"
+       href="GPU%20Heap.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Resource Binding</p>
+        <p class="prev-next-title">GPU Heap</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1264,6 +1342,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-constant-buffer-view-desc">D3D12_CONSTANT_BUFFER_VIEW_DESC 구조체</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createshaderresourceview">ID3D12Device::CreateShaderResourceView 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createconstantbufferview-vs-id3d12device-createshaderresourceview">ID3D12Device::CreateConstantBufferView vs ID3D12Device::CreateShaderResourceView</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#null-descriptor">Null Descriptor</a></li>
 </ul>
   </nav></div>
 

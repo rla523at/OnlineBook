@@ -502,6 +502,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/POD.html">POD (Plain Old Data)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Pragma.html">Pragma</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/SIMD.html">SIMD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Using.html">Using</a></li>
 </ul>
 </details></li>
@@ -574,11 +575,13 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="01%20Resource/Resource.html">Resource</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Descriptors.html">Descriptors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/GPU%20Heap.html">GPU Heap</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20State.html">Resource State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/RootSignature.html">Root Signature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Texture.html">Texture</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -586,7 +589,6 @@
 <li class="toctree-l3"><a class="reference internal" href="CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="DxcBuffer.html">DxcBuffer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Fence.html">Fence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="GPU%20Heap.html">GPU Heap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ID3D12Debug.html">ID3D12Debug</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="IDXCUtils.html">IDXCUtils</a></li>
@@ -615,6 +617,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../DirectXMath.html">DirectXMath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quaternion.html">Quaternion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Sampling.html">Sampling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ShaderCompiler.html">Shader Compiler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Stencil%20Buffer.html">Stencil Buffer</a></li>
@@ -905,6 +908,7 @@ command list 를 나타내는 인터페이스이다.
 </details>
 <details> <summary> <h3 style="display:inline-block"> 생성 </h3></summary>
 ID3D12Device::CreateCommandList 함수를 사용해서 command list 를 생성하기 위해서는 command allocator 가 주어져야 한다. 하지만 ID3D12Device4::CreateCommandList1 함수를 사용하면 command allocator 가 주어지지 않아도 된다.
+<p>대신에 ID3D12Device4::CreateCommandList1 함수를 사용하면 close 상태의 command allocator 가 생성된다.</p>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist">learn.microsoft - id3d12device-createcommandlist</a><br />
@@ -920,6 +924,10 @@ ID3D12Device::CreateCommandList 함수를 사용해서 command list 를 생성�
 <details> <summary> <h3 style="display:inline-block"> ID3D12GraphicsCommandList::Close 함수 </h3></summary>
 command 추가를 완료했음을 나타내는 함수이다.
 <p>ID3D12CommandQueue::ExecuteCommandLists 함수에 인자로 ID3D12GraphicsCommandList 를 넘겨주기 전에 반드시 Close 함수를 호출해야 한다.</p>
+<p>그리고 Close 함수를 호출한 command list 에 다시 command 를 기록하고 싶으면 반드시 Reset 함수를 호출해줘야 한다. 만약 Reset 함수를 호출하지 않고 command 를 기록하려고 한다면 다음 Debug Layrer 에서 다음 오류 메세지가 발생한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D12</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">ID3D12GraphicsCommandList</span><span class="p">::</span><span class="o">*</span><span class="p">:</span> <span class="n">This</span> <span class="n">API</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">called</span> <span class="n">on</span> <span class="n">a</span> <span class="n">closed</span> <span class="n">command</span> <span class="nb">list</span><span class="o">.</span> <span class="p">[</span> <span class="n">EXECUTION</span> <span class="n">ERROR</span> <span class="c1">#547: COMMAND_LIST_CLOSED]</span>
+</pre></div>
+</div>
 <blockquote>
 <div><p>Reference<br />
 <span id="id4">[<a class="reference internal" href="../../../99%20References/references.html#id18" title="Frank D. Luna. introduction to 3d game programming with directx 11. Mercury Learning and Information, 2016.">Luna, 2016</a>]</span> p109<br />
@@ -930,7 +938,10 @@ command 추가를 완료했음을 나타내는 함수이다.
 ID3D12CommandList::Reset 은 command list 를 방금 생성한 것과 동일한 상태로 만들어준다. 이로써 이전 command lists 에 할당된 memory 를 해제하고 새로운 memory 를 할당해주는 작업을 할 필요가 없이 allocator 를 재사용 할 수 있게 해준다.
 <p>함수의 인자로 주어지는 ID3D12CommandAllocator 객체를 생성할 떄 사용한 enum D3D12_COMMAND_LIST_TYPE 과 ID3D12CommandList 객체를 생성할 때 사용한 enum D3D12_COMMAND_LIST_TYPE 은 반드시 일치해야 한다.</p>
 <p>Reset 함수를 호출하더라도 command queue 에 있는 command 들에는 아무런 영향이 없다. 왜냐하면 command 들이 저장되어 있는 command allocator 에는 여전히 command queue 가 참조하는 command 가 memroy 에 존재하기 때문이다.</p>
-<p>ID3D12CommandList::Reset 은 호출하기 전에 반드시 ID3D12CommandList::Close 를 호출해줘야 한다.</p>
+<p>ID3D12CommandList::Reset 은 호출하기 전에 반드시 ID3D12CommandList::Close 를 호출해줘야 한다. 그렇지 않으면 Debug Layer 에서 다음 오류 메세지가 발생한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D12</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">ID3D12GraphicsCommandList</span><span class="p">::</span><span class="n">Reset</span><span class="p">:</span> <span class="n">Reset</span> <span class="n">fails</span> <span class="n">because</span> <span class="n">the</span> <span class="n">command</span> <span class="nb">list</span> <span class="n">was</span> <span class="ow">not</span> <span class="n">closed</span><span class="o">.</span> <span class="p">[</span> <span class="n">EXECUTION</span> <span class="n">ERROR</span> <span class="c1">#544: COMMAND_LIST_OPEN]</span>
+</pre></div>
+</div>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset">learn.microsoft - nf-d3d12-id3d12graphicscommandlist-reset</a><br />

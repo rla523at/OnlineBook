@@ -83,6 +83,8 @@ ID3D12GraphicsCommandList 인터페이스는 ID3D12CommandList interface 를 상
 <details> <summary> <h3 style="display:inline-block"> 생성 </h3></summary>
 ID3D12Device::CreateCommandList 함수를 사용해서 command list 를 생성하기 위해서는 command allocator 가 주어져야 한다. 하지만 ID3D12Device4::CreateCommandList1 함수를 사용하면 command allocator 가 주어지지 않아도 된다.
 
+대신에 ID3D12Device4::CreateCommandList1 함수를 사용하면 close 상태의 command allocator 가 생성된다.
+
 > Reference   
 > [learn.microsoft - id3d12device-createcommandlist](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist)  
 > [learn.microsoft - id3d12device4-createcommandlist1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createcommandlist1)  
@@ -101,6 +103,11 @@ command 추가를 완료했음을 나타내는 함수이다.
 
 ID3D12CommandQueue::ExecuteCommandLists 함수에 인자로 ID3D12GraphicsCommandList 를 넘겨주기 전에 반드시 Close 함수를 호출해야 한다.
 
+그리고 Close 함수를 호출한 command list 에 다시 command 를 기록하고 싶으면 반드시 Reset 함수를 호출해줘야 한다. 만약 Reset 함수를 호출하지 않고 command 를 기록하려고 한다면 다음 Debug Layrer 에서 다음 오류 메세지가 발생한다.
+```
+D3D12 ERROR: ID3D12GraphicsCommandList::*: This API cannot be called on a closed command list. [ EXECUTION ERROR #547: COMMAND_LIST_CLOSED]
+```
+
 > Reference  
 > {cite}`Luna` p109  
 > [learn.microsoft - id3d12graphicscommandlist-close](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close)  
@@ -114,7 +121,10 @@ ID3D12CommandList::Reset 은 command list 를 방금 생성한 것과 동일한 
 
 Reset 함수를 호출하더라도 command queue 에 있는 command 들에는 아무런 영향이 없다. 왜냐하면 command 들이 저장되어 있는 command allocator 에는 여전히 command queue 가 참조하는 command 가 memroy 에 존재하기 때문이다.
 
-ID3D12CommandList::Reset 은 호출하기 전에 반드시 ID3D12CommandList::Close 를 호출해줘야 한다.
+ID3D12CommandList::Reset 은 호출하기 전에 반드시 ID3D12CommandList::Close 를 호출해줘야 한다. 그렇지 않으면 Debug Layer 에서 다음 오류 메세지가 발생한다.
+```
+D3D12 ERROR: ID3D12GraphicsCommandList::Reset: Reset fails because the command list was not closed. [ EXECUTION ERROR #544: COMMAND_LIST_OPEN]
+```
 
 > Reference  
 > [learn.microsoft - nf-d3d12-id3d12graphicscommandlist-reset](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset)    

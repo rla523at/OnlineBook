@@ -1,8 +1,8 @@
 # Resource State
 
 ## D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER vs D3D12_RESOURCE_STATE_GENERIC_READ
-먼저 결론부터 말씀드리면, **동일한 용도로만(즉 단순히 정점/상수 버퍼로만 읽기) 사용한다면 `D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER`나 `D3D12_RESOURCE_STATE_GENERIC_READ` 중 어느 것을 사용해도 기능적으로 큰 차이는 없습니다.**  
-다만 상황(힙 종류나 다른 용도로 함께 쓸 가능성 등)에 따라 권장되는 설정이 달라질 수 있습니다.
+단순히 Vertex, Constant Buffer 를 위한 Read Only resource 를 만들기 위해서라면 어느 것을 사용해도 기능적으로 큰 차이는 없다.
+
 
 ---
 

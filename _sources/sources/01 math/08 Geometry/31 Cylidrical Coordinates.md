@@ -20,9 +20,17 @@ $J_f$는 다음과 같다.
 
 $$ J_f = \pdiff{f^i}{x^j}e_{ij} = \begin{bmatrix} \cos\theta & \sin\theta & 0 \\\\ -\dfrac{\sin\theta}{r} & \dfrac{\cos\theta}{r} &0 \\\\ 0&0&1 \end{bmatrix} $$
 
-따라서 1번 미분가능한 함수 $g : \R^3 \rightarrow \R$이 있다고 할 때, 다음이 성립한다.
+1번 미분가능한 함수 $g : \R^3 \rightarrow \R$이 있다고 하면, 다음이 성립한다.
 
-$$ \begin{bmatrix} \dpdiff{g}{x} & \dpdiff{g}{y} & \dpdiff{g}{z} \end{bmatrix} = \begin{bmatrix} \dpdiff{g}{r} & \dpdiff{g}{\theta} & \dpdiff{g}{z} \end{bmatrix}  \begin{bmatrix} \cos\theta & \sin\theta & 0 \\\\ -\dfrac{\sin\theta}{r} & \dfrac{\cos\theta}{r} &0 \\\\ 0&0&1 \end{bmatrix} $$
+$$ \begin{aligned}
+\pdiff{g}{x} &= \pdiff{g}{r}\pdiff{r}{x}+ \pdiff{g}{\theta}\pdiff{\theta}{x}+ \pdiff{g}{z}\pdiff{z}{x} \\
+             &= \pdiff{g}{r}\pdiff{f^1}{x}+ \pdiff{g}{\theta}\pdiff{f^2}{x}+ \pdiff{g}{z}\pdiff{f^3}{x} \\
+             &\qquad\qquad\qquad\vdots
+\end{aligned}  $$
+
+따라서, 다음이 성립한다.
+
+$$ \begin{bmatrix} \pdiff{g}{x} & \pdiff{g}{y} & \pdiff{g}{z} \end{bmatrix} = \begin{bmatrix} \pdiff{g}{r} & \pdiff{g}{\theta} & \pdiff{g}{z} \end{bmatrix}  \begin{bmatrix} \cos\theta & \sin\theta & 0 \\\\ -\dfrac{\sin\theta}{r} & \dfrac{\cos\theta}{r} &0 \\\\ 0&0&1 \end{bmatrix} $$
 
 > Reference  
 > [brown.edu](https://www.brown.edu/Departments/Engineering/Courses/En221/Notes/Polar_Coords/Polar_Coords.htm)  
@@ -79,11 +87,11 @@ $$ \begin{bmatrix} b^1 \\ b^2 \\ b^3 \end{bmatrix} = \begin{bmatrix} \cos\theta 
 
 $\nabla g$는 다음과 같다.
 
-$$ \begin{aligned} \nabla g &= \pdiff{g}{x}e_x + \pdiff{g}{y}e_y + \pdiff{g}{z}e_z \\&= \begin{bmatrix} \dpdiff{g}{x} & \dpdiff{g}{y} & \dpdiff{g}{z} \end{bmatrix} \begin{bmatrix} e_x \\ e_y \\ e_z \end{bmatrix} \\&= \begin{bmatrix} \dpdiff{g}{r} & \dpdiff{g}{\theta} & \dpdiff{g}{z} \end{bmatrix}  \begin{bmatrix} \cos\theta & \sin\theta & 0 \\\\ -\dfrac{\sin\theta}{r} & \dfrac{\cos\theta}{r} &0 \\\\ 0&0&1 \end{bmatrix} \begin{bmatrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0&0&1 \end{bmatrix} \begin{bmatrix} e_r \\ e_\theta \\ e_z \end{bmatrix} \\&= \begin{bmatrix} \dpdiff{g}{r} & \dpdiff{g}{\theta} & \dpdiff{g}{z} \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\\\ 0 & \dfrac{1}{r} &0 \\\\ 0&0&1 \end{bmatrix} \begin{bmatrix} e_r \\ e_\theta \\ e_z \end{bmatrix} \\&= \pdiff{g}{r}e_r + \frac{1}{r}\pdiff{g}{\theta}e_\theta + \pdiff{g}{z}e_z \end{aligned} $$
+$$ \begin{aligned} \nabla g &= \pdiff{g}{x}e_x + \pdiff{g}{y}e_y + \pdiff{g}{z}e_z \\&= \begin{bmatrix} \pdiff{g}{x} & \pdiff{g}{y} & \pdiff{g}{z} \end{bmatrix} \begin{bmatrix} e_x \\ e_y \\ e_z \end{bmatrix} \\&= \begin{bmatrix} \pdiff{g}{r} & \pdiff{g}{\theta} & \pdiff{g}{z} \end{bmatrix}  \begin{bmatrix} \cos\theta & \sin\theta & 0 \\\\ -\dfrac{\sin\theta}{r} & \dfrac{\cos\theta}{r} &0 \\\\ 0&0&1 \end{bmatrix} \begin{bmatrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0&0&1 \end{bmatrix} \begin{bmatrix} e_r \\ e_\theta \\ e_z \end{bmatrix} \\&= \begin{bmatrix} \pdiff{g}{r} & \pdiff{g}{\theta} & \pdiff{g}{z} \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 \\\\ 0 & \dfrac{1}{r} &0 \\\\ 0&0&1 \end{bmatrix} \begin{bmatrix} e_r \\ e_\theta \\ e_z \end{bmatrix} \\&= \pdiff{g}{r}e_r + \frac{1}{r}\pdiff{g}{\theta}e_\theta + \pdiff{g}{z}e_z \end{aligned} $$
 
 따라서, cyliderical coordinate의 del operator는 다음과 같이 표현할 수 있다.
 
-$$ \nabla = \begin{bmatrix} \dpdiff{g}{r} & \dfrac{1}{r}\dpdiff{g}{\theta} & \dpdiff{g}{z} \end{bmatrix} $$
+$$ \nabla = \begin{bmatrix} \pdiff{g}{r} & \dfrac{1}{r}\pdiff{g}{\theta} & \pdiff{g}{z} \end{bmatrix} $$
 
 > Reference  
 > [wiki](https://en.wikipedia.org/wiki/Del_in_cylindrical_and_spherical_coordinates)  

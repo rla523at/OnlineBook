@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=61612f5f" />
@@ -504,6 +504,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/POD.html">POD (Plain Old Data)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Pragma.html">Pragma</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/SIMD.html">SIMD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Using.html">Using</a></li>
 </ul>
 </details></li>
@@ -574,10 +575,15 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/DirectX12.html">DirectX12</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource.html">Resource</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Descriptors.html">Descriptors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/GPU%20Heap.html">GPU Heap</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource%20State.html">Resource State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/RootSignature.html">Root Signature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Texture.html">Texture</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -585,12 +591,12 @@
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/DxcBuffer.html">DxcBuffer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/Fence.html">Fence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/GPU%20Heap.html">GPU Heap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/ID3D12Debug.html">ID3D12Debug</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/Initializing%20Direct3D.html">Initializing Direct3D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/ShaderReflection.html">Shader Reflection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/Work%20Submission.html">Work Submission</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../03%20programming/02%20Graphics/60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -613,6 +619,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/DirectXMath.html">DirectXMath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/Quaternion.html">Quaternion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/Sampling.html">Sampling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/ShaderCompiler.html">Shader Compiler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/Stencil%20Buffer.html">Stencil Buffer</a></li>
@@ -865,9 +872,16 @@
 <p><span class="math notranslate nohighlight">\(J_f\)</span>는 다음과 같다.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} J_f = \pdiff{f^i}{x^j}e_{ij} = \begin{bmatrix} \cos\theta &amp; \sin\theta &amp; 0 \\\\ -\dfrac{\sin\theta}{r} &amp; \dfrac{\cos\theta}{r} &amp;0 \\\\ 0&amp;0&amp;1 \end{bmatrix} \end{split}\]</div>
-<p>따라서 1번 미분가능한 함수 <span class="math notranslate nohighlight">\(g : \R^3 \rightarrow \R\)</span>이 있다고 할 때, 다음이 성립한다.</p>
+<p>1번 미분가능한 함수 <span class="math notranslate nohighlight">\(g : \R^3 \rightarrow \R\)</span>이 있다고 하면, 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
-\[\begin{split} \begin{bmatrix} \dpdiff{g}{x} &amp; \dpdiff{g}{y} &amp; \dpdiff{g}{z} \end{bmatrix} = \begin{bmatrix} \dpdiff{g}{r} &amp; \dpdiff{g}{\theta} &amp; \dpdiff{g}{z} \end{bmatrix}  \begin{bmatrix} \cos\theta &amp; \sin\theta &amp; 0 \\\\ -\dfrac{\sin\theta}{r} &amp; \dfrac{\cos\theta}{r} &amp;0 \\\\ 0&amp;0&amp;1 \end{bmatrix} \end{split}\]</div>
+\[\begin{split} \begin{aligned}
+\pdiff{g}{x} &amp;= \pdiff{g}{r}\pdiff{r}{x}+ \pdiff{g}{\theta}\pdiff{\theta}{x}+ \pdiff{g}{z}\pdiff{z}{x} \\
+             &amp;= \pdiff{g}{r}\pdiff{f^1}{x}+ \pdiff{g}{\theta}\pdiff{f^2}{x}+ \pdiff{g}{z}\pdiff{f^3}{x} \\
+             &amp;\qquad\qquad\qquad\vdots
+\end{aligned}  \end{split}\]</div>
+<p>따라서, 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{bmatrix} \pdiff{g}{x} &amp; \pdiff{g}{y} &amp; \pdiff{g}{z} \end{bmatrix} = \begin{bmatrix} \pdiff{g}{r} &amp; \pdiff{g}{\theta} &amp; \pdiff{g}{z} \end{bmatrix}  \begin{bmatrix} \cos\theta &amp; \sin\theta &amp; 0 \\\\ -\dfrac{\sin\theta}{r} &amp; \dfrac{\cos\theta}{r} &amp;0 \\\\ 0&amp;0&amp;1 \end{bmatrix} \end{split}\]</div>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://www.brown.edu/Departments/Engineering/Courses/En221/Notes/Polar_Coords/Polar_Coords.htm">brown.edu</a><br />
@@ -918,10 +932,10 @@
 <p>1번 미분가능한 함수 <span class="math notranslate nohighlight">\(g : \R^3 \rightarrow \R\)</span>이 있다고 하자.</p>
 <p><span class="math notranslate nohighlight">\(\nabla g\)</span>는 다음과 같다.</p>
 <div class="math notranslate nohighlight">
-\[\begin{split} \begin{aligned} \nabla g &amp;= \pdiff{g}{x}e_x + \pdiff{g}{y}e_y + \pdiff{g}{z}e_z \\&amp;= \begin{bmatrix} \dpdiff{g}{x} &amp; \dpdiff{g}{y} &amp; \dpdiff{g}{z} \end{bmatrix} \begin{bmatrix} e_x \\ e_y \\ e_z \end{bmatrix} \\&amp;= \begin{bmatrix} \dpdiff{g}{r} &amp; \dpdiff{g}{\theta} &amp; \dpdiff{g}{z} \end{bmatrix}  \begin{bmatrix} \cos\theta &amp; \sin\theta &amp; 0 \\\\ -\dfrac{\sin\theta}{r} &amp; \dfrac{\cos\theta}{r} &amp;0 \\\\ 0&amp;0&amp;1 \end{bmatrix} \begin{bmatrix} \cos\theta &amp; -\sin\theta &amp; 0 \\ \sin\theta &amp; \cos\theta &amp; 0 \\ 0&amp;0&amp;1 \end{bmatrix} \begin{bmatrix} e_r \\ e_\theta \\ e_z \end{bmatrix} \\&amp;= \begin{bmatrix} \dpdiff{g}{r} &amp; \dpdiff{g}{\theta} &amp; \dpdiff{g}{z} \end{bmatrix} \begin{bmatrix} 1 &amp; 0 &amp; 0 \\\\ 0 &amp; \dfrac{1}{r} &amp;0 \\\\ 0&amp;0&amp;1 \end{bmatrix} \begin{bmatrix} e_r \\ e_\theta \\ e_z \end{bmatrix} \\&amp;= \pdiff{g}{r}e_r + \frac{1}{r}\pdiff{g}{\theta}e_\theta + \pdiff{g}{z}e_z \end{aligned} \end{split}\]</div>
+\[\begin{split} \begin{aligned} \nabla g &amp;= \pdiff{g}{x}e_x + \pdiff{g}{y}e_y + \pdiff{g}{z}e_z \\&amp;= \begin{bmatrix} \pdiff{g}{x} &amp; \pdiff{g}{y} &amp; \pdiff{g}{z} \end{bmatrix} \begin{bmatrix} e_x \\ e_y \\ e_z \end{bmatrix} \\&amp;= \begin{bmatrix} \pdiff{g}{r} &amp; \pdiff{g}{\theta} &amp; \pdiff{g}{z} \end{bmatrix}  \begin{bmatrix} \cos\theta &amp; \sin\theta &amp; 0 \\\\ -\dfrac{\sin\theta}{r} &amp; \dfrac{\cos\theta}{r} &amp;0 \\\\ 0&amp;0&amp;1 \end{bmatrix} \begin{bmatrix} \cos\theta &amp; -\sin\theta &amp; 0 \\ \sin\theta &amp; \cos\theta &amp; 0 \\ 0&amp;0&amp;1 \end{bmatrix} \begin{bmatrix} e_r \\ e_\theta \\ e_z \end{bmatrix} \\&amp;= \begin{bmatrix} \pdiff{g}{r} &amp; \pdiff{g}{\theta} &amp; \pdiff{g}{z} \end{bmatrix} \begin{bmatrix} 1 &amp; 0 &amp; 0 \\\\ 0 &amp; \dfrac{1}{r} &amp;0 \\\\ 0&amp;0&amp;1 \end{bmatrix} \begin{bmatrix} e_r \\ e_\theta \\ e_z \end{bmatrix} \\&amp;= \pdiff{g}{r}e_r + \frac{1}{r}\pdiff{g}{\theta}e_\theta + \pdiff{g}{z}e_z \end{aligned} \end{split}\]</div>
 <p>따라서, cyliderical coordinate의 del operator는 다음과 같이 표현할 수 있다.</p>
 <div class="math notranslate nohighlight">
-\[ \nabla = \begin{bmatrix} \dpdiff{g}{r} &amp; \dfrac{1}{r}\dpdiff{g}{\theta} &amp; \dpdiff{g}{z} \end{bmatrix} \]</div>
+\[ \nabla = \begin{bmatrix} \pdiff{g}{r} &amp; \dfrac{1}{r}\pdiff{g}{\theta} &amp; \pdiff{g}{z} \end{bmatrix} \]</div>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://en.wikipedia.org/wiki/Del_in_cylindrical_and_spherical_coordinates">wiki</a></p>

@@ -502,6 +502,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/POD.html">POD (Plain Old Data)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/Pragma.html">Pragma</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/SIMD.html">SIMD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/Using.html">Using</a></li>
 </ul>
 </details></li>
@@ -574,11 +575,13 @@
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="Resource.html">Resource</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Descriptors.html">Descriptors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GPU%20Heap.html">GPU Heap</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">Resource Creation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20State.html">Resource State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="RootSignature.html">Root Signature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Texture.html">Texture</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -586,7 +589,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../DxcBuffer.html">DxcBuffer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Fence.html">Fence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../GPU%20Heap.html">GPU Heap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ID3D12Debug.html">ID3D12Debug</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../IDXCUtils.html">IDXCUtils</a></li>
@@ -615,6 +617,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../DirectXMath.html">DirectXMath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Quaternion.html">Quaternion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Sampling.html">Sampling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../ShaderCompiler.html">Shader Compiler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Stencil%20Buffer.html">Stencil Buffer</a></li>
@@ -825,10 +828,9 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commited-resource-and-placed-resource">Commited Resource and Placed Resource</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12resource-map">ID3D12Resource::Map</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-cpu">GPU -&gt; CPU 데이터 전송</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caution-with-read">Caution with Read</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persistent-map">Persistent Map</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map">Map</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-cpu">GPU -&gt; CPU 데이터 전송</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caution">Caution</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-gpu-memory">Resource 를 만드는데 필요한 GPU memory 알아내기</a></li>
@@ -857,7 +859,7 @@ ID3D12Device::CreateCommittedResource 함수로 생성할 수 있다.
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource">learn.microsoft - nf-d3d12-id3d12device-createcommittedresource</a></p>
 </div></blockquote>
-<p>D3D12_HEAP_PROPERTIES 구조체의 enum D3D12_HEAP_TYPE 이 D3D12_HEAP_TYPE_UPLOAD 일 경우에는 반드시 enum D3D12_RESOURCE_STATES 는 D3D12_RESOURCE_STATE_GENERIC_READ 여야 한다. 만약 그렇지 않을 경우 다음과 같은 오류가 발생한다.</p>
+<p>D3D12_HEAP_PROPERTIES 구조체의 enum D3D12_HEAP_TYPE 이 D3D12_HEAP_TYPE_UPLOAD 일 경우에는 반드시 enum D3D12_RESOURCE_STATES 는 D3D12_RESOURCE_STATE_GENERIC_READ 여야 한다. 만약 그렇지 않을 경우 Debug Layer 에서 다음과 같은 오류 메세지가 출력된다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D12</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">ID3D12Device</span><span class="p">::</span><span class="n">CreateCommittedResource</span><span class="p">:</span> <span class="n">Certain</span> <span class="n">resources</span> <span class="n">are</span> <span class="n">restricted</span> <span class="n">to</span> <span class="n">certain</span> <span class="n">D3D12_RESOURCE_STATES</span> <span class="n">states</span><span class="p">,</span> <span class="ow">and</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">changed</span><span class="o">.</span> <span class="n">Resources</span> <span class="n">on</span> <span class="n">D3D12_HEAP_TYPE_UPLOAD</span> <span class="n">heaps</span> <span class="n">requires</span> <span class="n">D3D12_RESOURCE_STATE_GENERIC_READ</span><span class="o">.</span> <span class="n">Reserved</span> <span class="n">buffers</span> <span class="n">used</span> <span class="n">exclusively</span> <span class="k">for</span> <span class="n">texture</span> <span class="n">placement</span> <span class="n">requires</span> <span class="n">D3D12_RESOURCE_STATE_COMMON</span><span class="o">.</span> <span class="p">[</span> <span class="n">RESOURCE_MANIPULATION</span> <span class="n">ERROR</span> <span class="c1">#741: RESOURCE_BARRIER_INVALID_HEAP]</span>
 </pre></div>
 </div>
@@ -888,65 +890,36 @@ ID3D12Device::CreateCommittedResource 함수로 생성할 수 있다.
 </div></blockquote>
 </details>
 </section>
-<section id="id3d12resource-map">
-<h2>ID3D12Resource::Map<a class="headerlink" href="#id3d12resource-map" title="Link to this heading">#</a></h2>
-<p>Map 함수는 GPU memory 중 CPU 접근이 가능한 영역과 CPU 에서 접근 가능한 virtual memory adrress 를 mapping 하고 mapping 된 virtual memory adrress 를 반환하는 함수이다.</p>
-<p>함수의 시그니처는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">HRESULT</span><span class="w"> </span><span class="nf">Map</span><span class="p">(</span>
-<span class="w">                  </span><span class="n">UINT</span><span class="w">              </span><span class="n">Subresource</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="p">]</span><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_RANGE</span><span class="w"> </span><span class="o">*</span><span class="n">pReadRange</span><span class="p">,</span>
-<span class="w">  </span><span class="p">[</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">optional</span><span class="p">]</span><span class="w"> </span><span class="kt">void</span><span class="w">              </span><span class="o">**</span><span class="n">ppData</span>
-<span class="p">);</span>
+<section id="map">
+<h2>Map<a class="headerlink" href="#map" title="Link to this heading">#</a></h2>
+<p>Map 은 GPU memory 중 CPU 접근이 가능한 영역과 CPU 에서 접근 가능한 virtual memory adrress 를 mapping 하고 mapping 된 virtual memory adrress 를 반환하는 과정이다.</p>
+<details> <summary> <h3 style="display:inline-block"> ID3D12Resource::Map </h3></summary>
+Map 은 ID3D12Resource::Map 함수를 통해서 이루어진다. 
+<p>인자중 UINT Subresource 는 subresource 의 index 를 나타내는 값이다.</p>
+<p>인자중 const D3D12_RANGE *pReadRange 는 CPU가 읽을 범위를 지정하는 D3D12_RANGE 구조체의 포인터이다. 만약 nullptr 을 전달할 경우 CPU가 전체 하위 리소스를 읽을 수 있음을 나타낸다. 그리고 CPU가 메모리를 읽지 않을 경우 Range 의 End 가 Begine 보다 작거나 같게 하면 된다.</p>
+<p>만약, Resource 가 존재하는 GPU Heap 의 Heap Type 이 D3D12_HEAP_TYPE_UPLOAD, D3D12_HEAP_TYPE_READBACK 이 아닌데 Map 함수를 호출하면 다음과 같은 오류가 발생한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D12</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">ID3D12Resource2</span><span class="p">::</span><span class="n">ID3D12Resource</span><span class="p">::</span><span class="n">Map</span><span class="p">:</span> <span class="n">Map</span> <span class="ow">and</span> <span class="n">Unmap</span> <span class="n">can</span> <span class="ow">not</span> <span class="n">be</span> <span class="n">called</span> <span class="n">on</span> <span class="n">a</span> <span class="n">resource</span> <span class="n">associated</span> <span class="k">with</span> <span class="n">a</span> <span class="n">heap</span> <span class="n">that</span> <span class="n">has</span> <span class="n">the</span> <span class="n">CPU</span> <span class="n">page</span> <span class="n">properties</span> <span class="n">of</span> <span class="n">D3D12_CPU_PAGE_PROPERTY_NOT_AVAILABLE</span><span class="o">.</span> <span class="n">Heaps</span> <span class="n">of</span> <span class="n">the</span> <span class="nb">type</span> <span class="n">D3D12_HEAP_TYPE_DEFAULT</span> <span class="n">should</span> <span class="n">be</span> <span class="n">assumed</span> <span class="n">to</span> <span class="n">have</span> <span class="n">these</span> <span class="n">properties</span><span class="o">.</span> <span class="p">[</span> <span class="n">EXECUTION</span> <span class="n">ERROR</span> <span class="c1">#822: MAP_INVALIDHEAP]</span>
 </pre></div>
 </div>
-<p>인자는 다음과 같다.</p>
-<ul class="simple">
-<li><p>UINT Subresource</p>
-<ul>
-<li><p>매핑할 하위 리소스의 인덱스이다.</p></li>
-<li><p>일반적으로 리소스가 단일 서브리소스를 가지는 경우 <code class="docutils literal notranslate"><span class="pre">0</span></code>을 전달한다.</p></li>
-</ul>
-</li>
-<li><p>const D3D12_RANGE *pReadRange</p>
-<ul>
-<li><p>CPU가 읽을 범위를 지정하는 D3D12_RANGE 구조체의 포인터이다.</p></li>
-<li><p>이 구조체는 읽기 작업의 시작과 끝을 정의한다.</p></li>
-<li><p>nullptr 을 전달할 경우 CPU가 전체 하위 리소스를 읽을 수 있음을 나타낸다</p></li>
-<li><p>CPU가 메모리를 읽지 않을 경우 Range 의 End 가 Begine 보다 작게 하면 된다.</p></li>
-</ul>
-</li>
-<li><p>void **ppData</p>
-<ul>
-<li><p>mapping 된 virtual address 를 가리키는 포인터를 받는 포인터다.</p></li>
-<li><p>이 포인터를 통해 CPU 는 GPU memory 에 접근할 수 있게 된다.</p></li>
-</ul>
-</li>
-</ul>
-<p>반환값은 다음과 같다.</p>
-<ul class="simple">
-<li><p>성공 시</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">S_OK</span></code>를 반환한다.</p></li>
-</ul>
-</li>
-<li><p>실패 시</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">HRESULT</span></code> 오류 코드를 반환한다.</p></li>
-<li><p>오류가 발생한 경우, 적절한 오류 코드를 통해 매핑 실패 원인을 진단할 수 있다.</p></li>
-</ul>
-</li>
-</ul>
-<p>주의사항</p>
-<ul class="simple">
-<li><p>D3D12_HEAP_PROPERTIES 구조체를 정의할 때 Type 을 D3D12_HEAP_TYPE_UPLOAD, D3D12_HEAP_TYPE_READBACK 으로 해야 CPU 접근이 가능한 GPU memory 영역을 얻을 수 있다.</p></li>
-<li></li>
-</ul>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map">learn.microsoft - nf-d3d12-id3d12resource-map</a></p>
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map">learn.microsoft - id3d12resource-map</a></p>
 </div></blockquote>
+</details>
+<details> <summary> <h3 style="display:inline-block"> Persistenet Map </h3></summary>
+D3D11 에서는 resource 의 접근 권한과 상태를 API 가 자동으로 관리해주었다. 따라서 개발자가 명시적으로 관리할 필요가 없었지만 최적화를 하는데 한계점이 있었다. 예를 들어, D3D11 의 경우 CPU와 GPU가 동시에 같은 리소스를 접근하려고 하면 동기화 문제가 발생할 수 있기 때문에, Map 함수를 호출한 경우 Unmap 을 호출하기 전까지 GPU 에서 접근이 불가능하게 막았다.이로 인해 resource 를 매번 Map 하고 Unmap 해야 했다.
+<p>하지만 D3D12 에서는 리소스의 상태 전환과 접근 권한을 개발자가 직접 관리한다. 따라서 Map, Unmap 에 있떤 제약 조건은 사라졌고 CPU와 GPU가 서로 충돌 없이 resource 에 접근할 수 있도록 동기화 작업을 개발자가 제어하게 되었다. 따라서, D3D12 에서는 CPU 에서 접근가능한 heap 에 존재하는 resource 는 영구적 매핑인 persistent map 을 사용할 수 있다. persistent map 은 resource 생성 직후에 Map 을 한 번만 호출하고 Unmap 을 호출하지 않음으로써 구현할 수 있다.</p>
+<p>persistent map 을 사용하면 매 frame 마다 map, unmap 을 반복하지 않아도 되어 성능상에 이점이 있다.</p>
+<p>persistent map 을 사용할 때, 애플리케이션은 GPU가 메모리를 읽거나 쓰는 command list 을 실행하기 전에 CPU 가 메모리에 데이터 쓰기를 완료해야 한다. 일반적인 시나리오에서는 애플리케이션이 ExecuteCommandLists 를 호출하기 전에 메모리에 쓰기만 하면 되지만, fence 를 사용하여 command list 실행을 지연시키는 방법도 작동한다.</p>
+<p>단, resource 가 release 되고 난 후에는 Map 에서 반환된 주소를 더 이상 사용하지 않아야 한다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map#advanced-usage-models">learn.microsoft - id3d12resource-map#advanced-usage-models</a></p>
+</div></blockquote>
+</details>
+</section>
 <section id="gpu-cpu">
-<h3>GPU -&gt; CPU 데이터 전송<a class="headerlink" href="#gpu-cpu" title="Link to this heading">#</a></h3>
+<h2>GPU -&gt; CPU 데이터 전송<a class="headerlink" href="#gpu-cpu" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>READBACK 리소스 생성</p>
 <ul>
@@ -970,28 +943,13 @@ ID3D12Device::CreateCommittedResource 함수로 생성할 수 있다.
 </li>
 <li><p>Unmap으로 메모리 접근을 해제한다.</p></li>
 </ul>
-</section>
-<section id="caution-with-read">
-<h3>Caution with Read<a class="headerlink" href="#caution-with-read" title="Link to this heading">#</a></h3>
+<section id="caution">
+<h3>Caution<a class="headerlink" href="#caution" title="Link to this heading">#</a></h3>
 <p>Upload heap 에 있는 resource 를 mapping 하여 읽기를 시도하는 것을 피해야 한다. CPU 읽기는 정상적으로 수행되지만 많은 일반적인 GPU architecture 에서 엄청나게 느리다.</p>
 <p>D3D12_CPU_PAGE_PROPERTY_WRITE_COMBINE 를 CPU page property 로 갖는 heap 에 있는 resource 를 mapping 하여 읽기를 시도하는 것을 피해야 한다. 이 또한 엄청나게 느리다.</p>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map#simple-usage-models">learn.microsoft - nf-d3d12-id3d12resource-map#simple-usage-models</a></p>
-</div></blockquote>
-</section>
-<section id="persistent-map">
-<h3>Persistent Map<a class="headerlink" href="#persistent-map" title="Link to this heading">#</a></h3>
-<p>D3D11 에서는 resource 의 접근 권한과 상태를 API 가 자동으로 관리해주었다. 따라서 개발자가 명시적으로 관리할 필요가 없었지만 최적화를 하는데 한계점이 있었다.</p>
-<p>예를 들어, D3D11 의 경우 CPU와 GPU가 동시에 같은 리소스를 접근하려고 하면 동기화 문제가 발생할 수 있기 때문에, Map 함수를 호출한 경우 Unmap 을 호출하기 전까지 GPU 에서 접근이 불가능하게 막았다.이로 인해 resource 를 매번 Map 하고 Unmap 해야 했다.</p>
-<p>하지만 D3D12 에서는 리소스의 상태 전환과 접근 권한을 개발자가 직접 관리한다. 따라서 Map, Unmap 에 있떤 제약 조건은 사라졌고 CPU와 GPU가 서로 충돌 없이 resource 에 접근할 수 있도록 동기화 작업을 개발자가 제어하게 되었다.</p>
-<p>따라서, D3D12 에서는 CPU 에서 접근가능한 heap 에 존재하는 resource 는 영구적 매핑인 persistent map 을 사용할 수 있다. persistent map 은 resource 생성 직후에 Map 을 한 번만 호출하고 Unmap 을 호출하지 않음으로써 구현할 수 있다.</p>
-<p>persistent map 을 사용하면 매 frame 마다 map, unmap 을 반복하지 않아도 되어 성능상에 이점이 있다.</p>
-<p>persistent map 을 사용할 때, 애플리케이션은 GPU가 메모리를 읽거나 쓰는 command list 을 실행하기 전에 CPU 가 메모리에 데이터 쓰기를 완료해야 한다. 일반적인 시나리오에서는 애플리케이션이 ExecuteCommandLists 를 호출하기 전에 메모리에 쓰기만 하면 되지만, fence 를 사용하여 command list 실행을 지연시키는 방법도 작동한다.</p>
-<p>단, resource 가 release 되고 난 후에는 Map 에서 반환된 주소를 더 이상 사용하지 않아야 한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map#advanced-usage-models">learn.microsoft - nf-d3d12-id3d12resource-map#advanced-usage-models</a></p>
 </div></blockquote>
 </section>
 </section>
@@ -1071,10 +1029,9 @@ ID3D12Device::CreateCommittedResource 함수로 생성할 수 있다.
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commited-resource-and-placed-resource">Commited Resource and Placed Resource</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12resource-map">ID3D12Resource::Map</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-cpu">GPU -&gt; CPU 데이터 전송</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caution-with-read">Caution with Read</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persistent-map">Persistent Map</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map">Map</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-cpu">GPU -&gt; CPU 데이터 전송</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#caution">Caution</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-gpu-memory">Resource 를 만드는데 필요한 GPU memory 알아내기</a></li>
