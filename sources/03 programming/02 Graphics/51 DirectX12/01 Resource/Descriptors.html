@@ -827,16 +827,8 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12descriptorheap">ID3D12DescriptorHeap 인터페이스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-handles">Descriptor handles</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-cpu-descriptor-handle">D3D12_CPU_DESCRIPTOR_HANDLE 구조체</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12descriptorheap-getcpudescriptorhandleforheapstart">ID3D12DescriptorHeap::GetCPUDescriptorHandleForHeapStart 함수</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cd3dx12-cpu-descriptor-handle">CD3DX12_CPU_DESCRIPTOR_HANDLE 구조체</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#offset-int-offsetindescriptors-uint-descriptorincrementsize">Offset(INT offsetInDescriptors, UINT descriptorIncrementSize) 함수</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-heaps">Descriptor Heaps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-handles">Descriptor handles</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-tables">Descriptor Tables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12graphicscommandlist-setgraphicsrootdescriptortable">ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createconstantbufferview">ID3D12Device::CreateConstantBufferView 함수</a></li>
@@ -873,46 +865,35 @@
 <a class="reference external" href="https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html#descriptors">microsoft.github - ResourceBinding.html#descriptors</a><br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/descriptors-overview">learn.microsoft - descriptors-overview</a></p>
 </div></blockquote>
-<details> <summary> <h2 style="display:inline-block"> Descriptor Heaps </h2></summary>
+<details> <summary> <h3 style="display:inline-block"> ID3D12DescriptorHeap 인터페이스 </h3></summary>
+</details>
+<section id="descriptor-heaps">
+<h2>Descriptor Heaps<a class="headerlink" href="#descriptor-heaps" title="Link to this heading">#</a></h2>
 <p>Descriptor Heap 은 Descriptor 들을 저장하기 위한 CPU memory 풀(pool) 이다.</p>
-<p>단, D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE 플래그를 사용하여 생성할 경우 GPU 가 접근 가능한 메모리 영역에 배치(GPU 에 mapping)되어 shader 에서 descriptor 에 접근할 수 있다.</p>
+<p>D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE 플래그를 사용하여 생성할 경우 GPU 가 접근 가능한 메모리 영역에 배치(GPU 에 mapping)되어 shader 에서 descriptor 에 접근할 수 있다.</p>
 <p>Descriptor heap 의 주요 목적은 GPU 가 사용할 리소스에 빠르게 접근할 수 있도록, 해당 리소스에 대한 정보를 한 곳에 모아 두는 것이다.</p>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/descriptor-heaps-overview">learn.microsoft - descriptor-heaps-overview</a></p>
 </div></blockquote>
-<section id="id3d12descriptorheap">
-<h2>ID3D12DescriptorHeap 인터페이스<a class="headerlink" href="#id3d12descriptorheap" title="Link to this heading">#</a></h2>
+<details> <summary> <h3 style="display:inline-block"> ID3D12DescriptorHeap 인터페이스 </h3></summary>
 <p>Descriptor Heap 을 관리하는 객체로 <a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12device-createdescriptorheap">ID3D12Device::CreateDescriptorHeap</a> 함수로 생성할 수 있다.</p>
 <p>이 때, ID3D12Device::CreateDescriptorHeap 함수의 인자로 사용되는 <a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc">D3D12_DESCRIPTOR_HEAP_DESC</a> 구조체는 ID3D12DescriptorHeap 객체의 특성을 정의하는 데 사용된다.</p>
-<details> <summary> D3D12_DESCRIPTOR_HEAP_DESC 구조체 관련 사항 </summary>
+<p>ID3D12DescriptorHeap 의 NumDescriptors 멤버 변수의 최대 값은 시스템의 GPU 및 드라이버에 따라 달라질 수 있다.</p>
 <ul class="simple">
-<li><p>UINT NumDescriptors</p>
-<ul>
-<li><p>NumDescriptors의 최대 값은 시스템의 GPU 및 드라이버에 따라 달라질 수 있다.</p></li>
 <li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/hardware-support">learn.microsoft - hardware-support</a></p></li>
 </ul>
-</li>
-<li><p>UINT NodeMask</p>
-<ul>
-<li><p>멀티 GPU 시스템에서 디스크립터 힙이 할당될 노드를 지정하는 마스크 값이다.</p></li>
-<li><p>단일 GPU 환경에서는 0으로 설정한다.</p></li>
-</ul>
-</li>
-<li><p><a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type">enum D3D12_DESCRIPTOR_HEAP_TYPE</a></p></li>
-<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_heap_flags">enum D3D12_DESCRIPTOR_HEAP_FLAGS</a></p>
-<ul>
-<li><p>D3D12_DESCRIPTOR_HEAP_FLAG_NONE 는 CPU 에서만 descriptor heap 에 접근하는 경우 사용한다.</p></li>
-<li><p>D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE flag 로 descriptor heap 을 생성한 경우 CPU 에서도 GPU 에서도 접근 가능한 memory 가 된다. 이런 Descriptor heap 이 내부적으로 어떻게 작동하는지는 구현 세부 사항이지만, CPU 에 보이는 GPU 메모리의 특수 영역인 Base Address Register (BAR) 에 저장하고 CreateConstantBufferView 호출은 PCI Express 버스를 통해 데이터를 쓰는 구현을 상상해 볼 수 있다.</p>
-<ul>
+<p>enum D3D12_DESCRIPTOR_HEAP_FLAG 의 D3D12_DESCRIPTOR_HEAP_FLAG_NONE 는 CPU 에서만 descriptor heap 에 접근하는 경우 사용한다.  D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE flag 는 CPU 와 GPU 에서 descriptor heap 에 접근하는 경우 사용한다. 이런 Descriptor heap 이 내부적으로 어떻게 작동하는지는 구현 세부 사항이지만, CPU 에 보이는 GPU 메모리의 특수 영역인 Base Address Register (BAR) 에 저장하고 CreateConstantBufferView 호출은 PCI Express 버스를 통해 데이터를 쓰는 구현을 상상해 볼 수 있다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_heap_flags">learn.microsoft - D3D12_DESCRIPTOR_HEAP_FLAGS</a></p></li>
 <li><p><a class="reference external" href="https://asawicki.info/news_1754_direct3d_12_long_way_to_access_data">asawicki.info - direct3d_12_long_way_to_access_data</a></p></li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type">learn.microsoft - d3d12_descriptor_heap_type</a></p>
+</div></blockquote>
 </details>
-</details>
+<p>한번의 Draw Call 에 필요한 CBV, SRV, UAV Descriptor 는 반드시 동일한 Descirptor Heap 에 존재해야 한다. 왜냐하면 Command List 에</p>
 </section>
 <section id="descriptor-handles">
 <h2>Descriptor handles<a class="headerlink" href="#descriptor-handles" title="Link to this heading">#</a></h2>
@@ -927,77 +908,21 @@
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/descriptors-overview#descriptor-handles">learn.microsoft - descriptors-overview#descriptor-handles</a><br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-descriptor-heaps#descriptor-handles">learn.microsoft - creating-descriptor-heaps#descriptor-handles</a><br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ns-d3d12-d3d12_cpu_descriptor_handle">learn.microsoft - d3d12_cpu_descriptor_handle</a><br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart">learn.microsoft - nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)</a><br />
 <a class="reference external" href="https://www.gamedev.net/forums/topic/702866-simple-question-about-heaps/">gamedev - simple-question-about-heaps</a></p>
 </div></blockquote>
-<section id="d3d12-cpu-descriptor-handle">
-<h3>D3D12_CPU_DESCRIPTOR_HANDLE 구조체<a class="headerlink" href="#d3d12-cpu-descriptor-handle" title="Link to this heading">#</a></h3>
-<p>CPU discriptor handle 을 나타내는 구조체이다.</p>
-<p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">SIZE_T</span><span class="w"> </span><span class="n">ptr</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="p">;</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ns-d3d12-d3d12_cpu_descriptor_handle">learn.microsoft - d3d12_cpu_descriptor_handle</a></p>
-</div></blockquote>
-</section>
-<section id="id3d12descriptorheap-getcpudescriptorhandleforheapstart">
-<h3>ID3D12DescriptorHeap::GetCPUDescriptorHandleForHeapStart 함수<a class="headerlink" href="#id3d12descriptorheap-getcpudescriptorhandleforheapstart" title="Link to this heading">#</a></h3>
-<p>Descriptor Heap 의 시작 위치를 나타내는 CPU Descriptor Handle 을 가져오는 함수다.</p>
-<p>함수의 시그니처는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="nf">GetCPUDescriptorHandleForHeapStart</span><span class="p">();</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart">learn.microsoft - nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)</a></p>
-</div></blockquote>
-</section>
-<section id="cd3dx12-cpu-descriptor-handle">
-<h3>CD3DX12_CPU_DESCRIPTOR_HANDLE 구조체<a class="headerlink" href="#cd3dx12-cpu-descriptor-handle" title="Link to this heading">#</a></h3>
-<p>D3D12_CPU_DESCRIPTOR_HANDLE 구조체를 쉽게 초기화 할 수 있도록 하는 Helper 구조체이다.</p>
-<p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">CD3DX12_CPU_DESCRIPTOR_HANDLE</span><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="p">{</span>
-<span class="w">                                  </span><span class="n">CD3DX12_CPU_DESCRIPTOR_HANDLE</span><span class="p">();</span>
-<span class="w">                                  </span><span class="k">explicit</span><span class="w"> </span><span class="n">CD3DX12_CPU_DESCRIPTOR_HANDLE</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="o">&amp;</span><span class="n">o</span><span class="p">);</span>
-<span class="w">                                  </span><span class="n">CD3DX12_CPU_DESCRIPTOR_HANDLE</span><span class="p">(</span><span class="n">CD3DX12_DEFAULT</span><span class="p">);</span>
-<span class="w">                                  </span><span class="n">CD3DX12_CPU_DESCRIPTOR_HANDLE</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="o">&amp;</span><span class="n">other</span><span class="p">,</span><span class="w"> </span><span class="n">INT</span><span class="w"> </span><span class="n">offsetScaledByIncrementSize</span><span class="p">);</span>
-<span class="w">                                  </span><span class="n">CD3DX12_CPU_DESCRIPTOR_HANDLE</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="o">&amp;</span><span class="n">other</span><span class="p">,</span><span class="w"> </span><span class="n">INT</span><span class="w"> </span><span class="n">offsetInDescriptors</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">descriptorIncrementSize</span><span class="p">);</span>
-<span class="w">  </span><span class="n">CD3DX12_CPU_DESCRIPTOR_HANDLE</span><span class="o">&amp;</span><span class="w">  </span><span class="nf">Offset</span><span class="p">(</span><span class="n">INT</span><span class="w"> </span><span class="n">offsetInDescriptors</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">descriptorIncrementSize</span><span class="p">);</span>
-<span class="w">  </span><span class="n">CD3DX12_CPU_DESCRIPTOR_HANDLE</span><span class="o">&amp;</span><span class="w">  </span><span class="nf">Offset</span><span class="p">(</span><span class="n">INT</span><span class="w"> </span><span class="n">offsetScaledByIncrementSize</span><span class="p">);</span>
-<span class="w">  </span><span class="kt">bool</span><span class="w">                            </span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="w"> </span><span class="n">_In_</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">bool</span><span class="w">                            </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="n">_In_</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="o">&amp;</span><span class="w"> </span><span class="n">other</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
-<span class="w">  </span><span class="n">CD3DX12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="o">&amp;</span><span class="n">other</span><span class="p">);</span>
-<span class="w">  </span><span class="kt">void</span><span class="w">                            </span><span class="kr">inline</span><span class="w"> </span><span class="n">InitOffsetted</span><span class="p">(</span><span class="n">_In_</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="o">&amp;</span><span class="n">base</span><span class="p">,</span><span class="w"> </span><span class="n">INT</span><span class="w"> </span><span class="n">offsetScaledByIncrementSize</span><span class="p">);</span>
-<span class="w">  </span><span class="kt">void</span><span class="w">                            </span><span class="kr">inline</span><span class="w"> </span><span class="n">InitOffsetted</span><span class="p">(</span><span class="n">_In_</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="o">&amp;</span><span class="n">base</span><span class="p">,</span><span class="w"> </span><span class="n">INT</span><span class="w"> </span><span class="n">offsetInDescriptors</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">descriptorIncrementSize</span><span class="p">);</span>
-<span class="w">  </span><span class="kt">void</span><span class="w">                            </span><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">InitOffsetted</span><span class="p">(</span><span class="n">_Out_</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="o">&amp;</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">_In_</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="o">&amp;</span><span class="n">base</span><span class="p">,</span><span class="w"> </span><span class="n">INT</span><span class="w"> </span><span class="n">offsetScaledByIncrementSize</span><span class="p">);</span>
-<span class="w">  </span><span class="kt">void</span><span class="w">                            </span><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="n">InitOffsetted</span><span class="p">(</span><span class="n">_Out_</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="o">&amp;</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">_In_</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">D3D12_CPU_DESCRIPTOR_HANDLE</span><span class="w"> </span><span class="o">&amp;</span><span class="n">base</span><span class="p">,</span><span class="w"> </span><span class="n">INT</span><span class="w"> </span><span class="n">offsetInDescriptors</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">descriptorIncrementSize</span><span class="p">);</span>
-<span class="p">};</span>
+<details> <summary> <h3 style="display:inline-block"> CD3DX12_CPU_DESCRIPTOR_HANDLE 구조체 </h3></summary>
+D3D12_CPU_DESCRIPTOR_HANDLE 구조체를 쉽게 초기화 할 수 있도록 하는 Helper 구조체이다.
+<p><code class="docutils literal notranslate"><span class="pre">Offset(INT</span> <span class="pre">offsetInDescriptors,</span> <span class="pre">UINT</span> <span class="pre">descriptorIncrementSize)</span></code> 함수는 현재 Handle 이 가르키고 있는 Descriptor 를 기준으로 offsetInDescriptors 개 뒤에 Descriptor 가 저장될 위치를 가르키는 Handle 이 된다. 예를 들어 다음 코드는 rtvHandle 이 다음번 render taget view descriptor 가 저장될 위치를 가르키는 handle 이 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">rtvHandle</span><span class="p">.</span><span class="n">Offset</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">m_rtvDescriptorSize</span><span class="p">);</span>
 </pre></div>
 </div>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-cpu-descriptor-handle">learn.microsoft - cd3dx12-cpu-descriptor-handle</a></p>
 </div></blockquote>
-<section id="offset-int-offsetindescriptors-uint-descriptorincrementsize">
-<h4>Offset(INT offsetInDescriptors, UINT descriptorIncrementSize) 함수<a class="headerlink" href="#offset-int-offsetindescriptors-uint-descriptorincrementsize" title="Link to this heading">#</a></h4>
-<p>현재 Handle 이 가르키고 있는 Descriptor 를 기준으로 offsetInDescriptors 개 뒤에 Descriptor 가 저장될 위치를 가르키는 Handle 이 된다.</p>
-<p>예를 들어 다음 코드는 rtvHandle 이 다음번 render taget view descriptor 가 저장될 위치를 가르키는 handle 이 된다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">rtvHandle</span><span class="p">.</span><span class="n">Offset</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">m_rtvDescriptorSize</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="n">CD3DX12_CPU_DESCRIPTOR_HANDLE</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">Offset</span><span class="p">(</span><span class="n">INT</span><span class="w"> </span><span class="n">offsetInDescriptors</span><span class="p">,</span><span class="w"> </span><span class="n">UINT</span><span class="w"> </span><span class="n">descriptorIncrementSize</span><span class="p">)</span>
-<span class="w">  </span><span class="p">{</span><span class="w"> </span>
-<span class="w">      </span><span class="n">ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">offsetInDescriptors</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">descriptorIncrementSize</span><span class="p">;</span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span>
-<span class="w">  </span><span class="p">}</span>
-</pre></div>
-</div>
-</section>
-</section>
+</details>
 </section>
 <section id="descriptor-tables">
 <h2>Descriptor Tables<a class="headerlink" href="#descriptor-tables" title="Link to this heading">#</a></h2>
@@ -1326,16 +1251,8 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12descriptorheap">ID3D12DescriptorHeap 인터페이스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-handles">Descriptor handles</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-cpu-descriptor-handle">D3D12_CPU_DESCRIPTOR_HANDLE 구조체</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12descriptorheap-getcpudescriptorhandleforheapstart">ID3D12DescriptorHeap::GetCPUDescriptorHandleForHeapStart 함수</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cd3dx12-cpu-descriptor-handle">CD3DX12_CPU_DESCRIPTOR_HANDLE 구조체</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#offset-int-offsetindescriptors-uint-descriptorincrementsize">Offset(INT offsetInDescriptors, UINT descriptorIncrementSize) 함수</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-heaps">Descriptor Heaps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-handles">Descriptor handles</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-tables">Descriptor Tables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12graphicscommandlist-setgraphicsrootdescriptortable">ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createconstantbufferview">ID3D12Device::CreateConstantBufferView 함수</a></li>

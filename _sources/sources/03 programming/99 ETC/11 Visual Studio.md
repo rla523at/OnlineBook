@@ -1,6 +1,22 @@
 # Visual Studio
-
 특정 프로젝트가 빌드가 안될 때는 구성 관리자에가서 빌드 체크가 되어 있는지 확인해본다.
+
+## #include 에서 탐색할 경로 추가하기
+프로젝트 속성 >> VC++ 디렉터리 >> 포함 디렉터리 에 경로를 추가하면 #incldue 할 때, 시작 경로로 사용된다. 예를 들어서 #include "test.h" 가 있따고 하면, 포함 디렉터리에 있는 모든 경로에서 "test.h" 파일을 찾아서 일치하는 파일을 include 해준다.
+
+이 떄, 포함 디렉터리 탐색 순서는 평가 값을 기준으로 맨 위에 있는 경로부터 탐색함으로 "test.h" 파일이 여러개 있는 경우 test.h 를 가지고 있는 경로중  평가값 기준 가장 위에 경로의 test.h 파일이 include 된다. 참고로, 포함 디렉터리 순서를 바꿔서 평가 순서가 바뀌었을 떄 바로 반영이 안될 수도 있으니 솔루션 정리 나 솔루션 재빌드를 수행해야 할 수 있다.
+
+<details> <summary> <h3 style="display:inline-block"> d3dcommon.h include 문제 </h3></summary>
+D:\Code\ms_engine\_lib\directx 를 포함 디렉터리에 추가해서 C:\Program Files (x86)\Windows Kits\10\Include\...\um 보다 위에 있는 상황인데, Trinalge.cpp 파일을 컴파일하면 um\d3dcommmon.h 파일 때문에 directx\d3dcommon.h 파일이 매크로 가드로인해 비활성화 되서 빌드 오류가 나는 문제가 있었다.
+
+포함 디렉터리 탐색 순서상 문제가 없어야 될거 같은데 왜 이런 문제가 발생하는지 보려고 Triangle.cpp 의 #incldue 순서를 보니까 "Mesh.h" 파일에 #inlcude <d3d11.h> 가 있었고 여기서 내부적으로 um\d3dcommmon.h 를 include 하고 있었다. 
+</details>
+
+## 특정 파일 cpp 파일의 모든 #include 순서 파악하기
+프로젝트 속성 >> C/C++ >> 고급 >> 포함표시 를 예로 바꾸게 되면 명령줄에 /showincludes 가 포함되며 cpp 파일을 빌드할 떄, recursive 하게 include 가 어떤 순서로 이루어졌는지 출력창을 통해 보여준다.
+
+그래서 포함 표시를 '예' 로 바꾸고 특정 파일만 ctrl + F7 으로 빌드해보면 include 가 어떤 순서로 이루어 졌는지 보여진다.
+
 
 ## 프로젝트 속성
 

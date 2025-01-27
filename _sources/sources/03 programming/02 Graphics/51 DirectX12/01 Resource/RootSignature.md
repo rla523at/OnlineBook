@@ -12,30 +12,64 @@ Root signature 은 API 함수 서명과 유사하게 shader 에 바인딩 될 �
 ## Root Parameter & Root Argument
 Root signature 는 root parameter 들로 정의되며, 런타임에 설정 및 변경되는 root parameter 의 실제 값을 root argument 라고 한다. 따라서, root argument 를 변경하면 shader 가 읽는 데이터가 변경된다.
 
-> Reference  
-> [learn.microsoft - root-signatures-overview#root-parameters-and-arguments](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-parameters-and-arguments)  
-
-## Root constants, descriptors and descriptor tables
-Root Signature 에는 다음 세 가지 유형의 parameter 가 포함될 수 있다
+Root Parameter 의 종류는 다음과 같다.
 * root constants (root argument 에 포함된 constants)
 * root descriptors (root argument 에 포함된 descriptor)
-* descriptor tables (descriptor heap 에 일정 범위에 있는 descriptor 에 대한 포인터)
+* root descriptor tables (descriptor heap 에 일정 범위에 있는 descriptor 에 대한 포인터)
 
-### Root Constants
 Root Constants 는 셰이더에 Constant Buffer 로 표시되는 인라인 32비트 값이다.
 
-### Root Descriptors
-Root descriptors 는 CBV 와 raw buffer 또는 structured buffer 의 SRV 나 UAV 로 제한된다.
 
-이 외에 2D 텍스처의 SRV 와 같이 더 복잡한 유형은 root descriptor로 사용할 수 없다. 
+<details> <summary> <h3 style="display:inline-block"> Specification </h3></summary>
 
-root descriptors 는 크기 제한이 없으므로 out-of-bounds 검사를 진행하지 않는다. 단, descriptor heap 에 존재하는 descriptor 의 경우 크기 정보를 포함하기 때문에 out-of-bounds 검사가 진행된다.
+* [learn.microsoft - root-parameters-and-arguments](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-parameters-and-arguments)  
+  * **A root signature** is similar to an API function signature, it determines the types of data the shaders should expect, but does not define the actual memory or data.
+  * **A root parameter** is one entry in the root signature.
+  * The actual values of root parameters set and changed at runtime are called **root arguments**.
 
-> Reference  
-> [learn.microsoft - root-signatures-overview#root-constants-descriptors-and-tables](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-constants-descriptors-and-tables)  
+* [learn.microsoft - using-a-root-signature](https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-a-root-signature)
+  * All shaders in a PSO must be compatible with the root layout specified with the PSO, or else the individual shaders must include embedded root layouts that match each other; otherwise, PSO creation will fail.
 
-## Creating a Root Signature
-D3D12_ROOT_SIGNATURE_DESC 구조체를 생성 및 초기화 하고 D3D12SerializeRootSignature 함수로 serialization 된 root signature 의 blob 을 얻고 이를 ID3D12Device::CreateRootSignature 함수에 인자로 넣어주면 root signature 객체를 생성할 수 있다.
+* [microsoft.github - root-argument-limits](https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html#root-argument-limits)
+  * The maximum size of a root arguments is 64 DWORDs
+  * Descriptor tables cost 1 DWORD each.
+  * Root constants cost 1 DWORD * NumConstants
+  * Raw/Structured Buffer SRVs/UAVs and CBVs cost 2 DWORDs.
+
+* [learn.microsoft - root-signatures-overview#root-constants-descriptors-and-tables](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-constants-descriptors-and-tables)
+  * The inlined root descriptors should contain descriptors that are accessed most often, though is limited to CBVs, and raw or structured UAV or SRV buffers. 
+  * A more complex type, such as a 2D texture SRV, cannot be used as a root descriptor.
+  * Root descriptors do not include a size limit, so there can be no out-of-bounds checking, unlike descriptors in descriptor heaps, which do include a size.
+  * Regardless of the level of hardware, applications should always try to make the root signature as small as needed for maximum efficiency.
+
+</details>
+
+
+## Root Signature 생성
+다양한 버전의 Root Signature 는 구조체 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 로 나타내어진다.
+* [learn.microsoft - d3d12_versioned_root_signature_desc](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc)  
+
+CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC 구조체는 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 를 쉽게 생성하기 위한 Helper class 이다.
+* [learn.microsoft - cd3dx12-versioned-root-signature-desc](https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-versioned-root-signature-desc)  
+
+Root signature 는 root parameter 들로 정의됨으로, Root Signature 를 생성하기 위해서는 먼저, Root Parameter 들을 생성해야 한다.
+
+<details> <summary> <h3 style="display:inline-block"> Root Parameter 생성 </h3></summary>
+Root Parameter 는 D3D12_ROOT_PARAMETER1 구조체로 나타내어진다.
+* [learn.microsoft - d3d12_root_parameter1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter1)
+
+CD3DX12_ROOT_PARAMETER1 구조체는 D3D12_ROOT_PARAMETER1 구조체를 쉽게 생성하기 위한 Helper class이다.
+* [learn.microsoft - cd3dx12-root-parameter1](https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-root-parameter1)  
+
+CD3DX12_ROOT_PARAMETER1 구조체의 InitAsDescriptorTable 함수를 사용하면 간단하게 RootDescriptorTable 을 나타내는 D3D12_Root_PARAMETER1 구조체를 생성할 수 있다. 
+
+D3D12_DESCRIPTOR_RANGE1 구조체의 BaseShaderRegister 변수는  base shader register 를 나타내는 변수이다. 예를 들어 RangeType 변수가 D3D12_DESCRIPTOR_RANGE_TYPE_SRV 이고 BaseShaderRegister 변수가 3이라면 HLSL 의 ":register(t3)" 와 Mapping 된다.
+* [learn.microsoft - d3d12_descriptor_range1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_range1)  
+* [learn.microsoft - cd3dx12-descriptor-range1](https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-descriptor-range1)
+* [learn.micorosoft - d3d12_descriptor_range_type](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_range_type)  
+</details>
+
+다음으로 D3D12SerializeRootSignature 함수로 serialization 된 root signature 의 blob 을 얻고 이를 ID3D12Device::CreateRootSignature 함수에 인자로 넣어주면 root signature 객체를 생성할 수 있다.
 
 만약, shader 에 root signature 가 포함되어 작성된 경우 compiled shader 에는 이미 serialized root signature 가 포함되어 있다.
 
@@ -47,124 +81,27 @@ D3D12CreateRootSignatureDeserializer 함수를 호출하면 역직렬화된 D3D1
 
 > Reference  
 > [learn.microsoft - creating-a-root-signature#root-signature-definition](https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-root-signature#root-signature-definition)  
-> [learn.microsoft - creating-a-root-signature#root-signature-data-structure-serialization--deserialization](https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-root-signature#root-signature-data-structure-serialization--deserialization)  
-
-<details> <summary> <h3 style="display:inline-block"> D3D12_ROOT_PARAMETER1 구조체 </h3></summary>
-Describes the slot of a root signature version 1.1.
-
-내부에 Union 으로 정의된 D3D12_ROOT_DESCRIPTOR_TABLE1, D3D12_ROOT_CONSTANTS, D3D12_ROOT_DESCRIPTOR1 구조체들이 어떤 space 의 어떤 slot 에 binding 될 지를 결정한다.
-
-> Reference
-> [learn.microsoft - d3d12_root_parameter1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter1)
-
-CD3DX12_ROOT_PARAMETER1 구조체는 D3D12_ROOT_PARAMETER1 구조체를 쉽게 생성하기 위한 Helper 구조체다.
-> Reference  
-> [learn.microsoft - cd3dx12-root-parameter1](https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-root-parameter1)  
-</details>
-
-
-<details> <summary> <h3 style="display:inline-block"> D3D12_VERSIONED_ROOT_SIGNATURE_DESC 구조체 </h3></summary>
-이를 통해 D3D12_ROOT_SIGNATURE_DESC, D3D12_ROOT_SIGNATURE_DESC1, D3D12_ROOT_SIGNATURE_DESC2 버전을 선택적으로 사용할 수 있다.
-
-> Reference  
-> [learn.microsoft - d3d12_versioned_root_signature_desc](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc)  
-
-CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC 구조체는 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 구조체를 쉽게 생성하기 위한 Helper 구조체다.
-
-> Reference  
-> [learn.microsoft - cd3dx12-versioned-root-signature-desc](https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-versioned-root-signature-desc)
-> [learn.microsoft - d3d12_root_signature_desc1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_signature_desc1)   
-
-</details>
-
-
-
-
-
-
-<details> <summary> <h3 style="display:inline-block"> 제목 </h3></summary>
-내용
-</details>
-### D3D12SerializeVersionedRootSignature 함수
-D3D12SerializeVersionedRootSignature 함수는 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 구조체를 serialize 하여 blob 으로 변환하는 함수이다. 
-
-함수의 시그니처는 다음과 같다.
-```cpp
-HRESULT D3D12SerializeVersionedRootSignature(
-  const D3D12_VERSIONED_ROOT_SIGNATURE_DESC *pRootSignature,
-  ID3DBlob                                  **ppBlob,
-  ID3DBlob                                  **ppErrorBlob
-);
-```
-
-인자는 다음과 같다.
-* const D3D12_VERSIONED_ROOT_SIGNATURE_DESC *pRootSignature
-  * 직렬화할 버전이 지정된 루트 시그니처의 설명이다.
-  * D3D12_VERSIONED_ROOT_SIGNATURE_DESC 구조체는 루트 시그니처의 다양한 버전을 지원한다.
-
-* ID3DBlob **ppBlob
-  * 직렬화된 루트 시그니처 데이터가 저장될 블롭이다.
-  * 함수가 성공적으로 완료되면, 이 포인터는 직렬화된 루트 시그니처 데이터를 가리킨다.
-
-* ID3DBlob **ppErrorBlob
-  * 오류 정보가 저장될 블롭이다.
-  * 직렬화 과정에서 문제가 발생하면 이 블롭에 오류 메시지가 저장된다.
-  * 필요하지 않을 경우 nullptr을 전달할 수 있다.
-
-반환값은 다음과 같다.
-* 성공 시
-  * S_OK를 반환한다.
-
-* 실패 시
-  * HRESULT 오류 코드를 반환한다.
-  * ppErrorBlob에 오류 메시지가 저장되므로 이를 통해 문제를 진단할 수 있다.
-
-> Reference  
+> [learn.microsoft - creating-a-root-signature#root-signature-data-structure-serialization--deserialization](https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-root-signature#root-signature-data-structure-serialization--deserialization)
 > [learn.microsoft - nf-d3d12-d3d12serializeversionedrootsignature](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-d3d12serializeversionedrootsignature)  
 
 
-<details> <summary> <h3 style="display:inline-block"> 제목 </h3></summary>
-내용
+<details> <summary> <h3 style="display:inline-block"> serealized </h3></summary>
+Root Signature 을 생성하는 API는 직렬화된(자체 포함, 포인터가 없는) 버전을 사용한다. C++ 데이터 구조에서 이 직렬화된 버전을 생성하는 방법이 제공되지만, 직렬화된 Root Signature 정의를 얻는 또 다른 방법은 Root Signature 를 포함해 컴파일된 셰이더에서 이를 검색하는 방식이다.
+
+> Reference  
+> [learn.microsoft - creating-a-root-signature](https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-root-signature)  
 </details>
-### serealized
-Root Signature 을 생성하는 API는 직렬화된(자체 포함, 포인터가 없는) 버전을 사용한다. 
 
-C++ 데이터 구조에서 이 직렬화된 버전을 생성하는 방법이 제공되지만, 직렬화된 Root Signature 정의를 얻는 또 다른 방법은 Root Signature 를 포함해 컴파일된 셰이더에서 이를 검색하는 방식이다.
+## Root Signautre 에 Descriptor 등록
+descriptor table 은 ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수를 통해 descritpor table 을 graphics root signautre 에 설정한다.
 
-> Reference
-> [learn.microsoft - creating-a-root-signature](https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-root-signature)
-
-## ??
-
-Root Signature 객체는 static sampler descriptors 와 root parameter 로 구성된다.
-
-root parameter 의 종류로는 root constant, root descriptor, root table 가 있으며 종류에 따라 크기가 다르며 크기는 DWORD(32bit, 4byte) 단위로 나타낸다.
-
-* root constant   : 1 DWORD * NumConstants
-* root descriptor : 2 DWORDs
-* root table      : 1 DWORD
-
-DirectX Spec 에 따르면 Root Signature 를 구성하는 root parameter 들의 최대 크기는 DWORD 64개 이다.
-
-> Reference
-> [microsoft.github - DirectX-Specs](https://microsoft.github.io/DirectX-Specs/)  
-> [microsoft.github - ResourceBinding](https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html)  
-
-## ??
-하드웨어 수준에 관계없이 애플리케이션은 효율성을 극대화하기 위해 항상 Root Signature 을 가능한 작게 만들어야 한다.
-
+input 인자 RootParameterIndex 변수는 CD3DX12_ROOT_PARAMETER1 의 배열을 만들 떄, 몇번 째 root parameter 로 설정했는지를 나타낸다. 그리고 input 인자 BaseDescriptor 변수는 Shader 에서 Descirptor Table 을 참조할 때 사용하기 위해 Descriptor table 의 시작 주소를 나타내는 D3D12_GPU_DESCRIPTOR_HANDLE 이다.
 > Reference  
-> [learn.microsoft - root-signatures-overview#root-constants-descriptors-and-tables](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-constants-descriptors-and-tables)  
+> [learn.micorsoft - setgraphicsrootdescriptortable](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootdescriptortable)   
+</details>
 
-## ??
-PSO 에 지정된 모든 shader 는 PSO 에 지정된 Root signature 와 호환되어야 한다.
 
-만약 PSO 에 root signature 를 따로 지정되어 있지 않다면 개별 shader 에 shader 와 호환되는 내장된 root signature 가 포함되어 있어야 한다.
 
-그렇지 않을 경우 PSO 생성에 실패하게 된다.
-
-> Reference  
-> [learn.microsoft - using-a-root-signature](https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-a-root-signature)   
 
 ## Version 1.1
 

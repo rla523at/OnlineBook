@@ -15,44 +15,42 @@ Descriptor 의 종류에는 다음이 있다.
 > [microsoft.github - ResourceBinding.html#descriptors](https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html#descriptors)  
 > [learn.microsoft - descriptors-overview](https://learn.microsoft.com/en-us/windows/win32/direct3d12/descriptors-overview)  
 
+<details> <summary> <h3 style="display:inline-block"> ID3D12DescriptorHeap 인터페이스 </h3></summary>
+</details>
 
 
-<details> <summary> <h2 style="display:inline-block"> Descriptor Heaps </h2></summary>
-
+## Descriptor Heaps
 Descriptor Heap 은 Descriptor 들을 저장하기 위한 CPU memory 풀(pool) 이다.
 
-단, D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE 플래그를 사용하여 생성할 경우 GPU 가 접근 가능한 메모리 영역에 배치(GPU 에 mapping)되어 shader 에서 descriptor 에 접근할 수 있다.
+D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE 플래그를 사용하여 생성할 경우 GPU 가 접근 가능한 메모리 영역에 배치(GPU 에 mapping)되어 shader 에서 descriptor 에 접근할 수 있다.
 
 Descriptor heap 의 주요 목적은 GPU 가 사용할 리소스에 빠르게 접근할 수 있도록, 해당 리소스에 대한 정보를 한 곳에 모아 두는 것이다. 
 
 > Reference      
 > [learn.microsoft - descriptor-heaps-overview](https://learn.microsoft.com/en-us/windows/win32/direct3d12/descriptor-heaps-overview)  
 
-## ID3D12DescriptorHeap 인터페이스
+
+<details> <summary> <h3 style="display:inline-block"> ID3D12DescriptorHeap 인터페이스 </h3></summary>
+
 Descriptor Heap 을 관리하는 객체로 [ID3D12Device::CreateDescriptorHeap](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12device-createdescriptorheap) 함수로 생성할 수 있다.
   
 이 때, ID3D12Device::CreateDescriptorHeap 함수의 인자로 사용되는 [D3D12_DESCRIPTOR_HEAP_DESC](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc) 구조체는 ID3D12DescriptorHeap 객체의 특성을 정의하는 데 사용된다. 
 
-<details> <summary> D3D12_DESCRIPTOR_HEAP_DESC 구조체 관련 사항 </summary>
+ID3D12DescriptorHeap 의 NumDescriptors 멤버 변수의 최대 값은 시스템의 GPU 및 드라이버에 따라 달라질 수 있다.
+* [learn.microsoft - hardware-support](https://learn.microsoft.com/en-us/windows/win32/direct3d12/hardware-support)
 
-* UINT NumDescriptors
-  * NumDescriptors의 최대 값은 시스템의 GPU 및 드라이버에 따라 달라질 수 있다.
-  * [learn.microsoft - hardware-support](https://learn.microsoft.com/en-us/windows/win32/direct3d12/hardware-support)
-* UINT NodeMask  
-  * 멀티 GPU 시스템에서 디스크립터 힙이 할당될 노드를 지정하는 마스크 값이다.
-  * 단일 GPU 환경에서는 0으로 설정한다. 
-* [enum D3D12_DESCRIPTOR_HEAP_TYPE](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type)
-* [enum D3D12_DESCRIPTOR_HEAP_FLAGS](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_heap_flags)
-  * D3D12_DESCRIPTOR_HEAP_FLAG_NONE 는 CPU 에서만 descriptor heap 에 접근하는 경우 사용한다.
-  * D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE flag 로 descriptor heap 을 생성한 경우 CPU 에서도 GPU 에서도 접근 가능한 memory 가 된다. 이런 Descriptor heap 이 내부적으로 어떻게 작동하는지는 구현 세부 사항이지만, CPU 에 보이는 GPU 메모리의 특수 영역인 Base Address Register (BAR) 에 저장하고 CreateConstantBufferView 호출은 PCI Express 버스를 통해 데이터를 쓰는 구현을 상상해 볼 수 있다.
-    * [asawicki.info - direct3d_12_long_way_to_access_data](https://asawicki.info/news_1754_direct3d_12_long_way_to_access_data) 
+enum D3D12_DESCRIPTOR_HEAP_FLAG 의 D3D12_DESCRIPTOR_HEAP_FLAG_NONE 는 CPU 에서만 descriptor heap 에 접근하는 경우 사용한다.  D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE flag 는 CPU 와 GPU 에서 descriptor heap 에 접근하는 경우 사용한다. 이런 Descriptor heap 이 내부적으로 어떻게 작동하는지는 구현 세부 사항이지만, CPU 에 보이는 GPU 메모리의 특수 영역인 Base Address Register (BAR) 에 저장하고 CreateConstantBufferView 호출은 PCI Express 버스를 통해 데이터를 쓰는 구현을 상상해 볼 수 있다.
+* [learn.microsoft - D3D12_DESCRIPTOR_HEAP_FLAGS](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_heap_flags)
+* [asawicki.info - direct3d_12_long_way_to_access_data](https://asawicki.info/news_1754_direct3d_12_long_way_to_access_data) 
 
-</details>
+> Reference  
+> [learn.microsoft - d3d12_descriptor_heap_type](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type)
 
 </details>
 
 
- 
+한번의 Draw Call 에 필요한 CBV, SRV, UAV Descriptor 는 반드시 동일한 Descirptor Heap 에 존재해야 한다. 왜냐하면 Command List 에 
+
 
 ## Descriptor handles
 Descritpor handle 은 descriptor heap memory 의 고유한 주소를 나타낸다. 그리고 Descriptor handle 은 전체 descriptor heap 에서 고유하다. 다시 말해 여러 descriptor heap 에 존재하는 모든 memory 는 고유한 descriptor handle 을 갖는다.
@@ -72,80 +70,22 @@ Descriptor heap 의 시작 부분에 대한 handle 을 얻기 위해서는 각 �
 > Reference   
 > [learn.microsoft - descriptors-overview#descriptor-handles](https://learn.microsoft.com/en-us/windows/win32/direct3d12/descriptors-overview#descriptor-handles)   
 > [learn.microsoft - creating-descriptor-heaps#descriptor-handles](https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-descriptor-heaps#descriptor-handles)  
+> [learn.microsoft - d3d12_cpu_descriptor_handle](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ns-d3d12-d3d12_cpu_descriptor_handle)  
+> [learn.microsoft - nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)  
 > [gamedev - simple-question-about-heaps](https://www.gamedev.net/forums/topic/702866-simple-question-about-heaps/)  
 
-### D3D12_CPU_DESCRIPTOR_HANDLE 구조체
-CPU discriptor handle 을 나타내는 구조체이다.
 
-정의는 다음과 같다.
-
-```cpp
-typedef struct D3D12_CPU_DESCRIPTOR_HANDLE {
-  SIZE_T ptr;
-} D3D12_CPU_DESCRIPTOR_HANDLE;
-```
-
-> Reference  
-> [learn.microsoft - d3d12_cpu_descriptor_handle](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ns-d3d12-d3d12_cpu_descriptor_handle)  
-
-### ID3D12DescriptorHeap::GetCPUDescriptorHandleForHeapStart 함수
-Descriptor Heap 의 시작 위치를 나타내는 CPU Descriptor Handle 을 가져오는 함수다.
-
-함수의 시그니처는 다음과 같다.
-
-```cpp
-D3D12_CPU_DESCRIPTOR_HANDLE GetCPUDescriptorHandleForHeapStart();
-```
-
-> Reference  
-> [learn.microsoft - nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)
-
-### CD3DX12_CPU_DESCRIPTOR_HANDLE 구조체
+<details> <summary> <h3 style="display:inline-block"> CD3DX12_CPU_DESCRIPTOR_HANDLE 구조체 </h3></summary>
 D3D12_CPU_DESCRIPTOR_HANDLE 구조체를 쉽게 초기화 할 수 있도록 하는 Helper 구조체이다.
 
-정의는 다음과 같다.
-
-```cpp
-struct CD3DX12_CPU_DESCRIPTOR_HANDLE  : public D3D12_CPU_DESCRIPTOR_HANDLE{
-                                  CD3DX12_CPU_DESCRIPTOR_HANDLE();
-                                  explicit CD3DX12_CPU_DESCRIPTOR_HANDLE(const D3D12_CPU_DESCRIPTOR_HANDLE &o);
-                                  CD3DX12_CPU_DESCRIPTOR_HANDLE(CD3DX12_DEFAULT);
-                                  CD3DX12_CPU_DESCRIPTOR_HANDLE(const D3D12_CPU_DESCRIPTOR_HANDLE &other, INT offsetScaledByIncrementSize);
-                                  CD3DX12_CPU_DESCRIPTOR_HANDLE(const D3D12_CPU_DESCRIPTOR_HANDLE &other, INT offsetInDescriptors, UINT descriptorIncrementSize);
-  CD3DX12_CPU_DESCRIPTOR_HANDLE&  Offset(INT offsetInDescriptors, UINT descriptorIncrementSize);
-  CD3DX12_CPU_DESCRIPTOR_HANDLE&  Offset(INT offsetScaledByIncrementSize);
-  bool                            operator==( _In_ const D3D12_CPU_DESCRIPTOR_HANDLE& other) const;
-  bool                            operator!=(_In_ const D3D12_CPU_DESCRIPTOR_HANDLE& other) const;
-  CD3DX12_CPU_DESCRIPTOR_HANDLE & operator=(const D3D12_CPU_DESCRIPTOR_HANDLE &other);
-  void                            inline InitOffsetted(_In_ const D3D12_CPU_DESCRIPTOR_HANDLE &base, INT offsetScaledByIncrementSize);
-  void                            inline InitOffsetted(_In_ const D3D12_CPU_DESCRIPTOR_HANDLE &base, INT offsetInDescriptors, UINT descriptorIncrementSize);
-  void                            static inline InitOffsetted(_Out_ D3D12_CPU_DESCRIPTOR_HANDLE &handle, _In_ const D3D12_CPU_DESCRIPTOR_HANDLE &base, INT offsetScaledByIncrementSize);
-  void                            static inline InitOffsetted(_Out_ D3D12_CPU_DESCRIPTOR_HANDLE &handle, _In_ const D3D12_CPU_DESCRIPTOR_HANDLE &base, INT offsetInDescriptors, UINT descriptorIncrementSize);
-};
-```
-
-> Reference  
-> [learn.microsoft - cd3dx12-cpu-descriptor-handle](https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-cpu-descriptor-handle)  
-
-#### Offset(INT offsetInDescriptors, UINT descriptorIncrementSize) 함수
-현재 Handle 이 가르키고 있는 Descriptor 를 기준으로 offsetInDescriptors 개 뒤에 Descriptor 가 저장될 위치를 가르키는 Handle 이 된다.
-
-예를 들어 다음 코드는 rtvHandle 이 다음번 render taget view descriptor 가 저장될 위치를 가르키는 handle 이 된다.
+`Offset(INT offsetInDescriptors, UINT descriptorIncrementSize)` 함수는 현재 Handle 이 가르키고 있는 Descriptor 를 기준으로 offsetInDescriptors 개 뒤에 Descriptor 가 저장될 위치를 가르키는 Handle 이 된다. 예를 들어 다음 코드는 rtvHandle 이 다음번 render taget view descriptor 가 저장될 위치를 가르키는 handle 이 된다.
 ```cpp
 rtvHandle.Offset(1, m_rtvDescriptorSize);
 ```
 
-정의는 다음과 같다.
-
-```cpp
-  CD3DX12_CPU_DESCRIPTOR_HANDLE& Offset(INT offsetInDescriptors, UINT descriptorIncrementSize)
-  { 
-      ptr += offsetInDescriptors * descriptorIncrementSize;
-      return *this;
-  }
-```
-
-
+> Reference  
+> [learn.microsoft - cd3dx12-cpu-descriptor-handle](https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-cpu-descriptor-handle)  
+</details>
 
 
 ## Descriptor Tables

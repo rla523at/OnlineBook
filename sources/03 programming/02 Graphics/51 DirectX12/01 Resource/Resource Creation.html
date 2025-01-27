@@ -870,7 +870,7 @@ ID3D12Device::CreateCommittedResource 함수로 생성할 수 있다.
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states">learn.microsoft - d3d12_resource_states</a></p>
 </div></blockquote>
 <p>CD3DX12_RESOURCE_DESC 구조체는 D3D12_RESOURCE_DESC 구조체를 쉽게 생성하고 조작할 수 있도록 도와주는 헬퍼 클래스이다.</p>
-<p>Buffer 함수를 호출하게 되면 다음과 같은 대입이 발생하게 된다.</p>
+<p>Buffer(UINT64 width, D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE, UINT64 alignment = 0); 함수를 호출하게 되면 다음과 같은 대입이 발생하게 된다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dimension</span>         <span class="o">=</span> <span class="n">D3D12_RESOURCE_DIMENSION_BUFFER</span>
 <span class="n">Alignment</span>         <span class="o">=</span> <span class="n">alignment</span>
 <span class="n">Width</span>             <span class="o">=</span> <span class="n">width</span>

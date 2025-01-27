@@ -27,7 +27,7 @@ D3D12 ERROR: ID3D12Device::CreateCommittedResource: Certain resources are restri
 
 CD3DX12_RESOURCE_DESC 구조체는 D3D12_RESOURCE_DESC 구조체를 쉽게 생성하고 조작할 수 있도록 도와주는 헬퍼 클래스이다. 
 
-Buffer 함수를 호출하게 되면 다음과 같은 대입이 발생하게 된다.
+Buffer(UINT64 width, D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE, UINT64 alignment = 0); 함수를 호출하게 되면 다음과 같은 대입이 발생하게 된다.
 ```
 Dimension         = D3D12_RESOURCE_DIMENSION_BUFFER
 Alignment         = alignment

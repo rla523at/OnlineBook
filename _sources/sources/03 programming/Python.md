@@ -19,6 +19,92 @@ print(my_list)  # [0, 4]
 
 lst.append(4)는 가변 객체인 my_list의 내용을 직접 변경하므로 원본이 바뀌게 된다. 그러나 lst = [1, 2, 3]에서는 lst가 완전히 새로운 리스트 객체를 참조하도록 재할당되므로, my_list에는 영향을 주지 않는다.
 
+---
+
+python -m pip install --upgrade pip
+
+pip install --upgrade matplotlib
+
+pip show matplotlib
+---
+
+
+## Sympy
+symbolic 배열 만들기
+```python
+P0 = sympy.symarray("P0",3) 
+```
+
+symarray 로 만들면 numpy.ndarray 타입으로 반환되서 diff 와 같은 함수를 사용할 수 없다. 이를 해결하기 위해 numpy.ndaraay 타입을 sympy.Matrix 타입으로 변환하려면 다음과 같이하면 된다.
+```python
+P0 = sympy.Matrix(sympy.symarray("P0",3))
+```
+
+## 그래프 그리기
+matplotlib 의 pyplot 모듈을 import 하면 된다.
+```python
+import matplotlib.pyplot as plt
+```
+
+<details> <summary> <h3 style="display:inline-block"> 3차원 곡선 그래프 그리기 </h3></summary>
+그래프를 띄울 창을 의미하는 figure 객체를 생성하기 위해 pyplot 모듈의 figure 함수를 호출해줘야 한다.
+```python
+fig = plt.figure()
+```
+만약 그래프를 여러개의 창에 띄우고 싶다면, 원하는 창의 개수만큼 figure 객체를 생성해야 한다.
+
+
+다음으론 띄워진 창에 그래프가 그려질 공간를 의미하는 Axes 객체를 생성하기 위해 figure 객체의 add_subplot 함수를 호출해야 한다.
+```python
+ax  = fig.add_subplot(1,1,1,projection="3d")
+```
+앞에 2개의 인자는 nrows, ncols 로 하나의 창에 subplot 을 가로로 세로로 몇개씩 배치하겠냐는 의미다. 그리고 세번째 인자인 index 는 몇번째 subplot 에 위치할건지를 나타낸다. 그러면 return 값으로 axes 객체를 받는다. 만약, 하나의 창에 여러개의 그래프를 띄우고 싶다면 add_subplot 에서 nrows, ncols, index 변수를 잘 조절해서 subplot 들을 추가해주면 된다.
+
+참고로, matplotlib 최신 버전에서는 문제가 없지만, 이전 버전을 사용해야 되서 Axes3D 관련 오류가 발생할 경우 추가로 mpl_toolkits.mploft3d 모듈에 있는 Axes3D 를 import 해줘야 한다
+```python
+from mpl_toolkits.mplot3d import Axes3D
+```
+
+> Reference  
+> [matplotlib - Figure.add_subplot](https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.add_subplot.html)  
+
+이제, 그래프를 실제로 그리기 위해서는 axes 객체의 plot 함수를 호출해야한다.
+```python
+ax.plot(xs1,ys1,zs1, linestyle = 'dotted', color = 'black', label = r'$f_1$')
+```
+xs1,ys1,zs1 은 각 각 x,y,z 좌표를 모아놓은 배열이고 label 은 Legend 에 나타날 이름을 나타낸다. 이 떄, Label 에 수식을 사용하고 싶은 경우에는 $$로 감싸준다음에 수식을 latex 형태로 수식을 작성해주면 된다. 
+
+만약, 하나의 axes 안에 여러개의 함수를 그리고 싶다고 한다면 plot 함수를 여러번 호출해주면 된다.
+```python
+ax = fig.add_subplot(1, 1, 1, projection="3d")
+ax.plot(xs1,ys1,zs1, label="test")
+ax.plot(xs1,zs1,zs1, label="test2")
+```
+> Reference   
+> [matplotlib - axes.Axes.plot](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html)  
+
+
+그래프의 Legend 를 출력하기 위해서는 axes 객체의 legend 함수를 호출해야 한다.
+```python
+ax.lengend()
+```
+* [matplotlib - matplotlib.axes.Axes.legend](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html)  
+
+그래프 축에 lable 을 달기 위해서는 set_xlabel, set_ylabel, set_zlabel 함수를 호출하면 된다.
+```python
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+```
+
+마지막으로 그래프를 화면에 띄우기 위해서는 pyplot 모듈의 show 함수를 호출해야 한다.
+```python
+plt.show()
+```
+</details>
+
+
+
 ## foramt string 출력
 
 * 기존 `str.format()` 방식

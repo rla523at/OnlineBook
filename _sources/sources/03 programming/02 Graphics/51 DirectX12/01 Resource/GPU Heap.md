@@ -1,5 +1,4 @@
 # GPU Heap
-
 ID3D12Device::CreateHeap 함수로 placed resources 와 reserved resources 에 사용할 수 있는 GPU heap 을 생성할 수 있다.
 
 A placed resource object holds a reference on the heap it is created on; but a reserved resource doesn't hold a reference for each mapping made to a heap.  
@@ -9,7 +8,7 @@ A placed resource object holds a reference on the heap it is created on; but a r
 
 D3D12_HEAP_DESC 구조체는 GPU Heap 을 만들기 위해 필요한 정보를 정의한다.
 
-Alignment 멤버 변수로 사용가능한 값은 [명세](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_desc#members)에 정해져있다.
+Alignment 멤버 변수로 사용가능한 값은 [명세](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_desc#members)에 정해져있으며 최소 64KB 이다.
 
 > Reference  
 > [learn.microsoft - d3d12_heap_desc](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_desc)  
@@ -40,7 +39,7 @@ enum D3D12_MEMORY_POOL 은 Heap 의 메모리 풀이 할당될 물리적 메모�
 > [learn.microsoft - d3d12_cpu_page_property](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_cpu_page_property)  
 > [learn.microsoft - d3d12_memory_pool)](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_memory_pool)  
 
-### Base Address Register
+## Base Address Register
 Base Adress Register (BAR) 는 GPU의 전용 메모리( VRAM )를 CPU 메모리 공간에 맵핑하는 데 사용된다.
 
 VRAM 이 BAR 를 통해 CPU 의 가상 주소 공간에 나타나면, CPU 는 제한된 크기(보통 수백 MB에서 몇 GB)까지 GPU 메모리에 직접 접근할 수 있게 된다.
@@ -51,7 +50,7 @@ VRAM 이 BAR 를 통해 CPU 의 가상 주소 공간에 나타나면, CPU 는 �
 > [microsoft.github - D3D12GPUUploadHeaps.html](https://microsoft.github.io/DirectX-Specs/d3d/D3D12GPUUploadHeaps.html)  
 > [therealmjp.github - gpu-memory-pool](https://therealmjp.github.io/posts/gpu-memory-pool/)  
 
-### WRITE_COMBINE vs WRITE_BACK
+## WRITE_COMBINE vs WRITE_BACK
 Write-Combine 과 Write-Back 은 CPU가 메모리에 접근할 때의 캐시 정책에 따라 다르게 동작하는 메모리 유형이다. 
 
 Write-Combine 메모리는 CPU 가 메모리에 데이터를 기록할 때 데이터를 임시 버퍼에 모았다가 한 번에 기록하는 방식으로 동작한다. 따라서, 캐시를 사용하지 않는다.

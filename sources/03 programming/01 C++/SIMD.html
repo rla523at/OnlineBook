@@ -804,7 +804,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -820,6 +822,14 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alignment-requirement">Alignment Requirement</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -840,6 +850,11 @@
 <li><p>_mm_mul_ps: float4 벡터  compoenent wise 곱셈</p></li>
 <li><p>_mm_set1_ps: 동일한 실수값을 갖는 float4 벡터 만들기</p></li>
 <li><p>실수 곱을 만들려면 이 함수를 사용하고 _mm_mul_ps 사용</p></li>
+<li><p>_mm_fmadd_ps : float4 벡터 a*b + c</p></li>
+<li><p>_mm256_set_pd: double4 벡터에 4개의 인자를 대입하기</p></li>
+<li><p>_mm256_setzero_pd : double4 벡터를 0.0 으로 초기화</p></li>
+<li><p>_mm_cvtsd_f64 : double2 벡터의 첫번째 요소를 copy 해온다.</p></li>
+<li><p>_mm256_extractf128_pd : double4 벡터에서 double2 벡터를 추출해온다.</p></li>
 </ul>
 </li>
 </ul>
@@ -854,6 +869,38 @@
 </ul>
 </li>
 </ul>
+<section id="alignment-requirement">
+<h2>Alignment Requirement<a class="headerlink" href="#alignment-requirement" title="Link to this heading">#</a></h2>
+<p>alignas key word 를 사용하면 시작 주소와 크기가 주어진 값으로 align 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">alignas</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="n">S1</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">static_assert</span><span class="p">(</span><span class="k">alignof</span><span class="p">(</span><span class="n">S1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;alignof(S1) should be 8&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/cpp/cpp/alignas-specifier?view=msvc-170">learn.microsoft - alignas-specifier</a></p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Alignement</p></li>
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/cpp/cpp/alignment-cpp-declarations?view=msvc-170">https://learn.microsoft.com/en-us/cpp/cpp/alignment-cpp-declarations?view=msvc-170</a></p></li>
+<li><p>One of the low-level features of C++ is the ability to specify the precise alignment of objects in memory to take maximum advantage of a specific hardware architecture.</p></li>
+<li><p>Before Visual Studio 2015 you could use the Microsoft-specific keywords __alignof and __declspec(align) to specify an alignment greater than the default.</p></li>
+<li><p>Starting in Visual Studio 2015 you should use the C++11 standard keywords alignof and alignas for maximum code portability.</p></li>
+<li><p>The C++ standard doesn’t specify packing behavior for alignment on boundaries smaller than the compiler default for the target platform, so you still need to use the Microsoft #pragma pack in that case.</p></li>
+<li><p>Alignment and Memory Address</p></li>
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/cpp/cpp/alignment-cpp-declarations?view=msvc-170#alignment-and-memory-addresses">https://learn.microsoft.com/en-us/cpp/cpp/alignment-cpp-declarations?view=msvc-170#alignment-and-memory-addresses</a></p></li>
+<li><p>Alignment is a property of a memory address, expressed as the numeric address modulo a power of 2.</p></li>
+<li><p>An address is said to be aligned to X if its alignment is Xn+0.</p></li>
+<li><p>We call a datum naturally aligned if its address is aligned to its size. It’s called misaligned otherwise.</p></li>
+<li><p>compiler-handling-of-data-alignment</p></li>
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/cpp/cpp/alignment-cpp-declarations?view=msvc-170#compiler-handling-of-data-alignment">https://learn.microsoft.com/en-us/cpp/cpp/alignment-cpp-declarations?view=msvc-170#compiler-handling-of-data-alignment</a></p></li>
+<li></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -910,6 +957,22 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alignment-requirement">Alignment Requirement</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

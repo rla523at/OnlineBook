@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=61612f5f" />
@@ -502,6 +502,7 @@
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/POD.html">POD (Plain Old Data)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Pragma.html">Pragma</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/SIMD.html">SIMD</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Using.html">Using</a></li>
 </ul>
 </details></li>
@@ -572,10 +573,15 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="02%20Graphics/51%20DirectX12/DirectX12.html">DirectX12</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/Resource.html">Resource</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/Descriptors.html">Descriptors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/GPU%20Heap.html">GPU Heap</a></li>
 <li class="toctree-l4"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/Resource%20State.html">Resource State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/RootSignature.html">Root Signature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/Texture.html">Texture</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
@@ -583,12 +589,12 @@
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/DxcBuffer.html">DxcBuffer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/Fence.html">Fence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/GPU%20Heap.html">GPU Heap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/ID3D12Debug.html">ID3D12Debug</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/Initializing%20Direct3D.html">Initializing Direct3D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/ShaderReflection.html">Shader Reflection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/Work%20Submission.html">Work Submission</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="02%20Graphics/60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -611,6 +617,7 @@
 <li class="toctree-l2"><a class="reference internal" href="02%20Graphics/D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02%20Graphics/Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02%20Graphics/DirectXMath.html">DirectXMath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02%20Graphics/Quaternion.html">Quaternion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02%20Graphics/Sampling.html">Sampling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02%20Graphics/ShaderCompiler.html">Shader Compiler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02%20Graphics/Stencil%20Buffer.html">Stencil Buffer</a></li>
@@ -820,19 +827,22 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pip-show-matplotlib">pip show matplotlib</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sympy">Sympy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">그래프 그리기</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foramt-string">foramt string 출력</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">정규 표현식</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">그룹화</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">비 캡처 그룹</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">정규 표현식</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">그룹화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">비 캡처 그룹</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#negative-lookahead">부정형 전방탐색(negative lookahead)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metacharacters">Metacharacters</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">비탐욕적 수량자</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">비탐욕적 수량자</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#match">match</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#search">search</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etc">ETC</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">리스트</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">리스트</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#append">append</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehension">List Comprehension</a></li>
 </ul>
@@ -844,12 +854,12 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strip">strip</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerate">enumerate</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#join">join</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">조건부 표현식</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">조건부 표현식</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#format-string">Format String</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">변수 스코프</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">변수 스코프</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#false">False 로 형변환 되는 경우</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">생성</a></li>
 </ul>
 </li>
 </ul>
@@ -879,6 +889,82 @@
 </pre></div>
 </div>
 <p>lst.append(4)는 가변 객체인 my_list의 내용을 직접 변경하므로 원본이 바뀌게 된다. 그러나 lst = [1, 2, 3]에서는 lst가 완전히 새로운 리스트 객체를 참조하도록 재할당되므로, my_list에는 영향을 주지 않는다.</p>
+<hr class="docutils" />
+<p>python -m pip install –upgrade pip</p>
+<p>pip install –upgrade matplotlib</p>
+<section id="pip-show-matplotlib">
+<h2>pip show matplotlib<a class="headerlink" href="#pip-show-matplotlib" title="Link to this heading">#</a></h2>
+</section>
+<section id="sympy">
+<h2>Sympy<a class="headerlink" href="#sympy" title="Link to this heading">#</a></h2>
+<p>symbolic 배열 만들기</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">P0</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">symarray</span><span class="p">(</span><span class="s2">&quot;P0&quot;</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> 
+</pre></div>
+</div>
+<p>symarray 로 만들면 numpy.ndarray 타입으로 반환되서 diff 와 같은 함수를 사용할 수 없다. 이를 해결하기 위해 numpy.ndaraay 타입을 sympy.Matrix 타입으로 변환하려면 다음과 같이하면 된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">P0</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Matrix</span><span class="p">(</span><span class="n">sympy</span><span class="o">.</span><span class="n">symarray</span><span class="p">(</span><span class="s2">&quot;P0&quot;</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h2>그래프 그리기<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>matplotlib 의 pyplot 모듈을 import 하면 된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<details> <summary> <h3 style="display:inline-block"> 3차원 곡선 그래프 그리기 </h3></summary>
+그래프를 띄울 창을 의미하는 figure 객체를 생성하기 위해 pyplot 모듈의 figure 함수를 호출해줘야 한다.
+```python
+fig = plt.figure()
+```
+만약 그래프를 여러개의 창에 띄우고 싶다면, 원하는 창의 개수만큼 figure 객체를 생성해야 한다.
+<p>다음으론 띄워진 창에 그래프가 그려질 공간를 의미하는 Axes 객체를 생성하기 위해 figure 객체의 add_subplot 함수를 호출해야 한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span>  <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>앞에 2개의 인자는 nrows, ncols 로 하나의 창에 subplot 을 가로로 세로로 몇개씩 배치하겠냐는 의미다. 그리고 세번째 인자인 index 는 몇번째 subplot 에 위치할건지를 나타낸다. 그러면 return 값으로 axes 객체를 받는다. 만약, 하나의 창에 여러개의 그래프를 띄우고 싶다면 add_subplot 에서 nrows, ncols, index 변수를 잘 조절해서 subplot 들을 추가해주면 된다.</p>
+<p>참고로, matplotlib 최신 버전에서는 문제가 없지만, 이전 버전을 사용해야 되서 Axes3D 관련 오류가 발생할 경우 추가로 mpl_toolkits.mploft3d 모듈에 있는 Axes3D 를 import 해줘야 한다</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.add_subplot.html">matplotlib - Figure.add_subplot</a></p>
+</div></blockquote>
+<p>이제, 그래프를 실제로 그리기 위해서는 axes 객체의 plot 함수를 호출해야한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs1</span><span class="p">,</span><span class="n">ys1</span><span class="p">,</span><span class="n">zs1</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s1">&#39;dotted&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;$f_1$&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>xs1,ys1,zs1 은 각 각 x,y,z 좌표를 모아놓은 배열이고 label 은 Legend 에 나타날 이름을 나타낸다. 이 떄, Label 에 수식을 사용하고 싶은 경우에는 $$로 감싸준다음에 수식을 latex 형태로 수식을 작성해주면 된다.</p>
+<p>만약, 하나의 axes 안에 여러개의 함수를 그리고 싶다고 한다면 plot 함수를 여러번 호출해주면 된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs1</span><span class="p">,</span><span class="n">ys1</span><span class="p">,</span><span class="n">zs1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs1</span><span class="p">,</span><span class="n">zs1</span><span class="p">,</span><span class="n">zs1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;test2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html">matplotlib - axes.Axes.plot</a></p>
+</div></blockquote>
+<p>그래프의 Legend 를 출력하기 위해서는 axes 객체의 legend 함수를 호출해야 한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">lengend</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html">matplotlib - matplotlib.axes.Axes.legend</a></p></li>
+</ul>
+<p>그래프 축에 lable 을 달기 위해서는 set_xlabel, set_ylabel, set_zlabel 함수를 호출하면 된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>마지막으로 그래프를 화면에 띄우기 위해서는 pyplot 모듈의 show 함수를 호출해야 한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</details>
+</section>
 <section id="foramt-string">
 <h2>foramt string 출력<a class="headerlink" href="#foramt-string" title="Link to this heading">#</a></h2>
 <ul class="simple">
@@ -908,10 +994,10 @@
 <p>Python의 f-string (포매팅 문자열) 은 Python 3.6부터 도입된 기능으로, 문자열 내에 변수 또는 표현식을 간단하고 가독성 있게 삽입할 수 있는 방법이다.</p>
 <p>f-string은 문자열 앞에 <code class="docutils literal notranslate"><span class="pre">f</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">F</span></code>를 붙이고, 중괄호 <code class="docutils literal notranslate"><span class="pre">{}</span></code> 안에 변수를 넣어 사용한다.</p>
 </section>
-<section id="id1">
-<h2>정규 표현식<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <section id="id2">
-<h3>그룹화<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<h2>정규 표현식<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="id3">
+<h3>그룹화<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>그룹화는 말 그대로 그룹으로 묶어주는 것이다.</p>
 <p>예를 들어 <code class="docutils literal notranslate"><span class="pre">12</span></code> 가 1번 이상 반복되는 문자열을 찾고 싶은 상황을 생각해보자.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;12+&quot;</span><span class="p">)</span>
@@ -927,8 +1013,8 @@
 </div>
 <p>이 경우에는 의도와 같이 <code class="docutils literal notranslate"><span class="pre">1212</span></code> 모두가 match 된다.</p>
 </section>
-<section id="id3">
-<h3>비 캡처 그룹<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<section id="id4">
+<h3>비 캡처 그룹<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>그룹화를 위해 소괄호를 반드시 써야 하는데, 굳이 캡처하고 싶지 않을 때 사용한다.</p>
 <p>비 캡처 그룹은 <code class="docutils literal notranslate"><span class="pre">(?:&lt;regex&gt;)</span></code>와 같이 사용한다.</p>
 <blockquote>
@@ -989,8 +1075,8 @@
 <a class="reference external" href="https://docs.python.org/ko/3/howto/regex.html">docs.python - regex</a></p>
 </div></blockquote>
 </section>
-<section id="id4">
-<h3>비탐욕적 수량자<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<section id="id5">
+<h3>비탐욕적 수량자<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(.*?)
 </pre></div>
 </div>
@@ -1039,8 +1125,8 @@
 </ul>
 </section>
 </section>
-<section id="id5">
-<h2>리스트<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<section id="id6">
+<h2>리스트<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
 <section id="append">
 <h3>append<a class="headerlink" href="#append" title="Link to this heading">#</a></h3>
 <p>리스트의 끝에 항목을 더하는 함수이다.</p>
@@ -1168,8 +1254,8 @@
 <p>예를 들어 list 에 [‘a’,’b’,’c’]가 있다고 하자.</p>
 <p>그러면 <code class="docutils literal notranslate"><span class="pre">',</span> <span class="pre">'.join(list)</span></code>의 결과는 ‘a, b, c’ 형태의 문자열을 만들어서 반환해준다.</p>
 </section>
-<section id="id6">
-<h2>조건부 표현식<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<section id="id7">
+<h2>조건부 표현식<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
 <p>파이썬에서는 다음과 같은 형태로 조건부 표현식(ternary operator)을 사용할 수 있다</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">value_when_true</span><span class="p">]</span> <span class="k">if</span> <span class="p">[</span><span class="n">condition</span><span class="p">]</span> <span class="k">else</span> <span class="p">[</span><span class="n">value_when_false</span><span class="p">]</span>
 </pre></div>
@@ -1182,8 +1268,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id7">
-<h2>변수 스코프<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<section id="id8">
+<h2>변수 스코프<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
 <p>python 에서는 블록 스코핑을 사용하지 않고 함수나 클래스 단위의 스코핑을 사용하기 때문에 if-else 블록 외부에서도 그 안에서 생성한 변수에 접근이 가능하다.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
     <span class="n">A</span> <span class="o">=</span> <span class="mi">1</span>
@@ -1231,8 +1317,8 @@
 </ul>
 </li>
 </ul>
-<section id="id8">
-<h3>생성<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<section id="id9">
+<h3>생성<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">my_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 <span class="n">my_set_with_value</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span>
 </pre></div>
@@ -1307,19 +1393,22 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pip-show-matplotlib">pip show matplotlib</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sympy">Sympy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">그래프 그리기</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foramt-string">foramt string 출력</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">정규 표현식</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">그룹화</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">비 캡처 그룹</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">정규 표현식</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">그룹화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">비 캡처 그룹</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#negative-lookahead">부정형 전방탐색(negative lookahead)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metacharacters">Metacharacters</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">비탐욕적 수량자</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">비탐욕적 수량자</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#match">match</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#search">search</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etc">ETC</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">리스트</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">리스트</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#append">append</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehension">List Comprehension</a></li>
 </ul>
@@ -1331,12 +1420,12 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strip">strip</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerate">enumerate</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#join">join</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">조건부 표현식</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">조건부 표현식</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#format-string">Format String</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">변수 스코프</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">변수 스코프</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#false">False 로 형변환 되는 경우</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">생성</a></li>
 </ul>
 </li>
 </ul>
