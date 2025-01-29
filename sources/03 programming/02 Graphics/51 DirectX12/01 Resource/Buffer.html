@@ -846,15 +846,15 @@
 <h2>Buffer Alignment<a class="headerlink" href="#buffer-alignment" title="Link to this heading">#</a></h2>
 <p>Buffer alignment restrictions:</p>
 <ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/upload-and-readback-of-texture-data#buffer-alignment">learn.microsoft - buffer-alignment</a></p>
+<ul>
 <li><p>Linear subresource copying must be aligned to 512 bytes (with the row pitch aligned to D3D12_TEXTURE_DATA_PITCH_ALIGNMENT bytes).</p></li>
-<li><p>Constant data reads must be a multiple of 256 bytes from the beginning of the heap (i.e. only from addresses that are 256-byte aligned).</p></li>
+<li><p><strong>Constant data</strong> reads must be a multiple of 256 bytes from the beginning of the heap (i.e. only from addresses that are 256-byte aligned).</p></li>
 <li><p>Index data reads must be a multiple of the index data type size (i.e. only from addresses that are naturally aligned for the data).</p></li>
 <li><p>ID3D12GraphicsCommandList::ExecuteIndirect data must be from offsets that are multiples of 4 (i.e. only from addresses that are DWORD aligned).</p></li>
 </ul>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/upload-and-readback-of-texture-data#buffer-alignment">learn.microsoft - upload-and-readback-of-texture-data#buffer-alignment</a></p>
-</div></blockquote>
+</li>
+</ul>
 </section>
 <section id="shader-resource-view">
 <h2>Shader Resource View 만들기<a class="headerlink" href="#shader-resource-view" title="Link to this heading">#</a></h2>

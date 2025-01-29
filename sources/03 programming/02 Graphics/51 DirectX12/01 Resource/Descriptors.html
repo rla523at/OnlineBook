@@ -829,6 +829,7 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-heaps">Descriptor Heaps</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-handles">Descriptor handles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-descriptor-table">GPU 에서 Descriptor Table 참조하기</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-tables">Descriptor Tables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12graphicscommandlist-setgraphicsrootdescriptortable">ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createconstantbufferview">ID3D12Device::CreateConstantBufferView 함수</a></li>
@@ -893,6 +894,12 @@
 <a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type">learn.microsoft - d3d12_descriptor_heap_type</a></p>
 </div></blockquote>
 </details>
+<p>descriptor heap 이 필요한 경우</p>
+<ul class="simple">
+<li><p>descriptor 를 만들 때, dest descirptor heap handle 이 필요하다</p></li>
+<li><p>setDescriptorHeap 을 할 때, 필요하다.</p></li>
+<li><p>SetGraphicsRootDescriptorTable 을 할 떄, 필요하다.</p></li>
+</ul>
 <p>한번의 Draw Call 에 필요한 CBV, SRV, UAV Descriptor 는 반드시 동일한 Descirptor Heap 에 존재해야 한다. 왜냐하면 Command List 에</p>
 </section>
 <section id="descriptor-handles">
@@ -923,6 +930,13 @@ D3D12_CPU_DESCRIPTOR_HANDLE 구조체를 쉽게 초기화 할 수 있도록 하�
 <a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-cpu-descriptor-handle">learn.microsoft - cd3dx12-cpu-descriptor-handle</a></p>
 </div></blockquote>
 </details>
+</section>
+<section id="gpu-descriptor-table">
+<h2>GPU 에서 Descriptor Table 참조하기<a class="headerlink" href="#gpu-descriptor-table" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>ID3D12GraphicsCommandList::SetDescriptorHeap 함수를 통해 GPU 가 사용할 Descriptor Heap 을 설정한다.</p></li>
+<li><p>ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수를 통해서 Descriptor Table 의 시작주소에 해당하는 D3D12_GPU_DESCRIPTOR_HANDLE 을 등록한다.</p></li>
+</ol>
 </section>
 <section id="descriptor-tables">
 <h2>Descriptor Tables<a class="headerlink" href="#descriptor-tables" title="Link to this heading">#</a></h2>
@@ -1253,6 +1267,7 @@ D3D12_CPU_DESCRIPTOR_HANDLE 구조체를 쉽게 초기화 할 수 있도록 하�
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-heaps">Descriptor Heaps</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-handles">Descriptor handles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gpu-descriptor-table">GPU 에서 Descriptor Table 참조하기</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-tables">Descriptor Tables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12graphicscommandlist-setgraphicsrootdescriptortable">ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3d12device-createconstantbufferview">ID3D12Device::CreateConstantBufferView 함수</a></li>

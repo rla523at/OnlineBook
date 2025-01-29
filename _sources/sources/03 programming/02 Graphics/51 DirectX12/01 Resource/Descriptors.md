@@ -48,6 +48,10 @@ enum D3D12_DESCRIPTOR_HEAP_FLAG 의 D3D12_DESCRIPTOR_HEAP_FLAG_NONE 는 CPU 에�
 
 </details>
 
+descriptor heap 이 필요한 경우
+* descriptor 를 만들 때, dest descirptor heap handle 이 필요하다
+* setDescriptorHeap 을 할 때, 필요하다.
+* SetGraphicsRootDescriptorTable 을 할 떄, 필요하다.
 
 한번의 Draw Call 에 필요한 CBV, SRV, UAV Descriptor 는 반드시 동일한 Descirptor Heap 에 존재해야 한다. 왜냐하면 Command List 에 
 
@@ -86,6 +90,11 @@ rtvHandle.Offset(1, m_rtvDescriptorSize);
 > Reference  
 > [learn.microsoft - cd3dx12-cpu-descriptor-handle](https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-cpu-descriptor-handle)  
 </details>
+
+## GPU 에서 Descriptor Table 참조하기
+1. ID3D12GraphicsCommandList::SetDescriptorHeap 함수를 통해 GPU 가 사용할 Descriptor Heap 을 설정한다.
+2. ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수를 통해서 Descriptor Table 의 시작주소에 해당하는 D3D12_GPU_DESCRIPTOR_HANDLE 을 등록한다. 
+
 
 
 ## Descriptor Tables

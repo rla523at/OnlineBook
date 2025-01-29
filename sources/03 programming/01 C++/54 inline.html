@@ -831,16 +831,18 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="inline">
 <h1>inline<a class="headerlink" href="#inline" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://stackoverflow.com/questions/185624/what-happens-to-static-variables-in-inline-functions">stackoverlofw - what-happens-to-static-variables-in-inline-functions</a></p>
+<p>Specification</p>
 <ul class="simple">
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/language/inline">cppreference - inline</a></p>
+<ul>
+<li><p><strong>It has the same address</strong> in every translation unit.</p></li>
 <li><p>The definition of an inline function or variable(since C++17) <strong>must be reachable in the translation unit where it is accessed</strong> (not necessarily before the point of access).</p></li>
 <li><p><strong>Function-local static objects in all function definitions are shared across all translation units</strong> (they all refer to the same object defined in one translation unit).</p></li>
 <li><p><strong>function defined entirely inside a class/struct/union definition, whether it’s a member function or a non-member friend function, is implicitly an inline function</strong> unless it is attached to a named module(since C++20).</p></li>
 </ul>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://en.cppreference.com/w/cpp/language/inline">cppreference - inline</a><br />
-<a class="reference external" href="https://stackoverflow.com/questions/185624/what-happens-to-static-variables-in-inline-functions">stackoverlofw - what-happens-to-static-variables-in-inline-functions</a></p>
-</div></blockquote>
+</li>
+</ul>
 </section>
 
     <script type="text/x-thebe-config">

@@ -55,6 +55,24 @@ CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC 구조체는 D3D12_VERSIONED_ROOT_SIGNATUR
 Root signature 는 root parameter 들로 정의됨으로, Root Signature 를 생성하기 위해서는 먼저, Root Parameter 들을 생성해야 한다.
 
 <details> <summary> <h3 style="display:inline-block"> Root Parameter 생성 </h3></summary>
+Root Parameter 는 HLSL 에 Resource 가 어떻게 Binding 되어 있는지를 나타낸다. 예를 들어 HLSL 에 다음과 같이 Resource 가 Binding 되어 있다고 하자.
+```
+Texture2D texture0 : register(t2);
+Texture2D texture1 : register(t3);
+Texture2D texture2 : register(t4);
+```
+
+Descriptor Range 와 Root Parameter 객체를 다음과 같이 만들면 된다.
+```cpp
+CD3DX12_DESCRIPTOR_RANGE1 range_arr[1] = {};
+range_arr[0].Init( D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 3, 2, 0, D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC );
+
+CD3DX12_ROOT_PARAMETER1 root_parameter_arr[1] = {};
+root_parameter_arr[0].InitAsDescriptorTable( 1, &range_arr[0], D3D12_SHADER_VISIBILITY_PIXEL );
+```
+
+Root Parameter 는 HLSL 에서 Resource 가 어떻게 Binding 되어 있는지를 나타낼 뿐이지 실제로 Resource 와 binding 해주지는 않는다. Resource 와 binding 은 ID3D12GraphicsCommandList::SetDescriptorHeaps 와 ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수를 통해 이루어진다.
+
 Root Parameter 는 D3D12_ROOT_PARAMETER1 구조체로 나타내어진다.
 * [learn.microsoft - d3d12_root_parameter1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter1)
 

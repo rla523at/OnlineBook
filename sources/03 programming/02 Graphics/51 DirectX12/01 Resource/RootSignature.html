@@ -912,8 +912,25 @@
 </ul>
 <p>Root signature 는 root parameter 들로 정의됨으로, Root Signature 를 생성하기 위해서는 먼저, Root Parameter 들을 생성해야 한다.</p>
 <details> <summary> <h3 style="display:inline-block"> Root Parameter 생성 </h3></summary>
-Root Parameter 는 D3D12_ROOT_PARAMETER1 구조체로 나타내어진다.
-* [learn.microsoft - d3d12_root_parameter1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter1)
+Root Parameter 는 HLSL 에 Resource 가 어떻게 Binding 되어 있는지를 나타낸다. 예를 들어 HLSL 에 다음과 같이 Resource 가 Binding 되어 있다고 하자.
+```
+Texture2D texture0 : register(t2);
+Texture2D texture1 : register(t3);
+Texture2D texture2 : register(t4);
+```
+<p>Descriptor Range 와 Root Parameter 객체를 다음과 같이 만들면 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">CD3DX12_DESCRIPTOR_RANGE1</span><span class="w"> </span><span class="n">range_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="n">range_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">Init</span><span class="p">(</span><span class="w"> </span><span class="n">D3D12_DESCRIPTOR_RANGE_TYPE_SRV</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC</span><span class="w"> </span><span class="p">);</span>
+
+<span class="n">CD3DX12_ROOT_PARAMETER1</span><span class="w"> </span><span class="n">root_parameter_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="n">root_parameter_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">InitAsDescriptorTable</span><span class="p">(</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">range_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">D3D12_SHADER_VISIBILITY_PIXEL</span><span class="w"> </span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Root Parameter 는 HLSL 에서 Resource 가 어떻게 Binding 되어 있는지를 나타낼 뿐이지 실제로 Resource 와 binding 해주지는 않는다. Resource 와 binding 은 ID3D12GraphicsCommandList::SetDescriptorHeaps 와 ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수를 통해 이루어진다.</p>
+<p>Root Parameter 는 D3D12_ROOT_PARAMETER1 구조체로 나타내어진다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter1">learn.microsoft - d3d12_root_parameter1</a></p></li>
+</ul>
 <p>CD3DX12_ROOT_PARAMETER1 구조체는 D3D12_ROOT_PARAMETER1 구조체를 쉽게 생성하기 위한 Helper class이다.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-root-parameter1">learn.microsoft - cd3dx12-root-parameter1</a></p></li>
