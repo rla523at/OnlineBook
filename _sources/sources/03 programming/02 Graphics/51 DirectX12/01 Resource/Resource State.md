@@ -1,5 +1,10 @@
 # Resource State
 
+## D3D12_RESOURCE_STATE_RENDER_TARGET
+ID3D12GraphicsCommandList::ClearRenderTargetView 함수를 호출하기 전에 Resource State 가 D3D12_RESOURCE_STATE_RENDER_TARGET 여야 한다.
+* [learn.microsoft - id3d12graphicscommandlist-clearrendertargetview](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearrendertargetview#debug-layer)  
+  * The debug layer will issue an error if the subresources referenced by the view are not in the appropriate state. For ClearRenderTargetView, the state must be D3D12_RESOURCE_STATE_RENDER_TARGET.
+
 ## D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER vs D3D12_RESOURCE_STATE_GENERIC_READ
 단순히 Vertex, Constant Buffer 를 위한 Read Only resource 를 만들기 위해서라면 어느 것을 사용해도 기능적으로 큰 차이는 없다.
 

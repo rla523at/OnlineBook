@@ -58,7 +58,7 @@ BOM(Byte Order Mark) 은 유니코드 텍스트 파일의 시작 부분에 인�
 
 ## char
 
-##  Locale
+## Locale
 
 locale name 은 [여기](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-lcid/a9eac961-e77d-41a6-90a5-ce1a8b0cdb9c)에서 Language tag 를 살펴보면 된다.
 
@@ -66,7 +66,6 @@ locale name 은 [여기](https://learn.microsoft.com/en-us/openspecs/windows_pro
 > [learn.microsoft - UCRT Locale names, Languages, and Country/Region strings](https://learn.microsoft.com/en-us/cpp/c-runtime-library/locale-names-languages-and-country-region-strings?view=msvc-170)    
 
 ## String Literal
-
 The encoding of unprefixed string literals in C++ is platform dependent.
 
 MSVC 에서는 unprefixe string literal 의 encoding 방식으로 시스템의 code page 를 사용하는 것 같다.

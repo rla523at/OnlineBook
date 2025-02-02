@@ -614,6 +614,7 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/Coordinate%20System.html">Coordinate System</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../02%20Graphics/DirectXMath.html">DirectXMath</a></li>
@@ -827,17 +828,20 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">빌드 옵션 확인하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utf8">파일 UTF8 로 자동 저장하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-encoding-utf8">Text Encoding UTF8 로 설정하기</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#include">#include 에서 탐색할 경로 추가하기</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cpp-include">특정 파일 cpp 파일의 모든 #include 순서 파악하기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">프로젝트 속성</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">링커</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">미리 컴파일된 헤더</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">프로젝트 속성</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">링커</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">미리 컴파일된 헤더</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#props">.props</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">매크로</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">매크로</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-bash">Git Bash 사용하기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">수정사항이 없어도 만료된 프로젝트로 판단되서 재빌드 하는 경우</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">수정사항이 없어도 만료된 프로젝트로 판단되서 재빌드 하는 경우</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-file">Map File</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pdata-unwind">$pdata$, $unwind$</a></li>
 </ul>
@@ -848,16 +852,16 @@
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clang-format">Clang Format</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">참고</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">참고</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">파일형식</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">파일형식</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-arguments">Command Arguments</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">프로젝트 종속성</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">참조</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">프로젝트 종속성</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">참조</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vcxitems">vcxitems</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vassisx">VAssisX</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">문제점</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">문제점</a></li>
 </ul>
 </li>
 </ul>
@@ -874,6 +878,48 @@
   <section class="tex2jax_ignore mathjax_ignore" id="visual-studio">
 <h1>Visual Studio<a class="headerlink" href="#visual-studio" title="Link to this heading">#</a></h1>
 <p>특정 프로젝트가 빌드가 안될 때는 구성 관리자에가서 빌드 체크가 되어 있는지 확인해본다.</p>
+<section id="id1">
+<h2>빌드 옵션 확인하기<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>도구 &gt;&gt; 옵션 &gt;&gt; 프로젝트 및 솔루션 &gt;&gt; 빌드 및 실행 &gt;&gt; MSBUILD 프로젝트 빌드 출력의 세부 정보 표시 &gt;&gt; 자세히 or 매우 자세히</p>
+</section>
+<section id="utf8">
+<h2>파일 UTF8 로 자동 저장하기<a class="headerlink" href="#utf8" title="Link to this heading">#</a></h2>
+<p>프로젝트 경로에 .editorconfig 파일을 생성한다음에 다음 내용을 추가한다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">true</span>
+
+<span class="p">[</span><span class="o">*.</span><span class="p">{</span><span class="n">c</span><span class="o">++</span><span class="p">,</span><span class="n">cc</span><span class="p">,</span><span class="n">cpp</span><span class="p">,</span><span class="n">cppm</span><span class="p">,</span><span class="n">cxx</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="n">h</span><span class="o">++</span><span class="p">,</span><span class="n">hh</span><span class="p">,</span><span class="n">hpp</span><span class="p">,</span><span class="n">hxx</span><span class="p">,</span><span class="n">inl</span><span class="p">,</span><span class="n">ipp</span><span class="p">,</span><span class="n">ixx</span><span class="p">,</span><span class="n">tlh</span><span class="p">,</span><span class="n">tli</span><span class="p">}]</span>
+
+<span class="n">charset</span> <span class="o">=</span> <span class="n">utf</span><span class="o">-</span><span class="mi">8</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/visualstudio/ide/create-portable-custom-editor-options?view=vs-2022">learn.microsoft - EditorConfig</a></p>
+<ul>
+<li><p>In Visual Studio, EditorConfig file settings take precedence over the various global text editor settings available under Tools &gt; Options &gt; Text Editor &gt; C/C++ &gt; Code Style</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://editorconfig.org/#supported-properties">editorconfig - supported-properties</a></p>
+<ul>
+<li><p>charset: set to latin1, utf-8, utf-8-bom, utf-16be or utf-16le to control the character set.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="text-encoding-utf8">
+<h2>Text Encoding UTF8 로 설정하기<a class="headerlink" href="#text-encoding-utf8" title="Link to this heading">#</a></h2>
+<p>옵션 &gt;&gt; C/C++ &gt;&gt; Command Line &gt;&gt; /utf-8</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8?view=msvc-170">learn.microsoft - /utf-8</a></p>
+<ul>
+<li><p>You can use the /utf-8 option to specify both the <strong>source and execution character sets</strong> as encoded by using UTF-8.</p></li>
+<li><p>It’s equivalent to specifying /source-charset:utf-8 /execution-charset:utf-8 on the command line.</p></li>
+<li><p>Any of these options also enables the /validate-charset option by default.</p></li>
+<li><p><strong>By default, Visual Studio detects a byte-order mark</strong> to determine if the source file is in an encoded Unicode format</p></li>
+<li><p><strong>If no byte-order mark is found, it assumes that the source file is encoded in the current user code page</strong>, unless you’ve specified a code page by using /utf-8 or the /source-charset option.</p></li>
+</ul>
+</li>
+</ul>
+</section>
 <section id="include">
 <h2>#include 에서 탐색할 경로 추가하기<a class="headerlink" href="#include" title="Link to this heading">#</a></h2>
 <p>프로젝트 속성 &gt;&gt; VC++ 디렉터리 &gt;&gt; 포함 디렉터리 에 경로를 추가하면 #incldue 할 때, 시작 경로로 사용된다. 예를 들어서 #include “test.h” 가 있따고 하면, 포함 디렉터리에 있는 모든 경로에서 “test.h” 파일을 찾아서 일치하는 파일을 include 해준다.</p>
@@ -888,14 +934,14 @@ D:\Code\ms_engine\_lib\directx 를 포함 디렉터리에 추가해서 C:\Progra
 <p>프로젝트 속성 &gt;&gt; C/C++ &gt;&gt; 고급 &gt;&gt; 포함표시 를 예로 바꾸게 되면 명령줄에 /showincludes 가 포함되며 cpp 파일을 빌드할 떄, recursive 하게 include 가 어떤 순서로 이루어졌는지 출력창을 통해 보여준다.</p>
 <p>그래서 포함 표시를 ‘예’ 로 바꾸고 특정 파일만 ctrl + F7 으로 빌드해보면 include 가 어떤 순서로 이루어 졌는지 보여진다.</p>
 </section>
-<section id="id1">
-<h2>프로젝트 속성<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <section id="id2">
-<h3>링커<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<h2>프로젝트 속성<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="id3">
+<h3>링커<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>명령줄 &gt;&gt; 추가옵션에 /Force:MULTIPLE 을 추가하면 라이브러리 충돌을 무시하고 링크를 강제로 진행할 수 있다.</p>
 </section>
-<section id="id3">
-<h3>미리 컴파일된 헤더<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<section id="id4">
+<h3>미리 컴파일된 헤더<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>프로젝트 전체적으로는 미리 컴파일된 헤더 사용으로 되어 있어야 하지만, 미리 컴파일된 헤더를 생성하는 .cpp 는 개별적으로 미리 컴파일 된 헤더 만들기 옵션으로 되어 있어야 한다.</p>
 </section>
 <section id="props">
@@ -906,8 +952,8 @@ D:\Code\ms_engine\_lib\directx 를 포함 디렉터리에 추가해서 C:\Progra
 <li><p>프로젝트 속성에서 직접 값을 수정하면 .vcxproj 파일에 그 내용이 저장됨으로 .props 파일의 값은 프로젝트 속성을 수정한 값으로 전부 덮어씌워진다.</p></li>
 </ul>
 </section>
-<section id="id4">
-<h3>매크로<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<section id="id5">
+<h3>매크로<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p>$(TargetDir) 은 C/C++ 탭이나 링커탭에서는 사용할 수 있지만, 일반 또는 VC++ 디렉터리 등에서는 사용할 수 없다. 왜인지는 모르겠다.</p>
 <blockquote>
 <div><p>Reference<br />
@@ -929,8 +975,8 @@ D:\Code\ms_engine\_lib\directx 를 포함 디렉터리에 추가해서 C:\Progra
 <a class="reference external" href="https://stackoverflow.com/a/65386291">stackoverflow - integrating Git Bash with Visual Studio</a></p>
 </div></blockquote>
 </section>
-<section id="id5">
-<h2>수정사항이 없어도 만료된 프로젝트로 판단되서 재빌드 하는 경우<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<section id="id6">
+<h2>수정사항이 없어도 만료된 프로젝트로 판단되서 재빌드 하는 경우<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>클린 빌드를 수행해 본다.</p>
 <ul>
@@ -1000,21 +1046,21 @@ D:\Code\ms_engine\_lib\directx 를 포함 디렉터리에 추가해서 C:\Progra
 </pre></div>
 </div>
 <p>.clang_format 파일의 수정은 <a class="reference external" href="https://clang.llvm.org/docs/ClangFormatStyleOptions.html">LLVM-Clang-Format Style Options</a>를 참고하면 된다.</p>
-<section id="id6">
-<h3>참고<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<section id="id7">
+<h3>참고<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
 <p>custom .clang_format을 사용하고 싶은 경우 <code class="docutils literal notranslate"><span class="pre">사용자</span> <span class="pre">지정</span> <span class="pre">clang-format.exe</span> <span class="pre">파일</span> <span class="pre">사용</span></code> 옵션은 체크하지 않아야 한다.</p>
 </section>
 </section>
-<section id="id7">
-<h2>파일형식<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<section id="id8">
+<h2>파일형식<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">솔루션</span> <span class="pre">탐색기</span> <span class="pre">&gt;&gt;</span> <span class="pre">파일</span> <span class="pre">우클릭</span> <span class="pre">&gt;&gt;</span> <span class="pre">속성</span> <span class="pre">&gt;&gt;</span> <span class="pre">구성</span> <span class="pre">속성</span> <span class="pre">&gt;&gt;</span> <span class="pre">일반</span></code>에 가서 보면 항목 형식에서 cpp 파일이면 <code class="docutils literal notranslate"><span class="pre">C/C++</span> <span class="pre">컴파일러</span></code>로 되어 있고 h 파일이면 <code class="docutils literal notranslate"><span class="pre">C/C++</span> <span class="pre">헤더</span></code>로 되어 있다.</p>
 </section>
 <section id="command-arguments">
 <h2>Command Arguments<a class="headerlink" href="#command-arguments" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">프로젝트</span> <span class="pre">&gt;&gt;</span> <span class="pre">속성</span> <span class="pre">&gt;&gt;</span> <span class="pre">Debugging</span> <span class="pre">&gt;&gt;</span> <span class="pre">Command</span> <span class="pre">Arguments</span></code>에서 <code class="docutils literal notranslate"><span class="pre">-iMec2009</span></code>처럼 <code class="docutils literal notranslate"><span class="pre">-</span></code>가 하나만 나온경우에는 <code class="docutils literal notranslate"><span class="pre">i</span></code>가 option 이름이고 option 값이 Mec2009가 된다. 그리고 <code class="docutils literal notranslate"><span class="pre">--runbyopt=on</span></code>처럼 <code class="docutils literal notranslate"><span class="pre">--</span></code>인 경우에는 <code class="docutils literal notranslate"><span class="pre">runbytop</span></code>라는 단어 전체가 option 이름이 되고 option 값이 on이 된다.</p>
 </section>
-<section id="id8">
-<h2>프로젝트 종속성<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<section id="id9">
+<h2>프로젝트 종속성<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">솔루션</span> <span class="pre">탐색기</span> <span class="pre">&gt;&gt;</span> <span class="pre">프로젝트</span> <span class="pre">오른쪽</span> <span class="pre">마우스</span> <span class="pre">&gt;&gt;</span> <span class="pre">빌드</span> <span class="pre">종속성</span> <span class="pre">&gt;&gt;</span> <span class="pre">프로젝트</span> <span class="pre">종속성</span></code>에서 종속성을 선택하면 이 프로젝트를 빌드하기전에 미리 빌드할 프로젝트를 결정할 수 있다.</p>
 <p>프로젝트 종속성이 반영된 빌드 순서를 보려면 프로젝트 종속성 대화 상자에서 빌드 순서 탭으로 전환하여 볼 수 있다.</p>
 <blockquote>
@@ -1022,8 +1068,8 @@ D:\Code\ms_engine\_lib\directx 를 포함 디렉터리에 추가해서 C:\Progra
 <a class="reference external" href="https://learn.microsoft.com/ko-kr/visualstudio/ide/how-to-create-and-remove-project-dependencies?view=vs-2022">learn.microsoft</a></p>
 </div></blockquote>
 </section>
-<section id="id9">
-<h2>참조<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<section id="id10">
+<h2>참조<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">솔루션</span> <span class="pre">탐색기</span> <span class="pre">&gt;&gt;</span> <span class="pre">프로젝트</span> <span class="pre">오른쪽</span> <span class="pre">마우스</span> <span class="pre">&gt;&gt;</span> <span class="pre">참조</span></code>에서 library를 만들어내는 프로젝트를 추가하면 별도의 과정없이 참조에 속한 프로젝트가 만들어낸 library를 header file 추가만으로 사용할 수 있다.</p>
 </section>
 <section id="vcxitems">
@@ -1033,8 +1079,8 @@ D:\Code\ms_engine\_lib\directx 를 포함 디렉터리에 추가해서 C:\Progra
 </section>
 <section id="vassisx">
 <h2>VAssisX<a class="headerlink" href="#vassisx" title="Link to this heading">#</a></h2>
-<section id="id10">
-<h3>문제점<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<section id="id11">
+<h3>문제점<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
 <p>Microsoft Visual Studio Professional 2017 버전 15.9.49와 VA_X.dll file version 10.9.2217.0  built 2017.04.26를 사용하면 multi-catet을 사용해서 typing을 할 때, main caret만 연속해서 글을 쓸 수 있고 나머지 caret들은 한글자만 작성되고 자동 취소된다.</p>
 <p><a class="reference external" href="https://www.wholetomato.com/features/whats-new">What’s New in Visual Assist</a>를 보면 General Release Build 2291에</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">VS2017</span> <span class="mf">15.8</span><span class="o">+</span><span class="p">]</span> <span class="n">VA</span> <span class="n">no</span> <span class="n">longer</span> <span class="n">interferes</span> <span class="k">with</span> <span class="n">Multi</span><span class="o">-</span><span class="n">Caret</span> <span class="n">Edit</span> <span class="n">mode</span><span class="o">.</span> <span class="p">(</span><span class="n">case</span><span class="o">=</span><span class="mi">117499</span><span class="p">)</span>
@@ -1114,17 +1160,20 @@ D:\Code\ms_engine\_lib\directx 를 포함 디렉터리에 추가해서 C:\Progra
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">빌드 옵션 확인하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utf8">파일 UTF8 로 자동 저장하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-encoding-utf8">Text Encoding UTF8 로 설정하기</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#include">#include 에서 탐색할 경로 추가하기</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cpp-include">특정 파일 cpp 파일의 모든 #include 순서 파악하기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">프로젝트 속성</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">링커</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">미리 컴파일된 헤더</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">프로젝트 속성</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">링커</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">미리 컴파일된 헤더</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#props">.props</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">매크로</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">매크로</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-bash">Git Bash 사용하기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">수정사항이 없어도 만료된 프로젝트로 판단되서 재빌드 하는 경우</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">수정사항이 없어도 만료된 프로젝트로 판단되서 재빌드 하는 경우</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map-file">Map File</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pdata-unwind">$pdata$, $unwind$</a></li>
 </ul>
@@ -1135,16 +1184,16 @@ D:\Code\ms_engine\_lib\directx 를 포함 디렉터리에 추가해서 C:\Progra
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clang-format">Clang Format</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">참고</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">참고</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">파일형식</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">파일형식</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-arguments">Command Arguments</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">프로젝트 종속성</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">참조</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">프로젝트 종속성</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">참조</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vcxitems">vcxitems</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vassisx">VAssisX</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">문제점</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">문제점</a></li>
 </ul>
 </li>
 </ul>

@@ -1,6 +1,34 @@
 # Visual Studio
 특정 프로젝트가 빌드가 안될 때는 구성 관리자에가서 빌드 체크가 되어 있는지 확인해본다.
 
+## 빌드 옵션 확인하기
+도구 >> 옵션 >> 프로젝트 및 솔루션 >> 빌드 및 실행 >> MSBUILD 프로젝트 빌드 출력의 세부 정보 표시 >> 자세히 or 매우 자세히
+
+## 파일 UTF8 로 자동 저장하기
+프로젝트 경로에 .editorconfig 파일을 생성한다음에 다음 내용을 추가한다.
+```
+root = true
+
+[*.{c++,cc,cpp,cppm,cxx,h,h++,hh,hpp,hxx,inl,ipp,ixx,tlh,tli}]
+
+charset = utf-8
+```
+
+* [learn.microsoft - EditorConfig](https://learn.microsoft.com/en-us/visualstudio/ide/create-portable-custom-editor-options?view=vs-2022)  
+  * In Visual Studio, EditorConfig file settings take precedence over the various global text editor settings available under Tools > Options > Text Editor > C/C++ > Code Style
+* [editorconfig - supported-properties](https://editorconfig.org/#supported-properties)  
+  * charset: set to latin1, utf-8, utf-8-bom, utf-16be or utf-16le to control the character set.
+
+## Text Encoding UTF8 로 설정하기
+옵션 >> C/C++ >> Command Line >> /utf-8
+* [learn.microsoft - /utf-8](https://learn.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8?view=msvc-170)  
+  * You can use the /utf-8 option to specify both the **source and execution character sets** as encoded by using UTF-8.
+  * It's equivalent to specifying /source-charset:utf-8 /execution-charset:utf-8 on the command line.
+  * Any of these options also enables the /validate-charset option by default.
+  * **By default, Visual Studio detects a byte-order mark** to determine if the source file is in an encoded Unicode format
+  * **If no byte-order mark is found, it assumes that the source file is encoded in the current user code page**, unless you've specified a code page by using /utf-8 or the /source-charset option.
+
+
 ## #include 에서 탐색할 경로 추가하기
 프로젝트 속성 >> VC++ 디렉터리 >> 포함 디렉터리 에 경로를 추가하면 #incldue 할 때, 시작 경로로 사용된다. 예를 들어서 #include "test.h" 가 있따고 하면, 포함 디렉터리에 있는 모든 경로에서 "test.h" 파일을 찾아서 일치하는 파일을 include 해준다.
 
