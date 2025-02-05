@@ -503,6 +503,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Pragma.html">Pragma</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/SIMD.html">SIMD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/thread_local.html">thread_local</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Using.html">Using</a></li>
 </ul>
 </details></li>
@@ -593,6 +594,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ID3D12Device.html">ID3D12Device</a></li>
 <li class="toctree-l3"><a class="reference internal" href="IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Initializing%20Direct3D.html">Initializing Direct3D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pipeline%20State%20Object.html">Pipeline State Object (PSO)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ShaderReflection.html">Shader Reflection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Work%20Submission.html">Work Submission</a></li>
 </ul>
@@ -614,6 +616,7 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Coordinate%20System.html">Coordinate System</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../DirectXMath.html">DirectXMath</a></li>
@@ -681,6 +684,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">ETC</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../20%20ETC/chatGPT.html">chatGPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../20%20ETC/Cubic%20Bezier%20Curve.html">Cubic Bezier Curve Length</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../20%20ETC/Jupyter%20Book.html">Jupyter Book</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../20%20ETC/MarkDown.html">Mark Down</a></li>
 </ul>
@@ -834,30 +838,11 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-spaces">Register Spaces</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-state-object-pso">Pipeline State Object (PSO)</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-spaces">Register Spaces</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-bytecode">shader bytecode</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-parameters">Root Parameters</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-root-parameter">D3D12_ROOT_PARAMETER 구조체</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-root-parameter1">D3D12_ROOT_PARAMETER1 구조체</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cd3dx12-root-parameter1">CD3DX12_ROOT_PARAMETER1 구조체</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-constant">Root Constant</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#struct-d3d12-root-constants">struct D3D12_ROOT_CONSTANTS 구조체</a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-visibility">Shader Visibility</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-descriptor-range1">D3D12_DESCRIPTOR_RANGE1 구조체</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-range">Descriptor Range</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-table-bind-types">Descriptor Table Bind Types</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-descriptors">Root Descriptors</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-root-descriptor">D3D12_ROOT_DESCRIPTOR 구조체</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#helper-classes">Helper Classes</a></li>
 </ul>
             </nav>
         </div>
@@ -1024,10 +1009,6 @@
 <div><p>Reference
 <a class="reference external" href="https://cml-a.com/content/2022/09/20/register-spaces/">cml-a.com - register-spaces</a></p>
 </div></blockquote>
-</section>
-<section id="pipeline-state-object-pso">
-<h2>Pipeline State Object (PSO)<a class="headerlink" href="#pipeline-state-object-pso" title="Link to this heading">#</a></h2>
-<p>PSO 는 graphics/compute pipeline 이 동작하기 위해 필요한 GPU 설정을 나타내는 객체이다.</p>
 <section id="shader-bytecode">
 <h3>shader bytecode<a class="headerlink" href="#shader-bytecode" title="Link to this heading">#</a></h3>
 <p>shader code 는 컴파일 된 후 binary blob data 로 바뀐다.</p>
@@ -1036,172 +1017,6 @@
 <div><p>Reference<br />
 <a class="reference external" href="https://logins.github.io/graphics/2020/04/12/DX12PipelineStateObject.html">logins.github - DX12PipelineStateObject</a></p>
 </div></blockquote>
-</section>
-</section>
-<section id="root-parameters">
-<h2>Root Parameters<a class="headerlink" href="#root-parameters" title="Link to this heading">#</a></h2>
-<p>Root Parameter 는 root signature 에 한 요소이며, root parameter의 종류는 root constant, root descirtor, root table 가 있다.</p>
-<p>종류에 따라 크기와 resource에 접근하기 위해 필요한 복잡도를 나타내는 간접 참조 수준(level of indirection) 이 다르다.</p>
-<section id="d3d12-root-parameter">
-<h3>D3D12_ROOT_PARAMETER 구조체<a class="headerlink" href="#d3d12-root-parameter" title="Link to this heading">#</a></h3>
-<p>root signature version 1.0 에 사용되는 root parameter 구조체이다.</p>
-<p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_ROOT_PARAMETER</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">D3D12_ROOT_PARAMETER_TYPE</span><span class="w"> </span><span class="n">ParameterType</span><span class="p">;</span>
-<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">D3D12_ROOT_DESCRIPTOR_TABLE</span><span class="w"> </span><span class="n">DescriptorTable</span><span class="p">;</span>
-<span class="w">        </span><span class="n">D3D12_ROOT_CONSTANTS</span><span class="w"> </span><span class="n">Constants</span><span class="p">;</span>
-<span class="w">        </span><span class="n">D3D12_ROOT_DESCRIPTOR</span><span class="w"> </span><span class="n">Descriptor</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-<span class="w">    </span><span class="n">D3D12_SHADER_VISIBILITY</span><span class="w"> </span><span class="n">ShaderVisibility</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_ROOT_PARAMETER</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>각각의 멤버변수는 다음과 같다.</p>
-<ul class="simple">
-<li><p>D3D12_ROOT_PARAMETER_TYPE ParameterType</p>
-<ul>
-<li><p>Root Parameter 의 유형을 지정한다.</p></li>
-<li><p>enum D3D12_ROOT_PARAMETER_TYPE 값</p></li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
-</ul>
-</li>
-<li><p>union</p>
-<ul>
-<li><p>Root Parameter 의 구체적인 데이터를 지정하는 union 이다.</p></li>
-<li><p>ParameterType 에 따라 사용되는 구조체가 달라진다.</p></li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_SHADER_VISIBILITY ShaderVisibility</p>
-<ul>
-<li><p>이 루트 파라미터가 노출될 셰이더 스테이지를 지정한다.</p></li>
-<li><p>기본값은 D3D12_SHADER_VISIBILITY_ALL이다.</p></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<div><p>Reference
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter">learn.microsoft - root_parameter</a></p>
-</div></blockquote>
-</section>
-<section id="d3d12-root-parameter1">
-<h3>D3D12_ROOT_PARAMETER1 구조체<a class="headerlink" href="#d3d12-root-parameter1" title="Link to this heading">#</a></h3>
-<p>root signature version 1.1 에 사용되는 root parameter 구조체이다.</p>
-<p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_ROOT_PARAMETER1</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">D3D12_ROOT_PARAMETER_TYPE</span><span class="w"> </span><span class="n">ParameterType</span><span class="p">;</span>
-<span class="w">  </span><span class="k">union</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">D3D12_ROOT_DESCRIPTOR_TABLE1</span><span class="w"> </span><span class="n">DescriptorTable</span><span class="p">;</span>
-<span class="w">    </span><span class="n">D3D12_ROOT_CONSTANTS</span><span class="w">         </span><span class="n">Constants</span><span class="p">;</span>
-<span class="w">    </span><span class="n">D3D12_ROOT_DESCRIPTOR1</span><span class="w">       </span><span class="n">Descriptor</span><span class="p">;</span>
-<span class="w">  </span><span class="p">};</span>
-<span class="w">  </span><span class="n">D3D12_SHADER_VISIBILITY</span><span class="w">   </span><span class="n">ShaderVisibility</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_ROOT_PARAMETER1</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>각각의 멤버변수는 다음과 같다.</p>
-<ul class="simple">
-<li><p>D3D12_ROOT_PARAMETER_TYPE ParameterType</p>
-<ul>
-<li><p>Root Parameter 의 유형을 지정한다.</p></li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
-</ul>
-</li>
-<li><p>union</p>
-<ul>
-<li><p>Root Parameter 의 구체적인 데이터를 지정하는 union 이다.</p></li>
-<li><p>ParameterType 에 따라 사용되는 구조체가 달라진다.</p></li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
-</ul>
-</li>
-<li><p>D3D12_SHADER_VISIBILITY ShaderVisibility</p>
-<ul>
-<li><p>root parameter 가 노출될 shader 를 지정한다.</p></li>
-<li><p>기본값은 D3D12_SHADER_VISIBILITY_ALL이다.</p></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter1">learn.microsoft - root_parameter1</a></p>
-</div></blockquote>
-</section>
-<section id="cd3dx12-root-parameter1">
-<h3>CD3DX12_ROOT_PARAMETER1 구조체<a class="headerlink" href="#cd3dx12-root-parameter1" title="Link to this heading">#</a></h3>
-<p>D3D12_ROOT_PARAMETER1 구조체를 쉽게 초기화 하기 위한 helper 구조체이다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CD3DX12_ROOT_PARAMETER1 rootParameters[1];
-
-rootParameters[0].InitAsConstantBufferView( … );
-
-rootParameters[0].InitAsShaderResourceView( … );  
-
-rootParameters[0].InitAsUnorderedAccessView( … );
-</pre></div>
-</div>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-root-parameter1">learn.microsoft - cd3dx12-root-parameter1</a></p>
-</div></blockquote>
-</section>
-</section>
-<section id="root-constant">
-<h2>Root Constant<a class="headerlink" href="#root-constant" title="Link to this heading">#</a></h2>
-<p>Root Constant 는 CPU 에서 GPU 로 작은 크기의 상수 값을 빠르게 전달할 수 있는 방법이다.</p>
-<p>정해진 개수의 상수 값들을 Root Signature 에 직접 포함하여 GPU 가 이 값을 shader 실행 시 사용하도록 한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html#root-constants">microsoft.github - ResourceBinding.html#root-constants</a></p>
-</div></blockquote>
-<section id="struct-d3d12-root-constants">
-<h3>struct D3D12_ROOT_CONSTANTS 구조체<a class="headerlink" href="#struct-d3d12-root-constants" title="Link to this heading">#</a></h3>
-<p>D3D12_ROOT_CONSTANTS 구조체는 Direct3D 12에서 Root Signature 에서 사용될 상수 데이터를 정의하기 위한 구조체이다.</p>
-<p>이 구조체는 shader 에서 사용할 32비트 상수를 루트 파라미터로 직접 전달하는 데 사용된다.</p>
-<p>D3D12_ROOT_PARAMETER 구조체의 멤버 변수로 존재하는 구조체로 D3D12_ROOT_PARAMETER 구조체의 SlotType 멤버 변수가 D3D12_PARAMETER_32BIT_CONSTANTS 일 때 사용된다.</p>
-<p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_ROOT_CONSTANTS</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">ShaderRegister</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">RegisterSpace</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Num32BitValues</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_ROOT_CONSTANTS</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>각각의 멤버변수는 다음과 같다.</p>
-<ul class="simple">
-<li><p>UINT ShaderRegister</p>
-<ul>
-<li><p>상수를 참조할 셰이더 레지스터를 지정한다. 셰이더 코드에서 사용할 레지스터 인덱스를 나타낸다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>0 이상의 정수 값</p></li>
-</ul>
-</li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
-</ul>
-</li>
-<li><p>UINT RegisterSpace</p>
-<ul>
-<li><p>상수 데이터가 속한 레지스터 공간을 지정한다. 셰이더 레지스터가 서로 다른 공간에 배치될 수 있다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>0 이상의 정수 값</p></li>
-</ul>
-</li>
-<li><p>기본값은 0이다.</p></li>
-</ul>
-</li>
-<li><p>UINT Num32BitValues</p>
-<ul>
-<li><p>루트 상수 데이터의 32비트 값 개수를 지정한다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>1 이상의 정수 값</p></li>
-</ul>
-</li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
-</ul>
-</li>
-</ul>
 </section>
 </section>
 <section id="shader-visibility">
@@ -1224,186 +1039,6 @@ rootParameters[0].InitAsUnorderedAccessView( … );
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://logins.github.io/graphics/2020/06/26/DX12RootSignatureObject.html">logins.github - DX12RootSignatureObject</a></p>
-</div></blockquote>
-</section>
-<section id="d3d12-descriptor-range1">
-<h2>D3D12_DESCRIPTOR_RANGE1 구조체<a class="headerlink" href="#d3d12-descriptor-range1" title="Link to this heading">#</a></h2>
-<p>D3D12_DESCRIPTOR_RANGE1 구조체는 Direct3D 12에서 루트 서명에서 사용되는 서술자 테이블 내의 서술자 범위를 정의하기 위한 확장된 구조체이다.</p>
-<p>D3D12_DESCRIPTOR_RANGE와 유사하지만, 추가적인 플래그와 옵션을 제공한다.</p>
-<p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_DESCRIPTOR_RANGE1</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">D3D12_DESCRIPTOR_RANGE_TYPE</span><span class="w"> </span><span class="n">RangeType</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">NumDescriptors</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">BaseShaderRegister</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">RegisterSpace</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">Flags</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">OffsetInDescriptorsFromTableStart</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_DESCRIPTOR_RANGE1</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>각각의 멤버변수는 다음과 같다.</p>
-<ul class="simple">
-<li><p>D3D12_DESCRIPTOR_RANGE_TYPE RangeType</p>
-<ul>
-<li><p>서술자 범위의 유형을 지정한다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>D3D12_DESCRIPTOR_RANGE_TYPE_SRV: 셰이더 리소스 뷰(SRV) 범위</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_TYPE_UAV: 무순서 접근 뷰(UAV) 범위</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_TYPE_CBV: 상수 버퍼 뷰(CBV) 범위</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_TYPE_SAMPLER: 샘플러 범위</p></li>
-</ul>
-</li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
-</ul>
-</li>
-<li><p>UINT NumDescriptors</p>
-<ul>
-<li><p>서술자 범위에 포함된 서술자의 수를 지정한다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>1 이상의 정수 값</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_VOLATILE 플래그가 설정된 경우, <code class="docutils literal notranslate"><span class="pre">NumDescriptors</span></code>를 <code class="docutils literal notranslate"><span class="pre">-1</span></code>로 지정할 수 있다.</p></li>
-</ul>
-</li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
-</ul>
-</li>
-<li><p>UINT BaseShaderRegister</p>
-<ul>
-<li><p>범위가 시작되는 첫 번째 셰이더 레지스터를 지정한다. 셰이더 코드에서 사용할 첫 번째 레지스터 인덱스를 의미한다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>0 이상의 정수 값</p></li>
-</ul>
-</li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
-</ul>
-</li>
-<li><p>UINT RegisterSpace</p>
-<ul>
-<li><p>서술자 범위가 속한 레지스터 공간을 지정한다. 셰이더 레지스터가 서로 다른 공간에 배치될 수 있다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>0 이상의 정수 값</p></li>
-</ul>
-</li>
-<li><p>기본값은 0이다.</p></li>
-</ul>
-</li>
-<li><p>UINT Flags</p>
-<ul>
-<li><p>서술자 범위에 대한 추가적인 동작을 지정하는 플래그를 설정한다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>D3D12_DESCRIPTOR_RANGE_FLAG_NONE: 특별한 플래그 없음</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_FLAG_DESCRIPTORS_VOLATILE: 서술자가 실행 중에 변경될 수 있음을 나타냄</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_FLAG_DATA_VOLATILE: 서술자가 참조하는 데이터가 실행 중에 변경될 수 있음을 나타냄</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC_WHILE_SET_AT_EXECUTE: 서술자가 설정될 때까지 데이터가 고정적임</p></li>
-<li><p>D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC: 서술자가 생성된 이후로 데이터가 변경되지 않음을 나타냄</p></li>
-</ul>
-</li>
-<li><p>기본값은 D3D12_DESCRIPTOR_RANGE_FLAG_NONE이다.</p></li>
-</ul>
-</li>
-<li><p>UINT OffsetInDescriptorsFromTableStart</p>
-<ul>
-<li><p>서술자 테이블 시작으로부터의 오프셋을 지정한다. 테이블에서 이 범위가 시작되는 위치를 바이트 단위로 나타낸다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND: 자동으로 범위가 이전 범위 뒤에 이어지도록 지정</p></li>
-</ul>
-</li>
-<li><p>기본값은 D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND이다.</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="descriptor-range">
-<h2>Descriptor Range<a class="headerlink" href="#descriptor-range" title="Link to this heading">#</a></h2>
-<p>descriptor table 내에서 지정된 유형의 descriptor 범위를 정의한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html#descriptor-range">microsoft.github - descriptor-range</a></p>
-</div></blockquote>
-</section>
-<section id="descriptor-table-bind-types">
-<h2>Descriptor Table Bind Types<a class="headerlink" href="#descriptor-table-bind-types" title="Link to this heading">#</a></h2>
-<p>descriptor table layout 정의의 일부로 참조할 수 있는 descriptor type 이다.</p>
-<p>예를 들어, descriptor table 의 일부에 100개의 SRV가 있는 경우 해당 범위를 100개가 아닌 하나의 항목으로 선언할 수 있도록 하는 범위입니다.</p>
-<p>따라서 descriptor table  정의는 범위의 모음입니다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">D3D12_DESCRIPTOR_RANGE_TYPE</span>
-<span class="p">{</span>
-<span class="w">    </span><span class="n">D3D12_DESCRIPTOR_RANGE_SRV</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_DESCRIPTOR_RANGE_UAV</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_DESCRIPTOR_RANGE_CBV</span><span class="p">,</span>
-<span class="w">    </span><span class="n">D3D12_DESCRIPTOR_RANGE_SAMPLER</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_DESCRIPTOR_RANGE_TYPE</span><span class="p">;</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html#descriptor-table-bind-types">microsoft.github - descriptor-table-bind-types</a></p>
-</div></blockquote>
-</section>
-<section id="root-descriptors">
-<h2>Root Descriptors<a class="headerlink" href="#root-descriptors" title="Link to this heading">#</a></h2>
-<p>Root Descriptor 는 GPU 리소스를 직접 가리키는 GPU Virtual Address(GPUVA) 를 Root Signature 에 포함시켜 하나의 리소스를 GPU 에서 바로 접근하도록 한다.</p>
-<p>GPUVA 는 64 bit 크기이기 때문에 Root Descriptor 에 크기는 2 DWORDs 이다.</p>
-<p>Root Descriptor 는 root argument 에 inline 되어 있는 descriptor 를 의미한다.</p>
-<p>지원되는 SRV/UAV format 은 32-bit FLOAT/UINT/SINT 이다.</p>
-<p>Root Descriptor는 level 1 의 indirection 을 갖는다. 이는, 리소스에 접근하기 위해서는 하나의 추가적인 객체에게 query 를 해야 함을 의미한다. 이로 인해 root constants 에 비해 리소스 접근 속도가 늦게 된다.</p>
-<p>참고로 Descriptor heaps 와 다르게 Root Descriptor 는 크기 검사를 하지 않는다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://logins.github.io/graphics/2020/06/26/DX12RootSignatureObject.html">logins.github - DX12RootSignatureObject</a></p>
-</div></blockquote>
-<section id="d3d12-root-descriptor">
-<h3>D3D12_ROOT_DESCRIPTOR 구조체<a class="headerlink" href="#d3d12-root-descriptor" title="Link to this heading">#</a></h3>
-<p>root parameter 의 종류중 root descriptor 를 나타내는 구조체이다.</p>
-<p>정의는 다음과 같다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">D3D12_ROOT_DESCRIPTOR</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">ShaderRegister</span><span class="p">;</span>
-<span class="w">    </span><span class="n">UINT</span><span class="w"> </span><span class="n">RegisterSpace</span><span class="p">;</span>
-<span class="p">}</span><span class="w"> </span><span class="n">D3D12_ROOT_DESCRIPTOR</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>각각의 멤버변수는 다음과 같다.</p>
-<ul class="simple">
-<li><p>UINT ShaderRegister</p>
-<ul>
-<li><p>서술자를 참조할 셰이더 레지스터를 지정한다. 셰이더 코드에서 사용할 레지스터 인덱스를 나타낸다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>0 이상의 정수 값</p></li>
-</ul>
-</li>
-<li><p>기본값은 없다. 사용자가 지정해야 한다.</p></li>
-</ul>
-</li>
-<li><p>UINT RegisterSpace</p>
-<ul>
-<li><p>서술자가 속한 레지스터 공간을 지정한다. 셰이더 레지스터가 서로 다른 공간에 배치될 수 있다.</p></li>
-<li><p>가능한 값</p>
-<ul>
-<li><p>0 이상의 정수 값</p></li>
-</ul>
-</li>
-<li><p>기본값은 0이다.</p></li>
-</ul>
-</li>
-</ul>
-</section>
-</section>
-<section id="helper-classes">
-<h2>Helper Classes<a class="headerlink" href="#helper-classes" title="Link to this heading">#</a></h2>
-<p>The d3dx12.h header provides a number of helper classes intended to simplify the usage of the API when working with C++. These are all in the global C++ namespace, and are documented on Microsoft Docs.</p>
-<p>Note that d3dx12.h is not included in the Windows SDK, nor is it a part of the DirectX Tool Kit. It is included in the DirectX project templates built into Visual Studio and in the Direct3D Game VS Templates. You can find the latest version on GitHub.</p>
-<p>For Xbox One development d3dx12_x.h is included in the Xbox One XDK / Microsoft GDKX; for Xbox Series X|S development you use d3dx12_xs.h.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://github.com/microsoft/DirectXTK12/wiki/DirectXHelpers">github.com/microsoft - DirectXHelpers</a><br />
-<a class="reference external" href="https://github.com/microsoft/DirectX-Headers/blob/main/include/directx/d3dx12.h">github.com/microsoft - directx/d3dx12.h</a></p>
 </div></blockquote>
 </section>
 <div class="toctree-wrapper compound">
@@ -1482,30 +1117,11 @@ rootParameters[0].InitAsUnorderedAccessView( … );
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-spaces">Register Spaces</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-state-object-pso">Pipeline State Object (PSO)</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-spaces">Register Spaces</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-bytecode">shader bytecode</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-parameters">Root Parameters</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-root-parameter">D3D12_ROOT_PARAMETER 구조체</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-root-parameter1">D3D12_ROOT_PARAMETER1 구조체</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cd3dx12-root-parameter1">CD3DX12_ROOT_PARAMETER1 구조체</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-constant">Root Constant</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#struct-d3d12-root-constants">struct D3D12_ROOT_CONSTANTS 구조체</a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-visibility">Shader Visibility</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-descriptor-range1">D3D12_DESCRIPTOR_RANGE1 구조체</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-range">Descriptor Range</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descriptor-table-bind-types">Descriptor Table Bind Types</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-descriptors">Root Descriptors</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-root-descriptor">D3D12_ROOT_DESCRIPTOR 구조체</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#helper-classes">Helper Classes</a></li>
 </ul>
   </nav></div>
 

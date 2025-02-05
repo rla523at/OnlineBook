@@ -24,13 +24,17 @@ TEST( format, wstirng_view )
 format string 이 동적으로 결정되어야 할 때 사용한다.
 
 ## Standard format specification
+For basic types and string types, the format specification is based on the format specification in Python
+* [cppreference - format/spec](https://en.cppreference.com/w/cpp/utility/format/spec)
+
+In most of the cases the syntax is similar to the old %-formatting, with the addition of the {} and with : used instead of %
+* [docs.python - format-examples](https://docs.python.org/3/library/string.html#format-examples)
 
 ```
 fill-and-align(optional) sign(optional) #(optional) 0(optional) width(optional) precision(optional) L(optional) type(optional)		
 ```
 
 ### Fill and align
-
 ```
 {:[fill character][align options][width]}
 ```
@@ -40,6 +44,18 @@ fill-and-align(optional) sign(optional) #(optional) 0(optional) width(optional) 
 
 ### Sign, #, and 0
 
+* The # option causes the alternate form to be used for the conversion.
+  * For integral types, when binary, octal, or hexadecimal presentation type is used
+    * the alternate form inserts the prefix (0b, 0, or 0x) into the output value after the sign character (possibly space) if there is one, or add it before the output value otherwise.
+* The 0 option pads the field with leading zeros
+
+```cpp
+    std::cout << std::format("{:06x}", c);  //000078
+    std::cout << std::format("{:#06x}", c); //0x0078
+```
+
+
+
 \# option causes the alternate form For integral types, when binary, octal, or hexadecimal presentation type is used, the alternate form inserts the prefix (0b, 0, or 0x) into the output value after the sign character (possibly space) if there is one, or add it before the output value otherwise.
 
 > Reference  
@@ -47,15 +63,10 @@ fill-and-align(optional) sign(optional) #(optional) 0(optional) width(optional) 
 
 ### Type
 
-16진수 표현
-```
-{:x}
-```
-
-2진수 표현
-```
-{:b}
-```
+* x
+  * 16진수 표현
+* b
+  * 2진수 표현
 
 > Reference  
 > [cppreference - format/spec](https://en.cppreference.com/w/cpp/utility/format/spec)  

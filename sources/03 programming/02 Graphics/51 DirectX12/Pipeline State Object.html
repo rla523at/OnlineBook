@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>format &#8212; MS Study Book</title>
+    <title>Pipeline State Object (PSO) &#8212; MS Study Book</title>
   
   
   
@@ -61,12 +61,12 @@
     <script async="async" src="../../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/20 Standard Library/format';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/Pipeline State Object';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="function" href="function.html" />
-    <link rel="prev" title="Chrono" href="Chrono.html" />
+    <link rel="next" title="Shader Reflection" href="ShaderReflection.html" />
+    <link rel="prev" title="Initializing Direct3D" href="Initializing%20Direct3D.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -431,200 +431,200 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="../C%2B%2B.html">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 has-children"><a class="reference internal" href="../01%20Build/Build.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../01%20Build/02%20Compile.html">Compile</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../01%20Build/03%20Linking/Linking.html">Linking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/02%20Name%20Mangling.html">Name Mangling</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/03%20Link.html">Link</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/04%20Relocation.html">Relocation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/05%20LinkingMethod.html">Linking Method</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/06%20Static%20Library.html">Static Library</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../01%20Build/03%20Linking/07%20Shared%20Library.html">Shared Library</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../01%20C%2B%2B/C%2B%2B.html">C++</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/Build.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/02%20Compile.html">Compile</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/03%20Linking/Linking.html">Linking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/03%20Linking/02%20Name%20Mangling.html">Name Mangling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/03%20Linking/03%20Link.html">Link</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/03%20Linking/04%20Relocation.html">Relocation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/03%20Linking/05%20LinkingMethod.html">Linking Method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/03%20Linking/06%20Static%20Library.html">Static Library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01%20C%2B%2B/01%20Build/03%20Linking/07%20Shared%20Library.html">Shared Library</a></li>
 </ul>
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../02%20Memory/Memory.html">Memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../02%20Memory/01%20Memory%20Allocation.html">Memory Allocation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../02%20Memory/02%20Virtual%20Memory.html">Virtual Memeory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../02%20Memory/03%20Virtual%20Memory%20Structure.html">Virtual Memory Space</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../02%20Memory/04%20Stack%20Frame.html">Stack Frame</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../02%20Memory/05%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20C%2B%2B/02%20Memory/Memory.html">Memory</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/02%20Memory/01%20Memory%20Allocation.html">Memory Allocation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/02%20Memory/02%20Virtual%20Memory.html">Virtual Memeory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/02%20Memory/03%20Virtual%20Memory%20Structure.html">Virtual Memory Space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/02%20Memory/04%20Stack%20Frame.html">Stack Frame</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/02%20Memory/05%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="../03%20Polymorphism.html">Polymorphism</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../04%20Value%20Category.html">Value Category</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../05%20Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../06%20Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../11%20Class.html">Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../12%20Struct%20Memory%20Padding.html">Struct Memory Padding</a></li>
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="Standard%20Library.html">STD</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="01%20type-traits.html">type-traits</a></li>
-<li class="toctree-l3"><a class="reference internal" href="11%20vector.html">vector</a></li>
-<li class="toctree-l3"><a class="reference internal" href="array.html">array</a></li>
-<li class="toctree-l3"><a class="reference internal" href="bitset.html">bitset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Chrono.html">Chrono</a></li>
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">format</a></li>
-<li class="toctree-l3"><a class="reference internal" href="function.html">function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/03%20Polymorphism.html">Polymorphism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/04%20Value%20Category.html">Value Category</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/05%20Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/06%20Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/11%20Class.html">Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/12%20Struct%20Memory%20Padding.html">Struct Memory Padding</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/array.html">array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/Chrono.html">Chrono</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/function.html">function</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../21%20Smart%20Pointer/Smart%20Pointer.html">Smart Pointer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../21%20Smart%20Pointer/01%20unique_ptr.html">unique_ptr</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../21%20Smart%20Pointer/02%20shared_ptr.html">shared_ptr Class</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../21%20Smart%20Pointer/03%20weak_ptr.html">weak_ptr Class</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20C%2B%2B/21%20Smart%20Pointer/Smart%20Pointer.html">Smart Pointer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/21%20Smart%20Pointer/01%20unique_ptr.html">unique_ptr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/21%20Smart%20Pointer/02%20shared_ptr.html">shared_ptr Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/21%20Smart%20Pointer/03%20weak_ptr.html">weak_ptr Class</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="../22%20Reference.html">Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../23%20Lambda%20Expression.html">Lambda Expression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../31%20Template.html">Template</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../32%20concept.html">concept</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../33%20Require.html">Require</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../34%20hpp.html">hpp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../41%20Multi%20Thread.html">Multi thread</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../51%20static.html">Static</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../52%20Name%20Space.html">Namespace</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../53%20One%20Definition%20Rule.html">One Definition Rule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../54%20inline.html">inline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../55%20Enum.html">Enum</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../56%20Forward%20Declaration.html">Forward Declaration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../57%20Initialization.html">initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../58%20Keyword.html">Keyword</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../59%20Type%20Casting.html">Type Casting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../60%20Pointer.html">Pointer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../70%20Performance.html">Performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../80%20Google%20Benchmark.html">Google Benchmark</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../99%20Miscelleneous.html">Miscellaneous</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../char.html">char</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Hash.html">Hash</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../new.html">new</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../POD.html">POD (Plain Old Data)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Pragma.html">Pragma</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Preprocessor%20Directives.html">Preprocessor Directives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../SIMD.html">SIMD</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../thread_local.html">thread_local</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Using.html">Using</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/22%20Reference.html">Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/23%20Lambda%20Expression.html">Lambda Expression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/31%20Template.html">Template</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/32%20concept.html">concept</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/33%20Require.html">Require</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/34%20hpp.html">hpp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/41%20Multi%20Thread.html">Multi thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/51%20static.html">Static</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/52%20Name%20Space.html">Namespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/53%20One%20Definition%20Rule.html">One Definition Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/54%20inline.html">inline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/55%20Enum.html">Enum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/56%20Forward%20Declaration.html">Forward Declaration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/57%20Initialization.html">initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/58%20Keyword.html">Keyword</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/59%20Type%20Casting.html">Type Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/60%20Pointer.html">Pointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/70%20Performance.html">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/80%20Google%20Benchmark.html">Google Benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/99%20Miscelleneous.html">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/char.html">char</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Hash.html">Hash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/new.html">new</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/POD.html">POD (Plain Old Data)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Pragma.html">Pragma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/SIMD.html">SIMD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/thread_local.html">thread_local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../01%20C%2B%2B/Using.html">Using</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../02%20Graphics/Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/50%20Diffuse%20Reflection.html">Diffuse Reflection</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/DirectX11.html">DirectX11</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/Direct3D.html">Direct3D</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/02%20Vertex%20Shader.html">Vertex Shader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/06%20Geometry%20Shader.html">Geometry Shader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/10%20Compute%20Shader.html">Compute Shader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/101%20ID3D11Device.html">ID3D11Device</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/102%20ID3D11DeviceContext.html">ID3D11DeviceContext</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/103%20ID3D11Buffer.html">ID3D11Buffer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/104%20ID3D11Texture2D.html">ID3D11Texture2D</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/105%20ID3D11InputLayout.html">ID3D11InputLayout</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/106%20ID3D11VertexShader.html">ID3D11VertexShader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/107%20ID3D11Query.html">ID3D11Query</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/107%20ID3DBlob.html">ID3DBlob</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/110%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/111%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/112%20ID3D11ShaderResourceView.html">ID3D11ShaderResourceView</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/113%20ID3D11UnorderedAccessView.html">ID3D11UnorderedAccessView</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/130%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/131%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/132%20ID3D11SamplerState.html">ID3D11SamplerState</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/133%20ID3D11BlendState.html">ID3D11BlendState</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/140%20D3D11_VIEWPORT.html">D3D11_VIEWPORT</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/141%20D3D11_MAPPED_SUBRESOURCE.html">D3D11_MAPPED_SUBRESOURCE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/142%20D3D11_SUBRESOURCE_DATA.html">D3D11_SUBRESOURCE_DATA 구조체</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/143%20D3D11_SAMPLER_DESC.html">D3D11_SAMPLER_DESC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/400%20enum%20D3D11_USAGE.html">enum D3D11_USAGE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/401%20enum%20D3D11_BIND_FLAG.html">enum D3D11_BIND_FLAG</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/402%20enum%20D3D11_CPU_ACCESS_FLAG.html">enum D3D11_CPU_ACCESS_FLAG</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/403%20enum%20D3D11_RESOURCE_MISC_FLAG.html">enum D3D11_RESOURCE_MISC_FLAG</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/404%20enum%20D3D11_INPUT_CLASSIFICATION.html">enum D3D11_INPUT_CLASSIFICATION</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/405%20enum%20D3D11_RTV_DIMENSION.html">enum D3D11_RTV_DIMENSION</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/406%20enum%20D3D11_DSV_DIMENSION.html">enum D3D11_DSV_DIMENSION</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/407%20enum%20D3D11_DSV_FLAG.html">enum D3D11_DSV_FLAG</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/408%20enum%20D3D11_FILL_MODE.html">enum D3D11_FILL_MODE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/409%20enum%20D3D11_CULL_MODE.html">enum D3D11_CULL_MODE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/410%20enum%20D3D11_FILTER.html">enum D3D11_FILTER</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/411%20enum%20D3D11_TEXTURE_ADDRESS_MODE.html">enum D3D11_TEXTURE_ADDRESS_MODE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/412%20enum%20D3D11_COMPARISON_FUNC.html">enum D3D11_COMPARISON_FUNC</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/413%20enum%20D3D11_STENCIL_OP.html">enum D3D11_STENCIL_OP</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/414%20enum%20D3D11_CREATE_DEVICE_FLAG.html">enum D3D11_CREATE_DEVICE_FLAG</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/415%20enum%20D3D11_BLEND.html">enum D3D11_BLEND</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/416%20enum%20D3D11_BLEND_OP.html">enum D3D11_BLEND_OP</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/417%20enum%20D3D11_QUERY.html">enum D3D11_QUERY</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/450%20enum%20D3D_SRV_DIMENSION.html">enum D3D_SRV_DIMENSION</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/01%20Direct3D/451%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../Graphics.html">Graphics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../50%20Diffuse%20Reflection.html">Diffuse Reflection</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../50%20DirectX11/DirectX11.html">DirectX11</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/Direct3D.html">Direct3D</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/02%20Vertex%20Shader.html">Vertex Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/06%20Geometry%20Shader.html">Geometry Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/10%20Compute%20Shader.html">Compute Shader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/101%20ID3D11Device.html">ID3D11Device</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/102%20ID3D11DeviceContext.html">ID3D11DeviceContext</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/103%20ID3D11Buffer.html">ID3D11Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/104%20ID3D11Texture2D.html">ID3D11Texture2D</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/105%20ID3D11InputLayout.html">ID3D11InputLayout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/106%20ID3D11VertexShader.html">ID3D11VertexShader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/107%20ID3D11Query.html">ID3D11Query</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/107%20ID3DBlob.html">ID3DBlob</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/110%20ID3D11RenderTargetView.html">ID3D11RenderTargetView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/111%20ID3D11DepthStencilView.html">ID3D11DepthStencilView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/112%20ID3D11ShaderResourceView.html">ID3D11ShaderResourceView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/113%20ID3D11UnorderedAccessView.html">ID3D11UnorderedAccessView</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/130%20ID3D11RasterizerState.html">ID3D11RasterizerState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/131%20ID3D11DepthStencilState.html">ID3D11DepthStencilState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/132%20ID3D11SamplerState.html">ID3D11SamplerState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/133%20ID3D11BlendState.html">ID3D11BlendState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/140%20D3D11_VIEWPORT.html">D3D11_VIEWPORT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/141%20D3D11_MAPPED_SUBRESOURCE.html">D3D11_MAPPED_SUBRESOURCE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/142%20D3D11_SUBRESOURCE_DATA.html">D3D11_SUBRESOURCE_DATA 구조체</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/143%20D3D11_SAMPLER_DESC.html">D3D11_SAMPLER_DESC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/400%20enum%20D3D11_USAGE.html">enum D3D11_USAGE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/401%20enum%20D3D11_BIND_FLAG.html">enum D3D11_BIND_FLAG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/402%20enum%20D3D11_CPU_ACCESS_FLAG.html">enum D3D11_CPU_ACCESS_FLAG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/403%20enum%20D3D11_RESOURCE_MISC_FLAG.html">enum D3D11_RESOURCE_MISC_FLAG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/404%20enum%20D3D11_INPUT_CLASSIFICATION.html">enum D3D11_INPUT_CLASSIFICATION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/405%20enum%20D3D11_RTV_DIMENSION.html">enum D3D11_RTV_DIMENSION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/406%20enum%20D3D11_DSV_DIMENSION.html">enum D3D11_DSV_DIMENSION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/407%20enum%20D3D11_DSV_FLAG.html">enum D3D11_DSV_FLAG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/408%20enum%20D3D11_FILL_MODE.html">enum D3D11_FILL_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/409%20enum%20D3D11_CULL_MODE.html">enum D3D11_CULL_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/410%20enum%20D3D11_FILTER.html">enum D3D11_FILTER</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/411%20enum%20D3D11_TEXTURE_ADDRESS_MODE.html">enum D3D11_TEXTURE_ADDRESS_MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/412%20enum%20D3D11_COMPARISON_FUNC.html">enum D3D11_COMPARISON_FUNC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/413%20enum%20D3D11_STENCIL_OP.html">enum D3D11_STENCIL_OP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/414%20enum%20D3D11_CREATE_DEVICE_FLAG.html">enum D3D11_CREATE_DEVICE_FLAG</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/415%20enum%20D3D11_BLEND.html">enum D3D11_BLEND</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/416%20enum%20D3D11_BLEND_OP.html">enum D3D11_BLEND_OP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/417%20enum%20D3D11_QUERY.html">enum D3D11_QUERY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/450%20enum%20D3D_SRV_DIMENSION.html">enum D3D_SRV_DIMENSION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/01%20Direct3D/451%20enum%20D3D_DRIVER_TYPE.html">enum D3D_DRIVER_TYPE</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/02%20DirectXTex/DirectXTex.html">DirectXTex</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/02%20DirectXTex/100%20enum%20WIC_FLAGS.html">enum WIC_FLAGS</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../50%20DirectX11/02%20DirectXTex/DirectXTex.html">DirectXTex</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/02%20DirectXTex/100%20enum%20WIC_FLAGS.html">enum WIC_FLAGS</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/11%20DXGI/DXGI.html">DXGI</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/11%20DXGI/01%20IDXGIDevice.html">IDXGIDevice</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/11%20DXGI/02%20IDXGIFactory.html">IDXGIFactory</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/11%20DXGI/03%20IDXGIAdapter.html">IDXGIAdapter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/11%20DXGI/04%20IDXGISwapChain.html">IDXGISwapChain</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/11%20DXGI/100%20enum%20DXGI_FORMAT.html">enum DXGI_FORMAT</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/11%20DXGI/101%20enum%20DXGI_SWAP_EFFECT.html">enum DXGI_SWAP_EFFECT</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/50%20DirectX11/11%20DXGI/102%20enum%20DXGI_SWAP_CHAIN_FLAG.html">enum DXGI_SWAP_CHAIN_FLAG</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../50%20DirectX11/11%20DXGI/DXGI.html">DXGI</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/11%20DXGI/01%20IDXGIDevice.html">IDXGIDevice</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/11%20DXGI/02%20IDXGIFactory.html">IDXGIFactory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/11%20DXGI/03%20IDXGIAdapter.html">IDXGIAdapter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/11%20DXGI/04%20IDXGISwapChain.html">IDXGISwapChain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/11%20DXGI/100%20enum%20DXGI_FORMAT.html">enum DXGI_FORMAT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/11%20DXGI/101%20enum%20DXGI_SWAP_EFFECT.html">enum DXGI_SWAP_EFFECT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../50%20DirectX11/11%20DXGI/102%20enum%20DXGI_SWAP_CHAIN_FLAG.html">enum DXGI_SWAP_CHAIN_FLAG</a></li>
 </ul>
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/DirectX12.html">DirectX12</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/Resource.html">Resource</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/Buffer.html">Buffer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/Descriptors.html">Descriptors</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/GPU%20Heap.html">GPU Heap</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Copy.html">Resource Copy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20State.html">Resource State</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/RootSignature.html">Root Signature</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/01%20Resource/Texture.html">Texture</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="DirectX12.html">DirectX12</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="01%20Resource/Resource.html">Resource</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Buffer.html">Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Descriptors.html">Descriptors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/GPU%20Heap.html">GPU Heap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Copy.html">Resource Copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Resource%20State.html">Resource State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/RootSignature.html">Root Signature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="01%20Resource/Texture.html">Texture</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/400%20enum%20D3D12_COMMAND_LIST_TYPE.html">enum D3D12_COMMAND_LIST_TYPE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/DxcBuffer.html">DxcBuffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/Fence.html">Fence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/ID3D12Debug.html">ID3D12Debug</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/ID3D12Device.html">ID3D12Device</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/IDXCUtils.html">IDXCUtils</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/Initializing%20Direct3D.html">Initializing Direct3D</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/Pipeline%20State%20Object.html">Pipeline State Object (PSO)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/ShaderReflection.html">Shader Reflection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/51%20DirectX12/Work%20Submission.html">Work Submission</a></li>
+<li class="toctree-l3"><a class="reference internal" href="101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="400%20enum%20D3D12_COMMAND_LIST_TYPE.html">enum D3D12_COMMAND_LIST_TYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DxcBuffer.html">DxcBuffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Fence.html">Fence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ID3D12Debug.html">ID3D12Debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ID3D12Device.html">ID3D12Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="IDXCUtils.html">IDXCUtils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Initializing%20Direct3D.html">Initializing Direct3D</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Pipeline State Object (PSO)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ShaderReflection.html">Shader Reflection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Work%20Submission.html">Work Submission</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../02%20Graphics/60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/60%20HLSL/10%20Intrinsic%20Function.html">Intrinsic Function</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/60%20HLSL/21%20Sementic.html">Semantic</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/60%20HLSL/22%20Vertex%20Shader.html">Vertex Shader</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/60%20HLSL/23%20Pixel%20Shader.html">Pixel Shader</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/60%20HLSL/50%20Buffer.html">Buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/60%20HLSL/51%20Texture.html">Texture</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../60%20HLSL/10%20Intrinsic%20Function.html">Intrinsic Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../60%20HLSL/21%20Sementic.html">Semantic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../60%20HLSL/22%20Vertex%20Shader.html">Vertex Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../60%20HLSL/23%20Pixel%20Shader.html">Pixel Shader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../60%20HLSL/50%20Buffer.html">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../60%20HLSL/51%20Texture.html">Texture</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../02%20Graphics/61%20GDK/GDK.html">GDK</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/61%20GDK/GameInputDeviceInfo.html">GameInputDeviceInfo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/61%20GDK/IGameInput.html">IGameInput</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/61%20GDK/IGameInputDevice.html">IGameInputDevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../02%20Graphics/61%20GDK/IGameInputReading.html">IGameInputReading</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../61%20GDK/GDK.html">GDK</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../61%20GDK/GameInputDeviceInfo.html">GameInputDeviceInfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../61%20GDK/IGameInput.html">IGameInput</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../61%20GDK/IGameInputDevice.html">IGameInputDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../61%20GDK/IGameInputReading.html">IGameInputReading</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/99%20Miscelleneous.html">Miscelleneous</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/Coordinate%20System.html">Coordinate System</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/Depth%20Buffer.html">Depth Buffer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/DirectXMath.html">DirectXMath</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/Quaternion.html">Quaternion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/Sampling.html">Sampling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/ShaderCompiler.html">Shader Compiler</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/Stencil%20Buffer.html">Stencil Buffer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../02%20Graphics/Xbox.html">Xbox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Coordinate%20System.html">Coordinate System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Depth%20Buffer.html">Depth Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DirectXMath.html">DirectXMath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Quaternion.html">Quaternion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Sampling.html">Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ShaderCompiler.html">Shader Compiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Stencil%20Buffer.html">Stencil Buffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Xbox.html">Xbox</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../03%20Window%20Programming/Window%20Programming.html">Window Programming</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -745,7 +745,7 @@
       
       
       
-      <li><a href="../../../../_sources/sources/03 programming/01 C++/20 Standard Library/format.md" target="_blank"
+      <li><a href="../../../../_sources/sources/03 programming/02 Graphics/51 DirectX12/Pipeline State Object.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -821,7 +821,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>format</h1>
+    <h1>Pipeline State Object (PSO)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -831,14 +831,8 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-format">std::format</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-vformat">std::vformat</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-format-specification">Standard format specification</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fill-and-align">Fill and align</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sign-and-0">Sign, #, and 0</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#type">Type</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphics-pipeline-states-set-outside-of-the-pipeline-state-object">Graphics pipeline states set outside of the pipeline state object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specification">Specification</a></li>
 </ul>
             </nav>
         </div>
@@ -850,99 +844,56 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="format">
-<h1>format<a class="headerlink" href="#format" title="Link to this heading">#</a></h1>
-<section id="std-format">
-<h2>std::format<a class="headerlink" href="#std-format" title="Link to this heading">#</a></h2>
-<p>args 에 wide character 가 있으면 fmt 도 wformat_string 이어야 한다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="w"> </span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="n">wstirng_view</span><span class="w"> </span><span class="p">)</span>
-<span class="p">{</span>
-<span class="w">   </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">wstring_view</span><span class="w"> </span><span class="n">wstr_view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;Char arr&quot;</span><span class="p">;</span>
-
-<span class="w">   </span><span class="c1">//const auto result = std::format( &quot;{}&quot;, wstr_view ); //불가능</span>
-<span class="w">   </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">wstr_view</span><span class="w"> </span><span class="p">);</span>
-
-<span class="w">   </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">wstring</span><span class="w"> </span><span class="n">ref</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;Char arr&quot;</span><span class="p">;</span>
-<span class="w">   </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="w"> </span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">ref</span><span class="w"> </span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
+  <section class="tex2jax_ignore mathjax_ignore" id="pipeline-state-object-pso">
+<h1>Pipeline State Object (PSO)<a class="headerlink" href="#pipeline-state-object-pso" title="Link to this heading">#</a></h1>
+<p>PSO 는 graphics/compute pipeline 이 동작하기 위해 필요한 GPU 설정을 나타내는 객체이다.</p>
+<section id="graphics-pipeline-states-set-outside-of-the-pipeline-state-object">
+<h2>Graphics pipeline states set outside of the pipeline state object<a class="headerlink" href="#graphics-pipeline-states-set-outside-of-the-pipeline-state-object" title="Link to this heading">#</a></h2>
+<p>Graphics Pipeline State 중 PSO 가 아닌 ID3D12GraphicsCommandList interface 의 함수를 호출해서 설정해야 되는 State 들이 있다.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>State</p></th>
+<th class="head"><p>Method</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Resource bindings</p></td>
+<td><p>IASetIndexBuffer </br> IASetVertexBuffers </br> SOSetTargets </br> OMSetRenderTargets </br> SetDescriptorHeaps </br> all SetGraphicsRoot… methods </br> all SetComputeRoot… methods</p></td>
+</tr>
+<tr class="row-odd"><td><p>Viewports</p></td>
+<td><p>RSSetViewports</p></td>
+</tr>
+<tr class="row-even"><td><p>Scissor rects</p></td>
+<td><p>RSSetScissorRects</p></td>
+</tr>
+<tr class="row-odd"><td><p>Blend factor</p></td>
+<td><p>OMSetBlendFactor</p></td>
+</tr>
+<tr class="row-even"><td><p>The depth stencil reference value</p></td>
+<td><p>OMSetStencilRef</p></td>
+</tr>
+<tr class="row-odd"><td><p>The input-assembler primitive topology order and adjacency type</p></td>
+<td><p>IASetPrimitiveTopology</p></td>
+</tr>
+</tbody>
+</table>
 </div>
+<p>표는 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/managing-graphics-pipeline-state-in-direct3d-12#graphics-pipeline-states-set-outside-of-the-pipeline-state-object">Managing Graphics Pipeline State in Direct3D 12</a> 문서의 “Graphics pipeline states set outside of the pipeline state object” 섹션에 있는 내용을 기반으로 작성되었습니다.</p>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://en.cppreference.com/w/cpp/utility/format/format">cppreference - format</a><br />
-<a class="reference external" href="https://tango1202.github.io/cpp-stl/modern-cpp-stl-formatting/">tango1202.github - modern-cpp-stl-formatting</a></p>
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/managing-graphics-pipeline-state-in-direct3d-12#graphics-pipeline-states-set-outside-of-the-pipeline-state-object">learn.microsoft - graphics-pipeline-states-set-outside-of-the-pipeline-state-object</a></p>
 </div></blockquote>
 </section>
-<section id="std-vformat">
-<h2>std::vformat<a class="headerlink" href="#std-vformat" title="Link to this heading">#</a></h2>
-<p>format string 이 동적으로 결정되어야 할 때 사용한다.</p>
-</section>
-<section id="standard-format-specification">
-<h2>Standard format specification<a class="headerlink" href="#standard-format-specification" title="Link to this heading">#</a></h2>
-<p>For basic types and string types, the format specification is based on the format specification in Python</p>
+<section id="specification">
+<h2>Specification<a class="headerlink" href="#specification" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/managing-graphics-pipeline-state-in-direct3d-12">learn.microsoft - managing-graphics-pipeline-state-in-direct3d-12</a></p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/utility/format/spec">cppreference - format/spec</a></p></li>
+<li><p>When geometry is submitted to the graphics processing unit (GPU) to be drawn, <strong>there are a wide range of hardware settings that determine how the input data is interpreted and rendered.</strong> Collectively, these settings are called the graphics pipeline state</p></li>
+<li><p>In Microsoft Direct3D 12, <strong>most graphics pipeline state is set by using pipeline state objects (PSO).</strong></p></li>
+<li><p>Then, at render time, command lists can quickly switch multiple settings of the pipeline state by calling ID3D12GraphicsCommandList::SetPipelineState in a direct command list or bundle to set the active PSO.</p></li>
+<li><p>PSOs in Direct3D 12 were designed to allow the GPU to pre-process all of the dependent settings in each pipeline state, typically during initialization, to make switching between states at render time as efficient as possible.</p></li>
+<li><p>Note that while most of the pipeline state settings are set using PSOs, <strong>there are some state settings which are set separately using APIs provided by ID3D12GraphicsCommandList.</strong></p></li>
 </ul>
-<p>In most of the cases the syntax is similar to the old %-formatting, with the addition of the {} and with : used instead of %</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://docs.python.org/3/library/string.html#format-examples">docs.python - format-examples</a></p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fill</span><span class="o">-</span><span class="ow">and</span><span class="o">-</span><span class="n">align</span><span class="p">(</span><span class="n">optional</span><span class="p">)</span> <span class="n">sign</span><span class="p">(</span><span class="n">optional</span><span class="p">)</span> <span class="c1">#(optional) 0(optional) width(optional) precision(optional) L(optional) type(optional)		</span>
-</pre></div>
-</div>
-<section id="fill-and-align">
-<h3>Fill and align<a class="headerlink" href="#fill-and-align" title="Link to this heading">#</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{:[</span><span class="n">fill</span> <span class="n">character</span><span class="p">][</span><span class="n">align</span> <span class="n">options</span><span class="p">][</span><span class="n">width</span><span class="p">]}</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://en.cppreference.com/w/cpp/utility/format/spec">cppreference - format/spec</a></p>
-</div></blockquote>
-</section>
-<section id="sign-and-0">
-<h3>Sign, #, and 0<a class="headerlink" href="#sign-and-0" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>The # option causes the alternate form to be used for the conversion.</p>
-<ul>
-<li><p>For integral types, when binary, octal, or hexadecimal presentation type is used</p>
-<ul>
-<li><p>the alternate form inserts the prefix (0b, 0, or 0x) into the output value after the sign character (possibly space) if there is one, or add it before the output value otherwise.</p></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>The 0 option pads the field with leading zeros</p></li>
-</ul>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:06x}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">);</span><span class="w">  </span><span class="c1">//000078</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;{:#06x}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">);</span><span class="w"> </span><span class="c1">//0x0078</span>
-</pre></div>
-</div>
-<p># option causes the alternate form For integral types, when binary, octal, or hexadecimal presentation type is used, the alternate form inserts the prefix (0b, 0, or 0x) into the output value after the sign character (possibly space) if there is one, or add it before the output value otherwise.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://en.cppreference.com/w/cpp/utility/format/spec">cppreference - format/spec</a></p>
-</div></blockquote>
-</section>
-<section id="type">
-<h3>Type<a class="headerlink" href="#type" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>x</p>
-<ul>
-<li><p>16진수 표현</p></li>
-</ul>
-</li>
-<li><p>b</p>
-<ul>
-<li><p>2진수 표현</p></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://en.cppreference.com/w/cpp/utility/format/spec">cppreference - format/spec</a></p>
-</div></blockquote>
-</section>
 </section>
 </section>
 
@@ -959,7 +910,7 @@
         },
         kernelOptions: {
             name: "python3",
-            path: "./sources\03 programming\01 C++\20 Standard Library"
+            path: "./sources\03 programming\02 Graphics\51 DirectX12"
         },
         predefinedOutput: true
     }
@@ -977,20 +928,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="Chrono.html"
+       href="Initializing%20Direct3D.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Chrono</p>
+        <p class="prev-next-title">Initializing Direct3D</p>
       </div>
     </a>
     <a class="right-next"
-       href="function.html"
+       href="ShaderReflection.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">function</p>
+        <p class="prev-next-title">Shader Reflection</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1011,14 +962,8 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-format">std::format</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-vformat">std::vformat</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-format-specification">Standard format specification</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fill-and-align">Fill and align</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sign-and-0">Sign, #, and 0</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#type">Type</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graphics-pipeline-states-set-outside-of-the-pipeline-state-object">Graphics pipeline states set outside of the pipeline state object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specification">Specification</a></li>
 </ul>
   </nav></div>
 

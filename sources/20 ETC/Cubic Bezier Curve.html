@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Jupyter Book &#8212; MS Study Book</title>
+    <title>Cubic Bezier Curve Length &#8212; MS Study Book</title>
   
   
   
@@ -61,12 +61,14 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/20 ETC/Jupyter Book';</script>
+    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/20 ETC/Cubic Bezier Curve';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Mark Down" href="MarkDown.html" />
-    <link rel="prev" title="Cubic Bezier Curve Length" href="Cubic%20Bezier%20Curve.html" />
+    <link rel="next" title="Jupyter Book" href="Jupyter%20Book.html" />
+    <link rel="prev" title="chatGPT" href="chatGPT.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -684,8 +686,8 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">ETC</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chatGPT.html">chatGPT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Cubic%20Bezier%20Curve.html">Cubic Bezier Curve Length</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Jupyter Book</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Cubic Bezier Curve Length</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Jupyter%20Book.html">Jupyter Book</a></li>
 <li class="toctree-l1"><a class="reference internal" href="MarkDown.html">Mark Down</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">References</span></p>
@@ -745,7 +747,7 @@
       
       
       
-      <li><a href="../../_sources/sources/20 ETC/Jupyter Book.md" target="_blank"
+      <li><a href="../../_sources/sources/20 ETC/Cubic Bezier Curve.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -821,7 +823,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Jupyter Book</h1>
+    <h1>Cubic Bezier Curve Length</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -831,39 +833,17 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">환경셋팅</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterbook">Jupyterbook 설치</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cmd-ananconda">cmd로 ananconda 사용하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preliminary">Preliminary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cubic-bezier-curve">Cubic Bezier Curve</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arc-length-of-parametric-curve">Arc Length of Parametric Curve</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#change-of-variable-in-integral">Change of Variable in Integral</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#newton-raphson-method">Newton-Raphson Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadrature-method">Gaussian Quadrature Method</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">기본 문서 작성 문법</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">주의사항</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-css">Custom CSS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tex">TeX 매크로</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">Citation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">참고1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">참고2</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image">Image</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toc">TOC 구성</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">규칙1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">규칙2</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">규칙3</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">빌드</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etc">ETC</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda">Anaconda 명령어</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bat-anaconda">.bat 파일에서 anaconda 사용하기</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">배포</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guide">수동 배포 Guide</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">라이브러리 배포 Guide</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">렌더링이 제대로 안되는 경우</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">알고리즘 소개</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-split-point">Calculate Split Point</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-arc-length-by-numerical-integration">Calculate Arc Length By Numerical Integration</a></li>
 </ul>
 </li>
 </ul>
@@ -877,337 +857,115 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="jupyter-book">
-<h1>Jupyter Book<a class="headerlink" href="#jupyter-book" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="cubic-bezier-curve-length">
+<h1>Cubic Bezier Curve Length<a class="headerlink" href="#cubic-bezier-curve-length" title="Link to this heading">#</a></h1>
+<section id="preliminary">
+<h2>Preliminary<a class="headerlink" href="#preliminary" title="Link to this heading">#</a></h2>
+<section id="cubic-bezier-curve">
+<h3>Cubic Bezier Curve<a class="headerlink" href="#cubic-bezier-curve" title="Link to this heading">#</a></h3>
+<p>4 개의 점 <span class="math notranslate nohighlight">\(P_0,C_0,C_1,P_1 \in \R^3\)</span> 가 주어졌을 떄, cubic bezier curve <span class="math notranslate nohighlight">\(B(t) : [0,1] \rightarrow \R^3\)</span> 는 다음 수식으로 정의되는 parametric curve이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{aligned}
+B &amp;= (1-t)^3P_0 + 3(1-t)^2tC_0 + 3(1-t)t^2C_1 + t^3P_1 \\
+B_t &amp;= 3(-(1-t)^2P_0 + (1-3t)(1-t)C_0 + t(2-3t)C_1 + t^2P_1) \\ 
+B_{tt} &amp;= 6((1-t)P_0 + (2-3t)C_0 + (1-3t)C_1 + tP_1) \\
+B_{ttt} &amp;= 6(-P_0 + 3C_0 - 3C_1 + P_1)
+\end{aligned} \end{split}\]</div>
+<p>아래 첨자가 하나씩 늘어날때마다 <span class="math notranslate nohighlight">\(t\)</span> 로 한번 미분한 값이다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.wikipedia.org/wiki/B%C3%A9zier_curve">wikipedia - Bézier curve</a></p>
+</div></blockquote>
+</section>
+<section id="arc-length-of-parametric-curve">
+<h3>Arc Length of Parametric Curve<a class="headerlink" href="#arc-length-of-parametric-curve" title="Link to this heading">#</a></h3>
+<p>Parametric curve 를 <span class="math notranslate nohighlight">\(B(t)\)</span> 라고 할 때, <span class="math notranslate nohighlight">\(t \in [t_0,t_1]\)</span> 의 arc length 는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ \int^{t_1}_{t_0} \sqrt{ {\diff{B}{t} \cdot \diff{B}{t}}} dt \]</div>
+<blockquote>
+<div><p>Refernece<br />
+<a class="reference external" href="https://en.wikipedia.org/wiki/Arc_length">wikipedia - Arc_length</a></p>
+</div></blockquote>
+</section>
+<section id="change-of-variable-in-integral">
+<h3>Change of Variable in Integral<a class="headerlink" href="#change-of-variable-in-integral" title="Link to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(t = T(x)\)</span> 이고 <span class="math notranslate nohighlight">\(t_0 = T(a), t_1 = T(b)\)</span>일 떄, 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ \int^{t_1}_{t_0} f(t) dt = \int^{b}_{a} f(T(x)) \diff{T}{x} dx \]</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.wikipedia.org/wiki/Integration_by_substitution">wikipedia - Integration_by_substitution</a></p>
+</div></blockquote>
+</section>
+<section id="newton-raphson-method">
+<h3>Newton-Raphson Method<a class="headerlink" href="#newton-raphson-method" title="Link to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(g(t) = 0\)</span> 을 만족하는 <span class="math notranslate nohighlight">\(t\)</span> 값을 수치적으로 찾는 방법이다.</p>
+<p>초기 값 <span class="math notranslate nohighlight">\(t_0\)</span> 가 주어졌을 때, 다음  iteration 을 반복해서 값을 구한다.</p>
+<div class="math notranslate nohighlight">
+\[ t_i = t_{i-1} - \frac{g(t_{i-1})}{g_t(t_{i-1})} \]</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.wikipedia.org/wiki/Newton%27s_method">wikipedia - Newton’s method</a></p>
+</div></blockquote>
+</section>
+<section id="gaussian-quadrature-method">
+<h3>Gaussian Quadrature Method<a class="headerlink" href="#gaussian-quadrature-method" title="Link to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(n\)</span> 개의 point 를 이용하여 <span class="math notranslate nohighlight">\([-1,1]\)</span> 범위의 적분을 근사하는 방법이다.</p>
+<div class="math notranslate nohighlight">
+\[ \int^{1}_{-1}f(x)dx \approx \sum_{i=1}^n f(x_i)w_i \]</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.wikipedia.org/wiki/Gaussian_quadrature">wikipedia - Gaussian_quadrature</a><br />
+<a class="reference external" href="https://pomax.github.io/bezierinfo/legendre-gauss.html">pomax.github - Gaussian Quadrature Table</a></p>
+</div></blockquote>
+</section>
+</section>
 <section id="id1">
-<h2>환경셋팅<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<section id="jupyterbook">
-<h3>Jupyterbook 설치<a class="headerlink" href="#jupyterbook" title="Link to this heading">#</a></h3>
-<p>손쉬운 가상 환경을 위해 <a class="reference external" href="https://www.anaconda.com/download/#windows">Anaconda</a>를 사용한다.</p>
-<p>Anaconda prompt에서 Jupyterbook 가상환경을 만든다</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">jb</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.9</span>
-</pre></div>
-</div>
-<p>가상환경에 들어간다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">jb</span>
-</pre></div>
-</div>
-<p>conda를 업데이트 한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">update</span> <span class="o">--</span><span class="nb">all</span>
-</pre></div>
-</div>
-<p>Jupyterbook을 설치한다</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">jupyter</span><span class="o">-</span><span class="n">book</span>
-</pre></div>
-</div>
+<h2>알고리즘 소개<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>임의의 <span class="math notranslate nohighlight">\([t_0,t_1]\)</span> 구간에서 Cubic Bezier Curve 의 Arc Length 를 구하기 위해 다음 두가지 단계를 거친다.</p>
+<ol class="arabic simple">
+<li><p>Heuristic 한 방법으로 2개의 Split Point 를 구해 <span class="math notranslate nohighlight">\([t_0,t_1]\)</span> 을 수치적분 하기 좋은 구간들 <span class="math notranslate nohighlight">\([t_0,t_{sp1}],[t_{sp1},t_{sp2}],[t_{sp2},t_1]\)</span> 나눈다.</p></li>
+<li><p>각 구간별로 Arc Length 를 수치적분해서 구한다.</p></li>
+</ol>
+<section id="calculate-split-point">
+<h3>Calculate Split Point<a class="headerlink" href="#calculate-split-point" title="Link to this heading">#</a></h3>
+<p>Gaussain Quadrature Method 는 Integrand 가 다항함수로 근사가 잘 될 수록 정확하게 적분 값을 구할 수 있다.</p>
+<p>따라서, 아래와 같은 특이점이 있는 경우에는 특이점을 기준으로 적분 구간을 나누어서 계산해야 오차를 줄일 수 있다.</p>
+<figure class="align-default">
+<img alt="../../_images/0001.png" src="../../_images/0001.png" />
+</figure>
+<p>특이점과 관련하여 다음과 같은 Heuristic 이 적용되었다.</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\( \diff{(B_t \cdot B_t)}{t} = 0\)</span> 을 만족하는 <span class="math notranslate nohighlight">\(t\)</span> 에서 특이점이 발생한다.</p></li>
+<li><p><span class="math notranslate nohighlight">\(B_t \cdot B_t\)</span> 는 4차 다항식임으로 위를 만족하는 점은 3개가 나오며, 그 중 첫번째 점과 세번째 점에서 특이점이 나온다.</p></li>
+<li><p>특이점이 나타나더라도 Integrand 의 함수값이 충분히 크지 않으면 수치적분 오차가 크지 않다.</p></li>
+</ol>
+<p>1번과 2번 조건에 의해 Split Point 를 Newton Raphson Method 를 사용하여 구한다.</p>
+<p><span class="math notranslate nohighlight">\(g = \diff{(B_t \cdot B_t)}{t}\)</span> 라고 하면 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} g = 2B_{tt}\cdot B_t \\ g_t = 2(B_{ttt}\cdot B_t + B_{tt} \cdot B_{tt} ) \end{split}\]</div>
+<p>따라서, <span class="math notranslate nohighlight">\(i\)</span> 번 째 iteration 으로 구한 <span class="math notranslate nohighlight">\(g=0\)</span> 을 만족하는 <span class="math notranslate nohighlight">\(t_i\)</span> 는 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ t_i = t_{i-1} - \frac{g(t_{i-1})}{g_t(t_{i-1})} \]</div>
+<p>이 때, iteration 수를 제한하기 위해 최대 interation 수를 정해놨으며, <span class="math notranslate nohighlight">\(t_i - t_{i-1}\)</span> 의 차이가 작은 경우에는 iteration 을 탈출 할 수 있게 하였다.</p>
+<p>3번 조건에 의해 Integrand 의 함수값이 충분히 크지 않은 경우 Split Point 를 계산하지 않는다.</p>
+<p>이 떄, 충분히 크지 않은 값은 경험적으로 결정하였다.</p>
 </section>
-<section id="cmd-ananconda">
-<h3>cmd로 ananconda 사용하기<a class="headerlink" href="#cmd-ananconda" title="Link to this heading">#</a></h3>
-<p>anaconda 를 cmd 에서 사용하려면 환경변수 설정을 해야한다.</p>
-<ul class="simple">
-<li><p>anaconda prompt에서 <code class="docutils literal notranslate"><span class="pre">where</span> <span class="pre">conda</span></code>와 <code class="docutils literal notranslate"><span class="pre">where</span> <span class="pre">python</span></code>로 conda.bat와 python.exe의 경로를 찾는다</p></li>
-<li><p>시작 &gt;&gt; 시스템 환경 변수 편집 &gt;&gt; 환경변수 &gt;&gt; 시스템 변수 &gt;&gt; Path &gt;&gt; 편집</p></li>
-<li><p>conda.exe 가 있는 경로를 추가한다.</p></li>
-</ul>
-<p>cmd창에서 <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">--version</span></code>을 입력하여 정상동작하면 환경변수가 제대로 설정된 것이다.</p>
-<p>anaconda prompt에서 <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">init</span> <span class="pre">cmd.exe</span></code> 명령어를 실행해주면 cmd를 ananconda prompt처럼 사용할 수 있다.</p>
-</section>
-</section>
-<section id="id2">
-<h2>기본 문서 작성 문법<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://jupyterbook.org/en/stable/reference/cheatsheet.html">jupyterbook - cheatsheet</a> 참고</p>
-<section id="id3">
-<h3>주의사항<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>.md 파일의 제목에 한글이 들어가면 안된다</p></li>
-<li><p>하나의 .md 파일에는 하나의 H1 header(#)만 사용한다.</p>
-<ul>
-<li><p>H1 header(#)가 여러번 나올 경우 TOC가 제대로 동작하지 않는다.</p></li>
-</ul>
-</li>
-<li><p>header는 순차적으로 내려가야 한다.</p></li>
-<li><p>Tex를 사용할때, 위에 줄과 붙어있으면 inline으로 인식되서 제대로 나오지 않기 때문에 한 줄 띄어줘야 한다.</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(Wrong)
-This is equation.
-$$ y = x + 1 $$
-
-(correct)
-This is equation.
-
-$$ y = x + 1 $$
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>문서에서 인용이 되야지만 References 페이지에 나타난다.</p></li>
-</ul>
-</section>
-</section>
-<section id="custom-css">
-<h2>Custom CSS<a class="headerlink" href="#custom-css" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://jupyterbook.org/en/stable/advanced/html.html#custom-css-or-javascript">jupyterbook - custom-css-or-javascript</a> 참고</p>
-</section>
-<section id="tex">
-<h2>TeX 매크로<a class="headerlink" href="#tex" title="Link to this heading">#</a></h2>
-<p>_config.yml 파일에 아래 예시와 같이 매크로를 추가한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sphinx</span><span class="p">:</span>
-  <span class="n">config</span><span class="p">:</span>
-    <span class="n">bibtex_reference_style</span><span class="p">:</span> <span class="n">author_year</span>
-    <span class="n">mathjax_path</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">cdn</span><span class="o">.</span><span class="n">jsdelivr</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">npm</span><span class="o">/</span><span class="n">mathjax</span><span class="o">@</span><span class="mi">3</span><span class="o">/</span><span class="n">es5</span><span class="o">/</span><span class="n">tex</span><span class="o">-</span><span class="n">svg</span><span class="o">.</span><span class="n">js</span>
-    <span class="n">mathjax3_config</span><span class="p">:</span>
-       <span class="n">tex</span><span class="p">:</span>
-        <span class="n">macros</span><span class="p">:</span>
-          <span class="s2">&quot;st&quot;</span> <span class="p">:</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">quad s.t </span><span class="se">\\</span><span class="s2">quad&quot;</span>
-          <span class="s2">&quot;pdiff&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">frac{</span><span class="se">\\</span><span class="s2">partial #1}{</span><span class="se">\\</span><span class="s2">partial #2}&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-          <span class="o">...</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://jupyterbook.org/en/stable/advanced/sphinx.html#sphinx-tex-macros">jupyterbook - sphinx-tex-macros</a><br />
-<a class="reference external" href="https://docs.mathjax.org/en/latest/input/tex/macros.html">docs.mathjax - macros</a></p>
-</div></blockquote>
-</section>
-<section id="citation">
-<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">References/_reference.bib</span></code> 파일에 아래 형식으로 내용을 입력한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@book</span><span class="p">{</span><span class="n">LeeTM</span><span class="p">,</span>
-  <span class="n">title</span>     <span class="o">=</span> <span class="s2">&quot;Introduction to Topological Manifolds&quot;</span><span class="p">,</span>
-  <span class="n">author</span>    <span class="o">=</span> <span class="s2">&quot;Lee, John M&quot;</span><span class="p">,</span>
-  <span class="n">publisher</span> <span class="o">=</span> <span class="s2">&quot;Springer&quot;</span><span class="p">,</span>
-  <span class="n">series</span>    <span class="o">=</span> <span class="s2">&quot;Graduate texts in mathematics&quot;</span><span class="p">,</span>
-  <span class="n">edition</span>   <span class="o">=</span>  <span class="mi">2</span><span class="p">,</span>
-  <span class="n">month</span>     <span class="o">=</span>  <span class="n">dec</span><span class="p">,</span>
-  <span class="n">year</span>      <span class="o">=</span>  <span class="mi">2010</span><span class="p">,</span>
-  <span class="n">address</span>   <span class="o">=</span> <span class="s2">&quot;New York, NY&quot;</span><span class="p">,</span>
-  <span class="n">language</span>  <span class="o">=</span> <span class="s2">&quot;en&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>그러면 LeeTM이 name이 되며 name으로 문서에서 인용이 가능하다.</p>
-<p><span id="id4">[<a class="reference internal" href="../99%20References/references.html#id10" title="John M Lee. Introduction to Topological Manifolds. Graduate texts in mathematics. Springer, New York, NY, 2 edition, December 2010.">Lee, 2010</a>]</span></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{cite}`LeeTM`
-</pre></div>
-</div>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://jupyterbook.org/en/stable/tutorials/references.html#create-a-bibtex-file">jupyterbook - create-a-bibtex-file</a></p>
-</div></blockquote>
-<section id="id5">
-<h3>참고1<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">_reference.bib</span></code> 파일에 Bibtex를 입력할 떄, name, author, title, year, publisher은 필수로 작성해야 된다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@misc</span><span class="p">{</span> <span class="n">Nobody06</span><span class="p">,</span>
-       <span class="n">author</span> <span class="o">=</span> <span class="s2">&quot;Nobody Jr&quot;</span><span class="p">,</span>
-       <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;My Article&quot;</span><span class="p">,</span>
-       <span class="n">year</span> <span class="o">=</span> <span class="s2">&quot;2006&quot;</span><span class="p">,</span>
-       <span class="n">publisher</span> <span class="o">=</span> <span class="s2">&quot;My Pusblisher&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="id6">
-<h3>참고2<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<p><a class="reference external" href="https://bibtex.eu/fields/author/">bibtex - author</a>을 참고해서 저자명(<code class="docutils literal notranslate"><span class="pre">author</span> <span class="pre">=</span> </code>)을 작성하면 된다.</p>
-</section>
-</section>
-<section id="image">
-<h2>Image<a class="headerlink" href="#image" title="Link to this heading">#</a></h2>
-<p>_image폴더를 만들고 그안에 image 파일을 추가한다.</p>
-<p>아래와 같이 문서에 입력해서 image 파일을 사용한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```{figure} _image/Stress-strain_curve.svg
-```
-</pre></div>
-</div>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://jupyterbook.org/en/stable/content/figures.html">jupyterbook - figures</a></p>
-</div></blockquote>
-</section>
-<section id="toc">
-<h2>TOC 구성<a class="headerlink" href="#toc" title="Link to this heading">#</a></h2>
-<p>web page의 TOC 구성은 <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code>파일에 의해 결정된다.</p>
-<p>현재 <code class="docutils literal notranslate"><span class="pre">_toc/TOC_Writer.py</span></code>를 이용해 <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code>파일을 작성한다.</p>
-<p><code class="docutils literal notranslate"><span class="pre">_toc/TOC_Writer.py</span></code>은 아래 규칙에 맞춰 작성되었다고 가정한다.</p>
-<section id="id7">
-<h3>규칙1<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<p>TOC에 나타나는 순서를 정해주기 위해서 폴더나 md파일 이름을 <code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">[name]</span></code> 형태로 작성한다.
-예를들면 <code class="docutils literal notranslate"><span class="pre">01</span> <span class="pre">math</span></code>, <code class="docutils literal notranslate"><span class="pre">01</span> <span class="pre">Power</span> <span class="pre">Set.md</span></code>와 같다.</p>
-<p><strong>주의사항1</strong></p>
-<p>순서가 상관없을 경우, 파일 이름은 저 형태를 지키지 않아도 된다.</p>
-<p>하지만 폴더명은 항상 <code class="docutils literal notranslate"><span class="pre">##</span> <span class="pre">[name]</span></code> 형태로 작성한다.</p>
-<p>또한 반드시 띄어쓰기가 있어야 한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">01</span><span class="n">math</span> 	<span class="p">(</span><span class="n">X</span><span class="p">)</span> 
-<span class="mi">01</span> <span class="n">math</span> <span class="p">(</span><span class="n">O</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>주의사항2</strong></p>
-<p>TOC에 표시되는 이름은 md파일의 파일명으로 생성되는것이 아니다.</p>
-<p>TOC는 md파일 안에 있는 H1 header(#)의 이름으로 생성이 된다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">document1</span><span class="o">.</span><span class="n">md</span>
-<span class="c1"># document123.md</span>
-</pre></div>
-</div>
-<p>그러면 TOC에는 document123으로 표시된다.</p>
-</section>
-<section id="id8">
-<h3>규칙2<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
-<p>section 폴더 안에는 section 이름과 동일한 .md 파일이 반드시 존재해야된다.</p>
-<p><code class="docutils literal notranslate"><span class="pre">section.md</span></code> 파일은 TOC에서 section을 눌렀을 때 나타날 페이지이다.</p>
-<p><strong>주의사항1</strong></p>
-<p>section의 이름은 <a class="reference external" href="http://section.md">section.md</a> 파일 안에 있는 H1 header의 이름으로 생성된다.</p>
-</section>
-<section id="id9">
-<h3>규칙3<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
-<p>파일이 하나만 있는 경우 section 폴더로 만들지 않는다.</p>
-<p>아래와 같이 section 안에 section.md만 있는 경우를 생각해보자.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(bad example)
-├─section
-│  │  section.md
-│
-│  document1.md
-│  document2.md
-</pre></div>
-</div>
-<p>이 경우에는 다음과 같이 구성 해야 한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(good example)
-│  section.md
-│  document1.md
-│  document2.md
-</pre></div>
-</div>
-</section>
-</section>
-<section id="id10">
-<h2>빌드<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
-<p>anaconda prompt를 실행한다.</p>
-<p>jupyter 가상환경을 실행한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">jb</span>
-</pre></div>
-</div>
-<p>make.py가 있는 폴더로 이동한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="p">(</span><span class="n">path</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>명령어를 실행한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build </span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">make</span> <span class="n">build</span>
-
-<span class="c1"># Clean</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">make</span> <span class="n">Clean</span>
-
-<span class="c1"># Rebuild</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">make</span> <span class="n">Rebuild</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">_build/build/index.html</span></code> 파일을 열어서 확인한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://jupyterbook.org/en/stable/start/overview.html">jupyterbook - overview</a><br />
-<a class="reference external" href="https://jupyterbook.org/en/stable/start/build.html">jupyterbook - build</a></p>
-</div></blockquote>
-<section id="etc">
-<h3>ETC<a class="headerlink" href="#etc" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Jupyter book install by conda</p></li>
-</ul>
-<p>Jupyter book을 설취하기 위해 conda를 사용하면 왜 인지 안된다</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">jupyter</span><span class="o">-</span><span class="n">book</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>Jupyter book install by mamba</p></li>
-</ul>
-<p>mamba를 사용하여 설치하면 된다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">mamba</span>
-<span class="n">mamba</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">jupyter</span><span class="o">-</span><span class="n">book</span>
-</pre></div>
-</div>
-<p>참고로 경로에 한글이 있는 경우 mamba install이 안될 수 있다. 예를 들어 <code class="docutils literal notranslate"><span class="pre">C/User/(계정명)</span></code>에서 계정명이 한글이면 install이 안된다.</p>
-</section>
-<section id="anaconda">
-<h3>Anaconda 명령어<a class="headerlink" href="#anaconda" title="Link to this heading">#</a></h3>
-<p>가상환경 리스트 확인
-conda info –envs</p>
-<p>가상환경 추가
-conda create -n 가상환경 이름 python = 파이썬 버전</p>
-<p>가상환경 삭제
-conda remove –name [가상환경명] –all</p>
-<p>가상환경 실행
-conda activate [가상환경 이름]</p>
-</section>
-<section id="bat-anaconda">
-<h3>.bat 파일에서 anaconda 사용하기<a class="headerlink" href="#bat-anaconda" title="Link to this heading">#</a></h3>
-<p>anaconda prompt에서 conda로 시작하는 명령어들은 사실 전부 <code class="docutils literal notranslate"><span class="pre">call</span> <span class="pre">conda.bat</span></code>과 같다.</p>
-<p>따라서 .bat 파일로 anaconda prompt의 명령어들을 사용하려면 conda로 시작하는 명령어들 앞에 전부 call conda.bat을 붙여줘야 한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">call</span> <span class="n">conda</span><span class="o">.</span><span class="n">bat</span> <span class="n">activate</span>
-<span class="n">call</span> <span class="n">conda</span><span class="o">.</span><span class="n">bat</span> <span class="n">info</span> <span class="o">--</span><span class="n">envs</span>
-<span class="n">call</span> <span class="n">conda</span><span class="o">.</span><span class="n">bat</span> <span class="n">deactivate</span>
-</pre></div>
-</div>
-<p>만약, <code class="docutils literal notranslate"><span class="pre">call</span> <span class="pre">conda.bat</span></code>이 정상동작하지 않는다면 conda.bat 파일이 있는 경로가 환경변수에 등록되어 있는지 확인해야한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://resumetmachine.tistory.com/entry/%EC%9C%88%EB%8F%8410-%ED%99%98%EA%B2%BD-%EC%95%84%EB%82%98%EC%BD%98%EB%8B%A43%EC%97%90%EC%84%9C-condabat-%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-%EA%B0%80%EC%83%81%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0">blog - [Python] 윈도10 환경 아나콘다3에서 conda.bat 를 이용하여 파이썬 가상환경 구축하기</a><br />
-<a class="reference external" href="https://stackoverflow.com/questions/46305569/how-to-make-batch-files-run-in-anaconda-prompt">stackoverflow - How to make batch files run in anaconda prompt</a><br />
-<a class="reference external" href="https://stackoverflow.com/questions/42693320/why-does-my-batch-script-stop-after-activating-a-new-conda-env">stackoverflow - Why does my batch script stop after activating a new conda env?</a></p>
-</div></blockquote>
-</section>
-</section>
-<section id="id11">
-<h2>배포<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
-<section id="guide">
-<h3>수동 배포 Guide<a class="headerlink" href="#guide" title="Link to this heading">#</a></h3>
-<p>Repository 생성 및 설정</p>
-<p>_build/html 폴더 안에 들어있는 파일들을 전부 OnlineBook Repository에 복사한다.</p>
-</section>
-<section id="id12">
-<h3>라이브러리 배포 Guide<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
-<p>Github에 public repository를 만든다.</p>
-<p>원격 repository 이름을 <code class="docutils literal notranslate"><span class="pre">origin</span></code>으로 설정한다.</p>
-<p>손쉬운 배포를 위해 ghp-import library를 설치한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">ghp</span><span class="o">-</span><span class="kn">import</span>
-</pre></div>
-</div>
-<p>ghp-import library를 사용한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="o">-</span><span class="n">n</span> <span class="o">-</span><span class="n">p</span> <span class="o">-</span><span class="n">f</span> <span class="p">(</span><span class="n">빌드된</span> <span class="n">html</span> <span class="n">파일이</span> <span class="n">있는</span> <span class="n">폴더</span> <span class="n">경로</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>예를들면 다음과 같다</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ghp</span><span class="o">-</span><span class="kn">import</span> <span class="o">-</span><span class="n">n</span> <span class="o">-</span><span class="n">p</span> <span class="o">-</span><span class="n">f</span> <span class="n">_build</span><span class="o">/</span><span class="n">html</span>
-</pre></div>
-</div>
-<p>그러면 자동으로 gh-pages branch가 생기고 빌드된 파일들이 push된다.</p>
-<p>github repository로 들어간 다음 다음 설정 페이지를 연다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Settings</span> <span class="o">&gt;&gt;</span> <span class="n">code</span> <span class="ow">and</span> <span class="n">automation</span> <span class="o">&gt;&gt;</span> <span class="n">Pages</span>
-</pre></div>
-</div>
-<p>다음과 같이 설정한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="p">:</span> <span class="n">deploy</span> <span class="n">form</span> <span class="n">a</span> <span class="n">branch</span>
-<span class="n">branch</span> <span class="p">:</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span> <span class="o">/</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>배포되는 주소는 다음과 같은 규칙을 따른다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="p">(</span><span class="n">아이디</span><span class="p">)</span><span class="o">/</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="p">(</span><span class="n">Repository이름</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>예를 들면 다음과 같다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">rla523at</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">Study</span>
-</pre></div>
-</div>
-<p>한번 배포한 후에는 변경사항이 있을 때마다 라이브러리를 사용해서 재배포 해주기만 하면 된다.</p>
-<p>즉, 라이브러리 사용 section에 있는 명령어만 다시 입력해주면 된다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://jupyterbook.org/en/stable/start/publish.html">jupyterbook - publish</a></p>
-</div></blockquote>
-</section>
-<section id="id13">
-<h3>렌더링이 제대로 안되는 경우<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
-<p>OnlineBook Repository에 .nojekyll 파일을 만들면 해결된다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://981004.tistory.com/5">981004.tistory - 작성한 문서 github page로 공유하기 (무료!) Sphinx(3)</a><br />
-<a class="reference external" href="https://velog.io/&#64;drypot/GitHub-Pages-No-Jekyll">velog.io/&#64;drypot - GitHub-Pages-No-Jekyll</a></p>
-</div></blockquote>
+<section id="calculate-arc-length-by-numerical-integration">
+<h3>Calculate Arc Length By Numerical Integration<a class="headerlink" href="#calculate-arc-length-by-numerical-integration" title="Link to this heading">#</a></h3>
+<p>cubic bezier curve 의 arc length 를 구하기 위해 다음 식을 수치적분한다.</p>
+<div class="math notranslate nohighlight">
+\[ \int^{t_1}_{t_0} \sqrt{ {B_t \cdot B_t}} dt \]</div>
+<p>이 때, 수치적분은 <span class="math notranslate nohighlight">\([-1,1]\)</span> 범위의 적분을 근사함으로 change of variable 을 통해 적분 범위를 맞춘다.</p>
+<p>change of variable 함수는 다음을 사용한다.</p>
+<div class="math notranslate nohighlight">
+\[ t = T(x) = \frac{t_1-t_0}{2}(x+1) + t_0 \]</div>
+<p><span class="math notranslate nohighlight">\(l(t) = \sqrt{ {B_t \cdot B_t}}\)</span> 라고 하면 change of variable 에 의해 적분식은 다음과 같이 바뀐다.</p>
+<div class="math notranslate nohighlight">
+\[ \frac{t_1-t_0}{2} \int^{1}_{-1} l(T(x)) dx \]</div>
+<p>이제 Gaussian Quadarature Method 를 이용해 수치적분 하면 다음과 같이 근사할 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ \frac{t_1-t_0}{2} \int^{1}_{-1} l(T(x)) dx \approx \frac{t_1-t_0}{2} \sum_{i=1}^n l(T(x_i))w_i \]</div>
 </section>
 </section>
 </section>
@@ -1243,20 +1001,20 @@ conda activate [가상환경 이름]</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="Cubic%20Bezier%20Curve.html"
+       href="chatGPT.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Cubic Bezier Curve Length</p>
+        <p class="prev-next-title">chatGPT</p>
       </div>
     </a>
     <a class="right-next"
-       href="MarkDown.html"
+       href="Jupyter%20Book.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Mark Down</p>
+        <p class="prev-next-title">Jupyter Book</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1277,39 +1035,17 @@ conda activate [가상환경 이름]</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">환경셋팅</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyterbook">Jupyterbook 설치</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cmd-ananconda">cmd로 ananconda 사용하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preliminary">Preliminary</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cubic-bezier-curve">Cubic Bezier Curve</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arc-length-of-parametric-curve">Arc Length of Parametric Curve</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#change-of-variable-in-integral">Change of Variable in Integral</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#newton-raphson-method">Newton-Raphson Method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-quadrature-method">Gaussian Quadrature Method</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">기본 문서 작성 문법</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">주의사항</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-css">Custom CSS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tex">TeX 매크로</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">Citation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">참고1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">참고2</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image">Image</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toc">TOC 구성</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">규칙1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">규칙2</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">규칙3</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">빌드</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etc">ETC</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda">Anaconda 명령어</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bat-anaconda">.bat 파일에서 anaconda 사용하기</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">배포</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guide">수동 배포 Guide</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">라이브러리 배포 Guide</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">렌더링이 제대로 안되는 경우</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">알고리즘 소개</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-split-point">Calculate Split Point</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-arc-length-by-numerical-integration">Calculate Arc Length By Numerical Integration</a></li>
 </ul>
 </li>
 </ul>

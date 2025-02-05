@@ -30,7 +30,7 @@ pip install -U jupyter-book
 
 ### cmd로 ananconda 사용하기
 anaconda 를 cmd 에서 사용하려면 환경변수 설정을 해야한다.
-* anaconda prompt에서 `where conda`와 `where python`로 conda.exe와 python.exe의 경로를 찾는다
+* anaconda prompt에서 `where conda`와 `where python`로 conda.bat와 python.exe의 경로를 찾는다
 * 시작 >> 시스템 환경 변수 편집 >> 환경변수 >> 시스템 변수 >> Path >> 편집
 * conda.exe 가 있는 경로를 추가한다.
 
