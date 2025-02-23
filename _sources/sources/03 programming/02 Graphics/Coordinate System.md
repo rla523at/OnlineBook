@@ -18,6 +18,8 @@
 
 뷰 좌표계의 정점에 투영 행렬을 곱해 클립 좌표를 얻습니다.  클립 좌표는 동차 좌표(homogeneous coordinates)로 표현되며, 일반적으로 $\( x, y \)$ 성분은 $\([-w, w]\)$ 범위, $\( z \)$ 성분은 $\([0, w]\)$ 범위를 갖습니다. 시야(Frustum) 내부에 있는지 여부를 결정하여, 렌더링 시 클리핑 처리를 할 수 있도록 합니다.
 
+Vertex Shader 에서 넘겨주는 Position 좌표가 Clip Space 다. 따라서, Position.x / Position.w, Position.y / Position.w 가 NDC 범위 내에 있으면 Screen Space 내에 존재하게 된다.
+
 <details> <summary> <h3 style="display:inline-block"> Perspective Projection Matrix </h3></summary>
 원근 투영은 멀리 있는 객체가 작게, 가까운 객체가 크게 보이는 효과를 주어 원근감(Perspective)을 표현합니다.
 

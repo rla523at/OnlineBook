@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ETC &#8212; MS Study Book</title>
+    <title>Linux &#8212; MS Study Book</title>
   
   
   
@@ -61,14 +61,12 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/99 ETC/ETC';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/99 ETC/Linux';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Procedural Programming" href="1%20OOP.html" />
-    <link rel="prev" title="File Buffering" href="../03%20Window%20Programming/File%20Buffering.html" />
+    <link rel="next" title="SAL" href="SAL.html" />
+    <link rel="prev" title="Batch" href="Batch.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -643,7 +641,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../03%20Window%20Programming/File%20Buffering.html">File Buffering</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">ETC</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="ETC.html">ETC</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="1%20OOP.html">Procedural Programming</a></li>
 
 
@@ -664,7 +662,7 @@
 <li class="toctree-l2"><a class="reference internal" href="51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Algorithm.html">Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Batch.html">Batch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Linux.html">Linux</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Linux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SAL.html">SAL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Text%20Encoding.html">Text Encoding</a></li>
 </ul>
@@ -750,7 +748,7 @@
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/99 ETC/ETC.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/99 ETC/Linux.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -826,7 +824,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ETC</h1>
+    <h1>Linux</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -836,9 +834,20 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-encoding">File Encoding 알아보기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-encoding-utf8">File Encoding UTF8 로 일괄 변경하기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#winscp">WinSCP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wsl2">WSL2 설치</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-studio-linx">Visual Studio Linx 개발 환경 설정</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Linux 워크로드</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Linux 환경 설정</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-linux-msbuild-c-project-in-visual-studio">Configure Linux MSBuild C++ project in Visual Studio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">참고사항</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intel-compiler">Intel Compiler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Intel Compiler 설치</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">환경 변수 설정</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-studio">Visual Studio 에 컴파일러 설정</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -850,105 +859,136 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="etc">
-<h1>ETC<a class="headerlink" href="#etc" title="Link to this heading">#</a></h1>
-<p>Memory Bandwidth는 Memory Clock X Memory Bus로 결정된다.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="linux">
+<h1>Linux<a class="headerlink" href="#linux" title="Link to this heading">#</a></h1>
+<section id="wsl2">
+<h2>WSL2 설치<a class="headerlink" href="#wsl2" title="Link to this heading">#</a></h2>
+<p>powershell 에서 <code class="docutils literal notranslate"><span class="pre">wsl</span> <span class="pre">--install</span></code> 입력</p>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://blog.naver.com/shakey7/221435517430">blog - 메모리 반도체 대역폭 (클럭 / 버스 / 입출력 라인 / 노스브릿지 / FSB / GDDR / 듀얼 채널)</a></p>
+<a class="reference external" href="https://velog.io/&#64;jskim/Windows%EC%97%90%EC%84%9C-Linux-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-with-WSL2">velog - Window 에서 Linux 사용하기</a></p>
 </div></blockquote>
-<p>Memory에 접근하는데 소요되는 시간을 계산하려면, 먼저 Memory에 접근하는데 몇 clock이 소요되는 지 파악한다. 다음으로 Memory Clock 성능을 파악하여 특정 Memory에 접근하는데 몇초가걸리는지 알 수 있다.</p>
-<p>예를 들어, Memory 접근하는데 10 clock이 필요하고, Memory Clock이 2GHZ면 Memory clock당 0.5ns가 필요함으로 memory 접근에는 총 5ns가 필요하다.</p>
-<section id="file-encoding">
-<h2>File Encoding 알아보기<a class="headerlink" href="#file-encoding" title="Link to this heading">#</a></h2>
-<p>git bash 에서 file * 를 입력하면 해당 경로에 있는 파일들의 Encoding 을 출력해준다.</p>
+</section>
+<section id="visual-studio-linx">
+<h2>Visual Studio Linx 개발 환경 설정<a class="headerlink" href="#visual-studio-linx" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>Linux 워크로드<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Visual Studio Installer 를 통해 C++를 사용한 Linux 및 임베디드 개발 워크로드 설치</p>
 <blockquote>
-<div><p>Refernece
-<a class="reference external" href="https://vhxpffltm.tistory.com/243">vhxpffltm.tistory - [Encoding] Windows 파일 인코딩 확인</a></p>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/cpp/linux/download-install-and-setup-the-linux-development-workload?view=msvc-170">learn.microsoft - download-install-and-setup-the-linux-development-workload</a></p>
 </div></blockquote>
 </section>
-<section id="file-encoding-utf8">
-<h2>File Encoding UTF8 로 일괄 변경하기<a class="headerlink" href="#file-encoding-utf8" title="Link to this heading">#</a></h2>
-<p>PowserShell 에서 다음 명령어를 입력한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># 현재 폴더와 하위 폴더에 있는 *.cpp, *.h 파일을 찾습니다.
-Get-ChildItem -Recurse -Include *.cpp, *.h | ForEach-Object {
-    $file = $_.FullName
-    # 파일 전체 내용을 읽어옵니다.
-    $content = Get-Content -Raw -Encoding Default $file
-    # UTF-8 으로 다시 저장합니다.
-    Set-Content -Path $file -Value $content -Encoding UTF8
-    Write-Host &quot;Converted: $file&quot;
-}
+<section id="id2">
+<h3>Linux 환경 설정<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">g</span><span class="o">++</span> <span class="n">gdb</span> <span class="n">rsync</span> <span class="nb">zip</span>
 </pre></div>
 </div>
-<p>참고로, Windows PowerShell 로 할 경우  UTF-8 (BOM 포함) 으로 Encoding 된다. version 7.* 이상부터 BOM 을 기본으로 포함하지 않으며
-<code class="docutils literal notranslate"><span class="pre">$PSVersionTable</span></code> 로 버전을 확인해보면 Windows PowerShell은 5.1, PowerShell은 7.5 인걸로 나온다.</p>
+<ul class="simple">
+<li><p>g++</p>
+<ul>
+<li><p>A compiler - Visual Studio 2019 and later have full support for GCC and Clang.</p></li>
+</ul>
+</li>
+<li><p>gdb</p>
+<ul>
+<li><p>Visual Studio automatically launches gdb on the Linux system, and uses the front end of the Visual Studio debugger to provide a full-fidelity debugging experience on Linux.</p></li>
+</ul>
+</li>
+<li><p>rsync and zip</p>
+<ul>
+<li><p>the inclusion of rsync and zip allows Visual Studio to extract header files from your Linux system to the Windows filesystem for use by IntelliSense.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/cpp/linux/download-install-and-setup-the-linux-development-workload?view=msvc-170">learn.microsoft - download-install-and-setup-the-linux-development-workload</a></p>
+</div></blockquote>
 </section>
-<section id="winscp">
-<h2>WinSCP<a class="headerlink" href="#winscp" title="Link to this heading">#</a></h2>
-<p>Windows에서 WinSCP를 사용하여 Ubuntu로 파일을 전송(또는 그 반대)하려면, 기본적으로 Ubuntu에서 SSH 서버가 동작하고 있어야 합니다. 다음 단계를 참고해보세요.</p>
-<ol class="arabic">
-<li><p><strong>SSH 서버 설치</strong><br />
-Ubuntu 터미널에서 다음 명령을 입력해 OpenSSH 서버를 설치합니다.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>openssh-server
-</pre></div>
-</div>
-</li>
-<li><p><strong>SSH 서버 상태 확인 및 서비스 활성화</strong></p>
-<ul>
-<li><p>설치가 끝나면 SSH 서비스가 자동으로 실행됩니다.</p></li>
-<li><p>만약 실행 중인지 확인하고 싶다면:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>ssh
-</pre></div>
-</div>
-</li>
-<li><p>혹시 비활성화되어 있다면 다음 명령으로 활성화해 줍니다.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ssh
-sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>ssh
-</pre></div>
-</div>
-</li>
-</ul>
-</li>
-<li><p><strong>Ubuntu IP 주소 확인</strong></p>
-<ul>
-<li><p>WinSCP에서 접속하기 위해서는 Ubuntu의 IP 주소가 필요합니다.</p></li>
-<li><p>Ubuntu 터미널에서 IP 주소를 확인하려면:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>addr
-</pre></div>
-</div>
-</li>
-<li><p>무선(Wi-Fi) 또는 유선(Ethernet)을 사용한다면 <code class="docutils literal notranslate"><span class="pre">wlan0</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">eth0</span></code> 인터페이스 부분에 <code class="docutils literal notranslate"><span class="pre">inet</span></code> 항목으로 표시된 IP 주소(예: <code class="docutils literal notranslate"><span class="pre">192.168.0.xxx</span></code>)를 확인합니다.</p></li>
-</ul>
-</li>
-<li><p><strong>방화벽 설정 (필요한 경우)</strong></p>
-<ul>
-<li><p>Ubuntu가 UFW 방화벽을 사용 중이고 SSH 포트(기본 22번)가 막혀있다면, 다음 명령으로 열어줍니다.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span>ssh
-</pre></div>
-</div>
-</li>
-<li><p>UFW가 비활성화 상태라면 신경 쓰지 않아도 됩니다.</p></li>
-</ul>
-</li>
-<li><p><strong>IP 확인하기</strong></p></li>
-</ol>
+<section id="configure-linux-msbuild-c-project-in-visual-studio">
+<h3>Configure Linux MSBuild C++ project in Visual Studio<a class="headerlink" href="#configure-linux-msbuild-c-project-in-visual-studio" title="Link to this heading">#</a></h3>
+<p>프로젝트 &gt;&gt; 속성 &gt;&gt; 일반 &gt;&gt; 플랫폼 도구 집합 &gt;&gt; WSL2 GCC Toolset</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/cpp/linux/configure-a-linux-project?view=msvc-170">learn.microsoft - Configure a Linux MSBuild C++ project in Visual Studio</a></p>
+</div></blockquote>
+</section>
+<section id="id3">
+<h3>참고사항<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://learn.microsoft.com/en-us/cpp/linux/connect-to-your-remote-linux-computer?view=msvc-170">https://learn.microsoft.com/en-us/cpp/linux/connect-to-your-remote-linux-computer?view=msvc-170</a></p>
 <ul class="simple">
-<li><p>ip addr</p></li>
-<li><p>hostname -I</p></li>
-<li><p><a class="reference external" href="https://dongle94.github.io/ubuntu/ubuntu-check-ip/">https://dongle94.github.io/ubuntu/ubuntu-check-ip/</a></p></li>
+<li><p>Starting in Visual Studio 2019 version 16.1, Visual Studio has native support for using C++ with the Windows Subsystem for Linux (WSL). That means you can build and debug on your local WSL installation directly. <strong>You no longer need to add a remote connection or configure SSH.</strong></p></li>
 </ul>
-<ol class="arabic simple" start="6">
-<li><p><strong>Ubuntu 버전 확인</strong></p></li>
-</ol>
+<p><a class="reference external" href="https://learn.microsoft.com/en-us/cpp/linux/deploy-run-and-debug-your-linux-project?view=msvc-170#debug-your-linux-project">https://learn.microsoft.com/en-us/cpp/linux/deploy-run-and-debug-your-linux-project?view=msvc-170#debug-your-linux-project</a></p>
 <ul class="simple">
-<li><p>lsb_release -a</p></li>
-<li><p><a class="reference external" href="https://blog.naver.com/sw4r/221868948844">https://blog.naver.com/sw4r/221868948844</a>*</p></li>
+<li><p>Debug your Linux project</p></li>
+</ul>
+<p><a class="reference external" href="https://learn.microsoft.com/en-us/cpp/linux/create-a-new-linux-project?view=msvc-170">https://learn.microsoft.com/en-us/cpp/linux/create-a-new-linux-project?view=msvc-170</a></p>
+<ul class="simple">
+<li><p>Create a Linux MSBuild C++ project in Visual Studio</p></li>
 </ul>
 </section>
-<div class="toctree-wrapper compound">
+</section>
+<section id="intel-compiler">
+<h2>Intel Compiler<a class="headerlink" href="#intel-compiler" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3>Intel Compiler 설치<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">gpg</span><span class="o">-</span><span class="n">agent</span> <span class="n">wget</span>
+</pre></div>
 </div>
+<ul class="simple">
+<li><p>APT 저장소(Repository) 추가를 위한 필수 패키지 설치</p></li>
+<li><p>Intel의 패키지를 다운로드하고 검증하는 데 필요한 도구들을 설치하는 과정입니다.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="o">-</span><span class="n">O</span><span class="o">-</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">apt</span><span class="o">.</span><span class="n">repos</span><span class="o">.</span><span class="n">intel</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">intel</span><span class="o">-</span><span class="n">gpg</span><span class="o">-</span><span class="n">keys</span><span class="o">/</span><span class="n">GPG</span><span class="o">-</span><span class="n">PUB</span><span class="o">-</span><span class="n">KEY</span><span class="o">-</span><span class="n">INTEL</span><span class="o">-</span><span class="n">SW</span><span class="o">-</span><span class="n">PRODUCTS</span><span class="o">.</span><span class="n">PUB</span> <span class="o">|</span> \
+<span class="n">gpg</span> <span class="o">--</span><span class="n">dearmor</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">keyrings</span><span class="o">/</span><span class="n">oneapi</span><span class="o">-</span><span class="n">archive</span><span class="o">-</span><span class="n">keyring</span><span class="o">.</span><span class="n">gpg</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Intel 저장소의 GPG 키 다운로드 및 등록</p></li>
+<li><p>Intel에서 제공하는 패키지가 신뢰할 수 있는지 검증하기 위한 GPG 키를 시스템에 추가하는 과정입니다.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main&quot;</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">oneAPI</span><span class="o">.</span><span class="n">list</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>APT 소스 리스트에 Intel OneAPI 저장소 추가</p></li>
+<li><p>APT가 Intel의 공식 패키지 저장소에서 소프트웨어를 다운로드할 수 있도록 설정하는 과정입니다.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>패키지 목록 업데이트</p></li>
+<li><p>APT 저장소를 새로 추가했기 때문에, 최신 패키지 목록을 가져와야 합니다. 새롭게 추가된 Intel 저장소에서 제공하는 최신 소프트웨어 정보를 가져오는 과정입니다</p></li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/dpc-compiler-download.html?operatingsystem=linux&amp;amp;distribution-linux=apt">intel - Download oneAPI DPC++/C++ Compiler - APT</a></p>
+</div></blockquote>
+</section>
+<section id="id5">
+<h3>환경 변수 설정<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">intel</span><span class="o">/</span><span class="n">oneapi</span><span class="o">/</span><span class="n">setvars</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://www.intel.com/content/www/us/en/docs/dpcpp-cpp-compiler/get-started-guide/2025-0/get-started-on-linux.html">intel - Get Started on Linux</a><br />
+<a class="reference external" href="https://www.intel.com/content/www/us/en/docs/oneapi/programming-guide/2025-0/use-the-setvars-and-oneapi-vars-scripts-with-linux.html">intel - Use the setvars and oneapi-vars Scripts with Linux</a></p>
+</div></blockquote>
+</section>
+<section id="visual-studio">
+<h3>Visual Studio 에 컴파일러 설정<a class="headerlink" href="#visual-studio" title="Link to this heading">#</a></h3>
+<p>프로젝트 &gt;&gt; 속성 &gt;&gt; C/C++ &gt;&gt; 일반 &gt;&gt; C++ 컴파일러 &gt;&gt; /opt/intel/oneapi/compiler/latest/bin/icpx</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://www.intel.com/content/www/us/en/docs/dpcpp-cpp-compiler/get-started-guide/2025-0/get-started-on-linux.html">intel - Invoke the Compiler from the Command Line</a></p>
+</div></blockquote>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -982,20 +1022,20 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../03%20Window%20Programming/File%20Buffering.html"
+       href="Batch.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">File Buffering</p>
+        <p class="prev-next-title">Batch</p>
       </div>
     </a>
     <a class="right-next"
-       href="1%20OOP.html"
+       href="SAL.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Procedural Programming</p>
+        <p class="prev-next-title">SAL</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1016,9 +1056,20 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-encoding">File Encoding 알아보기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-encoding-utf8">File Encoding UTF8 로 일괄 변경하기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#winscp">WinSCP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wsl2">WSL2 설치</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-studio-linx">Visual Studio Linx 개발 환경 설정</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Linux 워크로드</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Linux 환경 설정</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configure-linux-msbuild-c-project-in-visual-studio">Configure Linux MSBuild C++ project in Visual Studio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">참고사항</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intel-compiler">Intel Compiler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Intel Compiler 설치</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">환경 변수 설정</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-studio">Visual Studio 에 컴파일러 설정</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

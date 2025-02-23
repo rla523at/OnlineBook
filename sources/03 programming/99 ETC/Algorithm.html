@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ETC &#8212; MS Study Book</title>
+    <title>Algorithm &#8212; MS Study Book</title>
   
   
   
@@ -61,14 +61,12 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/99 ETC/ETC';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/99 ETC/Algorithm';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Procedural Programming" href="1%20OOP.html" />
-    <link rel="prev" title="File Buffering" href="../03%20Window%20Programming/File%20Buffering.html" />
+    <link rel="next" title="Batch" href="Batch.html" />
+    <link rel="prev" title="Visual Studio Code" href="51%20Visual%20Studio%20Code.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -643,7 +641,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../03%20Window%20Programming/File%20Buffering.html">File Buffering</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">ETC</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="ETC.html">ETC</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="1%20OOP.html">Procedural Programming</a></li>
 
 
@@ -662,7 +660,7 @@
 <li class="toctree-l2"><a class="reference internal" href="21%20CMake.html">Cmake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="30%20OpenMP.html">OpenMP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Algorithm.html">Algorithm</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Batch.html">Batch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Linux.html">Linux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SAL.html">SAL</a></li>
@@ -750,7 +748,7 @@
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/99 ETC/ETC.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/99 ETC/Algorithm.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -826,7 +824,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ETC</h1>
+    <h1>Algorithm</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -836,9 +834,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-encoding">File Encoding 알아보기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-encoding-utf8">File Encoding UTF8 로 일괄 변경하기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#winscp">WinSCP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#branchless-binary-search">Branchless Binary Search</a></li>
 </ul>
             </nav>
         </div>
@@ -850,105 +846,15 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="etc">
-<h1>ETC<a class="headerlink" href="#etc" title="Link to this heading">#</a></h1>
-<p>Memory Bandwidth는 Memory Clock X Memory Bus로 결정된다.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="algorithm">
+<h1>Algorithm<a class="headerlink" href="#algorithm" title="Link to this heading">#</a></h1>
+<section id="branchless-binary-search">
+<h2>Branchless Binary Search<a class="headerlink" href="#branchless-binary-search" title="Link to this heading">#</a></h2>
 <blockquote>
 <div><p>Reference<br />
-<a class="reference external" href="https://blog.naver.com/shakey7/221435517430">blog - 메모리 반도체 대역폭 (클럭 / 버스 / 입출력 라인 / 노스브릿지 / FSB / GDDR / 듀얼 채널)</a></p>
-</div></blockquote>
-<p>Memory에 접근하는데 소요되는 시간을 계산하려면, 먼저 Memory에 접근하는데 몇 clock이 소요되는 지 파악한다. 다음으로 Memory Clock 성능을 파악하여 특정 Memory에 접근하는데 몇초가걸리는지 알 수 있다.</p>
-<p>예를 들어, Memory 접근하는데 10 clock이 필요하고, Memory Clock이 2GHZ면 Memory clock당 0.5ns가 필요함으로 memory 접근에는 총 5ns가 필요하다.</p>
-<section id="file-encoding">
-<h2>File Encoding 알아보기<a class="headerlink" href="#file-encoding" title="Link to this heading">#</a></h2>
-<p>git bash 에서 file * 를 입력하면 해당 경로에 있는 파일들의 Encoding 을 출력해준다.</p>
-<blockquote>
-<div><p>Refernece
-<a class="reference external" href="https://vhxpffltm.tistory.com/243">vhxpffltm.tistory - [Encoding] Windows 파일 인코딩 확인</a></p>
+<a class="reference external" href="https://probablydance.com/2023/04/27/beautiful-branchless-binary-search/">blog - probablydance</a></p>
 </div></blockquote>
 </section>
-<section id="file-encoding-utf8">
-<h2>File Encoding UTF8 로 일괄 변경하기<a class="headerlink" href="#file-encoding-utf8" title="Link to this heading">#</a></h2>
-<p>PowserShell 에서 다음 명령어를 입력한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># 현재 폴더와 하위 폴더에 있는 *.cpp, *.h 파일을 찾습니다.
-Get-ChildItem -Recurse -Include *.cpp, *.h | ForEach-Object {
-    $file = $_.FullName
-    # 파일 전체 내용을 읽어옵니다.
-    $content = Get-Content -Raw -Encoding Default $file
-    # UTF-8 으로 다시 저장합니다.
-    Set-Content -Path $file -Value $content -Encoding UTF8
-    Write-Host &quot;Converted: $file&quot;
-}
-</pre></div>
-</div>
-<p>참고로, Windows PowerShell 로 할 경우  UTF-8 (BOM 포함) 으로 Encoding 된다. version 7.* 이상부터 BOM 을 기본으로 포함하지 않으며
-<code class="docutils literal notranslate"><span class="pre">$PSVersionTable</span></code> 로 버전을 확인해보면 Windows PowerShell은 5.1, PowerShell은 7.5 인걸로 나온다.</p>
-</section>
-<section id="winscp">
-<h2>WinSCP<a class="headerlink" href="#winscp" title="Link to this heading">#</a></h2>
-<p>Windows에서 WinSCP를 사용하여 Ubuntu로 파일을 전송(또는 그 반대)하려면, 기본적으로 Ubuntu에서 SSH 서버가 동작하고 있어야 합니다. 다음 단계를 참고해보세요.</p>
-<ol class="arabic">
-<li><p><strong>SSH 서버 설치</strong><br />
-Ubuntu 터미널에서 다음 명령을 입력해 OpenSSH 서버를 설치합니다.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>openssh-server
-</pre></div>
-</div>
-</li>
-<li><p><strong>SSH 서버 상태 확인 및 서비스 활성화</strong></p>
-<ul>
-<li><p>설치가 끝나면 SSH 서비스가 자동으로 실행됩니다.</p></li>
-<li><p>만약 실행 중인지 확인하고 싶다면:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>ssh
-</pre></div>
-</div>
-</li>
-<li><p>혹시 비활성화되어 있다면 다음 명령으로 활성화해 줍니다.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ssh
-sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>ssh
-</pre></div>
-</div>
-</li>
-</ul>
-</li>
-<li><p><strong>Ubuntu IP 주소 확인</strong></p>
-<ul>
-<li><p>WinSCP에서 접속하기 위해서는 Ubuntu의 IP 주소가 필요합니다.</p></li>
-<li><p>Ubuntu 터미널에서 IP 주소를 확인하려면:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>addr
-</pre></div>
-</div>
-</li>
-<li><p>무선(Wi-Fi) 또는 유선(Ethernet)을 사용한다면 <code class="docutils literal notranslate"><span class="pre">wlan0</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">eth0</span></code> 인터페이스 부분에 <code class="docutils literal notranslate"><span class="pre">inet</span></code> 항목으로 표시된 IP 주소(예: <code class="docutils literal notranslate"><span class="pre">192.168.0.xxx</span></code>)를 확인합니다.</p></li>
-</ul>
-</li>
-<li><p><strong>방화벽 설정 (필요한 경우)</strong></p>
-<ul>
-<li><p>Ubuntu가 UFW 방화벽을 사용 중이고 SSH 포트(기본 22번)가 막혀있다면, 다음 명령으로 열어줍니다.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ufw<span class="w"> </span>allow<span class="w"> </span>ssh
-</pre></div>
-</div>
-</li>
-<li><p>UFW가 비활성화 상태라면 신경 쓰지 않아도 됩니다.</p></li>
-</ul>
-</li>
-<li><p><strong>IP 확인하기</strong></p></li>
-</ol>
-<ul class="simple">
-<li><p>ip addr</p></li>
-<li><p>hostname -I</p></li>
-<li><p><a class="reference external" href="https://dongle94.github.io/ubuntu/ubuntu-check-ip/">https://dongle94.github.io/ubuntu/ubuntu-check-ip/</a></p></li>
-</ul>
-<ol class="arabic simple" start="6">
-<li><p><strong>Ubuntu 버전 확인</strong></p></li>
-</ol>
-<ul class="simple">
-<li><p>lsb_release -a</p></li>
-<li><p><a class="reference external" href="https://blog.naver.com/sw4r/221868948844">https://blog.naver.com/sw4r/221868948844</a>*</p></li>
-</ul>
-</section>
-<div class="toctree-wrapper compound">
-</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -982,20 +888,20 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../03%20Window%20Programming/File%20Buffering.html"
+       href="51%20Visual%20Studio%20Code.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">File Buffering</p>
+        <p class="prev-next-title">Visual Studio Code</p>
       </div>
     </a>
     <a class="right-next"
-       href="1%20OOP.html"
+       href="Batch.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Procedural Programming</p>
+        <p class="prev-next-title">Batch</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1016,9 +922,7 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-encoding">File Encoding 알아보기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-encoding-utf8">File Encoding UTF8 로 일괄 변경하기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#winscp">WinSCP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#branchless-binary-search">Branchless Binary Search</a></li>
 </ul>
   </nav></div>
 
