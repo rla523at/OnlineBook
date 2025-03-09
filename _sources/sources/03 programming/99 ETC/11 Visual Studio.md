@@ -5,19 +5,7 @@
 도구 >> 옵션 >> 프로젝트 및 솔루션 >> 빌드 및 실행 >> MSBUILD 프로젝트 빌드 출력의 세부 정보 표시 >> 자세히 or 매우 자세히
 
 ## 파일 UTF8 로 자동 저장하기
-프로젝트 경로에 .editorconfig 파일을 생성한다음에 다음 내용을 추가한다.
-```
-root = true
-
-[*.{c++,cc,cpp,cppm,cxx,h,h++,hh,hpp,hxx,inl,ipp,ixx,tlh,tli}]
-
-charset = utf-8
-```
-
-* [learn.microsoft - EditorConfig](https://learn.microsoft.com/en-us/visualstudio/ide/create-portable-custom-editor-options?view=vs-2022)  
-  * In Visual Studio, EditorConfig file settings take precedence over the various global text editor settings available under Tools > Options > Text Editor > C/C++ > Code Style
-* [editorconfig - supported-properties](https://editorconfig.org/#supported-properties)  
-  * charset: set to latin1, utf-8, utf-8-bom, utf-16be or utf-16le to control the character set.
+도구 >> 옵션 >> 환경 >> 문서 >> 특정 인코딩을 사용하여 파일 저장 >> 유니코드(서명 없는 UTF-8) - 코드 페이지 650001
 
 ## Text Encoding UTF8 로 설정하기
 옵션 >> C/C++ >> Command Line >> /utf-8
@@ -53,6 +41,8 @@ D:\Code\ms_engine\_lib\directx 를 포함 디렉터리에 추가해서 C:\Progra
 
 ### 미리 컴파일된 헤더
 프로젝트 전체적으로는 미리 컴파일된 헤더 사용으로 되어 있어야 하지만, 미리 컴파일된 헤더를 생성하는 .cpp 는 개별적으로 미리 컴파일 된 헤더 만들기 옵션으로 되어 있어야 한다.
+
+C/C++ >> 고급 >> 강제 포함 파일 >> stdafx.h
 
 ### .props
 속성 관리자에서 정의된 .props 의 값을 그대로 사용하려면 속성에서 부모 또는 프로젝트 기본값에서 상속을 선택하면 된다.

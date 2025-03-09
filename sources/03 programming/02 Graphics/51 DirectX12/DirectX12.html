@@ -463,7 +463,9 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/Algorithm.html">Algorithm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/array.html">array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/basic_istream.html">basic_istream</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/Chrono.html">Chrono</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
@@ -585,14 +587,8 @@
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Texture.html">Texture</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3"><a class="reference internal" href="101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
-<li class="toctree-l3"><a class="reference internal" href="400%20enum%20D3D12_COMMAND_LIST_TYPE.html">enum D3D12_COMMAND_LIST_TYPE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="DxcBuffer.html">DxcBuffer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Fence.html">Fence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ID3D12Debug.html">ID3D12Debug</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ID3D12Device.html">ID3D12Device</a></li>
-<li class="toctree-l3"><a class="reference internal" href="IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Initializing%20Direct3D.html">Initializing Direct3D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Pipeline%20State%20Object.html">Pipeline State Object (PSO)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ShaderReflection.html">Shader Reflection</a></li>
@@ -638,6 +634,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/Component%20Objeect%20Model.html">Component Object Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/CreateFile.html">CreateFileA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/File%20Buffering.html">File Buffering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20Window%20Programming/Thread.html">Thread</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../99%20ETC/ETC.html">ETC</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -659,7 +656,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/21%20CMake.html">Cmake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/30%20OpenMP.html">OpenMP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/Algorithm.html">Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/Batch.html">Batch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/Linux.html">Linux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/SAL.html">SAL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20ETC/Text%20Encoding.html">Text Encoding</a></li>
 </ul>
@@ -831,6 +830,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#globally-unique-identifier">Globally Unique Identifier</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#execute-command-list-presnet">Execute Command List 후 바로 Presnet 호출</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-memory-acess-dma">Direct Memory Acess ( DMA )</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deffered-rendering">Deffered Rendering</a></li>
@@ -862,6 +862,20 @@
 <a class="reference external" href="https://dafher-diary.tistory.com/category/DirectX12">blog - dafher-diary.tistory</a><br />
 <a class="reference external" href="https://www.3dgep.com/learning-directx-12-1/">3dgep</a></p>
 </div></blockquote>
+<section id="globally-unique-identifier">
+<h2>Globally Unique Identifier<a class="headerlink" href="#globally-unique-identifier" title="Link to this heading">#</a></h2>
+<p>Globally Unique Identifier(GUID) 는 전역에서 유일한 식별자를 나타내며, COM 객체의 인터페이스를 식별하는 데 사용된다.</p>
+<p>각 인터페이스는 고유한 GUID를 가지고 있어, 프로그램이 인터페이스에 접근할 수 있게 한다. DXC의 여러 인터페이스들 역시 dxcapi.h에 정의된 GUID를 통해 접근 가능하다.</p>
+<details> <summary> <h2 style="display:inline-block"> IDxcUtils::CreateBlob VS IDxcUtils::CreateBlobFromPinned </h2></summary>
+<p>IDxcUtils::CreateBlob 함수는 독립적인 메모리 공간을 할당하고 기존의 데이터를 복사하여 IDxcBlobEncoding 객체를 생성한다.</p>
+<p>반면에 IDxcUtils::CreateBlobFromPinned 함수는 별도의 메모리 공간 할당 및 복사를 수행하지 않고 인자로 주어진 pData 를 참고하는 IDxcBlobEncoding 객체를 생성한다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/nf-dxcapi-idxcutils-createblob">learn.microsoft - idxcutils-createblob</a><br />
+<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/nf-dxcapi-idxcutils-createblobfrompinned">learn.microsoft - idxcutils-createblobfrompinned)</a></p>
+</div></blockquote>
+</details>
+</section>
 <section id="execute-command-list-presnet">
 <h2>Execute Command List 후 바로 Presnet 호출<a class="headerlink" href="#execute-command-list-presnet" title="Link to this heading">#</a></h2>
 <p>Microsoft Sample code 를 보면 다음과 같이 되어 있다.</p>
@@ -1110,6 +1124,7 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#globally-unique-identifier">Globally Unique Identifier</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#execute-command-list-presnet">Execute Command List 후 바로 Presnet 호출</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-memory-acess-dma">Direct Memory Acess ( DMA )</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deffered-rendering">Deffered Rendering</a></li>

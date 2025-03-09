@@ -5,6 +5,24 @@
 > [blog - dafher-diary.tistory](https://dafher-diary.tistory.com/category/DirectX12)    
 > [3dgep](https://www.3dgep.com/learning-directx-12-1/)  
 
+## Globally Unique Identifier
+Globally Unique Identifier(GUID) 는 전역에서 유일한 식별자를 나타내며, COM 객체의 인터페이스를 식별하는 데 사용된다. 
+
+각 인터페이스는 고유한 GUID를 가지고 있어, 프로그램이 인터페이스에 접근할 수 있게 한다. DXC의 여러 인터페이스들 역시 dxcapi.h에 정의된 GUID를 통해 접근 가능하다.
+
+
+<details> <summary> <h2 style="display:inline-block"> IDxcUtils::CreateBlob VS IDxcUtils::CreateBlobFromPinned </h2></summary>
+
+IDxcUtils::CreateBlob 함수는 독립적인 메모리 공간을 할당하고 기존의 데이터를 복사하여 IDxcBlobEncoding 객체를 생성한다.
+
+반면에 IDxcUtils::CreateBlobFromPinned 함수는 별도의 메모리 공간 할당 및 복사를 수행하지 않고 인자로 주어진 pData 를 참고하는 IDxcBlobEncoding 객체를 생성한다.
+
+> Reference  
+> [learn.microsoft - idxcutils-createblob](https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/nf-dxcapi-idxcutils-createblob)  
+> [learn.microsoft - idxcutils-createblobfrompinned)](https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/nf-dxcapi-idxcutils-createblobfrompinned)  
+
+</details>
+
 ## Execute Command List 후 바로 Presnet 호출
 Microsoft Sample code 를 보면 다음과 같이 되어 있다.
 ```cpp

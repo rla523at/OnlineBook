@@ -114,6 +114,13 @@ Root Signature 을 생성하는 API는 직렬화된(자체 포함, 포인터가 
 descriptor table 은 ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수를 통해 descritpor table 을 graphics root signautre 에 설정한다.
 
 input 인자 RootParameterIndex 변수는 CD3DX12_ROOT_PARAMETER1 의 배열을 만들 떄, 몇번 째 root parameter 로 설정했는지를 나타낸다. 그리고 input 인자 BaseDescriptor 변수는 Shader 에서 Descirptor Table 을 참조할 때 사용하기 위해 Descriptor table 의 시작 주소를 나타내는 D3D12_GPU_DESCRIPTOR_HANDLE 이다.
+
+이 때, ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수를 호출하기 전에 반드시 ID3D12GraphicsCommandList::SetGraphicsRootSignature 함수가 호출이 되어 있어야 한다. 그렇지 않으면 다음과 같은 오류가 발생한다.
+
+```
+D3D12 ERROR: CGraphicsCommandList::SetGraphicsRootDescriptorTable: No root signature has been set, so setting a descriptor table doesn't make sense and is invalid. [ EXECUTION ERROR #708: SET_DESCRIPTOR_TABLE_INVALID]
+```
+
 > Reference  
 > [learn.micorsoft - setgraphicsrootdescriptortable](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootdescriptortable)   
 </details>

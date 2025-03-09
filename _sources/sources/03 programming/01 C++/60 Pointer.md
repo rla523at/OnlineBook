@@ -141,3 +141,25 @@ static constexpr wchar_t* class_name = L"MSGraphics";
 ```cpp
 static constexpr const wchar_t* class_name = L"MSGraphics";
 ```
+
+## Function Pointer
+
+functino call
+
+A pointer to function can be used as the left-hand operand of the function call operator, this invokes the pointed-to function:
+```cpp
+int f(int n)
+{
+    std::cout << n << '\n';
+    return n * n;
+}
+ 
+int main()
+{
+    int (*p)(int) = f;
+    int x = p(7);
+}
+```
+
+> Reference  
+> [cppreference - Pointers_to_functions](https://en.cppreference.com/w/cpp/language/pointer#Pointers_to_functions)  

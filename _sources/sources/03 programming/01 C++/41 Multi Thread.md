@@ -535,6 +535,12 @@ std::recursive_mutex 는 C++ 표준 라이브러리에서 제공하는 뮤텍스
 
 ---
 
+## Set Thread Name
+
+> Reference  
+> [learn.microsoft - Set a thread name in C/C++](https://learn.microsoft.com/en-us/visualstudio/debugger/tips-for-debugging-threads?view=vs-2022&tabs=csharp#set-a-thread-name-in-cc)  
+---
+
 process 내에 thread는 stack과 레지스터를 제외한 메모리 영역을 공유한다.
 
 * 왜 multi thread가 필요할까?
