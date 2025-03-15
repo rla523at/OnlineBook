@@ -39,6 +39,19 @@ enum D3D12_MEMORY_POOL 은 Heap 의 메모리 풀이 할당될 물리적 메모�
 > [learn.microsoft - d3d12_cpu_page_property](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_cpu_page_property)  
 > [learn.microsoft - d3d12_memory_pool)](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_memory_pool)  
 
+## Heap Type
+
+| D3D12_HEAP_TYPE          | CPU 접근 권한              | GPU 접근 권한           | 주 용도 및 특징                                  |
+|--------------------------|----------------------------|-------------------------|--------------------------------------------------|
+| **DEFAULT**              | 직접 접근 불가 (일반적으로 매핑 불가) | 읽기/쓰기 모두 가능      | GPU 로컬 메모리. 고성능 렌더링, 셰이더 리소스 등 용도. |
+| **UPLOAD**               | 쓰기 가능 (CPU에서 매핑되어 기록)    | 읽기 전용               | CPU가 데이터를 기록(업로드)하고 GPU가 읽는 용도.      |
+| **READBACK**             | 읽기 가능 (CPU에서 매핑되어 읽음)     | 쓰기 전용 (복사 대상)    | GPU가 생성한 결과를 CPU가 읽어야 할 때 사용.         |
+| **CUSTOM**               | 사용자 정의                | 사용자 정의             | 애플리케이션이 필요에 따라 커스텀 동작을 구현할 때 사용. |
+
+> Reference  
+> [learn.microsoft - d3d12_heap_type](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_type)  
+
+
 ## Base Address Register
 Base Adress Register (BAR) 는 GPU의 전용 메모리( VRAM )를 CPU 메모리 공간에 맵핑하는 데 사용된다.
 
