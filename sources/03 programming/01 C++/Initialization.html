@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>C++ &#8212; MS Study Book</title>
+    <title>initialization &#8212; MS Study Book</title>
   
   
   
@@ -61,14 +61,12 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/C++';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/Initialization';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Build" href="01%20Build/Build.html" />
-    <link rel="prev" title="Heat Conducting in Bar" href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html" />
+    <link rel="next" title="inline" href="inline.html" />
+    <link rel="prev" title="hpp" href="hpp.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -433,7 +431,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="C%2B%2B.html">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="01%20Build/Build.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/02%20Compile.html">Compile</a></li>
@@ -484,7 +482,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Google%20Benchmark.html">Google Benchmark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Hash.html">Hash</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hpp.html">hpp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Initialization.html">initialization</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inline.html">inline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Keyword.html">Keyword</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Lambda%20Expression.html">Lambda Expression</a></li>
@@ -748,7 +746,7 @@
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/01 C++/C++.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/01 C++/Initialization.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -811,7 +809,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -822,11 +822,24 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>C++</h1>
+    <h1>initialization</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#default-initialization">Default Initialization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-initialization">Zero Initialization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate-initialization">Aggregate initialization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#designated-initializers">Designated initializers</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -836,10 +849,91 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="c">
-<h1>C++<a class="headerlink" href="#c" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="initialization">
+<h1>initialization<a class="headerlink" href="#initialization" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p>참고<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/initialization">initialization - cppreference</a></p>
+</div></blockquote>
+<section id="default-initialization">
+<h2>Default Initialization<a class="headerlink" href="#default-initialization" title="Link to this heading">#</a></h2>
+<p>The effects of default-initialization are:</p>
+<p>if T is a (possibly cv-qualified) non-POD(until C++11) class type, the constructors are considered and subjected to overload resolution against the empty argument list. The constructor selected (which is one of the default constructors) is called to provide the initial value for the new object;
+if T is an array type, every element of the array is default-initialized;
+otherwise, no initialization is performed (see notes).</p>
+<blockquote>
+<div><p>Reference
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/default_initialization">cppreference - default_initialization</a></p>
+</div></blockquote>
+</section>
+<section id="zero-initialization">
+<h2>Zero Initialization<a class="headerlink" href="#zero-initialization" title="Link to this heading">#</a></h2>
+<p>만약 T 가 scalar type 이라면 객체는 0 을 T 로 한 값으로 초기화 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w"> </span><span class="c1">// T t = T(0)</span>
+</pre></div>
 </div>
+<p>생성자가 없는 class 타입의 경우 non-static 멤버 변수들은 zero-initialized 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">A</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w"> </span><span class="c1">// a.a = a.b = a.c = 0</span>
+</pre></div>
+</div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span><span class="w"> </span><span class="n">f</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span><span class="w">   </span><span class="c1">// zero-initialized to three 0.0&#39;s</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/zero_initialization">cppreference - zero_initialization)</a></p>
+</div></blockquote>
+</section>
+<section id="aggregate-initialization">
+<h2>Aggregate initialization<a class="headerlink" href="#aggregate-initialization" title="Link to this heading">#</a></h2>
+<p>An aggregate is one of the following types:</p>
+<ul class="simple">
+<li><p>array types</p></li>
+<li><p>class types that has</p>
+<ul>
+<li><p>no user-declared or inherited constructors (since C++20)</p>
+<ul>
+<li><p>no user-declared constructors (until C++11)</p></li>
+<li><p>no user-provided, inherited, or explicit constructors (since C++11) (until C++20)</p></li>
+</ul>
+</li>
+<li><p>no private or protected direct non-static data members</p></li>
+<li><p>no virtual base classes &amp; no private or protected direct base classes (since C++17)</p>
+<ul>
+<li><p>no base classes(until C++17)</p></li>
+</ul>
+</li>
+<li><p>no virtual member functions</p></li>
+<li><p>no default member initializers (since C++11) (until C++14)</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/aggregate_initialization">cppreference - aggregate_initialization</a></p>
+</div></blockquote>
+<section id="designated-initializers">
+<h3>Designated initializers<a class="headerlink" href="#designated-initializers" title="Link to this heading">#</a></h3>
+<p>Since C++20, aggregate class only.</p>
+<p>each designator must name a direct non-static data member of T</p>
+<p>all designators used in the expression must appear in the same order as the data members of T</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">z</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="w"> </span>
+<span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">{.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">};</span><span class="w"> </span><span class="c1">// error; designator order does not match declaration order</span>
+<span class="n">A</span><span class="w"> </span><span class="n">b</span><span class="p">{.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">};</span><span class="w"> </span><span class="c1">// ok, b.y initialized to 0</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/aggregate_initialization#Designated_initializers">cppreference - Designated_initializers</a></p>
+</div></blockquote>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -873,20 +967,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html"
+       href="hpp.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Heat Conducting in Bar</p>
+        <p class="prev-next-title">hpp</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Build/Build.html"
+       href="inline.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Build</p>
+        <p class="prev-next-title">inline</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -896,6 +990,27 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#default-initialization">Default Initialization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-initialization">Zero Initialization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate-initialization">Aggregate initialization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#designated-initializers">Designated initializers</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

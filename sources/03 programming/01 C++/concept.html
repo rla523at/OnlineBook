@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>C++ &#8212; MS Study Book</title>
+    <title>concept &#8212; MS Study Book</title>
   
   
   
@@ -61,14 +61,12 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/C++';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/concept';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Build" href="01%20Build/Build.html" />
-    <link rel="prev" title="Heat Conducting in Bar" href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html" />
+    <link rel="next" title="Enum" href="Enum.html" />
+    <link rel="prev" title="Class" href="Class.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -433,7 +431,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="C%2B%2B.html">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="01%20Build/Build.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/02%20Compile.html">Compile</a></li>
@@ -478,7 +476,7 @@
 <li class="toctree-l2"><a class="reference internal" href="99%20Miscelleneous.html">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="char.html">char</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Class.html">Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="concept.html">concept</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">concept</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Enum.html">Enum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Forward%20Declaration.html">Forward Declaration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Google%20Benchmark.html">Google Benchmark</a></li>
@@ -748,7 +746,7 @@
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/01 C++/C++.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/01 C++/concept.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -811,7 +809,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -822,11 +822,25 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>C++</h1>
+    <h1>concept</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Concept 생성방법</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">참고1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">참고2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">참고3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#template-parameter">Template Parameter</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -836,10 +850,157 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="c">
-<h1>C++<a class="headerlink" href="#c" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="concept">
+<h1>concept<a class="headerlink" href="#concept" title="Link to this heading">#</a></h1>
+<p>C++20부터 지원하는 기능으로 concept는 template argument의 <code class="docutils literal notranslate"><span class="pre">이름있는</span> <span class="pre">제약조건</span> <span class="pre">집합(named</span> <span class="pre">set</span> <span class="pre">of</span> <span class="pre">requirements)</span></code>이다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/constraints#Concepts">cppreference</a></p>
+</div></blockquote>
+<section id="id1">
+<h2>Concept 생성방법<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>concept는 다음과 같은 형태로 정의한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">template</span><span class="o">-</span><span class="n">parameter</span><span class="o">-</span><span class="n">list</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">concept</span><span class="o">-</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">constraint</span><span class="o">-</span><span class="n">expression</span><span class="p">;</span>
+</pre></div>
 </div>
+<p>constraint-expression는 컴파일 time에 bool 값을 돌려주는 호출 가능 객체이다.</p>
+<p>constraint-expression의 예시들은 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">_Ty</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">always_true_concept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">is_char_concept1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_char_func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_char_func</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">_Ty</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">is_char_concept2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">is_char_func</span><span class="o">&lt;</span><span class="n">_Ty</span><span class="o">&gt;</span><span class="p">();</span>
+</pre></div>
+</div>
+<section id="id2">
+<h3>참고1<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>constraint-expression의 논리 조합은 contraint_expression이다.</p>
+<p>이 떄 사용가능한 논리 조합에는 논리 연산자( &amp;&amp;, ||, ! )가 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">is_vector_concept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">::</span><span class="n">value_type</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">is_int_concpet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">is_vector_or_int_concept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">is_vector_concept</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">is_int_concpet</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="n">TEST</span><span class="p">(</span><span class="k">concept</span><span class="p">,</span><span class="w"> </span><span class="n">test3</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">EXPECT_TRUE</span><span class="p">(</span><span class="n">is_vector_or_int_concept</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">EXPECT_TRUE</span><span class="p">(</span><span class="n">is_vector_or_int_concept</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;&gt;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">EXPECT_FALSE</span><span class="p">(</span><span class="n">is_vector_or_int_concept</span><span class="o">&lt;</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>참고2<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>concept는 constexpr bool로 형변환 가능하기 때문에 그 자체로 contraint_expression이 될 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// integral은 is_integral_v 컴파일 술어를 사용해서 정의합니다.</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">_Ty</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">integral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">is_integral_v</span><span class="o">&lt;</span><span class="n">_Ty</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="c1">// unsigned_integral은 콘셉트인 integral, signed_integral을 사용해서 정의합니다.</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">_Ty</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">unsigned_integral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">integral</span><span class="o">&lt;</span><span class="n">_Ty</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">signed_integral</span><span class="o">&lt;</span><span class="n">_Ty</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="c1">// signed_integral는 콘셉트인 integral을 사용해서 정의합니다. </span>
+<span class="c1">// static_cast&lt;_Ty&gt;(-1) &lt; static_cast&lt;_Ty&gt;(0) 컴파일 술어를 사용</span>
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">_Ty</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">signed_integral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">integral</span><span class="o">&lt;</span><span class="n">_Ty</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">_Ty</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">_Ty</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>참고3<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>concept는 동일한 이름이고 parameter 수만 다르게 만들 수가 없다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">is_spanable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">requires</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">t</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
+<span class="k">concept</span><span class="w"> </span><span class="nc">is_spanable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">requires</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="n">u</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">t</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">u</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="k">requires</span><span class="w"> </span><span class="n">is_spanable</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">g</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="k">requires</span><span class="w"> </span><span class="n">is_spanable</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">U</span><span class="o">&gt;</span><span class="w"> </span><span class="c1">// Error!</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">g</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">U</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="template-parameter">
+<h2>Template Parameter<a class="headerlink" href="#template-parameter" title="Link to this heading">#</a></h2>
+<p>템플릿 매개변수에 콘셉트를 지정할 수 있다.</p>
+<p>아래 예제 코드를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;gtest/gtest.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;concepts&gt;</span>
+
+<span class="c1">// 제약이 있는 템플릿 매개변수</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">integral</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">gcd</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// 단축 함수 템플릿 - 제약 있는 형식 매개변수 </span>
+<span class="c1">// 이 형태만 a와 b의 형식이 다를 수 있습니다.</span>
+<span class="n">std</span><span class="o">::</span><span class="n">integral</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">gcd1</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">integral</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">integral</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Temp</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">false_type</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="c1">// 템플릿 특수화로 사용된 콘셉트</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">regular</span><span class="w"> </span><span class="n">Reg</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">Temp</span><span class="o">&lt;</span><span class="n">Reg</span><span class="o">&gt;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="c1">// 가변 인수 템플릿에서 사용</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">integral</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">all</span><span class="p">(</span><span class="n">Args</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">(...</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">args</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">integral</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">any</span><span class="p">(</span><span class="n">Args</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">(...</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">args</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">integral</span><span class="p">...</span><span class="w"> </span><span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">none</span><span class="p">(</span><span class="n">Args</span><span class="p">...</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="p">(...</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">args</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+
+<span class="n">TEST</span><span class="p">(</span><span class="k">concept</span><span class="p">,</span><span class="w"> </span><span class="n">test1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">EXPECT_TRUE</span><span class="p">(</span><span class="n">Temp</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">);</span><span class="w"> </span><span class="c1">// std:regular를 통한 특수화</span>
+<span class="w">  </span><span class="n">EXPECT_TRUE</span><span class="p">(</span><span class="n">any</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">));</span>
+<span class="w">  </span><span class="n">EXPECT_FALSE</span><span class="p">(</span><span class="n">Temp</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&gt;::</span><span class="n">value</span><span class="p">);</span><span class="w"> </span><span class="c1">// 일반 템플릿 Test 구조체 호출   </span>
+<span class="w">  </span><span class="n">EXPECT_FALSE</span><span class="p">(</span><span class="n">all</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">));</span>
+<span class="w">  </span><span class="n">EXPECT_FALSE</span><span class="p">(</span><span class="n">none</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://jungwoong.tistory.com/99">blog</a></p>
+</div></blockquote>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -873,20 +1034,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html"
+       href="Class.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Heat Conducting in Bar</p>
+        <p class="prev-next-title">Class</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Build/Build.html"
+       href="Enum.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Build</p>
+        <p class="prev-next-title">Enum</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -896,6 +1057,28 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Concept 생성방법</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">참고1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">참고2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">참고3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#template-parameter">Template Parameter</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

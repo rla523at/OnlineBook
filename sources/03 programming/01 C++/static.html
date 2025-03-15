@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>C++ &#8212; MS Study Book</title>
+    <title>Static &#8212; MS Study Book</title>
   
   
   
@@ -61,14 +61,12 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/C++';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/static';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Build" href="01%20Build/Build.html" />
-    <link rel="prev" title="Heat Conducting in Bar" href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html" />
+    <link rel="next" title="Storage Class Specifier" href="Storage%20Class%20Specifier.html" />
+    <link rel="prev" title="SIMD" href="SIMD.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -433,7 +431,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="C%2B%2B.html">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="01%20Build/Build.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/02%20Compile.html">Compile</a></li>
@@ -501,7 +499,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Reference.html">Reference</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Require.html">Require</a></li>
 <li class="toctree-l2"><a class="reference internal" href="SIMD.html">SIMD</a></li>
-<li class="toctree-l2"><a class="reference internal" href="static.html">Static</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Static</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Struct%20Memory%20Padding.html">Struct Memory Padding</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Template.html">Template</a></li>
@@ -748,7 +746,7 @@
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/01 C++/C++.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/01 C++/static.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -811,7 +809,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -822,11 +822,40 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>C++</h1>
+    <h1>Static</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">static 전역 변수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-extern">static과 extern</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-initialization">Constant initialization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-data-members">Static Data Members</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-data-member">static data member</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#const-static-data-member">Const static data member</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constexpr-static-data-member-since-c-11">Constexpr static data member(since C++11)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inline-static-data-member-since-c-17">Inline static data member(since C++17)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-const-member-function">In const member function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">static 멤버 함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-static">static 멤버 함수의 정의와 static 키워드</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-vs-inline">Static vs Inline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">예제1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">예제2</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -836,10 +865,411 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="c">
-<h1>C++<a class="headerlink" href="#c" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="static">
+<h1>Static<a class="headerlink" href="#static" title="Link to this heading">#</a></h1>
+<section id="id1">
+<h2>static 전역 변수<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>class scope 외부에 있는 static 변수는 동일한 TU라는 특정 범위에서만 사용 가능한 전역 변수이다.</p>
+<p>만약 static 변수를 헤더파일에 정의하고 여러 cpp에서 헤더파일을 포함할 경우 각 TU마다 고유의 static 변수가 생기며 하나의 TU에서 생긴 변화는 다른 TU에 영향을 주지 않는다.</p>
+<p>아래의 예시를 통해 확인해 보자</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//Common.h</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">g_static_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+
+<span class="c1">//source1.cpp TU1</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Common.h&quot;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">modify1</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="n">g_static_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">tell1</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">g_static_value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//source2.cpp TU2</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Common.h&quot;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">modify2</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="n">g_static_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">tell2</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">g_static_value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//main.cpp TU3</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">modify1</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">tell1</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">modify2</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">tell2</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="n">modify1</span><span class="p">();</span><span class="w">  </span><span class="c1">//TU1의 g_static_value는 1로 바뀜</span>
+<span class="w">	</span><span class="n">tell1</span><span class="p">();</span><span class="w">    </span><span class="c1">//1 출력</span>
+<span class="w">    </span><span class="n">tell2</span><span class="p">();</span><span class="w">	</span><span class="c1">//TU2의 g_static_value는 3임 &gt;&gt; 3 출력</span>
+<span class="p">}</span>
+</pre></div>
 </div>
+<section id="static-extern">
+<h3>static과 extern<a class="headerlink" href="#static-extern" title="Link to this heading">#</a></h3>
+<p>extern은 ‘외부의’라는 뜻을, static은 ‘정적인, 고정된’이란 뜻을 나타낸다. static 이란 영역 내부에 고정된 어떤 것을 나타내서 특정 범위에서만 사용할 수 있는 것을 나타내고, extern은 영역 외부에 존재하기 때문에 영역 내/외부 모두에서 사용할 수 있음을 나타낸다.</p>
+<p>extern과 static이외에 local도 있는데 local이란 개념은 말 그대로 ‘지역’이라는 의미로서 지역 객체를 나타낼 때 사용하며, 지역 객체란 함수 안에서 정의되어 함수 안에서만 사용 될 수 잇는 객체를 의미한다.</p>
+<p>결국 객체는 local과 global로 나누어질 수 있으며, local은 지역 객체이고, global의 경우 모든 범위에서 사용될 수 있는 전역 객체와 한정된 사용 범위를 가지는 정적 객체로 나누어짐을 알 수 있다.</p>
+<p>static과 extern을 구분하기 위해 아래의 예제를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//A.cpp</span>
+<span class="k">extern</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">g_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">//extern을 생략할 수 있음</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">s_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">ms</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="w">	</span><span class="p">{</span>
+<span class="w">		</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;wow</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">//Main.cpp</span>
+<span class="k">extern</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">g_val</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">s_val</span><span class="p">;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">ms</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">extern</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span><span class="w"> </span><span class="c1">//extern을 생략할 수 있음</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">g_val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">s_val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// link error 발생</span>
+<span class="w">    </span><span class="n">ms</span><span class="o">::</span><span class="n">func</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>s_val은 정적 변수이기 때문에 내부링크 방식을 사용하고 A.cpp의 TU에서만 사용할 수 있으며 다른 TU에서는 사용할 수 없다. 하지만 g_val과 func은 외부링크 방식을 사용함으로 다른 TU에서 사용할 수 있다.</p>
+<blockquote>
+<div><p>Reference<br />
+<span id="id2">[<a class="reference internal" href="../../99%20References/references.html#id16" title="김화수. Fundamental C++ 프로그래밍 원리: 기초부터고급까지. 혜지원, 2015.">김화수, 2015</a>]</span></p>
+</div></blockquote>
+</section>
+<section id="constant-initialization">
+<h3>Constant initialization<a class="headerlink" href="#constant-initialization" title="Link to this heading">#</a></h3>
+<p>static 변수의 intialization full-expression이 constant expression이면 constnat-initialized 되었다고 하며 constant initialization은 compile time에 이루어진다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">     </span><span class="c1">//constant initialization </span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">     </span><span class="c1">//constant initialization</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">//constant initialization  --&gt; complie time 상수</span>
+
+<span class="n">TEST</span><span class="p">(</span><span class="n">test</span><span class="p">,</span><span class="w"> </span><span class="n">test</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">cexpr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">;</span><span class="w"> </span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/constant_initialization">cppreference - constant_initialization</a></p>
+</div></blockquote>
+</section>
+</section>
+<section id="static-data-members">
+<h2>Static Data Members<a class="headerlink" href="#static-data-members" title="Link to this heading">#</a></h2>
+<p>class 내부에서 static keyword를 사용하는 경우, 저장 방식 지정자를 나타낼때와는 별개로 class 객체와는 무관한 멤버 함수나 변수가 됨을 의미한다.</p>
+<p>static data member들은 어떤 객체와도 연관되어 있지 않으며 클래스의 객체가 정의 되기 전에 존재한다.</p>
+<p>static data member는 static storage duration을 가지고 있으며 프로그램 전체를 통틀어 단 하나만 존재한다.</p>
+<p>단, static data member가 thread local인 경우 thread local storage duration을 갖으며 각 쓰레드마다 하나씩 존재한다.</p>
+<p>namespace scope을 갖는 클래스의 static data member는 클래스가 외부 링크 방식을 갖을 경우 외부 링크 방식을 갖는다.</p>
+<p>local 클래스(함수 내부에 정의된 클래스) 그리고 unnamed 클래스, unnamed 클래스에 속한 멤버 클래스등은 static data member를 갖지 못한다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/static">cppreference</a></p>
+</div></blockquote>
+<section id="static-data-member">
+<h3>static data member<a class="headerlink" href="#static-data-member" title="Link to this heading">#</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">X</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">	</span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">val1</span><span class="p">;</span>
+<span class="w">	</span><span class="c1">//static int val2 = 1;	// compile error!</span>
+<span class="p">};</span>
+
+<span class="c1">//.cpp</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">X</span><span class="o">::</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">	</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">int</span> <span class="pre">val1;</span></code>은 static member변수를 선언만 하고 정의를 하지 않은것이다.</p>
+<p>따라서, 추가적으로 정의해주지 않으면 변수의 정의를 찾지 못해 link error가 발생한다.</p>
+<p>이를 해결하기 위해 일반적으로, 아래와같이 .cpp 파일에서 변수를 정의해주며 이 때는 static keyword를 사용하지 않는다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//.cpp</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">X</span><span class="o">::</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">	</span>
+</pre></div>
+</div>
+<p>만약, 아래와같이 .h 파일에서 정의할 경우, 여러 .cpp 파일에서 이 .h를 inclue할 경우 OCR위반이 발생한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//.h</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">X</span><span class="o">::</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">	</span>
+</pre></div>
+</div>
+<p>참고로, 아래와 같이 static member 변수를 in-class initialization 시도하면 compile error가 발생한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//static int val2 = 1;				// compile error!</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/static">cppreference</a></p>
+</div></blockquote>
+</section>
+<section id="const-static-data-member">
+<h3>Const static data member<a class="headerlink" href="#const-static-data-member" title="Link to this heading">#</a></h3>
+<p>static data member는 const로 선언될 수 있다.</p>
+<p>만약 const static data member가 integral type이거나 enumeration type인 경우 class 내부에서 정의 및 초기화 될 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//.h</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">X</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">m</span><span class="p">{</span><span class="mi">2</span><span class="p">};</span><span class="w"> </span><span class="c1">// since C++11</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="c1">//.cpp</span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">X</span><span class="o">::</span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">X::k</span></code>를 보면 알 수 있듯이, const static data member는 class 내부에서 반드시 정의 및 초기화가 이뤄저야 되는것은 아니다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/static">cppreference</a></p>
+</div></blockquote>
+</section>
+<section id="constexpr-static-data-member-since-c-11">
+<h3>Constexpr static data member(since C++11)<a class="headerlink" href="#constexpr-static-data-member-since-c-11" title="Link to this heading">#</a></h3>
+<p>LiterType의 static data member는 constexpr로 선언될 수 있다.</p>
+<p>Constexpr static data member는 class 내부에서 정의 및 초기화 되어야 한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">X</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">arr</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">};</span><span class="w">        	</span><span class="c1">// OK</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">complex</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">};</span><span class="w"> 	</span><span class="c1">// OK</span>
+<span class="w">	</span><span class="c1">//constexpr static int k; 							// compile Error</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">X::k</span></code>를 보면 알 수 있듯이, constexpr static data member는 반드시 class 내부에서 정의 및 초기화가 이뤄저야 한다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/static">cppreference</a><br />
+<a class="reference external" href="https://stackoverflow.com/questions/45019980/redefinitions-of-constexpr-static-data-members-are-allowed-now-but-not-inline">stackoverflow - redeclaration</a></p>
+</div></blockquote>
+</section>
+<section id="inline-static-data-member-since-c-17">
+<h3>Inline static data member(since C++17)<a class="headerlink" href="#inline-static-data-member-since-c-17" title="Link to this heading">#</a></h3>
+<p>static data member는 lnline으로 선언될 수 있다.</p>
+<p>Inline static data member의 경우, 다음과 같이 class 내부에서 정의 및 초기화 될 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">X</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>이 경우에는 class 외부에 따로 정의를 할 필요가 없다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/static">cppreference</a></p>
+</div></blockquote>
+</section>
+<section id="in-const-member-function">
+<h3>In const member function<a class="headerlink" href="#in-const-member-function" title="Link to this heading">#</a></h3>
+<p>static data member는 const 함수의 보호를 받지 못한다.</p>
+<p>아래 예시 코드를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+<span class="w">	</span><span class="p">{</span>
+<span class="w">		</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">static_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span>
+<span class="w">		</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">static_val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">	</span><span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">	</span><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">static_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>static_val은 member variable로 취급되지 않기 때문에 const member function에서도 수정이 가능하다.</p>
+<p>따라서, 이와 같은 맥락때문에 static data member는 mutable 또한 될 수 없다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/static">cppreference</a></p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>static 멤버 함수<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<section id="static-static">
+<h3>static 멤버 함수의 정의와 static 키워드<a class="headerlink" href="#static-static" title="Link to this heading">#</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Foobar</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">do_something</span><span class="p">();</span>
+<span class="p">};</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">Foobar::do_something</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="c1">// Compile Error!</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">Foobar</span><span class="o">::</span><span class="n">do_something</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>위의 코드를 보면 static 멤버 함수를 정의하는 부분에 여기에 스토리지 클래스를 지정할 수 없다는 에러 문구가 뜬다. 이를 해결하기 위해서는 static 문구만 지워주면 되는데 왜 이렇게 작동하는지 알아보자.</p>
+<p>static 키워드는 C++에서 다양한 의미로 사용되는데 위의 코드에서는 2가지 다른 방식으로 사용되고 있다.</p>
+<p>멤버 함수의 입장에서 static 키워드는 “이 멤버 함수는 별도의 객체가 필요하지 않으며 기본적으로 class scope에 있는 함수일 뿐이다” 라는 의미를 갖는다.</p>
+<p>하지만 함수의 정의 입장에서 static 키워드는 “이 함수는 이 TU에서만 정적으로 사용될 것이고 다른 TU에서는 사용할 수 없다.” 라는 의미를 갖는다.</p>
+<p>컴파일러는 함수의 정의 입장에서 저 구문을 분석하게 되고 이 부분이 바로 C++에서 허용하지 않는 부분이다. 왜냐하면 이는 혼란을 야기할 수 있기 때문이다. 예를 들어 여러개의 다른 TU에서 Foobar class의 정의를 포함한 뒤 static 멤버 함수를 다르게 정의할 경우, linking error는 발생하지 않고 같은 멤버 함수가 서로 다른 공간에서 서로 다르게 행동할 수 있게 된다.</p>
+<p>이를 해결 하기 위해서는 static 멤버 함수를 정의할 때 static 키워드를 제거하면 된다. 컴파일러는 이미 do_something이라는 함수가 static 멤버 함수라는 것을 알고 있기 때문에 static 키워드가 없어도 아무런 문제가 되지 않는다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://stackoverflow.com/questions/31305717/member-function-with-static-linkage">stack over flow</a></p>
+</div></blockquote>
+</section>
+</section>
+<section id="static-vs-inline">
+<h2>Static vs Inline<a class="headerlink" href="#static-vs-inline" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3>예제1<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>다음 예제 코드를 보자</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//A.h</span>
+<span class="cp">#pragma once</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test_static</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">test_static</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">test_inline</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">test_inline</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// B.h</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">test_static2</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">test_inline2</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="c1">// B.cpp</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;A.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;B.h&quot;</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">test_static2</span><span class="p">(</span><span class="kt">void</span><span class="p">){</span><span class="n">test_static</span><span class="p">();};</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">test_inline2</span><span class="p">(</span><span class="kt">void</span><span class="p">){</span><span class="n">test_inline</span><span class="p">();};</span>
+
+<span class="c1">// main.cpp</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;A.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;B.h&quot;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="n">test_static</span><span class="p">();</span>
+<span class="w">	</span><span class="n">test_static2</span><span class="p">();</span>
+
+<span class="w">	</span><span class="n">test_inline</span><span class="p">();</span>
+<span class="w">	</span><span class="n">test_inline2</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>결과를 보면 static 함수는 서로 다른 주소를 inline 함수는 서로 같은 주소를 갖는것을 알 수 있다.</p>
+<p>즉, static 함수는 각 TU에서 각각 생성됨으로 static으로 선언된 함수는 TU에서 각각 다른 주소를 갖게 된다.</p>
+<p>반면에 inline은 TU에서 각각 생성되지는 않고 B.cpp TU에서만 정의되고 main.cpp TU에서의 중복 정의만 허용함으로 inline으로 선언된 함수는 각 TU에서 같은 주소를 같는다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://stackoverflow.com/questions/22102919/static-vs-inline-for-functions-implemented-in-header-files">stackoverflow</a></p>
+</div></blockquote>
+</section>
+<section id="id5">
+<h3>예제2<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>또, 다음 예제 코드를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//헤더.h</span>
+<span class="cp">#pragma once</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">s_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">i_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">//소스1.cpp</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;헤더.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">print1</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;static value : &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">s_val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;inline value : &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i_val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">change1</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">s_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="n">i_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//소스2.cpp</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;헤더.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">change2</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">s_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">  </span><span class="n">i_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">print2</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;static value : &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">s_val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;inline value : &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i_val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="n">a</span>
+<span class="p">}</span>
+
+<span class="c1">//소스.cpp</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">print1</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">print2</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">change1</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">change2</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">change1</span><span class="p">();</span>
+<span class="w">  </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;call change1&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="n">print1</span><span class="p">();</span>
+<span class="w">  </span><span class="n">print2</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">change2</span><span class="p">();</span>
+<span class="w">  </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;call change2&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w">  </span>
+<span class="w">  </span><span class="n">print1</span><span class="p">();</span>
+<span class="w">  </span><span class="n">print2</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">//result</span>
+<span class="c1">// call change1</span>
+<span class="c1">// static value : 1</span>
+<span class="c1">// inline value : 1</span>
+<span class="c1">// static value : 0</span>
+<span class="c1">// inline value : 1</span>
+<span class="c1">// call change2</span>
+<span class="c1">// static value : 1</span>
+<span class="c1">// inline value : 2</span>
+<span class="c1">// static value : 2</span>
+<span class="c1">// inline value : 2</span>
+</pre></div>
+</div>
+<p>TU1(소스1.cpp)에서 change1이 호출하고 TU2에서 print함수를 호출하면 <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">value</span></code>는 변하지 않아서 0이고, <code class="docutils literal notranslate"><span class="pre">inline</span> <span class="pre">value</span></code>는 변한 값이 반영되서 1이 나온다.</p>
+<p>다음으로 TU2(소스2.cpp)에서 change2가 호출되고 TU1에서 print함수를 호출하면 <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">value</span></code>는 변하지 않아서 1이고, <code class="docutils literal notranslate"><span class="pre">inline</span> <span class="pre">value</span></code>는 변한 값이 반영되서 2가 나온다.</p>
+<p>즉, static 변수는 TU마다 독립적으로 존재하는 반면 inline 변수는 global 변수와 같이 유일하게 존재하고 각 TU에서 발생하는 변화에 모두 영향을 받는다.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -873,20 +1303,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html"
+       href="SIMD.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Heat Conducting in Bar</p>
+        <p class="prev-next-title">SIMD</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Build/Build.html"
+       href="Storage%20Class%20Specifier.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Build</p>
+        <p class="prev-next-title">Storage Class Specifier</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -896,6 +1326,43 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">static 전역 변수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-extern">static과 extern</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-initialization">Constant initialization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-data-members">Static Data Members</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-data-member">static data member</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#const-static-data-member">Const static data member</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constexpr-static-data-member-since-c-11">Constexpr static data member(since C++11)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inline-static-data-member-since-c-17">Inline static data member(since C++17)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-const-member-function">In const member function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">static 멤버 함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-static">static 멤버 함수의 정의와 static 키워드</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-vs-inline">Static vs Inline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">예제1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">예제2</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

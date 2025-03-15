@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>C++ &#8212; MS Study Book</title>
+    <title>Forward Declaration &#8212; MS Study Book</title>
   
   
   
@@ -61,14 +61,12 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/C++';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/Forward Declaration';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Build" href="01%20Build/Build.html" />
-    <link rel="prev" title="Heat Conducting in Bar" href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html" />
+    <link rel="next" title="Google Benchmark" href="Google%20Benchmark.html" />
+    <link rel="prev" title="Enum" href="Enum.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -433,7 +431,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="C%2B%2B.html">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="01%20Build/Build.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/02%20Compile.html">Compile</a></li>
@@ -480,7 +478,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Class.html">Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="concept.html">concept</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Enum.html">Enum</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Forward%20Declaration.html">Forward Declaration</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Forward Declaration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Google%20Benchmark.html">Google Benchmark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Hash.html">Hash</a></li>
 <li class="toctree-l2"><a class="reference internal" href="hpp.html">hpp</a></li>
@@ -748,7 +746,7 @@
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/01 C++/C++.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/01 C++/Forward Declaration.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -811,7 +809,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -822,11 +822,27 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>C++</h1>
+    <h1>Forward Declaration</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-time-dependecy-reduction">Compile Time Dependecy Reduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">주의사항</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pimpl-with-unique-ptr">Pimpl with Unique_ptr</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-constructor">default constructor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-destructor">default destructor</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -836,10 +852,128 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="c">
-<h1>C++<a class="headerlink" href="#c" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="forward-declaration">
+<h1>Forward Declaration<a class="headerlink" href="#forward-declaration" title="Link to this heading">#</a></h1>
+<section id="compile-time-dependecy-reduction">
+<h2>Compile Time Dependecy Reduction<a class="headerlink" href="#compile-time-dependecy-reduction" title="Link to this heading">#</a></h2>
+<p>다음 예제 코드를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//B.h</span>
+
+<span class="c1">// forward declaration</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">B</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">);</span>
+<span class="w">    </span><span class="n">A</span><span class="w">    </span><span class="nf">func2</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//B.cpp</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;A.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;B.h&quot;</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">B</span><span class="o">::</span><span class="n">func</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">){</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">};</span>
+</pre></div>
 </div>
+<p>위와 같이 함수의 return 값이나 input 값으로 사용하는 경우 <code class="docutils literal notranslate"><span class="pre">전방선언(forward</span> <span class="pre">declaration)</span></code>만으로 충분하다. 전방선언을 사용한 경우 B.h에서 #include를 할 필요가 없어진다.</p>
+<p>대신에 함수를 정의하는 B.cpp 파일에서는 #include A.h를 통해 A의 정의를 알아야 한다.</p>
+<p>단, 객체로 변수를 가지고 있는 경우 전반선언으로 컴파일 의존성을 줄일 수 없다. 다음 예제 코드를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//B.h</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">B</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">);</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">    </span><span class="c1">//error!</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>이는 컴파일 시간에 A 객체의 크기를 알아야 B 객체의 크기를 결정하는데 A 객체의 정의부가 제공되어 있지 않기 때문이다.</p>
+<section id="id1">
+<h3>주의사항<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>cpp에서 header file을 include할 때, header에 forward declaration을 확인하고 현재 cpp에서 전부 include 되어있는지 확인해야한다.</p>
+<p>또한, header file이 include하고 있는 header file의 forward declaration도 반드시 확인해야 된다.</p>
+</section>
+</section>
+<section id="pimpl-with-unique-ptr">
+<h2>Pimpl with Unique_ptr<a class="headerlink" href="#pimpl-with-unique-ptr" title="Link to this heading">#</a></h2>
+<p>다음 예제 코드를 보자</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//A.h</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">{};</span>
+
+<span class="c1">//B.h</span>
+<span class="cp">#pragma once</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">B</span>
+<span class="p">{</span><span class="w">	</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">//B(void);</span>
+<span class="w">    </span><span class="c1">//~B(void);</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">	</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">//B.cpp</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;B.h&quot;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;A.h&quot;</span>
+<span class="c1">//B::B(void)=default;</span>
+<span class="c1">//B::~B(void)=default;</span>
+
+<span class="c1">//main.cpp</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;B.h&quot;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="n">B</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>위 코드는 <code class="docutils literal notranslate"><span class="pre">memory.h</span></code>에서 incomplete type을 delete할 수 없다는 error가 발생한다.</p>
+<p>error는 default constructor과 default destructor 때문에 발생한다.</p>
+<section id="default-constructor">
+<h3>default constructor<a class="headerlink" href="#default-constructor" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">b</span></code>가 생성되는 순간을 생각해보자. <code class="docutils literal notranslate"><span class="pre">B</span></code>에 constructor가 없기 때문에 inline default constructor가 생길것이다. 그리고 inline default constructor에서는 <code class="docutils literal notranslate"><span class="pre">B</span></code>의 멤버 변수들의 default constructor를 호출할 것이다(<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">std::unique_ptr&lt;A&gt;();</span></code>). 하지만 class <code class="docutils literal notranslate"><span class="pre">A</span></code>는 forward declaration만 되어 있을 뿐, 그 정의를 알 수 없기 때문에 complie error가 발생한다.</p>
+<p>따라서, B.h에 <code class="docutils literal notranslate"><span class="pre">B</span></code>의 생성자를 선언하고 B.cpp에 <code class="docutils literal notranslate"><span class="pre">B</span></code>의 생성자를 정의하면 <code class="docutils literal notranslate"><span class="pre">B</span></code>의 생성자가 호출될 때 <code class="docutils literal notranslate"><span class="pre">A</span></code>를 알고 있을 수 있게되고 default constructor 문제가 해결된다.</p>
+<p>하지만 문제가 전부 해결된 것은 아니다.</p>
+</section>
+<section id="default-destructor">
+<h3>default destructor<a class="headerlink" href="#default-destructor" title="Link to this heading">#</a></h3>
+<p>이번에는 <code class="docutils literal notranslate"><span class="pre">b</span></code>가 소멸되는 순간을 생각해보자. <code class="docutils literal notranslate"><span class="pre">B</span></code>에 destructor가 없기 때문에 inline default destructor가 호출될 것이고 inline default destructor는 <code class="docutils literal notranslate"><span class="pre">B</span></code>의 멤버 변수들의 default destructor를 호출할 것이다.</p>
+<p>memory에 있는 default destructor의 코드는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">_Ty</span><span class="o">&gt;</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">default_delete</span>
+<span class="p">{</span><span class="w">	</span><span class="c1">// default deleter for unique_ptr</span>
+<span class="w">	</span><span class="k">constexpr</span><span class="w"> </span><span class="n">default_delete</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+
+<span class="w">	</span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">_Ty2</span><span class="p">,</span><span class="w"> </span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">is_convertible_v</span><span class="o">&lt;</span><span class="n">_Ty2</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">_Ty</span><span class="w"> </span><span class="o">*&gt;</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="o">&gt;</span>
+<span class="w">	</span><span class="n">default_delete</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">default_delete</span><span class="o">&lt;</span><span class="n">_Ty2</span><span class="o">&gt;&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span>
+<span class="w">	</span><span class="p">{</span><span class="w">	</span><span class="c1">// construct from another default_delete</span>
+<span class="w">	</span><span class="p">}</span>
+
+<span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="k">operator</span><span class="p">()(</span><span class="n">_Ty</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">_Ptr</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span>
+<span class="w">	</span><span class="p">{</span><span class="w">	</span><span class="c1">// delete a pointer</span>
+<span class="w">		</span><span class="k">static_assert</span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">_Ty</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;can&#39;t delete an incomplete type&quot;</span><span class="p">);</span>
+<span class="w">		</span><span class="k">delete</span><span class="w"> </span><span class="n">_Ptr</span><span class="p">;</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>operator()를 통해 _Ty 타입의 pointer에 delete를 호출하는 역활을 하는데 이 때, _Ty가 incomplete type이 아니여야 한다.</p>
+<p>하지만 default destructor가 호출될 때, class <code class="docutils literal notranslate"><span class="pre">A</span></code>는 forward declaration만 되어 있을 뿐, 그 정의를 알 수 없기 때문에 complie error가 발생한다.</p>
+<p>따라서, B.h에 <code class="docutils literal notranslate"><span class="pre">B</span></code>의 소멸자를 선언하고 B.cpp에 <code class="docutils literal notranslate"><span class="pre">B</span></code>의 소멸자를 정의하면 <code class="docutils literal notranslate"><span class="pre">B</span></code>의 소멸자가 호출될 때 <code class="docutils literal notranslate"><span class="pre">A</span></code>를 알고 있을 수 있게되고 default destructor 문제가 해결된다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://ozt88.tistory.com/32">blog1</a>
+<a class="reference external" href="https://gomgomi.tistory.com/5">blog2</a>
+<a class="reference external" href="https://stackoverflow.com/questions/42416776/pimpl-with-unique-ptr-why-do-i-have-to-move-definition-of-constructor-of-inter">stackoverflow</a></p>
+</div></blockquote>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -873,20 +1007,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html"
+       href="Enum.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Heat Conducting in Bar</p>
+        <p class="prev-next-title">Enum</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Build/Build.html"
+       href="Google%20Benchmark.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Build</p>
+        <p class="prev-next-title">Google Benchmark</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -896,6 +1030,30 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-time-dependecy-reduction">Compile Time Dependecy Reduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">주의사항</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pimpl-with-unique-ptr">Pimpl with Unique_ptr</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-constructor">default constructor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-destructor">default destructor</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

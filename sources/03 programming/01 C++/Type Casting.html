@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>C++ &#8212; MS Study Book</title>
+    <title>Type Casting &#8212; MS Study Book</title>
   
   
   
@@ -61,14 +61,12 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/C++';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/Type Casting';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Build" href="01%20Build/Build.html" />
-    <link rel="prev" title="Heat Conducting in Bar" href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html" />
+    <link rel="next" title="Using" href="Using.html" />
+    <link rel="prev" title="Top-level cv-qualifiers" href="Top-level%20cv-qualifiers.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -433,7 +431,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="C%2B%2B.html">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="01%20Build/Build.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/02%20Compile.html">Compile</a></li>
@@ -507,7 +505,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Template.html">Template</a></li>
 <li class="toctree-l2"><a class="reference internal" href="thread_local.html">thread_local</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Type%20Casting.html">Type Casting</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Type Casting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Using.html">Using</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Value%20Category.html">Value Category</a></li>
 </ul>
@@ -748,7 +746,7 @@
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/01 C++/C++.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/01 C++/Type Casting.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -811,7 +809,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -822,11 +822,26 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>C++</h1>
+    <h1>Type Casting</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-cast">static_cast</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reinterpret-cast">reinterpret_cast</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c-style-casting">C Style casting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#const-cast">const_cast</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pointer-cast">pointer_cast</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -836,10 +851,121 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="c">
-<h1>C++<a class="headerlink" href="#c" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="type-casting">
+<h1>Type Casting<a class="headerlink" href="#type-casting" title="Link to this heading">#</a></h1>
+<section id="static-cast">
+<h2>static_cast<a class="headerlink" href="#static-cast" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">static_cast&lt;T&gt;(val)</span></code>은 <code class="docutils literal notranslate"><span class="pre">val</span></code>의 <code class="docutils literal notranslate"><span class="pre">T</span></code>로의 형 변환 함수를 호출한다고 볼 수 있다.</p>
+<p>따라서, bit 단위로 보면 전혀 다른 <code class="docutils literal notranslate"><span class="pre">5.0f</span></code>와 <code class="docutils literal notranslate"><span class="pre">5</span></code>를 변환해 줄 수 있는 것이다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">f</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w">   </span><span class="n">i</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">);</span><span class="w">   </span><span class="c1">// i=5</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w"> </span><span class="c1">// f2=5.0</span>
+</pre></div>
 </div>
+<p>그래서 사용자 정의 타입과 같은 경우에는 형 변환 함수가 없을 경우 static_cast에서 적절한 변환 함수가 없다는 오류가 발생한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">My_Int</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">Num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">My_Float</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">Num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0f</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">My_Int</span><span class="w">   </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">5</span><span class="p">};</span>
+<span class="w">  </span><span class="n">My_Float</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">5.0</span><span class="p">};</span>
+<span class="w">  </span><span class="c1">//My_Int i2 = { static_cast&lt;My_Int&gt;(f) }; // &quot;My_Float&quot;에서 &quot;int&quot;(으)로의 적절한 변환 함수가 없습니다.</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>그리고 결국 함수를 호출하는 것과 같기 때문에 컴파일 타임에 타입 체크를 수행하여 잘못된 변환을 방지할 수 있다.</p>
+<p>잘못된 변환의 예시는 다음과 같다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="c1">// different byte size</span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="c1">// 1 byte</span>
+<span class="w">  </span><span class="c1">// int* p = static_cast&lt;int*&gt;(&amp;c); // 4 bytes</span>
+
+<span class="w">  </span><span class="c1">// type casting between pointer and integer</span>
+<span class="w">  </span><span class="kt">int64_t</span><span class="w">  </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">//int64_t* p = static_cast&lt;int64_t*&gt;(i); // error</span>
+<span class="w">  </span><span class="c1">//int64_t address = static_cast&lt;int64_t&gt;(&amp;i); // error</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://blog.naver.com/wkdghcjf1234/220210906503">blog</a></p>
+</div></blockquote>
+</section>
+<section id="reinterpret-cast">
+<h2>reinterpret_cast<a class="headerlink" href="#reinterpret-cast" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">reinterpret_cast&lt;T*&gt;(adress)</span></code>는 주어진 주소 <code class="docutils literal notranslate"><span class="pre">adress</span></code>을 <code class="docutils literal notranslate"><span class="pre">T</span></code> 타입의 변수의 시작 주소로 인식하라는 말이다.</p>
+<p>따라서, static_cast와 다르게 동작하게 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w">   </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">f</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1084227584</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://blog.naver.com/wkdghcjf1234/220210906503">blog</a></p>
+</div></blockquote>
+<section id="id1">
+<h3>참고<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">reinterpret_cast&lt;T&amp;&gt;(val)</span></code>는 <code class="docutils literal notranslate"><span class="pre">val</span></code>을 <code class="docutils literal notranslate"><span class="pre">T</span></code> 타입의 변수의 시작 주소로 인식하라는 말이다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w">   </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1084227584</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="c-style-casting">
+<h2>C Style casting<a class="headerlink" href="#c-style-casting" title="Link to this heading">#</a></h2>
+<p>C style casting의 경우, static_cast가 되는 상황에서는 stataic_cast처럼 static_cast가 안되는 경우에는 reinterpret_cast처럼 동작한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//static_cast</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">val</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mf">5.0</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w">   </span><span class="n">val1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">val</span><span class="p">);</span>
+<span class="w">  </span><span class="kt">int</span><span class="w">   </span><span class="n">val2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+<span class="w">  </span><span class="kt">int</span><span class="w">   </span><span class="n">val3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">val</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">//val1 == val2 != val3</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//reinterpret_cast</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
+<span class="w">  </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">//int* p3 = static_cast&lt;int*&gt;(&amp;c); compile error</span>
+
+<span class="w">  </span><span class="c1">//p1 == p2</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="const-cast">
+<h2>const_cast<a class="headerlink" href="#const-cast" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://hwan-shell.tistory.com/215">blog</a></p>
+</div></blockquote>
+</section>
+<section id="pointer-cast">
+<h2>pointer_cast<a class="headerlink" href="#pointer-cast" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/memory/shared_ptr/pointer_cast">cppreference</a></p>
+</div></blockquote>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -873,20 +999,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html"
+       href="Top-level%20cv-qualifiers.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Heat Conducting in Bar</p>
+        <p class="prev-next-title">Top-level cv-qualifiers</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Build/Build.html"
+       href="Using.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Build</p>
+        <p class="prev-next-title">Using</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -896,6 +1022,29 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-cast">static_cast</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reinterpret-cast">reinterpret_cast</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c-style-casting">C Style casting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#const-cast">const_cast</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pointer-cast">pointer_cast</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

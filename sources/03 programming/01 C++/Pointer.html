@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>C++ &#8212; MS Study Book</title>
+    <title>Pointer &#8212; MS Study Book</title>
   
   
   
@@ -61,14 +61,12 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/C++';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/Pointer';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Build" href="01%20Build/Build.html" />
-    <link rel="prev" title="Heat Conducting in Bar" href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html" />
+    <link rel="next" title="Polymorphism" href="Polymorphism.html" />
+    <link rel="prev" title="POD (Plain Old Data)" href="POD.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -433,7 +431,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="C%2B%2B.html">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="01%20Build/Build.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/02%20Compile.html">Compile</a></li>
@@ -494,7 +492,7 @@
 <li class="toctree-l2"><a class="reference internal" href="One%20Definition%20Rule.html">One Definition Rule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Performance.html">Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="POD.html">POD (Plain Old Data)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Pointer.html">Pointer</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Pointer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Polymorphism.html">Polymorphism</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Pragma.html">Pragma</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Preprocessor%20Directives.html">Preprocessor Directives</a></li>
@@ -748,7 +746,7 @@
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/01 C++/C++.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/01 C++/Pointer.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -811,7 +809,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -822,11 +822,23 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>C++</h1>
+    <h1>Pointer</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pointer-type-hierarchy">Pointer Type Hierarchy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pointer-as-function-input-argument">Pointer as Function Input Argument</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Pointer끼리 대입연산</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-constexpr-pointer">static constexpr pointer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-pointer">Function Pointer</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -836,10 +848,156 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="c">
-<h1>C++<a class="headerlink" href="#c" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="pointer">
+<h1>Pointer<a class="headerlink" href="#pointer" title="Link to this heading">#</a></h1>
+<section id="pointer-type-hierarchy">
+<h2>Pointer Type Hierarchy<a class="headerlink" href="#pointer-type-hierarchy" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">T*</span> <span class="pre">u</span></code>의 타입은 pointer to T이다.</p>
+<p>이 때, 타입은 2개의 계층으로 이루어져 있으며 첫번째 계층은 pointer 그리고 두번째 계층은 T이다.</p>
+<p>그리고 C++에서는 cv-qualifier가 다른 계층에 각각 나타날 수 있다.</p>
+<p>예를 들어 <code class="docutils literal notranslate"><span class="pre">T*</span> <span class="pre">const</span> <span class="pre">u</span></code>의 타입은 const pointer to T이다. 즉, 여기서는 첫번째 계층에서 cv-qualifer가 나타난 경우이다.</p>
+<p>그리고 <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">T*</span> <span class="pre">u</span></code>의 타입은 pointer to const T이다. 즉, 여기서는 두번째 계층에 cv-qualifier가 나타난 경우이다.</p>
+<p>그리고 reference는 top-level cv-qualifiers를 갖지 않는다.(<a class="reference external" href="https://eel.is/c++draft/basic.type.qualifier">standard</a>, <a class="reference external" href="https://en.cppreference.com/w/cpp/language/reference">cppreference</a>)</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="http://www.dansaks.com/articles/2000-02%20Top-Level%20cv-Qualifiers%20in%20Function%20Parameters.pdf">Dan saks - Top-Level cv-Qualifiers in Function Parameters</a><br />
+<a class="reference external" href="https://stackoverflow.com/questions/24676824/where-is-the-definition-of-top-level-cv-qualifiers-in-the-c11-standard">stackoverflow - where-is-the-definition-of-top-level-cv-qualifiers-in-the-c11-standard</a><br />
+<a class="reference external" href="https://blog.knatten.org/2023/03/17/references-dont-have-top-level-cv-qualifiers/">blog - references-dont-have-top-level-cv-qualifiers</a>
+<a class="reference external" href="https://eel.is/c++draft/basic.type.qualifier">standard - basic.type.qualifier</a><br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/reference">cpprefenrece - reference</a></p>
+</div></blockquote>
+</section>
+<section id="pointer-as-function-input-argument">
+<h2>Pointer as Function Input Argument<a class="headerlink" href="#pointer-as-function-input-argument" title="Link to this heading">#</a></h2>
+<p>Pointer를 함수에 input으로 주었을 때, 함수 내부에 변화가 반영이 된다고 햇갈리지 않게 조심해야 한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">input_ptr</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">new_ptr</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">A</span><span class="p">();</span>
+<span class="w">  </span><span class="n">input_ptr</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="n">new_ptr</span><span class="p">;</span>
+<span class="w">  </span><span class="n">input_ptr</span><span class="o">-&gt;</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">  </span><span class="n">func</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr</span><span class="o">-&gt;</span><span class="n">val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="c1">// nullptr read access error!</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 </div>
+<p>위 예시의 경우에는 <code class="docutils literal notranslate"><span class="pre">func</span></code>이 호출된 이후에도 ptr은 계속 nullptr이기 때문에 읽기 위반 오류가 발생한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">func</span></code>에 인자로 주어진 ptr과 <code class="docutils literal notranslate"><span class="pre">func</span></code> 내부에 정의된 input_ptr은 다른 pointer이다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">func</span></code> 내부에 정의된 input_ptr은 ptr을 복사해서 만든 다른 pointer일 뿐이다.</p>
+<p>따라서, input_ptr에 new_ptr을 대입하여도, ptr은 여전히 nullptr이고 그래서 읽기 위반 오류가 발생하는 것이다.</p>
+<p>이를 해결하려면 이중포인터나, 레퍼런스를 활용하면 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">func_ref</span><span class="p">(</span><span class="n">A</span><span class="o">*&amp;</span><span class="w"> </span><span class="n">input_ptr</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">new_ptr</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">A</span><span class="p">();</span>
+<span class="w">  </span><span class="n">input_ptr</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="n">new_ptr</span><span class="p">;</span>
+<span class="w">  </span><span class="n">input_ptr</span><span class="o">-&gt;</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">func_pptr</span><span class="p">(</span><span class="n">A</span><span class="o">**</span><span class="w"> </span><span class="n">input_ptr</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">new_ptr</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">A</span><span class="p">();</span>
+<span class="w">  </span><span class="o">*</span><span class="n">input_ptr</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">new_ptr</span><span class="p">;</span>
+<span class="w">  </span><span class="p">(</span><span class="o">*</span><span class="n">input_ptr</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">  </span><span class="n">func_ref</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr</span><span class="o">-&gt;</span><span class="n">val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">ptr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">  </span><span class="n">func_pptr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ptr2</span><span class="p">);</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr2</span><span class="o">-&gt;</span><span class="n">val</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h2>Pointer끼리 대입연산<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Pointer끼리 대입연산을 하면 다른 포인터가 가르키는 주소값을 가지게 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span>
+<span class="p">{};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">A</span>
+<span class="p">{};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">B</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">B</span><span class="p">();</span>
+<span class="w">  </span><span class="n">A</span><span class="o">*</span><span class="w"> </span><span class="n">ptr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="w">   </span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;ptr:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w">   </span><span class="c1">//ptr:000002C770D665B0</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;ptr2:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr2</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">//ptr2:0000000000000000</span>
+
+<span class="w">  </span><span class="n">ptr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">A</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;ptr:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w">   </span><span class="c1">//ptr:000002C770D665B0</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;ptr2:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr2</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">//ptr2:000002C770D665B0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="static-constexpr-pointer">
+<h2>static constexpr pointer<a class="headerlink" href="#static-constexpr-pointer" title="Link to this heading">#</a></h2>
+<p>class 내부에서 다음과 같이 정적멤버변수를 초기화 하려고 하면 오류가 발생한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">wchar_t</span><span class="o">*</span><span class="w"> </span><span class="n">class_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;MSGraphics&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>이는 <code class="docutils literal notranslate"><span class="pre">L&quot;MSGraphics&quot;</span></code>의 타입은 <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">wchar_t*</span></code>인데 <code class="docutils literal notranslate"><span class="pre">constexpr</span> <span class="pre">wchar_t*</span></code>의 타입은 <code class="docutils literal notranslate"><span class="pre">wchar_t*</span> <span class="pre">const</span></code>이기 때문이다.</p>
+<p>따라서 이를 해결하기 위해서는 다음과 같이 초기화하면 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">wchar_t</span><span class="o">*</span><span class="w"> </span><span class="n">class_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;MSGraphics&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="function-pointer">
+<h2>Function Pointer<a class="headerlink" href="#function-pointer" title="Link to this heading">#</a></h2>
+<p>functino call</p>
+<p>A pointer to function can be used as the left-hand operand of the function call operator, this invokes the pointed-to function:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="w"> </span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">)(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/pointer#Pointers_to_functions">cppreference - Pointers_to_functions</a></p>
+</div></blockquote>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -873,20 +1031,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html"
+       href="POD.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Heat Conducting in Bar</p>
+        <p class="prev-next-title">POD (Plain Old Data)</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Build/Build.html"
+       href="Polymorphism.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Build</p>
+        <p class="prev-next-title">Polymorphism</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -896,6 +1054,26 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pointer-type-hierarchy">Pointer Type Hierarchy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pointer-as-function-input-argument">Pointer as Function Input Argument</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Pointer끼리 대입연산</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#static-constexpr-pointer">static constexpr pointer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-pointer">Function Pointer</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

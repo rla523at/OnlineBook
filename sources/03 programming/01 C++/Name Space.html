@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>C++ &#8212; MS Study Book</title>
+    <title>Namespace &#8212; MS Study Book</title>
   
   
   
@@ -61,14 +61,12 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/C++';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/Name Space';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Build" href="01%20Build/Build.html" />
-    <link rel="prev" title="Heat Conducting in Bar" href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html" />
+    <link rel="next" title="new" href="new.html" />
+    <link rel="prev" title="Multi thread" href="Multi%20Thread.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -433,7 +431,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="C%2B%2B.html">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="01%20Build/Build.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/02%20Compile.html">Compile</a></li>
@@ -489,7 +487,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Keyword.html">Keyword</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Lambda%20Expression.html">Lambda Expression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Multi%20Thread.html">Multi thread</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Name%20Space.html">Namespace</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Namespace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="new.html">new</a></li>
 <li class="toctree-l2"><a class="reference internal" href="One%20Definition%20Rule.html">One Definition Rule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Performance.html">Performance</a></li>
@@ -748,7 +746,7 @@
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/01 C++/C++.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/01 C++/Name Space.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -811,7 +809,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -822,11 +822,27 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>C++</h1>
+    <h1>Namespace</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using">Using</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">using</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-namepsace">using namepsace</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">주의사항</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anonymous-namespace">Anonymous Namespace</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -836,10 +852,177 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="c">
-<h1>C++<a class="headerlink" href="#c" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="namespace">
+<h1>Namespace<a class="headerlink" href="#namespace" title="Link to this heading">#</a></h1>
+<p>다음 예제 코드를 보자.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">A</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;A namespace</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">B</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;B namespace</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;global namespace</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span><span class="w">	</span>
+<span class="w">	</span><span class="n">A</span><span class="o">::</span><span class="n">func</span><span class="p">();</span><span class="w">	</span><span class="c1">//A namespace</span>
+<span class="w">	</span><span class="n">B</span><span class="o">::</span><span class="n">func</span><span class="p">();</span><span class="w">	</span><span class="c1">//B namespace</span>
+<span class="w">	</span><span class="n">func</span><span class="p">();</span><span class="w">		</span><span class="c1">//current namespace = global namespace</span>
+<span class="w">	</span><span class="o">::</span><span class="n">func</span><span class="p">();</span><span class="w">	</span><span class="c1">//global namespace	</span>
+<span class="p">}</span>
+</pre></div>
 </div>
+<p>특정 namespace에 있는 함수를 호출하고 싶은 경우, <code class="docutils literal notranslate"><span class="pre">[namespace</span> <span class="pre">name]::[function</span> <span class="pre">name]</span></code>형태로 코드를 작성하면 된다.</p>
+<p>만약, [namespace name]::없이 <code class="docutils literal notranslate"><span class="pre">[function</span> <span class="pre">name]</span></code>형태로 작성할 경우 current namespace에 있는 함수가 호출되며, 별다른 선언이 안되어 있는 경우 global namespace가 된다.</p>
+<p>namespace만 없이 <code class="docutils literal notranslate"><span class="pre">::[function</span> <span class="pre">name]</span></code>형태로 코드를 작성할 경우 global namespace에 있는 함수가 호출된다.</p>
+<section id="using">
+<h2>Using<a class="headerlink" href="#using" title="Link to this heading">#</a></h2>
+<p>매번 <code class="docutils literal notranslate"><span class="pre">[namespace</span> <span class="pre">name]::</span></code>을 적어주는 것이 귀찮을 수 있다.</p>
+<p>이때는 using이라는 keyword를 사용하면 된다.</p>
+<section id="id1">
+<h3>using<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>아래 예시 코드를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">A</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;A namespace</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">B</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;B namespace</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;global namespace</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span><span class="w">	</span>
+<span class="w">	</span><span class="n">func</span><span class="p">();</span><span class="w">			</span><span class="c1">//global namespace</span>
+
+<span class="w">	</span><span class="k">using</span><span class="w"> </span><span class="n">A</span><span class="o">::</span><span class="n">func</span><span class="p">;</span>
+<span class="w">	</span><span class="n">func</span><span class="p">();</span><span class="w">			</span><span class="c1">//A namespace	</span>
+<span class="w">	</span><span class="o">::</span><span class="n">func</span><span class="p">();</span><span class="w">		</span><span class="c1">//global namespace	</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>위와 같이 using keyword를 사용하는 경우 해당 이름의 함수를 current namespace로 가져온다.</p>
+<p>따라서, using keyword를 사용한 후에는 current namespace에 있는 <code class="docutils literal notranslate"><span class="pre">func()</span></code>는 <code class="docutils literal notranslate"><span class="pre">A::func()</span></code>가 된다.</p>
+</section>
+<section id="using-namepsace">
+<h3>using namepsace<a class="headerlink" href="#using-namepsace" title="Link to this heading">#</a></h3>
+<p>아래 예시 코드를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">A</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;A namespace</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span><span class="w">	</span>
+<span class="w">	</span><span class="c1">//func(); 	//Error! current namespace에 func() 함수가 없음!</span>
+
+<span class="w">	</span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">A</span><span class="p">;</span>
+<span class="w">	</span><span class="n">func</span><span class="p">();</span><span class="w">		</span><span class="c1">//A::func()가 호출됨</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">test</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="c1">//func(); Error! current namespace is not A</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>위와 같이 using namespace keyword를 사용하면 current namespace를 A로 바꿔줄 수 있다.</p>
+<p>using 선언의 범위는 대괄호 안으로 한정된다.</p>
+<p>아래와 같이 using이 대괄호로 밖에 있는 경우, using 선언의 범위는 전체 TU로 확장된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">namespace</span><span class="w"> </span><span class="nn">A</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;A namespace</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">A</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span><span class="w">	</span>
+<span class="w">	</span><span class="n">func</span><span class="p">();</span><span class="w">	</span><span class="c1">//A::func() 호출</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="n">func</span><span class="p">();</span><span class="w"> </span><span class="c1">//A::func() 호출</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="id2">
+<h4>주의사항<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<p>아래 예시 코드를 보자.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">A</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;A namespace</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;global namespace</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">A</span><span class="p">;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span><span class="w">	</span>
+<span class="w">	</span><span class="c1">//func();	// Error! function name 충돌!</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>using namespace keyword를 대괄호 밖에서 사용하는 경우, 위의 예시처럼 언제 name 충돌이 발생할지 모른다.</p>
+<p>따라서, 간단한 코드가 아니라면 namespace를 다 적어주는것이 좋다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://nerdooit.github.io/2020/09/08/cpp_book_2.html">Blog</a></p>
+</div></blockquote>
+</section>
+</section>
+</section>
+<section id="anonymous-namespace">
+<h2>Anonymous Namespace<a class="headerlink" href="#anonymous-namespace" title="Link to this heading">#</a></h2>
+<p>아래 예시 코드를 보자</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//cpp1</span>
+<span class="k">namespace</span>
+<span class="p">{</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{};</span>
+<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">test2</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="c1">//cpp2</span>
+<span class="k">namespace</span>
+<span class="p">{</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{};</span>
+<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">test2</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{};</span>
+</pre></div>
+</div>
+<p>anonymous namespace는 파일 내에서 고유한 namespace 이름을 갖는다.</p>
+<p>따라서 cpp1에 test는 <code class="docutils literal notranslate"><span class="pre">[uniquecpp1]::test()</span></code>가 되고 cpp2에 test2는 <code class="docutils literal notranslate"><span class="pre">[uniquecpp2]::test()</span></code>가 된다.</p>
+<p>그럼으로 <code class="docutils literal notranslate"><span class="pre">test2()</span></code>의 경우 ODR에 위배되지만 <code class="docutils literal notranslate"><span class="pre">test()</span></code>는 ODR에 위반되지 않는다.</p>
+<p>따라서, anonymous namespace 는 cpp 에서만 정의되는 무언가를 나타내기 위해 static 을 사용하는 것 보다 더 나은 선택지가 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// static constexpr int value_for_this_cpp = 523;</span>
+<span class="c1">// static void function_for_this_cpp(void){};</span>
+
+<span class="k">namespace</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">value_for_this_cpp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">523</span><span class="p">;</span>
+<span class="w">	</span><span class="kt">void</span><span class="w"> </span><span class="nf">function_for_this_cpp</span><span class="p">(</span><span class="kt">void</span><span class="p">){};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/namespace">cppreference</a><br />
+<a class="reference external" href="https://stackoverflow.com/questions/4977252/why-an-unnamed-namespace-is-a-superior-alternative-to-static">stackoverflow - why-an-unnamed-namespace-is-a-superior-alternative-to-static</a></p>
+</div></blockquote>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -873,20 +1056,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html"
+       href="Multi%20Thread.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Heat Conducting in Bar</p>
+        <p class="prev-next-title">Multi thread</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Build/Build.html"
+       href="new.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Build</p>
+        <p class="prev-next-title">new</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -896,6 +1079,30 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using">Using</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">using</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-namepsace">using namepsace</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">주의사항</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anonymous-namespace">Anonymous Namespace</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

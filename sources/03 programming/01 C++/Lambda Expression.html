@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>C++ &#8212; MS Study Book</title>
+    <title>Lambda Expression &#8212; MS Study Book</title>
   
   
   
@@ -61,14 +61,12 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/C++';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/01 C++/Lambda Expression';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Build" href="01%20Build/Build.html" />
-    <link rel="prev" title="Heat Conducting in Bar" href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html" />
+    <link rel="next" title="Multi thread" href="Multi%20Thread.html" />
+    <link rel="prev" title="Keyword" href="Keyword.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -433,7 +431,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">programming</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="C%2B%2B.html">C++</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 has-children"><a class="reference internal" href="01%20Build/Build.html">Build</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/01%20PreProcessing.html">Preprocessing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20Build/02%20Compile.html">Compile</a></li>
@@ -487,7 +485,7 @@
 <li class="toctree-l2"><a class="reference internal" href="Initialization.html">initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inline.html">inline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Keyword.html">Keyword</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Lambda%20Expression.html">Lambda Expression</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lambda Expression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Multi%20Thread.html">Multi thread</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Name%20Space.html">Namespace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="new.html">new</a></li>
@@ -748,7 +746,7 @@
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/01 C++/C++.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/01 C++/Lambda Expression.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -811,7 +809,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -822,11 +822,24 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>C++</h1>
+    <h1>Lambda Expression</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-of-a-lambda-expression">Structure of a Lambda Expression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capture">Capture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#params">Params</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trailing-type">Trailing-type</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -836,10 +849,232 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="c">
-<h1>C++<a class="headerlink" href="#c" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="lambda-expression">
+<h1>Lambda Expression<a class="headerlink" href="#lambda-expression" title="Link to this heading">#</a></h1>
+<p>Lambda expression이란 C++11에 추가된 기술로 한마디로 말하자면 이름 없는 함수를 만들어 내는 표현식이다. Lambda expression으로부터 런타임에 객체가 생성되며 이를 <code class="docutils literal notranslate"><span class="pre">클로져(closure)</span></code>라고 한다. 이 때, closure는 <code class="docutils literal notranslate"><span class="pre">함수</span> <span class="pre">객체(Functor)</span></code>처럼 동작하며 그 동작은 lambda expression을 따른다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://modoocode.com/196">modoocode - 씹어먹는 C++ 토막글 ② - 람다(lambda) 함수</a><br />
+<a class="reference external" href="https://lunchballer.com/archives/284">lunchballer - [C++] 클로져(Closures)가 그래서 무엇인가요</a></p>
+</div></blockquote>
+<section id="structure-of-a-lambda-expression">
+<h2>Structure of a Lambda Expression<a class="headerlink" href="#structure-of-a-lambda-expression" title="Link to this heading">#</a></h2>
+<figure class="align-default">
+<img alt="../../../_images/2301.png" src="../../../_images/2301.png" />
+</figure>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/lambda">cppreference - lambda</a><br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/lambda#Explanation">cppreference - lambda#Explanation</a></p>
+</div></blockquote>
+<section id="capture">
+<h3>Capture<a class="headerlink" href="#capture" title="Link to this heading">#</a></h3>
+<p>capture는 <code class="docutils literal notranslate"><span class="pre">,</span></code>로 구분된 list로 lambda function body에서 접근 가능한 외부 변수들을 정의한다.</p>
+<p>외부 변수들 앞에 아무표시도 없으면 동일한 이름을 갖은 객체가 const copy로 생성되며 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>를 사용할 경우 동일한 이름을 갖는 reference가 생성된다.</p>
+<p>만약 외부 변수를 함수내에서 수정할 일이 없어서 const로 받고 싶다면 다음과 같은 방법들이 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">A</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">non_const_func</span><span class="p">(</span><span class="kt">void</span><span class="p">){};</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">const_func</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{};</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+
+<span class="w">  </span><span class="p">[</span><span class="n">a</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// a.non_const_func(); // const특성을 갖지만 복사가 발생함</span>
+<span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">const_func</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}();</span>
+
+<span class="w">  </span><span class="p">[</span><span class="o">&amp;</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">as_const</span><span class="p">(</span><span class="n">a</span><span class="p">)]()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// a.non_const_func(); // const 특성을 갖음</span>
+<span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">const_func</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}();</span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">  </span><span class="p">[</span><span class="o">&amp;</span><span class="n">ca</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ca.non_const_func(); // const 특성을 갖음</span>
+<span class="w">    </span><span class="n">ca</span><span class="p">.</span><span class="n">const_func</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}();</span>
+<span class="p">}</span>
+</pre></div>
 </div>
+<p>경우에 따라 외부 변수 없이 capture-default <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>와 <code class="docutils literal notranslate"><span class="pre">=</span></code>로 시작할 수 있다.</p>
+<p>capture-default로 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>를 사용하는 경우 현재 automatic sotrage duration을 갖는 모든 변수들의 reference를 정의한다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture1</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="n">f</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span><span class="w"> </span><span class="c1">// original val is changed to 20</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>그리고 capture-default로 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>를 사용하는 경우, 이후에 이어지는 capture들은 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>로 시작하면 안된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture4</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">val2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">//Error : If the capture-default is &amp;, subsequent simple captures must not begin with &amp;</span>
+<span class="w">  </span><span class="c1">//auto g = [&amp;, &amp;val2]() { val = 20; };</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">,</span><span class="w"> </span><span class="n">val2</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w"> </span><span class="p">};</span>
+<span class="w">  </span><span class="n">g</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>capture-default로 <code class="docutils literal notranslate"><span class="pre">[=]</span></code>로 쓰면 현재 automatic sotrage duration을 갖는 모든 변수들의 const-qualified copy를 정의한다. 단, specs 위치에 mutable을 사용할 경우 lambda expression body에서 copy한 객체를 수정할 수 있으며 non-cost member functions를 호출할 수 있다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture2</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// compile error!</span>
+<span class="w">  </span><span class="c1">// without mutable specifier cann&#39;t change val in the body</span>
+<span class="w">  </span><span class="c1">// auto f = [=]() {</span>
+<span class="w">  </span><span class="c1">//   val = 20; </span>
+<span class="w">  </span><span class="c1">// };</span>
+<span class="w">    </span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">=</span><span class="p">]()</span><span class="w"> </span><span class="k">mutable</span><span class="w"> </span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
+<span class="w">    </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span><span class="w"> </span><span class="c1">// copied val is changed to 20</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="n">f</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w"> </span><span class="c1">// original val is still 10</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>그리고 capture-default로 <code class="docutils literal notranslate"><span class="pre">=</span></code>를 사용하는 경우, 이후에 이어지는 capture들은 <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>로 시작하거나 <code class="docutils literal notranslate"><span class="pre">*this</span></code> 혹은 <code class="docutils literal notranslate"><span class="pre">this</span></code>여야 한다.</p>
+<p>만약 <code class="docutils literal notranslate"><span class="pre">*this</span></code>가 주어진 경우 객체가 복사가 된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture5</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">//capture the *this by copy</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">=</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">]()</span><span class="w"> </span><span class="k">mutable</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">     </span><span class="c1">// this for copied (*this) object</span>
+<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">// val of copied (*this) object is changed to 3</span>
+<span class="w">      </span><span class="p">};</span>
+
+<span class="w">      </span><span class="n">f</span><span class="p">();</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">func</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// val of original `a` is still 0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>capture-default가 있으면 암시적으로 현재 객체(*this)의 reference가 정의된다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">this</span></code>가 주어진 경우 C++ 20 이후에서는 <code class="docutils literal notranslate"><span class="pre">[=]</span></code>만 있는 것과 동일하게 취급된다.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture6</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// until C++20: Error: this when = is the default</span>
+<span class="w">      </span><span class="c1">// since C++20: OK, same as [=]</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">=</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">        </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">// val of (*this) is changed to 3</span>
+<span class="w">      </span><span class="p">};</span>
+
+<span class="w">      </span><span class="n">f</span><span class="p">();</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="n">A</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">  </span><span class="n">a</span><span class="p">.</span><span class="n">func</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">// val of original `a` is changed to 3</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>단, 다음 외부 변수들의 경우 capture되지 않아도 접근 가능하다.</p>
+<ul class="simple">
+<li><p>non-local variables</p></li>
+<li><p>static or thread local storage duration variables</p></li>
+<li><p>reference that has been initialized with a constant expression</p></li>
+<li><p>variable is constexpr and has no mutable members</p></li>
+</ul>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture7</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">val</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">sval</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">//static or thread local storage duration variables</span>
+<span class="w">  </span><span class="n">f</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">gval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+<span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture8</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">constexpr</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gval</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w">  </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">val</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">cref</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// reference that has been initialized with a constant expression</span>
+<span class="w">  </span><span class="n">f</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">TEST</span><span class="p">(</span><span class="n">Lambda_Expression</span><span class="p">,</span><span class="w"> </span><span class="n">capture9</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">constexpr</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">cval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w">  </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">f</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">val</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">cval</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">//variable is constexpr and has no mutable members</span>
+<span class="w">  </span><span class="n">f</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/lambda#Explanation">cppreference - lambda#Explanation</a><br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture">cppreference - lambda#Lambda_capture</a><br />
+<a class="reference external" href="https://ezoeryou.github.io/blog/article/2019-07-09-deprecate-implicit-lambda-capture-of-this.html">ezoeryou - 2019-07-09-deprecate-implicit-lambda-capture-of-this</a><br />
+<a class="reference external" href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0806r2.html">open-std - p0806r2</a></p>
+</div></blockquote>
+</section>
+<section id="params">
+<h3>Params<a class="headerlink" href="#params" title="Link to this heading">#</a></h3>
+<p>Params는 closure의 operator()에 input으로 사용될 parameter list를 나타낸다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/lambda">cppreference - lambda</a></p>
+</div></blockquote>
+</section>
+<section id="trailing-type">
+<h3>Trailing-type<a class="headerlink" href="#trailing-type" title="Link to this heading">#</a></h3>
+<p>Trailing type은 closure의 operator()에 return type을 명시하는 부분으로 <code class="docutils literal notranslate"><span class="pre">-&gt;</span> <span class="pre">Type</span></code> 형태로 작성한다.</p>
+<p>만약, trailing-type이 명시되어 있지 않은 경우에는 C++14 이후부터 <code class="docutils literal notranslate"><span class="pre">-&gt;</span> <span class="pre">auto</span></code>로 작성된 걸로 간주하고 auto return type이 사용되며, 자동으로 return time이 추론된다.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/lambda">cppreference - lambda</a></p>
+</div></blockquote>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -873,20 +1108,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../../01%20math/10%20PDEs/31%20Heat%20Conducting%20in%20Bar.html"
+       href="Keyword.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Heat Conducting in Bar</p>
+        <p class="prev-next-title">Keyword</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Build/Build.html"
+       href="Multi%20Thread.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Build</p>
+        <p class="prev-next-title">Multi thread</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -896,6 +1131,27 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-of-a-lambda-expression">Structure of a Lambda Expression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#capture">Capture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#params">Params</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trailing-type">Trailing-type</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
