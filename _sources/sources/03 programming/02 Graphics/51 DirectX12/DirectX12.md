@@ -5,6 +5,9 @@
 > [blog - dafher-diary.tistory](https://dafher-diary.tistory.com/category/DirectX12)    
 > [3dgep](https://www.3dgep.com/learning-directx-12-1/)  
 
+## Enhanced Barrier
+https://microsoft.github.io/DirectX-Specs/d3d/D3D12EnhancedBarriers.html#d3d12-legacy-resource-barrier-shortcomings
+
 ## Globally Unique Identifier
 Globally Unique Identifier(GUID) 는 전역에서 유일한 식별자를 나타내며, COM 객체의 인터페이스를 식별하는 데 사용된다. 
 

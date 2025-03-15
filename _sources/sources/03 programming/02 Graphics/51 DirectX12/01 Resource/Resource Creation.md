@@ -14,17 +14,25 @@ ID3D12Device::CreateCommittedResource 함수로 생성할 수 있다.
 
 > Reference   
 > [learn.microsoft - nf-d3d12-id3d12device-createcommittedresource](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource)  
+</details>
 
-D3D12_HEAP_PROPERTIES 구조체의 enum D3D12_HEAP_TYPE 이 D3D12_HEAP_TYPE_UPLOAD 일 경우에는 반드시 enum D3D12_RESOURCE_STATES 는 D3D12_RESOURCE_STATE_GENERIC_READ 여야 한다. 만약 그렇지 않을 경우 Debug Layer 에서 다음과 같은 오류 메세지가 출력된다.
+
+<details> <summary> <h3 style="display:inline-block"> Create Upload Buffer </h3></summary>
+D3D12_HEAP_TYPE 이 D3D12_HEAP_TYPE_UPLOAD 일 경우에는 반드시 D3D12_RESOURCE_STATES 는 D3D12_RESOURCE_STATE_GENERIC_READ 여야 한다. 만약 그렇지 않을 경우 Debug Layer 에서 다음과 같은 오류 메세지가 출력된다.
 ```
 D3D12 ERROR: ID3D12Device::CreateCommittedResource: Certain resources are restricted to certain D3D12_RESOURCE_STATES states, and cannot be changed. Resources on D3D12_HEAP_TYPE_UPLOAD heaps requires D3D12_RESOURCE_STATE_GENERIC_READ. Reserved buffers used exclusively for texture placement requires D3D12_RESOURCE_STATE_COMMON. [ RESOURCE_MANIPULATION ERROR #741: RESOURCE_BARRIER_INVALID_HEAP]
 ```
+
+왜냐하면 D3D12_HEAP_TYPE_UPLOAD로 생성된 자원은 CPU 에서 데이터를 업로드한 후 GPU가 읽기만 하기 때문에, 해당 자원의 상태는 항상 D3D12_RESOURCE_STATE_GENERIC_READ 다.
 
 > Reference   
 > [learn.microsoft - d3d12_heap_properties](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_properties)  
 > [learn.microsoft - d3d12_heap_type](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_type)  
 > [learn.microsoft - d3d12_resource_states](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states)  
+</details>
 
+
+<details> <summary> <h3 style="display:inline-block"> CD3DX12_RESOURCE_DESC 구조체 </h3></summary>
 CD3DX12_RESOURCE_DESC 구조체는 D3D12_RESOURCE_DESC 구조체를 쉽게 생성하고 조작할 수 있도록 도와주는 헬퍼 클래스이다. 
 
 Buffer(UINT64 width, D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE, UINT64 alignment = 0); 함수를 호출하게 되면 다음과 같은 대입이 발생하게 된다.
@@ -45,6 +53,7 @@ Flags             = flags
 > Reference  
 > [learn.microsoft - cd3dx12-resource-desc](https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-resource-desc)  
 </details>
+
 
 ## Map
 Map 은 GPU memory 중 CPU 접근이 가능한 영역과 CPU 에서 접근 가능한 virtual memory adrress 를 mapping 하고 mapping 된 virtual memory adrress 를 반환하는 과정이다.

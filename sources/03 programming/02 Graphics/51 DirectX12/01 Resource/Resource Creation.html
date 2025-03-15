@@ -463,7 +463,9 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/Algorithm.html">Algorithm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/array.html">array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/basic_istream.html">basic_istream</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/Chrono.html">Chrono</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
@@ -503,6 +505,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/Pragma.html">Pragma</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/SIMD.html">SIMD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/thread_local.html">thread_local</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../01%20C%2B%2B/Using.html">Using</a></li>
 </ul>
 </details></li>
@@ -576,6 +579,7 @@
 <li class="toctree-l4"><a class="reference internal" href="Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Descriptors.html">Descriptors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="GPU%20Heap.html">GPU Heap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Resource%20Barrier.html">Resource Barrier</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">Resource Creation</a></li>
@@ -584,15 +588,10 @@
 <li class="toctree-l4"><a class="reference internal" href="Texture.html">Texture</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3"><a class="reference internal" href="../101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../400%20enum%20D3D12_COMMAND_LIST_TYPE.html">enum D3D12_COMMAND_LIST_TYPE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../DxcBuffer.html">DxcBuffer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Fence.html">Fence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ID3D12Debug.html">ID3D12Debug</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ID3D12Device.html">ID3D12Device</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Initializing%20Direct3D.html">Initializing Direct3D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Pipeline%20State%20Object.html">Pipeline State Object (PSO)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ShaderReflection.html">Shader Reflection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Work%20Submission.html">Work Submission</a></li>
 </ul>
@@ -614,6 +613,7 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Coordinate%20System.html">Coordinate System</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../DirectXMath.html">DirectXMath</a></li>
@@ -635,6 +635,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../03%20Window%20Programming/Component%20Objeect%20Model.html">Component Object Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../03%20Window%20Programming/CreateFile.html">CreateFileA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../03%20Window%20Programming/File%20Buffering.html">File Buffering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../03%20Window%20Programming/Thread.html">Thread</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../99%20ETC/ETC.html">ETC</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -656,7 +657,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/21%20CMake.html">Cmake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/30%20OpenMP.html">OpenMP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/Algorithm.html">Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/Batch.html">Batch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/Linux.html">Linux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/SAL.html">SAL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/Text%20Encoding.html">Text Encoding</a></li>
 </ul>
@@ -681,6 +684,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">ETC</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../../20%20ETC/chatGPT.html">chatGPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../20%20ETC/Cubic%20Bezier%20Curve.html">Cubic Bezier Curve Length</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../20%20ETC/Jupyter%20Book.html">Jupyter Book</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../20%20ETC/MarkDown.html">Mark Down</a></li>
 </ul>
@@ -859,17 +863,22 @@ ID3D12Device::CreateCommittedResource 함수로 생성할 수 있다.
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource">learn.microsoft - nf-d3d12-id3d12device-createcommittedresource</a></p>
 </div></blockquote>
-<p>D3D12_HEAP_PROPERTIES 구조체의 enum D3D12_HEAP_TYPE 이 D3D12_HEAP_TYPE_UPLOAD 일 경우에는 반드시 enum D3D12_RESOURCE_STATES 는 D3D12_RESOURCE_STATE_GENERIC_READ 여야 한다. 만약 그렇지 않을 경우 Debug Layer 에서 다음과 같은 오류 메세지가 출력된다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">D3D12</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">ID3D12Device</span><span class="p">::</span><span class="n">CreateCommittedResource</span><span class="p">:</span> <span class="n">Certain</span> <span class="n">resources</span> <span class="n">are</span> <span class="n">restricted</span> <span class="n">to</span> <span class="n">certain</span> <span class="n">D3D12_RESOURCE_STATES</span> <span class="n">states</span><span class="p">,</span> <span class="ow">and</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">changed</span><span class="o">.</span> <span class="n">Resources</span> <span class="n">on</span> <span class="n">D3D12_HEAP_TYPE_UPLOAD</span> <span class="n">heaps</span> <span class="n">requires</span> <span class="n">D3D12_RESOURCE_STATE_GENERIC_READ</span><span class="o">.</span> <span class="n">Reserved</span> <span class="n">buffers</span> <span class="n">used</span> <span class="n">exclusively</span> <span class="k">for</span> <span class="n">texture</span> <span class="n">placement</span> <span class="n">requires</span> <span class="n">D3D12_RESOURCE_STATE_COMMON</span><span class="o">.</span> <span class="p">[</span> <span class="n">RESOURCE_MANIPULATION</span> <span class="n">ERROR</span> <span class="c1">#741: RESOURCE_BARRIER_INVALID_HEAP]</span>
-</pre></div>
-</div>
+</details>
+<details> <summary> <h3 style="display:inline-block"> Create Upload Buffer </h3></summary>
+D3D12_HEAP_TYPE 이 D3D12_HEAP_TYPE_UPLOAD 일 경우에는 반드시 D3D12_RESOURCE_STATES 는 D3D12_RESOURCE_STATE_GENERIC_READ 여야 한다. 만약 그렇지 않을 경우 Debug Layer 에서 다음과 같은 오류 메세지가 출력된다.
+```
+D3D12 ERROR: ID3D12Device::CreateCommittedResource: Certain resources are restricted to certain D3D12_RESOURCE_STATES states, and cannot be changed. Resources on D3D12_HEAP_TYPE_UPLOAD heaps requires D3D12_RESOURCE_STATE_GENERIC_READ. Reserved buffers used exclusively for texture placement requires D3D12_RESOURCE_STATE_COMMON. [ RESOURCE_MANIPULATION ERROR #741: RESOURCE_BARRIER_INVALID_HEAP]
+```
+<p>왜냐하면 D3D12_HEAP_TYPE_UPLOAD로 생성된 자원은 CPU 에서 데이터를 업로드한 후 GPU가 읽기만 하기 때문에, 해당 자원의 상태는 항상 D3D12_RESOURCE_STATE_GENERIC_READ 다.</p>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_properties">learn.microsoft - d3d12_heap_properties</a><br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_type">learn.microsoft - d3d12_heap_type</a><br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states">learn.microsoft - d3d12_resource_states</a></p>
 </div></blockquote>
-<p>CD3DX12_RESOURCE_DESC 구조체는 D3D12_RESOURCE_DESC 구조체를 쉽게 생성하고 조작할 수 있도록 도와주는 헬퍼 클래스이다.</p>
+</details>
+<details> <summary> <h3 style="display:inline-block"> CD3DX12_RESOURCE_DESC 구조체 </h3></summary>
+CD3DX12_RESOURCE_DESC 구조체는 D3D12_RESOURCE_DESC 구조체를 쉽게 생성하고 조작할 수 있도록 도와주는 헬퍼 클래스이다. 
 <p>Buffer(UINT64 width, D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE, UINT64 alignment = 0); 함수를 호출하게 되면 다음과 같은 대입이 발생하게 된다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Dimension</span>         <span class="o">=</span> <span class="n">D3D12_RESOURCE_DIMENSION_BUFFER</span>
 <span class="n">Alignment</span>         <span class="o">=</span> <span class="n">alignment</span>

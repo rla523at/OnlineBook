@@ -1,4 +1,6 @@
 # Resource State
+GPU 의 관점에서 현재 Resource 가 어떤 상태인지를 나타내는 enum 이다.
+
 
 ## D3D12_RESOURCE_STATE_RENDER_TARGET
 ID3D12GraphicsCommandList::ClearRenderTargetView 함수를 호출하기 전에 Resource State 가 D3D12_RESOURCE_STATE_RENDER_TARGET 여야 한다.

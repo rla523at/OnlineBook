@@ -11,8 +11,22 @@ CPU 는 Direct3D API 를 이용해서 command queue 에 command 를 제출한다
 > {cite}`Luna` Chapter 4.2
 
 
-<details> <summary> <h3 style="display:inline-block"> ID3D12CommandQueue </h3></summary>
-D3D12 에서 GPU 의 command queue 를 나타내는 interface 이다.
+<details> <summary> <h3 style="display:inline-block"> ID3D12CommandQueue 생성할 때 D3D12_COMMAND_LIST_TYPE 이 필요한 이유 </h3></summary>
+D3D12_COMMAND_QUEUE_DESC에 D3D12_COMMAND_LIST_TYPE을 명시하는 이유는 해당 큐가 어떤 종류의 명령 리스트를 처리할 것인지 명확히 정의하여, GPU의 적절한 하드웨어 엔진 할당, 최적화된 스케줄링, 그리고 효율적인 동기화 및 리소스 관리를 보장하기 위함입니다.
+* 명령 리스트 유형에 따른 하드웨어 엔진 매핑
+  * Direct, Compute, Copy:
+  * 각각의 명령 리스트 타입은 GPU의 특정 하드웨어 엔진(그래픽, 컴퓨팅, 복사)에 대응합니다.
+  * 예를 들어, Direct 타입은 그래픽 렌더링과 컴퓨팅 작업 모두를 처리할 수 있고, Copy 타입은 데이터 전송 작업에 특화되어 있습니다.
+* 최적화된 스케줄링 및 실행 보장
+  * 전용 큐 할당:
+    * 큐를 생성할 때 명확한 명령 리스트 타입을 지정하면, 드라이버는 해당 큐에 올바른 하드웨어 리소스를 할당하고, 최적화된 방식으로 명령을 스케줄링할 수 있습니다.
+  * 일관성 있는 명령 제출:
+    * 커맨드 큐에 제출되는 명령 리스트는 지정된 타입과 일치해야 합니다. 이를 통해, 잘못된 유형의 명령이 큐에 들어오는 것을 방지하며, 예기치 않은 동작을 줄입니다.
+* 동기화 및 리소스 관리의 용이성
+  * 명시적 타입 지정:
+    * 각 큐가 특정 작업에 최적화되어 있기 때문에, 동기화나 리소스 상태 관리 측면에서도 명확한 구분이 가능해집니다.
+  * 병렬 처리의 이점:
+    * 여러 타입의 큐를 분리하여 운영하면, 서로 다른 하드웨어 엔진을 활용한 병렬 작업이 가능해집니다.
 </details>
 
 
@@ -62,6 +76,13 @@ D3D12 ERROR: ID3D12CommandList::{Create,Reset}CommandList: The command allocator
 > {cite}`Luna` p111
 </details>
  
+<details> <summary> <h3 style="display:inline-block"> Reset </h3></summary>
+Reset 함수를 호출하지 않으면 command 가 계속 쌓여서, 프로세스 메모리가 끊임없이 증가한다.
+
+> Reference   
+> [learn.microsoft - id3d12commandallocator-reset](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12commandallocator-reset)  
+</details>
+
 
 ## Command List
 CPU 가 GPU 에 command 를 제출하기 위해 사용하는 command 들의 list 이다.
@@ -80,7 +101,7 @@ ID3D12GraphicsCommandList 인터페이스는 ID3D12CommandList interface 를 상
 </details>
 
 
-<details> <summary> <h3 style="display:inline-block"> 생성 </h3></summary>
+<details> <summary> <h3 style="display:inline-block"> Command Allocator 없이 생성하기 </h3></summary>
 ID3D12Device::CreateCommandList 함수를 사용해서 command list 를 생성하기 위해서는 command allocator 가 주어져야 한다. 하지만 ID3D12Device4::CreateCommandList1 함수를 사용하면 command allocator 가 주어지지 않아도 된다.
 
 대신에 ID3D12Device4::CreateCommandList1 함수를 사용하면 close 상태의 command allocator 가 생성된다.
