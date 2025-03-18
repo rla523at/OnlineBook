@@ -4,6 +4,15 @@ GPU 의 관점에서 현재 Resource 가 어떤 상태인지를 나타내는 enu
 > Reference  
 > [learn.microsoft - d3d12_resource_states](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states)  
 
+## D3D12_RESOURCE_STATE_COMMON
+
+<details> <summary> <h3 style="display:inline-block"> Copy Queue, Copy Command List </h3></summary>
+* https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states
+  * Your application should transition to this state only for accessing a resource across different graphics engine types.
+  * Specifically, a resource must be in the COMMON state before being used on a COPY queue (when previously used on DIRECT/COMPUTE), and before being used on DIRECT/COMPUTE (when previously used on COPY). This restriction doesn't exist when accessing data between DIRECT and COMPUTE queues.
+  * The COMMON state can be used for all usages on a Copy queue using the implicit state transitions. 
+</details>
+
 ## D3D12_RESOURCE_STATE_RENDER_TARGET
 ID3D12GraphicsCommandList::ClearRenderTargetView 함수를 호출하기 전에 Resource State 가 D3D12_RESOURCE_STATE_RENDER_TARGET 여야 한다.
 * [learn.microsoft - id3d12graphicscommandlist-clearrendertargetview](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearrendertargetview#debug-layer)  

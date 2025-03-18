@@ -8,24 +8,31 @@ https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-resource-barrie
     * 하지만 GPU 입장에서, “이 메모리를 지금 A라는 리소스로 사용 중인 것인지, 아니면 B라는 리소스로 사용할 차례인지” 정확히 알아야 안전하게 파이프라인 동작을 보장할 수 있습니다.
     * 따라서 “이제부터는 텍스처 A 대신 텍스처 B가 이 물리 메모리를 사용할 것”이라는 것을 GPU에게 알려줘야 하는데, 이것을 위해 Aliasing Barrier를 사용합니다.
 
-* Implicit State Transitions
-  * promotion
-    * Promotion이란, 리소스가 COMMON 상태에서 사용될 때, 일정 조건(주로 읽기 전용으로 사용하는 경우)을 만족하면, 명시적 배리어 없이 자동으로 해당 상태로 전환되는 것을 말합니다.
-    * 즉, 리소스가 COMMON 상태라면, “여기서 GPU가 읽기만 할 것이다”라고 암시될 때, D3D12 런타임/드라이버가 내부적으로 COMMON → (Read-Only State)로 변경해주는 최적화를 수행할 수 있습니다.
-    * 예를 들어, COMMON 상태의 리소스를 명시적 배리어 없이 **PIXEL_SHADER_RESOURCE**로 샘플링(Read-Only)한다면, D3D12가 이를 자동으로 허용하는 식입니다.
-    * 이때 “사실상 COMMON → PIXEL_SHADER_RESOURCE” 전환이 이뤄졌지만, 애플리케이션에서 별도의 ResourceBarrier를 쓰지 않아도 에러가 나지 않습니다(디버그 레이어가 허용).
-    * 다만, 쓰기(Write) 또는 수정이 수반되는 상태(예: RENDER_TARGET, UNORDERED_ACCESS)로는 이렇게 암묵적 전환이 일어나지 않습니다. 그런 상태로 쓰려면 명시적인 Transition Barrier가 필요합니다.
-  * Decay
-    * Decay란, 리소스가 읽기 전용 상태로 사용된 후, 다음에 더 이상 사용되지 않을 경우, 커맨드 리스트 종료 시점 등에 다시 COMMON 상태로 “자동” 복귀하는 것을 말합니다. 마치 “사용이 끝난 리소스를 다시 기본 상태로 되돌려놓는(Decay)” 개념입니다.
-    * 예를 들어, 어떤 텍스처가 COMMON 상태 → Promotion으로 인해 PIXEL_SHADER_RESOURCE로 읽기만 하고, 그 후 동일 커맨드 리스트 내에서 다시는 해당 텍스처를 사용하지 않음, 그러면 커맨드 리스트가 끝날 때, 내부적으로 자동으로 PIXEL_SHADER_RESOURCE → COMMON 복귀(Decay)가 일어날 수 있습니다.
-    * 이런 Decay가 가능하려면: 마지막 GPU 접근이 읽기 전용이어야 합니다. (쓰기 상태로 남았다면 Decay가 일어날 수 없습니다.) 같은 커맨드 리스트에서 이후에 다른 상태로 재사용되지 않아야 합니다.
-  * 왜 Promotion/Decay가 필요할까?
-    * 배리어 개수를 줄여 성능을 높이기 위해
-      * 매번 ResourceBarrier를 명시하지 않아도 되는 상황(“읽기 전용” 사용)에서, 드라이버가 자동으로 상태 전환을 처리할 수 있습니다.
-      * 이는 개발자가 모든 자원 상태를 일일이 선언하지 않아도 되는, 작은 편의이자 최적화 포인트입니다.
-    * COMMON 상태의 목적
-      * COMMON은 “아직/더 이상 구체적으로 어떤 파이프라인 스테이지에서 쓰일지 정해지지 않은 상태”로, GPU 접근이 없거나 최소화된 상황을 나타냅니다.
-      * Promotion/Decay 메커니즘은 이 COMMON 상태를 보다 범용적으로 활용하도록 해줍니다.
+## Implicit State Transitions
+
+| State flag                     | Buffers and Simultaneous-Access Textures | Non-Simultaneous-Access Textures |
+|---------------------------------|-----------------------------------------|----------------------------------|
+| VERTEX_AND_CONSTANT_BUFFER      | Yes                                     | No                               |
+| INDEX_BUFFER                    | Yes                                     | No                               |
+| RENDER_TARGET                   | Yes                                     | No                               |
+| UNORDERED_ACCESS                | Yes                                     | No                               |
+| DEPTH_WRITE                     | No*                                     | No                               |
+| DEPTH_READ                      | No*                                     | No                               |
+| NON_PIXEL_SHADER_RESOURCE       | Yes                                     | Yes                              |
+| PIXEL_SHADER_RESOURCE           | Yes                                     | Yes                              |
+| STREAM_OUT                      | Yes                                     | No                               |
+| INDIRECT_ARGUMENT               | Yes                                     | No                               |
+| COPY_DEST                       | Yes                                     | Yes                              |
+| COPY_SOURCE                     | Yes                                     | Yes                              |
+| RESOLVE_DEST                    | Yes                                     | No                               |
+| RESOLVE_SOURCE                  | Yes                                     | No                               |
+| PREDICATION                     | Yes                                     | No                               |
+
+
+https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-resource-barriers-to-synchronize-resource-states-in-direct3d-12#implicit-state-transitions
+* All buffer resources as well as textures with the D3D12_RESOURCE_FLAG_ALLOW_SIMULTANEOUS_ACCESS flag set are implicitly promoted from D3D12_RESOURCE_STATE_COMMON to the relevant state on first GPU access, including GENERIC_READ to cover any read scenario. Any resource in the COMMON state can be accessed as through it were in a single state with 1 WRITE flag, or 1 or more READ flag    
+
+## Enhanced Barrier
 
 https://microsoft.github.io/DirectX-Specs/d3d/D3D12EnhancedBarriers.html
 * Excessive sync latency
