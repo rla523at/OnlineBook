@@ -124,3 +124,19 @@ operator()를 통해 _Ty 타입의 pointer에 delete를 호출하는 역활을 �
 > [blog1](https://ozt88.tistory.com/32)
 > [blog2](https://gomgomi.tistory.com/5)
 > [stackoverflow](https://stackoverflow.com/questions/42416776/pimpl-with-unique-ptr-why-do-i-have-to-move-definition-of-constructor-of-inter)
+
+### static inline 멤버변수
+```cpp
+class B
+{	
+public:
+    B(void);
+    ~B(void);
+private:
+	static ilnilne std::unique_ptr<A> a = nullptr;
+};
+```
+
+static inline 변수를 선언하면 .h 파일에서 바로 정의가 됨으로 incomplete type 오류가 발생한다.
+
+static inline 을 제거해 일반 멤버변수로 두면, 바로 정의가 되는 것은 아님으로 incomplete type 오류가 발생하지는 않는다.

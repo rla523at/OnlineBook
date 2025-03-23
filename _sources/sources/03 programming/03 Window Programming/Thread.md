@@ -25,3 +25,7 @@ ResetEvent
 * The ResetEvent function is used primarily for manual-reset event objects, which must be set explicitly to the nonsignaled state.
 * Resetting an event that is already reset has no effect.
 
+ManualReset Event
+* 여러 스레드가 동시에 이 이벤트를 기다리고 있다면, 이벤트가 신호 상태가 될 때 모두 깨어날 수 있습니다. 
+* https://learn.microsoft.com/ko-kr/windows/win32/api/synchapi/nf-synchapi-createeventa
+  * If this parameter is FALSE, the function creates an auto-reset event object, and the system automatically resets the event state to nonsignaled after a single waiting thread has been released.

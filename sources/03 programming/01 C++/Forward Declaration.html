@@ -839,6 +839,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pimpl-with-unique-ptr">Pimpl with Unique_ptr</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-constructor">default constructor</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-destructor">default destructor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-inline">static inline 멤버변수</a></li>
 </ul>
 </li>
 </ul>
@@ -973,6 +974,21 @@
 <a class="reference external" href="https://stackoverflow.com/questions/42416776/pimpl-with-unique-ptr-why-do-i-have-to-move-definition-of-constructor-of-inter">stackoverflow</a></p>
 </div></blockquote>
 </section>
+<section id="static-inline">
+<h3>static inline 멤버변수<a class="headerlink" href="#static-inline" title="Link to this heading">#</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">B</span>
+<span class="p">{</span><span class="w">	</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">B</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="w">    </span><span class="o">~</span><span class="n">B</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">	</span><span class="k">static</span><span class="w"> </span><span class="n">ilnilne</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>static inline 변수를 선언하면 .h 파일에서 바로 정의가 됨으로 incomplete type 오류가 발생한다.</p>
+<p>static inline 을 제거해 일반 멤버변수로 두면, 바로 정의가 되는 것은 아님으로 incomplete type 오류가 발생하지는 않는다.</p>
+</section>
 </section>
 </section>
 
@@ -1048,6 +1064,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pimpl-with-unique-ptr">Pimpl with Unique_ptr</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-constructor">default constructor</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-destructor">default destructor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#static-inline">static inline 멤버변수</a></li>
 </ul>
 </li>
 </ul>

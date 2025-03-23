@@ -851,6 +851,7 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-recursive-mutex">std::recursive_mutex</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-thread-name">Set Thread Name</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setevent-resetevent-wait">SetEvent ResetEvent Wait 동시성 문제</a></li>
 </ul>
             </nav>
         </div>
@@ -1366,6 +1367,28 @@
 </div></blockquote>
 <p>중첩된 lock을 다른 순서로 다른 함수에서 사용할 경우 mutex lock 메서드 호출 후 unlock 메서드를 호출 했음에도 lock이 얽히는 경우 데드락이 발생한다. 이 경우는 특정 뮤텍스에 우선순위를 주어 해결할 수 있지만 이 경우 특정 스레드만 많은 일을 하게 되는 기아 상태(starvation)이 발생할 수 있다. 따라서 애초에 중첩된 lock을 사용하지 않거나 lock을 언제나 정해진 순서로 획득해야 한다.</p>
 </section>
+<section id="setevent-resetevent-wait">
+<h2>SetEvent ResetEvent Wait 동시성 문제<a class="headerlink" href="#setevent-resetevent-wait" title="Link to this heading">#</a></h2>
+<p>일반적으로 Windows에서 제공하는 이벤트 객체(예, manual-reset 이벤트)의 경우에는 다음과 같은 동작을 보장합니다.</p>
+<ul class="simple">
+<li><p><strong>Manual-reset 이벤트:</strong><br />
+SetEvent 호출 시 이벤트 상태가 signaled로 전환되고, 이미 wait 상태에 들어간 모든 스레드는 깨어나야 합니다. 이후 ResetEvent가 호출되어도, 이미 깨어난 스레드에는 영향을 주지 않습니다. 즉, wait 상태에 들어간 스레드들이 SetEvent의 효과를 누리지 못하고 계속 대기하는 상황은 발생하지 않아야 합니다.</p></li>
+<li><p><strong>Auto-reset 이벤트:</strong><br />
+이 경우 SetEvent 호출 시 단 한 스레드만 깨어나고 이벤트 상태가 자동으로 non-signaled로 전환됩니다. 만약 여러 스레드가 대기 중이라면, 추가적인 SetEvent 호출 없이 ResetEvent(혹은 자동 리셋)가 이루어지면 나머지 스레드들은 계속 기다리게 됩니다. 이는 의도된 동작입니다.</p></li>
+</ul>
+<p>따라서 질문에서 언급한 “타이밍 이슈로 SetEvent 이전에 wait 상태에 진입했던 스레드들이, SetEvent가 호출됐음에도 불구하고 ResetEvent에 의해 계속 wait 상태에 머무르는” 상황은, <strong>manual-reset 이벤트</strong>를 사용하고 있다면 정상적인 상황은 아닙니다.</p>
+<p>단,</p>
+<ul class="simple">
+<li><p>이벤트 객체의 구현 방식이나 스레드 스케줄링의 극히 미세한 타이밍 문제로 인해(예를 들어, 아직 wait 함수가 내부적으로 signaled 상태를 감지하기 전에 ResetEvent가 호출되는 경우) 문제가 발생할 여지가 있는지 여부는 해당 이벤트 구현의 세부 동작에 따라 달라질 수 있습니다.</p></li>
+<li><p>하지만 Win32 API 등 표준 이벤트 객체는 이러한 race condition을 피하도록 설계되어 있으므로, manual-reset 이벤트라면 이미 wait 상태에 있던 스레드들은 SetEvent의 효과를 받아 깨어나야 합니다.</p></li>
+</ul>
+<p>요약하면,</p>
+<ul class="simple">
+<li><p><strong>manual-reset 이벤트:</strong> 정상적으로 동작한다면, 타이밍 이슈로 인해 깨어나지 못하는 경우는 발생하지 않아야 합니다.</p></li>
+<li><p><strong>auto-reset 이벤트:</strong> 한 번의 SetEvent에 단 한 스레드만 깨어나므로, 나머지 스레드는 계속 대기하게 됩니다.</p></li>
+</ul>
+<p>사용 중인 이벤트 객체가 어떤 종류(auto-reset, manual-reset)인지와, 내부 구현이 표준 동기화 원칙을 따르고 있는지 확인하는 것이 중요합니다.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1452,6 +1475,7 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#std-recursive-mutex">std::recursive_mutex</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-thread-name">Set Thread Name</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setevent-resetevent-wait">SetEvent ResetEvent Wait 동시성 문제</a></li>
 </ul>
   </nav></div>
 
