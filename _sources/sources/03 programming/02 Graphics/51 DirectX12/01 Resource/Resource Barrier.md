@@ -32,6 +32,23 @@ https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-resource-barrie
 https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-resource-barriers-to-synchronize-resource-states-in-direct3d-12#implicit-state-transitions
 * All buffer resources as well as textures with the D3D12_RESOURCE_FLAG_ALLOW_SIMULTANEOUS_ACCESS flag set are implicitly promoted from D3D12_RESOURCE_STATE_COMMON to the relevant state on first GPU access, including GENERIC_READ to cover any read scenario. Any resource in the COMMON state can be accessed as through it were in a single state with 1 WRITE flag, or 1 or more READ flag    
 
+
+<details> <summary> <h3 style="display:inline-block"> Simultaneous-Access Textures </h3></summary>
+Resource 를 설정할 떄, D3D12_RESOURCE_FLAG_ALLOW_SIMULTANEOUS_ACCESS 를 사용하면 된다.
+
+* https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_flags
+  * Allows a resource to be simultaneously accessed by multiple different queues, devices, or processes
+  * Simultaneous access allows multiple readers and one writer, as long as the writer doesn't concurrently modify the texels that other readers are accessing.
+  * your application should avoid setting this flag when multiple readers are not required during frequent, non-overlapping writes to textures. Use of this flag can compromise resource fences to perform waits, and prevent any compression being used with a resource.
+  * The following restrictions and interactions apply:
+    * Can't be used with D3D12_RESOURCE_DIMENSION_BUFFER; but buffers always have the properties represented by this flag.
+    * Can't be used with MSAA textures.
+    * Can't be used with D3D12_RESOURCE_FLAGS::D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL.
+</details>
+
+
+
+
 ## Enhanced Barrier
 
 https://microsoft.github.io/DirectX-Specs/d3d/D3D12EnhancedBarriers.html

@@ -9,6 +9,10 @@
 * https://en.cppreference.com/w/cpp/container/list/erase
   * References and iterators to the erased elements are invalidated. Other references and iterators are not affected.
 
+## push_back
+* https://en.cppreference.com/w/cpp/container/list/push_back
+  * No iterators or references are invalidated.
+
 ## forward list
 | 특징                         | std::list                                  | std::forward_list                           |
 |------------------------------|--------------------------------------------|---------------------------------------------|

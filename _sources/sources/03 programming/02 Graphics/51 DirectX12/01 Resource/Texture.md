@@ -9,6 +9,41 @@ SlicePitch 멤버 변수는 3D Texture 를 사용할 경우, 하나의 슬라이
 > Reference  
 > [learn.microsoft - d3d12_subresource_data](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_subresource_data)  
 
+## CD3DX12_RESOURCE_DESC::Tex2D
+
+```
+Tex2D(
+        DXGI_FORMAT format,
+        UINT64 width,
+        UINT height,
+        UINT16 arraySize = 1,
+        UINT16 mipLevels = 0,
+        UINT sampleCount = 1,
+        UINT sampleQuality = 0,
+        D3D12_RESOURCE_FLAGS flags = D3D12_RESOURCE_FLAG_NONE,
+        D3D12_TEXTURE_LAYOUT layout = D3D12_TEXTURE_LAYOUT_UNKNOWN,
+        UINT64 alignment = 0 )
+    {
+        return CD3DX12_RESOURCE_DESC( D3D12_RESOURCE_DIMENSION_TEXTURE2D, alignment, width, height, arraySize,
+            mipLevels, format, sampleCount, sampleQuality, layout, flags );
+    }
+
+    CD3DX12_RESOURCE_DESC(
+        D3D12_RESOURCE_DIMENSION dimension,
+        UINT64 alignment,
+        UINT64 width,
+        UINT height,
+        UINT16 depthOrArraySize,
+        UINT16 mipLevels,
+        DXGI_FORMAT format,
+        UINT sampleCount,
+        UINT sampleQuality,
+        D3D12_TEXTURE_LAYOUT layout,
+        D3D12_RESOURCE_FLAGS flags ) noexcept
+
+```
+
+
 ## Shader Resource View 만들기
 
 <details> <summary> <h3 style="display:inline-block"> D3D12_SHADER_RESOURCE_VIEW_DESC 의 Shader4ComponentMapping 멤버변수 </h3></summary>
