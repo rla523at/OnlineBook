@@ -167,21 +167,5 @@ anonymous namespace는 파일 내에서 고유한 namespace 이름을 갖는다.
 
 그럼으로 `test2()`의 경우 ODR에 위배되지만 `test()`는 ODR에 위반되지 않는다.
 
-따라서, anonymous namespace 는 cpp 에서만 정의되는 무언가를 나타내기 위해 static 을 사용하는 것 보다 더 나은 선택지가 된다.
-
-```cpp
-// static constexpr int value_for_this_cpp = 523;
-// static void function_for_this_cpp(void){};
-
-namespace
-{
-	constexpr int value_for_this_cpp = 523;
-	void function_for_this_cpp(void){};
-}
-
-```
-
-
 > Reference  
-> [cppreference](https://en.cppreference.com/w/cpp/language/namespace)  
-> [stackoverflow - why-an-unnamed-namespace-is-a-superior-alternative-to-static](https://stackoverflow.com/questions/4977252/why-an-unnamed-namespace-is-a-superior-alternative-to-static)  
+> [cppreference](https://en.cppreference.com/w/cpp/language/namespace)

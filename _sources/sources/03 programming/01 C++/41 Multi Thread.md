@@ -524,21 +524,6 @@ TEST(multi_thread, sum1)
 }
 ```
 
-## std::recursive_mutex
-std::recursive_mutex 는 C++ 표준 라이브러리에서 제공하는 뮤텍스의 한 종류로, 동일한 스레드가 동일한 뮤텍스를 여러 번 잠글 수 있게 허용하는 특수한 뮤텍스다.
-
-일반 뮤텍스(std::mutex)와 달리, recursive_mutex 는 한 스레드가 이미 잠금 상태인 뮤텍스를 재차 획득해도 데드락(deadlock) 없이 정상적으로 실행된다.
-
-특정한 경우(예: 재귀 호출, 또는 동일 스레드에서 여러 개의 함수를 호출할 때 각 함수가 같은 뮤텍스를 잠글 필요가 있을 때), 동일 스레드가 반복적으로 뮤텍스를 잠가야 하는 상황이 발생하는데 std::recursive_mutex 를 사용하면 하나의 스레드가 여러 번 같은 뮤텍스를 잠그고, 나중에 획득한 만큼 풀어주는(unlock) 것이 가능하다
-
-단, 잠금 횟수만큼 정확하게 unlock해야 한다.
-
----
-
-## Set Thread Name
-
-> Reference  
-> [learn.microsoft - Set a thread name in C/C++](https://learn.microsoft.com/en-us/visualstudio/debugger/tips-for-debugging-threads?view=vs-2022&tabs=csharp#set-a-thread-name-in-cc)  
 ---
 
 process 내에 thread는 stack과 레지스터를 제외한 메모리 영역을 공유한다.

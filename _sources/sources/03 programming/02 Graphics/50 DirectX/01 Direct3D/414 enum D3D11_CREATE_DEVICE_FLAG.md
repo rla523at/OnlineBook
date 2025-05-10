@@ -1,0 +1,41 @@
+# enum D3D11_CREATE_DEVICE_FLAG
+D3D11_CREATE_DEVICE_FLAG enum은 Direct3D 11 디바이스를 생성할 때 사용할 수 있는 플래그를 정의하는 열거형이다.
+
+정의는 다음과 같다.
+
+```cpp
+typedef 
+enum D3D11_CREATE_DEVICE_FLAG
+    {
+        D3D11_CREATE_DEVICE_SINGLETHREADED          = 0x1,
+        D3D11_CREATE_DEVICE_DEBUG                   = 0x2,
+        D3D11_CREATE_DEVICE_SWITCH_TO_REF           = 0x4,
+        D3D11_CREATE_DEVICE_PREVENT_INTERNAL_THREADING_OPTIMIZATIONS = 0x8,
+        D3D11_CREATE_DEVICE_BGRA_SUPPORT            = 0x20,
+        D3D11_CREATE_DEVICE_DEBUGGABLE              = 0x40,
+        D3D11_CREATE_DEVICE_PREVENT_ALTERING_LAYER_SETTINGS_FROM_REGISTRY = 0x80,
+        D3D11_CREATE_DEVICE_DISABLE_GPU_TIMEOUT     = 0x100,
+        D3D11_CREATE_DEVICE_VIDEO_SUPPORT           = 0x800
+    } 	D3D11_CREATE_DEVICE_FLAG;
+```
+
+각 enum의 의미는 다음과 같다.
+
+* D3D11_CREATE_DEVICE_SINGLETHREADED
+  * 디바이스가 단일 스레드에서만 호출됨을 나타낸다.
+* D3D11_CREATE_DEVICE_DEBUG
+  * 디버그 디바이스를 생성하여 디버깅 정보를 제공한다.
+* D3D11_CREATE_DEVICE_SWITCH_TO_REF
+  * 하드웨어 디바이스를 사용할 수 없을 때 참조 래스터라이저로 전환한다.
+* D3D11_CREATE_DEVICE_PREVENT_INTERNAL_THREADING_OPTIMIZATIONS
+  * 내부 스레딩 최적화를 방지한다.
+* D3D11_CREATE_DEVICE_BGRA_SUPPORT
+  * BGRA 포맷을 지원한다.
+* D3D11_CREATE_DEVICE_DEBUGGABLE
+  * 디바이스가 디버깅 가능한 상태로 생성된다.
+* D3D11_CREATE_DEVICE_PREVENT_ALTERING_LAYER_SETTINGS_FROM_REGISTRY
+  * 레지스트리에서 레이어 설정 변경을 방지한다.
+* D3D11_CREATE_DEVICE_DISABLE_GPU_TIMEOUT
+  * GPU 타임아웃을 비활성화한다.
+* D3D11_CREATE_DEVICE_VIDEO_SUPPORT
+  * 비디오 응용 프로그램에 필요한 기능을 지원한다.

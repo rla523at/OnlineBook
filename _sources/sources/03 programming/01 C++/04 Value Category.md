@@ -9,7 +9,7 @@ C++에서는 다음과 같은 value category를 갖는다.
 다음으로 have identity 특성을 갖는 Lvalue와 Xvalue를 묶어서 GLvalue라고 부르고 can be moved 특성을 갖는 Xvalue와 PRvalue를 묶어서 Rvalue라고 부른다. 그리고 GLvalue와 Rvalue를 `mixed value category`라고 한다.
 
 ## Move
-can be moved from에서 move의 가능여부는 value가 재사용 될 가능성이 없어서 현재 가지고 있는 data가 이동해도 문제가 발생하지 않는가와 관련이 있고 `std::move`가 가능한가와는 전혀 관계가 없다.
+can be moved from에서 move의 가능여부는 value가 향후에 쓰일 일이 없어서 현재 가지고 있는 data가 이동해도 문제가 발생하지 않는가와 관련이 있고 `std::move`가 가능한가와는 전혀 관계가 없다.
 
 예를 들어, value에 다시 접근이 불가능한 경우 data가 이동되도 문제가 없기 때문에 can be moved이며 다음과 같은 예시가 있다.
 * Literal(1,true,nullptr)
@@ -25,9 +25,6 @@ can be moved from에서 move의 가능여부는 value가 재사용 될 가능성
 * the name of a variable, a function
 * 전위연산자`++a`에 의해 return되는 값  
 * lvalue 레퍼런스를 return하는 함수의 output
-* rvalue reference 타입의 변수
- * 이름을 가지고 있기 때문에 재사용 될 가능성이 있다.
- * [cppreference - value_category#lvalue](https://en.cppreference.com/w/cpp/language/value_category#lvalue)
 * string literal("abc")
   * [stackoverflow - why-string-literal-is-not-prvalue](https://stackoverflow.com/questions/41350090/why-string-literal-is-not-prvalue)  
 
