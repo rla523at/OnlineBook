@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/custom.css?v=61612f5f" />
@@ -360,7 +360,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/50%20Leibniz%20Integral%20Rule.html">Libniz Integral Rule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/51%20Taylor%27s%20Theorem.html">Taylor’s Theorem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/52%20Inverse%20Function%20Theorem.html">Inverse Function Theorem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/Differential%20Geometry.html">Differential Geometry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/Divergence%20Theorem.html">Divergence Theorem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../01%20math/06%20Calculus/Line%20Integral.html">Line Integral</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../01%20math/07%20Linear%20Algebra/Linear%20Algebra.html">Linear Algebra</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -852,7 +854,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-parameter-root-argument">Root Parameter &amp; Root Argument</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-parameter">Root Parameter</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Root Signature 생성</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-signautre-descriptor">Root Signautre 에 Descriptor 등록</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-1">Version 1.1</a></li>
@@ -874,38 +876,27 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="root-signature">
 <h1>Root Signature<a class="headerlink" href="#root-signature" title="Link to this heading">#</a></h1>
-<p>Root Signature 는 그래픽 파이프라인에 바인딩되는 리소스를 정의한다.</p>
-<p>이를 위해 Root Siganutre 는 command list 와 pipeline 에서 사용 되는 resource 을 연결한다.</p>
-<p>Root signature 은 API 함수 서명과 유사하게 shader 에 바인딩 될 리소스를 결정하지만 실제 메모리나 데이터를 정의하지는 않는다.</p>
+<p>Root Signature 는 그래픽 파이프라인에 바인딩되는 리소스를 Root Parameter 단위로 정의한다.</p>
+<p>Root signature 은 API 함수 서명과 유사하게 shader 에 바인딩 될 리소스를 결정하지만 실제 메모리나 데이터를 정의하지는 않는다. 실제 Resource Binding 은 Command List 를 통해 Root Parameter 별로 적절한 바인딩 함수를 호출해 연결한다.</p>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures">learn.microsoft - root-signatures</a><br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview">learn.microsoft - root-signatures-overview</a></p>
 </div></blockquote>
-<section id="root-parameter-root-argument">
-<h2>Root Parameter &amp; Root Argument<a class="headerlink" href="#root-parameter-root-argument" title="Link to this heading">#</a></h2>
-<p>Root signature 는 root parameter 들로 정의되며, 런타임에 설정 및 변경되는 root parameter 의 실제 값을 root argument 라고 한다. 따라서, root argument 를 변경하면 shader 가 읽는 데이터가 변경된다.</p>
+<section id="root-parameter">
+<h2>Root Parameter<a class="headerlink" href="#root-parameter" title="Link to this heading">#</a></h2>
 <p>Root Parameter 의 종류는 다음과 같다.</p>
 <ul class="simple">
 <li><p>root constants (root argument 에 포함된 constants)</p></li>
 <li><p>root descriptors (root argument 에 포함된 descriptor)</p></li>
 <li><p>root descriptor tables (descriptor heap 에 일정 범위에 있는 descriptor 에 대한 포인터)</p></li>
 </ul>
-<p>Root Constants 는 셰이더에 Constant Buffer 로 표시되는 인라인 32비트 값이다.</p>
-<details> <summary> <h3 style="display:inline-block"> Specification </h3></summary>
+<p>Root Signature Version 1.1 의 Root Parameter 는 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter1">D3D12_ROOT_PARAMETER1</a> 구조체로 나타내어진다.</p>
+<details> <summary> <h3 style="display:inline-block"> Root Argument  </h3></summary>
+<p>런타임에 설정 및 변경되는 root parameter 의 실제 값을 root argument 라고 한다. 즉, Command List 의 Binding 함수 호출을 통해 Binding 된 Resource 들을 Root Argument 라고 한다.</p>
+</details>
+<details> <summary> <h3 style="display:inline-block"> Root Parameter 갯수 제한  </h3></summary>
 <ul class="simple">
-<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-parameters-and-arguments">learn.microsoft - root-parameters-and-arguments</a></p>
-<ul>
-<li><p><strong>A root signature</strong> is similar to an API function signature, it determines the types of data the shaders should expect, but does not define the actual memory or data.</p></li>
-<li><p><strong>A root parameter</strong> is one entry in the root signature.</p></li>
-<li><p>The actual values of root parameters set and changed at runtime are called <strong>root arguments</strong>.</p></li>
-</ul>
-</li>
-<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-a-root-signature">learn.microsoft - using-a-root-signature</a></p>
-<ul>
-<li><p>All shaders in a PSO must be compatible with the root layout specified with the PSO, or else the individual shaders must include embedded root layouts that match each other; otherwise, PSO creation will fail.</p></li>
-</ul>
-</li>
 <li><p><a class="reference external" href="https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html#root-argument-limits">microsoft.github - root-argument-limits</a></p>
 <ul>
 <li><p>The maximum size of a root arguments is 64 DWORDs</p></li>
@@ -914,35 +905,52 @@ document.write(`
 <li><p>Raw/Structured Buffer SRVs/UAVs and CBVs cost 2 DWORDs.</p></li>
 </ul>
 </li>
-<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-constants-descriptors-and-tables">learn.microsoft - root-signatures-overview#root-constants-descriptors-and-tables</a></p>
-<ul>
-<li><p>The inlined root descriptors should contain descriptors that are accessed most often, though is limited to CBVs, and raw or structured UAV or SRV buffers.</p></li>
-<li><p>A more complex type, such as a 2D texture SRV, cannot be used as a root descriptor.</p></li>
-<li><p>Root descriptors do not include a size limit, so there can be no out-of-bounds checking, unlike descriptors in descriptor heaps, which do include a size.</p></li>
-<li><p>Regardless of the level of hardware, applications should always try to make the root signature as small as needed for maximum efficiency.</p></li>
-</ul>
-</li>
 </ul>
 </details>
-</section>
-<section id="id1">
-<h2>Root Signature 생성<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p>다양한 버전의 Root Signature 는 구조체 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 로 나타내어진다.</p>
+<details> <summary> <h3 style="display:inline-block"> Root Parameter 별 Resource Binding 함수 </h3></summary>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>루트 파라미터 타입</p></th>
+<th class="head"><p>HLSL 레지스터</p></th>
+<th class="head"><p>바인딩 함수</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CBV (상수 버퍼 뷰)</p></td>
+<td><p>bN</p></td>
+<td><p>SetGraphicsRootConstantBufferView(N, GPU_VA)</p></td>
+</tr>
+<tr class="row-odd"><td><p>SRV (셰이더 리소스 뷰)</p></td>
+<td><p>tN</p></td>
+<td><p>SetGraphicsRootShaderResourceView(N, GPU_VA)</p></td>
+</tr>
+<tr class="row-even"><td><p>UAV (언오더드 액세스 뷰)</p></td>
+<td><p>uN</p></td>
+<td><p>SetGraphicsRootUnorderedAccessView(N, GPU_VA)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Constants (32비트 상수)</p></td>
+<td><p>–</p></td>
+<td><p>SetGraphicsRoot32BitConstants(N, Num32, pData, Offset)</p></td>
+</tr>
+<tr class="row-even"><td><p>Descriptor Table (CBV/SRV/UAV 묶음)</p></td>
+<td><p>bN/tN/uN</p></td>
+<td><p>SetGraphicsRootDescriptorTable(N, BaseDescriptor)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>참고</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc">learn.microsoft - d3d12_versioned_root_signature_desc</a></p></li>
+<li><p><a class="reference external" href="https://learn.microsoft.com/ms-my/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootshaderresourceview">SetGraphicsRootShaderResourceView</a> 와 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootunorderedaccessview">SetGraphicsRootUnorderedAccessView</a> 는 Buffer Resource 에만 사용 가능하고 Texutre Resource 에는 사용할 수 없다.</p></li>
 </ul>
-<p>CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC 구조체는 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 를 쉽게 생성하기 위한 Helper class 이다.</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-versioned-root-signature-desc">learn.microsoft - cd3dx12-versioned-root-signature-desc</a></p></li>
-</ul>
-<p>Root signature 는 root parameter 들로 정의됨으로, Root Signature 를 생성하기 위해서는 먼저, Root Parameter 들을 생성해야 한다.</p>
-<details> <summary> <h3 style="display:inline-block"> Root Parameter 생성 </h3></summary>
-Root Parameter 는 HLSL 에 Resource 가 어떻게 Binding 되어 있는지를 나타낸다. 예를 들어 HLSL 에 다음과 같이 Resource 가 Binding 되어 있다고 하자.
-```
-Texture2D texture0 : register(t2);
-Texture2D texture1 : register(t3);
-Texture2D texture2 : register(t4);
-```
+</details>
+<details> <summary> <h3 style="display:inline-block"> Root Parameter 생성 예시 </h3></summary>
+<p>Root Parameter 는 HLSL 에 Resource 가 어떻게 Binding 되어 있는지를 나타낸다. 예를 들어 HLSL 에 다음과 같이 Resource 가 Binding 되어 있다고 하자.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Texture2D</span> <span class="n">texture0</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">t2</span><span class="p">);</span>
+<span class="n">Texture2D</span> <span class="n">texture1</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">t3</span><span class="p">);</span>
+<span class="n">Texture2D</span> <span class="n">texture2</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">t4</span><span class="p">);</span>
+</pre></div>
+</div>
 <p>Descriptor Range 와 Root Parameter 객체를 다음과 같이 만들면 된다.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">CD3DX12_DESCRIPTOR_RANGE1</span><span class="w"> </span><span class="n">range_arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
 <span class="n">range_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">Init</span><span class="p">(</span><span class="w"> </span><span class="n">D3D12_DESCRIPTOR_RANGE_TYPE_SRV</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC</span><span class="w"> </span><span class="p">);</span>
@@ -968,6 +976,42 @@ Texture2D texture2 : register(t4);
 <li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_range_type">learn.micorosoft - d3d12_descriptor_range_type</a></p></li>
 </ul>
 </details>
+<details> <summary> <h3 style="display:inline-block"> Specification </h3></summary>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-parameters-and-arguments">learn.microsoft - root-parameters-and-arguments</a></p>
+<ul>
+<li><p><strong>A root signature</strong> is similar to an API function signature, it determines the types of data the shaders should expect, but does not define the actual memory or data.</p></li>
+<li><p><strong>A root parameter</strong> is one entry in the root signature.</p></li>
+<li><p>The actual values of root parameters set and changed at runtime are called <strong>root arguments</strong>.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-a-root-signature">learn.microsoft - using-a-root-signature</a></p>
+<ul>
+<li><p>All shaders in a PSO must be compatible with the root layout specified with the PSO, or else the individual shaders must include embedded root layouts that match each other; otherwise, PSO creation will fail.</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-constants-descriptors-and-tables">learn.microsoft - root-signatures-overview#root-constants-descriptors-and-tables</a></p>
+<ul>
+<li><p>The inlined root descriptors should contain descriptors that are accessed most often, though is limited to CBVs, and raw or structured UAV or SRV buffers.</p></li>
+<li><p>A more complex type, such as a 2D texture SRV, cannot be used as a root descriptor.</p></li>
+<li><p>Root descriptors do not include a size limit, so there can be no out-of-bounds checking, unlike descriptors in descriptor heaps, which do include a size.</p></li>
+<li><p>Regardless of the level of hardware, applications should always try to make the root signature as small as needed for maximum efficiency.</p></li>
+</ul>
+</li>
+</ul>
+</details>
+</section>
+<section id="id1">
+<h2>Root Signature 생성<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>다양한 버전의 Root Signature 는 구조체 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 로 나타내어진다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc">learn.microsoft - d3d12_versioned_root_signature_desc</a></p></li>
+</ul>
+<p>CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC 구조체는 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 를 쉽게 생성하기 위한 Helper class 이다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-versioned-root-signature-desc">learn.microsoft - cd3dx12-versioned-root-signature-desc</a></p></li>
+</ul>
+<p>Root signature 는 root parameter 들로 정의됨으로, Root Signature 를 생성하기 위해서는 먼저, Root Parameter 들을 생성해야 한다.</p>
 <p>다음으로 D3D12SerializeRootSignature 함수로 serialization 된 root signature 의 blob 을 얻고 이를 ID3D12Device::CreateRootSignature 함수에 인자로 넣어주면 root signature 객체를 생성할 수 있다.</p>
 <p>만약, shader 에 root signature 가 포함되어 작성된 경우 compiled shader 에는 이미 serialized root signature 가 포함되어 있다.</p>
 <p>반대로, serialized root signature 를 가지고 D3D12_ROOT_SIGNATURE_DESC 데이터 구조를 얻을 수도 있다.</p>
@@ -980,7 +1024,7 @@ Texture2D texture2 : register(t4);
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-d3d12serializeversionedrootsignature">learn.microsoft - nf-d3d12-d3d12serializeversionedrootsignature</a></p>
 </div></blockquote>
 <details> <summary> <h3 style="display:inline-block"> serealized </h3></summary>
-Root Signature 을 생성하는 API는 직렬화된(자체 포함, 포인터가 없는) 버전을 사용한다. C++ 데이터 구조에서 이 직렬화된 버전을 생성하는 방법이 제공되지만, 직렬화된 Root Signature 정의를 얻는 또 다른 방법은 Root Signature 를 포함해 컴파일된 셰이더에서 이를 검색하는 방식이다.
+<p>Root Signature 을 생성하는 API는 직렬화된(자체 포함, 포인터가 없는) 버전을 사용한다. C++ 데이터 구조에서 이 직렬화된 버전을 생성하는 방법이 제공되지만, 직렬화된 Root Signature 정의를 얻는 또 다른 방법은 Root Signature 를 포함해 컴파일된 셰이더에서 이를 검색하는 방식이다.</p>
 <blockquote>
 <div><p>Reference<br />
 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-root-signature">learn.microsoft - creating-a-root-signature</a></p>
@@ -1164,7 +1208,7 @@ HLSL에 Root Signature를 직접 작성하면, 그 셰이더는 해당 Root Sign
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-parameter-root-argument">Root Parameter &amp; Root Argument</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-parameter">Root Parameter</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Root Signature 생성</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-signautre-descriptor">Root Signautre 에 Descriptor 등록</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-1">Version 1.1</a></li>

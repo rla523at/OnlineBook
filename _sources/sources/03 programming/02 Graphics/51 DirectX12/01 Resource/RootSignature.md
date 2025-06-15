@@ -1,34 +1,28 @@
 # Root Signature 
-Root Signature 는 그래픽 파이프라인에 바인딩되는 리소스를 정의한다.
+Root Signature 는 그래픽 파이프라인에 바인딩되는 리소스를 Root Parameter 단위로 정의한다.
 
-이를 위해 Root Siganutre 는 command list 와 pipeline 에서 사용 되는 resource 을 연결한다.
-
-Root signature 은 API 함수 서명과 유사하게 shader 에 바인딩 될 리소스를 결정하지만 실제 메모리나 데이터를 정의하지는 않는다.
+Root signature 은 API 함수 서명과 유사하게 shader 에 바인딩 될 리소스를 결정하지만 실제 메모리나 데이터를 정의하지는 않는다. 실제 Resource Binding 은 Command List 를 통해 Root Parameter 별로 적절한 바인딩 함수를 호출해 연결한다.
 
 > Reference  
 > [learn.microsoft - root-signatures](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures)  
 > [learn.microsoft - root-signatures-overview](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview)  
 
-## Root Parameter & Root Argument
-Root signature 는 root parameter 들로 정의되며, 런타임에 설정 및 변경되는 root parameter 의 실제 값을 root argument 라고 한다. 따라서, root argument 를 변경하면 shader 가 읽는 데이터가 변경된다.
-
+## Root Parameter 
 Root Parameter 의 종류는 다음과 같다.
 * root constants (root argument 에 포함된 constants)
 * root descriptors (root argument 에 포함된 descriptor)
 * root descriptor tables (descriptor heap 에 일정 범위에 있는 descriptor 에 대한 포인터)
 
-Root Constants 는 셰이더에 Constant Buffer 로 표시되는 인라인 32비트 값이다.
+Root Signature Version 1.1 의 Root Parameter 는 [D3D12_ROOT_PARAMETER1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter1) 구조체로 나타내어진다.
+
+<details> <summary> <h3 style="display:inline-block"> Root Argument  </h3></summary>
+
+런타임에 설정 및 변경되는 root parameter 의 실제 값을 root argument 라고 한다. 즉, Command List 의 Binding 함수 호출을 통해 Binding 된 Resource 들을 Root Argument 라고 한다.
+
+</details>
 
 
-<details> <summary> <h3 style="display:inline-block"> Specification </h3></summary>
-
-* [learn.microsoft - root-parameters-and-arguments](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-parameters-and-arguments)  
-  * **A root signature** is similar to an API function signature, it determines the types of data the shaders should expect, but does not define the actual memory or data.
-  * **A root parameter** is one entry in the root signature.
-  * The actual values of root parameters set and changed at runtime are called **root arguments**.
-
-* [learn.microsoft - using-a-root-signature](https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-a-root-signature)
-  * All shaders in a PSO must be compatible with the root layout specified with the PSO, or else the individual shaders must include embedded root layouts that match each other; otherwise, PSO creation will fail.
+<details> <summary> <h3 style="display:inline-block"> Root Parameter 갯수 제한  </h3></summary>
 
 * [microsoft.github - root-argument-limits](https://microsoft.github.io/DirectX-Specs/d3d/ResourceBinding.html#root-argument-limits)
   * The maximum size of a root arguments is 64 DWORDs
@@ -36,25 +30,27 @@ Root Constants 는 셰이더에 Constant Buffer 로 표시되는 인라인 32비
   * Root constants cost 1 DWORD * NumConstants
   * Raw/Structured Buffer SRVs/UAVs and CBVs cost 2 DWORDs.
 
-* [learn.microsoft - root-signatures-overview#root-constants-descriptors-and-tables](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-constants-descriptors-and-tables)
-  * The inlined root descriptors should contain descriptors that are accessed most often, though is limited to CBVs, and raw or structured UAV or SRV buffers. 
-  * A more complex type, such as a 2D texture SRV, cannot be used as a root descriptor.
-  * Root descriptors do not include a size limit, so there can be no out-of-bounds checking, unlike descriptors in descriptor heaps, which do include a size.
-  * Regardless of the level of hardware, applications should always try to make the root signature as small as needed for maximum efficiency.
+</details>
+
+
+<details> <summary> <h3 style="display:inline-block"> Root Parameter 별 Resource Binding 함수 </h3></summary>
+
+| 루트 파라미터 타입                     | HLSL 레지스터 | 바인딩 함수                                         |
+|-------------------------------------|-------------|--------------------------------------------------------|
+| CBV (상수 버퍼 뷰)                   | bN          | SetGraphicsRootConstantBufferView(N, GPU_VA)           |
+| SRV (셰이더 리소스 뷰)               | tN          | SetGraphicsRootShaderResourceView(N, GPU_VA)           |
+| UAV (언오더드 액세스 뷰)             | uN          | SetGraphicsRootUnorderedAccessView(N, GPU_VA)          |
+| Constants (32비트 상수)              | –           | SetGraphicsRoot32BitConstants(N, Num32, pData, Offset) |
+| Descriptor Table (CBV/SRV/UAV 묶음) | bN/tN/uN    | SetGraphicsRootDescriptorTable(N, BaseDescriptor)       |
+
+참고
+* [SetGraphicsRootShaderResourceView](https://learn.microsoft.com/ms-my/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootshaderresourceview) 와 [SetGraphicsRootUnorderedAccessView](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootunorderedaccessview) 는 Buffer Resource 에만 사용 가능하고 Texutre Resource 에는 사용할 수 없다.
 
 </details>
 
 
-## Root Signature 생성
-다양한 버전의 Root Signature 는 구조체 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 로 나타내어진다.
-* [learn.microsoft - d3d12_versioned_root_signature_desc](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc)  
+<details> <summary> <h3 style="display:inline-block"> Root Parameter 생성 예시 </h3></summary>
 
-CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC 구조체는 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 를 쉽게 생성하기 위한 Helper class 이다.
-* [learn.microsoft - cd3dx12-versioned-root-signature-desc](https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-versioned-root-signature-desc)  
-
-Root signature 는 root parameter 들로 정의됨으로, Root Signature 를 생성하기 위해서는 먼저, Root Parameter 들을 생성해야 한다.
-
-<details> <summary> <h3 style="display:inline-block"> Root Parameter 생성 </h3></summary>
 Root Parameter 는 HLSL 에 Resource 가 어떻게 Binding 되어 있는지를 나타낸다. 예를 들어 HLSL 에 다음과 같이 Resource 가 Binding 되어 있다고 하자.
 ```
 Texture2D texture0 : register(t2);
@@ -85,7 +81,37 @@ D3D12_DESCRIPTOR_RANGE1 구조체의 BaseShaderRegister 변수는  base shader r
 * [learn.microsoft - d3d12_descriptor_range1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_range1)  
 * [learn.microsoft - cd3dx12-descriptor-range1](https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-descriptor-range1)
 * [learn.micorosoft - d3d12_descriptor_range_type](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_range_type)  
+
 </details>
+
+
+<details> <summary> <h3 style="display:inline-block"> Specification </h3></summary>
+
+* [learn.microsoft - root-parameters-and-arguments](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-parameters-and-arguments)  
+  * **A root signature** is similar to an API function signature, it determines the types of data the shaders should expect, but does not define the actual memory or data.
+  * **A root parameter** is one entry in the root signature.
+  * The actual values of root parameters set and changed at runtime are called **root arguments**.
+
+* [learn.microsoft - using-a-root-signature](https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-a-root-signature)
+  * All shaders in a PSO must be compatible with the root layout specified with the PSO, or else the individual shaders must include embedded root layouts that match each other; otherwise, PSO creation will fail.
+
+* [learn.microsoft - root-signatures-overview#root-constants-descriptors-and-tables](https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-constants-descriptors-and-tables)
+  * The inlined root descriptors should contain descriptors that are accessed most often, though is limited to CBVs, and raw or structured UAV or SRV buffers. 
+  * A more complex type, such as a 2D texture SRV, cannot be used as a root descriptor.
+  * Root descriptors do not include a size limit, so there can be no out-of-bounds checking, unlike descriptors in descriptor heaps, which do include a size.
+  * Regardless of the level of hardware, applications should always try to make the root signature as small as needed for maximum efficiency.
+
+</details>
+
+
+## Root Signature 생성
+다양한 버전의 Root Signature 는 구조체 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 로 나타내어진다.
+* [learn.microsoft - d3d12_versioned_root_signature_desc](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc)  
+
+CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC 구조체는 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 를 쉽게 생성하기 위한 Helper class 이다.
+* [learn.microsoft - cd3dx12-versioned-root-signature-desc](https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-versioned-root-signature-desc)  
+
+Root signature 는 root parameter 들로 정의됨으로, Root Signature 를 생성하기 위해서는 먼저, Root Parameter 들을 생성해야 한다.
 
 다음으로 D3D12SerializeRootSignature 함수로 serialization 된 root signature 의 blob 을 얻고 이를 ID3D12Device::CreateRootSignature 함수에 인자로 넣어주면 root signature 객체를 생성할 수 있다.
 
@@ -104,10 +130,12 @@ D3D12CreateRootSignatureDeserializer 함수를 호출하면 역직렬화된 D3D1
 
 
 <details> <summary> <h3 style="display:inline-block"> serealized </h3></summary>
+
 Root Signature 을 생성하는 API는 직렬화된(자체 포함, 포인터가 없는) 버전을 사용한다. C++ 데이터 구조에서 이 직렬화된 버전을 생성하는 방법이 제공되지만, 직렬화된 Root Signature 정의를 얻는 또 다른 방법은 Root Signature 를 포함해 컴파일된 셰이더에서 이를 검색하는 방식이다.
 
 > Reference  
 > [learn.microsoft - creating-a-root-signature](https://learn.microsoft.com/en-us/windows/win32/direct3d12/creating-a-root-signature)  
+
 </details>
 
 ## Root Signautre 에 Descriptor 등록
