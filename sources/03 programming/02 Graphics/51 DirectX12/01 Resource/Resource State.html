@@ -460,6 +460,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/basic_istream.html">basic_istream</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/Chrono.html">Chrono</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/condition_variable.html">condition_variable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/function.html">function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../01%20C%2B%2B/20%20Standard%20Library/list.html">list</a></li>
@@ -580,7 +581,6 @@
 <li class="toctree-l4"><a class="reference internal" href="Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Descriptors.html">Descriptors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="GPU%20Heap.html">GPU Heap</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Resource%20Barrier.html">Resource Barrier</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Resource%20Creation.html">Resource Creation</a></li>
@@ -835,6 +835,12 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-resource-state-common">D3D12_RESOURCE_STATE_COMMON</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-resource-state-render-target">D3D12_RESOURCE_STATE_RENDER_TARGET</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-resource-state-vertex-and-constant-buffer-vs-d3d12-resource-state-generic-read">D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER vs D3D12_RESOURCE_STATE_GENERIC_READ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-barrier">Resource Barrier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aliasing-barrier">Aliasing Barrier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implicit-state-transitions">Implicit State Transitions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-barrier">Enhanced Barrier</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -856,10 +862,15 @@
 <section id="d3d12-resource-state-common">
 <h2>D3D12_RESOURCE_STATE_COMMON<a class="headerlink" href="#d3d12-resource-state-common" title="Link to this heading">#</a></h2>
 <details> <summary> <h3 style="display:inline-block"> Copy Queue, Copy Command List </h3></summary>
-* https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states
-  * Your application should transition to this state only for accessing a resource across different graphics engine types.
-  * Specifically, a resource must be in the COMMON state before being used on a COPY queue (when previously used on DIRECT/COMPUTE), and before being used on DIRECT/COMPUTE (when previously used on COPY). This restriction doesn't exist when accessing data between DIRECT and COMPUTE queues.
-  * The COMMON state can be used for all usages on a Copy queue using the implicit state transitions. 
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states">https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states</a></p>
+<ul>
+<li><p>Your application should transition to this state only for accessing a resource across different graphics engine types.</p></li>
+<li><p>Specifically, a resource must be in the COMMON state before being used on a COPY queue (when previously used on DIRECT/COMPUTE), and before being used on DIRECT/COMPUTE (when previously used on COPY). This restriction doesn’t exist when accessing data between DIRECT and COMPUTE queues.</p></li>
+<li><p>The COMMON state can be used for all usages on a Copy queue using the implicit state transitions.</p></li>
+</ul>
+</li>
+</ul>
 </details>
 </section>
 <section id="d3d12-resource-state-render-target">
@@ -919,6 +930,280 @@ GPU가 주로 접근(읽고 쓰는)을 담당하는 힙입니다. 여기서는 �
 </li>
 </ul>
 </details>
+</section>
+<section id="resource-barrier">
+<h2>Resource Barrier<a class="headerlink" href="#resource-barrier" title="Link to this heading">#</a></h2>
+<p>GPU 명령 스트림에 삽입되어 리소스(resource)의 “상태(state)” 전이를 안전하게 관리하고, 파이프라인 내 읽기·쓰기 충돌(hazard)을 방지하도록 도와주는 수단이다.</p>
+<p>왜 필요한가</p>
+<ul class="simple">
+<li><p>GPU는 한 리소스를 여러 용도로 사용할 수 있다. 예를 들어, 같은 텍스처를 “렌더 타깃”으로 쓰다가 “셰이더 리소스”로 읽기도 한다.</p></li>
+<li><p>하지만 이러한 용도 전환이 파이프라인 내부에서 적절히 동기화되지 않으면, “읽기 중에 쓰기” 혹은 “쓰는 중에 읽기” 같은 레이스 컨디션이 발생할 수 있다.</p></li>
+<li><p><strong>ResourceBarrier</strong> 는 이런 충돌 지점을 명시적으로 표시해 주어, Direct3D 12가 내부에서 필요한 파이프라인 플러시나 캐시 무효화 등 동기화 작업을 수행하게 만든다.</p></li>
+</ul>
+<p>주요 타입</p>
+<ol class="arabic">
+<li><p><strong>Transition Barrier</strong></p>
+<ul>
+<li><p>리소스의 사용 목적(state)을 변경할 때 사용</p></li>
+<li><p>예: 렌더 타깃 → 셰이더 리소스, 복사 대상 → 복사 소스 등</p></li>
+<li><p>구조체 예시</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">D3D12_RESOURCE_BARRIER</span><span class="w"> </span><span class="n">barrier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="n">barrier</span><span class="p">.</span><span class="n">Type</span><span class="w">                   </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_RESOURCE_BARRIER_TYPE_TRANSITION</span><span class="p">;</span>
+<span class="n">barrier</span><span class="p">.</span><span class="n">Flags</span><span class="w">                  </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_RESOURCE_BARRIER_FLAG_NONE</span><span class="p">;</span>
+<span class="n">barrier</span><span class="p">.</span><span class="n">Transition</span><span class="p">.</span><span class="n">pResource</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">myTexture</span><span class="p">;</span>
+<span class="n">barrier</span><span class="p">.</span><span class="n">Transition</span><span class="p">.</span><span class="n">Subresource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES</span><span class="p">;</span>
+<span class="n">barrier</span><span class="p">.</span><span class="n">Transition</span><span class="p">.</span><span class="n">StateBefore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_RESOURCE_STATE_RENDER_TARGET</span><span class="p">;</span>
+<span class="n">barrier</span><span class="p">.</span><span class="n">Transition</span><span class="p">.</span><span class="n">StateAfter</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>UAV Barrier</strong></p>
+<ul>
+<li><p>Unordered Access View(UAV) 리소스에 대한 쓰기·읽기 충돌을 막기 위해 사용</p></li>
+<li><p>특정 리소스가 아닌, <em>모든</em> UAV 쓰기 작업 사이의 순서를 보장</p></li>
+<li><p>구조체 필드:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">barrier</span><span class="p">.</span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D3D12_RESOURCE_BARRIER_TYPE_UAV</span><span class="p">;</span>
+<span class="n">barrier</span><span class="p">.</span><span class="n">UAV</span><span class="p">.</span><span class="n">pResource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myUAVResource</span><span class="p">;</span><span class="w">  </span><span class="c1">// nullptr 가능</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p><strong>Aliasing Barrier</strong></p>
+<ul class="simple">
+<li><p>서로 다른 리소스가 같은 힙(heap) 영역을 공유(alias)할 때 사용</p></li>
+<li><p>이전 리소스 사용 이후 다음 리소스로 전환할 때 필요한 동기화를 수행</p></li>
+</ul>
+</li>
+</ol>
+<p>효과와 주의점</p>
+<ul class="simple">
+<li><p><strong>효과</strong>: GPU 내부 캐시 무효화, 명령 순서 보장, 메모리 가시성 보장</p></li>
+<li><p><strong>주의</strong>: 불필요하게 자주 삽입하면 성능 저하 발생</p>
+<ul>
+<li><p>상태가 이미 일치(stateBefore == stateAfter)하면 barrier를 생략</p></li>
+<li><p>여러 전이를 묶어서 한 번에 호출하는 것이 좋음</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-resource-barriers-to-synchronize-resource-states-in-direct3d-12">learn.microsoft - using-resource-barriers-to-synchronize-resource-states-in-direct3d-12</a></p>
+</div></blockquote>
+<section id="aliasing-barrier">
+<h3>Aliasing Barrier<a class="headerlink" href="#aliasing-barrier" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>D3D12에서는 고급 기능으로, 여러 리소스(예: 텍스처, 버퍼)를 같은 Heap(메모리) 상의 겹치는 범위를 통해 할당**(Alias)**할 수 있습니다.</p></li>
+<li><p>왜 필요한가?</p>
+<ul>
+<li><p>대용량 텍스처 A가 필요할 때와 텍스처 B가 필요할 때가 완전히 시간적으로 분리되어 있다면, 동일 메모리 공간을 재사용하여 메모리 사용량을 절약 가능.</p></li>
+<li><p>하지만 GPU 입장에서, “이 메모리를 지금 A라는 리소스로 사용 중인 것인지, 아니면 B라는 리소스로 사용할 차례인지” 정확히 알아야 안전하게 파이프라인 동작을 보장할 수 있습니다.</p></li>
+<li><p>따라서 “이제부터는 텍스처 A 대신 텍스처 B가 이 물리 메모리를 사용할 것”이라는 것을 GPU에게 알려줘야 하는데, 이것을 위해 Aliasing Barrier를 사용합니다.</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-resource-barriers-to-synchronize-resource-states-in-direct3d-12">learn.microsoft - using-resource-barriers-to-synchronize-resource-states-in-direct3d-12</a></p>
+</div></blockquote>
+</section>
+<section id="implicit-state-transitions">
+<h3>Implicit State Transitions<a class="headerlink" href="#implicit-state-transitions" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>State flag</p></th>
+<th class="head"><p>Buffers and Simultaneous-Access Textures</p></th>
+<th class="head"><p>Non-Simultaneous-Access Textures</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>VERTEX_AND_CONSTANT_BUFFER</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>INDEX_BUFFER</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>RENDER_TARGET</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>UNORDERED_ACCESS</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>DEPTH_WRITE</p></td>
+<td><p>No*</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>DEPTH_READ</p></td>
+<td><p>No*</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>NON_PIXEL_SHADER_RESOURCE</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>PIXEL_SHADER_RESOURCE</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>STREAM_OUT</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>INDIRECT_ARGUMENT</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>COPY_DEST</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>COPY_SOURCE</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>RESOLVE_DEST</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>RESOLVE_SOURCE</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>PREDICATION</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>All buffer resources as well as textures with the D3D12_RESOURCE_FLAG_ALLOW_SIMULTANEOUS_ACCESS flag set are implicitly promoted from D3D12_RESOURCE_STATE_COMMON to the relevant state on first GPU access, including GENERIC_READ to cover any read scenario. Any resource in the COMMON state can be accessed as through it were in a single state with 1 WRITE flag, or 1 or more READ flag</p></li>
+</ul>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-resource-barriers-to-synchronize-resource-states-in-direct3d-12">learn.microsoft - using-resource-barriers-to-synchronize-resource-states-in-direct3d-12</a></p>
+</div></blockquote>
+<details> <summary> <h4 style="display:inline-block"> Simultaneous-Access Textures </h3></summary>
+<p>Resource 를 설정할 떄, D3D12_RESOURCE_FLAG_ALLOW_SIMULTANEOUS_ACCESS 를 사용하면 된다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_flags">https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_flags</a></p>
+<ul>
+<li><p>Allows a resource to be simultaneously accessed by multiple different queues, devices, or processes</p></li>
+<li><p>Simultaneous access allows multiple readers and one writer, as long as the writer doesn’t concurrently modify the texels that other readers are accessing.</p></li>
+<li><p>your application should avoid setting this flag when multiple readers are not required during frequent, non-overlapping writes to textures. Use of this flag can compromise resource fences to perform waits, and prevent any compression being used with a resource.</p></li>
+<li><p>The following restrictions and interactions apply:</p>
+<ul>
+<li><p>Can’t be used with D3D12_RESOURCE_DIMENSION_BUFFER; but buffers always have the properties represented by this flag.</p></li>
+<li><p>Can’t be used with MSAA textures.</p></li>
+<li><p>Can’t be used with D3D12_RESOURCE_FLAGS::D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</details>
+</section>
+<section id="enhanced-barrier">
+<h3>Enhanced Barrier<a class="headerlink" href="#enhanced-barrier" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://microsoft.github.io/DirectX-Specs/d3d/D3D12EnhancedBarriers.html">https://microsoft.github.io/DirectX-Specs/d3d/D3D12EnhancedBarriers.html</a></p>
+<ul class="simple">
+<li><p>Excessive sync latency</p>
+<ul>
+<li><p>App developers must assume that a State Transition Barrier will flush all preceding GPU work potentially-using StateBefore, and block all subsequent GPU work potentially-using StateAfter until the barrier is completed.</p>
+<ul>
+<li><p>why?</p>
+<ul>
+<li><p>상황 가정</p>
+<ul>
+<li><p>이전 그래픽 파이프라인 단계에서 텍스처 T로 씬(Scene)을 렌더링 중이었다고 합시다.</p></li>
+<li><p>T는 D3D12_RESOURCE_STATE_RENDER_TARGET 상태로 사용되고 있었습니다.</p></li>
+<li><p>후속 파이프라인 단계에서 T에 그려진 결과물을 화면에 합성하기 위해, T를 픽셀 쉐이더에서 샘플링하려고 합니다.</p></li>
+<li><p>따라서 T가 D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE 상태로 전환되어야 합니다.</p></li>
+<li><p>문제는 “렌더 타깃으로 쓰기가 다 끝나기도 전에, 픽셀 쉐이더에서 읽기를 시작해버리면” 데이터가 올바르지 않을 수 있다는 것입니다. 그래서 이 두 상태 전환 사이에 Barrier가 필요합니다.</p></li>
+</ul>
+</li>
+<li><p>Barrier 삽입</p>
+<ul>
+<li><p>StateBefore (RENDER_TARGET) 관련 작업 flush</p>
+<ul>
+<li><p>GPU는 T를 RENDER_TARGET 상태로 사용하던 모든 이전 명령이 완전히 끝날 때까지 대기합니다(= “flush”).</p></li>
+<li><p>아직 T에 픽셀을 그리는 중이었다면, 그 렌더링이 전부 완료될 때까지 GPU가 보장해줍니다.</p></li>
+</ul>
+</li>
+<li><p>StateAfter (PIXEL_SHADER_RESOURCE) 작업 block</p>
+<ul>
+<li><p>Barrier가 완료되기 전까지, T를 픽셀 쉐이더에서 읽으려는(샘플링하려는) 모든 다음 명령은 시작되지 못하고 대기 상태에 있습니다(= “block”).</p></li>
+<li><p>Barrier가 끝나면 T가 올바른 상태(픽셀 쉐이더 리소스)로 전환되었으므로, 그제야 안전하게 텍스처를 읽기 시작할 수 있습니다.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Barrier is Completed</p>
+<ul>
+<li><p>Flush 가 완료되서 Block 이 끝난 상태</p></li>
+<li><p>Barrier가 “완료되었다”는 것은 GPU가 이전 상태(StateBefore)를 사용하는 모든 명령(작업)을 완전히 끝냈고, 동시에 해당 리소스가 다음 상태(StateAfter)로 안전하게 전환되었음을 보장한다는 의미</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Resource State Promotion and Decay</p>
+<ul>
+<li><p>Promotion and decay reflect the natural consequences of ExecuteCommandLists boundaries.</p>
+<ul>
+<li><p>Promotion</p>
+<ul>
+<li><p>리소스가 COMMON 상태에 있을 때, 읽기 전용(예: PIXEL_SHADER_RESOURCE, NON_PIXEL_SHADER_RESOURCE, COPY_SOURCE 등)으로 사용된다면, 명시적 ResourceBarrier 없이도 내부적으로 COMMON → (Read-Only State)로 “암묵적 전환”이 가능합니다.</p></li>
+<li><p>이때 개발자가 “수동으로 Transition Barrier를 호출하지 않아도” D3D12가 이 과정을 허용하는 것은, “어차피 읽기만 할 것이고 COMMON도 GPU 접근이 사실상 막혀있는 상태가 아니기 때문”입니다.</p></li>
+</ul>
+</li>
+<li><p>Decay</p>
+<ul>
+<li><p>특정 리소스가 읽기 전용 상태로 마지막에 사용되고, 해당 커맨드 리스트 안에서 이후에 더 이상 사용되지 않는다면, 커맨드 리스트가 끝나는 시점에 자동으로 COMMON 상태로 “복귀(Decay)”시킬 수 있습니다.</p></li>
+<li><p>이는 GPU가 “마지막에 읽기만 했으니, 추가 쓰기나 압축(Decompression) 없이 곧장 COMMON으로 되돌려도 무방하겠구나”라는 판단을 해주는 것입니다.</p></li>
+</ul>
+</li>
+<li><p><strong>“reflect the natural consequences of ExecuteCommandLists boundaries”</strong></p>
+<ul>
+<li><p>ExecuteCommandLists 호출을 경계로 GPU가 명시적/암묵적(implicit) 파이프라인 동기화를 진행하는데, 그 과정에서 이 Promotion/Decay 규칙이 적용된다는 뜻입니다.</p></li>
+<li><p>즉, 커맨드 리스트 실행을 마무리하는 시점에서 <strong>“마지막 접근이 읽기 전용이었다면 해당 리소스는 COMMON으로 되돌아갈 수 있다”</strong> 라고 보면 됩니다.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>However, some developers incorrectly assume that hidden barriers are being inserted behind the scenes. As such, it is common for promotion and decay to be ignored, resulting in excessive use of unnecessary barriers with noticeable performance impact.</p>
+<ul>
+<li><p>“어차피 Promotion/Decay가 있으니, 드라이버나 D3D12 런타임이 자동으로 ResourceBarrier 같은 것을 몰래 호출해줄 거야”라고 착각하는 경우가 많습니다.</p>
+<ul>
+<li><p>하지만 실제로는 개발자가 의도하지 않은 불필요한 배리어가 자동으로 삽입되는 일이 아니라, 아주 최소한의 규칙만 적용하는 것입니다.</p></li>
+<li><p>이는 “엄밀히 말하면 배리어 호출 없이도 허용되는 최적화”이지, 엔진 레벨에서 실제 GPU 스톨(Barrier)이 실행되는 게 아니라는 점이 중요합니다.</p></li>
+</ul>
+</li>
+<li><p>Promotion/Decay를 무시하면 생기는 문제</p>
+<ul>
+<li><p>문구 후반부에서 언급했듯이, 개발자가 Promotion/Decay 규칙을 모르거나, 굳이 쓰지 않고 모든 상태 전환을 명시적으로 해버리는 경우, 성능 문제가 생길 수 있습니다.</p></li>
+<li><p>예: “리소스가 COMMON 상태인데, 단순히 텍스처를 샘플하는 PIXEL_SHADER_RESOURCE로 접근할 때조차 개발자가 매번 Transition Barrier를 건다.”</p></li>
+<li><p>사실 D3D12는 “읽기 전용 목적”이라면 Promotion이 가능해 굳이 배리어를 안 써도 괜찮은데, 매번 배리어를 선언하면 불필요한 GPU 동기화가 추가됩니다.</p></li>
+<li><p>배리어(Transition Barrier)는 GPU 파이프라인에 스톨(정지)을 유발할 수 있으므로, 배리어를 자주 사용하면 사용할수록 프레임 시간(렌더링 성능)이 저하됩니다.</p></li>
+<li><p>결과적으로 “Promotion/Decay를 잘 활용하면 애플리케이션이 자체적으로 명시적 배리어를 추가할 필요가 크게 줄어들고, 그만큼 성능도 좋아질 수 있는데, 이를 모르고/무시하고 COMMON → (Read-Only State) → COMMON을 전부 명시 배리어로 처리해버리면 ‘의미 없는 중복 배리어’가 생겨 성능에 악영향을 준다”는 것입니다.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a class="reference external" href="https://ssinyoung.tistory.com/40">https://ssinyoung.tistory.com/40</a></p>
+</section>
 </section>
 </section>
 
@@ -990,6 +1275,12 @@ GPU가 주로 접근(읽고 쓰는)을 담당하는 힙입니다. 여기서는 �
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-resource-state-common">D3D12_RESOURCE_STATE_COMMON</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-resource-state-render-target">D3D12_RESOURCE_STATE_RENDER_TARGET</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d3d12-resource-state-vertex-and-constant-buffer-vs-d3d12-resource-state-generic-read">D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER vs D3D12_RESOURCE_STATE_GENERIC_READ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resource-barrier">Resource Barrier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aliasing-barrier">Aliasing Barrier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implicit-state-transitions">Implicit State Transitions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-barrier">Enhanced Barrier</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

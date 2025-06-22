@@ -55,6 +55,7 @@ CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC 구조체는 D3D12_VERSIONED_ROOT_SIGNATUR
 Root signature 는 root parameter 들로 정의됨으로, Root Signature 를 생성하기 위해서는 먼저, Root Parameter 들을 생성해야 한다.
 
 <details> <summary> <h3 style="display:inline-block"> Root Parameter 생성 </h3></summary>
+
 Root Parameter 는 HLSL 에 Resource 가 어떻게 Binding 되어 있는지를 나타낸다. 예를 들어 HLSL 에 다음과 같이 Resource 가 Binding 되어 있다고 하자.
 ```
 Texture2D texture0 : register(t2);
@@ -84,7 +85,8 @@ CD3DX12_ROOT_PARAMETER1 구조체의 InitAsDescriptorTable 함수를 사용하�
 D3D12_DESCRIPTOR_RANGE1 구조체의 BaseShaderRegister 변수는  base shader register 를 나타내는 변수이다. 예를 들어 RangeType 변수가 D3D12_DESCRIPTOR_RANGE_TYPE_SRV 이고 BaseShaderRegister 변수가 3이라면 HLSL 의 ":register(t3)" 와 Mapping 된다.
 * [learn.microsoft - d3d12_descriptor_range1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_range1)  
 * [learn.microsoft - cd3dx12-descriptor-range1](https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-descriptor-range1)
-* [learn.micorosoft - d3d12_descriptor_range_type](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_range_type)  
+* [learn.micorosoft - d3d12_descriptor_range_type](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_range_type) 
+*  
 </details>
 
 다음으로 D3D12SerializeRootSignature 함수로 serialization 된 root signature 의 blob 을 얻고 이를 ID3D12Device::CreateRootSignature 함수에 인자로 넣어주면 root signature 객체를 생성할 수 있다.
@@ -104,6 +106,7 @@ D3D12CreateRootSignatureDeserializer 함수를 호출하면 역직렬화된 D3D1
 
 
 <details> <summary> <h3 style="display:inline-block"> serealized </h3></summary>
+
 Root Signature 을 생성하는 API는 직렬화된(자체 포함, 포인터가 없는) 버전을 사용한다. C++ 데이터 구조에서 이 직렬화된 버전을 생성하는 방법이 제공되지만, 직렬화된 Root Signature 정의를 얻는 또 다른 방법은 Root Signature 를 포함해 컴파일된 셰이더에서 이를 검색하는 방식이다.
 
 > Reference  
@@ -123,7 +126,6 @@ D3D12 ERROR: CGraphicsCommandList::SetGraphicsRootDescriptorTable: No root signa
 
 > Reference  
 > [learn.micorsoft - setgraphicsrootdescriptortable](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootdescriptortable)   
-</details>
 
 
 
