@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Calculus &#8212; MS Study Book</title>
+    <title>Differential Geometry &#8212; MS Study Book</title>
   
   
   
@@ -63,12 +63,12 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"tex": {"macros": {"span": "\\text{span}", "End": "\\text{End}", "C": "\\Complex", "F": "\\mathbb{F}", "R": "\\mathbb{R}", "N": "\\mathbb{N}", "Q": "\\mathbb{Q}", "Z": "\\mathbb{Z}", "Ext": "\\text{Ext}", "Int": "\\text{Int}", "st": "\\quad s.t \\quad", "qed": "\\quad\\tiny\\blacksquare", "preimg": "\\text{preimg}", "img": "\\text{img}", "norm": ["\\left\\lVert #1 \\right\\rVert", 1], "sym": "\\text{sym}", "tr": "\\text{tr}", "empty": "\\emptyset", "exist": "\\exists", "Set": ["\\left\\{ #1 \\right\\}", 1], "pdiff": ["\\frac{\\partial #1}{\\partial #2}", 2], "diff": ["\\frac{d #1}{d #2}", 2], "Diff": ["\\frac{D #1}{D #2}", 2], "ninf": "n \\rightarrow \\infty", "rank": "\\text{rank}", "nullity": "\\text{nullity}", "lcm": "\\text{lcm}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/01 math/06 Calculus/Calculus';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/01 math/06 Calculus/Differential Geometry';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Derivatives" href="01%20Derivatives.html" />
-    <link rel="prev" title="Product Open Set" href="../05%20Topology/07%20Product%20Spaces/03%20Product%20Open%20Set.html" />
+    <link rel="next" title="Divergence Theorem" href="Divergence%20Theorem.html" />
+    <link rel="prev" title="Inverse Function Theorem" href="52%20Inverse%20Function%20Theorem.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -341,7 +341,7 @@
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Calculus</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="Calculus.html">Calculus</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="01%20Derivatives.html">Derivatives</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02%20Directional%20Derivative.html">Directional Derivative</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03%20Total%20Derivative.html">Total Derivative</a></li>
@@ -351,7 +351,7 @@
 <li class="toctree-l2"><a class="reference internal" href="50%20Leibniz%20Integral%20Rule.html">Libniz Integral Rule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="51%20Taylor%27s%20Theorem.html">Taylor’s Theorem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="52%20Inverse%20Function%20Theorem.html">Inverse Function Theorem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Differential%20Geometry.html">Differential Geometry</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Differential Geometry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Divergence%20Theorem.html">Divergence Theorem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Line%20Integral.html">Line Integral</a></li>
 </ul>
@@ -752,7 +752,7 @@
       
       
       
-      <li><a href="../../../_sources/sources/01 math/06 Calculus/Calculus.md" target="_blank"
+      <li><a href="../../../_sources/sources/01 math/06 Calculus/Differential Geometry.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -815,7 +815,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -826,11 +828,24 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Calculus</h1>
+    <h1>Differential Geometry</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-coordinates">Local Coordinates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-function">Coordinate Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-curve">Coordinate Curve</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -840,10 +855,62 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="calculus">
-<h1>Calculus<a class="headerlink" href="#calculus" title="Link to this heading">#</a></h1>
-<div class="toctree-wrapper compound">
-</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="differential-geometry">
+<h1>Differential Geometry<a class="headerlink" href="#differential-geometry" title="Link to this heading">#</a></h1>
+<section id="local-coordinates">
+<h2>Local Coordinates<a class="headerlink" href="#local-coordinates" title="Link to this heading">#</a></h2>
+<p>Manifold <span class="math notranslate nohighlight">\(M\)</span> 이 있고 chart <span class="math notranslate nohighlight">\(\phi: U \subset M \rightarrow \R^n\)</span> 이 있을 때, <span class="math notranslate nohighlight">\(p \in U\)</span> 에 대해서 <span class="math notranslate nohighlight">\(\phi(p)\)</span> 를 <span class="math notranslate nohighlight">\(p\)</span> 의 local coordinate 라고 한다.</p>
+<p>참고로, local coordinate 는 chart 에 의존하는 값이기 때문에 chart 가 달라지면 local coordinate 도 달라진다.</p>
+<p>정의역이 겹치는 두 차트 <span class="math notranslate nohighlight">\(\phi, \psi\)</span> 에 대해 전이함수(transition map) <span class="math notranslate nohighlight">\(\psi \circ \phi^{-1} : \phi(U \cap V) \rightarrow \R^n\)</span> 가 잘 정의되어 서로 다른 local coordinates 는 오버랩 영역에서 전이 함수로 연결된다.</p>
+</section>
+<section id="coordinate-function">
+<h2>Coordinate Function<a class="headerlink" href="#coordinate-function" title="Link to this heading">#</a></h2>
+<p>Manifold <span class="math notranslate nohighlight">\(M\)</span> 이 있고 chart <span class="math notranslate nohighlight">\(\phi: U \subset M \rightarrow \R^n\)</span> 이 있을 때, Coordinate Function <span class="math notranslate nohighlight">\(x^i\)</span> 는 chart 의 결과에 <span class="math notranslate nohighlight">\(i\)</span> 번째 좌표값을 반환하는 함수이다.
+$<span class="math notranslate nohighlight">\(
+\forall p \in U, \quad  x^i(p) = \pi_i(\phi(p))
+\)</span>$</p>
+</section>
+<section id="coordinate-curve">
+<h2>Coordinate Curve<a class="headerlink" href="#coordinate-curve" title="Link to this heading">#</a></h2>
+<p>Manifold <span class="math notranslate nohighlight">\(M\)</span> 이 있고 chart <span class="math notranslate nohighlight">\(\phi: U \subset M \rightarrow \R^n\)</span> 이 있을 때, <span class="math notranslate nohighlight">\(p \in U\)</span> 에서 Coordinate Curve <span class="math notranslate nohighlight">\(\gamma_i|_p(t)\)</span> 는 다음과 같이 정의된 <span class="math notranslate nohighlight">\(\R^n\)</span> 의 curve <span class="math notranslate nohighlight">\(r_i(t)\)</span> 를 <span class="math notranslate nohighlight">\(\phi^{-1}\)</span> 로 옮겼을 때, <span class="math notranslate nohighlight">\(M\)</span> 위에서의 curve 이다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{gathered}
+r_i(t) = \phi(p) + (0, \cdots, t, \cdots, 0) = (x^1(p), \cdots, x^i(p)+t, \cdots, x^n(p)) \\
+\gamma_i|_p(t) = \phi^{-1}(r_i(t))  
+\end{gathered} 
+\end{split}\]</div>
+<p>즉, <span class="math notranslate nohighlight">\(\gamma_i|_p(t)\)</span> 는 <span class="math notranslate nohighlight">\(\phi(p)\)</span> 에서 <span class="math notranslate nohighlight">\(i\)</span> 번째 좌표만 <span class="math notranslate nohighlight">\(t\)</span> 만큼 바뀌어서 그려지는 curve 를 <span class="math notranslate nohighlight">\(M\)</span> 위로 다시 가져왔을 떄 그려지는 Curve 이다.</p>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>대상 공간</strong>: 단위 2-구 <span class="math notranslate nohighlight">\(S^2 \subset \mathbb{R}^3\)</span></p></li>
+<li><p><strong>지도(chart)</strong>: 북극 스테레오그래픽 투영 (북극 <span class="math notranslate nohighlight">\((0,0,1)\)</span>에서 <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>로 투영)</p></li>
+<li><p><strong>점</strong>: <span class="math notranslate nohighlight">\(p = \left(\frac{1}{2}, \frac{1}{2}, \frac{1}{\sqrt{2}}\right) \in S^2\)</span></p></li>
+</ul>
+<ol class="arabic">
+<li><p><strong>스테레오그래픽 투영 정의</strong>
+북극 <span class="math notranslate nohighlight">\((0,0,1)\)</span>에서 <span class="math notranslate nohighlight">\(S^2 \setminus \{(0,0,1)\} \to \mathbb{R}^2\)</span>로의 투영:</p>
+<div class="math notranslate nohighlight">
+\[
+   (x, y, z) \mapsto \left( \frac{x}{1 - z}, \frac{y}{1 - z} \right)
+   \]</div>
+</li>
+<li><p><strong>역 투영 (그래프화에 필요)</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+   (u, v) \mapsto \left( \frac{2u}{u^2 + v^2 + 1}, \frac{2v}{u^2 + v^2 + 1}, \frac{u^2 + v^2 - 1}{u^2 + v^2 + 1} \right)
+   \]</div>
+</li>
+</ol>
+<p><img alt="Stereographic Coordinate Curves" src="https://www.wolframcloud.com/obj/93973454-f92f-4635-9e7f-1654283375a4" /></p>
+<ul class="simple">
+<li><p>🔴 <strong>빨간 곡선</strong>: <span class="math notranslate nohighlight">\(x\)</span>-좌표 곡선 — <span class="math notranslate nohighlight">\(y\)</span> 고정, <span class="math notranslate nohighlight">\(x\)</span> 변화</p></li>
+<li><p>🔵 <strong>파란 곡선</strong>: <span class="math notranslate nohighlight">\(y\)</span>-좌표 곡선 — <span class="math notranslate nohighlight">\(x\)</span> 고정, <span class="math notranslate nohighlight">\(y\)</span> 변화</p></li>
+<li><p>🌐 <strong>구형 반투명 도형</strong>: 단위 구 <span class="math notranslate nohighlight">\(S^2\)</span></p></li>
+</ul>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -877,20 +944,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../05%20Topology/07%20Product%20Spaces/03%20Product%20Open%20Set.html"
+       href="52%20Inverse%20Function%20Theorem.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Product Open Set</p>
+        <p class="prev-next-title">Inverse Function Theorem</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Derivatives.html"
+       href="Divergence%20Theorem.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Derivatives</p>
+        <p class="prev-next-title">Divergence Theorem</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -900,6 +967,27 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-coordinates">Local Coordinates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-function">Coordinate Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-curve">Coordinate Curve</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

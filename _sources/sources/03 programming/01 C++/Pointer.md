@@ -144,7 +144,12 @@ static constexpr const wchar_t* class_name = L"MSGraphics";
 
 ## Function Pointer
 
-functino call
+function pointer 는 아래와 같은 형태를 갖는다.
+```
+ReturnType (*PointerName)(InputType)
+```
+
+예를 들어 `int (*p)(int);` 는 int 를 input 으로 받아서 int 를 return 하는 함수를 가르키는 포인터 객체 p 를 정의한 것이다.
 
 A pointer to function can be used as the left-hand operand of the function call operator, this invokes the pointed-to function:
 ```cpp

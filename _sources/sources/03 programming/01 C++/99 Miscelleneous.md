@@ -1,5 +1,28 @@
 # Miscellaneous
 
+## 내부 변수 접근 Trick
+
+```cpp
+class A
+{
+protected:
+ int _value;
+}
+
+class AInternal : public A
+{
+public:
+ using A::_value;
+}
+
+A a; AInternal& ai = static_cast<AInternal&>(a);
+ai._value = 5;
+```
+
+이걸 활용해서 private 함수를 사용하지 않을 수 있다.
+
+header 에 private 함수를 만들지 않고, cpp 에 APrivate class 를 만들고, 필요한 변수들을 public 으로 오픈한다음에, cpp local 함수들에서만 APrivate class 를 사용한다.
+
 ## integer literal
 Allows values of integer type to be used in expressions directly.
 
@@ -233,12 +256,6 @@ template <typename T> void type_checker(T& val)
 ```
 instantiation of "void Mec::type_checker(T &) [with T=Mec::DataArchive]" at line 3657
 ```
-
-## Iterator
-
-> Reference   
-> [blog](https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp)
-
 
 ## bool은 왜 1비트가 아니라 1바이트(8비트)일까?
 왜냐하면, 모든 C++ value는 주소값을 가질 수 있어야 하고, 주소는 1바이트를 차지하기 때문에 value의 최소 사이즈는 1바이트이다.

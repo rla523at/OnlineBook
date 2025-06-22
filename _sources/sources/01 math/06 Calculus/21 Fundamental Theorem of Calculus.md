@@ -1,4 +1,5 @@
 # Fundamental Theorem of Calculus
+
 ## Fundamental Theorem of Calculus1
 $[a,b]\subset\R$에서 continuous한 함수 $f$가 있다고 하자.
 
@@ -202,3 +203,71 @@ $$ \begin{gathered} \lim_{x\rightarrow a^+} F(x) = \lim_{h\rightarrow 0^+} F(a+h
 
 $$ F \text{ is continuous on } [a,b] \qed $$
 
+## Green's Theorem
+그린 정리(Green's Theorem)는 2차원 벡터장의 **면적분**과 **선적분**을 연결하는 정리다. 2차원 평면을 따라 계산한 **면적분** 과 평면을 둘러싸는 폐곡선을 따라 계산한 **선적분** 이 동일하다는게 핵심이다.
+
+$$
+\iint_R \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dx\,dy = \oint_C (P\,dx + Q\,dy)
+$$
+
+* $C$: 양의 방향(반시계 방향)으로 도는 단순 폐곡선
+* $R$: 곡선 $C$가 둘러싼 평면 영역
+* $\mathbf{F} = (P(x, y), Q(x, y))$: 벡터장
+
+### 예제: 단위 정사각형 위에서의 계산
+
+$$
+\oint_C (x^2 y)\,dx + (x y^2)\,dy
+$$
+
+$C$는 정사각형 영역 $R = [0,1] \times [0,1]$의 경계이다.
+
+**SOLVE**
+
+벡터장 성분:
+
+* $P(x, y) = x^2 y$
+* $Q(x, y) = x y^2$
+
+면적적분 integrand:
+
+$$
+\frac{\partial Q}{\partial x} = y^2,\quad \frac{\partial P}{\partial y} = x^2
+$$
+
+따라서 integrand는:
+
+$$
+\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = y^2 - x^2
+$$
+
+면적적분 계산:
+
+$$
+\iint_R (y^2 - x^2)\, dx\,dy = \int_0^1 \int_0^1 (y^2 - x^2)\, dx\,dy
+$$
+
+**적분 순서대로 계산:**
+
+$$
+\int_0^1 \left( \int_0^1 (y^2 - x^2)\, dx \right) dy
+= \int_0^1 \left[ y^2 x - \frac{1}{3}x^3 \right]_0^1\, dy
+= \int_0^1 \left( y^2 - \frac{1}{3} \right) dy
+$$
+
+$$
+= \left[ \frac{1}{3} y^3 - \frac{1}{3} y \right]_0^1 = \frac{1}{3} - \frac{1}{3} = 0
+$$
+
+### 2차원 벡터장
+**2차원 벡터장**이란, 평면 상의 각 점 $(x, y)$에 대해 하나의 벡터 $\vec{F}(x, y)$를 대응시키는 함수다.
+
+형식적으로는 다음과 같이 표현된다:
+
+$$
+\vec{F}(x, y) = P(x, y)\,\hat{i} + Q(x, y)\,\hat{j}
+$$
+
+* $P(x, y)$: $x$-방향(수평 성분) 벡터 크기를 나타내는 함수
+* $Q(x, y)$: $y$-방향(수직 성분) 벡터 크기를 나타내는 함수
+* $\hat{i}, \hat{j}$: 각각 $x$-축, $y$-축 방향 단위벡터

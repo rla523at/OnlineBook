@@ -39,6 +39,16 @@ cmd창에서 `conda --version`을 입력하여 정상동작하면 환경변수�
 anaconda prompt에서 `conda init cmd.exe` 명령어를 실행해주면 cmd를 ananconda prompt처럼 사용할 수 있다.
 
 
+### Jupyterbook 업그레이드
+Anaconda prompt에서 Jupyterbook 가상환경에 접속한다.
+```
+conda activate jb
+```
+
+Jupyterbook 을 업데이트한다.
+```
+pip install jupyter-book --upgrade
+```
 
 ## 기본 문서 작성 문법
 [jupyterbook - cheatsheet](https://jupyterbook.org/en/stable/reference/cheatsheet.html) 참고  

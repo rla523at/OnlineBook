@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>DirectX12 &#8212; MS Study Book</title>
+    <title>IndirectDrawing &#8212; MS Study Book</title>
   
   
   
@@ -61,12 +61,12 @@
     <script async="async" src="../../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/DirectX12';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/02 Graphics/51 DirectX12/IndirectDrawing';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
-    <link rel="next" title="Resource" href="01%20Resource/Resource.html" />
-    <link rel="prev" title="enum DXGI_SWAP_CHAIN_FLAG" href="../50%20DirectX11/11%20DXGI/102%20enum%20DXGI_SWAP_CHAIN_FLAG.html" />
+    <link rel="next" title="Initializing Direct3D" href="Initializing%20Direct3D.html" />
+    <link rel="prev" title="Fence" href="Fence.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -579,7 +579,7 @@
 </details></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">DirectX12</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="DirectX12.html">DirectX12</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3 has-children"><a class="reference internal" href="01%20Resource/Resource.html">Resource</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="01%20Resource/Descriptors.html">Descriptors</a></li>
@@ -594,7 +594,7 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Fence.html">Fence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="IndirectDrawing.html">IndirectDrawing</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">IndirectDrawing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Initializing%20Direct3D.html">Initializing Direct3D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Pipeline%20State%20Object.html">Pipeline State Object (PSO)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ShaderReflection.html">Shader Reflection</a></li>
@@ -750,7 +750,7 @@
       
       
       
-      <li><a href="../../../../_sources/sources/03 programming/02 Graphics/51 DirectX12/DirectX12.md" target="_blank"
+      <li><a href="../../../../_sources/sources/03 programming/02 Graphics/51 DirectX12/IndirectDrawing.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -813,9 +813,7 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -826,32 +824,11 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>DirectX12</h1>
+    <h1>IndirectDrawing</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-barrier">Enhanced Barrier</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#globally-unique-identifier">Globally Unique Identifier</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#execute-command-list-presnet">Execute Command List 후 바로 Presnet 호출</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-memory-acess-dma">Direct Memory Acess ( DMA )</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deffered-rendering">Deffered Rendering</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-slot">Register Slot</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-spaces">Register Spaces</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-bytecode">shader bytecode</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-visibility">Shader Visibility</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -861,213 +838,9 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="directx12">
-<h1>DirectX12<a class="headerlink" href="#directx12" title="Link to this heading">#</a></h1>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://ssinyoung.tistory.com/category/PROGRAMMING/DirectX%2012">blog - ssinyoung.tistory</a><br />
-<a class="reference external" href="https://dafher-diary.tistory.com/category/DirectX12">blog - dafher-diary.tistory</a><br />
-<a class="reference external" href="https://www.3dgep.com/learning-directx-12-1/">3dgep</a></p>
-</div></blockquote>
-<section id="enhanced-barrier">
-<h2>Enhanced Barrier<a class="headerlink" href="#enhanced-barrier" title="Link to this heading">#</a></h2>
-<p><a class="reference external" href="https://microsoft.github.io/DirectX-Specs/d3d/D3D12EnhancedBarriers.html#d3d12-legacy-resource-barrier-shortcomings">https://microsoft.github.io/DirectX-Specs/d3d/D3D12EnhancedBarriers.html#d3d12-legacy-resource-barrier-shortcomings</a></p>
-</section>
-<section id="globally-unique-identifier">
-<h2>Globally Unique Identifier<a class="headerlink" href="#globally-unique-identifier" title="Link to this heading">#</a></h2>
-<p>Globally Unique Identifier(GUID) 는 전역에서 유일한 식별자를 나타내며, COM 객체의 인터페이스를 식별하는 데 사용된다.</p>
-<p>각 인터페이스는 고유한 GUID를 가지고 있어, 프로그램이 인터페이스에 접근할 수 있게 한다. DXC의 여러 인터페이스들 역시 dxcapi.h에 정의된 GUID를 통해 접근 가능하다.</p>
-<details> <summary> <h2 style="display:inline-block"> IDxcUtils::CreateBlob VS IDxcUtils::CreateBlobFromPinned </h2></summary>
-<p>IDxcUtils::CreateBlob 함수는 독립적인 메모리 공간을 할당하고 기존의 데이터를 복사하여 IDxcBlobEncoding 객체를 생성한다.</p>
-<p>반면에 IDxcUtils::CreateBlobFromPinned 함수는 별도의 메모리 공간 할당 및 복사를 수행하지 않고 인자로 주어진 pData 를 참고하는 IDxcBlobEncoding 객체를 생성한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/nf-dxcapi-idxcutils-createblob">learn.microsoft - idxcutils-createblob</a><br />
-<a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/dxcapi/nf-dxcapi-idxcutils-createblobfrompinned">learn.microsoft - idxcutils-createblobfrompinned)</a></p>
-</div></blockquote>
-</details>
-</section>
-<section id="execute-command-list-presnet">
-<h2>Execute Command List 후 바로 Presnet 호출<a class="headerlink" href="#execute-command-list-presnet" title="Link to this heading">#</a></h2>
-<p>Microsoft Sample code 를 보면 다음과 같이 되어 있다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">D3D12HelloTriangle::OnRender</span><span class="p">()</span>
-<span class="p">{</span>
-<span class="c1">// Record all the commands we need to render the scene into the command list.</span>
-<span class="n">PopulateCommandList</span><span class="p">();</span>
-
-<span class="c1">// Execute the command list.</span>
-<span class="n">ID3D12CommandList</span><span class="o">*</span><span class="w"> </span><span class="n">ppCommandLists</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">m_commandList</span><span class="p">.</span><span class="n">Get</span><span class="p">()</span><span class="w"> </span><span class="p">};</span>
-<span class="n">m_commandQueue</span><span class="o">-&gt;</span><span class="n">ExecuteCommandLists</span><span class="p">(</span><span class="n">_countof</span><span class="p">(</span><span class="n">ppCommandLists</span><span class="p">),</span><span class="w"> </span><span class="n">ppCommandLists</span><span class="p">);</span>
-
-<span class="c1">// Present the frame.</span>
-<span class="n">ThrowIfFailed</span><span class="p">(</span><span class="n">m_swapChain</span><span class="o">-&gt;</span><span class="n">Present</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
-
-<span class="n">WaitForPreviousFrame</span><span class="p">();</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>맨 처음 실행단계에서 ExecuteCommandLists 는 비동기 수행임으로 만약 GPU 작업이 완료되지 못한채로 바로 Present 가 호출이 된다면 어떻게 될까?</p>
-<p>Present 는 Display 에게 back buffer 가 준비가 완료되면 front buffer 로 두고 scan out 을 시작하라고 비동기적으로 명령을 내려 놓는다. 따라서, GPU 작업이 완료되지 않았다면 기다렸다가 Display 가 scan out 을 하며, 이 과정은 비동기적으로 이루어지기 때문에 Present 함수에서 CPU wait 은 발생하지 않는것으로 유추된다. 하지만 실제로 이렇다는 문서를 찾을 수가 없다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://stackoverflow.com/questions/33416715/directx12-executecommandlists-and-present-function">stackoverflow - directx12-executecommandlists-and-present-function</a></p>
-</div></blockquote>
-</section>
-<section id="direct-memory-acess-dma">
-<h2>Direct Memory Acess ( DMA )<a class="headerlink" href="#direct-memory-acess-dma" title="Link to this heading">#</a></h2>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://en.wikipedia.org/wiki/Direct_memory_access">wiki - Direct_memory_access</a></p>
-</div></blockquote>
-</section>
-<section id="deffered-rendering">
-<h2>Deffered Rendering<a class="headerlink" href="#deffered-rendering" title="Link to this heading">#</a></h2>
-<p>각 오브젝트를 그릴 때 조명을 계산하는 Forward Rendering 과는 다르게 모든 오브젝트를 먼저 화면 버퍼에 그리고, 조명 계산은 그 후에 한꺼번에 수행하는 방식이다.</p>
-</section>
-<section id="register-slot">
-<h2>Register Slot<a class="headerlink" href="#register-slot" title="Link to this heading">#</a></h2>
-<p>Register Slot 을 명시하지 않으면 compiler 가 자동으로 slot 을 지정해준다.</p>
-<p>아래와 같은 hlsl 파일을 컴파일해서 test.cso 파일을 만들었다고 하자.</p>
-<div class="highlight-hlsl notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="n">VS_INPUT</span>
-<span class="p">{</span>
-<span class="kt">float4</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SV_POSITION</span><span class="p">;</span>
-<span class="kt">float4</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">TEXCOORD0</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">cbuffer</span><span class="w"> </span><span class="n">MyVar1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="kt">matrix</span><span class="w"> </span><span class="n">projection1</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">cbuffer</span><span class="w"> </span><span class="n">MyVar2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="kt">matrix</span><span class="w"> </span><span class="n">projection2</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="k">cbuffer</span><span class="w"> </span><span class="n">MyVar3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">register</span><span class="p">(</span><span class="n">space1</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="kt">matrix</span><span class="w"> </span><span class="n">projection3</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">float4</span><span class="w"> </span><span class="n">mainVS</span><span class="p">(</span><span class="n">VS_INPUT</span><span class="w"> </span><span class="n">input</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SV_POSITION</span>
-<span class="p">{</span>
-<span class="w">	</span><span class="kt">matrix</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">projection1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">projection2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">projection3</span><span class="p">;</span>
-<span class="w">	</span><span class="kt">float4</span><span class="w"> </span><span class="n">out_pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">mul</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">position</span><span class="p">);</span>
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="n">out_pos</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>컴파일 된 결과를 ID3D12ShaderReflection 을 이용해서 읽어와보면 실제로 BindPoint(slot) 이 자동으로 0,1,2 로 지정되어 있음을 알 수 있다.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;dxcapi.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;d3d12shader.h&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;wrl.h&gt;</span>
-<span class="cp">#pragma comment(lib, &quot;dxcompiler.lib&quot;)</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  	</span><span class="k">using</span><span class="w"> </span><span class="n">Microsoft</span><span class="o">::</span><span class="n">WRL</span><span class="o">::</span><span class="n">ComPtr</span><span class="p">;</span>
-
-<span class="w">	</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDxcUtils</span><span class="o">&gt;</span><span class="w"> </span><span class="n">utils</span><span class="p">;</span>
-<span class="w">	</span><span class="n">DxcCreateInstance</span><span class="p">(</span><span class="n">CLSID_DxcUtils</span><span class="p">,</span><span class="w"> </span><span class="n">IID_PPV_ARGS</span><span class="p">(</span><span class="o">&amp;</span><span class="n">utils</span><span class="p">));</span>
-
-<span class="w">	</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">IDxBlobEncoding</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sourceBlob</span><span class="p">;</span>
-<span class="w">	</span><span class="p">{</span>
-<span class="w">		</span><span class="k">const</span><span class="w"> </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utils</span><span class="o">-&gt;</span><span class="n">LoadFile</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;test.cso&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">nullptr</span><span class="p">,</span><span class="w"> </span><span class="n">sourceBlob</span><span class="p">.</span><span class="n">GetAddressOf</span><span class="p">());</span>
-<span class="w">	</span><span class="p">}</span>
-
-<span class="w">	</span><span class="n">ComPtr</span><span class="o">&lt;</span><span class="n">ID3D12ShaderReflection</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shaderRefelction</span><span class="p">;</span>
-<span class="w">	</span><span class="p">{</span>
-<span class="w">		</span><span class="n">DxcBuffer</span><span class="w"> </span><span class="n">sourceBuffer</span><span class="p">;</span>
-<span class="w">		</span><span class="n">sourceBuffer</span><span class="p">.</span><span class="n">Ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sourceBlob</span><span class="o">-&gt;</span><span class="n">GetBufferPointer</span><span class="p">();</span>
-<span class="w">		</span><span class="n">sourceBuffer</span><span class="p">.</span><span class="n">Size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sourceBlob</span><span class="o">-&gt;</span><span class="n">GetBufferSize</span><span class="p">();</span>
-<span class="w">		</span><span class="n">sourceBuffer</span><span class="p">.</span><span class="n">Encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DXC_CP_ACP</span><span class="p">;</span>
-
-<span class="w">		</span><span class="k">const</span><span class="w"> </span><span class="n">HRESULT</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utils</span><span class="o">-&gt;</span><span class="n">CreateReflection</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sourceBuffer</span><span class="p">,</span><span class="w"> </span><span class="n">IID_PPV_ARGS</span><span class="p">(</span><span class="o">&amp;</span><span class="n">shaderReflection</span><span class="p">));</span>
-<span class="w">	</span><span class="p">}</span>
-
-<span class="w">	</span><span class="n">D3D12_SHADER_DESC</span><span class="w"> </span><span class="n">shaderDesc</span><span class="p">{};</span>
-<span class="w">	</span><span class="n">shaderReflection</span><span class="o">-&gt;</span><span class="n">GetDesc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">shaderDesc</span><span class="p">);</span>
-
-<span class="w">	</span><span class="k">for</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="w"> </span><span class="n">shaderDesc</span><span class="p">.</span><span class="n">BoundResources</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
-<span class="w">	</span><span class="p">{</span>
-<span class="w">		</span><span class="n">D3D12_SHADER_INPUT_BIND_DESC</span><span class="w"> </span><span class="n">bindingResourceDesc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
-<span class="w">		</span><span class="n">shaderReflection</span><span class="o">-&gt;</span><span class="n">GetResourceBindingDesc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bindingResourceDesc</span><span class="p">);</span>
-<span class="w">	</span><span class="p">}</span>
-
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<section id="id1">
-<h3>참고<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>hlsl 에서 Cbuffer 를 코드에서 사용하지 않을 경우 compiler 가 최적화하는 과정에서 무시하게 되어 컴파일 된 결과를 읽어 들였을 때 BoundResource 개수에 포함되지 않을 수 있다.</p>
-</section>
-</section>
-<section id="register-spaces">
-<h2>Register Spaces<a class="headerlink" href="#register-spaces" title="Link to this heading">#</a></h2>
-<p>HLSL register space 는 컴파일러가 모호성을 명확하게 하는 데 사용하는 추가 구문이다.</p>
-<p>c++ 의 namespace 와 동일한 역할을 한다.</p>
-<p>예를 들어, 동일한 register 에 두개의 변수를 정의하면 컴파일 오류가 발생한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cbuffer</span> <span class="n">MyVar</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">b0</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="n">matrix</span> <span class="n">projection</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="n">cbuffer</span> <span class="n">MyVar2</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">b0</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="n">matrix</span> <span class="n">projection2</span><span class="p">;</span>
-<span class="p">};</span>
-</pre></div>
-</div>
-<p>하지만 register space 를 사용해서 서로 다른 register space에 둔다면 컴파일 오류를 해결할 수 있다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cbuffer</span> <span class="n">MyVar</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">b0</span><span class="p">,</span> <span class="n">space0</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="n">matrix</span> <span class="n">projection</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="n">cbuffer</span> <span class="n">MyVar2</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">b0</span><span class="p">,</span> <span class="n">space1</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="n">matrix</span> <span class="n">projection2</span><span class="p">;</span>
-<span class="p">};</span>
-</pre></div>
-</div>
-<blockquote>
-<div><p>Reference
-<a class="reference external" href="https://cml-a.com/content/2022/09/20/register-spaces/">cml-a.com - register-spaces</a></p>
-</div></blockquote>
-<section id="shader-bytecode">
-<h3>shader bytecode<a class="headerlink" href="#shader-bytecode" title="Link to this heading">#</a></h3>
-<p>shader code 는 컴파일 된 후 binary blob data 로 바뀐다.</p>
-<p>컴파일 된 binary blob data 는 PSO 의 input 으로 사용된다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://logins.github.io/graphics/2020/04/12/DX12PipelineStateObject.html">logins.github - DX12PipelineStateObject</a></p>
-</div></blockquote>
-</section>
-</section>
-<section id="shader-visibility">
-<h2>Shader Visibility<a class="headerlink" href="#shader-visibility" title="Link to this heading">#</a></h2>
-<p>모든 root parameter는 어떤 shader type 에서 resource 에 접근할 수 있는지를 나타내는 shader visibility 항목을 가지고 있다.</p>
-<p>shader visibility 는 D3D12_SHADER_VISIBILITY enum 으로 나타내어 진다.</p>
-<p>shader visibility 는 프로그래머가 다양한 단계에서 필요한 리소스를 구분하기 위한 도구이다.</p>
-<p>예를 들어, 동일한 slot 에 bind 되는 서로 다른 두개의 리소스를 가르키는 두개의 root parameter 를 정의할 수 있다.</p>
-<p>이 때, 하나는 visibility 가 vertex shader 이고 다른 하나는 pixel shader 라고 하자.</p>
-<p>그러면 어떤 shader 가 리소스를 호출하는지에 따라 다른 리소스가 shader register 에 bind 된다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">VS</span><span class="o">.</span><span class="n">hlsl</span>
-<span class="n">Texture2D</span> <span class="n">myVertexInputTexture</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">t0</span><span class="p">);</span>
-
-<span class="o">//</span> <span class="n">PS</span><span class="o">.</span><span class="n">hlsl</span>
-<span class="n">Texture2D</span> <span class="n">MyPixelInputTexture</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">t0</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>예를 들어, 위와 같이 vertex shader 와 pixel shader 에서 동일한 register slot 에 접근하지만 각각이 실제로 접근하는 리소스는 다른 texture 이다.</p>
-<p>따라서, 동일한 네임스페이스(shader binding set)의 동일한 shader register 를 참조하는 서로 다른 root parameter 의 가시성이 겹치지 않는지 확인해야 한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://logins.github.io/graphics/2020/06/26/DX12RootSignatureObject.html">logins.github - DX12RootSignatureObject</a></p>
-</div></blockquote>
-</section>
-<div class="toctree-wrapper compound">
-</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="indirectdrawing">
+<h1>IndirectDrawing<a class="headerlink" href="#indirectdrawing" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/indirect-drawing">https://learn.microsoft.com/en-us/windows/win32/direct3d12/indirect-drawing</a></p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1101,20 +874,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../50%20DirectX11/11%20DXGI/102%20enum%20DXGI_SWAP_CHAIN_FLAG.html"
+       href="Fence.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">enum DXGI_SWAP_CHAIN_FLAG</p>
+        <p class="prev-next-title">Fence</p>
       </div>
     </a>
     <a class="right-next"
-       href="01%20Resource/Resource.html"
+       href="Initializing%20Direct3D.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Resource</p>
+        <p class="prev-next-title">Initializing Direct3D</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1124,35 +897,6 @@
             </div>
             
             
-              
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enhanced-barrier">Enhanced Barrier</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#globally-unique-identifier">Globally Unique Identifier</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#execute-command-list-presnet">Execute Command List 후 바로 Presnet 호출</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#direct-memory-acess-dma">Direct Memory Acess ( DMA )</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deffered-rendering">Deffered Rendering</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-slot">Register Slot</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">참고</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#register-spaces">Register Spaces</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-bytecode">shader bytecode</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shader-visibility">Shader Visibility</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>

@@ -460,6 +460,7 @@
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/basic_istream.html">basic_istream</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/bitset.html">bitset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/Chrono.html">Chrono</a></li>
+<li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/condition_variable.html">condition_variable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/format.html">format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/function.html">function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/list.html">list</a></li>
@@ -476,7 +477,6 @@
 <li class="toctree-l2"><a class="reference internal" href="99%20Miscelleneous.html">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="char.html">char</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Class.html">Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="concept.html">concept</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Enum.html">Enum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Forward%20Declaration.html">Forward Declaration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Google%20Benchmark.html">Google Benchmark</a></li>
@@ -580,7 +580,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Descriptors.html">Descriptors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/GPU%20Heap.html">GPU Heap</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Barrier.html">Resource Barrier</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
@@ -978,7 +977,11 @@
 </section>
 <section id="function-pointer">
 <h2>Function Pointer<a class="headerlink" href="#function-pointer" title="Link to this heading">#</a></h2>
-<p>functino call</p>
+<p>function pointer 는 아래와 같은 형태를 갖는다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ReturnType</span> <span class="p">(</span><span class="o">*</span><span class="n">PointerName</span><span class="p">)(</span><span class="n">InputType</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>예를 들어 <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">(*p)(int);</span></code> 는 int 를 input 으로 받아서 int 를 return 하는 함수를 가르키는 포인터 객체 p 를 정의한 것이다.</p>
 <p>A pointer to function can be used as the left-hand operand of the function call operator, this invokes the pointed-to function:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>

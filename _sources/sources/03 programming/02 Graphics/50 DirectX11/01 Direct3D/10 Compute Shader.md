@@ -1,7 +1,7 @@
 # Compute Shader
-Compute Shader에서 그룹별 실행 순서는 특정한 규칙 없으며 GPU는 가능한 한 많은 스레드 그룹을 동시에 실행하려고 한다.
+Compute Shader에서 그룹별 실행 순서는 특정한 규칙 없으며 GPU는 가능한 한 많은 스레드 그룹을 동시에 실행하려고 한다. 따라서, 스레드 그룹 간에는 동기화가 불가능하며 실행 순서가 정의되지 않는다. 
 
-따라서, 스레드 그룹 간에는 동기화가 불가능하며 실행 순서가 정의되지 않는다. 
+Each thread group contains the same number of threads, as defined by the compiled compute shader.
 
 ## System-Value Semantics
 

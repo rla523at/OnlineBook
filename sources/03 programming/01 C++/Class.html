@@ -65,7 +65,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="concept" href="concept.html" />
     <link rel="prev" title="char" href="char.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -460,6 +459,7 @@
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/basic_istream.html">basic_istream</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/bitset.html">bitset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/Chrono.html">Chrono</a></li>
+<li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/condition_variable.html">condition_variable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/format.html">format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/function.html">function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="20%20Standard%20Library/list.html">list</a></li>
@@ -476,7 +476,6 @@
 <li class="toctree-l2"><a class="reference internal" href="99%20Miscelleneous.html">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="char.html">char</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="concept.html">concept</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Enum.html">Enum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Forward%20Declaration.html">Forward Declaration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Google%20Benchmark.html">Google Benchmark</a></li>
@@ -580,7 +579,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Descriptors.html">Descriptors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/GPU%20Heap.html">GPU Heap</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Barrier.html">Resource Barrier</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
@@ -861,6 +859,11 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#member-variable">Member variable</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Class의 메모리 구조</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Member Variable</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#member-initializer-list-of-the-constructor">Member initializer list of the constructor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-member-initializaer">Default Member Initializaer</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -1030,6 +1033,22 @@
 <section id="default-move-constructor">
 <h3>Default move constructor<a class="headerlink" href="#default-move-constructor" title="Link to this heading">#</a></h3>
 <p>별도로 move constructor를 설정하지 않아도 member variable을 move로 옮기는 move constructor가 생성된다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/language/move_constructor#Implicitly-declared_move_constructor">https://en.cppreference.com/w/cpp/language/move_constructor#Implicitly-declared_move_constructor</a></p>
+<ul>
+<li><p>If no user-defined move constructors are provided for a class type, and all of the following is true:</p>
+<ul>
+<li><p>there are no user-declared copy constructors;</p></li>
+</ul>
+</li>
+<li><p>there are no user-declared copy assignment operators;</p></li>
+<li><p>there are no user-declared move assignment operators;</p></li>
+<li><p>there is no user-declared destructor.</p></li>
+</ul>
+</li>
+</ul>
+<p>Implicitly-declared move constructor</p>
+<p>Then the compiler will declare a move constructor as a non-explicit inline public member of its class with the signature T::T(T&amp;&amp;).</p>
 <p>아래 코드를 확인해보자.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 
@@ -1547,6 +1566,42 @@
 </pre></div>
 </div>
 </section>
+<section id="id9">
+<h2>Member Variable<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>Non-static data members may be initialized in one of two ways:</p>
+<ul class="simple">
+<li><p>In the member initializer list of the constructor.</p></li>
+<li><p>Default Member Initializaer</p></li>
+</ul>
+<section id="member-initializer-list-of-the-constructor">
+<h3>Member initializer list of the constructor<a class="headerlink" href="#member-initializer-list-of-the-constructor" title="Link to this heading">#</a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">S</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
+<span class="w">    </span><span class="n">S</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="c1">// direct-initializes n, default-initializes s</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+</section>
+<section id="default-member-initializaer">
+<h3>Default Member Initializaer<a class="headerlink" href="#default-member-initializaer" title="Link to this heading">#</a></h3>
+<p>a brace or equals initializer included in the member declaration and is used if the member is omitted from the member initializer list of a constructor.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">S</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="p">{</span><span class="sc">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;b&#39;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;c&#39;</span><span class="p">};</span>
+<span class="w">    </span><span class="n">S</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="c1">// default member initializer will copy-initialize n, list-initialize s</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>If a member has a default member initializer and also appears in the member initialization list in a constructor, the default member initializer is ignored for that constructor.</p>
+<blockquote>
+<div><p>Reference<br />
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/data_members#Member_initialization">https://en.cppreference.com/w/cpp/language/data_members#Member_initialization</a></p>
+</div></blockquote>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1587,15 +1642,6 @@
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">char</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="concept.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">concept</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -1643,6 +1689,11 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#member-variable">Member variable</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Class의 메모리 구조</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Member Variable</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#member-initializer-list-of-the-constructor">Member initializer list of the constructor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-member-initializaer">Default Member Initializaer</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

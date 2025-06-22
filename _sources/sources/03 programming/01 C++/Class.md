@@ -166,7 +166,6 @@ int main()
 }
 ```
 
-
 > Reference  
 [geeks for geeks](https://www.geeksforgeeks.org/anonymous-classes-in-cpp/)
 
@@ -174,6 +173,17 @@ int main()
 
 ### Default move constructor
 별도로 move constructor를 설정하지 않아도 member variable을 move로 옮기는 move constructor가 생성된다.
+
+* https://en.cppreference.com/w/cpp/language/move_constructor#Implicitly-declared_move_constructor
+	* If no user-defined move constructors are provided for a class type, and all of the following is true:
+ 		* there are no user-declared copy constructors;
+   * there are no user-declared copy assignment operators;
+   * there are no user-declared move assignment operators;
+   * there is no user-declared destructor.
+
+Implicitly-declared move constructor
+
+Then the compiler will declare a move constructor as a non-explicit inline public member of its class with the signature T::T(T&&).
 
 아래 코드를 확인해보자.
 
@@ -267,6 +277,7 @@ int main(void)
   A d = { a,b,c }; // A(A arg1, A arg2, A arg3) copy is occur here
 }
 ```
+
 ### User define deduction guide
 ```cpp
 //user-defined deduction guides
@@ -277,7 +288,6 @@ EuclideanVector(const std::vector<double>& vec)->EuclideanVector<0>;
 
 
 ### Precautions
-
 #### Virtual Functions
 Pure virtual function can not use in `base class constructor` and virtual function call can be invoke unwanted behavior.
 
@@ -478,7 +488,6 @@ protected acess는 `B` class가 가지고 있는 `A`class 객체에만 적용된
 > [stackoverflow](https://stackoverflow.com/questions/24636234/access-to-protected-constructor-of-base-class)  
 
 ### 다중상속 Memory Layout
-
 다음과 같은 상속 구조가 있다고 하자.
 ```cpp
 class Base1 {
@@ -716,3 +725,36 @@ int main()
 	d.tell(); // 8, 16, 24 출력!
 }
 ```
+
+## Member Variable
+
+Non-static data members may be initialized in one of two ways:
+
+* In the member initializer list of the constructor.
+* Default Member Initializaer
+
+### Member initializer list of the constructor
+```cpp
+struct S
+{
+    int n;
+    std::string s;
+    S() : n(7) {} // direct-initializes n, default-initializes s
+};
+```
+
+### Default Member Initializaer
+a brace or equals initializer included in the member declaration and is used if the member is omitted from the member initializer list of a constructor.
+
+```cpp
+struct S
+{
+    int n = 7;
+    std::string s{'a', 'b', 'c'};
+    S() {} // default member initializer will copy-initialize n, list-initialize s
+};
+```
+If a member has a default member initializer and also appears in the member initialization list in a constructor, the default member initializer is ignored for that constructor.
+
+> Reference  
+> https://en.cppreference.com/w/cpp/language/data_members#Member_initialization
