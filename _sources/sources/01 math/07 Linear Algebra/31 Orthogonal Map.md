@@ -43,7 +43,7 @@ orthogonal map은 각도를 보존한다. 따라서 orthogonality도 보존된�
 ### 명제3
 $n$ 차원 inner product space $V/\R$과 orthogonal map $T$가 있다고 하자.
 
-그리고 $V$의 orthonomral basis를 $\beta$라고 할 때, $A =\frak{m}^\beta_\beta(T)$라고 하자.
+그리고 $V$의 orthonomral basis를 $\beta$라고 할 때, $A =\mathfrak{m}^\beta_\beta(T)$라고 하자.
 
 이 떄, 다음을 증명하여라.
 
@@ -70,6 +70,21 @@ $$ A A^T = A^T A = I \qed $$
 > Referemce  
 > [math.stackexchange](https://math.stackexchange.com/questions/3613207/prove-the-matrix-of-an-orthogonal-linear-transformation-relative-to-an-orthonorm)   
 > [youtube](https://www.youtube.com/watch?v=FM7u3jINbbA)  
+
+#### 보조정리
+$A^TA=I$ 일 떄, 다음을 증명하여라.
+
+$$ A \text{ is invertible } $$
+
+**Proof**
+
+$\det$ 의 성질에 의해 다음이 성립한다.
+
+$$ \det(A^TA) = \det(A^T) \det(A) = \det(A)^2 = 1 $$
+
+따라서, $\det(A) = \pm 1 $ 임으로 다음이 성립한다. 
+
+$$ \det(A) \neq 0 \implies A \text{ is invertible } \qed $$
 
 #### 참고
 $A^TA=I$임으로 A의 column을 coordinate로 갖는 vector들은 orthonormal하다.
@@ -151,3 +166,38 @@ $$ AA^T = A^TA = I $$
 
 ### 참고
 orthogonal map을 orthonormal basis로 표현하면 orthogonal matrix가 된다.
+
+### 명제
+$M \in {M}(3)$ 이고 대각행렬의 집합을 ${D}(3)$ 라고할 때, $S \in {D}(3)$ 과 $R \in SO(3)$ 에 대해 다음이 성립한다.
+
+$$MM^T \in {D}(3) \iff M = SR$$
+
+**Proof**
+
+[$\implies$]
+
+$MM^T \in D(3)$ 임으로 $M$은 orthogonal row vector 를 가지고 있다. 각 row vector 의 크기를 $s_{1,2,3}$ 라고 할 떄, $S \in D(3)$ 를 다음과 같이 정의한다.
+
+$$ S = \begin{bmatrix}
+  s1 & 0  & 0  \\
+  0  & s2 & 0  \\
+  0  & 0  & s3 \\
+\end{bmatrix} $$
+
+$R = S^{-1}M$ 라고 하면 $MM^T = SS$ 임으로 다음이 성립한다.
+
+$$ RR^T = S^{-1}MM^TS^{-T} = S^{-1}SSS^{-1} = I $$
+
+따라서 $R \in SO(3)$ 이고 다음이 성립한다.
+
+$$ M = SR \qed $$
+
+#### 따름명제1
+$MM^T \in D(3)$ 를 만족하는 집합을 $\mathfrak{T}$ 라고 하자.
+
+$M \in \mathfrak{T}$ 일 때, $M^{-1} \notin \mathfrak{T}$ 일 수 있다.
+
+#### 따름명제2
+$MM^T \in D(3)$ 를 만족하는 집합을 $\mathfrak{T}$ 라고 하자.
+
+$M,N \in \mathfrak{T}$ 일 때, $MN \notin \mathfrak{T}$ 일 수 있다.

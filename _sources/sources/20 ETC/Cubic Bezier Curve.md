@@ -19,7 +19,7 @@ B_{ttt} &= 6(-P_0 + 3C_0 - 3C_1 + P_1)
 ### Arc Length of Parametric Curve
 Parametric curve 를 $B(t)$ 라고 할 때, $t \in [t_0,t_1]$ 의 arc length 는 다음과 같다.
 
-$$ \int^{t_1}_{t_0} \sqrt{ {\diff{B}{t} \cdot \diff{B}{t}}} dt $$
+$$ \int^{t_1}_{t_0} \sqrt{ {B_t \cdot B_t}} dt $$
 
 > Refernece  
 > [wikipedia - Arc_length](https://en.wikipedia.org/wiki/Arc_length)  
@@ -54,27 +54,37 @@ $$ \int^{1}_{-1}f(x)dx \approx \sum_{i=1}^n f(x_i)w_i $$
 ## 알고리즘 소개
 임의의 $[t_0,t_1]$ 구간에서 Cubic Bezier Curve 의 Arc Length 를 구하기 위해 다음 두가지 단계를 거친다.
 
-1. Heuristic 한 방법으로 2개의 Split Point 를 구해 $[t_0,t_1]$ 을 수치적분 하기 좋은 구간들 $[t_0,t_{sp1}],[t_{sp1},t_{sp2}],[t_{sp2},t_1]$ 나눈다.
+1. Heuristic 한 방법으로 2개의 Split Point 를 구해 $[t_0,t_1]$ 을 수치적분 하기 좋은 구간으로 나눈다.
 2. 각 구간별로 Arc Length 를 수치적분해서 구한다. 
 
 ### Calculate Split Point
 Gaussain Quadrature Method 는 Integrand 가 다항함수로 근사가 잘 될 수록 정확하게 적분 값을 구할 수 있다.
 
-따라서, 아래와 같은 특이점이 있는 경우에는 특이점을 기준으로 적분 구간을 나누어서 계산해야 오차를 줄일 수 있다.
+따라서, 적분하고자 하는 $l(t)$ 에 아래와 같은 특이점이 있는 경우에는 특이점을 기준으로 적분 구간을 나누어서 계산해야 오차를 줄일 수 있다.
 
 ```{figure} _image/0001.png
 ```
 
-특이점과 관련하여 다음과 같은 Heuristic 이 적용되었다.
-1. $ \diff{(B_t \cdot B_t)}{t} = 0$ 을 만족하는 $t$ 에서 특이점이 발생한다.
+다양한 $l(t)$ 에 대해 관측한 결과 특이점과 관련하여 다음과 같은 규칙을 따르는것을 확인하였다.
+1. $\diff{(B_t \cdot B_t)}{t} = 0$ 을 만족하는 $t$ 에서 특이점이 발생한다.
 2. $B_t \cdot B_t$ 는 4차 다항식임으로 위를 만족하는 점은 3개가 나오며, 그 중 첫번째 점과 세번째 점에서 특이점이 나온다.
 3. 특이점이 나타나더라도 Integrand 의 함수값이 충분히 크지 않으면 수치적분 오차가 크지 않다.
 
-1번과 2번 조건에 의해 Split Point 를 Newton Raphson Method 를 사용하여 구한다.
+위의 규칙을 왜 따르는지에 대한 논리적인 이유는 찾지 못하였지만, $l(t)$ 가 4차 다항식 $B_t \cdot B_t$ 에 루트를 씌운 형태이기 때문에 위와 같은 규칙을 따르는것으로 추측된다.
+
+1번에 의해 Split Point 를 찾는 문제는 Newton Raphson Method 를 사용하여 해결할 수 있다. 
+
+수치적분 오차를 가능한 줄일 수 있는 split point 를 찾는게 목적임으로 따라서, $\diff{(B_t \cdot B_t)}{t} = 0$ 의 해를 $t=0.0$ 을 시작점으로 하여 Newton Raphson Method 로 찾은 값을 첫번째 split point $t_{sp1}$ 로 두고 $t=1.0$ 을 시작점으로 하여 찾은 값을 두번째 split point $t_{sp2}$ 로 둔다. 단, split point 가 t0 보다 작거나 t1 보다 큰 경우 start point 로 둔다. $t_{sp1}$ 과 $t_{sp2}$에 따라 $[t_0, t_{sp1}]$, $[t_{sp1}, t_{sp2}]$, $[t_{sp2}, t_1]$ 또는 $[t_0, t_{sp2}]$, $[t_{sp2}, t_{sp1}]$, $[t_{sp1}, t_1]$ 으로 적분 구간을 나눈다.
+
+아래의 규칙은 다시 한번 생각해 봐야 한다.
+* 2번에 의해 $t=0.0$ 을 시작점으로 하면 첫번째 점으로 부터 나오는 특이점을 찾을 수 있다. 단, $t=0.0$ 에서 기울기가 음수가 아닌 경우 첫번째 점으로 부터 나오는 특이점이 주어진 구간에 없음을 의미한다. 마찬가지로 $t=1.0$ 을 시작점으로 하면 세번째 점으로 부터 나온은 특이점을 찾을 수 있으며, 단, $t=1.0$ 에서 기울기가 양수가 아닌 경우 세번째 점으로 부터 나오는 특이점이 주어진 구간에 없음을 의미한다. 
 
 $g = \diff{(B_t \cdot B_t)}{t}$ 라고 하면 다음이 성립한다.
 
-$$ g = 2B_{tt}\cdot B_t \\ g_t = 2(B_{ttt}\cdot B_t + B_{tt} \cdot B_{tt} ) $$
+$$ \begin{aligned}
+g &= 2B_{tt}\cdot B_t \\ 
+g_t &= 2(B_{ttt}\cdot B_t + B_{tt} \cdot B_{tt} )
+\end{aligned}  $$
 
 따라서, $i$ 번 째 iteration 으로 구한 $g=0$ 을 만족하는 $t_i$ 는 다음과 같다.
 
@@ -85,7 +95,6 @@ $$ t_i = t_{i-1} - \frac{g(t_{i-1})}{g_t(t_{i-1})} $$
 3번 조건에 의해 Integrand 의 함수값이 충분히 크지 않은 경우 Split Point 를 계산하지 않는다.
 
 이 떄, 충분히 크지 않은 값은 경험적으로 결정하였다.
-
 
 ### Calculate Arc Length By Numerical Integration
 cubic bezier curve 의 arc length 를 구하기 위해 다음 식을 수치적분한다.

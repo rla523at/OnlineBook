@@ -16,22 +16,20 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
@@ -39,11 +37,10 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=61612f5f" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -69,7 +66,6 @@
     <link rel="prev" title="Text Encoding" href="99%20ETC/Text%20Encoding.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -85,8 +81,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -94,6 +101,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -101,8 +109,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -118,8 +126,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -149,11 +156,15 @@
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -349,7 +360,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../01%20math/06%20Calculus/50%20Leibniz%20Integral%20Rule.html">Libniz Integral Rule</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../01%20math/06%20Calculus/51%20Taylor%27s%20Theorem.html">Taylor’s Theorem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../01%20math/06%20Calculus/52%20Inverse%20Function%20Theorem.html">Inverse Function Theorem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01%20math/06%20Calculus/Differential%20Geometry.html">Differential Geometry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../01%20math/06%20Calculus/Divergence%20Theorem.html">Divergence Theorem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01%20math/06%20Calculus/Line%20Integral.html">Line Integral</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../01%20math/07%20Linear%20Algebra/Linear%20Algebra.html">Linear Algebra</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -454,20 +467,20 @@
 <li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/02%20Memory/05%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/03%20Polymorphism.html">Polymorphism</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/04%20Value%20Category.html">Value Category</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/05%20Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/06%20Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/11%20Class.html">Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/12%20Struct%20Memory%20Padding.html">Struct Memory Padding</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
-<li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/Algorithm.html">Algorithm</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/array.html">array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/basic_istream.html">basic_istream</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/Chrono.html">Chrono</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/concept.html">concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/condition_variable.html">condition_variable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/function.html">function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/iterator.html">Iterator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/list.html">list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/type-traits.html">type-traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/20%20Standard%20Library/vector.html">vector</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="01%20C%2B%2B/21%20Smart%20Pointer/Smart%20Pointer.html">Smart Pointer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -476,34 +489,40 @@
 <li class="toctree-l3"><a class="reference internal" href="01%20C%2B%2B/21%20Smart%20Pointer/03%20weak_ptr.html">weak_ptr Class</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/22%20Reference.html">Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/23%20Lambda%20Expression.html">Lambda Expression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/31%20Template.html">Template</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/32%20concept.html">concept</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/33%20Require.html">Require</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/34%20hpp.html">hpp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/41%20Multi%20Thread.html">Multi thread</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/51%20static.html">Static</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/52%20Name%20Space.html">Namespace</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/53%20One%20Definition%20Rule.html">One Definition Rule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/54%20inline.html">inline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/55%20Enum.html">Enum</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/56%20Forward%20Declaration.html">Forward Declaration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/57%20Initialization.html">initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/58%20Keyword.html">Keyword</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/59%20Type%20Casting.html">Type Casting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/60%20Pointer.html">Pointer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/70%20Performance.html">Performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/80%20Google%20Benchmark.html">Google Benchmark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/99%20Miscelleneous.html">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/char.html">char</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Class.html">Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Enum.html">Enum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Forward%20Declaration.html">Forward Declaration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Google%20Benchmark.html">Google Benchmark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Hash.html">Hash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/hpp.html">hpp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Initialization.html">initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/inline.html">inline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Keyword.html">Keyword</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Lambda%20Expression.html">Lambda Expression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Multi%20Thread.html">Multi thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Name%20Space.html">Namespace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/new.html">new</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/One%20Definition%20Rule.html">One Definition Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Performance.html">Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/POD.html">POD (Plain Old Data)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Pointer.html">Pointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Polymorphism.html">Polymorphism</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Pragma.html">Pragma</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Reference.html">Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Require.html">Require</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/SIMD.html">SIMD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/static.html">Static</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Struct%20Memory%20Padding.html">Struct Memory Padding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Template.html">Template</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/thread_local.html">thread_local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Type%20Casting.html">Type Casting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Using.html">Using</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01%20C%2B%2B/Value%20Category.html">Value Category</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="02%20Graphics/Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -584,15 +603,11 @@
 <li class="toctree-l4"><a class="reference internal" href="02%20Graphics/51%20DirectX12/01%20Resource/Texture.html">Texture</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/400%20enum%20D3D12_COMMAND_LIST_TYPE.html">enum D3D12_COMMAND_LIST_TYPE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/DxcBuffer.html">DxcBuffer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/Fence.html">Fence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/ID3D12Debug.html">ID3D12Debug</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/ID3D12Device.html">ID3D12Device</a></li>
-<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/IDXCUtils.html">IDXCUtils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/IndirectDrawing.html">IndirectDrawing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/Initializing%20Direct3D.html">Initializing Direct3D</a></li>
+<li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/Pipeline%20State%20Object.html">Pipeline State Object (PSO)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/ShaderReflection.html">Shader Reflection</a></li>
 <li class="toctree-l3"><a class="reference internal" href="02%20Graphics/51%20DirectX12/Work%20Submission.html">Work Submission</a></li>
 </ul>
@@ -614,6 +629,7 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="02%20Graphics/99%20Miscelleneous.html">Miscelleneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02%20Graphics/Coordinate%20System.html">Coordinate System</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02%20Graphics/D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02%20Graphics/Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02%20Graphics/DirectXMath.html">DirectXMath</a></li>
@@ -635,6 +651,7 @@
 <li class="toctree-l2"><a class="reference internal" href="03%20Window%20Programming/Component%20Objeect%20Model.html">Component Object Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03%20Window%20Programming/CreateFile.html">CreateFileA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03%20Window%20Programming/File%20Buffering.html">File Buffering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03%20Window%20Programming/Thread.html">Thread</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="99%20ETC/ETC.html">ETC</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -656,12 +673,21 @@
 <li class="toctree-l2"><a class="reference internal" href="99%20ETC/21%20CMake.html">Cmake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="99%20ETC/30%20OpenMP.html">OpenMP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="99%20ETC/Algorithm.html">Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="99%20ETC/ARM.html">ARM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="99%20ETC/Batch.html">Batch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="99%20ETC/Linux.html">Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="99%20ETC/MacProgramming.html">Protocol</a></li>
+
+
 <li class="toctree-l2"><a class="reference internal" href="99%20ETC/SAL.html">SAL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="99%20ETC/Text%20Encoding.html">Text Encoding</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Python</a></li>
+
+
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Mechanics</span></p>
 <ul class="nav bd-sidenav">
@@ -681,6 +707,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">ETC</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../20%20ETC/chatGPT.html">chatGPT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20%20ETC/Cubic%20Bezier%20Curve.html">Cubic Bezier Curve Length</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../20%20ETC/Jupyter%20Book.html">Jupyter Book</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../20%20ETC/MarkDown.html">Mark Down</a></li>
 </ul>
@@ -794,16 +821,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -827,24 +862,56 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pip-show-matplotlib">pip show matplotlib</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map">map</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">기본 사용 예</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">자주 쓰는 변형/친구들</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">주의사항</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">언제 <code class="docutils literal notranslate"><span class="pre">map</span></code>을 쓰나?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gil">GIL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1. GIL이 생긴 배경</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2. 동작 방식</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3. 장단점</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">장점</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">단점</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">4. GIL의 영향이 덜한 경우</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter">Parameter</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sympy">Sympy</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">그래프 그리기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">그래프 그리기</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foramt-string">foramt string 출력</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">정규 표현식</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">그룹화</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">비 캡처 그룹</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">정규 표현식</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">그룹화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">비 캡처 그룹</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#negative-lookahead">부정형 전방탐색(negative lookahead)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metacharacters">Metacharacters</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">비탐욕적 수량자</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">비탐욕적 수량자</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#match">match</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#search">search</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etc">ETC</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">리스트</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">리스트</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#append">append</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehension">List Comprehension</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehension">List Comprehension</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">1) 기본 문법</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#if-else">2) if-else(삼항)와의 차이</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">3) 중첩 루프(2중 이상)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">4) 자주 쓰는 패턴</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">5) 성능과 메모리 감각</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">6) 스코프와 주의점</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-comprehension">Generate Comprehension</a><ul class="nav section-nav flex-column">
@@ -854,15 +921,18 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strip">strip</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerate">enumerate</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#join">join</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">조건부 표현식</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">조건부 표현식</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#format-string">Format String</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">변수 스코프</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">변수 스코프</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#false">False 로 형변환 되는 경우</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">생성</a></li>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -875,6 +945,120 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="python">
 <h1>Python<a class="headerlink" href="#python" title="Link to this heading">#</a></h1>
+<section id="map">
+<h2>map<a class="headerlink" href="#map" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">map(func,</span> <span class="pre">*iterables)</span></code> 형태로 사용하며 여러 이터러블을 <strong>같은 인덱스로 맞춰</strong> <code class="docutils literal notranslate"><span class="pre">func</span></code>에 적용하고, 결과를 <strong>게으르게(lazy)</strong> 내는 이터레이터를 돌려주는 문법이다.</p>
+<ul class="simple">
+<li><p>반환: <code class="docutils literal notranslate"><span class="pre">map</span></code> 객체(이터레이터). 필요하면 <code class="docutils literal notranslate"><span class="pre">list(...)</span></code>나 <code class="docutils literal notranslate"><span class="pre">tuple(...)</span></code>로 물질화.</p></li>
+<li><p>길이: 전달된 이터러블들 중 <strong>가장 짧은 것</strong>에 맞춰 종료.</p></li>
+<li><p>순서: <strong>입력 순서 유지</strong>(완료 순서와 무관).</p></li>
+<li><p>평가 시점: 이터레이터를 소비할 때마다 그때그때 <code class="docutils literal notranslate"><span class="pre">func</span></code>가 호출됨.</p></li>
+<li><p>예외: <code class="docutils literal notranslate"><span class="pre">func</span></code>에서 예외가 나면, 해당 원소를 꺼내는 순간 예외가 전파됨.</p></li>
+</ul>
+<section id="id1">
+<h3>기본 사용 예<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1) 단일 이터러블</span>
+<span class="k">def</span> <span class="nf">sq</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+<span class="n">it</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">sq</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>                   <span class="c1"># [1, 4, 9]</span>
+
+<span class="c1"># 2) 여러 이터러블(같은 인덱스끼리 묶임)</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span> <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]))</span>   <span class="c1"># [11, 22, 33]</span>
+
+<span class="c1"># 3) 상수 인자를 반복 전달하고 싶을 때(반복자 활용)</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">repeat</span>
+<span class="k">def</span> <span class="nf">powmod</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span> <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+<span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">powmod</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">repeat</span><span class="p">(</span><span class="mi">13</span><span class="p">)))</span>
+<span class="c1"># = [2**5 % 13, 3**5 % 13, 4**5 % 13]</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id2">
+<h1>자주 쓰는 변형/친구들<a class="headerlink" href="#id2" title="Link to this heading">#</a></h1>
+<ul>
+<li><p><strong>리스트 컴프리헨션</strong>: <code class="docutils literal notranslate"><span class="pre">list(map(f,</span> <span class="pre">xs))</span></code> ↔ <code class="docutils literal notranslate"><span class="pre">[f(x)</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">xs]</span></code>
+대체로 컴프리헨션이 <strong>가독성·속도</strong>에서 유리한 경우가 많습니다(특히 <code class="docutils literal notranslate"><span class="pre">f</span></code>가 파이썬 함수일 때).</p></li>
+<li><p><strong>제너레이터 표현식</strong>: <code class="docutils literal notranslate"><span class="pre">map</span></code>처럼 <strong>지연 평가</strong>가 필요하지만 간단하면 <code class="docutils literal notranslate"><span class="pre">(f(x)</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">xs)</span></code>.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">itertools.starmap</span></code></strong>: 인자를 튜플로 묶어 넘길 때 유용</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span><span class="o">,</span> <span class="nn">operator</span>
+<span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">starmap</span><span class="p">(</span><span class="nb">pow</span><span class="p">,</span> <span class="n">pairs</span><span class="p">))</span>   <span class="c1"># [1024, 243, 125]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id3">
+<h1>주의사항<a class="headerlink" href="#id3" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>Python 3에서는 <code class="docutils literal notranslate"><span class="pre">map(None,</span> <span class="pre">...)</span></code> 같은 특수 동작이 없습니다(함수를 꼭 넣어야 함).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map</span></code> 객체는 <strong>한 번만</strong> 순회할 수 있습니다(소진되면 재사용 불가).</p></li>
+<li><p>대용량을 한꺼번에 리스트로 만들면 메모리 부담↑ → 가능하면 이터레이터 상태로 <strong>스트리밍</strong> 처리하세요.</p></li>
+</ul>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id4">
+<h1>언제 <code class="docutils literal notranslate"><span class="pre">map</span></code>을 쓰나?<a class="headerlink" href="#id4" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p>간단히 “함수 + 여러 이터러블”을 조합하고, <strong>지연 평가</strong>로 메모리를 아끼고 싶을 때</p></li>
+<li><p><strong>C로 구현된 내장 함수</strong>(예: <code class="docutils literal notranslate"><span class="pre">str.upper</span></code>, <code class="docutils literal notranslate"><span class="pre">math</span></code>/<code class="docutils literal notranslate"><span class="pre">operator</span></code> 계열)를 적용할 때는 <code class="docutils literal notranslate"><span class="pre">map</span></code>이 꽤 빠르고 깔끔합니다.</p></li>
+<li><p>그렇지 않다면 대부분의 경우 <strong>컴프리헨션</strong>이 더 읽기 쉽고 비슷하거나 더 빠릅니다.</p></li>
+</ul>
+<p>보너스: <code class="docutils literal notranslate"><span class="pre">ThreadPoolExecutor.map</span></code> / <code class="docutils literal notranslate"><span class="pre">ProcessPoolExecutor.map</span></code>은 개념은 같지만 “작업을 풀에 던져 <strong>동시 실행</strong>한다”는 점이 다릅니다(그리고 프로세스풀은 <strong>pickle 가능성</strong> 요구).</p>
+<section id="gil">
+<h2>GIL<a class="headerlink" href="#gil" title="Link to this heading">#</a></h2>
+<p>Python의 GIL(Global Interpreter Lock)은 <strong>CPython 인터프리터에서 동시에 하나의 스레드만 Python 바이트코드를 실행하도록 강제하는 전역 락</strong>이다.</p>
+<section id="id5">
+<h3>1. GIL이 생긴 배경<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>CPython은 <strong>메모리 관리</strong>(특히 참조 카운팅 기반의 가비지 컬렉션)가 스레드 안전하지 않다.</p></li>
+<li><p>여러 스레드가 동시에 객체의 참조 카운트를 변경하면 충돌이 발생할 수 있기 때문에, 전역적으로 락을 걸어서 한 번에 하나의 스레드만 Python 바이트코드를 실행하도록 설계했다.</p></li>
+<li><p>즉, <strong>단순성과 안정성을 위해</strong> GIL을 도입한 것이다.</p></li>
+</ul>
+</section>
+<section id="id6">
+<h3>2. 동작 방식<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>멀티스레드 환경에서 여러 스레드가 실행되더라도, GIL 때문에 <strong>실제로는 한 번에 한 스레드만 실행된다</strong>.</p></li>
+<li><p>GIL은 일정한 바이트코드 실행 단위마다 해제/재획득을 반복하면서 스레드 간 컨텍스트 스위칭을 허용한다.</p></li>
+<li><p>이 때문에 멀티스레드 코드라도 CPU 코어를 병렬로 활용하지 못하는 경우가 많다.</p></li>
+</ul>
+</section>
+<section id="id7">
+<h3>3. 장단점<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<section id="id8">
+<h4>장점<a class="headerlink" href="#id8" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>CPython의 객체 모델을 단순하게 유지할 수 있다.</p></li>
+<li><p>확장 모듈(C 확장) 작성이 쉬워진다. (C 코드 내부에서 GIL을 해제하고 실행 가능)</p></li>
+<li><p>메모리 관리의 안정성이 높다.</p></li>
+</ul>
+</section>
+<section id="id9">
+<h4>단점<a class="headerlink" href="#id9" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>CPU 바운드 연산에서는 멀티스레드가 병렬성을 발휘하지 못한다.
+예: 대규모 수학 연산, 이미지 처리, 압축 등.</p></li>
+<li><p>멀티코어 CPU를 충분히 활용하지 못한다.</p></li>
+</ul>
+</section>
+</section>
+<section id="id10">
+<h3>4. GIL의 영향이 덜한 경우<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>I/O 바운드 작업</strong> (네트워크, 파일 읽기/쓰기 등)에서는 GIL의 영향이 크지 않다.
+→ 스레드가 I/O 대기 중일 때 GIL을 해제하므로 다른 스레드가 실행될 수 있음.</p></li>
+<li><p>**멀티프로세싱(multiprocessing 모듈)**을 사용하면, 프로세스 단위로 GIL이 분리되어 멀티코어 활용 가능하다.</p></li>
+<li><p><strong>NumPy, TensorFlow</strong> 같은 라이브러리는 내부에서 C/C++로 구현된 병렬 처리를 사용하기 때문에, GIL의 제약을 피할 수 있다.</p></li>
+</ul>
+</section>
+</section>
+<section id="id11">
+<h2>함수<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<section id="parameter">
+<h3>Parameter<a class="headerlink" href="#parameter" title="Link to this heading">#</a></h3>
 <p>파이썬에서 함수 내부에서 인자로 전달된 변수에 대한 재할당(assignment)이 이루어지면, 그 변수는 함수의 지역 범위에서만 수정된다.</p>
 <p>만약 변경 사항을 함수 밖에서도 유지하고 싶다면, 함수가 값을 반환하도록 하고 호출하는 측에서 그 값을 받아 처리해야 한다.</p>
 <p>가변 객체(Mutable Objects)인 경우
@@ -889,11 +1073,7 @@
 </pre></div>
 </div>
 <p>lst.append(4)는 가변 객체인 my_list의 내용을 직접 변경하므로 원본이 바뀌게 된다. 그러나 lst = [1, 2, 3]에서는 lst가 완전히 새로운 리스트 객체를 참조하도록 재할당되므로, my_list에는 영향을 주지 않는다.</p>
-<hr class="docutils" />
-<p>python -m pip install –upgrade pip</p>
-<p>pip install –upgrade matplotlib</p>
-<section id="pip-show-matplotlib">
-<h2>pip show matplotlib<a class="headerlink" href="#pip-show-matplotlib" title="Link to this heading">#</a></h2>
+</section>
 </section>
 <section id="sympy">
 <h2>Sympy<a class="headerlink" href="#sympy" title="Link to this heading">#</a></h2>
@@ -906,8 +1086,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id1">
-<h2>그래프 그리기<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="id12">
+<h2>그래프 그리기<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
 <p>matplotlib 의 pyplot 모듈을 import 하면 된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
@@ -994,10 +1174,10 @@ fig = plt.figure()
 <p>Python의 f-string (포매팅 문자열) 은 Python 3.6부터 도입된 기능으로, 문자열 내에 변수 또는 표현식을 간단하고 가독성 있게 삽입할 수 있는 방법이다.</p>
 <p>f-string은 문자열 앞에 <code class="docutils literal notranslate"><span class="pre">f</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">F</span></code>를 붙이고, 중괄호 <code class="docutils literal notranslate"><span class="pre">{}</span></code> 안에 변수를 넣어 사용한다.</p>
 </section>
-<section id="id2">
-<h2>정규 표현식<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<section id="id3">
-<h3>그룹화<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<section id="id13">
+<h2>정규 표현식<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<section id="id14">
+<h3>그룹화<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
 <p>그룹화는 말 그대로 그룹으로 묶어주는 것이다.</p>
 <p>예를 들어 <code class="docutils literal notranslate"><span class="pre">12</span></code> 가 1번 이상 반복되는 문자열을 찾고 싶은 상황을 생각해보자.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;12+&quot;</span><span class="p">)</span>
@@ -1013,8 +1193,8 @@ fig = plt.figure()
 </div>
 <p>이 경우에는 의도와 같이 <code class="docutils literal notranslate"><span class="pre">1212</span></code> 모두가 match 된다.</p>
 </section>
-<section id="id4">
-<h3>비 캡처 그룹<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<section id="id15">
+<h3>비 캡처 그룹<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
 <p>그룹화를 위해 소괄호를 반드시 써야 하는데, 굳이 캡처하고 싶지 않을 때 사용한다.</p>
 <p>비 캡처 그룹은 <code class="docutils literal notranslate"><span class="pre">(?:&lt;regex&gt;)</span></code>와 같이 사용한다.</p>
 <blockquote>
@@ -1075,8 +1255,8 @@ fig = plt.figure()
 <a class="reference external" href="https://docs.python.org/ko/3/howto/regex.html">docs.python - regex</a></p>
 </div></blockquote>
 </section>
-<section id="id5">
-<h3>비탐욕적 수량자<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<section id="id16">
+<h3>비탐욕적 수량자<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(.*?)
 </pre></div>
 </div>
@@ -1125,8 +1305,8 @@ fig = plt.figure()
 </ul>
 </section>
 </section>
-<section id="id6">
-<h2>리스트<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<section id="id17">
+<h2>리스트<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
 <section id="append">
 <h3>append<a class="headerlink" href="#append" title="Link to this heading">#</a></h3>
 <p>리스트의 끝에 항목을 더하는 함수이다.</p>
@@ -1145,38 +1325,106 @@ fig = plt.figure()
 </section>
 <section id="list-comprehension">
 <h3>List Comprehension<a class="headerlink" href="#list-comprehension" title="Link to this heading">#</a></h3>
-<p>일반적으로 1부터 10까지 정수를 순서대로 가지고 있는 리스트를 생성하는 코드는 다음과 같다.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">numbers</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
-    <span class="n">numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<p>리스트 컴프리헨션(list comprehension)은 “리스트를 간결하게 생성”하는 구문이다. 일반적으로 기존 리스트(또는 이터러블)를 순회하면서 가공‧필터링한 값을 한 줄로 새 리스트로 만들 때 사용한다.</p>
+<section id="id18">
+<h4>1) 기본 문법<a class="headerlink" href="#id18" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">표현식</span> <span class="k">for</span> <span class="n">변수</span> <span class="ow">in</span> <span class="n">이터러블</span><span class="p">]</span>
+<span class="p">[</span><span class="n">표현식</span> <span class="k">for</span> <span class="n">변수</span> <span class="ow">in</span> <span class="n">이터러블</span> <span class="k">if</span> <span class="n">조건</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>리스트를 생성하는 컴프리헨션인 리스트컴프리헨션으로 표기하면 다음과 같다.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
+<ul class="simple">
+<li><p>표현식: 새 리스트에 담을 값(가공 로직 포함 가능)</p></li>
+<li><p>이터러블: list, tuple, set, dict, range, 제너레이터 등</p></li>
+<li><p>if 조건: 선택(필터링)</p></li>
+</ul>
+<p>예시:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 0~9 제곱 리스트</span>
+<span class="n">squares</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+
+<span class="c1"># 짝수만 제곱</span>
+<span class="n">even_squares</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>리스트를 생성하는 방식은 대괄호([])를 통해 생성하는 방법은 동일하다.</p>
-<p>차이점은 컴프리헨션을 사용할 경우 대괄호 내부에 코드를 작성한다는 점이다.</p>
-<p>리스트 컴프리헨션에서 for 문 앞에 작성된 변수가 append 메소드에 인자로 들어가게 된다.</p>
-<p>예를 들어, 2의 배수 10개를 가지고 있는 리스트를 리스트 컴프리헨션으로 생성하면 다음과 같다.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">)]</span>
+</section>
+<section id="if-else">
+<h4>2) if-else(삼항)와의 차이<a class="headerlink" href="#if-else" title="Link to this heading">#</a></h4>
+<p>필터링용 if(뒤쪽 if)와 값 선택용 if-else(앞쪽 삼항)는 위치가 다르다</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 값 선택(짝수면 x, 홀수면 -x)</span>
+<span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span>
+
+<span class="c1"># 필터링(짝수만)</span>
+<span class="n">evens</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>리스트 컴프리 헨션에는 조건을 걸 수 있으며 다음과 같은 형태를 갖는다.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="p">(</span><span class="n">inputVar</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">range</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="p">]</span>
+<p>두 개를 함께 쓰는 것도 가능:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="mi">5</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>예를 들어, 1부터 10까지 짝수만 순차적으로 들어있는 리스트를 생성하는 리스트 컴프리 헨션은 다음과 같다.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">even_numbers</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+</section>
+<section id="id19">
+<h4>3) 중첩 루프(2중 이상)<a class="headerlink" href="#id19" title="Link to this heading">#</a></h4>
+<p>왼쪽에서 오른쪽으로 실제 for 중첩 순서대로 쓴다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 데카르트 곱 (모든 쌍)</span>
+<span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]]</span>
+<span class="c1"># 2차원 리스트 평탄화</span>
+<span class="n">mat</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+<span class="n">flat</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">mat</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>이 리스트 컴프리 헨션을 풀어 쓰면 다음과 같다.</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">even_numbers</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">even_numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</section>
+<section id="id20">
+<h4>4) 자주 쓰는 패턴<a class="headerlink" href="#id20" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>매핑(map):</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;alice&quot;</span><span class="p">,</span> <span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="s2">&quot;charlie&quot;</span><span class="p">]</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">names</span><span class="p">]</span>
 </pre></div>
 </div>
+<ul class="simple">
+<li><p>필터(filter):</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">positives</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nums</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>인덱스가 필요할 때(enumerate):</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">indexed</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nums</span><span class="p">)]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>둘 이상 묶기(zip):</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sums</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>조건부 변환:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;even&quot;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;odd&quot;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)]</span>
+</pre></div>
+</div>
+</section>
+<section id="id21">
+<h4>5) 성능과 메모리 감각<a class="headerlink" href="#id21" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>리스트 컴프리헨션은 같은 로직의 for-append보다 일반적으로 빠른 편이다(파이썬 레벨 루프를 최소화).</p></li>
+<li><p>하지만 결과 전체를 메모리에 올리므로, 매우 큰 데이터면 제너레이터 표현식이 더 적합하다</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 제너레이터 표현식: 괄호 사용, 지연 평가</span>
+<span class="n">gen</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="mi">10</span><span class="p">))</span>  <span class="c1"># 필요할 때 하나씩 꺼냄</span>
+</pre></div>
+</div>
+</section>
+<section id="id22">
+<h4>6) 스코프와 주의점<a class="headerlink" href="#id22" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>파이썬 3에서는 리스트 컴프리헨션 내부 변수(예: <code class="docutils literal notranslate"><span class="pre">x</span></code>)는 컴프리헨션의 지역 스코프에 묶입니다. 따라서 바깥에서 같은 이름을 써도 덮어쓰지 않아요.</p></li>
+<li><p>필터 <code class="docutils literal notranslate"><span class="pre">if</span></code>의 조건은 “참/거짓” 판정이므로, 0, 빈 문자열, 빈 컨테이너 등은 자동으로 걸러지지 않습니다. 원하는 조건을 명시하세요.</p></li>
+<li><p>부수효과(side effect) 있는 함수 호출을 표현식 안에서 남발하지 마세요(읽기/테스트 어려움).</p></li>
+</ul>
+</section>
 </section>
 </section>
 <section id="generate-comprehension">
@@ -1254,8 +1502,8 @@ fig = plt.figure()
 <p>예를 들어 list 에 [‘a’,’b’,’c’]가 있다고 하자.</p>
 <p>그러면 <code class="docutils literal notranslate"><span class="pre">',</span> <span class="pre">'.join(list)</span></code>의 결과는 ‘a, b, c’ 형태의 문자열을 만들어서 반환해준다.</p>
 </section>
-<section id="id7">
-<h2>조건부 표현식<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<section id="id23">
+<h2>조건부 표현식<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
 <p>파이썬에서는 다음과 같은 형태로 조건부 표현식(ternary operator)을 사용할 수 있다</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">value_when_true</span><span class="p">]</span> <span class="k">if</span> <span class="p">[</span><span class="n">condition</span><span class="p">]</span> <span class="k">else</span> <span class="p">[</span><span class="n">value_when_false</span><span class="p">]</span>
 </pre></div>
@@ -1268,8 +1516,8 @@ fig = plt.figure()
 </pre></div>
 </div>
 </section>
-<section id="id8">
-<h2>변수 스코프<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<section id="id24">
+<h2>변수 스코프<a class="headerlink" href="#id24" title="Link to this heading">#</a></h2>
 <p>python 에서는 블록 스코핑을 사용하지 않고 함수나 클래스 단위의 스코핑을 사용하기 때문에 if-else 블록 외부에서도 그 안에서 생성한 변수에 접근이 가능하다.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
     <span class="n">A</span> <span class="o">=</span> <span class="mi">1</span>
@@ -1317,8 +1565,8 @@ fig = plt.figure()
 </ul>
 </li>
 </ul>
-<section id="id9">
-<h3>생성<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<section id="id25">
+<h3>생성<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">my_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 <span class="n">my_set_with_value</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span>
 </pre></div>
@@ -1383,8 +1631,7 @@ fig = plt.figure()
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1393,24 +1640,56 @@ fig = plt.figure()
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pip-show-matplotlib">pip show matplotlib</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Python</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#map">map</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">기본 사용 예</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">자주 쓰는 변형/친구들</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">주의사항</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">언제 <code class="docutils literal notranslate"><span class="pre">map</span></code>을 쓰나?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gil">GIL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1. GIL이 생긴 배경</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2. 동작 방식</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3. 장단점</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">장점</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">단점</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">4. GIL의 영향이 덜한 경우</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">함수</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter">Parameter</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sympy">Sympy</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">그래프 그리기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">그래프 그리기</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#foramt-string">foramt string 출력</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">정규 표현식</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">그룹화</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">비 캡처 그룹</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">정규 표현식</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">그룹화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">비 캡처 그룹</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#negative-lookahead">부정형 전방탐색(negative lookahead)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metacharacters">Metacharacters</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">비탐욕적 수량자</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">비탐욕적 수량자</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#match">match</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#search">search</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etc">ETC</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">리스트</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">리스트</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#append">append</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehension">List Comprehension</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehension">List Comprehension</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">1) 기본 문법</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#if-else">2) if-else(삼항)와의 차이</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">3) 중첩 루프(2중 이상)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">4) 자주 쓰는 패턴</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">5) 성능과 메모리 감각</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">6) 스코프와 주의점</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-comprehension">Generate Comprehension</a><ul class="nav section-nav flex-column">
@@ -1420,15 +1699,18 @@ fig = plt.figure()
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#strip">strip</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerate">enumerate</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#join">join</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">조건부 표현식</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">조건부 표현식</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#format-string">Format String</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">변수 스코프</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">변수 스코프</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#false">False 로 형변환 되는 경우</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set">Set</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">생성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">생성</a></li>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
@@ -1476,8 +1758,8 @@ By MS
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
