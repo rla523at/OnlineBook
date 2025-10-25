@@ -16,20 +16,22 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
@@ -37,10 +39,11 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=61612f5f" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -66,6 +69,7 @@
     <link rel="prev" title="Governing Equation" href="../10%20Mechanics/11%20Fluid/01%20Governing%20Equation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -81,19 +85,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -101,7 +94,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -109,8 +101,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -126,7 +118,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -156,15 +149,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -474,6 +463,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/01%20C%2B%2B/20%20Standard%20Library/Chrono.html">Chrono</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/01%20C%2B%2B/20%20Standard%20Library/concept.html">concept</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03%20programming/01%20C%2B%2B/20%20Standard%20Library/condition_variable.html">condition_variable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/01%20C%2B%2B/20%20Standard%20Library/function.html">function</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/01%20C%2B%2B/20%20Standard%20Library/iterator.html">Iterator</a></li>
@@ -594,7 +584,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Descriptors.html">Descriptors</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/GPU%20Heap.html">GPU Heap</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Barrier.html">Resource Barrier</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
@@ -605,6 +594,7 @@
 </details></li>
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/02%20Graphics/51%20DirectX12/CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/02%20Graphics/51%20DirectX12/Fence.html">Fence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03%20programming/02%20Graphics/51%20DirectX12/IndirectDrawing.html">IndirectDrawing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/02%20Graphics/51%20DirectX12/Initializing%20Direct3D.html">Initializing Direct3D</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/02%20Graphics/51%20DirectX12/Pipeline%20State%20Object.html">Pipeline State Object (PSO)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../03%20programming/02%20Graphics/51%20DirectX12/ShaderReflection.html">Shader Reflection</a></li>
@@ -673,13 +663,22 @@
 <li class="toctree-l2"><a class="reference internal" href="../03%20programming/99%20ETC/30%20OpenMP.html">OpenMP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03%20programming/99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03%20programming/99%20ETC/Algorithm.html">Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03%20programming/99%20ETC/ARM.html">ARM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03%20programming/99%20ETC/Batch.html">Batch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03%20programming/99%20ETC/Cache.html">Cache Policy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03%20programming/99%20ETC/Linux.html">Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03%20programming/99%20ETC/MacProgramming.html">Protocol</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../03%20programming/99%20ETC/Memory.html">버스</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03%20programming/99%20ETC/SAL.html">SAL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03%20programming/99%20ETC/Text%20Encoding.html">Text Encoding</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../03%20programming/Python.html">Python</a></li>
+
+
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Mechanics</span></p>
 <ul class="nav bd-sidenav">
@@ -813,24 +812,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -854,7 +845,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">투자</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">투자</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">기업 보고서</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enum">enum 예시</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#struct">struct 예시</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function">Function 예시</a></li>
@@ -889,49 +883,54 @@ document.write(`
 <li><p>미국 부채 증가에 따른 금리 증가에 대한 위험도 분석과 그에 따른 이유와 논리</p></li>
 <li><p>미국 경기 침체에 따른 금리 하락에 대한 위험도 분석과 그에 따른 이유와 논리</p></li>
 </ul>
-<p>Netflix 와 Visa 에 대해 투자 참고 보고서를 작성.</p>
+<section id="id2">
+<h3>기업 보고서<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>당신은 기업 투자 전문 애널리스트입니다.</p>
+<p>XXX 기업에 대한 투자 보고서를 마크다운 형식으로 작성해주세요.</p>
+<p>보고서 작성 가이드라인</p>
 <ul class="simple">
-<li><p>투자 판단을 하는데 도움이 될만한 정보를 중점으로 보고서 작성</p></li>
-<li><p>먼저 표, 그래프를 포함하여 전체 보고서의 내용을 요약하여 작성</p></li>
-<li><p>후에 본문 위주의 구체적인 내용을 작성.</p></li>
-<li><p>모든 주장에는 근거와 근거에 따른 논리구조를 명확하게 작성</p></li>
-<li><p>보수적인 시각과 낙관적인 시각을 각각 정리</p></li>
-<li><p>출처는 공신력 있는 기관에서 배포한 자료만 사용</p></li>
+<li><p>전체 보고서의 내용을 기반으로 투자 추천도( 1 투자 손실이 예상되어 투자를 전혀 추천하지 않음, 10 높은 수익이 예상되어 투자를 매우 추천함 ) 를 작성한다.</p></li>
+<li><p>다음에 전체 보고서의 내용을 요약하며 투자 추천도에 대한 근거와 근거에 따른 논리구조를 설명한다.</p></li>
+<li><p>다음에 보고서의 각 항목에 대한 구처적인 내용을 작성한다.</p></li>
+<li><p>모든 주장에는 근거와 근거에 따른 논리구조를 명확하게 작성해야 하며 보수적인 시각과 낙관적인 시각을 각각 정리해야 한다.</p></li>
+<li><p>출처는 공신력 있는 기관에서 6개월 내에 배포한 자료만 사용한다.</p></li>
+<li><p>기업에 관련된 각종 지표들( PER, ForwardPER, PEG Ratio, EPS 성장률, EPS, 재무제표, 현재주가 등등등…. )은 (<a class="reference external" href="https://finance.yahoo.com/quote/JPM/key-statistics/">https://finance.yahoo.com/quote/JPM/key-statistics/</a>) 와 같이 yahoo finance 의 statics 항목의 자료를 가장 우선적으로 사용하고 여기서 찾을 수 없는 자료들에 한해서 다른곳의 자료를 인용한다.</p></li>
 </ul>
-<p>보고서에 포함되어야 할 내용</p>
+<p>보고서에 포함되어야 할 항목</p>
 <ul class="simple">
-<li><p>미래 성장성 분석 및 동일 산업군 다른 기업들과 수치적 비교와 정성적 비교</p></li>
-<li><p>현재 수익성 분석 및 동일 산업군 다른 기업들과 수치적 비교와 정성적 비교</p></li>
-<li><p>재무 건전성 분석 및 동일 산업군 다른 기업들과 수치적 비교와 정성적 비교</p></li>
+<li><p>투자자가 관심있어할 만한 내용을 위주로 기업에 대한 간략한 소개</p></li>
+<li><p>미래 성장성, 현재 수익성, 재무 건전성 분석</p></li>
+<li><p>경쟁사들과 미래 성장성, 현재 수익성, 재무 건전성에 대한 정량적 비교와 정성적 비교와 이를 요약한 표</p></li>
+<li><p>미래 성장성, 현재 수익성, 재무 건전성 분석 내용을 기반으로 향후 주가의 상승 요인과 하락요인을 정리하고 및 가장 가능성 높은 시나리오 채택 및 기반 논리 설명</p></li>
+<li><p>미래 성장성, 현재 수익성, 재무 건전성 분석 내용을 기반으로 보수적인 시각에서 적정 주가와 긍정적인 시각에서 적정 주가 분석 및 이유 설명 및 가장 가능성 높은 시나리오에서 적정주가 채택 및 기반 논리 설명</p></li>
+</ul>
+<p>적정 주가 산출시 사용할 밸류에이션 모델</p>
+<ul class="simple">
+<li><p>DCF 를 사용한 절대가치 모델</p></li>
+<li><p>P/E P/B EV/EBITDA 를 사용한 상대가치 모델</p></li>
 </ul>
 <p>미래 성장성 분석에 포함되어야 할 항목</p>
 <ul class="simple">
-<li><p>동일 산업군 다른 기업들과 R&amp;D 투자 비율 비교</p></li>
-<li><p>회사에서 개발중인 신기술 신제품 전망에 대한 보수적인 시각과 낙관적인 시각</p></li>
+<li><p>현재 사업모델의 성장성에 대한 보수적인 시각과 낙관적인 시각 및 경쟁사의 사업모델과의 정량적 정성적 비교</p></li>
+<li><p>미래 사업모델의 성장성에 대한 보수적인 시각과 낙관적인 시각 및 경쟁사의 미래 사업모델과의 정량적 정성적 비교</p>
+<ul>
+<li><p>R&amp;D 투자 비율</p></li>
+<li><p>신기술 신제품 전망에 대한 보수적인 시각과 낙관적인 시각</p></li>
+</ul>
+</li>
 <li><p>주주환원에 대한 태도 (배당금, 증자등 주주의 이익과 관련된 부분에 대한 태도)</p></li>
-<li></li>
 </ul>
 <p>현재 수익성 분석에 포함되어야 할 항목</p>
 <ul class="simple">
-<li><p>영업 이익률</p></li>
-<li><p>영업 이익률 성장률</p></li>
-<li><p>순 이익률</p></li>
-<li><p>순 이익률 성장률</p></li>
-<li><p>EPS 성장률</p></li>
-<li><p>배당금 성장률</p></li>
-<li><p>주요 산업부분 시장 점유율</p></li>
-<li><p>향후 매출액 전망에 대한 보수적인 시각과 낙관적인 시각</p></li>
+<li><p>기업과 경쟁사들의 핵심 투자지표 ( PER, ForwardPER, PEG Ratio, EPS 성장률 ) 비교표</p></li>
+<li><p>핵심 투자지표를 바탕으로 부정적인 투자 의견과 긍정적인 투자 의견 제시</p></li>
+<li><p>시장 점유율</p></li>
 </ul>
-<p>재무구조</p>
+<p>재무 건전성 분석에 포함되어야 할 항목</p>
 <ul class="simple">
-<li><p>재무 건전성 분석 및 동일 산업군 다른 기업들과 수치적 비교와 정성적 비교</p></li>
-<li><p>투자에 참고할만한 핵심 투자지표와 재무지표를 정리</p></li>
-<li><p>PER, ForwardPER, PEG Ratio, 영업 이익률, 영업 이익률 성장률, 순 이익률, 순 이익률 성장률은 지표에 반드시 표함</p></li>
-<li><p>각 지표들에 동일 산업군 평균 작성</p></li>
-<li><p>각 지표들에 대해 주가에 긍정적인 요소인지 부정적인 요소인지 나타내고 그 이유를 설명</p></li>
-<li><p>각 지표들은 가장 최근 공시자료나 뉴스 자료를 기반으로 작성</p></li>
+<li><p>기업과 경쟁사들의 재무 건전성 분석 및 이를 요약한 표</p></li>
 </ul>
-<p>위의 표와 3개월 내의 공시 자료나 뉴스 자료를 바탕으로 향후 주가의 상승 요인과 하락요인을 정리하고 그렇게 분석한 이유 설명</p>
+</section>
 </section>
 <section id="enum">
 <h2>enum 예시<a class="headerlink" href="#enum" title="Link to this heading">#</a></h2>
@@ -1139,7 +1138,8 @@ HRESULT CreateCommandAllocator(
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1148,7 +1148,10 @@ HRESULT CreateCommandAllocator(
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">투자</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">투자</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">기업 보고서</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enum">enum 예시</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#struct">struct 예시</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function">Function 예시</a></li>
@@ -1200,8 +1203,8 @@ By MS
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

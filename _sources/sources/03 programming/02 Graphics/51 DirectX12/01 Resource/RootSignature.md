@@ -15,6 +15,27 @@ Root Parameter 의 종류는 다음과 같다.
 
 Root Signature Version 1.1 의 Root Parameter 는 [D3D12_ROOT_PARAMETER1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter1) 구조체로 나타내어진다.
 
+### Root Descriptor Table
+Root Descriptor Table 은 Descriptor 와 Shader Register 의 연결관계를 나타낸다. 동일한 타입의 연속적인 연결관계는 Descriptor Range 로 표현되며 전체 연결관계는 Descriptor Range 의 집합으로 표현된다.
+
+Root Descriptor Table 은 D3D12_ROOT_PARAMETER1 구조체로 나타내어지며 D3D12_DESCRIPTOR_RANGE1 구조체의 배열로 구성되어 있다.
+* [leaern.microsoft - d3d12_root_descriptor_table1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_descriptor_table1)
+
+CD3DX12_ROOT_PARAMETER1 구조체는 D3D12_ROOT_PARAMETER1 구조체를 쉽게 생성하기 위한 Helper class이다.
+* [learn.microsoft - cd3dx12-root-parameter1](https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-root-parameter1)  
+
+<details> <summary> <h4 style="display:inline-block"> Descriptor Range </h4></summary>
+ 
+Descriptor Range 는 D3D12_DESCRIPTOR_RANGE1 구조체로 나타내어지며 Descriptor Table 의 시작에서 OffsetInDescriptorsFromTableStart 번째 Descriptor 부터 NumDescriptors 개가 RangeType 이고 이 Descriptor 들이 Shader 의 (BaseShaderRegister, RegisterSpace) Register 와 연결된다는 의미를 갖는다.
+* [learn.microsoft - d3d12_descriptor_range1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_range1)
+
+이 때, Descriptor Table 의 시작은 ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수의 BaseDescriptor 인자로 결정된다.
+* [learn.microsoft - setgraphicsrootdescriptortable](https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootdescriptortable)
+
+D3D12_DESCRIPTOR_RANGE1 의 OffsetInDescriptorsFromTableStart 이 D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND 로 되어있을 떄, 첫 번째 Range가 NumDescriptors = 3이면 두 번째 Range 의 OffsetInDescriptorsFromTableStart 은 3이 된다.
+
+</details>
+
 <details> <summary> <h3 style="display:inline-block"> Root Argument  </h3></summary>
 
 런타임에 설정 및 변경되는 root parameter 의 실제 값을 root argument 라고 한다. 즉, Command List 의 Binding 함수 호출을 통해 Binding 된 Resource 들을 Root Argument 라고 한다.
@@ -51,16 +72,6 @@ Root Signature Version 1.1 의 Root Parameter 는 [D3D12_ROOT_PARAMETER1](https:
 
 <details> <summary> <h3 style="display:inline-block"> Root Parameter 생성 예시 </h3></summary>
 
-<<<<<<< HEAD
-CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC 구조체는 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 를 쉽게 생성하기 위한 Helper class 이다.
-* [learn.microsoft - cd3dx12-versioned-root-signature-desc](https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-versioned-root-signature-desc)  
-
-Root signature 는 root parameter 들로 정의됨으로, Root Signature 를 생성하기 위해서는 먼저, Root Parameter 들을 생성해야 한다.
-
-<details> <summary> <h3 style="display:inline-block"> Root Parameter 생성 </h3></summary>
-
-=======
->>>>>>> 89c2d157aec645d33641a30cf5ca7a9c9c654e08
 Root Parameter 는 HLSL 에 Resource 가 어떻게 Binding 되어 있는지를 나타낸다. 예를 들어 HLSL 에 다음과 같이 Resource 가 Binding 되어 있다고 하자.
 ```
 Texture2D texture0 : register(t2);
@@ -77,28 +88,13 @@ CD3DX12_ROOT_PARAMETER1 root_parameter_arr[1] = {};
 root_parameter_arr[0].InitAsDescriptorTable( 1, &range_arr[0], D3D12_SHADER_VISIBILITY_PIXEL );
 ```
 
-Root Parameter 는 HLSL 에서 Resource 가 어떻게 Binding 되어 있는지를 나타낼 뿐이지 실제로 Resource 와 binding 해주지는 않는다. Resource 와 binding 은 ID3D12GraphicsCommandList::SetDescriptorHeaps 와 ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수를 통해 이루어진다.
-
-Root Parameter 는 D3D12_ROOT_PARAMETER1 구조체로 나타내어진다.
-* [learn.microsoft - d3d12_root_parameter1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter1)
-
-CD3DX12_ROOT_PARAMETER1 구조체는 D3D12_ROOT_PARAMETER1 구조체를 쉽게 생성하기 위한 Helper class이다.
-* [learn.microsoft - cd3dx12-root-parameter1](https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-root-parameter1)  
 
 CD3DX12_ROOT_PARAMETER1 구조체의 InitAsDescriptorTable 함수를 사용하면 간단하게 RootDescriptorTable 을 나타내는 D3D12_Root_PARAMETER1 구조체를 생성할 수 있다. 
 
 D3D12_DESCRIPTOR_RANGE1 구조체의 BaseShaderRegister 변수는  base shader register 를 나타내는 변수이다. 예를 들어 RangeType 변수가 D3D12_DESCRIPTOR_RANGE_TYPE_SRV 이고 BaseShaderRegister 변수가 3이라면 HLSL 의 ":register(t3)" 와 Mapping 된다.
 * [learn.microsoft - d3d12_descriptor_range1](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_range1)  
 * [learn.microsoft - cd3dx12-descriptor-range1](https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-descriptor-range1)
-<<<<<<< HEAD
-* [learn.micorosoft - d3d12_descriptor_range_type](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_range_type) 
-*  
-=======
 * [learn.micorosoft - d3d12_descriptor_range_type](https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_range_type)  
-
->>>>>>> 89c2d157aec645d33641a30cf5ca7a9c9c654e08
-</details>
-
 
 <details> <summary> <h3 style="display:inline-block"> Specification </h3></summary>
 

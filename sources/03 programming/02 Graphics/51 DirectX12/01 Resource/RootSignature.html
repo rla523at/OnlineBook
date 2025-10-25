@@ -16,20 +16,22 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
@@ -37,10 +39,11 @@
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/custom.css?v=61612f5f" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../../../_static/doctools.js?v=9a2dae69"></script>
@@ -66,6 +69,7 @@
     <link rel="prev" title="Resource State" href="Resource%20State.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -81,19 +85,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../../../search.html"
       method="get">
@@ -101,7 +94,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -109,8 +101,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -126,7 +118,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -156,15 +149,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -674,16 +663,22 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/30%20OpenMP.html">OpenMP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/Algorithm.html">Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/ARM.html">ARM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/Batch.html">Batch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/Cache.html">Cache Policy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/Linux.html">Linux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/MacProgramming.html">Protocol</a></li>
 
 
+<li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/Memory.html">버스</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/SAL.html">SAL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../99%20ETC/Text%20Encoding.html">Text Encoding</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Python.html">Python</a></li>
+
+
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Mechanics</span></p>
 <ul class="nav bd-sidenav">
@@ -817,24 +812,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -858,7 +845,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-parameter">Root Parameter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-parameter">Root Parameter</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#root-descriptor-table">Root Descriptor Table</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Root Signature 생성</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-signautre-descriptor">Root Signautre 에 Descriptor 등록</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-1">Version 1.1</a></li>
@@ -896,6 +886,28 @@ document.write(`
 <li><p>root descriptor tables (descriptor heap 에 일정 범위에 있는 descriptor 에 대한 포인터)</p></li>
 </ul>
 <p>Root Signature Version 1.1 의 Root Parameter 는 <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter1">D3D12_ROOT_PARAMETER1</a> 구조체로 나타내어진다.</p>
+<section id="root-descriptor-table">
+<h3>Root Descriptor Table<a class="headerlink" href="#root-descriptor-table" title="Link to this heading">#</a></h3>
+<p>Root Descriptor Table 은 Descriptor 와 Shader Register 의 연결관계를 나타낸다. 동일한 타입의 연속적인 연결관계는 Descriptor Range 로 표현되며 전체 연결관계는 Descriptor Range 의 집합으로 표현된다.</p>
+<p>Root Descriptor Table 은 D3D12_ROOT_PARAMETER1 구조체로 나타내어지며 D3D12_DESCRIPTOR_RANGE1 구조체의 배열로 구성되어 있다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_descriptor_table1">leaern.microsoft - d3d12_root_descriptor_table1</a></p></li>
+</ul>
+<p>CD3DX12_ROOT_PARAMETER1 구조체는 D3D12_ROOT_PARAMETER1 구조체를 쉽게 생성하기 위한 Helper class이다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-root-parameter1">learn.microsoft - cd3dx12-root-parameter1</a></p></li>
+</ul>
+<details> <summary> <h4 style="display:inline-block"> Descriptor Range </h4></summary>
+<p>Descriptor Range 는 D3D12_DESCRIPTOR_RANGE1 구조체로 나타내어지며 Descriptor Table 의 시작에서 OffsetInDescriptorsFromTableStart 번째 Descriptor 부터 NumDescriptors 개가 RangeType 이고 이 Descriptor 들이 Shader 의 (BaseShaderRegister, RegisterSpace) Register 와 연결된다는 의미를 갖는다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_range1">learn.microsoft - d3d12_descriptor_range1</a></p></li>
+</ul>
+<p>이 때, Descriptor Table 의 시작은 ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수의 BaseDescriptor 인자로 결정된다.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootdescriptortable">learn.microsoft - setgraphicsrootdescriptortable</a></p></li>
+</ul>
+<p>D3D12_DESCRIPTOR_RANGE1 의 OffsetInDescriptorsFromTableStart 이 D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND 로 되어있을 떄, 첫 번째 Range가 NumDescriptors = 3이면 두 번째 Range 의 OffsetInDescriptorsFromTableStart 은 3이 된다.</p>
+</details>
 <details> <summary> <h3 style="display:inline-block"> Root Argument  </h3></summary>
 <p>런타임에 설정 및 변경되는 root parameter 의 실제 값을 root argument 라고 한다. 즉, Command List 의 Binding 함수 호출을 통해 Binding 된 Resource 들을 Root Argument 라고 한다.</p>
 </details>
@@ -949,30 +961,7 @@ document.write(`
 </ul>
 </details>
 <details> <summary> <h3 style="display:inline-block"> Root Parameter 생성 예시 </h3></summary>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC 구조체는 D3D12_VERSIONED_ROOT_SIGNATURE_DESC 를 쉽게 생성하기 위한 Helper class 이다.</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-versioned-root-signature-desc">learn.microsoft - cd3dx12-versioned-root-signature-desc</a></p></li>
-</ul>
-<p>Root signature 는 root parameter 들로 정의됨으로, Root Signature 를 생성하기 위해서는 먼저, Root Parameter 들을 생성해야 한다.</p>
-<details> <summary> <h3 style="display:inline-block"> Root Parameter 생성 </h3></summary>
-<p>=======</p>
-<blockquote>
-<div><blockquote>
-<div><blockquote>
-<div><blockquote>
-<div><blockquote>
-<div><blockquote>
-<div><blockquote>
-<div><p>89c2d157aec645d33641a30cf5ca7a9c9c654e08
-Root Parameter 는 HLSL 에 Resource 가 어떻게 Binding 되어 있는지를 나타낸다. 예를 들어 HLSL 에 다음과 같이 Resource 가 Binding 되어 있다고 하자.</p>
-</div></blockquote>
-</div></blockquote>
-</div></blockquote>
-</div></blockquote>
-</div></blockquote>
-</div></blockquote>
-</div></blockquote>
+<p>Root Parameter 는 HLSL 에 Resource 가 어떻게 Binding 되어 있는지를 나타낸다. 예를 들어 HLSL 에 다음과 같이 Resource 가 Binding 되어 있다고 하자.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Texture2D</span> <span class="n">texture0</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">t2</span><span class="p">);</span>
 <span class="n">Texture2D</span> <span class="n">texture1</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">t3</span><span class="p">);</span>
 <span class="n">Texture2D</span> <span class="n">texture2</span> <span class="p">:</span> <span class="n">register</span><span class="p">(</span><span class="n">t4</span><span class="p">);</span>
@@ -986,44 +975,13 @@ Root Parameter 는 HLSL 에 Resource 가 어떻게 Binding 되어 있는지를 �
 <span class="n">root_parameter_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">InitAsDescriptorTable</span><span class="p">(</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">range_arr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">D3D12_SHADER_VISIBILITY_PIXEL</span><span class="w"> </span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Root Parameter 는 HLSL 에서 Resource 가 어떻게 Binding 되어 있는지를 나타낼 뿐이지 실제로 Resource 와 binding 해주지는 않는다. Resource 와 binding 은 ID3D12GraphicsCommandList::SetDescriptorHeaps 와 ID3D12GraphicsCommandList::SetGraphicsRootDescriptorTable 함수를 통해 이루어진다.</p>
-<p>Root Parameter 는 D3D12_ROOT_PARAMETER1 구조체로 나타내어진다.</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_root_parameter1">learn.microsoft - d3d12_root_parameter1</a></p></li>
-</ul>
-<p>CD3DX12_ROOT_PARAMETER1 구조체는 D3D12_ROOT_PARAMETER1 구조체를 쉽게 생성하기 위한 Helper class이다.</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://learn.microsoft.com/ko-kr/windows/win32/direct3d12/cd3dx12-root-parameter1">learn.microsoft - cd3dx12-root-parameter1</a></p></li>
-</ul>
 <p>CD3DX12_ROOT_PARAMETER1 구조체의 InitAsDescriptorTable 함수를 사용하면 간단하게 RootDescriptorTable 을 나타내는 D3D12_Root_PARAMETER1 구조체를 생성할 수 있다.</p>
 <p>D3D12_DESCRIPTOR_RANGE1 구조체의 BaseShaderRegister 변수는  base shader register 를 나타내는 변수이다. 예를 들어 RangeType 변수가 D3D12_DESCRIPTOR_RANGE_TYPE_SRV 이고 BaseShaderRegister 변수가 3이라면 HLSL 의 “:register(t3)” 와 Mapping 된다.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_range1">learn.microsoft - d3d12_descriptor_range1</a></p></li>
-<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-descriptor-range1">learn.microsoft - cd3dx12-descriptor-range1</a>
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p></li>
-<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_range_type">learn.micorosoft - d3d12_descriptor_range_type</a></p></li>
-<li></li>
-</ul>
-<p>=======</p>
-<ul class="simple">
+<li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/cd3dx12-descriptor-range1">learn.microsoft - cd3dx12-descriptor-range1</a></p></li>
 <li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_range_type">learn.micorosoft - d3d12_descriptor_range_type</a></p></li>
 </ul>
-<blockquote>
-<div><blockquote>
-<div><blockquote>
-<div><blockquote>
-<div><blockquote>
-<div><blockquote>
-<div><blockquote>
-<div><p>89c2d157aec645d33641a30cf5ca7a9c9c654e08</p>
-</div></blockquote>
-</div></blockquote>
-</div></blockquote>
-</div></blockquote>
-</div></blockquote>
-</div></blockquote>
-</div></blockquote>
-</details>
 <details> <summary> <h3 style="display:inline-block"> Specification </h3></summary>
 <ul class="simple">
 <li><p><a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/direct3d12/root-signatures-overview#root-parameters-and-arguments">learn.microsoft - root-parameters-and-arguments</a></p>
@@ -1048,6 +1006,7 @@ Root Parameter 는 HLSL 에 Resource 가 어떻게 Binding 되어 있는지를 �
 </li>
 </ul>
 </details>
+</section>
 </section>
 <section id="id1">
 <h2>Root Signature 생성<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
@@ -1246,7 +1205,8 @@ HLSL에 Root Signature를 직접 작성하면, 그 셰이더는 해당 Root Sign
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1255,7 +1215,10 @@ HLSL에 Root Signature를 직접 작성하면, 그 셰이더는 해당 Root Sign
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-parameter">Root Parameter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-parameter">Root Parameter</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#root-descriptor-table">Root Descriptor Table</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Root Signature 생성</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-signautre-descriptor">Root Signautre 에 Descriptor 등록</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-1-1">Version 1.1</a></li>
@@ -1312,8 +1275,8 @@ By MS
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

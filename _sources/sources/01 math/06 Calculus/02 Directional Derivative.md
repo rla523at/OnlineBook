@@ -31,21 +31,27 @@ $D_vf(a)$는 $\R^m$의 element, 즉 vector이다.
 
 $$ D_vf(a) = \begin{bmatrix} D_vf_1(a) \\ \vdots \\ D_vf_m(a) \end{bmatrix} $$
 
-### 참고2(Partial Derivative)
+
+### 참고2
+$U$ 의 부분집합 $V$ 를 $V := \Set{ x \in U | \exist D_vf(x)}$ 라고 정의하면 $V$ 위에서의 $v$ 방향으로의 `방향 도함수(directional derivative)` $D_vf$ 는 다음과 같이 정의된다.
+
+$$ D_vf : V \rightarrow \R^m \st x \mapsto D_vf(x) $$
+
+즉, $D_vf$ 는 $\R^n$ 의 특정 원소들을 $\R^m$으로 보내주는 함수이다.
+
+### 참고3(Partial Derivative)
 $\R^n$의 standard basis인 $e_i$방향의 directional derivative를 다음과 같이 표현한다.
 
 $$ D_{e_i}f(a) = \lim_{h \rightarrow 0} \frac{1}{h}(f(a^1, \cdots, a^i + h, \cdots, a^n) - f(a^1, \cdots, a^n)) = \pdiff{f}{x_i}(a) $$
 
-이를 `편미분(partial derivative)`라고 한다.
+이를 `편미분(partial derivative)`라고 한다. 
+
+편미분은 다변수 함수를 일변수 함수처럼 보고 미분하는 방식이다. 다시 말해, 나머지 변수는 전부 상수로 간주하고 한 변수에 대해서 미분을 구하는 방식이다.
 
 당연하게, $\pdiff{f}{x_i}(a) \in \R^m$도 vector이다.
 
 $$ \pdiff{f}{x_i}(a) = \begin{bmatrix} \pdiff{f_1}{x_i}(a) \\ \vdots \\ \pdiff{f_m}{x_i}(a) \end{bmatrix} $$
 
-### 참고3
-편미분은 다변수 함수를 일변수 함수처럼 보고 미분하는 방식이다.
-
-다시 말해, 나머지 변수는 전부 상수로 간주하고 한 변수에 대해서 미분을 구하는 방식이다.
 
 ### 명제1
 $\R^n$의 open set $U$와 linear map $f: U \rightarrow \R^m$이 있다고 하자.

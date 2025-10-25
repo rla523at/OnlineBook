@@ -48,6 +48,8 @@ enum D3D12_DESCRIPTOR_HEAP_FLAG 의 D3D12_DESCRIPTOR_HEAP_FLAG_NONE 는 CPU 에�
 
 </details>
 
+GPU 가 참조하는 descriptor heap 을 바꾸는 작업은 비용이 많이 드는 일임으로 가능하다면 하나의 descriptor heap 에 한 프레임 전체나 더 나아가서는 여러 프레임에 필요한 descriptor 를 전부 담아 놓고 descriptor heap 을 바꾸지 않는 것이 바람직하다.
+
 descriptor heap 이 필요한 경우
 * descriptor 를 만들 때, dest descirptor heap handle 이 필요하다
 * setDescriptorHeap 을 할 때, 필요하다.

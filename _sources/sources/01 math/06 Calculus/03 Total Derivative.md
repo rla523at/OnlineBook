@@ -100,23 +100,74 @@ $$ \lim_{h \rightarrow 0} \frac{1}{\norm{h}} \Big( f(a+h)-f(a)-D(h) \Big) = \lim
 즉, 굳이 일직선을 따라서 예쁘게 가까워질 필요가 없고 온갖 말도 안되는 경로를 따라서라도 가까워지기만 하면 된다. 
 
 ## 정의
-open subset $U \subset \R^n$과 함수 $f : U \rightarrow \R^m$이 있다고 하자.
+open subset $U \subseteq \R^n$ 과 함수 $f : U \rightarrow \R^m$ 이 있다고 하자.
 
-$a \in U$와 linear map $T \in L(\R^n,\R^m)$이 있다고 하자.
-
-$T$가 다음을 만족할 경우, $T$를 $a$에서 $f$의  `total derivative`라고 한다.
+$a \in U$ 에서 linear map $T \in L(\R^n,\R^m)$ 가 다음을 만족할 경우, $T$를 $a$에서 $f$의  `total derivative` $Df(a)$라고 한다.
 
 $$ \lim_{h \rightarrow 0_n} \frac{1}{\norm{h}}(f(a + h) - f(a) - T(h)) = 0_m $$
 
 ### 참고1
-$a$에서 $f$의 total derivative를 $T =Df(a)$로 표기한다.
-
-### 참고2
 $Df(a)$가 존재할 떄 $f$는 $a$에서 `미분가능(differentiable)`하다고 한다.
 
-따라서, 미분가능한 함수 $f$는 각 점마다 total derivative라는 linear map을 갖으며 이 linear map을 derivative라고 정의한다.
+그리고 미분가능한 함수 $f$ 는 정의역의 모든 점마다 total derivative 라는 linear map 을 갖는다.
+
+따라서 미분가능한 함수 $f$ 에서 $Df$ 를 $x \in \R^n$ 을 linear map 으로 보내주는 함수로 볼 수 있다.
+
+$$ Df : \R^n \rightarrow L(\R^n, \R^m) \st x \mapsto Df(x) $$
+
+### 참고2
+$f(a)$ 에서 $f$ 의 linear approximation 은 다음과 같이 한다.
+
+$$ L(x) = f(a) + Df(a)(x-a) $$
+
+즉, $Df(a)$ 는 선형화의 "기울기" 부분에 해당한다
 
 ### 명제1
+open subset $U \subseteq \R^n$ 과 함수 $f : U \rightarrow \R^m$ 이 있다고 하자.
+
+$a \in U$에서 $f$가 미분가능할 떄, 다음을 증명하여라.
+
+$$ (Df(a))(e_i) = \pdiff{f}{x_i}(a) $$
+
+**Proof**
+
+$f$ 가 a 에서 미분가능함으로 다음을 만족한다. 
+
+$$ \lim_{h \rightarrow 0_n} \frac{1}{\norm{h}}(f(a + h) - f(a) - (Df(a))(h)) = 0_m $$
+
+이 떄, $h = te_i$ 로 두고 $T$ 는 linear map 임으로 정리하면 다음과 같다.
+
+$$ (Df(a))(e_i) = \lim_{t \rightarrow 0} \frac{1}{t}(f(a + te_i) - f(a)) $$
+
+Partial derivative 의 정의에 의해 다음이 성립한다.
+
+$$ (Df(a))(e_i) = \pdiff{f}{x_i}(a) \qed $$
+
+#### 참고1
+$Df(a)$ 는 linear map 임으로 $u \in U$ 에 대해서 다음이 성립한다.
+
+$$ (Df(a))(u) = (Df(a))(\sum_{i=1}^n u_ie_i) = \sum_{i=1}^n u_i(Df(a))(e_i) = \sum_{i=1}^n u_i\pdiff{f}{x_i}(a) $$
+
+#### 참고2
+$Df(a)$ 는 linear map 임으로 matrix representation 을 갖는다.
+
+$\epsilon_n, \epsilon_m$ 으로 matrix representation 을 나타내면 다음과 같다.
+
+$$ \begin{align*} 
+[Df(a)]^{\epsilon_m}_{\epsilon_n} &= \begin{bmatrix} [(Df(a))(e_1)]_{\epsilon_m} & \cdots & [(Df(a))(e_n)]_{\epsilon_m} \end{bmatrix} \\
+&= \begin{bmatrix} [\pdiff{f}{x_1}(a)]_{\epsilon_m} & \cdots & [\pdiff{f}{x_n}(a)]_{\epsilon_m} \end{bmatrix} \\
+&= \begin{bmatrix} \pdiff{f_1}{x_1}(a) & \cdots & \pdiff{f_1}{x_n}(a) \\ \vdots & & \vdots \\ \pdiff{f_m}{x_1}(a) &\cdots& \pdiff{f_m}{x_n}(a) \end{bmatrix} \\
+&= \pdiff{f_i}{x_j}, i \in \Set{1,\cdots,m}, j \in \Set{1,\cdots,n}
+\end{align*} $$
+
+이를 $f$의 `Jacobian matrix`라고 부르며 $J_f(a)$로 표기한다.
+
+#### 참고3
+모든 방향의 directional derivative가 존재해도 미분 가능하지 않을 수 있음을 알고 있다.
+
+따라서, $J_f(a)$가 있다고 하더라도 $Df(a)$가 존재할 이유는 없다.
+
+### 명제2
 $\R^n$의 open subset $U$와 함수 $f : U \rightarrow \R^m$가 있다고 하자.
 
 $a \in U$에서 $f$가 미분가능할 떄, 다음을 증명하여라.
@@ -129,40 +180,15 @@ $T_1,T_2 \in L(\R^n,\R^m)$가 다음을 만족한다고 하자.
 
 $$ \lim_{h \rightarrow 0_n} \frac{1}{\norm{h}}(f(a + h) - f(a) - T_{1,2}(h)) = 0_m $$
 
-$e_i, \enspace i=1,\cdots,n$가 $\R^n$의 standard basis일 떄, $h = te_i, \enspace i=1,\cdots,n$으로 두면 다음이 성립한다.
+그러면 $\forall i \in \Set{1,\cdots,n}$에 대해서 다음이 성립한다.
 
-$$ \lim_{t \rightarrow 0} \frac{1}{t}(f(a + te_i) - f(a))  = T_{1,2}(e_i), \enspace i=1,\cdots,n $$
-
-즉, $i=1,\cdots,n$에 대해서 다음이 성립한다.
-
-$$ T_1(e_i) = T_2(e_i) = \pdiff{f}{x_i}(a) $$
+$$ T_1(e_i) = \pdiff{f}{x_i}(a) = T_2(e_i) $$
 
 $\Set{e_i}$는 $\R^n$의 basis임으로 다음이 성립한다.
 
 $$ T_1 = T_2 \qed $$
 
-#### 따름명제
-$\epsilon_{n,m}$을 $\R^{n,m}$의 standard basis라고 할 때, 다음을 증명하여라.
-
-$$ \frak{m}_{\epsilon_n}^{\epsilon_m}(Df(a)) = \pdiff{f_i}{x_j}(a)  $$
-
-##### 참고1
-$Df(a)$의 행렬표현을 $f$의 `Jacobian matrix`라고 부르며 $J_f(a)$로 표기한다.
-
-$$ \begin{aligned} J_f(a) &:= \mathfrak{m}_{\epsilon_n}^{\epsilon_m}(Df(a)) \\&= \begin{bmatrix} \mathfrak{m}_{\epsilon_m}(\pdiff{f}{x_1}(a)) &\cdots& \mathfrak{m}_{\epsilon_m}(\pdiff{f}{x_n}(a)) \end{bmatrix} \\&= \begin{bmatrix} \pdiff{f_1}{x_1}(a) &\cdots& \pdiff{f_1}{x_n}(a) \\ \vdots && \vdots \\ \pdiff{f_m}{x_1}(a) &\cdots& \pdiff{f_m}{x_n}(a) \end{bmatrix} \end{aligned} $$
-
-##### 참고2
-모든 방향의 directional derivative가 존재해도 미분 가능하지 않을 수 있음을 알고 있다.
-
-따라서, $J_f(a)$가 있다고 하더라도 $Df(a)$가 존재할 이유가 없다.
-
-그럼으로, 
-
-이 때, $Df(a)$
-
-$\mathfrak{m}_{\epsilon_n}^{\epsilon_m}(Df(a)) =J_f(a)$이려면 $f$가 differtiable해야 한다.
-
-### 명제2
+### 명제3
 $\R^n$의 open set $U$와 linear map $f : U \rightarrow \R^m$가 있다고 하자.
 
 $\R^n$과 $\R^m$의 basis가 각 각 $\epsilon_n,\epsilon_m$이고 $a \in U$에서 $f$가 미분가능할 때, 다음을 증명하여라.
@@ -173,17 +199,20 @@ $$ Df(a) = f $$
 
 명제1에 의해 다음이 성립한다.
 
-$$ \mathfrak{m}_{\epsilon_n}^{\epsilon_m}(Df(a)) = \begin{bmatrix} \mathfrak{m}_{\epsilon_m}(\pdiff{f}{x_1}(a)) &\cdots& \mathfrak{m}_{\epsilon_m}(\pdiff{f}{x_n}(a)) \end{bmatrix} $$
+$$ \begin{align*}
+[Df(a)]^{\epsilon_m}_{\epsilon_n} &= \begin{bmatrix} [(Df(a))(e_1)]_{\epsilon_m} & \cdots & [(Df(a))(e_n)]_{\epsilon_m} \end{bmatrix} \\
+&= \begin{bmatrix} [\pdiff{f}{x_1}(a)]_{\epsilon_m} & \cdots & [\pdiff{f}{x_n}(a)]_{\epsilon_m} \end{bmatrix} \\
+\end{align*} $$
 
 Partial derivative의 성질에 의해 다음이 성립한다.
 
-$$ \begin{aligned} \begin{bmatrix} \mathfrak{m}_{\epsilon_m}(D_1^{f(a)}) &\cdots& \mathfrak{m}_{\epsilon_m}(D_n^{f(a)}) \end{bmatrix} &= \begin{bmatrix} \mathfrak{m}_{\epsilon_m}(f(e_1)) &\cdots& \mathfrak{m}_{\epsilon_m}(f(e_n)) \end{bmatrix} \\&= \mathfrak{m}_{\epsilon_n}^{\epsilon_m}(f) \end{aligned} $$
+$$ \begin{bmatrix} [\pdiff{f}{x_1}(a)]_{\epsilon_m} & \cdots & [\pdiff{f}{x_n}(a)]_{\epsilon_m} \end{bmatrix} = \begin{bmatrix} [f(e_1)]_{\epsilon_m} & \cdots & [f(e_n)]_{\epsilon_m} \end{bmatrix} $$
 
-위의 결과를 종합하면 $\mathfrak{m}_{\epsilon_n}^{\epsilon_m}(Df(a)) = \mathfrak{m}_{\epsilon_n}^{\epsilon_m}(f)$임으로 linear algebra에 의해 다음이 성립한다.
+위의 결과를 종합하면 $[Df(a)]_{\epsilon_n}^{\epsilon_m} = [f]_{\epsilon_n}^{\epsilon_m}$임으로 linear algebra에 의해 다음이 성립한다.
 
 $$ Df(a) = f \qed $$
 
-### 명제3(Chain Rule)
+### 명제4(Chain Rule)
 $\R^n$의 open set $U$와 $\R^m$의 open set $V$가 있다고 하자.
 
 $f:U \rightarrow V$과 $g:V \rightarrow\R^p$가 있을 때, $a \in U$에서 $f$가 differentiable하고 $f(a) \in V$에서 $g$가 differentiable하다고 하자.
@@ -200,11 +229,11 @@ $$ \begin{gathered} r(h) = f(a+h) - f(a) - Df(a)(h) \\ s(t) = g(f(a)+t) - g(f(a)
 
 $T_1 = Df(a), T_2 = Dg(f(a))$로 두고 $\Delta f(h) = r(h) + T_1(h)$라고 할 떄, $r,s$의 정의에 의해 다음이 성립한다.
 
-$$ \begin{aligned} (g\circ f)(a+h) &= g(f(a) + r(h) + T_1(h)) \\&= g(f(a) + \Delta f) \\&= (g\circ f)(a) + T_2(\Delta f) + s(\Delta f)  \end{aligned} $$
+$$ \begin{align*} (g\circ f)(a+h) &= g(f(a) + r(h) + T_1(h)) \\&= g(f(a) + \Delta f) \\&= (g\circ f)(a) + T_2(\Delta f) + s(\Delta f)  \end{align*} $$
 
 $T_2$는 linear map임으로 다음이 성립한다.
 
-$$ \begin{aligned} T_2(\Delta f) &= T_2(r(h) + T_1(h)) \\&= (T_2 \circ r)(h) + (T_2 \circ T_1)(h) \end{aligned} $$
+$$ \begin{align*} T_2(\Delta f) &= T_2(r(h) + T_1(h)) \\&= (T_2 \circ r)(h) + (T_2 \circ T_1)(h) \end{align*} $$
 
 따라서, 다음이 성립한다.
 
@@ -261,11 +290,11 @@ $$ \forall \epsilon \in \R^+, \quad \delta_\epsilon \in (0, \delta_1) \st \norm{
 
 따라서, $\norm{h}<\delta_\epsilon$일 때, $\delta_\epsilon$의 정의에 의해 다음이 성립한다.
 
-$$ \begin{aligned} s(r(h) + Df(a)(h)) &\le \epsilon\norm{Df(a)+r(h)} \\&< \epsilon\left(\norm{Df(a)}+1\right)\norm{h} \\ \frac{s(r(h) + Df(a)(h))}{\norm{h}} &< \epsilon\left(\norm{Df(a)}+1\right) \end{aligned} $$
+$$ \begin{align*} s(r(h) + Df(a)(h)) &\le \epsilon\norm{Df(a)+r(h)} \\&< \epsilon\left(\norm{Df(a)}+1\right)\norm{h} \\ \frac{s(r(h) + Df(a)(h))}{\norm{h}} &< \epsilon\left(\norm{Df(a)}+1\right) \end{align*} $$
 
 따라서, $\norm{h}<\delta_1$일 떄, 다음이 성립한다.
 
-$$ \begin{aligned} \norm{r(h) + T_1(h)} &\le \norm{r(h)} + \norm{T_1(h)} \\&\le \norm{r(h)} + \norm{T_1}\norm{h} \\&< \left(\norm{T_1}+1\right)\norm{h} \end{aligned} $$
+$$ \begin{align*} \norm{r(h) + T_1(h)} &\le \norm{r(h)} + \norm{T_1(h)} \\&\le \norm{r(h)} + \norm{T_1}\norm{h} \\&< \left(\norm{T_1}+1\right)\norm{h} \end{align*} $$
 
 
 $\epsilon'$을 다음과 같이 정의하자.
@@ -300,7 +329,7 @@ $$ \forall\epsilon \in \R^+, \quad \exist \delta \st \norm{h} < \delta \implies 
 > {cite}`hubbard` Appendix4  
 > [illinois note](https://faculty.math.illinois.edu/~carty/ChainRuleNotesSlides.pdf)
 
-### 명제4
+### 명제5
 $\R$의 open set $U$와 $f : U \rightarrow R^m$이 있다고 하자.
 
 $a \in U$가 있을 때, 다음을 증명하여라.
@@ -311,16 +340,15 @@ $$ (Df(a))(1) = f'(a) $$
 
 Total derivative의 정의에 의해 다음이 성립한다.
 
-$$ \begin{aligned} & \lim_{h\rightarrow 0}\frac{f(a+h) - f(a) - (Df(a))(h)}{|h|} = 0 \\\implies& \lim_{h\rightarrow 0}\frac{f(a+h) - f(a)}{|h|} - \frac{h}{|h|}(Df(a))(1) = 0 \\ \implies& \begin{gathered} \lim_{h\rightarrow 0^+}\frac{f(a+h) - f(a)}{h} = (Df(a))(1) \\ \lim_{h\rightarrow 0^-}\frac{f(a+h) - f(a)}{h} = (Df(a))(1) \end{gathered} \\\implies& \lim_{h\rightarrow 0}\frac{f(a+h) - f(a)}{h} = (Df(a))(1) \\\implies& f'(a) = (Df(a))(1) \qed \end{aligned} $$
+$$ \begin{align*} & \lim_{h\rightarrow 0}\frac{f(a+h) - f(a) - (Df(a))(h)}{|h|} = 0 \\\implies& \lim_{h\rightarrow 0}\frac{f(a+h) - f(a)}{|h|} - \frac{h}{|h|}(Df(a))(1) = 0 \\ \implies& \begin{gathered} \lim_{h\rightarrow 0^+}\frac{f(a+h) - f(a)}{h} = (Df(a))(1) \\ \lim_{h\rightarrow 0^-}\frac{f(a+h) - f(a)}{h} = (Df(a))(1) \end{gathered} \\\implies& \lim_{h\rightarrow 0}\frac{f(a+h) - f(a)}{h} = (Df(a))(1) \\\implies& f'(a) = (Df(a))(1) \qed \end{align*} $$
 
 #### 참고1
-$Df(a) \in L(\R,\R)$인 linear map이고 $1, f'(a) \in \R$인 vector이다.
+$Df(a)$ 는 $Df(a) \in L(\R,\R)$인 linear map이고 $1$ 과 $f'(a)$ 는 $ 1,f'(a) \in \R$인 vector이다.
 
 #### 참고2
 $J_f = \frak{m}_\epsilon^\epsilon(Df(a)) = \begin{bmatrix} f'(a) \end{bmatrix}$이다.
 
-
-### 명제2
+### 명제6
 $\R^n$의 open set $U$와 $f: U \rightarrow \R$이 있다고 하자.
 
 $f$의 partial derivatives가 존재할 때, Euclidean graident $\nabla_Ef$를 다음과 같이 정의하자.
@@ -343,7 +371,7 @@ $$ D_vf(a) = \lim_{h\rightarrow 0} \frac{g(h) - g(0)}{h} = g'(0) $$
 
 $x(h)$는 differentiable함으로 chain rule에 의해 다음이 성립한다.
 
-$$ \begin{aligned} g'(0) &= \pdiff{f}{x_1}\diff{x_1}{h} + \cdots + \pdiff{f}{x_n}\diff{x_n}{h} \\&=  \nabla_Ef \cdot v \qed \end{aligned} $$
+$$ \begin{align*} g'(0) &= \pdiff{f}{x_1}\diff{x_1}{h} + \cdots + \pdiff{f}{x_n}\diff{x_n}{h} \\&=  \nabla_Ef \cdot v \qed \end{align*} $$
 
 ### 참고2
 Total derivative의 의미는 $a\in\R^n$에서 함수 $f: \R^n \rightarrow \R^m$에 대한 best linear approximation이다.
@@ -366,7 +394,7 @@ $$ \begin{CD} M_{nn} @>f>> M_{nn} \\ @V{\varphi}VV @VV{\varphi}V \\ \mathbb \R^{
 
 $f,g$의 total derivative를 각 각 $L_f,L_g$라하고 $M_{nn}$과 $\R^{nn}$의 basis를 각 각 $\epsilon_n, \epsilon_m$라 할 때, $\varphi$의 성질에 의해 다음이 성립한다.
 
-$$ \mathfrak{m_\epsilon_n^\epsilon_n}(L_f) = \mathfrak{m_\epsilon_m^\epsilon_m}(L_g) $$
+$$ [L_f]_{\epsilon_n}^{\epsilon_n} = [L_g]_{\epsilon_m}^{\epsilon_m} $$
 
 $f$의 정의에 의해 $a = a^{ij}\gamma_{ij} \in \R^{nn}$가 있을 떄, $g(v)$는 다음과 같다.
 
@@ -374,21 +402,20 @@ $$ g(v) = a^{ik}a^{kj}\gamma_{ij} $$
 
 따라서, 다음이 성립한다.
 
-$$ \mathfrak{m_\epsilon_m^\epsilon_m}(L_g) = J_g(a) = \begin{bmatrix} D_{11}g^{11}( a) & \cdots & D_{nn}g^{11}(a) \\ \vdots & & \vdots \\ D_{11}g^{nn}( a) & \cdots & D_{nn}g^{nn}( a) \end{bmatrix} $$
-
+$$ [L_g]_{\epsilon_m}^{\epsilon_m} = J_g(a) = \begin{bmatrix} D_{11}g^{11}( a) & \cdots & D_{nn}g^{11}(a) \\ \vdots & & \vdots \\ D_{11}g^{nn}( a) & \cdots & D_{nn}g^{nn}( a) \end{bmatrix} $$
 
 $$ \text{Where, }D_{ij}g^{kl}(a) = \frac{\partial a^{kr}a^{rl}}{\partial a^{ij}} $$
 
-그럼으로 $\mathfrak{m_\epsilon_n^\epsilon_n}(L_f)$를 알고 있기 때문에 $L_f$에 대해 알 수 있다.
+그럼으로 $[L_f]_{\epsilon_n}^{\epsilon_n}$를 알고 있기 때문에 $L_f$에 대해 알 수 있다.
 
 예를 들어 $m \in M_{nn}$에 대해서, $L_f(m)$은 다음과 같다.
 
-$$ \begin{aligned} L_f(m) &= \varphi^{-1}(\mathfrak{m_\epsilon_n}(L_f(m))) \\&= \varphi^{-1}(\mathfrak{m_\epsilon_n^\epsilon_n}(L_f)\mathfrak{m_\epsilon_n}(m)) \end{aligned} $$
+$$ \begin{align*} L_f(m) &= \varphi^{-1} [L_f(m)]_{\epsilon_n} \\&= \varphi^{-1}([L_f]_{\epsilon_n}^{\epsilon_n} [m]\epsilon_n) \end{align*} $$
 
 ##### 정의를 사용하는 경우
 Total derivative의 정의를 통해 $L_f$을 구해보자.
 
-$$ \begin{aligned} & \lim_{H \rightarrow 0_{M_{nn}}} \frac{1}{\norm{H}}(f(A + H) - f(A) - \mathit L_f(H)) = 0_{M_{nn}} \\ \implies & \lim_{H \rightarrow 0_{M_{nn}}} \frac{1}{\norm{H}}(AH + HA + H^2 - \mathit L_f(H)) = 0_{M_{nn}} \end{aligned} $$
+$$ \begin{align*} & \lim_{H \rightarrow 0_{M_{nn}}} \frac{1}{\norm{H}}(f(A + H) - f(A) - \mathit L_f(H)) = 0_{M_{nn}} \\ \implies & \lim_{H \rightarrow 0_{M_{nn}}} \frac{1}{\norm{H}}(AH + HA + H^2 - \mathit L_f(H)) = 0_{M_{nn}} \end{align*} $$
 
 $f$가 $A$에서 미분가능하기 위해서는 위의 식이 만족되어야 함으로 $\norm{H}$로 나눠주면 $0_{M_{nn}}$이 되지 않는 선형 항들을 제거하기 위해 linear map $L_f$를 다음과 같이 정의하자.
 
@@ -396,7 +423,7 @@ $$ L_f : M_{nn} \rightarrow M_{nn} \st H \mapsto AH + HA $$
 
 위와 같이 정의한 $L_f$에 의해 다음이 만족된다.
 
-$$ \begin{aligned} \lim_{H \rightarrow 0_{M_{nn}}} \frac{1}{\norm{H}}(AH + HA + H^2 - \mathit L(H)) &= \lim_{H \rightarrow 0_{M_{nn}}} \frac{1}{\norm{H}}H^2 \\&\le \lim_{H \rightarrow 0_{M_{nn}}} \frac{1}{\norm{H}}\norm{H}\norm{H} \\ &= 0_{M_{nn}} \end{aligned} $$
+$$ \begin{align*} \lim_{H \rightarrow 0_{M_{nn}}} \frac{1}{\norm{H}}(AH + HA + H^2 - \mathit L(H)) &= \lim_{H \rightarrow 0_{M_{nn}}} \frac{1}{\norm{H}}H^2 \\&\le \lim_{H \rightarrow 0_{M_{nn}}} \frac{1}{\norm{H}}\norm{H}\norm{H} \\ &= 0_{M_{nn}} \end{align*} $$
 
 따라서, $f$의 total derivative는 $L_f(A)$이다.
 
@@ -411,13 +438,13 @@ open set $U \subset \R^n$과 함수 $f : U \rightarrow \R^m$이 있다고 하자
 
 $\R^m$의 basis를 $\epsilon_n$하고 $\forall a \in U$에서 $f$가 differentiable일 때, 다음을 증명하여라.
 
-$$ Df\text{ is well-defined} \enspace\land\enspace \mathfrak{m_\epsilon_n}(D_vf(a)) = \mathfrak{m_\epsilon_n}(J_f(a)v) $$
+$$ Df\text{ is well-defined} \enspace\land\enspace [D_vf(a)]_{\epsilon_n} = [J_f(a)v]_{\epsilon_n} $$
 
 **Proof**
 
 $f$가 differentiable 함으로 다음이 성립한다.
 
-$$ \begin{aligned} & \lim_{h \rightarrow 0}\frac{f(a + hv) -f (a) - L_a(hv)}{\norm{hv}} = 0 \\\implies& \lim_{h \rightarrow 0}\frac{f(a + hv) -f (a) - hL_a(v)}{h\norm{v}} = 0 \\\implies& \lim_{h \rightarrow 0}\frac{f(a + hv) -f (a) - hL_a(v)}{h} = 0 \\\implies& \lim_{h \rightarrow 0}\frac{f(a + hv) -f (a)}{h} = L_a(v) \end{aligned} $$
+$$ \begin{align*} & \lim_{h \rightarrow 0}\frac{f(a + hv) -f (a) - L_a(hv)}{\norm{hv}} = 0 \\\implies& \lim_{h \rightarrow 0}\frac{f(a + hv) -f (a) - hL_a(v)}{h\norm{v}} = 0 \\\implies& \lim_{h \rightarrow 0}\frac{f(a + hv) -f (a) - hL_a(v)}{h} = 0 \\\implies& \lim_{h \rightarrow 0}\frac{f(a + hv) -f (a)}{h} = L_a(v) \end{align*} $$
 
 이 떄, $f$가 $a$에서 differentiable 함으로, 선형변환 $L_a$은 잘 정의된다. 
 

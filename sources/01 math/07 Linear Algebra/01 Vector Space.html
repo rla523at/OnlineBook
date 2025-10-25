@@ -16,20 +16,22 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-
-  
-  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
@@ -37,10 +39,11 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=61612f5f" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
@@ -68,6 +71,7 @@
     <link rel="prev" title="Linear Algebra" href="Linear%20Algebra.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -83,19 +87,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -103,7 +96,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -111,8 +103,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -128,7 +120,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -158,15 +151,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -467,19 +456,20 @@
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/02%20Memory/05%20Virtual%20Memory%20Management%20in%20Window.html">Virtual Memory Management in Window</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/03%20Polymorphism.html">Polymorphism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/04%20Value%20Category.html">Value Category</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/05%20Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/06%20Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/11%20Class.html">Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/12%20Struct%20Memory%20Padding.html">Struct Memory Padding</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/Standard%20Library.html">STD</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/Algorithm.html">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/01%20type-traits.html">type-traits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/11%20vector.html">vector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/array.html">array</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/basic_istream.html">basic_istream</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/bitset.html">bitset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/Chrono.html">Chrono</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/concept.html">concept</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/format.html">format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/function.html">function</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/iterator.html">Iterator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/list.html">list</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/type-traits.html">type-traits</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/20%20Standard%20Library/vector.html">vector</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/21%20Smart%20Pointer/Smart%20Pointer.html">Smart Pointer</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -488,40 +478,33 @@
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/21%20Smart%20Pointer/03%20weak_ptr.html">weak_ptr Class</a></li>
 </ul>
 </details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/22%20Reference.html">Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/23%20Lambda%20Expression.html">Lambda Expression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/31%20Template.html">Template</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/32%20concept.html">concept</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/33%20Require.html">Require</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/34%20hpp.html">hpp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/41%20Multi%20Thread.html">Multi thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/51%20static.html">Static</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/52%20Name%20Space.html">Namespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/53%20One%20Definition%20Rule.html">One Definition Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/54%20inline.html">inline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/55%20Enum.html">Enum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/56%20Forward%20Declaration.html">Forward Declaration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/57%20Initialization.html">initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/58%20Keyword.html">Keyword</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/59%20Type%20Casting.html">Type Casting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/60%20Pointer.html">Pointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/70%20Performance.html">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/80%20Google%20Benchmark.html">Google Benchmark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/99%20Miscelleneous.html">Miscellaneous</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/char.html">char</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Class.html">Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Enum.html">Enum</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Forward%20Declaration.html">Forward Declaration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Google%20Benchmark.html">Google Benchmark</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Hash.html">Hash</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/hpp.html">hpp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Initialization.html">initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/inline.html">inline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Keyword.html">Keyword</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Lambda%20Expression.html">Lambda Expression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Multi%20Thread.html">Multi thread</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Name%20Space.html">Namespace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/new.html">new</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/One%20Definition%20Rule.html">One Definition Rule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Performance.html">Performance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/POD.html">POD (Plain Old Data)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Pointer.html">Pointer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Polymorphism.html">Polymorphism</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Pragma.html">Pragma</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Preprocessor%20Directives.html">Preprocessor Directives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Reference.html">Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Require.html">Require</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/SIMD.html">SIMD</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/static.html">Static</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Storage%20Class%20Specifier.html">Storage Class Specifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Struct%20Memory%20Padding.html">Struct Memory Padding</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Template.html">Template</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/thread_local.html">thread_local</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Top-level%20cv-qualifiers.html">Top-level cv-qualifiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Type%20Casting.html">Type Casting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Using.html">Using</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/01%20C%2B%2B/Value%20Category.html">Value Category</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../03%20programming/02%20Graphics/Graphics.html">Graphics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -591,24 +574,23 @@
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/DirectX12.html">DirectX12</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource.html">Resource</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Buffer.html">Buffer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Descriptors.html">Descriptors</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/GPU%20Heap.html">GPU Heap</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Barrier.html">Resource Barrier</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Binding.html">Resource Binding</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Copy.html">Resource Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource%20Creation.html">Resource Creation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Resource%20State.html">Resource State</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/RootSignature.html">Root Signature</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/01%20Resource/Texture.html">Texture</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/101%20ID3D12GraphicsCommandList.html">ID3D12GraphicsCommandList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/400%20enum%20D3D12_COMMAND_LIST_TYPE.html">enum D3D12_COMMAND_LIST_TYPE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/CPU%20GPU%20Interaction.html">CPU GPU Interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/DxcBuffer.html">DxcBuffer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/Fence.html">Fence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/GPU%20Heap.html">GPU Heap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/ID3D12Debug.html">ID3D12Debug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/ID3D12Device.html">ID3D12Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/IDXCUtils.html">IDXCUtils</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/Initializing%20Direct3D.html">Initializing Direct3D</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/Pipeline%20State%20Object.html">Pipeline State Object (PSO)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/ShaderReflection.html">Shader Reflection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/02%20Graphics/51%20DirectX12/Work%20Submission.html">Work Submission</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../03%20programming/02%20Graphics/60%20HLSL/HLSL.html">HLSL</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -628,11 +610,9 @@
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/99%20Miscelleneous.html">Miscelleneous</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/Coordinate%20System.html">Coordinate System</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/D3D12MemoryAllocator.html">D3D12MemoryAllocator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/Depth%20Buffer.html">Depth Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/DirectXMath.html">DirectXMath</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/Quaternion.html">Quaternion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/Sampling.html">Sampling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/ShaderCompiler.html">Shader Compiler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/02%20Graphics/Stencil%20Buffer.html">Stencil Buffer</a></li>
@@ -650,7 +630,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/03%20Window%20Programming/Component%20Objeect%20Model.html">Component Object Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/03%20Window%20Programming/CreateFile.html">CreateFileA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/03%20Window%20Programming/File%20Buffering.html">File Buffering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/03%20Window%20Programming/Thread.html">Thread</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../03%20programming/99%20ETC/ETC.html">ETC</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -672,9 +651,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/21%20CMake.html">Cmake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/30%20OpenMP.html">OpenMP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/Algorithm.html">Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/Batch.html">Batch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/Linux.html">Linux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/SAL.html">SAL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/Text%20Encoding.html">Text Encoding</a></li>
 </ul>
@@ -699,7 +676,6 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">ETC</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../20%20ETC/chatGPT.html">chatGPT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../20%20ETC/Cubic%20Bezier%20Curve.html">Cubic Bezier Curve Length</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../20%20ETC/Jupyter%20Book.html">Jupyter Book</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../20%20ETC/MarkDown.html">Mark Down</a></li>
 </ul>
@@ -813,24 +789,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -1004,7 +972,8 @@ action의 정의에 의해 다음이 성립한다.</p>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1068,8 +1037,8 @@ By MS
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

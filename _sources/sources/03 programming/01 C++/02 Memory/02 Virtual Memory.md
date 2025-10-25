@@ -78,8 +78,6 @@ Page Table이 secondary memory에 있는 경우 이를 연관 매핑방식이라
 > Reference  
 > [threefivesix - 3) 페이지 테이블 매핑 방식](https://threefivesix.tistory.com/24) 
 
-
-
 ## 명령어 수행에 필요한 최소한의 메모리
 virtual memory 기법의 동작원리는 virtual memory 중 명령어 수행에 필요한 메모리만 primary memory에 할당하는 것이다.
 
@@ -91,4 +89,28 @@ virtual memory 기법의 동작원리는 virtual memory 중 명령어 수행에 
 즉, 이를 위해 필요한 메모리만 primary memory에 할당되고 나머지는 secondary memory에 할당 되도 명령어 수행이 가능함으로 프로그램을 실행할 수 있다. 
 
 > Reference  
-> {cite}`FundamentalC++`   
+> {cite}`FundamentalC++`
+
+## Private Bytes(= Commit Size)와 Working Set
+### 1. Private Bytes / Commit Size
+* **정의**: 프로세스가 운영체제로부터 “내가 이만큼은 꼭 쓸 거니까 보장해줘” 하고 **커밋(Commit)** 한 가상 메모리 양.
+* 이 값은 **물리 메모리 + 스왑 파일(pagefile.sys)** 을 합친 공간에서 운영체제가 보장한다.
+* 즉, 실제로 RAM에 올라가 있지 않아도 프로세스는 이만큼을 언제든 사용할 수 있다고 믿고 동작할 수 있다.
+* 흔히 **프로세스의 전체 메모리 footprint**를 표현할 때 사용한다.
+* Task Manager의 **Commit Size** 와 Performance Counter의 **Private Bytes** 가 사실상 같은 의미다.
+
+### 2. Working Set
+* **정의**: 현재 시점에 **실제로 RAM(물리 메모리)에 올라와 있는 페이지들의 크기 합**.
+* 즉, 지금 프로세스가 접근 가능한 “따끈따끈한” 메모리.
+* 자주 쓰이는 페이지는 계속 Working Set 안에 남아 있고, 오래 안 쓰면 OS가 페이지를 다른 프로세스나 캐시에 주기 위해 디스크로 스왑 내릴 수 있다.
+* Working Set은 시간에 따라 커졌다가 줄어들 수 있다(동적으로 변함).
+
+### 3. 차이를 쉽게 비유하면
+* **Private Bytes / Commit Size** = "내가 쓰겠다고 예약해둔 방의 전체 크기"
+* **Working Set** = "그 방에서 지금 불 켜놓고 실제로 쓰고 있는 부분"
+
+예를 들어,
+
+* 프로세스가 200MB를 Commit 했다면 Private Bytes/Commit Size는 200MB이다.
+* 하지만 당장 CPU가 접근하려고 RAM에 올라와 있는 것은 50MB뿐이라면 Working Set은 50MB이다.
+* 나머지 150MB는 예약만 되어 있거나, 스왑으로 내려갔을 수 있다.
