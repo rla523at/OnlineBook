@@ -21,8 +21,7 @@ $V$위의 $\beta$에서 $\gamma$로 변환하는 `기저 변환 행렬(change of
 
 $$ B := [id]^\beta_\gamma $$
 
-### Proposition
-#### 1
+### 명제1
 $n$차원 vector space $V/\F$와 기저 $\beta, \gamma$가 있다고 하자.
 
 이 때, 다음을 증명하여라.
@@ -33,15 +32,20 @@ $$ ([id]_\gamma^\beta)^{-1} = [id]_\beta^\gamma  $$
 
 linear map의 matrix representation의 성질에 의해 다음이 성립한다.
 
-$$ \begin{gathered} [id\circ id]^\beta_\beta = [id]^\beta_\gamma[id]^\gamma_\beta = I_n \\ [id\circ id]^\gamma_\gamma = [id]^\gamma_\beta[id]^\beta_\gamma = I_n  \end{gathered} $$
+$$ 
+\begin{gather*} 
+[id\circ id]^\beta_\beta = [id]^\beta_\gamma[id]^\gamma_\beta = I_n \\ 
+[id\circ id]^\gamma_\gamma = [id]^\gamma_\beta[id]^\beta_\gamma = I_n  
+\end{gather*} 
+$$
 
 따라서, $[id]^\beta_\gamma$와 $[id]^\gamma_\beta$는 역행렬 관계에 있다. $\qed$
 
-##### Reamark
+#### Reamark
 1. 모든 change of basis matrix는 invertible matrix이다.
 2. $\beta$를 $\gamma$로 바꾸는 change of basis matrix와 $\gamma$를 $\beta$로 바꾸는 change of basis matrix는 역행렬 관계를 갖는다.
 
-#### 2
+### 명제2
 다음을 증명하여라.
 
 $$ \text{Every invertible matrix is a change of basis matrix of } \F^n $$
@@ -52,9 +56,9 @@ $$ \text{Every invertible matrix is a change of basis matrix of } \F^n $$
 
 $A$의 $i$ column을 $A_{*i}$라고 할 때, $A$는 invertible matrix임으로  $\beta=[A_{*1}, \cdots, A_{*n}]$은 $\mathbb F^n$의 기저이다.  
 
-그러면 $A = [id]_\beta^{\epsilon}$이다. 즉, $A$는 $\epsilon$을 $\beta$로 바꿔주는 change of basis matrix이다. $\quad {_\blacksquare}$
+그러면 $A = [id]_\beta^{\epsilon}$이다. 즉, $A$는 $\epsilon$을 $\beta$로 바꿔주는 change of basis matrix이다. $\qed$
 
-##### 보조정리
+#### 보조정리
 임의의 가역행렬을 $A \in M_{n \times n}(\F)$라 하자.
 
 $A$의 column의 집합을 $\beta$라고 할 때, 다음을 증명하여라.
@@ -146,7 +150,7 @@ $M,N$이 어떤 linear map의 두 기저에 대한 matrix representation이라�
 ### 명제1
 $M,N \in M_{nn}(\F)$가 있을 때, 다음을 증명하여라.
 
-$$ M \sim N \iff \exist \beta \quad s.t. \quad \frak m^\beta_\beta(L_N) = M $$
+$$ M \sim N \iff \exist \beta \quad s.t. \quad [L_N]^\beta_\beta = M $$
 
 **Proof**
 
@@ -164,62 +168,85 @@ $$ B = [id]^\epsilon_\beta $$
 $$ [L_N]_\beta^\beta = [id]^\beta_\epsilon [L_N]_\epsilon^\epsilon [id]^\epsilon_\beta = B^{-1}NB = M \qed $$
 
 [$\impliedby$]  
-$$ \begin{aligned}  M &= m^\beta_\beta(L_N) \\ & = \frak m^\beta_\epsilon(id_V) \frak m^\epsilon_\epsilon(L_N) \frak m_\beta^\epsilon(id_V) \\ &= B^{-1}NB \quad {_\blacksquare}  \end{aligned} $$
+$$ 
+\begin{align*}  
+M &= [L_N]^\beta_\beta \\ 
+& = [id_V]^\beta_\epsilon [L_N]^\epsilon_\epsilon [id_V]_\beta^\epsilon \\ 
+&= B^{-1}NB \qed  
+\end{align*} 
+$$
 
 ### 명제2
 $M,N \in M_{nn}(\F)$가 있을 때, $M \sim N$라 하자.
 
 이 때, 다음을 증명하여라.
+
 $$ \det(M) = \det(N) $$
 
 **Proof**
 
-$$ \det(M) = \det(B^{-1}NB) = \det(B^{-1})\det(N)\det(B) = \det({B^{-1}B})\det(N) = \det(N) \quad {_\blacksquare} $$
+$\det(AB) = \det(BA)$ 임으로 다음이 성립한다.
+
+$$ \det(M) = \det(B^{-1}NB) = \det(B^{-1})\det(N)\det(B) = \det({B^{-1}B})\det(N) = \det(N) \qed $$
 
 ### 명제3
 $M,N \in M_{nn}(\F)$가 있을 때, $M \sim N$라 하자.
 
 이 때, 다음을 증명하여라.
-$$ \text{tr}(M) = \text{tr}(N) $$
+
+$$ \tr(M) = \tr(N) $$
 
 **Proof**
 
-$$ \mathrm{tr}(M) = \mathrm{tr}(B^{-1}NB) = \mathrm{tr}(BB^{-1}N) = \mathrm{tr}(N) \quad (\because \mathrm{tr}(M_1M_2) = \mathrm{tr}(M_2M_1)) \quad {_\blacksquare}  $$
+$\tr(AB) = \tr(BA)$ 임으로 다음이 성립한다.
+
+$$ \tr(M) = \tr(B^{-1}NB) = \tr(BB^{-1}N) = \tr(N) \qed  $$
 
 ### 명제4
 $M,N \in M_{nn}(\F)$가 있을 때, $M \sim N$라 하자.
 
 이 때, 다음을 증명하여라.
-$$ \text{tr}(M^2) = \text{tr}(N^2) $$
+
+$$ \tr(M^2) = \tr(N^2) $$
 
 **Proof**
 
-$$ \mathrm{tr}(M^2) = \mathrm{tr}(B^{-1}NBB^{-1}NB) = \mathrm{tr}(B^{-1}N^2B) = \mathrm{tr}(N^2)  \quad {_\blacksquare}  $$
+$$ \tr(M^2) = \tr(B^{-1}NBB^{-1}NB) = \tr(B^{-1}N^2B) = \tr(N^2)  \qed  $$
 
 ### 명제5
 $M,N \in M_{nn}(\F)$가 있을 때, $M \sim N$라 하자.
 
 $c_1,c_2 \in \F$에 대해, 다음을 증명하여라.
+
 $$ c_1M + c_2I \sim c_1N + c_2I $$
 
 **Proof**
 
 $M \sim N$이기 때문에 다음을 만족하는 $B \in M_{nn}(\F)$가 존재한다.
+
 $$ M = B^{-1}NB $$
 
 따라서, 다음이 성립한다.
-$$\begin{aligned} B^{-1}(c_1N + c_2I)B &= c_1B^{-1}NB + c_2I \\&= c_1M + c_2I \quad {_\blacksquare} \end{aligned} $$
+
+$$
+\begin{align*} 
+B^{-1}(c_1N + c_2I)B &= c_1B^{-1}NB + c_2I \\
+&= c_1M + c_2I \qed 
+\end{align*} 
+$$
 
 #### 따름명제
-$X_m = \text{tr}(X) / 3$로 정의할 떄, 다음을 증명하여라.
-$$ M - M_mI \sim N - N_m I $$
+$X_m = \tr(X) / 3$로 정의할 떄, 다음을 증명하여라.
+
+$$ (M - M_mI) \sim (N - N_m I) $$
 
 **Proof**
 
 $M \sim N$이기 때문에 다음이 성립한다.
+
 $$ M_m = N_m = k $$
 
-따라서, 명제5에 의해 성립한다. $\quad {_\blacksquare}$
+따라서, 명제5에 의해 성립한다. $\qed$
 
 즉, 동일한 linear map의 matrix representation간에는 위와 같은 관계가 성립한다.
 
