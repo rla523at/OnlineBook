@@ -1,4 +1,5 @@
-# Inner Product
+# Inner Product Space
+## Inner Product
 $n$차원 vector space $V/\F$가 있을 때, 다음 성질을 만족하는 함수 $B:V \times V \rightarrow \F$를 `내적(inner product)`라 한다.
 
 $x,y,z \in V$이고 $c \in \F$일 때,
@@ -10,7 +11,7 @@ $x,y,z \in V$이고 $c \in \F$일 때,
 ### 참고1
 1번 성질에 의해 $B$ 는 첫번째 인자에 대해서 선형성을 갖는다.
 
-하지만 2번 성질에 의해 두번 째 인자에 대해서는 선형성을 갖지 않음으로 $B$는 더이상 symmetric하지 않고 bilinear하지 않다. 이렇게 scalar multiplcation은 conjugate되서 나오고 벡터의 덧셈은 보존될 때 이를 `Hermitian` 혹은 `conjugate linear`라고 한다.
+하지만 2번 성질에 의해 두번 째 인자에 대해서는 선형성을 갖지 않음으로 $B$는 symmetric하지 않고 bilinear하지 않다. 이렇게 scalar multiplcation은 conjugate되서 나오고 벡터의 덧셈은 보존될 때 이를 `Hermitian` 혹은 `conjugate linear`라고 한다.
 
 $$ B(x,cy + z) = \bar c B(x,y) + B(x,z) $$
 
@@ -54,20 +55,72 @@ $$ n : V \rightarrow \R \st v \mapsto \sqrt{ B(v,v)} $$
 
 $$ n(v) \equiv \lVert v \rVert $$
 
+## Distance
+$n$차원 inner product space $V/\F$가 있을 때, `distance`는 다음과 같이 정의된 함수이다.
+
+$$ d : V \times V \rightarrow \R \st (v,w) \mapsto \lVert v-w \rVert $$
+
 ## Angle
 $n$차원 inner product space $V/\F$가 있을 때, `angle`는 다음과 같이 정의된 함수이다.
 
 $$ a : V \times V \rightarrow \R \st (v,w) \mapsto \cos^{-1} \bigg(\frac{B(v,w)}{\lVert v \rVert \lVert w \rVert} \bigg) $$
 
-### 참고
+### 참고1
 두 벡터 $v,w \in V$가 주어졌을 때, 두 벡터 사이의 각도를 $\theta$라고 하면 다음이 성립한다.
 
 $$ \cos \theta =  \frac{B(v,w)}{\lVert v \rVert \lVert w \rVert} $$
 
-## Distance
-$n$차원 inner product space $V/\F$가 있을 때, `distance`는 다음과 같이 정의된 함수이다.
+### 참고2
+두 벡터 $v,w \in V$가 주어졌을 때 $B(v,w) = 0_\F$ 면 $v,w$ 는 서로 `orthogonal`(직교) 하다고 한다.
 
-$$ d : V \times V \rightarrow \R \st (v,w) \mapsto \lVert v-w \rVert $$
+$v,w$ 가 직교하는 경우 $v \perp w$ 라고 표기한다. 
+
+### 정리1 (Pythagorean theorem)
+$n$차원 inner product space $V/\F$ 와 $v,w \in V$ 가 있다고 하자.
+
+이 떄, 다음을 증명하여라
+
+$$ v \perp w \implies \norm{v+w}^2 = \norm{v}^2 + \norm{w}^2 $$
+
+**Proof**
+
+$v \perp w$ 임으로 $B(v,w) = B(w,v) = 0$ 이다.
+
+따라서, 다음이 성립한다.
+
+$$ \begin{aligned}
+\norm{v+w}^2 &= B(v+w,v+w) \\
+&= B(v,v) + B(v,w)+ B(w,v) + B(w,w) \\
+&= B(v,v) + B(w,w) \\
+&= \norm{v}^2 + \norm{w}^2 \qed
+\end{aligned}$$
+
+## Projection
+$n$차원 inner product space $V/\F$ 와 $v,w \in V$ 가 있다고 하자.
+
+$w$ 를 $v$ 방향으로 projection 시켜 얻은 $v$ 와 평행한 vector 를 $w^\parallel$ 라고 하자.
+
+$w-w^\parallel$ 는 $v$ 와 orthogonal 한 부분만 남아 있어야 함으로 $w-w^\parallel \perp v$ 이고 $B(w-w^\parallel, v) = 0_\F$ 이 성립해야 한다.
+
+이 떄, $w^\parallel$ 는 $v$ 와 평행한 vector 임으로 어떤 $\alpha \in \F$ 가 있어서 $w^\parallel = \alpha v$ 으로 표현할 수 있고 다음이 성립한다.
+
+$$ \begin{aligned}
+B(w-w^\parallel, v) &= B(w-\alpha v, v)  \\
+&= B(w,v) - \alpha B(v,v) \\
+\end{aligned}  $$
+
+이를 $B(w-w^\parallel, v) = 0_\F$ 에 대입하고 $\alpha$ 에 대해 정리하면 다음과 같다.
+
+$$ \alpha = \frac{B(w,v)}{B(v,v)} $$
+
+따라서, 다음이 성립한다.
+
+$$w^\parallel = \frac{B(w,v)}{B(v,v)}v $$
+
+### 참고
+일반적으로 $w$ 를 $v$ 방향으로 projection 시킨 vector 는 다음과 표기한다.
+
+$$ \text{proj}_{v}(w) $$
 
 ## Orthogonal Property
 $n$차원 inner product space $V/\F$가 있다고 하자.
@@ -81,8 +134,15 @@ $n$차원 inner product space $V/\F$가 있다고 하자.
 
 $S = \{ s_1, \cdots, s_k \} \subset V - \{ 0_V\}$ 가 orthogonal property 를 갖는 경우 `orthogonal subset`이라고 한다.
 
-### 참고
+### 참고1
 $0_V$ 를 포함하지 않는 Subset 이 orthogonal property 를 갖는 경우를 orthogonal subset 이라고 한다.
+
+### 참고2
+Orthogonal subset $S$ 가 다음을 만족할 때, $S$를 `orthonormal subset`이라고 한다.
+
+$$ \norm{s_i} = 1 $$
+
+즉, orthonormal subset 은 orthogonal subset 을 크기가 1이 되게 normalize 한 경우이다.
 
 ### 명제1
 $n$차원 inner product space $V/\F$가 있다고 하자.
@@ -97,9 +157,9 @@ $$ S \text { is linearly independent} $$
 
 임의의 $j \in \Set{1,\cdots,k}$ 을 고정하면 내적에 성질에 의해 다음이 성립한다.
 
-$$ B(a_is_i, s_j) = a_j \lVert s_j \rVert = 0_\F \quad (\text{no sum over } j) $$
+$$ B(a_is_i, s_j) = a_j B(s_j,s_j) = 0_\F \quad (\text{no sum over } j) $$
 
-norm의 정의에 의해 $0 \le \norm{s_j}$ 임으로 $a_j = 0$ 다.
+$s_j \neq 0_V$ 임으로 inner product 의 정의에 의해 $0 < B(s_j,s_j)$ 임으로 $a_j = 0$ 다.
 
 즉, 모든 $a_i = 0_\F$ 임으로 linearly independent하다. $\qed$
 
@@ -108,28 +168,38 @@ $n$차원 inner product space $V/\F$가 있다고 하자.
 
 $S = \{ s_1, \cdots, s_k \} \subset V - \{ 0_V\}$가 orthogonal subset일 때 다음을 증명하여라.
 
-$$ y \in \span(S) \implies y = \frac{B(y,s_i)}{B(s_i,s_i)} s_i $$
+$$ y \in \span(S) \implies y = \sum_{i=1}^k \text{proj}_{s_i}(y) $$
 
 **Proof** 
 
 $y \in \span(S)$ 임으로 다음과 같이 표현할 수 있다.
 
-$$ y = a_is_i $$
+$$ y = a_is_i, \quad a_i \in \F $$
 
-임의의 $j \in \Set{1,\cdots,k}$ 을 고정하면 내적에 성질에 의해 다음이 성립한다.
+임의의 $j \in \Set{1,\cdots,k}$ 을 고정하면 orthogonal subset 의 성질에 의해 다음이 성립한다.
 
 $$ \begin{aligned}  
 B(y, s_j) &= B(a_is_i, s_j) \\
-&= a_j \norm{s_j} \quad (\text{no sum over } j) 
+&= a_j B(s_j, s_j) \quad (\text{no sum over } j) 
 \end{aligned} $$
 
 위를 $a_j$ 에 대해서 정리하면 
 
-$$ a_j = \frac{B(y,s_j)}{\norm{s_j}}  \quad (\text{no sum over } j) $$
+$$ a_j = \frac{B(y,s_j)}{B(s_j, s_j)}  \quad (\text{no sum over } j) $$
 
 이를 이용해 $y$ 를 표현하면
 
-$$ y = a_is_i = \frac{B(y,s_i)}{B(s_i, s_i)} s_i \qed $$
+$$ y = a_is_i = \frac{B(y,s_i)}{B(s_i, s_i)} s_i = \sum_{i=1}^k \text{proj}_{s_i}(y) \qed $$
+
+#### 참고1
+$S$ 을 span 한 공간에 있는 vector 를 $x$ 라고 하면 $x$ 는 $S$ 의 각 원소에 projection 시킨 vector 들로 표현된다.
+
+#### 참고2
+$S$ 을 span 한 공간에 basis 는 $S$ 이고 임의의 $x \in \span(S)$ 의 coordinate 를 `Fourier coefficient`라고 하며 다음과 같다. 
+
+$$ x = \frac{B(y,s_i)}{B(s_i, s_i)} s_i $$
+
+만약 $S$ 가 orthonormal subset 인 경우 Fourier coefficient 는 $B(y,s_i)$ 로 간단해 진다. 
 
 ### 명제3 (Gram-Schmidts Process)
 $n$차원 inner product space $V / \F$가 있다고 하자.
@@ -147,7 +217,7 @@ $V$ 의 임의의 basis 를 $\beta$ 라고 하자.
 $$ \beta' = 
 \begin{dcases}
 \beta'_1 &= \beta_1 \\ 
-\beta'_i &= \beta_i - \sum_{j=1}^{i-1} \frac{B(\beta_i,\beta'_j)}{B(\beta'_j, \beta'_j)} \beta'_j, & (2 \le i)
+\beta'_i &= \beta_i - \sum_{j=1}^{i-1} \text{proj}_{\beta'_j}(\beta_i), & (2 \le i)
 \end{dcases} $$
 
 보조명제에 의해 $\beta'$ 은 orthogonal subset 이다.
@@ -155,6 +225,14 @@ $$ \beta' =
 명제1에 의해 $\beta'$ 은 linear independet 이고 cardinallity 가 $n$ 임으로 $\beta'$ 은 basis 이다.
 
 따라서 $\beta'$ 은 orthogonal basis 이다. $\qed$
+
+#### 따름명제
+
+$$ V \text{ has orthonormal basis} $$
+
+**Proof**
+
+명제 3에 의해 $V$ 가 orthogonal basis 를 갖음으로, orthonormal basis 를 normalize 하면 orthonormal basis 가 된다. $\qed$
 
 #### 보조명제
 $\beta'$ 이 orthogonal subset 임을 증명하여라.
@@ -167,7 +245,7 @@ $\beta'$ 이 orthogonal subset 임을 증명하여라.
 
 그러면 
 
-$$ 0_V = \beta_i - \sum_{j=1}^{i-1} \frac{B(\beta_i,\beta'_j)}{B(\beta'_j, \beta'_j)} \beta'_j $$
+$$ 0_V = \beta_i - \sum_{j=1}^{i-1} \text{proj}_{\beta'_j}(\beta_i) = \beta_i - \sum_{j=1}^{i-1} \frac{B(\beta_i,\beta'_j)}{B(\beta'_j, \beta'_j)} \beta'_j $$
 
 이 때, $\beta'_j$ 는 $\beta_1,\cdots,\beta_j$ 의 선형결합으로 표현됨으로 $\beta_i$ 는 $\beta_1,\cdots,\beta_{i-1}$ 의 선형결합으로 표현된다.
 
@@ -188,9 +266,21 @@ $\Set{\beta'_1}$ 은 자명하게 orthogonal subset 이다.
 임의의 $k < i$ 에 대해서 다음이 성립한다.
 
 $$ \begin{aligned}
-B(\beta'_i,\beta'_k) &= B(\beta_i - \sum_{j=1}^{i-1} \frac{B(\beta_i,\beta'_j)}{B(\beta'_j, \beta'_j)} \beta'_j, \beta'_k) \\
-&= B(\beta_i, \beta'_k) - \sum_{j=1}^{i-1} \frac{B(\beta_i,\beta'_j)}{B(\beta'_j, \beta'_j)}B( \beta'_j, \beta'_k) \\
-&= B(\beta_i, \beta'_k) - \frac{B(\beta_i,\beta'_j)}{B(\beta'_k, \beta'_k)}B( \beta'_k, \beta'_k) \\
+B(\beta'_i,\beta'_k) &= B(\beta_i - \sum_{j=1}^{i-1} \proj{\beta'_j}{\beta_i}, \beta'_k) \\
+&= B(\beta_i, \beta'_k) - \sum_{j=1}^{i-1}B(\proj{\beta'_j}{\beta_i}, \beta'_k) 
+\end{aligned}  $$
+
+
+$\proj{\beta'_j}{\beta_i}$ 는 $\beta'_j$ 와 평행한 vector 이고 $\Set{\beta'_1,\cdots,\beta'_{i-1}}$ 이 orthogonal subset 임으로 다음이 성립한다.
+
+$$ j \neq k \implies  B(\proj{\beta'_j}{\beta_i}, \beta'_k) = 0 $$
+
+이를 위에 식에 대입해서 정리하면
+
+$$ \begin{aligned}
+B(\beta'_i,\beta'_k) &= B(\beta_i, \beta'_k) - \sum_{j=1}^{i-1}B(\proj{\beta'_j}{\beta_i}, \beta'_k) \\
+&= B(\beta_i, \beta'_k) - B(\proj{\beta'_k}{\beta_i}, \beta'_k) \\
+&= B(\beta_i, \beta'_k) - \frac{B(\beta_i,\beta'_k)}{B(\beta'_k, \beta'_k)}B( \beta'_k, \beta'_k) \\
 &= 0_{\F} \qed
 \end{aligned}  $$
 
@@ -200,9 +290,6 @@ subset $S \subset V$ 가 주어졌을 떄, 위와 같이 $S'$ 을 정의하는 �
 Gram-Schmidts Process 는 임의의 Subset 이 주어졌을 때 Orthogonal Property 를 갖는 Subset 으로 바꾸는 구체적인 방법이다.
 
 만약 linear independet subset 인 경우 Gram-Schmidts Process 에 결과로 주어지는 Subset 은 orthogonal subset 이 된다.
-
-#### 참고2
-$\frac{B(\beta_i,\beta'_j)}{B(\beta'_j, \beta'_j)} \beta'_j$은 $\beta_i$를 $\beta'_j$방향으로 projection 시킨 vector를 의미한다.
 
 ## Orthogonal Complement
 $n$차원 inner product space $V/\F$가 있다고 하자.
@@ -244,6 +331,7 @@ $$ B(0_V,s) =  0_\F $$
 $n$차원 inner product space $V/\F$가 있다고 하자.
 
 $W \le V$가 있을 때, 다음을 증명하여라.
+
 $$ V = W \oplus W^\perp $$
 
 **Proof**
@@ -269,6 +357,7 @@ B(v-u, \beta_i) &= B(v,\beta_i) - B(v,\beta_j) B(\beta_j, \beta_i) \\
 $w \in W \cap W^\perp$라 하자.
 
 $w \in W$이면서 $w \in W^\perp$임으로, $W^\perp$의 정의에 의해 다음이 성립한다.
+
 $$ B(w,w) = 0_\F $$
 
 내적의 정의에 의해 $w = 0_V$이다. $\qed$
@@ -278,35 +367,46 @@ $v \in V$면 $v = w + w^\perp, \enspace w \in W, w^\perp \in W^\perp$이 성립�
 
 #### 참고2
 $v \in V$가 있을 때, $u \in W$를 다음과 같이 정의하자.
+
 $$ u = B(v,\beta_i)\beta_i $$
 
 $\forall w \in W$에 대해서 다음이 성립한다.
+
 $$ \lVert v - u \rVert \le \lVert v - w \rVert $$
 
 따라서 $u$는 $W$의 vector중 $v$와 가장 가까운 closest vector이다.
 
-# Orthonormal Subset
-$n$차원 inner product space $V/\F$가 있다고 하자.
 
-Orthogonal subset $S = \{ s_1, \cdots, s_k \} \subset V - \{ 0_V\}$가 다음을 만족할 때, $S$를 `orthonormal subset`이라고 한다.
-$$ \norm{s_i} = 1 $$
 
-### 명제1
-$n$차원 inner product space $V/\F$가 있다고 하자.
 
-Orthonormal subset $S$가 있을 때, $y \in \span(S)$에 대해 다음을 증명하여라.
-$$ y = B(y,s_i)s_i $$
 
-**Proof**
 
-$S$는 orthogonal subset임으로, orthogonal subset의 성질에 의해 다음이 성립한다.
-$$ y = \frac{B(y,s_i)}{B(s_i,s_i)} s_i $$
 
-$S$는 orthonormal subset임으로, orthonormal subset의 정의에 의해 다음이 성립한다.
-$$ \begin{aligned} & B(s_i,s_i) = \norm{s_i}^2 = 1 \\\implies& y = B(y,s_i)s_i \qed \end{aligned}  $$
 
-#### 참고1
-이 때, $B(y,s_i)$를 `Fourier coefficient`라고 한다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### 명제2(Riesz representation)
 $n$차원 inner product space $V/\F$가 있다고 하자.
