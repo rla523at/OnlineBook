@@ -1,8 +1,7 @@
 # Linear Algebra
-
-
 ## sum
 유한차원 벡터공간 $V / \mathbb F$와 $U,W \le V$가 있을 때, $U$와 $W$의 `합(sum)` $U+W$는 다음과 같이 정의된다.
+
 $$ U+W := \{ u + w \enspace | \enspace u \in U, w \in W \} $$
 
 ### 명제1
@@ -25,13 +24,12 @@ $$ \begin{aligned} (aT_1 + T_2)(bv_1 + v_2) &= aT_1(bv_1 + v_2) + T_2(bv_1 + v_2
 영함수가 다음과 같이 정의되어 있다고 하자.
 $$ T_0 : V \rightarrow W \quad s.t. \quad v \mapsto 0_W $$
 
-
-
 ### 명제2
 유한차원 벡터공간 $V / \mathbb F$와 $U,W \le V$가 있을 때, $U \le U+W$와 $W \le U+W$임을 증명하여라.
 
 ## direct sum
 유한차원 벡터공간 $V / \mathbb F$와 $U,W \le V$가 있을 때, $U \cap W = \{ 0_V \}$면 $U$와 $W$의 `direct sum` $U \oplus W$는 다음과 같이 정의된다.
+
 $$ U \oplus W := \{ u + w \enspace | \enspace u \in U, w \in W \} $$
 
 ### 참고
@@ -43,6 +41,7 @@ $$ \bigoplus_{i=1}^k U_i = \{ u_1 + \cdots + u_k  \enspace | \enspace u_i \in U_
 
 ### 명제1
 유한차원 벡터공간 $V / \mathbb F$와 $W_1, \cdots, W_n \le V$가 있을 때, 다음을 증명하여라.
+
 $$V = W_1 \oplus \cdots \oplus W_n \Rightarrow v \in V, \quad \exist! w_i \in W_i \quad s.t. \quad  v = w_1 + \cdots + w_n$$
 
 **Proof**
@@ -50,6 +49,7 @@ $$V = W_1 \oplus \cdots \oplus W_n \Rightarrow v \in V, \quad \exist! w_i \in W_
 $V = W_1 \oplus \cdots \oplus W_n$임으로 $\exist w_i \in W_i \quad s.t \quad v = w_1 + \cdots + w_n$는 자명하다. 
 
 $\exist q_i \in W_i \quad s.t \quad v = q_1 + \cdots + q_n$라 하자. 두 표현식을 빼면 다음과 같다.
+
 $$ 0_V = (w_1 - q_1) + \cdots + (w_n - q_n) $$
 
 $W_i \le V$임으로 $(w_i-q_i) \in W_i$면 $(w_i-q_i)^{-1} \in W_i$이다. 

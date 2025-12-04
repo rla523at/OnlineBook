@@ -910,8 +910,9 @@ document.write(`
 <h1>Linear Algebra<a class="headerlink" href="#linear-algebra" title="Link to this heading">#</a></h1>
 <section id="sum">
 <h2>sum<a class="headerlink" href="#sum" title="Link to this heading">#</a></h2>
-<p>유한차원 벡터공간 <span class="math notranslate nohighlight">\(V / \mathbb F\)</span>와 <span class="math notranslate nohighlight">\(U,W \le V\)</span>가 있을 때, <span class="math notranslate nohighlight">\(U\)</span>와 <span class="math notranslate nohighlight">\(W\)</span>의 <code class="docutils literal notranslate"><span class="pre">합(sum)</span></code> <span class="math notranslate nohighlight">\(U+W\)</span>는 다음과 같이 정의된다.
-$<span class="math notranslate nohighlight">\( U+W := \{ u + w \enspace | \enspace u \in U, w \in W \} \)</span>$</p>
+<p>유한차원 벡터공간 <span class="math notranslate nohighlight">\(V / \mathbb F\)</span>와 <span class="math notranslate nohighlight">\(U,W \le V\)</span>가 있을 때, <span class="math notranslate nohighlight">\(U\)</span>와 <span class="math notranslate nohighlight">\(W\)</span>의 <code class="docutils literal notranslate"><span class="pre">합(sum)</span></code> <span class="math notranslate nohighlight">\(U+W\)</span>는 다음과 같이 정의된다.</p>
+<div class="math notranslate nohighlight">
+\[ U+W := \{ u + w \enspace | \enspace u \in U, w \in W \} \]</div>
 <section id="id1">
 <h3>명제1<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>유한차원 벡터공간 <span class="math notranslate nohighlight">\(V / \mathbb F\)</span>와 <span class="math notranslate nohighlight">\(U,W \le V\)</span>가 있을 때, <span class="math notranslate nohighlight">\(U+W \le V\)</span>임을 증명하여라.</p>
@@ -934,8 +935,9 @@ $<span class="math notranslate nohighlight">\( T_0 : V \rightarrow W \quad s.t. 
 </section>
 <section id="direct-sum">
 <h2>direct sum<a class="headerlink" href="#direct-sum" title="Link to this heading">#</a></h2>
-<p>유한차원 벡터공간 <span class="math notranslate nohighlight">\(V / \mathbb F\)</span>와 <span class="math notranslate nohighlight">\(U,W \le V\)</span>가 있을 때, <span class="math notranslate nohighlight">\(U \cap W = \{ 0_V \}\)</span>면 <span class="math notranslate nohighlight">\(U\)</span>와 <span class="math notranslate nohighlight">\(W\)</span>의 <code class="docutils literal notranslate"><span class="pre">direct</span> <span class="pre">sum</span></code> <span class="math notranslate nohighlight">\(U \oplus W\)</span>는 다음과 같이 정의된다.
-$<span class="math notranslate nohighlight">\( U \oplus W := \{ u + w \enspace | \enspace u \in U, w \in W \} \)</span>$</p>
+<p>유한차원 벡터공간 <span class="math notranslate nohighlight">\(V / \mathbb F\)</span>와 <span class="math notranslate nohighlight">\(U,W \le V\)</span>가 있을 때, <span class="math notranslate nohighlight">\(U \cap W = \{ 0_V \}\)</span>면 <span class="math notranslate nohighlight">\(U\)</span>와 <span class="math notranslate nohighlight">\(W\)</span>의 <code class="docutils literal notranslate"><span class="pre">direct</span> <span class="pre">sum</span></code> <span class="math notranslate nohighlight">\(U \oplus W\)</span>는 다음과 같이 정의된다.</p>
+<div class="math notranslate nohighlight">
+\[ U \oplus W := \{ u + w \enspace | \enspace u \in U, w \in W \} \]</div>
 <section id="id3">
 <h3>참고<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>direct sum은 여러항으로 다음과 같이 확장이 가능하다.</p>
@@ -945,12 +947,14 @@ $<span class="math notranslate nohighlight">\( U \oplus W := \{ u + w \enspace |
 </section>
 <section id="id4">
 <h3>명제1<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
-<p>유한차원 벡터공간 <span class="math notranslate nohighlight">\(V / \mathbb F\)</span>와 <span class="math notranslate nohighlight">\(W_1, \cdots, W_n \le V\)</span>가 있을 때, 다음을 증명하여라.
-$<span class="math notranslate nohighlight">\(V = W_1 \oplus \cdots \oplus W_n \Rightarrow v \in V, \quad \exist! w_i \in W_i \quad s.t. \quad  v = w_1 + \cdots + w_n\)</span>$</p>
+<p>유한차원 벡터공간 <span class="math notranslate nohighlight">\(V / \mathbb F\)</span>와 <span class="math notranslate nohighlight">\(W_1, \cdots, W_n \le V\)</span>가 있을 때, 다음을 증명하여라.</p>
+<div class="math notranslate nohighlight">
+\[V = W_1 \oplus \cdots \oplus W_n \Rightarrow v \in V, \quad \exist! w_i \in W_i \quad s.t. \quad  v = w_1 + \cdots + w_n\]</div>
 <p><strong>Proof</strong></p>
 <p><span class="math notranslate nohighlight">\(V = W_1 \oplus \cdots \oplus W_n\)</span>임으로 <span class="math notranslate nohighlight">\(\exist w_i \in W_i \quad s.t \quad v = w_1 + \cdots + w_n\)</span>는 자명하다.</p>
-<p><span class="math notranslate nohighlight">\(\exist q_i \in W_i \quad s.t \quad v = q_1 + \cdots + q_n\)</span>라 하자. 두 표현식을 빼면 다음과 같다.
-$<span class="math notranslate nohighlight">\( 0_V = (w_1 - q_1) + \cdots + (w_n - q_n) \)</span>$</p>
+<p><span class="math notranslate nohighlight">\(\exist q_i \in W_i \quad s.t \quad v = q_1 + \cdots + q_n\)</span>라 하자. 두 표현식을 빼면 다음과 같다.</p>
+<div class="math notranslate nohighlight">
+\[ 0_V = (w_1 - q_1) + \cdots + (w_n - q_n) \]</div>
 <p><span class="math notranslate nohighlight">\(W_i \le V\)</span>임으로 <span class="math notranslate nohighlight">\((w_i-q_i) \in W_i\)</span>면 <span class="math notranslate nohighlight">\((w_i-q_i)^{-1} \in W_i\)</span>이다.</p>
 <p>또한 <span class="math notranslate nohighlight">\(W_i \cap W_j = \{ 0_V \}\)</span>임으로 <span class="math notranslate nohighlight">\((w_i-q_i)^{-1} \notin W_j\)</span>이다.</p>
 <p>즉, <span class="math notranslate nohighlight">\((w_2 - q_2) + \cdots + (w_n - q_n)\)</span>은 <span class="math notranslate nohighlight">\((w_1 - q_1)\)</span>의 역원이 될 수 없고 식을 만족하기 위해서는 <span class="math notranslate nohighlight">\((w_1 - q_1) = 0_V\)</span>이어야 한다.</p>

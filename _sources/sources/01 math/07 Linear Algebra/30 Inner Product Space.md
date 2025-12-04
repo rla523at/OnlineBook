@@ -163,6 +163,9 @@ $s_j \neq 0_V$ 임으로 inner product 의 정의에 의해 $0 < B(s_j,s_j)$ 임
 
 즉, 모든 $a_i = 0_\F$ 임으로 linearly independent하다. $\qed$
 
+#### 참고
+$S$ 가 linearly independent set 임으로 $\span(S)$ 의 basis 는 $S$ 이다. 
+
 ### 명제2
 $n$차원 inner product space $V/\F$가 있다고 하자.
 
@@ -197,7 +200,7 @@ $S$ 을 span 한 공간에 있는 vector 를 $x$ 라고 하면 $x$ 는 $S$ 의 �
 #### 참고2
 $S$ 을 span 한 공간에 basis 는 $S$ 이고 임의의 $x \in \span(S)$ 의 coordinate 를 `Fourier coefficient`라고 하며 다음과 같다. 
 
-$$ x = \frac{B(y,s_i)}{B(s_i, s_i)} s_i $$
+$$ x = \frac{B(x,s_i)}{B(s_i, s_i)} s_i $$
 
 만약 $S$ 가 orthonormal subset 인 경우 Fourier coefficient 는 $B(y,s_i)$ 로 간단해 진다. 
 
@@ -328,6 +331,69 @@ $$ B(0_V,s) =  0_\F $$
 상수곱이 정의되어 있음으로 환의 명제2에 의해 역원이 존재한다.
 
 ### 명제2
+$n$차원 inner product space $V/\F$ 와 $W \le V$ 가 있을 떄, 다음을 증명하여라.
+
+$$ W \cap W^{\perp} = \set{0_V} $$
+
+**Proof**
+
+$w \in W \cap W^{\perp}$ 라고 하면 다음이 성립한다.
+
+$$ B(w,w) = 0_V \implies w = 0_V \qed $$
+
+### 명제3
+$n$차원 inner product space $V / \F$와 $k \le n$ 차원 subspace $W \le V$ 가 있다고 하자.
+
+$W$ 의 orthogonal basis 를 $\beta$ 라고 할 때, 임의의 $v \in V$ 에 대해 다음을 증명하여라.
+
+$$ v - \sum_{i=1}^k \proj{\beta_i}{v} \in W^{\perp} $$
+
+**Proof**
+
+임의의 $\beta_i$ 에 대해서 다음이 성립한다.
+
+$$ \begin{aligned}
+B(v - \sum_{j=1}^k \proj{\beta_j}{v}, \beta_i) &= B(v, \beta_i) - \sum_{j=1}^k \frac{B(v,\beta_j)}{B(\beta_j, \beta_j)} B(\beta_j, \beta_i) \\
+&= B(v, \beta_i) - \frac{B(v,\beta_i)}{B(\beta_i, \beta_i)} B(\beta_i, \beta_i) \\
+&= 0_\F 
+\end{aligned} $$
+
+따라서, $\forall w \in W$ 에 대해서 다음이 성립한다.
+
+$$ \begin{aligned}
+B(v - \sum_{j=1}^k \proj{\beta_j}{v},w) &= a_j B(v - \sum_{j=1}^k \proj{\beta_j}{v}, \beta_j) \\
+&= 0_\F \qed
+\end{aligned} $$
+
+### 명제4
+$n$차원 inner product space $V / \F$와 $k \le n$ 차원 subspace $W \le V$ 가 있다고 하자.
+
+$W$ 의 orthogonal basis 를 $\beta, \gamma$ 라고 할 때, 임의의 $v \in V$ 에 대해 다음을 증명하여라.
+
+$$ \sum_{i=1}^k \proj{\beta_i}{v} = \sum_{i=1}^k \proj{\gamma_i}{v} $$
+
+**Proof**
+
+$\sum_{i=1}^k \proj{\gamma_i}{v}, \sum_{i=1}^k \proj{\beta_i}{v} \in W$ 임으로 다음이 성립한다.
+
+$$ \sum_{i=1}^k \proj{\beta_i}{v} - \sum_{i=1}^k \proj{\gamma_i}{v} \in W $$
+
+그리고 명제3에 의해 $v - \sum_{i=1}^k \proj{\beta_i}{v},v - \sum_{i=1}^k \proj{\gamma_i}{v} \in W^\perp$ 임으로 다음이 성립한다.
+
+$$ \sum_{i=1}^k \proj{\beta_i}{v} - \sum_{i=1}^k \proj{\gamma_i}{v} = \left( v - \sum_{i=1}^k \proj{\gamma_i}{v} \right) - \left( v - \sum_{i=1}^k \proj{\beta_i}{v} \right) \in W^\perp $$
+
+그러면 $\sum_{i=1}^k \proj{\beta_i}{v} - \sum_{i=1}^k \proj{\gamma_i}{v} \in W \cap W^\perp$ 임으로 명제2에 의해 다음이 성립한다.
+
+$$ \sum_{i=1}^k \proj{\beta_i}{v} - \sum_{i=1}^k \proj{\gamma_i}{v} = 0_\F \qed $$
+
+#### 참고
+orthogonal basis 와 무관하게 $W$ 의 orthogonal basis 로 $V$ 를 projection 시킨 vector 는 유일함을 증명하였다.
+
+따라서, $v \in V$ 에 대해서 $P_W(v)$ 를 다음과 같이 정의한다.
+
+$$ P_W(v) = \sum_{i=1}^k \proj{\beta_i}{v}, \quad \beta \text{ is any orthogonal basis of } W $$
+
+### 명제2
 $n$차원 inner product space $V/\F$가 있다고 하자.
 
 $W \le V$가 있을 때, 다음을 증명하여라.
@@ -339,19 +405,19 @@ $$ V = W \oplus W^\perp $$
 [$V = W + W^\perp$]  
 $W$의 orthonormal basis를 $\beta$라 하자.
 
-$v \in V$가 있을 때, $u \in W$를 다음과 같이 정의하자.
+$v \in V$가 있을 때, $w \in W$를 다음과 같이 정의하자.
 
-$$ u = B(v,\beta_i)\beta_i $$
+$$ w = B(v,\beta_i)\beta_i $$
 
 그러면, 다음이 성립한다.
 
 $$ \begin{aligned} 
-B(v-u, \beta_i) &= B(v,\beta_i) - B(v,\beta_j) B(\beta_j, \beta_i) \\ 
+B(v-w, \beta_i) &= B(v,\beta_i) - B(v,\beta_j) B(\beta_j, \beta_i) \\ 
 &= B(v,\beta_i) - B(v,\beta_i) \\ 
 &= 0_\F 
 \end{aligned} $$
 
-따라서, $v-u \in W^\perp$임으로, $V = W + W^\perp$이다. $\qed$
+따라서, $v-w \in W^\perp$임으로, $V = W + W^\perp$이다. $\qed$
 
 [$W \cap W^\perp = \{ 0_V \}$]  
 $w \in W \cap W^\perp$라 하자.
