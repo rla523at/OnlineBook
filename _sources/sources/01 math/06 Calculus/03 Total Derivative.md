@@ -432,8 +432,8 @@ $$ \begin{align*} \lim_{H \rightarrow 0_{M_{nn}}} \frac{1}{\norm{H}}(AH + HA + H
 
 > Reference  
 > {cite}`hubbard` p.132
->
-> ### 명제
+
+### 명제
 open set $U \subset \R^n$과 함수 $f : U \rightarrow \R^m$이 있다고 하자.
 
 $\R^m$의 basis를 $\epsilon_n$하고 $\forall a \in U$에서 $f$가 differentiable일 때, 다음을 증명하여라.
@@ -454,3 +454,7 @@ $$ \begin{align*} & \lim_{h \rightarrow 0}\frac{f(a + hv) -f (a) - L_a(hv)}{\nor
 
 > Reference  
 > {cite}`hubbard` Proposition 1.7.14.
+
+## Gradient
+
+

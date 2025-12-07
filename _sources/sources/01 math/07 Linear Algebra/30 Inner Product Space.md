@@ -269,20 +269,20 @@ $\Set{\beta'_1}$ 은 자명하게 orthogonal subset 이다.
 임의의 $k < i$ 에 대해서 다음이 성립한다.
 
 $$ \begin{aligned}
-B(\beta'_i,\beta'_k) &= B(\beta_i - \sum_{j=1}^{i-1} \proj{\beta'_j}{\beta_i}, \beta'_k) \\
-&= B(\beta_i, \beta'_k) - \sum_{j=1}^{i-1}B(\proj{\beta'_j}{\beta_i}, \beta'_k) 
+B(\beta'_i,\beta'_k) &= B(\beta_i - \sum_{j=1}^{i-1} P_{\beta'_j}{\beta_i}, \beta'_k) \\
+&= B(\beta_i, \beta'_k) - \sum_{j=1}^{i-1}B(P_{\beta'_j}{\beta_i}, \beta'_k) 
 \end{aligned}  $$
 
 
-$\proj{\beta'_j}{\beta_i}$ 는 $\beta'_j$ 와 평행한 vector 이고 $\Set{\beta'_1,\cdots,\beta'_{i-1}}$ 이 orthogonal subset 임으로 다음이 성립한다.
+$P_{\beta'_j}{\beta_i}$ 는 $\beta'_j$ 와 평행한 vector 이고 $\Set{\beta'_1,\cdots,\beta'_{i-1}}$ 이 orthogonal subset 임으로 다음이 성립한다.
 
-$$ j \neq k \implies  B(\proj{\beta'_j}{\beta_i}, \beta'_k) = 0 $$
+$$ j \neq k \implies  B(P_{\beta'_j}{\beta_i}, \beta'_k) = 0 $$
 
 이를 위에 식에 대입해서 정리하면
 
 $$ \begin{aligned}
-B(\beta'_i,\beta'_k) &= B(\beta_i, \beta'_k) - \sum_{j=1}^{i-1}B(\proj{\beta'_j}{\beta_i}, \beta'_k) \\
-&= B(\beta_i, \beta'_k) - B(\proj{\beta'_k}{\beta_i}, \beta'_k) \\
+B(\beta'_i,\beta'_k) &= B(\beta_i, \beta'_k) - \sum_{j=1}^{i-1}B(P_{\beta'_j}{\beta_i}, \beta'_k) \\
+&= B(\beta_i, \beta'_k) - B(P_{\beta'_k}{\beta_i}, \beta'_k) \\
 &= B(\beta_i, \beta'_k) - \frac{B(\beta_i,\beta'_k)}{B(\beta'_k, \beta'_k)}B( \beta'_k, \beta'_k) \\
 &= 0_{\F} \qed
 \end{aligned}  $$
@@ -346,14 +346,14 @@ $n$차원 inner product space $V / \F$와 $k \le n$ 차원 subspace $W \le V$ �
 
 $W$ 의 orthogonal basis 를 $\beta$ 라고 할 때, 임의의 $v \in V$ 에 대해 다음을 증명하여라.
 
-$$ v - \sum_{i=1}^k \proj{\beta_i}{v} \in W^{\perp} $$
+$$ v - \sum_{i=1}^k P_{\beta_i}(v) \in W^{\perp} $$
 
 **Proof**
 
 임의의 $\beta_i$ 에 대해서 다음이 성립한다.
 
 $$ \begin{aligned}
-B(v - \sum_{j=1}^k \proj{\beta_j}{v}, \beta_i) &= B(v, \beta_i) - \sum_{j=1}^k \frac{B(v,\beta_j)}{B(\beta_j, \beta_j)} B(\beta_j, \beta_i) \\
+B(v - \sum_{j=1}^k P_{\beta_j}(v), \beta_i) &= B(v, \beta_i) - \sum_{j=1}^k \frac{B(v,\beta_j)}{B(\beta_j, \beta_j)} B(\beta_j, \beta_i) \\
 &= B(v, \beta_i) - \frac{B(v,\beta_i)}{B(\beta_i, \beta_i)} B(\beta_i, \beta_i) \\
 &= 0_\F 
 \end{aligned} $$
@@ -361,7 +361,7 @@ B(v - \sum_{j=1}^k \proj{\beta_j}{v}, \beta_i) &= B(v, \beta_i) - \sum_{j=1}^k \
 따라서, $\forall w \in W$ 에 대해서 다음이 성립한다.
 
 $$ \begin{aligned}
-B(v - \sum_{j=1}^k \proj{\beta_j}{v},w) &= a_j B(v - \sum_{j=1}^k \proj{\beta_j}{v}, \beta_j) \\
+B(v - \sum_{j=1}^k P_{\beta_j}(v),w) &= a_j B(v - \sum_{j=1}^k P_{\beta_j}(v), \beta_j) \\
 &= 0_\F \qed
 \end{aligned} $$
 
@@ -370,30 +370,50 @@ $n$차원 inner product space $V / \F$와 $k \le n$ 차원 subspace $W \le V$ �
 
 $W$ 의 orthogonal basis 를 $\beta, \gamma$ 라고 할 때, 임의의 $v \in V$ 에 대해 다음을 증명하여라.
 
-$$ \sum_{i=1}^k \proj{\beta_i}{v} = \sum_{i=1}^k \proj{\gamma_i}{v} $$
+$$ \sum_{i=1}^k P_{\beta_i}(v) = \sum_{i=1}^k P_{\gamma_i}(v) $$
 
 **Proof**
 
-$\sum_{i=1}^k \proj{\gamma_i}{v}, \sum_{i=1}^k \proj{\beta_i}{v} \in W$ 임으로 다음이 성립한다.
+$\sum_{i=1}^k P_{\gamma_i}(v), \sum_{i=1}^k P_{\beta_i}(v) \in W$ 임으로 다음이 성립한다.
 
-$$ \sum_{i=1}^k \proj{\beta_i}{v} - \sum_{i=1}^k \proj{\gamma_i}{v} \in W $$
+$$ \sum_{i=1}^k P_{\beta_i}(v) - \sum_{i=1}^k P_{\gamma_i}(v) \in W $$
 
-그리고 명제3에 의해 $v - \sum_{i=1}^k \proj{\beta_i}{v},v - \sum_{i=1}^k \proj{\gamma_i}{v} \in W^\perp$ 임으로 다음이 성립한다.
+그리고 명제3에 의해 $v - \sum_{i=1}^k P_{\beta_i}(v),v - \sum_{i=1}^k P_{\gamma_i}(v) \in W^\perp$ 임으로 다음이 성립한다.
 
-$$ \sum_{i=1}^k \proj{\beta_i}{v} - \sum_{i=1}^k \proj{\gamma_i}{v} = \left( v - \sum_{i=1}^k \proj{\gamma_i}{v} \right) - \left( v - \sum_{i=1}^k \proj{\beta_i}{v} \right) \in W^\perp $$
+$$ \sum_{i=1}^k P_{\beta_i}(v) - \sum_{i=1}^k P_{\gamma_i}(v) = \left( v - \sum_{i=1}^k P_{\gamma_i}(v) \right) - \left( v - \sum_{i=1}^k P_{\beta_i}(v) \right) \in W^\perp $$
 
-그러면 $\sum_{i=1}^k \proj{\beta_i}{v} - \sum_{i=1}^k \proj{\gamma_i}{v} \in W \cap W^\perp$ 임으로 명제2에 의해 다음이 성립한다.
+그러면 $\sum_{i=1}^k P_{\beta_i}(v) - \sum_{i=1}^k P_{\gamma_i}(v) \in W \cap W^\perp$ 임으로 명제2에 의해 다음이 성립한다.
 
-$$ \sum_{i=1}^k \proj{\beta_i}{v} - \sum_{i=1}^k \proj{\gamma_i}{v} = 0_\F \qed $$
+$$ \sum_{i=1}^k P_{\beta_i}(v) - \sum_{i=1}^k P_{\gamma_i}(v) = 0_\F \qed $$
 
 #### 참고
-orthogonal basis 와 무관하게 $W$ 의 orthogonal basis 로 $V$ 를 projection 시킨 vector 는 유일함을 증명하였다.
+$v \in V$ 에 대해서 $W$ 로의 projection $P_W(v)$ 를 다음과 같이 정의한다.
 
-따라서, $v \in V$ 에 대해서 $P_W(v)$ 를 다음과 같이 정의한다.
+$$ P_W(v) = \sum_{i=1}^k P_{\beta_i}(v), \quad \beta \text{ is any orthogonal basis of } W $$
 
-$$ P_W(v) = \sum_{i=1}^k \proj{\beta_i}{v}, \quad \beta \text{ is any orthogonal basis of } W $$
+### 명제5
+$n$차원 inner product space $V / \F$와 $k \le n$ 차원 subspace $W \le V$ 가 있을 때, 다음을 증명하여라.
 
-### 명제2
+$$ \forall w \in W, \quad \norm{v-P_W(v)} \le \norm{v-w} $$
+
+**Proof**
+
+$v-w = (v-P_W(v)) - (P_W(v)-w)$ 이고 $v-P_W(v) \in W^\perp$, $P_W(v)-w \in W$ 임으로 다음이 성립한다.
+
+$$ (v-P_W(v)) \perp (P_W(v)-w) $$
+
+따라서, Pythagorean theorem 에 의해 다음이 성립한다.
+
+$$ \norm{v-w}^2 = \norm{v-P_W(v)}^2 + \norm{P_W(v)-w}^2 $$
+
+inner product 의 성질에 의해 $0_F \le \norm{P_W(v)-w}^2$ 이고 $0_F \le \norm{\cdot}$ 임으로 다음이 성립한다.
+
+$$ \norm{v-P_W(v)}^2 \le \norm{v-w}^2 \implies \norm{v-P_W(v)} \le \norm{v-w} \qed $$
+
+#### 참고
+$P_W(v)$ 는 $W$ 의 모든 vector 중 가장 $v$ 에 가깝다. 따라서 $P_W(v)$ 를 `closest vector` 라고 한다.
+
+### 명제6
 $n$차원 inner product space $V/\F$가 있다고 하자.
 
 $W \le V$가 있을 때, 다음을 증명하여라.
@@ -403,21 +423,7 @@ $$ V = W \oplus W^\perp $$
 **Proof**
 
 [$V = W + W^\perp$]  
-$W$의 orthonormal basis를 $\beta$라 하자.
-
-$v \in V$가 있을 때, $w \in W$를 다음과 같이 정의하자.
-
-$$ w = B(v,\beta_i)\beta_i $$
-
-그러면, 다음이 성립한다.
-
-$$ \begin{aligned} 
-B(v-w, \beta_i) &= B(v,\beta_i) - B(v,\beta_j) B(\beta_j, \beta_i) \\ 
-&= B(v,\beta_i) - B(v,\beta_i) \\ 
-&= 0_\F 
-\end{aligned} $$
-
-따라서, $v-w \in W^\perp$임으로, $V = W + W^\perp$이다. $\qed$
+임의의 $v\in V$ 에 대해 $P_W(v) \in W$ 이고 $v-P_W(v) \in W^\perp$ 임으로 $V = W + W^\perp$이다. $\qed$
 
 [$W \cap W^\perp = \{ 0_V \}$]  
 $w \in W \cap W^\perp$라 하자.
@@ -431,50 +437,7 @@ $$ B(w,w) = 0_\F $$
 #### 참고1
 $v \in V$면 $v = w + w^\perp, \enspace w \in W, w^\perp \in W^\perp$이 성립하고 direct sum의 성질에 의해 이러한 표현법이 유일하다.
 
-#### 참고2
-$v \in V$가 있을 때, $u \in W$를 다음과 같이 정의하자.
-
-$$ u = B(v,\beta_i)\beta_i $$
-
-$\forall w \in W$에 대해서 다음이 성립한다.
-
-$$ \lVert v - u \rVert \le \lVert v - w \rVert $$
-
-따라서 $u$는 $W$의 vector중 $v$와 가장 가까운 closest vector이다.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 명제2(Riesz representation)
+### 명제7(Riesz representation)
 $n$차원 inner product space $V/\F$가 있다고 하자.
 
 $\forall g \in V^*$에 대해 다음을 증명하여라.
@@ -486,9 +449,11 @@ $\beta$를 $V$의 orthonormal basis라 하자.
 
 [uniquness]  
 다음을 가정하자.
+
 $$ \forall g \in V^*, \quad \exist v_g \in V \st g(\cdot) = B(\cdot, v_g)$$
 
 그러면 Orthonormal basis의 성질에 의해 다음이 성립한다.
+
 $$ \begin{aligned} v_g &= B(v_g,\beta_i)\beta_i \\&= \overline{B(\beta_i, v_g)}\beta_i \\&= \overline{g(\beta_i)}\beta_i \end{aligned} $$
 
 이 때, $g$는 $V^*$의 원소로 well-defined 함수임으로, 각각의 $\beta_i$마다 $\overline{g(\beta_i)}$가 유일한 값을 갖는다. 
@@ -505,7 +470,18 @@ $$ \begin{aligned} B(x,v_g) &= a^i g(\beta_j) B(\beta_i,\beta_j) \\&= a^i g(\bet
 위의 두 결과를 조합하면, 다음과 같다.
 $$ \forall g \in V^*, \quad \exist v_g \in V \st g(\cdot) = B(\cdot,v_g) \qed $$
 
-#### 따름명제2.1
+#### 참고1
+$g \in V^*$가 있을 때, Reisz representation theorem에 의해 결정되는 $v_g$를 $g$에 대한 Reisz representation이라고 한다.
+
+#### 참고2
+$f \in V^*$와 $f$의 Riesz representation $v_f \in V$의 관계를 다음과 같이 바꿔보자
+$$ \forall x \in V, \quad f(x) = B(v_f, x) $$
+
+이럴 경우, inner product는 두번째 component에 대해서 conjugate linear이기 때문에 $f$는 conjugate linear map이 된다.
+
+따라서, $f \notin V^*$이 되는 모순이 발생한다.
+
+#### 따름명제1
 $n$차원 inner product space $V/\F$가 있다고 하자.
 
 함수 $B^\flat$를 다음과 같이 정의하자.
@@ -542,7 +518,7 @@ $B^\flat$의 역함수를 $B^\sharp$로 표기한다.
 > Reference  
 > [math.stackexchange - Inner product in dual space](https://math.stackexchange.com/questions/3486532/inner-product-in-dual-space)
 
-#### 따름명제2.2
+#### 따름명제2
 $n$차원 inner product space $V/\R$가 있다고 하자.
 
 함수 $B^\flat$를 다음과 같이 정의하자.
@@ -579,17 +555,6 @@ $V$와 $V^*$ 사이에 isomorphism은 basis에 무관함으로 natural isomorphi
 > Reference  
 > [math.stackexchange - Inner product in dual space](https://math.stackexchange.com/questions/3486532/inner-product-in-dual-space)  
 > [math.stackexchange - natural isomorphism in linear algebra](https://math.stackexchange.com/questions/234127/natural-isomorphism-in-linear-algebra)
-
-#### 참고1
-$g \in V^*$가 있을 때, Reisz representation theorem에 의해 결정되는 $v_g$를 $g$에 대한 Reisz representation이라고 한다.
-
-#### 참고2
-$f \in V^*$와 $f$의 Riesz representation $v_f \in V$의 관계를 다음과 같이 바꿔보자
-$$ \forall x \in V, \quad f(x) = B(v_f, x) $$
-
-이럴 경우, inner product는 두번째 component에 대해서 conjugate linear이기 때문에 $f$는 conjugate linear map이 된다.
-
-따라서, $f \notin V^*$이 되는 모순이 발생한다.
 
 ### 명제3(Schur's theorem)
 $n$차원 inner product space $V/\F$와 $T \in \End(V)$가 있다고 하자.
