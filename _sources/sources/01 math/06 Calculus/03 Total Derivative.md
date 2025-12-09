@@ -457,4 +457,12 @@ $$ \begin{align*} & \lim_{h \rightarrow 0}\frac{f(a + hv) -f (a) - L_a(hv)}{\nor
 
 ## Gradient
 
+open set $U \subset \R^n$과 $U$ 에서 미분 가능한 함수 $f : U \rightarrow \R$이 있다고 하자.
 
+임의의 $u \in U$ 에서 $Df(u) \in L(\R^n,\R)$ 임으로 Riesz representation theorem 에 의해 다음을 만족하는 $Df(u)$ 의 Riesz representation $v \in \R^n$ 을 갖는다.
+
+$$ B(\cdot,v) = Df(u)[\cdot] $$
+
+이러한 $v$ 를 $Df(u)$ 의 gradient 라고 한다.
+
+일반적으로 $v \equiv \nabla f(u)$ 라는 표기법을 많이 쓴다.

@@ -27,6 +27,19 @@ $$ B(x,cy + z) = c B(x,y) + B(x,z) $$
 
 $$ B(x,y) \equiv \lang x,y \rang $$
 
+### 참고4(Gram Matrix)
+$x,y \in V$ 와 $V$ 의 임의의 basis 에 $\beta$ 가 있을 떄 다음이 성립한다.
+
+$$ B(x,y) = x_iy_jB(\beta_i,\beta_j) $$
+
+$B(\beta_i,\beta_j) = G_{ij}$ 라고 하면 다음이 성립한다.
+
+$$ B(x,y) = [x]_\beta^T G [y]_\beta $$
+
+$G$ 를 `Gram Matrix` 라고 하며 inner product 의 matrix representation 이다.
+
+Gram Matrix 는 inner product 의 선택과 basis 의 선택에 따라서 달라진다.
+
 ### 명제
 $n$차원 vector space $V/\F$와 내적 $B$가 있다고 하자.
 
@@ -293,6 +306,9 @@ subset $S \subset V$ 가 주어졌을 떄, 위와 같이 $S'$ 을 정의하는 �
 Gram-Schmidts Process 는 임의의 Subset 이 주어졌을 때 Orthogonal Property 를 갖는 Subset 으로 바꾸는 구체적인 방법이다.
 
 만약 linear independet subset 인 경우 Gram-Schmidts Process 에 결과로 주어지는 Subset 은 orthogonal subset 이 된다.
+
+#### 참고2
+Orthogonal Basis 는 inner product 의 선택에 따라 달라진다.
 
 ## Orthogonal Complement
 $n$차원 inner product space $V/\F$가 있다고 하자.
