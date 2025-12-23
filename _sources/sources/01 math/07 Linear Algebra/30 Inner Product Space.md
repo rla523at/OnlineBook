@@ -28,13 +28,13 @@ $$ B(x,cy + z) = c B(x,y) + B(x,z) $$
 $$ B(x,y) \equiv \lang x,y \rang $$
 
 ### 참고4(Gram Matrix)
-$x,y \in V$ 와 $V$ 의 임의의 basis 에 $\beta$ 가 있을 떄 다음이 성립한다.
+$x,y \in V$ 와 $V$ 의 임의의 basis 에 $\beta, \gamma$ 가 있을 떄 다음이 성립한다.
 
-$$ B(x,y) = x_iy_jB(\beta_i,\beta_j) $$
+$$ B(x,y) = x_iy_jB(\beta_i,\gamma_j) $$
 
-$B(\beta_i,\beta_j) = G_{ij}$ 라고 하면 다음이 성립한다.
+$B(\beta_i,\gamma_j) = G_{ij}$ 라고 하면 다음이 성립한다.
 
-$$ B(x,y) = [x]_\beta^T G [y]_\beta $$
+$$ B(x,y) = ([x]_\beta)^T G [y]_\gamma $$
 
 $G$ 를 `Gram Matrix` 라고 하며 inner product 의 matrix representation 이다.
 
@@ -457,37 +457,44 @@ $v \in V$면 $v = w + w^\perp, \enspace w \in W, w^\perp \in W^\perp$이 성립�
 $n$차원 inner product space $V/\F$가 있다고 하자.
 
 $\forall g \in V^*$에 대해 다음을 증명하여라.
-$$ \exist! v_g \in V \st g(\cdot) = B(\cdot, v_g)$$
+$$ \exist! v_g \in V \st g(\cdot) = B(\cdot, v_g) $$
 
 **Proof**
 
-$\beta$를 $V$의 orthonormal basis라 하자.
+[existence]  
+$V$ 의 임의의 basis 를 $\beta$라고 할 때, 어떤 $v_g = a_i\beta_i \in V$ 가 있어 임의의 $w = b_j\beta_j$ 에 대해 다음을 만족한다고 하자.
+
+$$ \begin{aligned}
+g(w) &= B(w,v_g) \\
+b_j g(\beta_j) &= b_j\overline{a_i} B(\beta_j,\beta_i) \\ 
+\end{aligned} $$
+
+임의의 $b_j$ 에 대해서 위가 성립해야 됨으로 다음이 성립한다. 
+
+$$ g(\beta_i) = B(\beta_i, \beta_j )\overline{a_j} $$
+
+$G_{ij} = B(\beta_i,\beta_j)$, $f_i = g(\beta_i)$  라고하면 $\beta$ 는 linearly independent set 임으로 $G$ 는 invertible 하다. 따라서, 다음이 성립한다.
+
+$$ a = \overline{G^{-1}f} $$
+
+즉, $[v_g]_\beta = a$ 면 $g(\cdot) = B(\cdot, v_g)$ 를 만족하는 vector 이다. $\qed$ 
 
 [uniquness]  
-다음을 가정하자.
+$u,v \in V$ 가 임의의 $w \in V$ 에 대해 $g(w) = B(w, u) = B(w, v)$ 름 만족하면 다음이 성립한다.
 
-$$ \forall g \in V^*, \quad \exist v_g \in V \st g(\cdot) = B(\cdot, v_g)$$
+$$ \begin{aligned}
+B(w, u) - B(w, v) = 0_\F \\
+B(w, u-v) = 0_\F \\
+\end{aligned}  $$
 
-그러면 Orthonormal basis의 성질에 의해 다음이 성립한다.
-
-$$ \begin{aligned} v_g &= B(v_g,\beta_i)\beta_i \\&= \overline{B(\beta_i, v_g)}\beta_i \\&= \overline{g(\beta_i)}\beta_i \end{aligned} $$
-
-이 때, $g$는 $V^*$의 원소로 well-defined 함수임으로, 각각의 $\beta_i$마다 $\overline{g(\beta_i)}$가 유일한 값을 갖는다. 
-
-따라서, $v_g$가 존재한다면 반드시 $v_g=\overline{g(\beta_i)}\beta_i$ 형태로 유일하게 결정된다. $\qed$
-
-[existence]  
-$v_g \in V$를 다음과 같이 정의하자.
-$$ \forall g \in V^*, \quad v_g := \overline{g(\beta_i)}\beta_i $$
-
-$x = a^i\beta_i \in V$이 있을 때, Orthonormal basis의 성질에 의해 다음이 성립한다.
-$$ \begin{aligned} B(x,v_g) &= a^i g(\beta_j) B(\beta_i,\beta_j) \\&= a^i g(\beta_i) \\&= g(x) \end{aligned}$$
-
-위의 두 결과를 조합하면, 다음과 같다.
-$$ \forall g \in V^*, \quad \exist v_g \in V \st g(\cdot) = B(\cdot,v_g) \qed $$
+임의의 $w$ 에 대해서 만족해야 함으로 $u-v = 0_V$ 여야 하고, $u=v$다. $\qed$
 
 #### 참고1
 $g \in V^*$가 있을 때, Reisz representation theorem에 의해 결정되는 $v_g$를 $g$에 대한 Reisz representation이라고 한다.
+
+Reisz represnetation theorem 은 inner proudct space 에서 linear functional 은 vetor 로 나타내는 방법을 알려주는 theorem 이다.
+
+그리고 Reisz representation theorem 이 강력한 이유는 정확히 어떤 vector 로 나타낼 수 있는지 구체적으로 계산할 수 있다는 점이다.
 
 #### 참고2
 $f \in V^*$와 $f$의 Riesz representation $v_f \in V$의 관계를 다음과 같이 바꿔보자
@@ -496,6 +503,17 @@ $$ \forall x \in V, \quad f(x) = B(v_f, x) $$
 이럴 경우, inner product는 두번째 component에 대해서 conjugate linear이기 때문에 $f$는 conjugate linear map이 된다.
 
 따라서, $f \notin V^*$이 되는 모순이 발생한다.
+
+#### 참고3
+$\beta$ 가 orthonormal basis 면 $G = I$ 임으로 Riesz representation 은 다음과 같이 단순해진다.
+
+$$ a = \overline{f} \implies v_g = g(\beta_i)\beta_i $$
+
+그리고 Riesz representation 은 유일한 vector 임으로 basis 선택에 의존하지 않는다. 
+
+따라서 $\gamma$ 가 $V$ 의 임의의 basis 일 때, $v_g$ 의 matrix representation 은 구체적으로 다음과 같이 적을 수 있다.
+
+$$ [v_g]_\gamma = [id]^\gamma_\beta [v_g]_\beta $$
 
 #### 따름명제1
 $n$차원 inner product space $V/\F$가 있다고 하자.
@@ -576,6 +594,7 @@ $V$와 $V^*$ 사이에 isomorphism은 basis에 무관함으로 natural isomorphi
 $n$차원 inner product space $V/\F$와 $T \in \End(V)$가 있다고 하자.
 
 $T$의 characteristic polynomial를 $\varphi_T(\lambda)$라 할 떄, 다음을 증명하여라.
+
 $$ \varphi_T(\lambda) \text{is split} \implies \exist \text{ orthonormal basis } \beta \st \frak m_\beta^\beta(T) \text{ is an upper triangular matrix} $$
 
 **Proof**
@@ -589,15 +608,19 @@ $$ \varphi_T(\lambda) \text{is split} \implies \exist \text{ orthonormal basis }
 $\lambda$를 $T$의 eigenvalue라 하면 adjoint의 성질에 의해 $\overline\lambda$는 $T^*$의 eigen value이다.
 
 $\overline\lambda$의 크기가 1인 eigenvector를 $v$라하면,  orthogonal complement의 성질에 의해 다음이 성립한다.
+
 $$ V = \span(v) \oplus \span(v)^\perp$$
 
 보조명제3.1에 의해 $\span(v)^\perp$는 split됨으로, 귀납적 가정에 의해 다음이 성립한다.
+
 $$ \exist \text{orthonormal basis } \gamma = \{\gamma_1, \cdots, \gamma_{n-1} \} \st \frak m_{\gamma}^{\gamma}(T|_{\span(v)^\perp}) \text{ be an upper triangular matrix.} $$
 
 이 때, $V$이 기저 $\beta$를 다음과 같이 정의하자.
+
 $$ \beta = \{ \gamma_1, \cdots, \gamma_{n-1}, v \}$$ 
 
 그러면 다음이 성립한다.
+
 $$ \begin{aligned} \frak m_{\beta}^{\beta}(T) &= \begin{bmatrix} \frak{m}_\beta(T(\gamma_1)) & \cdots & \frak{m}_\beta(T(\gamma_{n-1})) & \frak{m}_\beta(T(v)) \end{bmatrix} \\&= \begin{bmatrix} \begin{array}{c | c} \begin{array}{} \\ \frak m_\gamma^\gamma(T|_{\span(v)^\perp}) \\  \\ \hline 0 \end{array} & \begin{array}{} a_1 \\ \vdots \\ a_n \end{array} \end{array} \end{bmatrix} \end{aligned} $$
 
 $$ \text{Where, } T(v) = a_1 \gamma_1 + \cdots + a_{n-1}\gamma_{n-1} + a_nv $$
@@ -608,17 +631,21 @@ $$ \text{Where, } T(v) = a_1 \gamma_1 + \cdots + a_{n-1}\gamma_{n-1} + a_nv $$
 
 #### 보조명제3.1
 다음을 증명하여라.
+
 $$ \span(v)^\perp \text{ is split} $$
 
 **Proof**
 
 $V$에 대해 다음이 성립한다.
+
 $$ V = \span(v) \oplus \span(v)^\perp$$
 
 $\span(v)^\perp$의 임의의 기저를 $\gamma = \{ \gamma_1, \cdots, \gamma_{n-1} \}$이라 할 때, $V$의 기저 $\beta$을 다음과 같이 정의하자
+
 $$ \beta = \{ \gamma_1, \cdots, \gamma_{n-1}, v \}$$ 
 
 보조명제3.1.1에 의해서 $\span(v)^\perp$는 $T$ invariant임으로 다음이 성립한다.
+
 $$ \begin{aligned} \frak m_{\beta}^{\beta}(T) &= \begin{bmatrix} \frak{m}_\beta(T(\gamma_1)) & \cdots & \frak{m}_\beta(T(\gamma_{n-1})) & \frak{m}_\beta(T(v)) \end{bmatrix} \\&= \begin{bmatrix} \begin{array}{c | c} \begin{array}{} \\ \frak m_\gamma^\gamma(T|_{\span(v)^\perp}) \\  \\ \hline 0 \end{array} & \begin{array}{} a_1 \\ \vdots \\ a_n \end{array} \end{array} \end{bmatrix} \end{aligned} $$
 
 $$ \text{Where, } T(v) = a_1 \gamma_1 + \cdots + a_{n-1}\gamma_{n-1} + a_nv $$
@@ -626,6 +653,7 @@ $$ \text{Where, } T(v) = a_1 \gamma_1 + \cdots + a_{n-1}\gamma_{n-1} + a_nv $$
 따라서, $\det(T - a_nI) = 0$임으로 $T$가 split된 1차식 중에는 $(a_n - \lambda)$가 포함되어 있다.
 
 이 때, detrminant의 block matrix에 대한 성질에 의해 다음이 성립한다.
+
 $$\det(\frak m_{\beta}^{\beta}(T) - \lambda I_n) = \det\Big( m_\gamma^\gamma(T|_{\span(v)^\perp}) - \lambda I_{n-1}\Big)(a_n - \lambda)$$
 
 따라서, $T$의 split 된 1차식들 중 $(a_n - \lambda)$제외한 나머지 1차식들로 $T|_{\span(v)^\perp}$이 구성되어 있다.
@@ -635,11 +663,13 @@ $$\det(\frak m_{\beta}^{\beta}(T) - \lambda I_n) = \det\Big( m_\gamma^\gamma(T|_
 
 ##### 보조명제3.1.1
 다음을 증명하여라.
+
 $$ \span(v)^\perp \text{ is a } T \text{ invariant} $$
 
 **Proof**
 
 $x \in \span(v)^\perp$라 하면 다음이 성립한다.
+
 $$ B(T(x),v) = B(x, T^*(v)) = B(x, \overline\lambda v) = \lambda B(x, v) = 0_\F $$
 
 임의의 $x \in \span(v)^\perp$에 대해, $T(x)$와 $v$가 수직함으로, $T(x) \in \span(v)^\perp$이다.
@@ -651,6 +681,7 @@ $\span(v)$는 일반적으로 $T$ invariant가 아니다.
 
 #### 따름명제3.1
 다음을 증명하여라.
+
 $$ \text{ every complex matrix is similar to an upper triangular matrix} $$
 
 **Proof**
@@ -662,21 +693,25 @@ Fundamental theorem of algebra에 의해 $\varphi_A(\lambda)$는 항상 split된
 따라서, Schur's theorem에 의해 $\frak m_\beta^\beta(L_A)$가 upper triangular matrix이 되는 orthonormal basis $\beta$가 존재한다.
 
 그럼으로, 다음이 성립한다.
+
 $$ \begin{aligned} \frak m_\beta^\beta(L_A) &= \frak m_\epsilon^\beta(id) \frak m_\epsilon^\epsilon(L_A) \frak m_\beta^\epsilon(L_A) \\&= C^{-1}AC \end{aligned}  $$
 
 즉, $\frak m_\beta^\beta(L_A) \sim A$이다. $\qed$
 
 #### 참고1
 $\frak m_\beta^\beta(T)$가 다음과 같은 upper triangular matrix로 주어진다고 하자.
+
 $$ \frak m_\beta^\beta(T) = \begin{bmatrix} a_1 & \cdots & & * \\ & a_2 \\ & & \ddots & \vdots \\ 0 & & & a_n \end{bmatrix} $$
 
 $T(\beta_1) = a_1\beta_1$이 되기 때문에 $\beta_1$은 eigen vector, $a_1$은 eigen value가 된다.
 
 #### 참고2
 $\frak m_\beta^\beta(T)$가 다음과 같은 upper triangular matrix로 주어진다고 하자.
+
 $$ \frak m_\beta^\beta(T) = \begin{bmatrix} a_1 & \cdots & & * \\ & a_2 \\ & & \ddots & \vdots \\ 0 & & & a_n \end{bmatrix} $$
 
 upper triangular matrix의 determinant 성질에 의해 다음이 성립한다.
+
 $$ \det(T-\lambda I) = \prod_{i=1}^n (a_i - \lambda) $$ 
 
 따라서, $a_1, \cdots, a_n$은 eigenvalue가 된다.

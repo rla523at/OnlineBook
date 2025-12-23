@@ -676,6 +676,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/21%20CMake.html">Cmake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/30%20OpenMP.html">OpenMP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../03%20programming/99%20ETC/99%20CodingTest/CodingTest.html">CodingTest</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/99%20ETC/99%20CodingTest/Day1.html">Day1</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/Algorithm.html">Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/ARM.html">ARM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/Batch.html">Batch</a></li>
@@ -932,27 +936,28 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#riesz-representation">명제7(Riesz representation)</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">참고1</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">참고2</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">따름명제1</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">참고</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">참고3</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">따름명제1</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">참고</a></li>
 </ul>
 </li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">따름명제2</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">참고</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">따름명제2</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">참고</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#schur-s-theorem">명제3(Schur’s theorem)</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">보조명제3.1</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">보조명제3.1.1</a><ul class="nav section-nav flex-column">
-<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">참고</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">보조명제3.1</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">보조명제3.1.1</a><ul class="nav section-nav flex-column">
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">참고</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">따름명제3.1</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">참고1</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">참고2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">따름명제3.1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">참고1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">참고2</a></li>
 </ul>
 </li>
 </ul>
@@ -1010,12 +1015,12 @@ document.write(`
 </section>
 <section id="gram-matrix">
 <h3>참고4(Gram Matrix)<a class="headerlink" href="#gram-matrix" title="Link to this heading">#</a></h3>
-<p><span class="math notranslate nohighlight">\(x,y \in V\)</span> 와 <span class="math notranslate nohighlight">\(V\)</span> 의 임의의 basis 에 <span class="math notranslate nohighlight">\(\beta\)</span> 가 있을 떄 다음이 성립한다.</p>
+<p><span class="math notranslate nohighlight">\(x,y \in V\)</span> 와 <span class="math notranslate nohighlight">\(V\)</span> 의 임의의 basis 에 <span class="math notranslate nohighlight">\(\beta, \gamma\)</span> 가 있을 떄 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
-\[ B(x,y) = x_iy_jB(\beta_i,\beta_j) \]</div>
-<p><span class="math notranslate nohighlight">\(B(\beta_i,\beta_j) = G_{ij}\)</span> 라고 하면 다음이 성립한다.</p>
+\[ B(x,y) = x_iy_jB(\beta_i,\gamma_j) \]</div>
+<p><span class="math notranslate nohighlight">\(B(\beta_i,\gamma_j) = G_{ij}\)</span> 라고 하면 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
-\[ B(x,y) = [x]_\beta^T G [y]_\beta \]</div>
+\[ B(x,y) = ([x]_\beta)^T G [y]_\gamma \]</div>
 <p><span class="math notranslate nohighlight">\(G\)</span> 를 <code class="docutils literal notranslate"><span class="pre">Gram</span> <span class="pre">Matrix</span></code> 라고 하며 inner product 의 matrix representation 이다.</p>
 <p>Gram Matrix 는 inner product 의 선택과 basis 의 선택에 따라서 달라진다.</p>
 </section>
@@ -1384,28 +1389,35 @@ B(v - \sum_{j=1}^k P_{\beta_j}(v),w) &amp;= a_j B(v - \sum_{j=1}^k P_{\beta_j}(v
 <h3>명제7(Riesz representation)<a class="headerlink" href="#riesz-representation" title="Link to this heading">#</a></h3>
 <p><span class="math notranslate nohighlight">\(n\)</span>차원 inner product space <span class="math notranslate nohighlight">\(V/\F\)</span>가 있다고 하자.</p>
 <p><span class="math notranslate nohighlight">\(\forall g \in V^*\)</span>에 대해 다음을 증명하여라.
-$<span class="math notranslate nohighlight">\( \exist! v_g \in V \st g(\cdot) = B(\cdot, v_g)\)</span>$</p>
+$<span class="math notranslate nohighlight">\( \exist! v_g \in V \st g(\cdot) = B(\cdot, v_g) \)</span>$</p>
 <p><strong>Proof</strong></p>
-<p><span class="math notranslate nohighlight">\(\beta\)</span>를 <span class="math notranslate nohighlight">\(V\)</span>의 orthonormal basis라 하자.</p>
-<p>[uniquness]<br />
-다음을 가정하자.</p>
-<div class="math notranslate nohighlight">
-\[ \forall g \in V^*, \quad \exist v_g \in V \st g(\cdot) = B(\cdot, v_g)\]</div>
-<p>그러면 Orthonormal basis의 성질에 의해 다음이 성립한다.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} \begin{aligned} v_g &amp;= B(v_g,\beta_i)\beta_i \\&amp;= \overline{B(\beta_i, v_g)}\beta_i \\&amp;= \overline{g(\beta_i)}\beta_i \end{aligned} \end{split}\]</div>
-<p>이 때, <span class="math notranslate nohighlight">\(g\)</span>는 <span class="math notranslate nohighlight">\(V^*\)</span>의 원소로 well-defined 함수임으로, 각각의 <span class="math notranslate nohighlight">\(\beta_i\)</span>마다 <span class="math notranslate nohighlight">\(\overline{g(\beta_i)}\)</span>가 유일한 값을 갖는다.</p>
-<p>따라서, <span class="math notranslate nohighlight">\(v_g\)</span>가 존재한다면 반드시 <span class="math notranslate nohighlight">\(v_g=\overline{g(\beta_i)}\beta_i\)</span> 형태로 유일하게 결정된다. <span class="math notranslate nohighlight">\(\qed\)</span></p>
 <p>[existence]<br />
-<span class="math notranslate nohighlight">\(v_g \in V\)</span>를 다음과 같이 정의하자.
-$<span class="math notranslate nohighlight">\( \forall g \in V^*, \quad v_g := \overline{g(\beta_i)}\beta_i \)</span>$</p>
-<p><span class="math notranslate nohighlight">\(x = a^i\beta_i \in V\)</span>이 있을 때, Orthonormal basis의 성질에 의해 다음이 성립한다.
-$<span class="math notranslate nohighlight">\( \begin{aligned} B(x,v_g) &amp;= a^i g(\beta_j) B(\beta_i,\beta_j) \\&amp;= a^i g(\beta_i) \\&amp;= g(x) \end{aligned}\)</span>$</p>
-<p>위의 두 결과를 조합하면, 다음과 같다.
-$<span class="math notranslate nohighlight">\( \forall g \in V^*, \quad \exist v_g \in V \st g(\cdot) = B(\cdot,v_g) \qed \)</span>$</p>
+<span class="math notranslate nohighlight">\(V\)</span> 의 임의의 basis 를 <span class="math notranslate nohighlight">\(\beta\)</span>라고 할 때, 어떤 <span class="math notranslate nohighlight">\(v_g = a_i\beta_i \in V\)</span> 가 있어 임의의 <span class="math notranslate nohighlight">\(w = b_j\beta_j\)</span> 에 대해 다음을 만족한다고 하자.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{aligned}
+g(w) &amp;= B(w,v_g) \\
+b_j g(\beta_j) &amp;= b_j\overline{a_i} B(\beta_j,\beta_i) \\ 
+\end{aligned} \end{split}\]</div>
+<p>임의의 <span class="math notranslate nohighlight">\(b_j\)</span> 에 대해서 위가 성립해야 됨으로 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ g(\beta_i) = B(\beta_i, \beta_j )\overline{a_j} \]</div>
+<p><span class="math notranslate nohighlight">\(G_{ij} = B(\beta_i,\beta_j)\)</span>, <span class="math notranslate nohighlight">\(f_i = g(\beta_i)\)</span>  라고하면 <span class="math notranslate nohighlight">\(\beta\)</span> 는 linearly independent set 임으로 <span class="math notranslate nohighlight">\(G\)</span> 는 invertible 하다. 따라서, 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ a = \overline{G^{-1}f} \]</div>
+<p>즉, <span class="math notranslate nohighlight">\([v_g]_\beta = a\)</span> 면 <span class="math notranslate nohighlight">\(g(\cdot) = B(\cdot, v_g)\)</span> 를 만족하는 vector 이다. <span class="math notranslate nohighlight">\(\qed\)</span></p>
+<p>[uniquness]<br />
+<span class="math notranslate nohighlight">\(u,v \in V\)</span> 가 임의의 <span class="math notranslate nohighlight">\(w \in V\)</span> 에 대해 <span class="math notranslate nohighlight">\(g(w) = B(w, u) = B(w, v)\)</span> 름 만족하면 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{aligned}
+B(w, u) - B(w, v) = 0_\F \\
+B(w, u-v) = 0_\F \\
+\end{aligned}  \end{split}\]</div>
+<p>임의의 <span class="math notranslate nohighlight">\(w\)</span> 에 대해서 만족해야 함으로 <span class="math notranslate nohighlight">\(u-v = 0_V\)</span> 여야 하고, <span class="math notranslate nohighlight">\(u=v\)</span>다. <span class="math notranslate nohighlight">\(\qed\)</span></p>
 <section id="id30">
 <h4>참고1<a class="headerlink" href="#id30" title="Link to this heading">#</a></h4>
 <p><span class="math notranslate nohighlight">\(g \in V^*\)</span>가 있을 때, Reisz representation theorem에 의해 결정되는 <span class="math notranslate nohighlight">\(v_g\)</span>를 <span class="math notranslate nohighlight">\(g\)</span>에 대한 Reisz representation이라고 한다.</p>
+<p>Reisz represnetation theorem 은 inner proudct space 에서 linear functional 은 vetor 로 나타내는 방법을 알려주는 theorem 이다.</p>
+<p>그리고 Reisz representation theorem 이 강력한 이유는 정확히 어떤 vector 로 나타낼 수 있는지 구체적으로 계산할 수 있다는 점이다.</p>
 </section>
 <section id="id31">
 <h4>참고2<a class="headerlink" href="#id31" title="Link to this heading">#</a></h4>
@@ -1415,7 +1427,17 @@ $<span class="math notranslate nohighlight">\( \forall x \in V, \quad f(x) = B(v
 <p>따라서, <span class="math notranslate nohighlight">\(f \notin V^*\)</span>이 되는 모순이 발생한다.</p>
 </section>
 <section id="id32">
-<h4>따름명제1<a class="headerlink" href="#id32" title="Link to this heading">#</a></h4>
+<h4>참고3<a class="headerlink" href="#id32" title="Link to this heading">#</a></h4>
+<p><span class="math notranslate nohighlight">\(\beta\)</span> 가 orthonormal basis 면 <span class="math notranslate nohighlight">\(G = I\)</span> 임으로 Riesz representation 은 다음과 같이 단순해진다.</p>
+<div class="math notranslate nohighlight">
+\[ a = \overline{f} \implies v_g = g(\beta_i)\beta_i \]</div>
+<p>그리고 Riesz representation 은 유일한 vector 임으로 basis 선택에 의존하지 않는다.</p>
+<p>따라서 <span class="math notranslate nohighlight">\(\gamma\)</span> 가 <span class="math notranslate nohighlight">\(V\)</span> 의 임의의 basis 일 때, <span class="math notranslate nohighlight">\(v_g\)</span> 의 matrix representation 은 구체적으로 다음과 같이 적을 수 있다.</p>
+<div class="math notranslate nohighlight">
+\[ [v_g]_\gamma = [id]^\gamma_\beta [v_g]_\beta \]</div>
+</section>
+<section id="id33">
+<h4>따름명제1<a class="headerlink" href="#id33" title="Link to this heading">#</a></h4>
 <p><span class="math notranslate nohighlight">\(n\)</span>차원 inner product space <span class="math notranslate nohighlight">\(V/\F\)</span>가 있다고 하자.</p>
 <p>함수 <span class="math notranslate nohighlight">\(B^\flat\)</span>를 다음과 같이 정의하자.</p>
 <div class="math notranslate nohighlight">
@@ -1437,8 +1459,8 @@ $<span class="math notranslate nohighlight">\( \forall x \in V, \quad f(x) = B(v
 <p>그러면 Reise representation theorem에 의해 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
 \[ \exist v_f \st B^\flat(v_f) = f \qed \]</div>
-<section id="id33">
-<h5>참고<a class="headerlink" href="#id33" title="Link to this heading">#</a></h5>
+<section id="id34">
+<h5>참고<a class="headerlink" href="#id34" title="Link to this heading">#</a></h5>
 <p><span class="math notranslate nohighlight">\(B^\flat\)</span>의 역함수를 <span class="math notranslate nohighlight">\(B^\sharp\)</span>로 표기한다.</p>
 <blockquote>
 <div><p>Reference<br />
@@ -1446,8 +1468,8 @@ $<span class="math notranslate nohighlight">\( \forall x \in V, \quad f(x) = B(v
 </div></blockquote>
 </section>
 </section>
-<section id="id34">
-<h4>따름명제2<a class="headerlink" href="#id34" title="Link to this heading">#</a></h4>
+<section id="id35">
+<h4>따름명제2<a class="headerlink" href="#id35" title="Link to this heading">#</a></h4>
 <p><span class="math notranslate nohighlight">\(n\)</span>차원 inner product space <span class="math notranslate nohighlight">\(V/\R\)</span>가 있다고 하자.</p>
 <p>함수 <span class="math notranslate nohighlight">\(B^\flat\)</span>를 다음과 같이 정의하자.</p>
 <div class="math notranslate nohighlight">
@@ -1469,8 +1491,8 @@ $<span class="math notranslate nohighlight">\( \forall x \in V, \quad f(x) = B(v
 <p>따라서 다음이 성립한다.</p>
 <div class="math notranslate nohighlight">
 \[ B^\sharp(g_1+ag_2) = B^\sharp(g_1) + aB^\sharp(g_2) \qed \]</div>
-<section id="id35">
-<h5>참고<a class="headerlink" href="#id35" title="Link to this heading">#</a></h5>
+<section id="id36">
+<h5>참고<a class="headerlink" href="#id36" title="Link to this heading">#</a></h5>
 <p><span class="math notranslate nohighlight">\(V\)</span>와 <span class="math notranslate nohighlight">\(V^*\)</span> 사이에 isomorphism은 basis에 무관함으로 natural isomorphism이다.</p>
 <blockquote>
 <div><p>Reference<br />
@@ -1483,82 +1505,99 @@ $<span class="math notranslate nohighlight">\( \forall x \in V, \quad f(x) = B(v
 <section id="schur-s-theorem">
 <h3>명제3(Schur’s theorem)<a class="headerlink" href="#schur-s-theorem" title="Link to this heading">#</a></h3>
 <p><span class="math notranslate nohighlight">\(n\)</span>차원 inner product space <span class="math notranslate nohighlight">\(V/\F\)</span>와 <span class="math notranslate nohighlight">\(T \in \End(V)\)</span>가 있다고 하자.</p>
-<p><span class="math notranslate nohighlight">\(T\)</span>의 characteristic polynomial를 <span class="math notranslate nohighlight">\(\varphi_T(\lambda)\)</span>라 할 떄, 다음을 증명하여라.
-$<span class="math notranslate nohighlight">\( \varphi_T(\lambda) \text{is split} \implies \exist \text{ orthonormal basis } \beta \st \frak m_\beta^\beta(T) \text{ is an upper triangular matrix} \)</span>$</p>
+<p><span class="math notranslate nohighlight">\(T\)</span>의 characteristic polynomial를 <span class="math notranslate nohighlight">\(\varphi_T(\lambda)\)</span>라 할 떄, 다음을 증명하여라.</p>
+<div class="math notranslate nohighlight">
+\[ \varphi_T(\lambda) \text{is split} \implies \exist \text{ orthonormal basis } \beta \st \frak m_\beta^\beta(T) \text{ is an upper triangular matrix} \]</div>
 <p><strong>Proof</strong></p>
 <p>증명을 위해 수학적 귀납법을 사용한다.</p>
 <p>먼저 <span class="math notranslate nohighlight">\(\dim(V) = 1\)</span>인 경우 자명하게 성립한다.</p>
 <p>다음으로 <span class="math notranslate nohighlight">\(\dim(V) = n-1\)</span>일 때, 성립한다고 가정하고 <span class="math notranslate nohighlight">\(\dim(V) = n\)</span>이라고 하자.</p>
 <p><span class="math notranslate nohighlight">\(\lambda\)</span>를 <span class="math notranslate nohighlight">\(T\)</span>의 eigenvalue라 하면 adjoint의 성질에 의해 <span class="math notranslate nohighlight">\(\overline\lambda\)</span>는 <span class="math notranslate nohighlight">\(T^*\)</span>의 eigen value이다.</p>
-<p><span class="math notranslate nohighlight">\(\overline\lambda\)</span>의 크기가 1인 eigenvector를 <span class="math notranslate nohighlight">\(v\)</span>라하면,  orthogonal complement의 성질에 의해 다음이 성립한다.
-$<span class="math notranslate nohighlight">\( V = \span(v) \oplus \span(v)^\perp\)</span>$</p>
-<p>보조명제3.1에 의해 <span class="math notranslate nohighlight">\(\span(v)^\perp\)</span>는 split됨으로, 귀납적 가정에 의해 다음이 성립한다.
-$<span class="math notranslate nohighlight">\( \exist \text{orthonormal basis } \gamma = \{\gamma_1, \cdots, \gamma_{n-1} \} \st \frak m_{\gamma}^{\gamma}(T|_{\span(v)^\perp}) \text{ be an upper triangular matrix.} \)</span>$</p>
-<p>이 때, <span class="math notranslate nohighlight">\(V\)</span>이 기저 <span class="math notranslate nohighlight">\(\beta\)</span>를 다음과 같이 정의하자.
-$<span class="math notranslate nohighlight">\( \beta = \{ \gamma_1, \cdots, \gamma_{n-1}, v \}\)</span>$</p>
-<p>그러면 다음이 성립한다.
-$<span class="math notranslate nohighlight">\( \begin{aligned} \frak m_{\beta}^{\beta}(T) &amp;= \begin{bmatrix} \frak{m}_\beta(T(\gamma_1)) &amp; \cdots &amp; \frak{m}_\beta(T(\gamma_{n-1})) &amp; \frak{m}_\beta(T(v)) \end{bmatrix} \\&amp;= \begin{bmatrix} \begin{array}{c | c} \begin{array}{} \\ \frak m_\gamma^\gamma(T|_{\span(v)^\perp}) \\  \\ \hline 0 \end{array} &amp; \begin{array}{} a_1 \\ \vdots \\ a_n \end{array} \end{array} \end{bmatrix} \end{aligned} \)</span>$</p>
+<p><span class="math notranslate nohighlight">\(\overline\lambda\)</span>의 크기가 1인 eigenvector를 <span class="math notranslate nohighlight">\(v\)</span>라하면,  orthogonal complement의 성질에 의해 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ V = \span(v) \oplus \span(v)^\perp\]</div>
+<p>보조명제3.1에 의해 <span class="math notranslate nohighlight">\(\span(v)^\perp\)</span>는 split됨으로, 귀납적 가정에 의해 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ \exist \text{orthonormal basis } \gamma = \{\gamma_1, \cdots, \gamma_{n-1} \} \st \frak m_{\gamma}^{\gamma}(T|_{\span(v)^\perp}) \text{ be an upper triangular matrix.} \]</div>
+<p>이 때, <span class="math notranslate nohighlight">\(V\)</span>이 기저 <span class="math notranslate nohighlight">\(\beta\)</span>를 다음과 같이 정의하자.</p>
+<div class="math notranslate nohighlight">
+\[ \beta = \{ \gamma_1, \cdots, \gamma_{n-1}, v \}\]</div>
+<p>그러면 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{aligned} \frak m_{\beta}^{\beta}(T) &amp;= \begin{bmatrix} \frak{m}_\beta(T(\gamma_1)) &amp; \cdots &amp; \frak{m}_\beta(T(\gamma_{n-1})) &amp; \frak{m}_\beta(T(v)) \end{bmatrix} \\&amp;= \begin{bmatrix} \begin{array}{c | c} \begin{array}{} \\ \frak m_\gamma^\gamma(T|_{\span(v)^\perp}) \\  \\ \hline 0 \end{array} &amp; \begin{array}{} a_1 \\ \vdots \\ a_n \end{array} \end{array} \end{bmatrix} \end{aligned} \end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[ \text{Where, } T(v) = a_1 \gamma_1 + \cdots + a_{n-1}\gamma_{n-1} + a_nv \]</div>
 <p>이 때, <span class="math notranslate nohighlight">\(\frak m_{\gamma}^{\gamma}(T|_{\span(v)^\perp})\)</span>가 upper triangular matrix임으로 <span class="math notranslate nohighlight">\(\frak m_{\beta}^{\beta}(T)\)</span>도 upper trianular matrix가 된다.</p>
 <p>동시에 <span class="math notranslate nohighlight">\(\beta\)</span>를 이루고 있는 <span class="math notranslate nohighlight">\(\gamma\)</span>와 <span class="math notranslate nohighlight">\(v\)</span>는 direct sum 관계에 있는 두 공간의 기저임으로 <span class="math notranslate nohighlight">\(\beta\)</span>는 <span class="math notranslate nohighlight">\(V\)</span>의 orthonormal basis가 된다.<span class="math notranslate nohighlight">\(\qed\)</span></p>
-<section id="id36">
-<h4>보조명제3.1<a class="headerlink" href="#id36" title="Link to this heading">#</a></h4>
-<p>다음을 증명하여라.
-$<span class="math notranslate nohighlight">\( \span(v)^\perp \text{ is split} \)</span>$</p>
+<section id="id37">
+<h4>보조명제3.1<a class="headerlink" href="#id37" title="Link to this heading">#</a></h4>
+<p>다음을 증명하여라.</p>
+<div class="math notranslate nohighlight">
+\[ \span(v)^\perp \text{ is split} \]</div>
 <p><strong>Proof</strong></p>
-<p><span class="math notranslate nohighlight">\(V\)</span>에 대해 다음이 성립한다.
-$<span class="math notranslate nohighlight">\( V = \span(v) \oplus \span(v)^\perp\)</span>$</p>
-<p><span class="math notranslate nohighlight">\(\span(v)^\perp\)</span>의 임의의 기저를 <span class="math notranslate nohighlight">\(\gamma = \{ \gamma_1, \cdots, \gamma_{n-1} \}\)</span>이라 할 때, <span class="math notranslate nohighlight">\(V\)</span>의 기저 <span class="math notranslate nohighlight">\(\beta\)</span>을 다음과 같이 정의하자
-$<span class="math notranslate nohighlight">\( \beta = \{ \gamma_1, \cdots, \gamma_{n-1}, v \}\)</span>$</p>
-<p>보조명제3.1.1에 의해서 <span class="math notranslate nohighlight">\(\span(v)^\perp\)</span>는 <span class="math notranslate nohighlight">\(T\)</span> invariant임으로 다음이 성립한다.
-$<span class="math notranslate nohighlight">\( \begin{aligned} \frak m_{\beta}^{\beta}(T) &amp;= \begin{bmatrix} \frak{m}_\beta(T(\gamma_1)) &amp; \cdots &amp; \frak{m}_\beta(T(\gamma_{n-1})) &amp; \frak{m}_\beta(T(v)) \end{bmatrix} \\&amp;= \begin{bmatrix} \begin{array}{c | c} \begin{array}{} \\ \frak m_\gamma^\gamma(T|_{\span(v)^\perp}) \\  \\ \hline 0 \end{array} &amp; \begin{array}{} a_1 \\ \vdots \\ a_n \end{array} \end{array} \end{bmatrix} \end{aligned} \)</span>$</p>
+<p><span class="math notranslate nohighlight">\(V\)</span>에 대해 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ V = \span(v) \oplus \span(v)^\perp\]</div>
+<p><span class="math notranslate nohighlight">\(\span(v)^\perp\)</span>의 임의의 기저를 <span class="math notranslate nohighlight">\(\gamma = \{ \gamma_1, \cdots, \gamma_{n-1} \}\)</span>이라 할 때, <span class="math notranslate nohighlight">\(V\)</span>의 기저 <span class="math notranslate nohighlight">\(\beta\)</span>을 다음과 같이 정의하자</p>
+<div class="math notranslate nohighlight">
+\[ \beta = \{ \gamma_1, \cdots, \gamma_{n-1}, v \}\]</div>
+<p>보조명제3.1.1에 의해서 <span class="math notranslate nohighlight">\(\span(v)^\perp\)</span>는 <span class="math notranslate nohighlight">\(T\)</span> invariant임으로 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{aligned} \frak m_{\beta}^{\beta}(T) &amp;= \begin{bmatrix} \frak{m}_\beta(T(\gamma_1)) &amp; \cdots &amp; \frak{m}_\beta(T(\gamma_{n-1})) &amp; \frak{m}_\beta(T(v)) \end{bmatrix} \\&amp;= \begin{bmatrix} \begin{array}{c | c} \begin{array}{} \\ \frak m_\gamma^\gamma(T|_{\span(v)^\perp}) \\  \\ \hline 0 \end{array} &amp; \begin{array}{} a_1 \\ \vdots \\ a_n \end{array} \end{array} \end{bmatrix} \end{aligned} \end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[ \text{Where, } T(v) = a_1 \gamma_1 + \cdots + a_{n-1}\gamma_{n-1} + a_nv \]</div>
 <p>따라서, <span class="math notranslate nohighlight">\(\det(T - a_nI) = 0\)</span>임으로 <span class="math notranslate nohighlight">\(T\)</span>가 split된 1차식 중에는 <span class="math notranslate nohighlight">\((a_n - \lambda)\)</span>가 포함되어 있다.</p>
-<p>이 때, detrminant의 block matrix에 대한 성질에 의해 다음이 성립한다.
-$<span class="math notranslate nohighlight">\(\det(\frak m_{\beta}^{\beta}(T) - \lambda I_n) = \det\Big( m_\gamma^\gamma(T|_{\span(v)^\perp}) - \lambda I_{n-1}\Big)(a_n - \lambda)\)</span>$</p>
+<p>이 때, detrminant의 block matrix에 대한 성질에 의해 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[\det(\frak m_{\beta}^{\beta}(T) - \lambda I_n) = \det\Big( m_\gamma^\gamma(T|_{\span(v)^\perp}) - \lambda I_{n-1}\Big)(a_n - \lambda)\]</div>
 <p>따라서, <span class="math notranslate nohighlight">\(T\)</span>의 split 된 1차식들 중 <span class="math notranslate nohighlight">\((a_n - \lambda)\)</span>제외한 나머지 1차식들로 <span class="math notranslate nohighlight">\(T|_{\span(v)^\perp}\)</span>이 구성되어 있다.</p>
 <p>그럼으로, <span class="math notranslate nohighlight">\(T|_{\span(v)^\perp}\)</span>는 split 된다. <span class="math notranslate nohighlight">\(\qed\)</span></p>
-<section id="id37">
-<h5>보조명제3.1.1<a class="headerlink" href="#id37" title="Link to this heading">#</a></h5>
-<p>다음을 증명하여라.
-$<span class="math notranslate nohighlight">\( \span(v)^\perp \text{ is a } T \text{ invariant} \)</span>$</p>
+<section id="id38">
+<h5>보조명제3.1.1<a class="headerlink" href="#id38" title="Link to this heading">#</a></h5>
+<p>다음을 증명하여라.</p>
+<div class="math notranslate nohighlight">
+\[ \span(v)^\perp \text{ is a } T \text{ invariant} \]</div>
 <p><strong>Proof</strong></p>
-<p><span class="math notranslate nohighlight">\(x \in \span(v)^\perp\)</span>라 하면 다음이 성립한다.
-$<span class="math notranslate nohighlight">\( B(T(x),v) = B(x, T^*(v)) = B(x, \overline\lambda v) = \lambda B(x, v) = 0_\F \)</span>$</p>
+<p><span class="math notranslate nohighlight">\(x \in \span(v)^\perp\)</span>라 하면 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ B(T(x),v) = B(x, T^*(v)) = B(x, \overline\lambda v) = \lambda B(x, v) = 0_\F \]</div>
 <p>임의의 <span class="math notranslate nohighlight">\(x \in \span(v)^\perp\)</span>에 대해, <span class="math notranslate nohighlight">\(T(x)\)</span>와 <span class="math notranslate nohighlight">\(v\)</span>가 수직함으로, <span class="math notranslate nohighlight">\(T(x) \in \span(v)^\perp\)</span>이다.</p>
 <p>따라서, <span class="math notranslate nohighlight">\(\span(v)^\perp\)</span>는 <span class="math notranslate nohighlight">\(T \text{ invariant}\)</span>이다. <span class="math notranslate nohighlight">\(\qed\)</span></p>
-<section id="id38">
-<h6>참고<a class="headerlink" href="#id38" title="Link to this heading">#</a></h6>
+<section id="id39">
+<h6>참고<a class="headerlink" href="#id39" title="Link to this heading">#</a></h6>
 <p><span class="math notranslate nohighlight">\(\span(v)\)</span>는 일반적으로 <span class="math notranslate nohighlight">\(T\)</span> invariant가 아니다.</p>
 </section>
 </section>
 </section>
-<section id="id39">
-<h4>따름명제3.1<a class="headerlink" href="#id39" title="Link to this heading">#</a></h4>
-<p>다음을 증명하여라.
-$<span class="math notranslate nohighlight">\( \text{ every complex matrix is similar to an upper triangular matrix} \)</span>$</p>
+<section id="id40">
+<h4>따름명제3.1<a class="headerlink" href="#id40" title="Link to this heading">#</a></h4>
+<p>다음을 증명하여라.</p>
+<div class="math notranslate nohighlight">
+\[ \text{ every complex matrix is similar to an upper triangular matrix} \]</div>
 <p><strong>Proof</strong></p>
 <p><span class="math notranslate nohighlight">\(A \in M_{nn}(\C)\)</span>가 있다고 하자.</p>
 <p>Fundamental theorem of algebra에 의해 <span class="math notranslate nohighlight">\(\varphi_A(\lambda)\)</span>는 항상 split된다.</p>
 <p>따라서, Schur’s theorem에 의해 <span class="math notranslate nohighlight">\(\frak m_\beta^\beta(L_A)\)</span>가 upper triangular matrix이 되는 orthonormal basis <span class="math notranslate nohighlight">\(\beta\)</span>가 존재한다.</p>
-<p>그럼으로, 다음이 성립한다.
-$<span class="math notranslate nohighlight">\( \begin{aligned} \frak m_\beta^\beta(L_A) &amp;= \frak m_\epsilon^\beta(id) \frak m_\epsilon^\epsilon(L_A) \frak m_\beta^\epsilon(L_A) \\&amp;= C^{-1}AC \end{aligned}  \)</span>$</p>
+<p>그럼으로, 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{aligned} \frak m_\beta^\beta(L_A) &amp;= \frak m_\epsilon^\beta(id) \frak m_\epsilon^\epsilon(L_A) \frak m_\beta^\epsilon(L_A) \\&amp;= C^{-1}AC \end{aligned}  \end{split}\]</div>
 <p>즉, <span class="math notranslate nohighlight">\(\frak m_\beta^\beta(L_A) \sim A\)</span>이다. <span class="math notranslate nohighlight">\(\qed\)</span></p>
 </section>
-<section id="id40">
-<h4>참고1<a class="headerlink" href="#id40" title="Link to this heading">#</a></h4>
-<p><span class="math notranslate nohighlight">\(\frak m_\beta^\beta(T)\)</span>가 다음과 같은 upper triangular matrix로 주어진다고 하자.
-$<span class="math notranslate nohighlight">\( \frak m_\beta^\beta(T) = \begin{bmatrix} a_1 &amp; \cdots &amp; &amp; * \\ &amp; a_2 \\ &amp; &amp; \ddots &amp; \vdots \\ 0 &amp; &amp; &amp; a_n \end{bmatrix} \)</span>$</p>
+<section id="id41">
+<h4>참고1<a class="headerlink" href="#id41" title="Link to this heading">#</a></h4>
+<p><span class="math notranslate nohighlight">\(\frak m_\beta^\beta(T)\)</span>가 다음과 같은 upper triangular matrix로 주어진다고 하자.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \frak m_\beta^\beta(T) = \begin{bmatrix} a_1 &amp; \cdots &amp; &amp; * \\ &amp; a_2 \\ &amp; &amp; \ddots &amp; \vdots \\ 0 &amp; &amp; &amp; a_n \end{bmatrix} \end{split}\]</div>
 <p><span class="math notranslate nohighlight">\(T(\beta_1) = a_1\beta_1\)</span>이 되기 때문에 <span class="math notranslate nohighlight">\(\beta_1\)</span>은 eigen vector, <span class="math notranslate nohighlight">\(a_1\)</span>은 eigen value가 된다.</p>
 </section>
-<section id="id41">
-<h4>참고2<a class="headerlink" href="#id41" title="Link to this heading">#</a></h4>
-<p><span class="math notranslate nohighlight">\(\frak m_\beta^\beta(T)\)</span>가 다음과 같은 upper triangular matrix로 주어진다고 하자.
-$<span class="math notranslate nohighlight">\( \frak m_\beta^\beta(T) = \begin{bmatrix} a_1 &amp; \cdots &amp; &amp; * \\ &amp; a_2 \\ &amp; &amp; \ddots &amp; \vdots \\ 0 &amp; &amp; &amp; a_n \end{bmatrix} \)</span>$</p>
-<p>upper triangular matrix의 determinant 성질에 의해 다음이 성립한다.
-$<span class="math notranslate nohighlight">\( \det(T-\lambda I) = \prod_{i=1}^n (a_i - \lambda) \)</span>$</p>
+<section id="id42">
+<h4>참고2<a class="headerlink" href="#id42" title="Link to this heading">#</a></h4>
+<p><span class="math notranslate nohighlight">\(\frak m_\beta^\beta(T)\)</span>가 다음과 같은 upper triangular matrix로 주어진다고 하자.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \frak m_\beta^\beta(T) = \begin{bmatrix} a_1 &amp; \cdots &amp; &amp; * \\ &amp; a_2 \\ &amp; &amp; \ddots &amp; \vdots \\ 0 &amp; &amp; &amp; a_n \end{bmatrix} \end{split}\]</div>
+<p>upper triangular matrix의 determinant 성질에 의해 다음이 성립한다.</p>
+<div class="math notranslate nohighlight">
+\[ \det(T-\lambda I) = \prod_{i=1}^n (a_i - \lambda) \]</div>
 <p>따라서, <span class="math notranslate nohighlight">\(a_1, \cdots, a_n\)</span>은 eigenvalue가 된다.</p>
 </section>
 </section>
@@ -1694,27 +1733,28 @@ $<span class="math notranslate nohighlight">\( \det(T-\lambda I) = \prod_{i=1}^n
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#riesz-representation">명제7(Riesz representation)</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">참고1</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">참고2</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">따름명제1</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">참고</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">참고3</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">따름명제1</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">참고</a></li>
 </ul>
 </li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">따름명제2</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">참고</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">따름명제2</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">참고</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#schur-s-theorem">명제3(Schur’s theorem)</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">보조명제3.1</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">보조명제3.1.1</a><ul class="nav section-nav flex-column">
-<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">참고</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">보조명제3.1</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">보조명제3.1.1</a><ul class="nav section-nav flex-column">
+<li class="toc-h6 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">참고</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">따름명제3.1</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">참고1</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">참고2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">따름명제3.1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">참고1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">참고2</a></li>
 </ul>
 </li>
 </ul>

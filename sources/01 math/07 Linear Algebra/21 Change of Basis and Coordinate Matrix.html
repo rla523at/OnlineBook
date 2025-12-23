@@ -676,6 +676,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/21%20CMake.html">Cmake</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/30%20OpenMP.html">OpenMP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/51%20Visual%20Studio%20Code.html">Visual Studio Code</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../03%20programming/99%20ETC/99%20CodingTest/CodingTest.html">CodingTest</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../03%20programming/99%20ETC/99%20CodingTest/Day1.html">Day1</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/Algorithm.html">Algorithm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/ARM.html">ARM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../03%20programming/99%20ETC/Batch.html">Batch</a></li>
@@ -870,11 +874,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-of-basis-motivation">Change of Basis(Motivation)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-of-basis-definition">Change of Basis(Definition)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">명제1</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reamark">Reamark</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">참고1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">참고2</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">명제2</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">보조정리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">명제2</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">보조정리</a></li>
 </ul>
 </li>
 </ul>
@@ -883,13 +888,13 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-of-coordinate-definition">Change of Coordinate(Definition)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#similar-motivation">Similar(Motivation)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#similar-defintion">Similar(Defintion)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">참고</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">명제1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">명제2</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">명제3</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">명제4</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">명제5</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">따름명제</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">참고</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">명제1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">명제2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">명제3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">명제4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">명제5</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">따름명제</a></li>
 </ul>
 </li>
 </ul>
@@ -941,16 +946,24 @@ document.write(`
 \end{gather*} 
 \end{split}\]</div>
 <p>따라서, <span class="math notranslate nohighlight">\([id]^\beta_\gamma\)</span>와 <span class="math notranslate nohighlight">\([id]^\gamma_\beta\)</span>는 역행렬 관계에 있다. <span class="math notranslate nohighlight">\(\qed\)</span></p>
-<section id="reamark">
-<h4>Reamark<a class="headerlink" href="#reamark" title="Link to this heading">#</a></h4>
+<section id="id2">
+<h4>참고1<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
 <ol class="arabic simple">
 <li><p>모든 change of basis matrix는 invertible matrix이다.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\beta\)</span>를 <span class="math notranslate nohighlight">\(\gamma\)</span>로 바꾸는 change of basis matrix와 <span class="math notranslate nohighlight">\(\gamma\)</span>를 <span class="math notranslate nohighlight">\(\beta\)</span>로 바꾸는 change of basis matrix는 역행렬 관계를 갖는다.</p></li>
 </ol>
 </section>
+<section id="id3">
+<h4>참고2<a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
+<p><span class="math notranslate nohighlight">\(\R^n\)</span> 에서 임의의 basis <span class="math notranslate nohighlight">\(\beta,\gamma\)</span> 가 주어졌을 때, change of basis matrix 를 구체적으로 계산하는 방법을 생각해보자.</p>
+<p><span class="math notranslate nohighlight">\([id]^\beta_\gamma = [ [\gamma_1]_\beta, \cdots, [\gamma_n]_\beta]\)</span> 인데 <span class="math notranslate nohighlight">\([\gamma_i]_\beta\)</span> 를 구하는게 쉽지 않다. 따라서, 다음과 같이 우회한다.</p>
+<div class="math notranslate nohighlight">
+\[ [id]^\beta_\gamma = [id \circ id]^\beta_\gamma = [id]^\beta_\epsilon[id]^\epsilon_\gamma = ([id]^\epsilon_\beta)^{-1}[id]^\epsilon_\gamma \]</div>
+<p><span class="math notranslate nohighlight">\([id]^\epsilon_{\beta,\gamma}\)</span> 는 쉽게 계산할 수 있음으로 chagne of basis matrix 또한 쉽게 계산할 수 있다.</p>
 </section>
-<section id="id2">
-<h3>명제2<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+</section>
+<section id="id4">
+<h3>명제2<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>다음을 증명하여라.</p>
 <div class="math notranslate nohighlight">
 \[ \text{Every invertible matrix is a change of basis matrix of } \F^n \]</div>
@@ -958,8 +971,8 @@ document.write(`
 <p>임의의 가역행렬을 <span class="math notranslate nohighlight">\(A \in M_{n \times n}(\F)\)</span>라 하자.</p>
 <p><span class="math notranslate nohighlight">\(A\)</span>의 <span class="math notranslate nohighlight">\(i\)</span> column을 <span class="math notranslate nohighlight">\(A_{*i}\)</span>라고 할 때, <span class="math notranslate nohighlight">\(A\)</span>는 invertible matrix임으로  <span class="math notranslate nohighlight">\(\beta=[A_{*1}, \cdots, A_{*n}]\)</span>은 <span class="math notranslate nohighlight">\(\mathbb F^n\)</span>의 기저이다.</p>
 <p>그러면 <span class="math notranslate nohighlight">\(A = [id]_\beta^{\epsilon}\)</span>이다. 즉, <span class="math notranslate nohighlight">\(A\)</span>는 <span class="math notranslate nohighlight">\(\epsilon\)</span>을 <span class="math notranslate nohighlight">\(\beta\)</span>로 바꿔주는 change of basis matrix이다. <span class="math notranslate nohighlight">\(\qed\)</span></p>
-<section id="id3">
-<h4>보조정리<a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
+<section id="id5">
+<h4>보조정리<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
 <p>임의의 가역행렬을 <span class="math notranslate nohighlight">\(A \in M_{n \times n}(\F)\)</span>라 하자.</p>
 <p><span class="math notranslate nohighlight">\(A\)</span>의 column의 집합을 <span class="math notranslate nohighlight">\(\beta\)</span>라고 할 때, 다음을 증명하여라.</p>
 <div class="math notranslate nohighlight">
@@ -1028,13 +1041,13 @@ document.write(`
 <p>이 때, 다음이 성립하는 경우 <span class="math notranslate nohighlight">\(M\)</span>과 <span class="math notranslate nohighlight">\(N\)</span>이 서로 <code class="docutils literal notranslate"><span class="pre">닮았다(similar)</span></code>라고 하고 <span class="math notranslate nohighlight">\(M \sim N\)</span>라고 표기한다.</p>
 <div class="math notranslate nohighlight">
 \[ \exist B \in M_{nn}(\F) \st M = B^{-1}NB  \]</div>
-<section id="id4">
-<h3>참고<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<section id="id6">
+<h3>참고<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <p><span class="math notranslate nohighlight">\(M,N\)</span>이 어떤 linear map의 두 기저에 대한 matrix representation이라고 할 때, <span class="math notranslate nohighlight">\(\exist B \in M_{nn}(\F) \st M = B^{-1}NB\)</span>가 성립하는지보자. 두 기저 사이의 change of basis matrix <span class="math notranslate nohighlight">\(B\)</span>가 존재하고 motivation에서 <span class="math notranslate nohighlight">\(M = B^{-1}NB\)</span>를 만족한다는 것을 보았다. 따라서, <span class="math notranslate nohighlight">\(\exist B \in M_{nn}(\F) \st M = B^{-1}NB\)</span>가 성립한다.</p>
 <p>이번에는 반대로 <span class="math notranslate nohighlight">\(\exist B \in M_{nn}(\F) \st M = B^{-1}NB\)</span>일 때, <span class="math notranslate nohighlight">\(M,N\)</span>이 어떤 linear map의 두 기저에 대한 matrix representation인지 보자. 모든 invertible matrix는 change of basis matrix임으로, <span class="math notranslate nohighlight">\(\beta \rightarrow \gamma\)</span> change of basis matrix가 <span class="math notranslate nohighlight">\(B\)</span>가 되게 하는 <span class="math notranslate nohighlight">\(\beta,\gamma\)</span>를 임의로 결정하자. 그리고 <span class="math notranslate nohighlight">\(N = [T]_\beta^\beta\)</span>가 되게 <span class="math notranslate nohighlight">\(T\)</span>를 결정하면 <span class="math notranslate nohighlight">\(M = B^{-1}NB = [id]^\gamma_\beta[T]^\beta_\beta[id]^\beta_\gamma = [T]_\gamma^\gamma\)</span>가 된다. 따라서, <span class="math notranslate nohighlight">\(M,N\)</span>은 <span class="math notranslate nohighlight">\(T\)</span>의 서로다른 기저에서의 matrix representation이 됨을 볼 수 있다.</p>
 </section>
-<section id="id5">
-<h3>명제1<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<section id="id7">
+<h3>명제1<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
 <p><span class="math notranslate nohighlight">\(M,N \in M_{nn}(\F)\)</span>가 있을 때, 다음을 증명하여라.</p>
 <div class="math notranslate nohighlight">
 \[ M \sim N \iff \exist \beta \quad s.t. \quad [L_N]^\beta_\beta = M \]</div>
@@ -1058,8 +1071,8 @@ M &amp;= [L_N]^\beta_\beta \\
 \end{align*} 
 \)</span>$</p>
 </section>
-<section id="id6">
-<h3>명제2<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<section id="id8">
+<h3>명제2<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <p><span class="math notranslate nohighlight">\(M,N \in M_{nn}(\F)\)</span>가 있을 때, <span class="math notranslate nohighlight">\(M \sim N\)</span>라 하자.</p>
 <p>이 때, 다음을 증명하여라.</p>
 <div class="math notranslate nohighlight">
@@ -1069,8 +1082,8 @@ M &amp;= [L_N]^\beta_\beta \\
 <div class="math notranslate nohighlight">
 \[ \det(M) = \det(B^{-1}NB) = \det(B^{-1})\det(N)\det(B) = \det({B^{-1}B})\det(N) = \det(N) \qed \]</div>
 </section>
-<section id="id7">
-<h3>명제3<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<section id="id9">
+<h3>명제3<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
 <p><span class="math notranslate nohighlight">\(M,N \in M_{nn}(\F)\)</span>가 있을 때, <span class="math notranslate nohighlight">\(M \sim N\)</span>라 하자.</p>
 <p>이 때, 다음을 증명하여라.</p>
 <div class="math notranslate nohighlight">
@@ -1080,8 +1093,8 @@ M &amp;= [L_N]^\beta_\beta \\
 <div class="math notranslate nohighlight">
 \[ \tr(M) = \tr(B^{-1}NB) = \tr(BB^{-1}N) = \tr(N) \qed  \]</div>
 </section>
-<section id="id8">
-<h3>명제4<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<section id="id10">
+<h3>명제4<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
 <p><span class="math notranslate nohighlight">\(M,N \in M_{nn}(\F)\)</span>가 있을 때, <span class="math notranslate nohighlight">\(M \sim N\)</span>라 하자.</p>
 <p>이 때, 다음을 증명하여라.</p>
 <div class="math notranslate nohighlight">
@@ -1090,8 +1103,8 @@ M &amp;= [L_N]^\beta_\beta \\
 <div class="math notranslate nohighlight">
 \[ \tr(M^2) = \tr(B^{-1}NBB^{-1}NB) = \tr(B^{-1}N^2B) = \tr(N^2)  \qed  \]</div>
 </section>
-<section id="id9">
-<h3>명제5<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<section id="id11">
+<h3>명제5<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
 <p><span class="math notranslate nohighlight">\(M,N \in M_{nn}(\F)\)</span>가 있을 때, <span class="math notranslate nohighlight">\(M \sim N\)</span>라 하자.</p>
 <p><span class="math notranslate nohighlight">\(c_1,c_2 \in \F\)</span>에 대해, 다음을 증명하여라.</p>
 <div class="math notranslate nohighlight">
@@ -1108,8 +1121,8 @@ B^{-1}(c_1N + c_2I)B &amp;= c_1B^{-1}NB + c_2I \\
 &amp;= c_1M + c_2I \qed 
 \end{align*} 
 \end{split}\]</div>
-<section id="id10">
-<h4>따름명제<a class="headerlink" href="#id10" title="Link to this heading">#</a></h4>
+<section id="id12">
+<h4>따름명제<a class="headerlink" href="#id12" title="Link to this heading">#</a></h4>
 <p><span class="math notranslate nohighlight">\(X_m = \tr(X) / 3\)</span>로 정의할 떄, 다음을 증명하여라.</p>
 <div class="math notranslate nohighlight">
 \[ (M - M_mI) \sim (N - N_m I) \]</div>
@@ -1191,11 +1204,12 @@ B^{-1}(c_1N + c_2I)B &amp;= c_1B^{-1}NB + c_2I \\
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-of-basis-motivation">Change of Basis(Motivation)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-of-basis-definition">Change of Basis(Definition)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">명제1</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reamark">Reamark</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">참고1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">참고2</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">명제2</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">보조정리</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">명제2</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">보조정리</a></li>
 </ul>
 </li>
 </ul>
@@ -1204,13 +1218,13 @@ B^{-1}(c_1N + c_2I)B &amp;= c_1B^{-1}NB + c_2I \\
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-of-coordinate-definition">Change of Coordinate(Definition)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#similar-motivation">Similar(Motivation)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#similar-defintion">Similar(Defintion)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">참고</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">명제1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">명제2</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">명제3</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">명제4</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">명제5</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">따름명제</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">참고</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">명제1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">명제2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">명제3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">명제4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">명제5</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">따름명제</a></li>
 </ul>
 </li>
 </ul>

@@ -41,9 +41,18 @@ $$
 
 따라서, $[id]^\beta_\gamma$와 $[id]^\gamma_\beta$는 역행렬 관계에 있다. $\qed$
 
-#### Reamark
+#### 참고1
 1. 모든 change of basis matrix는 invertible matrix이다.
 2. $\beta$를 $\gamma$로 바꾸는 change of basis matrix와 $\gamma$를 $\beta$로 바꾸는 change of basis matrix는 역행렬 관계를 갖는다.
+
+#### 참고2
+$\R^n$ 에서 임의의 basis $\beta,\gamma$ 가 주어졌을 때, change of basis matrix 를 구체적으로 계산하는 방법을 생각해보자.
+
+$[id]^\beta_\gamma = [ [\gamma_1]_\beta, \cdots, [\gamma_n]_\beta]$ 인데 $[\gamma_i]_\beta$ 를 구하는게 쉽지 않다. 따라서, 다음과 같이 우회한다.
+
+$$ [id]^\beta_\gamma = [id \circ id]^\beta_\gamma = [id]^\beta_\epsilon[id]^\epsilon_\gamma = ([id]^\epsilon_\beta)^{-1}[id]^\epsilon_\gamma $$
+
+$[id]^\epsilon_{\beta,\gamma}$ 는 쉽게 계산할 수 있음으로 chagne of basis matrix 또한 쉽게 계산할 수 있다.
 
 ### 명제2
 다음을 증명하여라.
