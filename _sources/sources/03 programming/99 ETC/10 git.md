@@ -197,3 +197,30 @@ fast forward가 가능하기 때문에 merge commit 없이 fast forward merge를
 ## Git LFS
 > Reference  
 > [Blog](https://newsight.tistory.com/330)
+
+## Commit Message 수정하기
+주의사항
+* commit message 를 바꾸면 새로운 commit 이 생성되는 거라서 commit 순서가 뒤죽박죽이 된다.
+
+### Fork 에서 Commit Message 수정하기
+수정하고자 하는 commit >> 오른쪽 클릭 >> Interactive Rebase >> Reword >> commit message 수정 >> rebase 
+
+### Merge Commit 의 Commit Message 수정 방법
+merge commit 을 바꾸려면 일반 `git rebase -i`가 아니라 보통 `--rebase-merges`가 필요하다.
+1. 수정할 merge commit 이 포함되도록 interactive rebase 시작
+    ```bash
+    git rebase -i --rebase-merges HEAD~5
+    ```
+
+2. 열린 todo 화면에서 해당 merge 줄을 찾는다
+    이 줄의 `-C`를 `-c`로 바꾼다.
+    ```text
+    merge -C 05d5f45 some-label # 변경전
+
+    merge -c 05d5f45 some-label # 변경 후
+    ```
+    의미는 다음과 같다.
+    * `-C` : 기존 merge commit message 그대로 사용
+    * `-c` : 기존 message를 기반으로 열어서 수정
+
+3. 다음으로 뜨는 commit message 편집 화면에서 메시지 수정

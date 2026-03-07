@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Git &#8212; MS Study Book</title>
+    <title>JavaScript &#8212; MS Study Book</title>
   
   
   
@@ -58,12 +58,12 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/99 ETC/10 git';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'sources/03 programming/99 ETC/JavaScript';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Visual Studio" href="11%20Visual%20Studio.html" />
-    <link rel="prev" title="Procedural Programming" href="1%20OOP.html" />
+    <link rel="next" title="Linux" href="Linux.html" />
+    <link rel="prev" title="Cache Policy" href="Cache.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -672,7 +672,7 @@
 
 
 
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10%20git.html">Git</a></li>
 <li class="toctree-l2"><a class="reference internal" href="11%20Visual%20Studio.html">Visual Studio</a></li>
 <li class="toctree-l2"><a class="reference internal" href="12%20Clang-format.html">Clang-format</a></li>
 <li class="toctree-l2"><a class="reference internal" href="13%20vcpkg.html">vcpkg</a></li>
@@ -689,7 +689,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ARM.html">ARM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Batch.html">Batch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Cache.html">Cache Policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="JavaScript.html">JavaScript</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">JavaScript</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Linux.html">Linux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MacProgramming.html">Protocol</a></li>
 
@@ -783,7 +783,7 @@
       
       
       
-      <li><a href="../../../_sources/sources/03 programming/99 ETC/10 git.md" target="_blank"
+      <li><a href="../../../_sources/sources/03 programming/99 ETC/JavaScript.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -867,7 +867,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Git</h1>
+    <h1>JavaScript</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -877,50 +877,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-directory">Git Directory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#staging-area">Staging Area</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-directory">Working Directory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snapshot-hash">Snapshot Hash</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">명령어</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Git 설정</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#global">Global 설정</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">명령어</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">로그 보기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">파일 비교</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">리모트 저장소</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">명령어</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">브랜치</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stash">Stash</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">명령어</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#git-stash">git stash</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#git-stash-list">git stash list</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#git-stash-apply-stash-name">git stash apply [stash name]</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">커밋 되돌리기</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reset">Reset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">명령어</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merge">Merge</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">명령어</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gitignore">.gitignore</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-lfs">Git LFS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-message">Commit Message 수정하기</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fork-commit-message">Fork 에서 Commit Message 수정하기</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-commit-commit-message">Merge Commit 의 Commit Message 수정 방법</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proxy">Proxy</a></li>
 </ul>
             </nav>
         </div>
@@ -932,282 +889,153 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="git">
-<h1>Git<a class="headerlink" href="#git" title="Link to this heading">#</a></h1>
-<section id="git-directory">
-<h2>Git Directory<a class="headerlink" href="#git-directory" title="Link to this heading">#</a></h2>
-<p>Git Directory는 현재 작업중인 로컬 데이터베이스에 존재하는 저장소로써, 프로젝트의 메타데이터와 객체 데이터를 저장하는 곳이다.</p>
-</section>
-<section id="staging-area">
-<h2>Staging Area<a class="headerlink" href="#staging-area" title="Link to this heading">#</a></h2>
-<p>Git Directory 내부에 있는 영역으로써, 파일을 이곳에 <code class="docutils literal notranslate"><span class="pre">stage</span></code>시킴으로써 <code class="docutils literal notranslate"><span class="pre">commit</span></code>할 <code class="docutils literal notranslate"><span class="pre">snapshot</span></code>을 만든다. 이후에 commit을 통해 Git Directory에 snapshot을 저장한다.</p>
-</section>
-<section id="working-directory">
-<h2>Working Directory<a class="headerlink" href="#working-directory" title="Link to this heading">#</a></h2>
-<p>Working Directory의 모든 파일은 크게 <code class="docutils literal notranslate"><span class="pre">Tracked(관리대상임)</span></code>와 <code class="docutils literal notranslate"><span class="pre">Untracked(관리대상이</span> <span class="pre">아님)</span></code>로 나눈다.</p>
-<p>Tracked 파일은 또 <code class="docutils literal notranslate"><span class="pre">Commited</span></code>(Git Directory의 상태와 동일)와 <code class="docutils literal notranslate"><span class="pre">Modified</span></code>(Git Directory의 상태에서 변경이 발생) 그리고 <code class="docutils literal notranslate"><span class="pre">Staged</span></code>(commit으로 Git Directory에 새롭게 기록 예정) 상태 중 하나이다.</p>
-<p>그리고 나머지 파일은 모두 Untracked 파일이다.</p>
-</section>
-<section id="snapshot-hash">
-<h2>Snapshot Hash<a class="headerlink" href="#snapshot-hash" title="Link to this heading">#</a></h2>
-<p>Git은 모든 snapshot을 commit하기 전에 항상 체크섬을 구하고 그 체크섬으로 데이터를 관리한다.</p>
-<p>체크섬은 SHA-1 해시를 사용하여 만들어진다. 만든 체크섬은 40자 길이의 16진수 문자열이며 파일의 내용이나 디렉토리 구조를 이용하여 체크섬을 구한다.</p>
-<p>체크섬은 아래와 같이 생겼다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">24</span><span class="n">b9da6552252987aa493b52f8696cd6d3b00373</span>
-</pre></div>
-</div>
-<p>이 떄, 다양한 명령어에서 commit된 snapshot에 접근할 때 SHA-1 해시를 이용해서 접근할수 있으며 명령어에서는 체크섬의 앞 5자만 입력해도 된다.</p>
-<section id="id1">
-<h3>명령어<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">restore</span> <span class="pre">--staged</span> <span class="pre">./</span></code><br />
-Staging Area에 있는 모든 파일을 다시 unstage</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rm</span> <span class="pre">--cached</span> <span class="pre">-r</span> <span class="pre">./</span></code>
-Traced 파일을 Untracked 파일로 바꿈</p></li>
-</ul>
-</section>
-</section>
-<section id="id2">
-<h2>Git 설정<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>local config file –&gt; 현재 git repository<br />
-global config file –&gt; 모든 git repository</p>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://kotlinworld.com/302">블로그 - config file의 구성과 조작</a></p>
-</div></blockquote>
-<section id="global">
-<h3>Global 설정<a class="headerlink" href="#global" title="Link to this heading">#</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[user]
-  name = Kim Minseok
-  email = rla523at@naver.com
-[core]
-  editor = \&quot;C:\\Users\\김민석\\AppData\\Local\\Programs\\Microsoft VS Code\\bin\\code\&quot; --wait
-[diff]
-  tool = vscode
-[difftool &quot;vscode&quot;]
-  cmd = code --wait --diff $LOCAL $REMOTE
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>[user] : user 정보 설정</p></li>
-<li><p>[core] : vscode를 editor로 설정</p></li>
-<li><p>[diff] &amp; [difftool “vscode”] : vscode를 difftool로 설정</p></li>
-</ul>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://november11tech.tistory.com/168">블로그 - vscode를 git diff 툴로 활용하기</a></p>
-</div></blockquote>
-</section>
-<section id="id3">
-<h3>명령어<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">--list</span></code><br />
-설정 확인</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">--global</span> <span class="pre">-e</span></code><br />
-global config file editor로 열기</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">--local</span> <span class="pre">-e</span></code><br />
-local config file editor로 열기</p></li>
-</ul>
-</section>
-</section>
-<section id="id4">
-<h2>로그 보기<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">[filename]</span></code>
-특정 파일의 log 보기</p></li>
-<li></li>
-</ul>
-</section>
-<section id="id5">
-<h2>파일 비교<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">difftool</span></code><br />
-modifed 상태인 파일이 Git Directory에 저장된 snapshot과 어떤 차이가 있는지 diff tool을 이용해서 보여준다.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">difftool</span> <span class="pre">--staged</span></code><br />
-staged 상태인 파일이 Git Directory에 저장된 snapshot과 어떤 차이가 있는지 diff tool을 이용해서 보여준다.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">difftool</span> <span class="pre">[filename]</span></code>
-modifed 상태와 Git Directory에 저장된 snapshot과 어떤 차이가 있는지 diff tool을 이용해서 보여준다.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">difftool</span> <span class="pre">[commit</span> <span class="pre">hash]</span> <span class="pre">[filename]</span></code>
-commit hash의 상태와 Git Directory에 저장된 snapshot과 어떤 차이가 있는지 diff tool을 이용해서 보여준다.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">difftool</span> <span class="pre">[commit</span> <span class="pre">hash1]</span> <span class="pre">[commit</span> <span class="pre">hash2]</span> <span class="pre">[filename]</span></code>
-commit hash의 상태와 Git Directory에 저장된 snapshot과 어떤 차이가 있는지 diff tool을 이용해서 보여준다.</p></li>
-<li></li>
-</ul>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://nochoco-lee.tistory.com/67">blog</a></p>
-</div></blockquote>
-</section>
-<section id="id6">
-<h2>리모트 저장소<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
-<p>리모트 저장소(서버)는 인터넷이나 네트워크 어딘가에 있는 저장소를 말한다.</p>
-<p>다른 사람들과 함께 일한다는 것은 리모트 저장소를 관리하면서 데이터를 거기에 Push 하고 Pull 하는 것이다. 리모트 저장소를 관리한다는 것은 저장소를 추가, 삭제하는 것뿐만 아니라 브랜치를 관리하고 추적할지 말지 등을 관리하는 것을 말한다.</p>
-<section id="id7">
-<h3>명령어<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span></code><br />
-현재 프로젝트에 등록된 리모트 저장소를 확인</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">-v</span></code><br />
-리모트 저장소의 URL을 확인하는 옵션</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">add</span> <span class="pre">[remote</span> <span class="pre">name]</span> <span class="pre">[url]</span></code><br />
-기존 워킹 디렉토리에 remote name이라는 이름을 갖는 새 리모트 저장소 추가</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span> <span class="pre">[remote</span> <span class="pre">name]</span></code><br />
-[ref] (Scott Cahcon et al) Pro Git 리모트 브랜치 부분 참고<br />
-로컬에는 없지만, 리모트 저장소에는 있는 데이터를 모두 가져오며 과정은 다음과 같다.</p>
-<ol class="arabic simple">
-<li><p>리모트 저장소에 로컬의 저장소가 갖고 있지 않은 새로운 정보(커밋, 브랜치)를 모두 내려받는다.</p></li>
-<li><p>리모트 저장소의 새로운 브랜치를 받았다면 레퍼런스인 리모트 브랜치를 “remote name/branch name”이라는 이름으로 만든다.</p></li>
-<li><p>기존에 리모트 브랜치가 있었던 경우 리모트 브랜치가 최신 커밋을 가르키게 한다.</p></li>
-</ol>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">rename</span> <span class="pre">[old</span> <span class="pre">name]</span> <span class="pre">[new</span> <span class="pre">name]</span></code><br />
-리모트 저장소의 이름을 변경</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span> <span class="pre">[remote-name]/[branch-name]</span></code></p></li>
-</ul>
-</section>
-</section>
-<section id="id8">
-<h2>브랜치<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">branch</span> <span class="pre">-u</span> <span class="pre">[remote-name]/[branch-name]</span></code><br />
-현재 로컬 브랜치가 리모트 저장소의 특정 브랜치를 추적하게 한다.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">show</span> <span class="pre">[remove-name]</span></code>
-리모트 저장소의 브랜치들을 전부 보여준다.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">[remote-name]</span> <span class="pre">-d</span> <span class="pre">[branch-name]</span></code></p>
-<ul>
-<li><p>리모트 브랜치 삭제</p></li>
-</ul>
-</li>
-</ul>
-</section>
-<section id="stash">
-<h2>Stash<a class="headerlink" href="#stash" title="Link to this heading">#</a></h2>
-<p>Stash는 Modified이면서 Tracked 상태인 파일과 Staging Area에 있는 파일들을 보관해두는 장소다.</p>
-<section id="id9">
-<h3>명령어<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
-<section id="git-stash">
-<h4>git stash<a class="headerlink" href="#git-stash" title="Link to this heading">#</a></h4>
-<p>스택에 새로운 stash가 만들어지고 워킹 디렉토리가 깨끗해진다.</p>
-</section>
-<section id="git-stash-list">
-<h4>git stash list<a class="headerlink" href="#git-stash-list" title="Link to this heading">#</a></h4>
-<p>스택에 젖아된 stash를 확인할 수 있다.</p>
-</section>
-<section id="git-stash-apply-stash-name">
-<h4>git stash apply [stash name]<a class="headerlink" href="#git-stash-apply-stash-name" title="Link to this heading">#</a></h4>
-<p>stash list에 있는 stash 중 stash name과 동일한 stash를 적용한다.</p>
-<p>만약 이름 없이 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">stash</span> <span class="pre">apply</span></code>만 할 경우 가장 최근의 stash를 적용한다.</p>
-<blockquote>
-<div><p>Reference<br />
-<span id="id10">[<a class="reference internal" href="../../99%20References/references.html#id4" title="Scott Chacon and Ben Straub. ProGit. Apress, 2 edition, 2018.">Chacon and Straub, 2018</a>]</span> 218p</p>
-</div></blockquote>
-</section>
-</section>
-</section>
-<section id="id11">
-<h2>커밋 되돌리기<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
-<section id="reset">
-<h3>Reset<a class="headerlink" href="#reset" title="Link to this heading">#</a></h3>
-<figure class="align-default">
-<img alt="../../../_images/1001.png" src="../../../_images/1001.png" />
-</figure>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://sdardew-valley.tistory.com/189">blog</a></p>
-</div></blockquote>
-</section>
-<section id="id12">
-<h3>명령어<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">--amend</span></code><br />
-완료한 커밋을 수정해야 될 때</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">revert</span> <span class="pre">[커밋해시코드]</span></code><br />
-해당 커밋 버전으로 돌아간 상태를 새로 커밋</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">reset</span> <span class="pre">--hard</span> <span class="pre">[커밋해시코드]</span></code><br />
-해당 커밋 버전으로 돌아가고 이후의 커밋들을 전부 삭제</p></li>
-</ul>
-<blockquote>
-<div><p>참고<br />
-Progit &gt;&gt; Git 도구 &gt;&gt; Reset 명확히 알고 가기</p>
-</div></blockquote>
-</section>
-</section>
-<section id="merge">
-<h2>Merge<a class="headerlink" href="#merge" title="Link to this heading">#</a></h2>
-<p>branch에서 master branch를 merge한 뒤,</p>
-<p>master에서 branch를 merge할 때에는 fast-forward 가능해도 commit 생성으로 해야 git branch 그래프가 예쁘게 유지된다.(git master branch가 계속해서 main branch로 그림에 표시된다)</p>
-<p>예를 들어 아래 그림을 보자.</p>
-<figure class="align-default">
-<img alt="../../../_images/1002.png" src="../../../_images/1002.png" />
-</figure>
-<p>branch1에서 작업을 다하고, master를 merge에서 conflict를 다해 결한 상황이 첫번째 그래프이다.</p>
-<p>이 떄, master에서 branch1을 merge한다고 해보자.</p>
-<p>fast forward가 가능하기 때문에 merge commit 없이 fast forward merge를 할 경우 맨 왼쪽 그래프가 master branch가 아니라 branch1이 되어버린 두번째 그래프가 된다.</p>
-<p>따라서, fast forward가 가능하더라도 commit을 생성해야 세번째 그래프와 같이 맨 왼쪽 그래프가 master branch로 유지된다.</p>
-<section id="id13">
-<h3>명령어<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span> <span class="pre">--no-ff</span> <span class="pre">[병합할</span> <span class="pre">브랜치</span> <span class="pre">명]</span></code>
-현재 브랜치와 병합할 브랜치의 관계가 Fast-forward이던 아니던 무조건 Merge 커밋과 같이 병합되는 옵션</p></li>
-</ul>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://minemanemo.tistory.com/46">blog</a></p>
-</div></blockquote>
-</section>
-</section>
-<section id="gitignore">
-<h2>.gitignore<a class="headerlink" href="#gitignore" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>folder/**
-폴더 안에 파일들 전부 무시하기</p></li>
-</ul>
-</section>
-<section id="git-lfs">
-<h2>Git LFS<a class="headerlink" href="#git-lfs" title="Link to this heading">#</a></h2>
-<blockquote>
-<div><p>Reference<br />
-<a class="reference external" href="https://newsight.tistory.com/330">Blog</a></p>
-</div></blockquote>
-</section>
-<section id="commit-message">
-<h2>Commit Message 수정하기<a class="headerlink" href="#commit-message" title="Link to this heading">#</a></h2>
-<p>주의사항</p>
-<ul class="simple">
-<li><p>commit message 를 바꾸면 새로운 commit 이 생성되는 거라서 commit 순서가 뒤죽박죽이 된다.</p></li>
-</ul>
-<section id="fork-commit-message">
-<h3>Fork 에서 Commit Message 수정하기<a class="headerlink" href="#fork-commit-message" title="Link to this heading">#</a></h3>
-<p>수정하고자 하는 commit &gt;&gt; 오른쪽 클릭 &gt;&gt; Interactive Rebase &gt;&gt; Reword &gt;&gt; commit message 수정 &gt;&gt; rebase</p>
-</section>
-<section id="merge-commit-commit-message">
-<h3>Merge Commit 의 Commit Message 수정 방법<a class="headerlink" href="#merge-commit-commit-message" title="Link to this heading">#</a></h3>
-<p>merge commit 을 바꾸려면 일반 <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">rebase</span> <span class="pre">-i</span></code>가 아니라 보통 <code class="docutils literal notranslate"><span class="pre">--rebase-merges</span></code>가 필요하다.</p>
-<ol class="arabic">
-<li><p>수정할 merge commit 이 포함되도록 interactive rebase 시작</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>rebase<span class="w"> </span>-i<span class="w"> </span>--rebase-merges<span class="w"> </span>HEAD~5
-</pre></div>
-</div>
-</li>
-<li><p>열린 todo 화면에서 해당 merge 줄을 찾는다
-이 줄의 <code class="docutils literal notranslate"><span class="pre">-C</span></code>를 <code class="docutils literal notranslate"><span class="pre">-c</span></code>로 바꾼다.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>merge -C 05d5f45 some-label # 변경전
+  <section class="tex2jax_ignore mathjax_ignore" id="javascript">
+<h1>JavaScript<a class="headerlink" href="#javascript" title="Link to this heading">#</a></h1>
+<section id="proxy">
+<h2>Proxy<a class="headerlink" href="#proxy" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Proxy</span></code>는 자바스크립트에서 객체에 대한 접근을 가로채서 원하는 방식으로 동작을 바꿀 수 있게 해주는 기능이다.</p>
+<p>즉, 원래 객체를 직접 쓰는 대신, 그 객체 앞에 “중간 관리자”를 하나 두는 개념으로 보면 된다.</p>
+<p>예를 들어 보통 객체는 이렇게 동작한다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">a</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="p">}</span>
 
-merge -c 05d5f45 some-label # 변경 후
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">a</span><span class="p">)</span><span class="w"> </span><span class="c1">// 1</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="c1">// undefined</span>
 </pre></div>
 </div>
-<p>의미는 다음과 같다.</p>
+<p>그런데 <code class="docutils literal notranslate"><span class="pre">Proxy</span></code>를 쓰면 <code class="docutils literal notranslate"><span class="pre">obj.b</span></code>처럼 없는 값을 읽으려 할 때 그냥 <code class="docutils literal notranslate"><span class="pre">undefined</span></code>를 주지 않고, 에러를 던지거나 로그를 남기거나, 다른 값을 대신 반환하게 만들 수 있다.</p>
+<p>형태는 대략 이렇다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">proxy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Proxy</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>각 부분은 다음과 같다.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">-C</span></code> : 기존 merge commit message 그대로 사용</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-c</span></code> : 기존 message를 기반으로 열어서 수정</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target</span></code></p>
+<ul>
+<li><p>원래 감싸고 싶은 객체이다.</p></li>
 </ul>
 </li>
-<li><p>다음으로 뜨는 commit message 편집 화면에서 메시지 수정</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">handler</span></code></p>
+<ul>
+<li><p>어떤 동작을 가로챌지 정의하는 객체이다.</p></li>
+<li><p>예를 들어 속성 읽기, 쓰기, 삭제, 함수 호출 등을 가로챌 수 있다.</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>지금 코드에서 핵심은 이것이다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">ROUTE_VALUES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">freeze</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">login</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;/login&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">wages</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;/user/wages&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">changePassword</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;/user/change-password&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">uploads</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;/admin/upload&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">users</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;/admin/users&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">dbTables2</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;/admin/db&#39;</span><span class="p">,</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>이 객체는 실제 라우트 문자열들을 저장하고 있다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Object.freeze(...)</span></code>는 이 객체를 수정하지 못하게 만든다.</p>
+<p>즉 아래 같은 코드는 막힌다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">ROUTE_VALUES</span><span class="p">.</span><span class="nx">login</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/new-login&#39;</span><span class="w"> </span><span class="c1">// 변경 안 됨</span>
+<span class="nx">ROUTE_VALUES</span><span class="p">.</span><span class="nx">newRoute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/abc&#39;</span><span class="w">    </span><span class="c1">// 추가 안 됨</span>
+</pre></div>
+</div>
+<p>그래서 <code class="docutils literal notranslate"><span class="pre">ROUTE_VALUES</span></code>는 고정된 상수 테이블 역할을 한다.</p>
+<hr class="docutils" />
+<p>그 다음이 <code class="docutils literal notranslate"><span class="pre">Proxy</span></code>이다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">ROUTES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Proxy</span><span class="p">(</span><span class="nx">ROUTE_VALUES</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">get</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">prop</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">prop</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;symbol&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">prop</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">target</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">target</span><span class="p">[</span><span class="nx">prop</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span>
+<span class="w">      </span><span class="sb">`ROUTES.</span><span class="si">${</span><span class="nb">String</span><span class="p">(</span><span class="nx">prop</span><span class="p">)</span><span class="si">}</span><span class="sb"> is not defined. Available route keys: </span><span class="si">${</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">target</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>여기서</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">target</span></code>은 <code class="docutils literal notranslate"><span class="pre">ROUTE_VALUES</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">handler</span></code>는 <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">get(...)</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span> <span class="pre">}</span></code></p></li>
+</ul>
+<p>이다.</p>
+<p>즉 <code class="docutils literal notranslate"><span class="pre">ROUTES</span></code>는 <code class="docutils literal notranslate"><span class="pre">ROUTE_VALUES</span></code>를 감싼 프록시 객체이다.</p>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">get(target,</span> <span class="pre">prop)</span></code>는 속성을 읽을 때 호출되는 트랩(trap)이다.</p>
+<p>예를 들어 아래 코드가 실행되면</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">ROUTES</span><span class="p">.</span><span class="nx">login</span>
+</pre></div>
+</div>
+<p>실제로는 내부적으로 대략 이런 식으로 동작한다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">get</span><span class="p">(</span><span class="nx">ROUTE_VALUES</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;login&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>반대로</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">ROUTES</span><span class="p">.</span><span class="nx">notFound</span>
+</pre></div>
+</div>
+<p>를 읽으려고 하면 내부적으로</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">get</span><span class="p">(</span><span class="nx">ROUTE_VALUES</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;notFound&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>가 호출된다.</p>
+<hr class="docutils" />
+<p>이 <code class="docutils literal notranslate"><span class="pre">get</span></code> 함수의 로직은 다음과 같다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w"> </span><span class="nx">prop</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;symbol&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">prop</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">target</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">target</span><span class="p">[</span><span class="nx">prop</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>의미는 이렇다.</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">prop</span></code>이 <code class="docutils literal notranslate"><span class="pre">symbol</span></code>이면 그냥 허용한다.</p>
+<ul class="simple">
+<li><p>자바스크립트 내부 동작이나 일부 내장 기능에서 심볼 프로퍼티를 읽는 경우가 있다.</p></li>
+<li><p>이런 경우까지 막아버리면 예상치 못한 문제가 생길 수 있어서 통과시키는 것이다.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prop</span> <span class="pre">in</span> <span class="pre">target</span></code>이면 그 값을 반환한다.</p>
+<ul class="simple">
+<li><p>즉 요청한 속성이 실제 <code class="docutils literal notranslate"><span class="pre">ROUTE_VALUES</span></code>에 존재하면 정상적으로 값을 꺼내준다.</p></li>
+</ul>
+</li>
 </ol>
-</section>
+<p>예를 들어</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">ROUTES</span><span class="p">.</span><span class="nx">login</span>
+</pre></div>
+</div>
+<p>은 <code class="docutils literal notranslate"><span class="pre">login</span> <span class="pre">in</span> <span class="pre">ROUTE_VALUES</span></code> 가 참이므로</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">return</span><span class="w"> </span><span class="nx">ROUTE_VALUES</span><span class="p">.</span><span class="nx">login</span>
+</pre></div>
+</div>
+<p>이 되어 <code class="docutils literal notranslate"><span class="pre">'/login'</span></code>이 반환된다.</p>
+<hr class="docutils" />
+<p>반대로 존재하지 않는 키면 여기로 간다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span>
+<span class="w">  </span><span class="sb">`ROUTES.</span><span class="si">${</span><span class="nb">String</span><span class="p">(</span><span class="nx">prop</span><span class="p">)</span><span class="si">}</span><span class="sb"> is not defined. Available route keys: </span><span class="si">${</span><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">target</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>즉 없는 라우트를 잘못 접근하면 조용히 <code class="docutils literal notranslate"><span class="pre">undefined</span></code>가 나오는 대신, 즉시 명확한 에러를 발생시킨다.</p>
+<p>예를 들어</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ROUTES</span><span class="p">.</span><span class="nx">logni</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>처럼 오타를 내면 보통 객체라면 <code class="docutils literal notranslate"><span class="pre">undefined</span></code>가 나오고, 나중에 다른 곳에서 더 큰 버그로 이어질 수 있다.</p>
+<p>하지만 지금 코드는 바로 이런 에러를 낸다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="ne">Error</span><span class="o">:</span><span class="w"> </span><span class="nx">ROUTES</span><span class="p">.</span><span class="nx">logni</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="nx">defined</span><span class="p">.</span><span class="w"> </span><span class="nx">Available</span><span class="w"> </span><span class="nx">route</span><span class="w"> </span><span class="nx">keys</span><span class="o">:</span><span class="w"> </span><span class="nx">login</span><span class="p">,</span><span class="w"> </span><span class="nx">wages</span><span class="p">,</span><span class="w"> </span><span class="nx">changePassword</span><span class="p">,</span><span class="w"> </span><span class="nx">uploads</span><span class="p">,</span><span class="w"> </span><span class="nx">users</span><span class="p">,</span><span class="w"> </span><span class="nx">dbTables2</span>
+</pre></div>
+</div>
+<p>이렇게 하면 오타를 빨리 발견할 수 있다.</p>
+<hr class="docutils" />
+<p>즉 <code class="docutils literal notranslate"><span class="pre">ROUTES</span></code>는 겉으로 보기엔 그냥 객체처럼 쓰이지만, 실제로는 다음 규칙을 가진 “검사 강화 버전 객체”이다.</p>
+<ul class="simple">
+<li><p>정의된 라우트 키만 읽을 수 있다</p></li>
+<li><p>없는 키를 읽으면 즉시 에러를 낸다</p></li>
+<li><p>원본 라우트 값은 <code class="docutils literal notranslate"><span class="pre">freeze</span></code>로 보호되어 있다</p></li>
+</ul>
 </section>
 </section>
 
@@ -1242,20 +1070,20 @@ merge -c 05d5f45 some-label # 변경 후
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="1%20OOP.html"
+       href="Cache.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Procedural Programming</p>
+        <p class="prev-next-title">Cache Policy</p>
       </div>
     </a>
     <a class="right-next"
-       href="11%20Visual%20Studio.html"
+       href="Linux.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Visual Studio</p>
+        <p class="prev-next-title">Linux</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1275,50 +1103,7 @@ merge -c 05d5f45 some-label # 변경 후
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-directory">Git Directory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#staging-area">Staging Area</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-directory">Working Directory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snapshot-hash">Snapshot Hash</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">명령어</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Git 설정</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#global">Global 설정</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">명령어</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">로그 보기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">파일 비교</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">리모트 저장소</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">명령어</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">브랜치</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stash">Stash</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">명령어</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#git-stash">git stash</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#git-stash-list">git stash list</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#git-stash-apply-stash-name">git stash apply [stash name]</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">커밋 되돌리기</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reset">Reset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">명령어</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merge">Merge</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">명령어</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gitignore">.gitignore</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-lfs">Git LFS</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-message">Commit Message 수정하기</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fork-commit-message">Fork 에서 Commit Message 수정하기</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-commit-commit-message">Merge Commit 의 Commit Message 수정 방법</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proxy">Proxy</a></li>
 </ul>
   </nav></div>
 

@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=61612f5f" />
@@ -689,6 +689,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../99%20ETC/ARM.html">ARM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20ETC/Batch.html">Batch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20ETC/Cache.html">Cache Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../99%20ETC/JavaScript.html">JavaScript</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20ETC/Linux.html">Linux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20ETC/MacProgramming.html">Protocol</a></li>
 
@@ -889,12 +890,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">로그인(쿠키/세션 기반 상호작용)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cookie">쿠키(cookie)란?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-login-session">세션(session)과 로그인 세션(login session)이란?</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">서버 세션 방식(전통적)</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">쿠키(토큰) 기반 방식(서버가 상태를 덜 가짐)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">쿠키(토큰) 기반 방식(서버가 상태를 덜 가짐)</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cookie-validation">쿠키 검증(cookie validation)이란?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">한 번에 정리(프론트엔드 관점)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">한 번에 정리(프론트엔드 관점)</a></li>
 </ul>
 </li>
 </ul>
@@ -1065,24 +1065,8 @@ document.write(`
 <section id="session-login-session">
 <h3>세션(session)과 로그인 세션(login session)이란?<a class="headerlink" href="#session-login-session" title="Link to this heading">#</a></h3>
 <p>세션은 “사용자 1명과 서버 사이의 연속적인 상태(대화) 단위”로 이해하면 된다. 로그인 세션은 그중에서도 특히 “이 사용자가 로그인한 상태임을 서버가 인정하고 유지하는 기간/상태”를 말한다.</p>
-<p>세션을 유지하는 대표 방식은 2가지다.</p>
 <section id="id4">
-<h4>서버 세션 방식(전통적)<a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p>서버가 세션 정보를 서버 메모리/DB/Redis 등에 저장</p></li>
-<li><p>클라이언트(브라우저)에는 세션 ID만 쿠키로 저장</p></li>
-<li><p>요청마다 세션 ID를 보내면, 서버가 그 ID로 로그인 상태를 조회</p></li>
-</ul>
-<p>예시 흐름</p>
-<ol class="arabic simple">
-<li><p>로그인 성공 → 서버는 <code class="docutils literal notranslate"><span class="pre">session_id=abc123</span></code> 같은 값을 생성</p></li>
-<li><p>서버는 <code class="docutils literal notranslate"><span class="pre">Set-Cookie:</span> <span class="pre">session_id=abc123</span></code>로 브라우저에 저장시킴</p></li>
-<li><p>이후 요청마다 브라우저가 <code class="docutils literal notranslate"><span class="pre">Cookie:</span> <span class="pre">session_id=abc123</span></code>를 자동 전송</p></li>
-<li><p>서버는 <code class="docutils literal notranslate"><span class="pre">abc123</span></code>을 키로 세션 저장소에서 사용자 정보를 조회</p></li>
-</ol>
-</section>
-<section id="id5">
-<h4>쿠키(토큰) 기반 방식(서버가 상태를 덜 가짐)<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
+<h4>쿠키(토큰) 기반 방식(서버가 상태를 덜 가짐)<a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>로그인 상태 정보(또는 그에 해당하는 서명된 토큰)를 클라이언트 쿠키에 담음</p></li>
 <li><p>서버는 요청마다 쿠키를 검증해서 “로그인 상태”를 판단</p></li>
@@ -1116,8 +1100,8 @@ document.write(`
 <li><p>암호화 키로 쓰이면: 쿠키 내용이 노출되지 않게 보호할 수 있다(단, “서명”과 목적이 다름)</p></li>
 </ul>
 </section>
-<section id="id6">
-<h3>한 번에 정리(프론트엔드 관점)<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<section id="id5">
+<h3>한 번에 정리(프론트엔드 관점)<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>로그인 화면에서 프론트엔드가 로그인 API를 호출한다.</p>
 <ul class="simple">
@@ -1218,12 +1202,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">로그인(쿠키/세션 기반 상호작용)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cookie">쿠키(cookie)란?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#session-login-session">세션(session)과 로그인 세션(login session)이란?</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">서버 세션 방식(전통적)</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">쿠키(토큰) 기반 방식(서버가 상태를 덜 가짐)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">쿠키(토큰) 기반 방식(서버가 상태를 덜 가짐)</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cookie-validation">쿠키 검증(cookie validation)이란?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">한 번에 정리(프론트엔드 관점)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">한 번에 정리(프론트엔드 관점)</a></li>
 </ul>
 </li>
 </ul>

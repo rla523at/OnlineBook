@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=61612f5f" />
@@ -689,6 +689,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../99%20ETC/ARM.html">ARM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20ETC/Batch.html">Batch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20ETC/Cache.html">Cache Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../99%20ETC/JavaScript.html">JavaScript</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20ETC/Linux.html">Linux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../99%20ETC/MacProgramming.html">Protocol</a></li>
 
@@ -876,9 +877,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">백엔드 서버란?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#end-to-end">요청-응답 처리 흐름(End-to-End)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">핵심 개념</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">개요</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">백엔드 서버란?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#end-to-end">요청-응답 처리 흐름(End-to-End)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">핵심 개념</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#http">HTTP 요청/응답</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asgi">ASGI란?</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#asgi-uvicorn">ASGI 서버(예: Uvicorn)</a></li>
@@ -886,34 +890,45 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uvicorn">Uvicorn이란?</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">역할</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">역할</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fastapi">FastAPI란?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#starlette">Starlette란?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fastapi-starlette-uvicorn">FastAPI / Starlette / Uvicorn 역할 분담</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">FastAPI 애플리케이션 구성 요소</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api">API 문서화</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openapi">OpenAPI란?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swagger">Swagger란?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">FastAPI 애플리케이션 구성 요소</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fastapi-app-fastapi">FastAPI 앱 객체(<code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">=</span> <span class="pre">FastAPI()</span></code>)란?</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">앱 객체로 백엔드 애플리케이션이 “구성되는” 흐름</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">앱 객체가 요청을 처리하는 흐름</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">앱 객체로 백엔드 애플리케이션이 “구성되는” 흐름</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">앱 객체가 요청을 처리하는 흐름</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#route">라우트(route)란?</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">라우트를 구성하는 요소</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">라우트를 구성하는 요소</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">라우트 등록 방식</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">라우트 등록 방식</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app-get-app-post">데코레이터로 라우트 등록 (<code class="docutils literal notranslate"><span class="pre">@app.get</span></code>, <code class="docutils literal notranslate"><span class="pre">@app.post</span></code> 등)</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#apirouter-include-router">APIRouter로 등록 후 앱에 포함하여 라우트 등록 (<code class="docutils literal notranslate"><span class="pre">include_router</span></code>)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">라우트 매칭과 요청 처리 흐름</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">파라미터 예시</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">라우트 매칭과 요청 처리 흐름</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">요청 파라미터</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#query-parameter-page-1-size-20">Query parameter 예시 (<code class="docutils literal notranslate"><span class="pre">?page=1&amp;size=20</span></code>)</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#body-pydantic-post-json">Body(Pydantic 모델) 예시 (POST JSON)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#query-parameter-body">Query parameter와 Body의 차이</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#query-parameter-body">Query parameter와 Body의 차이</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">미들웨어/세션</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sessionmiddleware">SessionMiddleware란?</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -930,7 +945,9 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="fastapi-backend">
 <h1>FastAPI Backend<a class="headerlink" href="#fastapi-backend" title="Link to this heading">#</a></h1>
 <section id="id1">
-<h2>백엔드 서버란?<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<h2>개요<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>백엔드 서버란?<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>백엔드 서버는 클라이언트(웹 브라우저, 모바일 앱, 다른 서버 등)로부터 HTTP 요청을 받아 처리하고, 결과를 HTTP 응답으로 반환하는 서버 프로그램이다. 웹 서비스에서 보통 “데이터와 비즈니스 로직이 있는 쪽”을 의미하며, UI를 담당하는 프론트엔드와 대비된다.</p>
 <p>“FastAPI 백엔드 서버”는 보통 다음 전체를 가리킨다.</p>
 <ul class="simple">
@@ -952,7 +969,7 @@ document.write(`
 </ul>
 </section>
 <section id="end-to-end">
-<h2>요청-응답 처리 흐름(End-to-End)<a class="headerlink" href="#end-to-end" title="Link to this heading">#</a></h2>
+<h3>요청-응답 처리 흐름(End-to-End)<a class="headerlink" href="#end-to-end" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Uvicorn 프로세스 시작</p>
 <ul class="simple">
@@ -982,8 +999,9 @@ document.write(`
 </li>
 </ol>
 </section>
-<section id="id2">
-<h2>핵심 개념<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+</section>
+<section id="id3">
+<h2>핵심 개념<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
 <section id="http">
 <h3>HTTP 요청/응답<a class="headerlink" href="#http" title="Link to this heading">#</a></h3>
 <p>HTTP 응답은 클라이언트로 돌아가는 “HTTP 메시지”이며 보통 다음으로 구성된다.</p>
@@ -1042,8 +1060,8 @@ document.write(`
 <h3>Uvicorn이란?<a class="headerlink" href="#uvicorn" title="Link to this heading">#</a></h3>
 <p>Uvicorn은 Python에서 사용되는 ASGI(Asynchronous Server Gateway Interface) 서버 구현체다. 운영체제 관점에서는 Uvicorn이 실행될 때 기본적으로 하나의 프로세스가 생성되거나 workers 설정에 따라 여러 프로세스가 생성되며, 그 프로세스가 네트워크 포트를 열고 외부의 HTTP 요청을 수신한다.</p>
 <p>즉, Uvicorn은 FastAPI로 작성된 ASGI 애플리케이션을 네트워크에서 서비스 가능하게 만드는 서버 런타임이다.</p>
-<section id="id3">
-<h4>역할<a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
+<section id="id4">
+<h4>역할<a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>포트 바인딩 및 요청 수신</p>
 <ul>
@@ -1073,14 +1091,106 @@ document.write(`
 <p>FastAPI는 Python으로 웹 API(백엔드)를 만들기 위한 웹 프레임워크다. 라우팅, 요청/응답 처리, 입력 검증(Pydantic), 의존성 주입(Dependencies), 미들웨어, 예외 처리, OpenAPI 문서 자동 생성 같은 기능을 제공한다.</p>
 <p>중요한 점은 FastAPI 자체가 네트워크 포트를 열어 HTTP 요청을 직접 받는 “서버 프로세스”가 아니라는 것이다. FastAPI는 “요청을 어떻게 처리할지”를 정의하는 애플리케이션 코드를 작성하기 위한 도구(프레임워크)이고, 실제로 포트를 열고 외부 요청을 수신하는 역할은 ASGI 서버(Uvicorn 등)가 담당한다.</p>
 </section>
+<section id="starlette">
+<h3>Starlette란?<a class="headerlink" href="#starlette" title="Link to this heading">#</a></h3>
+<p>Starlette는 Python의 ASGI(Asynchronous Server Gateway Interface) 기반 경량 웹 프레임워크(또는 웹 툴킷)다. 웹 애플리케이션을 만들 때 필요한 핵심 뼈대(라우팅, 미들웨어, Request/Response, WebSocket 등)를 제공한다.</p>
+<p>FastAPI는 이 Starlette 코어 위에 ‘API 개발 편의 기능’을 얹은 프레임워크다. 그래서 FastAPI를 쓰더라도 내부적으로는 Starlette의 라우팅/미들웨어 체인과 Request/Response 모델이 그대로 사용되고, 실무에서도 <code class="docutils literal notranslate"><span class="pre">starlette.middleware.*</span></code>, <code class="docutils literal notranslate"><span class="pre">starlette.responses.*</span></code> 같은 컴포넌트를 함께 쓰는 경우가 흔하다.</p>
+<p>Starlette가 주로 담당하는 범주는 다음과 같다.</p>
+<ul class="simple">
+<li><p>라우팅(경로/메서드 매칭)</p></li>
+<li><p>미들웨어 체인(요청 전/응답 후 공통 처리)</p></li>
+<li><p>Request/Response 추상화</p></li>
+<li><p>WebSocket 지원</p></li>
+<li><p>정적 파일 서빙, 템플릿, 백그라운드 태스크 같은 웹 기본 부품</p></li>
+</ul>
 </section>
-<section id="id4">
-<h2>FastAPI 애플리케이션 구성 요소<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="fastapi-starlette-uvicorn">
+<h3>FastAPI / Starlette / Uvicorn 역할 분담<a class="headerlink" href="#fastapi-starlette-uvicorn" title="Link to this heading">#</a></h3>
+<p>아래는 요청이 들어와서 응답이 나가기까지의 계층 구조를 단순화해 그린 그림이다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Client</span><span class="p">]</span> <span class="p">(</span><span class="n">browser</span> <span class="o">/</span> <span class="n">app</span> <span class="o">/</span> <span class="n">curl</span><span class="p">)</span>
+   <span class="o">|</span>
+   <span class="o">|</span>  <span class="n">HTTP</span> <span class="o">/</span> <span class="n">WebSocket</span>
+   <span class="n">v</span>
+<span class="p">[</span><span class="n">Uvicorn</span><span class="p">]</span> <span class="p">(</span><span class="n">ASGI</span> <span class="n">Server</span><span class="p">)</span>
+   <span class="o">|</span>
+   <span class="o">|</span>  <span class="n">ASGI</span> <span class="n">scope</span> <span class="o">+</span> <span class="n">receive</span><span class="o">/</span><span class="n">send으로</span> <span class="n">앱</span> <span class="n">호출</span>
+   <span class="n">v</span>
+<span class="p">[</span><span class="n">FastAPI</span> <span class="n">App</span><span class="p">]</span> <span class="p">(</span><span class="n">ASGI</span> <span class="n">application</span><span class="p">)</span>
+   <span class="o">|</span>
+   <span class="o">|</span>  <span class="n">내부적으로</span> <span class="n">Starlette</span> <span class="n">코어를</span> <span class="n">사용</span>
+   <span class="n">v</span>
+<span class="p">[</span><span class="n">Starlette</span> <span class="n">Core</span><span class="p">]</span> <span class="p">(</span><span class="n">routing</span> <span class="o">/</span> <span class="n">middleware</span> <span class="o">/</span> <span class="n">request</span><span class="o">/</span><span class="n">response</span> <span class="o">/</span> <span class="n">websocket</span><span class="p">)</span>
+   <span class="o">|</span>
+   <span class="n">v</span>
+<span class="p">[</span><span class="n">Your</span> <span class="n">endpoint</span> <span class="n">code</span><span class="p">]</span> <span class="p">(</span><span class="n">path</span> <span class="n">operation</span> <span class="n">function</span><span class="p">)</span>
+   <span class="o">|</span>
+   <span class="n">v</span>
+<span class="p">[</span><span class="n">Response</span><span class="p">]</span>
+   <span class="o">|</span>
+   <span class="n">v</span>
+<span class="p">[</span><span class="n">Uvicorn</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">네트워크</span> <span class="n">전송</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">Client</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>요청 1건이 처리되는 흐름을 단계로 보면 다음과 같다.</p>
+<ol class="arabic simple">
+<li><p>Uvicorn이 포트를 열고 HTTP/WebSocket 연결을 수신한다.</p></li>
+<li><p>Uvicorn이 들어온 요청을 ASGI 규약 형태(scope, receive, send)로 만들고 <code class="docutils literal notranslate"><span class="pre">app(scope,</span> <span class="pre">receive,</span> <span class="pre">send)</span></code>를 호출한다.</p></li>
+<li><p>FastAPI 앱은 Starlette 기반 미들웨어 체인을 통과시키고, Starlette 라우터로 엔드포인트를 선택한다.</p></li>
+<li><p>FastAPI가 선택된 엔드포인트를 실행하기 전에 입력 파싱/검증(Pydantic), 의존성 주입(Depends) 같은 API 친화 기능을 수행한다.</p></li>
+<li><p>사용자 엔드포인트 코드가 실행되어 결과를 반환한다.</p></li>
+<li><p>FastAPI/Starlette가 반환값을 Response(JSONResponse 등)로 구성한다.</p></li>
+<li><p>미들웨어가 응답 후처리를 수행한 뒤, 최종 응답이 Uvicorn을 통해 네트워크로 전송된다.</p></li>
+</ol>
+<p>역할을 한 줄로 요약하면 다음과 같다.</p>
+<ul class="simple">
+<li><p>Uvicorn: 네트워크/프로토콜 처리 + ASGI 앱 호출(서버 런타임)</p></li>
+<li><p>Starlette: 라우팅/미들웨어/Request-Response/WebSocket 같은 웹 코어</p></li>
+<li><p>FastAPI: 타입 힌트 기반 입력 검증/직렬화, 의존성 주입, OpenAPI 문서화 같은 API 개발 편의</p></li>
+</ul>
+</section>
+</section>
+<section id="api">
+<h2>API 문서화<a class="headerlink" href="#api" title="Link to this heading">#</a></h2>
+<section id="openapi">
+<h3>OpenAPI란?<a class="headerlink" href="#openapi" title="Link to this heading">#</a></h3>
+<p>OpenAPI(정확히는 OpenAPI Specification, OAS)는 <strong>HTTP API를 “기계가 읽을 수 있는 형식”으로 정의하는 표준 규격</strong>이다.</p>
+<p>OpenAPI 문서(보통 <code class="docutils literal notranslate"><span class="pre">openapi.json</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">openapi.yaml</span></code>)에는 이런 정보가 들어간다.</p>
+<ul class="simple">
+<li><p>어떤 URL 경로(path)가 있는지: <code class="docutils literal notranslate"><span class="pre">/auth/login</span></code>, <code class="docutils literal notranslate"><span class="pre">/uploads</span></code> …</p></li>
+<li><p>각 경로에서 어떤 HTTP 메서드를 받는지: GET/POST/PUT/DELETE …</p></li>
+<li><p>요청 파라미터/바디 스키마: 어떤 필드가 필수인지, 타입이 뭔지</p></li>
+<li><p>응답 스키마: 200이면 어떤 JSON 구조가 오는지, 에러면 어떤 구조인지</p></li>
+<li><p>인증 방식: Bearer 토큰, API 키, OAuth2 등</p></li>
+<li><p>operationId 같은 “엔드포인트 식별자”(클라이언트 생성 시 함수명 기반이 되기도 함)</p></li>
+</ul>
+<p>즉, OpenAPI는 <strong>“API의 계약서(Contract)”</strong> 역할을 한다.
+사람이 보기 위한 문서이기도 하지만, 더 중요한 목적은 <strong>도구가 이걸 읽고 자동 생성/검증을 하게 하는 것</strong>이다.</p>
+</section>
+<section id="swagger">
+<h3>Swagger란?<a class="headerlink" href="#swagger" title="Link to this heading">#</a></h3>
+<p>Swagger는 원래 <strong>REST API 문서화/테스팅 도구 및 명세 포맷의 이름</strong>으로 시작했다.
+그런데 역사적으로 “Swagger 명세”가 발전해서 <strong>OpenAPI로 표준화</strong>되었다.</p>
+<p>그래서 요즘은 보통 이렇게 구분해서 쓰는 게 정확하다.</p>
+<ul class="simple">
+<li><p><strong>OpenAPI</strong>: 표준 “명세 규격” 자체 (스펙)</p></li>
+<li><p><strong>Swagger</strong>: OpenAPI를 다루는 “도구/브랜드/생태계” (예: Swagger UI, Swagger Editor)</p></li>
+</ul>
+<p>현장에서 “Swagger 쓴다”라고 하면 대개</p>
+<ul class="simple">
+<li><p>OpenAPI 스펙을 만들거나(자동 생성 포함)</p></li>
+<li><p>그걸 Swagger UI로 보여주거나</p></li>
+<li><p>Swagger Editor로 편집하거나
+같은 흐름을 통칭하는 경우가 많다.</p></li>
+</ul>
+</section>
+</section>
+<section id="id5">
+<h2>FastAPI 애플리케이션 구성 요소<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
 <section id="fastapi-app-fastapi">
 <h3>FastAPI 앱 객체(<code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">=</span> <span class="pre">FastAPI()</span></code>)란?<a class="headerlink" href="#fastapi-app-fastapi" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">=</span> <span class="pre">FastAPI()</span></code>는 FastAPI 프레임워크가 제공하는 “ASGI 애플리케이션 객체(ASGI callable)”를 생성하는 코드다. 이 객체는 단순한 설정값이 아니라, 서버(Uvicorn)가 요청마다 호출하는 대상이며, 동시에 애플리케이션의 규칙과 로직을 담는 중앙 컨테이너 역할을 한다.</p>
-<section id="id5">
-<h4>앱 객체로 백엔드 애플리케이션이 “구성되는” 흐름<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
+<section id="id6">
+<h4>앱 객체로 백엔드 애플리케이션이 “구성되는” 흐름<a class="headerlink" href="#id6" title="Link to this heading">#</a></h4>
 <p>FastAPI에서 백엔드 애플리케이션은 “코드를 다 써놓고 마지막에 객체로 변환”되는 느낌이라기보다, 먼저 앱 객체(ASGI 애플리케이션 객체)를 만들고 그 객체에 기능을 계속 ‘등록’하면서 완성되는 구조다.</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">=</span> <span class="pre">FastAPI()</span></code>로 앱 객체를 만든다</p>
@@ -1105,8 +1215,8 @@ document.write(`
 </li>
 </ol>
 </section>
-<section id="id6">
-<h4>앱 객체가 요청을 처리하는 흐름<a class="headerlink" href="#id6" title="Link to this heading">#</a></h4>
+<section id="id7">
+<h4>앱 객체가 요청을 처리하는 흐름<a class="headerlink" href="#id7" title="Link to this heading">#</a></h4>
 <p>클라이언트 요청이 들어오면, Uvicorn이 <code class="docutils literal notranslate"><span class="pre">app</span></code>(FastAPI 앱 객체)을 ASGI 규약에 따라 호출하고, <code class="docutils literal notranslate"><span class="pre">app</span></code>은 아래 흐름으로 처리한다.</p>
 <ul class="simple">
 <li><p>라우트 선택: 요청의 path와 method를 기준으로 처리할 엔드포인트를 고른다.</p></li>
@@ -1129,8 +1239,8 @@ document.write(`
 <p>예를 들어 <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/users/1</span></code> 요청이 들어오면 FastAPI는 등록된 라우트들 중 <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/users/{user_id}</span></code> 같은 규칙과 매칭되는 항목을 찾고, 그 라우트에 연결된 함수를 실행한다.</p>
 <p>실무에서 “라우트”라는 표현은 엄밀히는 라우팅 규칙(메서드+경로 매핑)과 그 규칙에 매핑된 엔드포인트 함수를 함께 묶어 부르는 경우가 많다. 그래서 “라우트가 dict를 반환한다”는 말은 정확히는 “그 라우트에 연결된 엔드포인트 함수가 dict를 반환한다”는 뜻으로 이해하면 된다.</p>
 <p>참고로 <code class="docutils literal notranslate"><span class="pre">{user_id}</span></code>처럼 URL 경로 일부를 변수로 받는 값은 path parameter이고, <code class="docutils literal notranslate"><span class="pre">?page=1</span></code>처럼 URL 뒤에 붙는 값은 query parameter다.</p>
-<section id="id7">
-<h4>라우트를 구성하는 요소<a class="headerlink" href="#id7" title="Link to this heading">#</a></h4>
+<section id="id8">
+<h4>라우트를 구성하는 요소<a class="headerlink" href="#id8" title="Link to this heading">#</a></h4>
 <p>라우트는 대체로 다음 요소들로 이루어진다.</p>
 <ul class="simple">
 <li><p>HTTP 메서드</p>
@@ -1181,8 +1291,8 @@ document.write(`
 </ul>
 </section>
 </section>
-<section id="id8">
-<h3>라우트 등록 방식<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<section id="id9">
+<h3>라우트 등록 방식<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
 <section id="app-get-app-post">
 <h4>데코레이터로 라우트 등록 (<code class="docutils literal notranslate"><span class="pre">&#64;app.get</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;app.post</span></code> 등)<a class="headerlink" href="#app-get-app-post" title="Link to this heading">#</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">&#64;app.get(&quot;/path&quot;)</span></code> 같은 데코레이터를 함수 위에 붙이면 FastAPI가 그 함수와 “메서드+경로”를 묶어서 라우트로 등록한다.</p>
@@ -1231,8 +1341,8 @@ document.write(`
 </ul>
 </section>
 </section>
-<section id="id9">
-<h3>라우트 매칭과 요청 처리 흐름<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<section id="id10">
+<h3>라우트 매칭과 요청 처리 흐름<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
 <p>라우트 기준으로 요청 처리는 보통 다음 순서로 진행된다.</p>
 <ol class="arabic simple">
 <li><p>클라이언트가 HTTP 요청을 보낸다. (예: <code class="docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/users/1</span></code>)</p></li>
@@ -1251,8 +1361,8 @@ document.write(`
 <li><p>Uvicorn이 응답을 네트워크로 전송한다.</p></li>
 </ol>
 </section>
-<section id="id10">
-<h3>파라미터 예시<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<section id="id11">
+<h3>요청 파라미터<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
 <section id="query-parameter-page-1-size-20">
 <h4>Query parameter 예시 (<code class="docutils literal notranslate"><span class="pre">?page=1&amp;size=20</span></code>)<a class="headerlink" href="#query-parameter-page-1-size-20" title="Link to this heading">#</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
@@ -1290,9 +1400,8 @@ document.write(`
 <li><p>FastAPI가 <code class="docutils literal notranslate"><span class="pre">ItemIn</span></code>으로 파싱/검증한 뒤 <code class="docutils literal notranslate"><span class="pre">create_item</span></code>에 주입한다.</p></li>
 </ul>
 </section>
-</section>
 <section id="query-parameter-body">
-<h3>Query parameter와 Body의 차이<a class="headerlink" href="#query-parameter-body" title="Link to this heading">#</a></h3>
+<h4>Query parameter와 Body의 차이<a class="headerlink" href="#query-parameter-body" title="Link to this heading">#</a></h4>
 <p>둘 다 “라우트(엔드포인트) 함수의 입력”으로 들어오는 건 맞다. 하지만 같은 것은 아니다. 둘은 HTTP에서 위치도 다르고, 용도/제약도 다르고, FastAPI에서 처리 방식도 다르다.</p>
 <p>FastAPI에서는 요청에서 값을 꺼내서(바인딩해서) 라우트 함수 인자에 넣어준다.</p>
 <ul class="simple">
@@ -1341,6 +1450,64 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">page</span></code>는 query에서,</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">item</span></code>은 body에서 가져오게 된다.</p></li>
 </ul>
+</section>
+</section>
+<section id="id12">
+<h3>미들웨어/세션<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<section id="sessionmiddleware">
+<h4>SessionMiddleware란?<a class="headerlink" href="#sessionmiddleware" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">SessionMiddleware</span></code>는 Starlette가 제공하는 미들웨어 중 하나로, 요청/응답 사이에 세션 데이터를 유지할 수 있게 해준다. 라우트(엔드포인트)에서는 <code class="docutils literal notranslate"><span class="pre">request.session</span></code>을 dict처럼 다뤄 세션 값을 읽고 쓸 수 있다.</p>
+<p>동작 방식의 핵심은 다음과 같다.</p>
+<ul class="simple">
+<li><p>요청 시</p>
+<ul>
+<li><p>세션 쿠키(기본 이름 <code class="docutils literal notranslate"><span class="pre">session</span></code>)가 있으면 서명 검증 후 내용을 디코드해 <code class="docutils literal notranslate"><span class="pre">request.session</span></code>에 올린다.</p></li>
+<li><p>세션 쿠키가 없으면 빈 세션으로 시작한다.</p></li>
+</ul>
+</li>
+<li><p>응답 시</p>
+<ul>
+<li><p>세션 내용이 변경되면, 변경된 세션을 다시 쿠키로 내려주기 위해 응답에 <code class="docutils literal notranslate"><span class="pre">Set-Cookie</span></code>를 붙인다.</p></li>
+</ul>
+</li>
+</ul>
+<p>주의점도 같이 이해하는 편이 좋다.</p>
+<ul class="simple">
+<li><p>기본 구현은 ‘서버 저장소 기반 세션’이 아니라 ‘클라이언트 쿠키 기반(서명된) 세션’에 가깝다.</p>
+<ul>
+<li><p>즉, 세션 내용이 서버 DB에 저장되는 구조가 아니라, 세션 데이터가 쿠키에 실려 왕복하는 형태다.</p></li>
+</ul>
+</li>
+<li><p>서명(signing)으로 ‘변조’를 막는 것이 핵심이고, 암호화(encryption)는 별개다.</p>
+<ul>
+<li><p>민감한 정보(비밀번호, 토큰 원문, 개인식별정보 등)는 세션에 넣지 않는 것이 원칙이다.</p></li>
+</ul>
+</li>
+<li><p>쿠키 용량 제한이 있어 큰 데이터를 넣으면 문제가 된다.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">secret_key</span></code>가 필수다.</p>
+<ul>
+<li><p>서명에 사용하는 키가 바뀌면 기존 세션 쿠키는 전부 무효가 된다.</p></li>
+</ul>
+</li>
+<li><p>보안 옵션을 환경에 맞게 설정하는 것이 일반적이다.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">https_only</span></code>, <code class="docutils literal notranslate"><span class="pre">same_site</span></code>, <code class="docutils literal notranslate"><span class="pre">max_age</span></code>, <code class="docutils literal notranslate"><span class="pre">path</span></code>, <code class="docutils literal notranslate"><span class="pre">domain</span></code> 등</p></li>
+</ul>
+</li>
+</ul>
+<p>FastAPI 프로젝트에서의 전형적인 사용 형태는 다음과 같다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">starlette.middleware.sessions</span> <span class="kn">import</span> <span class="n">SessionMiddleware</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">add_middleware</span><span class="p">(</span>
+    <span class="n">SessionMiddleware</span><span class="p">,</span>
+    <span class="n">secret_key</span><span class="o">=</span><span class="s2">&quot;&lt;your-secret&gt;&quot;</span><span class="p">,</span>
+    <span class="n">https_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">same_site</span><span class="o">=</span><span class="s2">&quot;lax&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>세션에 ‘큰 데이터’나 ‘서버에서 강제로 폐기(revoke)해야 하는 상태’가 들어가야 한다면, 보통은 Redis/DB 같은 서버 저장소에 세션을 두고 쿠키에는 세션 id만 두는 구조로 설계하는 편이 운영 상 안전하다.</p>
+</section>
 </section>
 </section>
 </section>
@@ -1409,9 +1576,12 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">백엔드 서버란?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#end-to-end">요청-응답 처리 흐름(End-to-End)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">핵심 개념</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">개요</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">백엔드 서버란?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#end-to-end">요청-응답 처리 흐름(End-to-End)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">핵심 개념</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#http">HTTP 요청/응답</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asgi">ASGI란?</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#asgi-uvicorn">ASGI 서버(예: Uvicorn)</a></li>
@@ -1419,34 +1589,45 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uvicorn">Uvicorn이란?</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">역할</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">역할</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fastapi">FastAPI란?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#starlette">Starlette란?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fastapi-starlette-uvicorn">FastAPI / Starlette / Uvicorn 역할 분담</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">FastAPI 애플리케이션 구성 요소</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api">API 문서화</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openapi">OpenAPI란?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#swagger">Swagger란?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">FastAPI 애플리케이션 구성 요소</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fastapi-app-fastapi">FastAPI 앱 객체(<code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">=</span> <span class="pre">FastAPI()</span></code>)란?</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">앱 객체로 백엔드 애플리케이션이 “구성되는” 흐름</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">앱 객체가 요청을 처리하는 흐름</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">앱 객체로 백엔드 애플리케이션이 “구성되는” 흐름</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">앱 객체가 요청을 처리하는 흐름</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#route">라우트(route)란?</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">라우트를 구성하는 요소</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">라우트를 구성하는 요소</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">라우트 등록 방식</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">라우트 등록 방식</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#app-get-app-post">데코레이터로 라우트 등록 (<code class="docutils literal notranslate"><span class="pre">@app.get</span></code>, <code class="docutils literal notranslate"><span class="pre">@app.post</span></code> 등)</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#apirouter-include-router">APIRouter로 등록 후 앱에 포함하여 라우트 등록 (<code class="docutils literal notranslate"><span class="pre">include_router</span></code>)</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">라우트 매칭과 요청 처리 흐름</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">파라미터 예시</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">라우트 매칭과 요청 처리 흐름</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">요청 파라미터</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#query-parameter-page-1-size-20">Query parameter 예시 (<code class="docutils literal notranslate"><span class="pre">?page=1&amp;size=20</span></code>)</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#body-pydantic-post-json">Body(Pydantic 모델) 예시 (POST JSON)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#query-parameter-body">Query parameter와 Body의 차이</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#query-parameter-body">Query parameter와 Body의 차이</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">미들웨어/세션</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sessionmiddleware">SessionMiddleware란?</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
