@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=61612f5f" />
@@ -691,6 +691,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ARM.html">ARM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Batch.html">Batch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Cache.html">Cache Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="JavaScript.html">JavaScript</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Linux.html">Linux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="MacProgramming.html">Protocol</a></li>
 
@@ -894,6 +895,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">단축키</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">설정</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">바로가기 키 설정</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shift-enter">터미널에서 Shift+Enter 동작하게 하는 방법</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">문제 상황</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">해결 방법</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">원인</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -1126,6 +1133,45 @@ document.write(`
 <li><p>Markdown: open preview to the side &gt;&gt; 키 바인딩 제거</p></li>
 </ul>
 </section>
+<section id="shift-enter">
+<h2>터미널에서 Shift+Enter 동작하게 하는 방법<a class="headerlink" href="#shift-enter" title="Link to this heading">#</a></h2>
+<section id="id9">
+<h3>문제 상황<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>VS Code 통합 터미널에서는 아래처럼 <code class="docutils literal notranslate"><span class="pre">Shift+Enter</span></code>를 눌러도 줄이 추가되지 않고, 그냥 <code class="docutils literal notranslate"><span class="pre">Enter</span></code>를 누른 것처럼 현재 줄이 바로 실행되었다.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">D</span><span class="p">:\</span><span class="n">Study</span><span class="p">\</span><span class="n">Code</span><span class="p">\</span><span class="n">AutomationProject</span><span class="p">&gt;</span> <span class="n">digh</span>
+<span class="n">digh</span><span class="p">:</span> <span class="n">The</span> <span class="n">term</span> <span class="s1">&#39;digh&#39;</span> <span class="n">is</span> <span class="n">not</span> <span class="n">recognized</span> <span class="n">as</span> <span class="n">a</span> <span class="n">name</span> <span class="n">of</span> <span class="n">a</span> <span class="n">cmdlet</span><span class="p">,</span> <span class="k">function</span><span class="p">,</span> <span class="n">script</span> <span class="n">file</span><span class="p">,</span> <span class="n">or</span> <span class="n">executable</span> <span class="n">program</span><span class="p">.</span>
+<span class="n">Check</span> <span class="n">the</span> <span class="n">spelling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">name</span><span class="p">,</span> <span class="n">or</span> <span class="k">if</span> <span class="n">a</span> <span class="n">path</span> <span class="n">was</span> <span class="n">included</span><span class="p">,</span> <span class="n">verify</span> <span class="n">that</span> <span class="n">the</span> <span class="n">path</span> <span class="n">is</span> <span class="n">correct</span> <span class="n">and</span> <span class="k">try</span> <span class="n">again</span><span class="p">.</span>
+</pre></div>
+</div>
+<p>실제 PowerShell에서 <code class="docutils literal notranslate"><span class="pre">Shift+Enter</span></code>는 현재 줄을 실행하지 않고 다음 줄을 추가하는 동작이다.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nb">PS </span><span class="n">D</span><span class="p">:\</span><span class="n">Study</span><span class="p">\</span><span class="n">Code</span><span class="p">\</span><span class="n">AutomationProject</span><span class="p">&gt;</span> <span class="n">digh</span>
+<span class="p">&gt;&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>해결 방법<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">기본</span> <span class="pre">설정:</span> <span class="pre">사용자</span> <span class="pre">설정</span> <span class="pre">열기(JSON)</span></code> 에 아래 두 줄을 추가하면 된다.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="nt">&quot;terminal.integrated.enableKittyKeyboardProtocol&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="nt">&quot;terminal.integrated.enableWin32InputMode&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>그 뒤 기존 터미널을 닫고 새 통합 터미널을 열면 된다.
+VS Code 공식 설명에 따르면:</p>
+<ul class="simple">
+<li><p>enableKittyKeyboardProtocol은 조합키/수정키 전달 한계를 줄이기 위한 기능이다.</p></li>
+<li><p>enableWin32InputMode는 비슷한 목적의 Windows 전용 experimental 입력 모드이며, ConPTY에 맞게 조정되어 있다.</p></li>
+</ul>
+</section>
+<section id="id11">
+<h3>원인<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>원인은 PowerShell 자체가 아니라 VS Code 통합 터미널의 입력 처리 경로에 있다.
+VS Code 터미널은 Windows에서 일반 콘솔과 동일한 방식이 아니라 xterm.js 기반 터미널과 ConPTY 같은 pseudoterminal 계층을 사용하므로, 키 입력이 standalone PowerShell/Windows Terminal과 다르게 처리될 수 있다.</p>
+<p>특히 Shift+Enter 같은 조합키는 전통적인 터미널 키 인코딩 방식의 한계 때문에 정확히 전달되지 않을 수 있다. VS Code 1.109 릴리스 노트에서도 Kitty keyboard protocol이 이런 “기존 keystroke 인코딩 한계”를 해결하기 위한 기능이라고 설명하고, Windows용으로는 ConPTY에 맞춘 experimental win32 input mode도 추가했다고 밝히고 있다.</p>
+<p>실제로 VS Code 이슈에도 “외부 PowerShell/Windows Terminal에서는 되는데 VS Code 통합 터미널에서는 안 된다”는 보고가 오래전부터 있었고, 2025년에도 유사 <a class="reference external" href="https://github.com/microsoft/vscode/issues/74230">보고</a>가 올라와 있다.</p>
+<p>이번 경우에는 shell integration이나 PowerShell 키 바인딩은 이미 정상인데, VS Code 기본 입력 경로가 Shift+Enter를 PowerShell/PSReadLine이 원하는 형태로 제대로 전달하지 못한 것으로 보는 것이 가장 자연스럽다. 이것은 사용자가 설정을 바꾼 뒤 바로 정상 동작한 결과와도 맞는다.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1208,6 +1254,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">단축키</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">설정</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">바로가기 키 설정</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shift-enter">터미널에서 Shift+Enter 동작하게 하는 방법</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">문제 상황</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">해결 방법</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">원인</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

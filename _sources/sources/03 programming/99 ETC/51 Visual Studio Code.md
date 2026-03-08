@@ -185,11 +185,43 @@ ctrl + n : 이름없는 새 파일
 * Markdown: open preview >> 키 바인딩 제거
 * Markdown: open preview to the side >> 키 바인딩 제거
 
+## 터미널에서 Shift+Enter 동작하게 하는 방법
 
+### 문제 상황
+VS Code 통합 터미널에서는 아래처럼 `Shift+Enter`를 눌러도 줄이 추가되지 않고, 그냥 `Enter`를 누른 것처럼 현재 줄이 바로 실행되었다.
 
+```powershell
+PS D:\Study\Code\AutomationProject> digh
+digh: The term 'digh' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+```
 
+실제 PowerShell에서 `Shift+Enter`는 현재 줄을 실행하지 않고 다음 줄을 추가하는 동작이다.
 
+```powershell
+PS D:\Study\Code\AutomationProject> digh
+>>
+```
 
+### 해결 방법
+`기본 설정: 사용자 설정 열기(JSON)` 에 아래 두 줄을 추가하면 된다.
 
+```json
+"terminal.integrated.enableKittyKeyboardProtocol": true,
+"terminal.integrated.enableWin32InputMode": true,
+```
 
+그 뒤 기존 터미널을 닫고 새 통합 터미널을 열면 된다.
+VS Code 공식 설명에 따르면:
+* enableKittyKeyboardProtocol은 조합키/수정키 전달 한계를 줄이기 위한 기능이다.
+* enableWin32InputMode는 비슷한 목적의 Windows 전용 experimental 입력 모드이며, ConPTY에 맞게 조정되어 있다.
 
+### 원인
+원인은 PowerShell 자체가 아니라 VS Code 통합 터미널의 입력 처리 경로에 있다.
+VS Code 터미널은 Windows에서 일반 콘솔과 동일한 방식이 아니라 xterm.js 기반 터미널과 ConPTY 같은 pseudoterminal 계층을 사용하므로, 키 입력이 standalone PowerShell/Windows Terminal과 다르게 처리될 수 있다.
+
+특히 Shift+Enter 같은 조합키는 전통적인 터미널 키 인코딩 방식의 한계 때문에 정확히 전달되지 않을 수 있다. VS Code 1.109 릴리스 노트에서도 Kitty keyboard protocol이 이런 “기존 keystroke 인코딩 한계”를 해결하기 위한 기능이라고 설명하고, Windows용으로는 ConPTY에 맞춘 experimental win32 input mode도 추가했다고 밝히고 있다.
+
+실제로 VS Code 이슈에도 “외부 PowerShell/Windows Terminal에서는 되는데 VS Code 통합 터미널에서는 안 된다”는 보고가 오래전부터 있었고, 2025년에도 유사 [보고](https://github.com/microsoft/vscode/issues/74230)가 올라와 있다.
+
+이번 경우에는 shell integration이나 PowerShell 키 바인딩은 이미 정상인데, VS Code 기본 입력 경로가 Shift+Enter를 PowerShell/PSReadLine이 원하는 형태로 제대로 전달하지 못한 것으로 보는 것이 가장 자연스럽다. 이것은 사용자가 설정을 바꾼 뒤 바로 정상 동작한 결과와도 맞는다.
