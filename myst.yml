@@ -1,0 +1,52 @@
+version: 1
+extend:
+  - toc.yml
+
+project:
+  title: MS Study Book
+  authors:
+    - name:
+        literal: MS
+  bibliography:
+    - sources/99 References/_references.bib
+  math:
+    "\\span": "\\text{span}"
+    "\\End": "\\text{End}"
+    "\\C": "\\mathbb{C}"
+    "\\Complex": "\\mathbb{C}"
+    "\\F": "\\mathbb{F}"
+    "\\R": "\\mathbb{R}"
+    "\\N": "\\mathbb{N}"
+    "\\Q": "\\mathbb{Q}"
+    "\\Z": "\\mathbb{Z}"
+    "\\Ext": "\\text{Ext}"
+    "\\Int": "\\text{Int}"
+    "\\st": "\\quad s.t \\quad"
+    "\\qed": "\\quad\\tiny\\blacksquare"
+    "\\preimg": "\\text{preimg}"
+    "\\img": "\\text{img}"
+    "\\norm": "\\left\\lVert #1 \\right\\rVert"
+    "\\sym": "\\text{sym}"
+    "\\tr": "\\text{tr}"
+    "\\empty": "\\emptyset"
+    "\\exist": "\\exists"
+    "\\Set": "\\left\\{ #1 \\right\\}"
+    "\\pdiff": "\\frac{\\partial #1}{\\partial #2}"
+    "\\diff": "\\frac{d #1}{d #2}"
+    "\\Diff": "\\frac{D #1}{D #2}"
+    "\\ninf": "n \\rightarrow \\infty"
+    "\\rank": "\\text{rank}"
+    "\\nullity": "\\text{nullity}"
+    "\\lcm": "\\text{lcm}"
+    "\\proj": "\\text{proj}_{#1}(#2)"
+    "\\frak": "\\mathfrak"
+  exports:
+    - format: pdf
+      template: plain_latex_book
+      output: exports/book.pdf
+
+site:
+  options:
+    folders: true
+    style: ./custom.css
+  template: book-theme
