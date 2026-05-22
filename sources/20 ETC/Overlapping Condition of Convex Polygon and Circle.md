@@ -1,3 +1,5 @@
+# ConvexPolygon 과 원의 겹침 판단
+
 $n$ 개의 Point 로 정의된 ConvexPolygon $CP$ 가 있고 각 Point 의 Index 가 반시계 방향으로 주어졌다고 하자.
 
 $P_i$ 에서 $P_{i+1}$ 로가는  edge vector $e_i$ 라고 하자.

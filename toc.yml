@@ -504,7 +504,6 @@ project:
       - file: sources/03 programming/03 Window Programming/Thread.md
     - title: Web
       children:
-      - file: sources/03 programming/04 Web/AGENTS.md
       - file: sources/03 programming/04 Web/Cloud.md
       - file: sources/03 programming/04 Web/DatabaseAndORM.md
       - file: sources/03 programming/04 Web/FastAPIBackend.md
@@ -554,8 +553,6 @@ project:
     - file: sources/20 ETC/Cubic Bezier Curve.md
     - file: sources/20 ETC/Jupyter Book.md
     - file: sources/20 ETC/MarkDown.md
+    - file: sources/20 ETC/Numerical Stability of Point-Line Distance.md
     - file: sources/20 ETC/Overlapping Condition of Convex Polygon and Circle.md
     - file: sources/20 ETC/chatGPT.md
-    - file: "sources/20 ETC/\uC810\uACFC \uC9C1\uC120 \uC0AC\uC774\uC758 \uAC70\uB9AC\
-        \ \uACC4\uC0B0\uC5D0\uC11C\uC758 \uC218\uCE58\uC801 \uC548\uC815\uC131.md"
-  - title: References
