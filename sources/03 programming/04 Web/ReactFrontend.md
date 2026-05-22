@@ -1,193 +1,182 @@
 # React Frontend
 
-## 프론트엔드란?
+## 한 줄 요약
 
-프론트엔드는 사용자의 브라우저에서 실행되며 UI를 렌더링하고 사용자 입력을 처리하는 애플리케이션을 의미한다. 웹 서비스에서는 “화면과 상호작용(UI/UX)을 담당하는 쪽”이며, 데이터와 비즈니스 로직을 담당하는 백엔드와 대비된다.
+React 프론트엔드는 브라우저에서 실행되는 UI 애플리케이션이다. 개발 중에는 Vite dev server가 소스코드를 빠르게 제공하고, 운영에서는 빌드된 정적 파일을 Nginx 같은 웹 서버가 제공한다.
 
-“React 프론트엔드”는 보통 다음 전체를 가리킨다.
+## 프론트엔드란 무엇인가
 
-* 개발 레이어
+프론트엔드는 사용자의 브라우저에서 실행되며 UI를 렌더링하고 사용자 입력을 처리하는 애플리케이션을 의미한다. 웹 서비스에서는 화면과 상호작용을 담당하는 쪽이며, 데이터 저장과 비즈니스 로직을 담당하는 백엔드와 대비된다.
 
-  * React 컴포넌트, 상태 관리, 라우팅 등 UI 로직
-* 빌드 산출물 레이어(정적 파일)
+React 프론트엔드는 보통 다음 전체를 가리킨다.
 
-  * `index.html`, JS 번들, CSS, 이미지/폰트 같은 정적 리소스 묶음
-* 런타임 레이어(브라우저 실행 환경)
+- 개발 레이어
+  - React 컴포넌트, 상태 관리, 라우팅 등 UI 로직
+- 빌드 산출물 레이어
+  - `index.html`, JS 번들, CSS, 이미지, 폰트 같은 정적 파일 묶음
+- 런타임 레이어
+  - 브라우저의 렌더링 엔진과 JavaScript 엔진에서 실행되는 SPA
 
-  * 브라우저의 렌더링 엔진 + JavaScript 엔진에서 실행되는 SPA
+## React, SPA, 정적 파일
 
-## React, React SPA, 정적 프론트엔드 파일의 관계
+React는 UI를 만들기 위한 JavaScript 라이브러리다. React SPA는 React로 만든 Single Page Application이며, 브라우저에서 실행되는 프론트엔드 애플리케이션이다.
 
-* React는 UI를 만들기 위한 JavaScript 라이브러리다.
-* React SPA는 React로 만든 Single Page Application이며, 브라우저에서 실행되는 프론트엔드 애플리케이션이다.
-* 정적 프론트엔드 파일은 React SPA를 사용자 브라우저에 “전달(배포)”하기 위한 산출물(파일 묶음)이다.
+정적 프론트엔드 파일은 React SPA를 사용자 브라우저에 전달하기 위한 빌드 산출물이다.
 
-브라우저가 이 정적 파일을 내려받아 실행하면, 그 결과로 React SPA가 브라우저에서 동작한다.
+예:
 
-예시(정적 파일 산출물의 전형적인 형태)
-
-* `index.html` (앱의 진입점)
-* `assets/app.<hash>.js` (React 번들 JS)
-* `assets/app.<hash>.css` (CSS)
-* `assets/*.png|svg|woff2` (이미지/폰트 등)
-
-## “브라우저에서 프론트엔드 코드가 동작한다”의 의미
-
-* 프론트엔드 코드는 사용자 브라우저(프로세스) 안에서 실행된다.
-* 더 정확히는 브라우저 내부의 JavaScript 엔진에서 프론트엔드 JavaScript 코드가 실행된다.
-
-즉, React SPA는 서버에서 실행되는 프로그램이 아니라 사용자의 기기에서 실행되는 프로그램이다. 따라서 React SPA와 FastAPI는 같은 프로세스/메모리를 공유하지 못하며 네트워크 요청/응답으로만 상호작용한다.
-
-## HTTP(S)의 의미
-
-HTTP는 요청(request)과 응답(response)을 주고받기 위한 통신 규칙(프로토콜)이다.
-
-* 브라우저는 HTTP 규칙에 맞춰 요청을 보낸다.
-* 서버는 HTTP 규칙에 맞춰 응답을 돌려준다.
-
-HTTPS는 HTTP에 암호화를 추가한 형태이며, 실무에서는 대부분 HTTPS를 사용한다.
-
-## React SPA에서 발생하는 HTTP 요청의 두 종류
-
-React SPA 관점에서 HTTP 요청은 크게 두 종류로 나뉜다.
-
-* 정적 파일 요청: 앱을 “받는 단계”
-* API 요청: 앱이 실행 중에 데이터를 “받거나 저장하는 단계”
-
-### A. 정적 파일 요청(앱을 “받는 단계”)
-
-사용자가 URL 입력/링크 클릭을 하면, 브라우저의 페이지 로딩 기능(네트워크 로더)이 자동으로 서버에 요청을 보내 React 앱 파일을 내려받는다.
-
-예시(브라우저가 자동으로 만드는 요청)
-
-* `GET /` → `index.html`
-* `GET /assets/app.js` → React 번들 JS
-* `GET /assets/app.css` → CSS
-
-목적은 SPA 실행에 필요한 파일을 다운로드하는 것이다.
-
-정적 파일을 받는 흐름 예시
-
-1. 브라우저가 `GET /`로 `index.html`을 받는다.
-2. `index.html` 안에서 `<script src="/assets/app.js">` 같은 참조를 보고 브라우저가 JS/CSS를 추가로 다운로드한다.
-3. 다운로드가 끝나면 브라우저가 JS를 실행하고, React SPA가 화면을 렌더링한다.
-
-### B. API 요청(데이터를 “받거나 저장하는 단계”)
-
-React SPA가 브라우저에서 실행 중일 때, 프론트엔드 JS 코드가 `fetch()` / `axios` / `XMLHttpRequest` 등을 호출하면 그 결과로 브라우저가 HTTP 요청을 보낸다.
-
-예시(React SPA가 만드는 API 요청)
-
-* `GET /api/wages`
-* `POST /api/uploads`
-* `POST /api/auth/login`
-
-서버(예: FastAPI)는 보통 JSON으로 응답한다.
-
-예시(fetch로 JSON 조회)
-
-```js
-// 브라우저에서 실행되는 프론트엔드 코드
-const res = await fetch("/api/wages");
-const data = await res.json();
+```text
+index.html
+assets/app.<hash>.js
+assets/app.<hash>.css
+assets/*.png
+assets/*.woff2
 ```
 
-예시(fetch로 JSON 전송)
+브라우저가 이 파일을 내려받아 JavaScript를 실행하면 React SPA가 화면을 렌더링한다.
 
-```js
-const res = await fetch("/api/auth/login", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email: "a@b.com", password: "secret" }),
-});
+## 브라우저에서 코드가 실행된다는 뜻
 
-const data = await res.json();
+React SPA는 서버에서 실행되는 프로그램이 아니라 사용자의 브라우저 안에서 실행되는 프로그램이다. 따라서 React SPA와 FastAPI backend는 같은 프로세스나 메모리를 공유하지 않는다.
+
+둘은 HTTP request와 response로만 상호작용한다.
+
+```text
+React SPA in browser
+  -> HTTP request
+  -> backend API
+  -> HTTP response
+  -> React state/UI update
 ```
 
-JSON이 흔한 이유
+HTTP, 쿠키, CORS의 기본 동작은 [HTTPAndBrowser.md](./HTTPAndBrowser.md)를 참고한다.
 
-* 사람이 읽기 쉬움(디버깅 용이)
-* JavaScript/TypeScript에서 다루기 쉬움
-* 언어/플랫폼 독립적
-* FastAPI가 Pydantic 모델로 JSON 입출력을 구조화하기 쉬움
+## 정적 파일 request와 API request
+
+React SPA 관점에서 HTTP request는 크게 두 종류로 나뉜다.
+
+- 정적 파일 request
+  - 앱을 받는 단계
+- API request
+  - 앱 실행 중 데이터를 조회하거나 저장하는 단계
+
+정적 파일 request 예:
+
+```text
+GET /
+GET /assets/app.js
+GET /assets/app.css
+```
+
+API request 예:
+
+```text
+GET /api/items
+POST /api/auth/login
+POST /api/items
+```
+
+정적 파일 request는 브라우저의 페이지 로딩 과정에서 발생하고, API request는 React 코드가 `fetch`, `axios`, generated client 같은 함수를 실행할 때 발생한다.
+
+## Vite dev server
+
+dev server는 로컬 개발 중에 프론트 코드를 브라우저에서 바로 띄우고, 코드를 바꾸면 즉시 반영되게 해 주는 개발용 웹 서버다.
+
+Vite dev server는 보통 다음 기능을 제공한다.
+
+- 개발 중 소스 파일 제공
+- 빠른 module 변환
+- Hot Module Replacement
+- 에러 overlay
+- production build와 다른 개발 최적화
+
+개발 중에는 보통 다음처럼 실행한다.
+
+```powershell
+npm run dev
+```
+
+또는 host와 port를 명시한다.
+
+```powershell
+npm run dev -- --host 127.0.0.1 --port 5300
+```
+
+## 운영에서는 dev server를 쓰지 않는 이유
+
+운영에서는 개발 편의성보다 안정성과 일관성이 중요하다. 그래서 일반적으로 다음 흐름을 사용한다.
+
+```text
+1. npm run build
+2. dist/ 정적 파일 생성
+3. 정적 파일을 web root로 배치
+4. Nginx가 정적 파일을 서빙
+```
+
+즉 운영에서는 소스코드를 실시간으로 처리하는 서버보다, 빌드된 결과물을 안정적으로 응답하는 서버가 필요하다.
+
+## SPA 라우팅
+
+SPA에서는 브라우저 주소창의 경로를 서버가 아니라 프론트 라우터가 해석한다.
+
+예:
+
+```text
+/admin/users
+/reports/daily
+/user/change-password
+```
+
+브라우저 안에서 링크를 클릭하면 React Router가 경로를 해석하고 화면을 바꾼다. 이때 전체 HTML을 서버에서 다시 받는 것이 아니라, 이미 로드된 React 앱 안에서 화면만 바뀐다.
+
+## 새로고침과 index.html fallback
+
+SPA에서 가장 자주 만나는 배포 문제는 새로고침이다.
+
+사용자가 `/admin/users`를 직접 열거나 새로고침하면 request는 먼저 서버로 간다. 서버 입장에서는 `/admin/users`라는 실제 파일이 없을 수 있다.
+
+그래서 정적 파일 서버는 실제 파일이 없으면 `index.html`을 내려주도록 설정해야 한다.
+
+Nginx 예:
+
+```nginx
+location / {
+    try_files $uri $uri/ /index.html;
+}
+```
+
+이 설정 덕분에 브라우저는 언제나 React 앱의 진입점인 `index.html`을 받고, 그 다음 React Router가 현재 경로에 맞는 화면을 렌더링한다.
 
 ## Backend와 통신
 
-React SPA는 브라우저에서 실행되고, FastAPI는 서버에서 실행된다. 둘은 같은 프로세스/메모리를 공유하지 못하므로 네트워크 요청/응답으로만 상호작용한다. 그때 가장 표준적인 방식이 HTTP(S)다.
+React SPA는 backend API를 호출해 데이터를 읽거나 저장한다.
 
-예시(JSON 기반 API 요청/응답)
+```ts
+const response = await fetch('/api/items');
+const items = await response.json();
+```
 
-* 요청(JSON)
+로그인처럼 쿠키 기반 인증이 필요한 요청은 브라우저 credential 정책도 함께 고려해야 한다.
 
-  * `POST /api/auth/login`
-  * body: `{ "email": "...", "password": "..." }`
-* 응답(JSON)
+```ts
+await fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  credentials: 'include',
+  body: JSON.stringify({ login_id: 'alice', password: 'secret' }),
+});
+```
 
-  * `{ "id": 1, "name": "..." }`
+## 자주 하는 실수
 
-## 로그인(쿠키/세션 기반 상호작용)
+- React 앱이 서버에서 실행된다고 생각하는 경우
+- dev server와 운영 Nginx를 같은 역할로 생각하는 경우
+- SPA fallback 없이 정적 파일만 서빙해서 새로고침이 404가 되는 경우
+- frontend와 backend가 같은 메모리를 공유한다고 생각하는 경우
+- 쿠키 기반 API 호출에서 credential 설정을 빠뜨리는 경우
 
-로그인은 “로그인 API 호출”뿐 아니라 “로그인 상태를 이후 요청에서도 유지”하는 방식까지 포함한다. 핵심은 쿠키는 브라우저가 들고 다니는 작은 데이터이고, 세션은 로그인 상태를 유지하기 위한 서버/클라이언트의 약속이며, 검증은 쿠키가 위조되지 않았는지 확인하는 절차라는 점이다.
+## 관련 문서
 
-### 쿠키(cookie)란?
-
-쿠키는 웹사이트가 브라우저에 저장해두는 작은 문자열 데이터다. 이후 브라우저는 같은 사이트에 요청할 때마다 그 쿠키를 자동으로 함께 보내서, 서버가 “이 사용자가 누구인지/어떤 상태인지”를 판단하는 데 쓴다.
-
-* 저장 위치: 사용자 브라우저
-* 전송 방식: 같은 도메인으로 요청할 때 HTTP 헤더로 자동 전송
-* 용도: 로그인 유지, 장바구니, 사용자 설정, 추적 등
-
-예시(서버가 쿠키를 내려주는 응답 헤더)
-
-* `Set-Cookie: session=...; HttpOnly; Secure; Path=/; SameSite=Lax`
-
-예시(브라우저가 다음 요청에 자동으로 쿠키를 붙여 보내는 요청 헤더)
-
-* `Cookie: session=...`
-
-### 세션(session)과 로그인 세션(login session)이란?
-
-세션은 “사용자 1명과 서버 사이의 연속적인 상태(대화) 단위”로 이해하면 된다. 로그인 세션은 그중에서도 특히 “이 사용자가 로그인한 상태임을 서버가 인정하고 유지하는 기간/상태”를 말한다.
-
-#### 쿠키(토큰) 기반 방식(서버가 상태를 덜 가짐)
-
-* 로그인 상태 정보(또는 그에 해당하는 서명된 토큰)를 클라이언트 쿠키에 담음
-* 서버는 요청마다 쿠키를 검증해서 “로그인 상태”를 판단
-* 위·변조 방지가 중요해져서 서명/암호화 키(예: `SECRET_KEY`)가 중요해진다
-
-예시 흐름(개념)
-
-1. 로그인 성공 → 서버가 “서명된 토큰”을 만든다
-2. 서버는 `Set-Cookie: auth_token=<signed>`로 브라우저에 저장시킴
-3. 이후 요청마다 브라우저가 `Cookie: auth_token=<signed>`를 자동 전송
-4. 서버는 `SECRET_KEY`로 서명을 검증해 토큰 위조 여부를 판단
-
-### 쿠키 검증(cookie validation)이란?
-
-쿠키 검증은 서버가 브라우저로부터 받은 쿠키가 정상적이고 신뢰할 수 있는지 확인하는 절차다.
-
-* 쿠키 안에 사용자 정보/만료시간/권한 등이 들어있을 수 있다
-* 서버는 쿠키를 받을 때 보통 다음을 수행한다.
-
-  * 서명(signature) 검증: 서버가 만든 쿠키가 맞는지, 중간에 바뀌지 않았는지 확인
-  * (암호화한 경우) 복호화: 내용을 읽기 위해 복호화
-  * 만료 시간 확인, 위조 여부 확인 등
-
-`SECRET_KEY`는 주로 이 검증 과정에서 쓰인다.
-
-* 서명 키로 쓰이면: 쿠키가 변조되면 서명이 깨져 서버가 거부할 수 있다
-* 암호화 키로 쓰이면: 쿠키 내용이 노출되지 않게 보호할 수 있다(단, “서명”과 목적이 다름)
-
-### 한 번에 정리(프론트엔드 관점)
-
-1. 로그인 화면에서 프론트엔드가 로그인 API를 호출한다.
-
-   * 예: `POST /api/auth/login` + JSON body
-2. 서버가 브라우저에 쿠키를 내려준다(“로그인 유지용 쿠키”).
-
-   * 예: 응답 헤더 `Set-Cookie: ...`
-3. 이후 API 요청마다 브라우저가 쿠키를 자동으로 서버에 전송한다.
-
-   * 예: 요청 헤더 `Cookie: ...`
-4. 서버가 쿠키를 검증한다.
-5. 검증이 통과하면 “로그인된 사용자”로 요청을 처리한다.
+- [HTTPAndBrowser.md](./HTTPAndBrowser.md)
+- [FastAPIBackend.md](./FastAPIBackend.md)
+- [WebDeployment.md](./WebDeployment.md)
