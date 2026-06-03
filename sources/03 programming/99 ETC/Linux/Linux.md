@@ -1,4 +1,8 @@
-# Linux 
+# Linux
+
+## 관련 문서
+
+- [systemd](./systemd.md)
 
 ## WSL2 설치
 powershell 에서 `wsl --install` 입력
@@ -6,7 +10,7 @@ powershell 에서 `wsl --install` 입력
 > Reference  
 > [velog - Window 에서 Linux 사용하기](https://velog.io/@jskim/Windows%EC%97%90%EC%84%9C-Linux-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-with-WSL2)
 
-## Visual Studio Linx 개발 환경 설정
+## Visual Studio Linux 개발 환경 설정
 
 ### Linux 워크로드
 Visual Studio Installer 를 통해 C++를 사용한 Linux 및 임베디드 개발 워크로드 설치

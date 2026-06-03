@@ -158,22 +158,18 @@ location / {
 - 쿠키와 CORS 구성이 단순해진다.
 - HTTPS 인증서와 Nginx server block을 환경별로 나누기 쉽다.
 
-## systemd
+## systemd service
 
-systemd는 Linux에서 장기 실행 프로세스를 service로 관리하는 시스템이다.
+웹 backend는 장기 실행 process이므로 운영 서버에서는 systemd service로 등록해 실행할 수 있다.
 
-backend를 단순히 터미널에서 실행하면 다음 문제가 생긴다.
+systemd는 backend 전용 기술이 아니라 Linux의 init system이자 service manager다. unit, service, target, `systemctl`, `journalctl` 개념은 [systemd](<../99 ETC/Linux/systemd.md>)를 참고한다.
 
-- 터미널이 닫히면 프로세스도 종료될 수 있다.
-- 서버 재부팅 후 자동 시작되지 않는다.
-- 로그와 restart 정책이 표준화되지 않는다.
+웹 배포에서 systemd service는 다음 역할을 담당한다.
 
-systemd service로 등록하면 다음을 얻는다.
-
-- 서버 부팅 시 자동 시작
-- 실패 시 재시작 정책
-- `systemctl`로 start/stop/restart/status 관리
-- `journalctl`로 로그 확인
+- backend process 시작, 중지, 재시작
+- 서버 부팅 시 backend 자동 시작
+- 실패 시 restart policy 적용
+- journal에 backend log 기록
 
 예:
 
@@ -272,3 +268,5 @@ sudo chmod 755 /usr/local/bin/deploy
 - [FastAPIBackend.md](./FastAPIBackend.md)
 - [HTTPAndBrowser.md](./HTTPAndBrowser.md)
 - [Cloud.md](./Cloud.md)
+- [systemd](<../99 ETC/Linux/systemd.md>)
+

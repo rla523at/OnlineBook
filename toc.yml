@@ -508,6 +508,7 @@ project:
       - file: sources/03 programming/04 Web/DatabaseAndORM.md
       - file: sources/03 programming/04 Web/FastAPIBackend.md
       - file: sources/03 programming/04 Web/HTTPAndBrowser.md
+      - file: sources/03 programming/04 Web/Monitoring.md
       - file: sources/03 programming/04 Web/ReactFrontend.md
       - file: sources/03 programming/04 Web/WebDeployment.md
     - file: sources/03 programming/99 ETC/ETC.md
@@ -530,7 +531,9 @@ project:
       - file: sources/03 programming/99 ETC/Batch.md
       - file: sources/03 programming/99 ETC/Cache.md
       - file: sources/03 programming/99 ETC/JavaScript.md
-      - file: sources/03 programming/99 ETC/Linux.md
+      - file: sources/03 programming/99 ETC/Linux/Linux.md
+        children:
+        - file: sources/03 programming/99 ETC/Linux/systemd.md
       - file: sources/03 programming/99 ETC/MacProgramming.md
       - file: sources/03 programming/99 ETC/Memory.md
       - file: sources/03 programming/99 ETC/SAL.md

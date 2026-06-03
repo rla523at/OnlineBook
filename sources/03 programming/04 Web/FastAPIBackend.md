@@ -254,6 +254,8 @@ request end
   get_db cleanup -> Session A close
 ```
 
+`create_db_session(...)`을 직접 호출하면 호출할 때마다 새 SQLAlchemy `Session` 객체를 만든다. 반면 FastAPI endpoint와 인증/권한 검사 dependency가 모두 `Depends(get_db)`를 사용하면, 같은 HTTP request 안에서는 FastAPI dependency cache 때문에 같은 `Session` 객체를 공유한다.
+
 `Depends(get_db, use_cache=False)`를 쓰거나 endpoint 내부에서 별도 DB session을 직접 열면 session 공유가 깨질 수 있다.
 
 ## request.state
