@@ -17,7 +17,7 @@ POST /api/auth/login
 POST /api/items/import
 ```
 
-HTTP request에는 보통 다음 정보가 포함된다.
+HTTP request는 목적에 따라 다음 정보를 포함할 수 있다.
 
 - method
   - `GET`, `POST`, `PUT`, `DELETE` 같은 요청 방식
@@ -30,7 +30,7 @@ HTTP request에는 보통 다음 정보가 포함된다.
 - body
   - JSON, form data, 파일 등 클라이언트가 서버에 전달하는 본문
 
-모든 request가 body를 가지는 것은 아니다. 일반적인 `GET` 요청은 query parameter와 header만으로 필요한 정보를 전달하는 경우가 많다.
+모든 request가 body를 가지는 것은 아니다. 리소스를 조회하는 `GET` 요청은 서버가 body를 요구하지 않는 API라면 query parameter와 header만으로 필요한 정보를 전달할 수 있다.
 
 HTTP response는 서버가 클라이언트에 돌려주는 응답 메시지다.
 
@@ -151,7 +151,7 @@ fetch('/api/me', {
 
 ## 같은 host 아래에서 `/api`를 쓰는 구조
 
-운영 배포에서는 보통 Nginx 같은 reverse proxy를 사용해 프론트 정적 파일과 backend API를 같은 공개 host 아래에 둔다.
+운영 배포에서 프론트 정적 파일과 backend API를 같은 공개 host 아래에 두고 싶다면 Nginx 같은 reverse proxy를 사용할 수 있다. reverse proxy는 브라우저 요청을 먼저 받은 뒤 경로와 설정에 따라 내부 서버나 정적 파일 위치로 전달하는 서버다.
 
 ```text
 https://app.example.com/          -> frontend 정적 파일

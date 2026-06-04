@@ -4,6 +4,19 @@
 
 웹 애플리케이션 배포에서는 앱 코드, 운영 명령, 정적 파일 서빙 경로, 실행 사용자, reverse proxy, systemd service를 분리해서 운영 안정성을 높인다.
 
+## 먼저 알아야 할 용어
+
+- deployment
+  - 개발한 애플리케이션을 사용자가 접근할 수 있는 서버 환경에 올리고 실행 상태를 유지하는 작업이다.
+- reverse proxy
+  - 브라우저의 HTTP request를 먼저 받은 뒤, 설정에 따라 정적 파일 위치나 내부 backend 서버로 전달하는 서버 계층이다.
+- systemd service
+  - Linux에서 backend process 같은 장기 실행 프로그램을 시작, 중지, 재시작하도록 등록한 service 단위다.
+- service account
+  - 사람이 로그인해 작업하는 계정과 분리해, 애플리케이션 파일 소유와 실행에 사용하는 운영 계정이다.
+- web root
+  - Nginx 같은 웹 서버가 정적 파일을 읽어 사용자에게 응답하는 디렉터리다.
+
 ## 배포 구조의 기본 모델
 
 예시 배포 구조는 다음 책임을 나눈다.
@@ -58,7 +71,7 @@ rsync -av --delete /srv/myapp/frontend/dist/ /var/www/myapp/
 
 ## deploy service account
 
-운영 서버에서는 앱 코드와 runtime 파일을 root가 아니라 별도 service account가 소유하게 하는 편이 좋다.
+운영 서버에서 앱 코드와 runtime 파일을 사람이 로그인하는 계정이나 root 권한 작업과 분리하려면, 별도 service account가 해당 파일을 소유하게 한다.
 
 예:
 
@@ -91,7 +104,7 @@ deploy production
 deploy staging <branch>
 ```
 
-일반적인 배포 명령은 다음 순서로 동작한다.
+Git checkout에서 React frontend와 FastAPI backend를 함께 배포하는 명령이라면 다음 순서로 동작할 수 있다.
 
 1. target에 맞는 checkout, web root, service 이름을 결정한다.
 2. Git pull 또는 checkout sync를 수행한다.
@@ -101,7 +114,7 @@ deploy staging <branch>
 6. build 결과를 web root로 동기화한다.
 7. backend service를 restart한다.
 
-Git, Python, npm 작업은 앱 파일을 소유한 service account 권한으로 실행하고, systemd나 Nginx 같은 시스템 영역 작업만 root 권한으로 수행하는 편이 안전하다.
+Git, Python, npm 작업은 앱 파일을 소유한 service account 권한으로 실행한다. systemd나 Nginx 같은 시스템 영역 작업만 root 권한으로 수행하면 앱 파일 소유권이 root로 섞이는 문제를 줄일 수 있다.
 
 ## Nginx의 역할
 
@@ -152,11 +165,11 @@ location / {
 - port 분기
   - `example.com:80`, `example.com:8080`
 
-공개 웹 서비스에서는 보통 host 분기가 더 자연스럽다.
+사용자가 브라우저 주소창에 port를 직접 입력하지 않게 하고 HTTPS 인증서와 쿠키 범위를 환경별로 나누려면 host 분기가 더 자연스럽다.
 
 - 사용자가 port를 직접 붙이지 않아도 된다.
 - 쿠키와 CORS 구성이 단순해진다.
-- HTTPS 인증서와 Nginx server block을 환경별로 나누기 쉽다.
+- HTTPS 인증서와 Nginx server block을 환경별로 분리할 수 있다.
 
 ## systemd service
 
@@ -202,7 +215,7 @@ sudo journalctl -u myapp-backend.service -f
 
 SSH는 원격 서버에 안전하게 접속하고 명령을 실행하기 위한 표준 방식이다.
 
-운영 서버에서는 보통 비밀번호 로그인보다 공개키 로그인을 권장한다.
+운영 서버에서 사람 계정의 SSH 접속을 허용한다면 비밀번호 로그인보다 공개키 로그인을 권장한다. 공개키 로그인은 서버가 공개키로 접속자를 확인하고, 개인키는 접속자의 PC 밖으로 내보내지 않는 방식이다.
 
 ```powershell
 ssh -i "$HOME\.ssh\<user>_server" <user>@<server-host>
@@ -231,7 +244,7 @@ Linux 파일 권한은 owner, group, other 기준으로 나뉜다.
 
 SSH 키 인증에서는 권한이 너무 넓으면 보안상 키가 무시될 수 있다.
 
-일반적인 기준:
+OpenSSH가 기본 권한 검사를 사용하는 서버라면 다음 권한을 기준으로 잡을 수 있다.
 
 ```text
 ~/.ssh                 700
@@ -246,7 +259,7 @@ sudo chmod 600 /home/<user>/.ssh/authorized_keys
 sudo chown -R <user>:<user> /home/<user>/.ssh
 ```
 
-운영 스크립트는 보통 root가 소유하고 누구나 실행할 수 있게 둔다.
+여러 운영자가 같은 배포 명령을 실행해야 하고 스크립트 내용은 운영자가 임의로 바꾸면 안 되는 구조라면, 운영 스크립트는 root가 소유하고 누구나 실행할 수 있게 둘 수 있다.
 
 ```bash
 sudo chown root:root /usr/local/bin/deploy

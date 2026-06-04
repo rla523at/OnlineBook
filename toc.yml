@@ -506,10 +506,13 @@ project:
       children:
       - file: sources/03 programming/04 Web/Cloud.md
       - file: sources/03 programming/04 Web/DatabaseAndORM.md
+      - file: sources/03 programming/04 Web/DockerNetwork.md
       - file: sources/03 programming/04 Web/FastAPIBackend.md
       - file: sources/03 programming/04 Web/HTTPAndBrowser.md
       - file: sources/03 programming/04 Web/Monitoring.md
+      - file: sources/03 programming/04 Web/NetworkBasics.md
       - file: sources/03 programming/04 Web/ReactFrontend.md
+      - file: sources/03 programming/04 Web/SQLAlchemyRelationships.md
       - file: sources/03 programming/04 Web/WebDeployment.md
     - file: sources/03 programming/99 ETC/ETC.md
       children:
