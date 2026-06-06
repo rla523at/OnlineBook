@@ -36,9 +36,15 @@ Prometheus
 
 `IP 주소`는 network에서 통신 대상을 찾기 위한 주소다.
 
-`host`는 network에서 request를 받을 수 있는 컴퓨터, 가상 머신, container 같은 실행 환경을 가리키는 말이다. URL 문맥에서는 `host`가 `127.0.0.1`, `example.com` 같은 주소 부분을 뜻한다.
+`host`는 문맥에 따라 network에서 request를 받을 수 있는 컴퓨터, 가상 머신, container 같은 실행 환경을 가리키기도 하고, URL 안에서 그 실행 환경을 찾기 위한 이름이나 주소 부분을 가리키기도 한다.
+
+URL 문맥에서 `host`는 실행 환경 자체가 아니라, request가 도달할 실행 환경을 찾기 위해 URL 안에 적는 이름이나 주소 부분이다. 예를 들어 `http://127.0.0.1:9100/metrics`에서 `127.0.0.1`은 URL의 host 부분이다. `example.com`처럼 domain name이 host 부분에 있으면 client는 DNS 같은 name resolution을 통해 접근할 network 주소를 찾는다.
 
 `port`는 같은 IP 주소 안에서 어떤 server process와 통신할지 구분하는 번호다.
+
+여기서 `server process`는 network request를 받을 수 있게 실행 중인 server 역할의 process다. `server`는 물리 컴퓨터를 뜻하는 말이 아니라 request를 받는 역할을 뜻하고, `process`는 OS에서 실행 중인 프로그램을 뜻한다.
+
+예를 들어 node exporter가 `127.0.0.1:9100`에 bind하고 listen하면, node exporter process가 `9100` port에서 request를 기다리는 server process다. FastAPI backend에서는 FastAPI `app` 객체 자체가 port를 여는 server process가 아니라, 그 앱을 실행하는 Uvicorn 같은 ASGI server process가 network port를 열고 request를 받는다.
 
 예:
 

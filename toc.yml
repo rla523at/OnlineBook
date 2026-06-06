@@ -504,6 +504,7 @@ project:
       - file: sources/03 programming/03 Window Programming/Thread.md
     - title: Web
       children:
+      - file: sources/03 programming/04 Web/AmazonLightsail.md
       - file: sources/03 programming/04 Web/Cloud.md
       - file: sources/03 programming/04 Web/DatabaseAndORM.md
       - file: sources/03 programming/04 Web/DockerNetwork.md

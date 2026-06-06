@@ -171,6 +171,7 @@ Browser
 
 ## 관련 문서
 
+- [AmazonLightsail.md](./AmazonLightsail.md)
 - [WebDeployment.md](./WebDeployment.md)
 - [HTTPAndBrowser.md](./HTTPAndBrowser.md)
 
