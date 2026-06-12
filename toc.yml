@@ -508,6 +508,7 @@ project:
       - file: sources/03 programming/04 Web/Cloud.md
       - file: sources/03 programming/04 Web/DatabaseAndORM.md
       - file: sources/03 programming/04 Web/DockerNetwork.md
+      - file: sources/03 programming/04 Web/DockerVolume.md
       - file: sources/03 programming/04 Web/FastAPIBackend.md
       - file: sources/03 programming/04 Web/HTTPAndBrowser.md
       - file: sources/03 programming/04 Web/Monitoring.md
