@@ -87,6 +87,70 @@ POSTGRES_DB=myapp
 
 이 값들은 최종적으로 `DATABASE_URL`을 만들거나, DB driver 설정에 전달되는 접속 정보가 된다.
 
+### DB에 접속한다는 말의 의미
+
+`DB에 접속한다`는 PostgreSQL 서버와 통신할 수 있는 DB connection을 여는 것이다. 접속 자체는 값을 읽는 일이 아니다. 값을 읽으려면 connection을 연 뒤 SQL query를 실행해야 한다.
+
+| 개념 | 의미 |
+| --- | --- |
+| DB connection | PostgreSQL 서버와 통신할 수 있는 연결 |
+| query | 연결된 DB에 `SELECT`, `INSERT` 같은 SQL 명령을 보내는 것 |
+| client | DB에 접속해서 query를 보내는 프로그램 또는 라이브러리 |
+
+흐름은 다음과 같다.
+
+```text
+DB connection 생성
+  -> SQL query 실행
+  -> row 반환
+```
+
+`psql`은 사람이 터미널에서 쓰는 PostgreSQL client다. 다음 명령은 DB connection을 여는 구체적인 방법이다.
+
+```powershell
+psql -h '<host>' -p 5432 -U '<user>' -d '<database>' -W
+```
+
+| 접속 정보 | `psql` 옵션 | PostgreSQL 환경변수 | 의미 |
+| --- | --- | --- | --- |
+| DB 서버 주소 | `-h <host>` | `PGHOST` | 어느 PostgreSQL 서버로 갈지 |
+| DB 서버 port | `-p 5432` | `PGPORT` | 그 서버의 어느 port로 갈지 |
+| DB user | `-U <user>` | `PGUSER` | 어떤 DB 계정으로 로그인할지 |
+| 접속 시작 DB | `-d <database>` | `PGDATABASE` | 서버 안의 어떤 database에 먼저 접속할지 |
+| 비밀번호 | `-W`로 입력 요청 | `PGPASSWORD` | DB user 비밀번호 |
+| SSL 방식 | 연결 문자열 또는 별도 옵션 | `PGSSLMODE` | SSL 연결 방식을 정함 |
+
+`PGPASSWORD`는 비밀번호를 환경변수에 미리 넣는 방식이고, `-W`는 `psql` 실행 중 비밀번호를 직접 입력하게 하는 방식이다. 비밀번호 원문은 문서와 repository에 저장하지 않는다.
+
+### psql, psycopg2, SQLAlchemy의 관계
+
+같은 PostgreSQL에 접속하더라도 실행 주체에 따라 사용하는 client가 다르다.
+
+```text
+사람이 직접 확인:
+psql
+  -> DB connection
+  -> SQL query 입력
+  -> row 반환
+
+FastAPI 코드 실행:
+FastAPI endpoint
+  -> SQLAlchemy Session
+  -> SQLAlchemy Engine
+  -> psycopg2
+  -> DB connection
+  -> SQL query 실행
+  -> row 반환
+```
+
+`psycopg2`는 Python 코드가 PostgreSQL에 접속할 때 사용하는 DB driver다. SQLAlchemy는 `DATABASE_URL`에 적힌 driver 이름을 보고 `psycopg2`를 통해 DB connection을 만든다.
+
+```text
+postgresql+psycopg2://<user>:<password>@<host>:<port>/<database>
+```
+
+이 프로젝트에서는 `backend/config/.env`의 `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_DB`를 합쳐 `DATABASE_URL`을 만든다. 이 값들은 SQL query 자체가 아니라 DB connection을 만들기 위한 접속 정보다.
+
 ## SQLAlchemy ORM은 무엇인가
 
 SQLAlchemy ORM은 Python 코드에서 DB table과 row를 객체처럼 다루게 해 주는 계층이다.
