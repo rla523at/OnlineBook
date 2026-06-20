@@ -11,10 +11,11 @@ PostgreSQL은 데이터를 저장하는 DBMS이고, SQLAlchemy ORM은 Python 객
 읽은 뒤에는 다음을 설명할 수 있어야 한다.
 
 - PostgreSQL이 어떤 역할을 하는지
-- `DATABASE_URL`과 DB connection이 왜 필요한지
+- DB connection 위에서 ORM과 migration이 어디에 위치하는지
 - SQLAlchemy ORM과 SQLAlchemy Session이 각각 무엇을 맡는지
 - Alembic migration이 request 처리 흐름이 아니라 schema 변경 흐름에서 쓰인다는 점
 
+DB connection, DB 접속 정보, DB 연결 문자열, `DATABASE_URL`, DSN의 구분은 [DBConnection.md](./DBConnection.md)에서 다룬다.
 ORM 관계 매핑의 세부 내용은 [SQLAlchemyRelationships.md](./SQLAlchemyRelationships.md)에서 다룬다.
 
 ## 전체 그림
@@ -65,91 +66,21 @@ DBMS는 DB를 관리하는 프로그램 범주이고, PostgreSQL은 그 범주�
 
 애플리케이션은 PostgreSQL data file을 직접 수정하지 않는다. FastAPI backend는 DB connection을 통해 PostgreSQL에 query를 보내고, PostgreSQL은 table row를 읽거나 변경한 결과를 돌려준다.
 
-## DB connection과 DATABASE_URL
+## DB connection 위의 SQLAlchemy
 
-DB connection은 애플리케이션과 DBMS 사이에 열린 통신 경로다. FastAPI 코드가 DB를 사용하려면 SQLAlchemy나 DB driver가 PostgreSQL에 접속할 수 있어야 한다.
-
-`DATABASE_URL`은 DB 접속 정보를 한 문자열로 표현한 연결 문자열이다. 연결 문자열에는 DB 종류, driver, 사용자, 비밀번호, host, port, database 이름이 들어간다.
+DB connection은 애플리케이션과 DBMS 사이에 열린 통신 경로다. SQLAlchemy ORM과 SQLAlchemy Session은 이 connection 위에서 query 생성, 객체 상태 추적, transaction 경계 관리를 맡는다.
 
 ```text
-postgresql+psycopg2://<user>:<password>@<host>:<port>/<db>
-```
-
-이 값을 코드에 직접 적으면 dev, test, staging, production 환경을 분리하기 어렵고 비밀번호가 코드에 남을 수 있다. 그래서 운영 서버나 여러 개발 환경에서 같은 코드를 다른 DB에 연결해야 한다면 환경변수나 `.env` 파일에서 읽는다.
-
-```text
-POSTGRES_USER=myapp
-POSTGRES_PASSWORD=<password>
-POSTGRES_HOST=127.0.0.1
-POSTGRES_PORT=5432
-POSTGRES_DB=myapp
-```
-
-이 값들은 최종적으로 `DATABASE_URL`을 만들거나, DB driver 설정에 전달되는 접속 정보가 된다.
-
-### DB에 접속한다는 말의 의미
-
-`DB에 접속한다`는 PostgreSQL 서버와 통신할 수 있는 DB connection을 여는 것이다. 접속 자체는 값을 읽는 일이 아니다. 값을 읽으려면 connection을 연 뒤 SQL query를 실행해야 한다.
-
-| 개념 | 의미 |
-| --- | --- |
-| DB connection | PostgreSQL 서버와 통신할 수 있는 연결 |
-| query | 연결된 DB에 `SELECT`, `INSERT` 같은 SQL 명령을 보내는 것 |
-| client | DB에 접속해서 query를 보내는 프로그램 또는 라이브러리 |
-
-흐름은 다음과 같다.
-
-```text
-DB connection 생성
-  -> SQL query 실행
-  -> row 반환
-```
-
-`psql`은 사람이 터미널에서 쓰는 PostgreSQL client다. 다음 명령은 DB connection을 여는 구체적인 방법이다.
-
-```powershell
-psql -h '<host>' -p 5432 -U '<user>' -d '<database>' -W
-```
-
-| 접속 정보 | `psql` 옵션 | PostgreSQL 환경변수 | 의미 |
-| --- | --- | --- | --- |
-| DB 서버 주소 | `-h <host>` | `PGHOST` | 어느 PostgreSQL 서버로 갈지 |
-| DB 서버 port | `-p 5432` | `PGPORT` | 그 서버의 어느 port로 갈지 |
-| DB user | `-U <user>` | `PGUSER` | 어떤 DB 계정으로 로그인할지 |
-| 접속 시작 DB | `-d <database>` | `PGDATABASE` | 서버 안의 어떤 database에 먼저 접속할지 |
-| 비밀번호 | `-W`로 입력 요청 | `PGPASSWORD` | DB user 비밀번호 |
-| SSL 방식 | 연결 문자열 또는 별도 옵션 | `PGSSLMODE` | SSL 연결 방식을 정함 |
-
-`PGPASSWORD`는 비밀번호를 환경변수에 미리 넣는 방식이고, `-W`는 `psql` 실행 중 비밀번호를 직접 입력하게 하는 방식이다. 비밀번호 원문은 문서와 repository에 저장하지 않는다.
-
-### psql, psycopg2, SQLAlchemy의 관계
-
-같은 PostgreSQL에 접속하더라도 실행 주체에 따라 사용하는 client가 다르다.
-
-```text
-사람이 직접 확인:
-psql
-  -> DB connection
-  -> SQL query 입력
-  -> row 반환
-
-FastAPI 코드 실행:
 FastAPI endpoint
   -> SQLAlchemy Session
   -> SQLAlchemy Engine
-  -> psycopg2
+  -> DB driver
   -> DB connection
   -> SQL query 실행
   -> row 반환
 ```
 
-`psycopg2`는 Python 코드가 PostgreSQL에 접속할 때 사용하는 DB driver다. SQLAlchemy는 `DATABASE_URL`에 적힌 driver 이름을 보고 `psycopg2`를 통해 DB connection을 만든다.
-
-```text
-postgresql+psycopg2://<user>:<password>@<host>:<port>/<database>
-```
-
-이 프로젝트에서는 `backend/config/.env`의 `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_DB`를 합쳐 `DATABASE_URL`을 만든다. 이 값들은 SQL query 자체가 아니라 DB connection을 만들기 위한 접속 정보다.
+DB connection을 만들기 위한 접속 정보와 연결 문자열 형식은 [DBConnection.md](./DBConnection.md)를 참고한다.
 
 ## SQLAlchemy ORM은 무엇인가
 
@@ -279,4 +210,5 @@ schema를 변경하는 작업은 request 처리 흐름과 분리해서 생각한
 
 - [FastAPIBackend.md](./FastAPIBackend.md)
 - [WebDeployment.md](./WebDeployment.md)
+- [DBConnection.md](./DBConnection.md)
 - [SQLAlchemyRelationships.md](./SQLAlchemyRelationships.md)

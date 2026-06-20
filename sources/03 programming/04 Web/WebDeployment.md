@@ -213,51 +213,18 @@ sudo journalctl -u myapp-backend.service -f
 
 ## SSH와 운영자 계정
 
-SSH는 원격 서버에 안전하게 접속하고 명령을 실행하기 위한 표준 방식이다.
+웹 애플리케이션 배포에서는 사람 관리자 계정, 자동화 계정, 애플리케이션 실행 계정을 구분한다. SSH key pair, `authorized_keys`, `known_hosts`, `StrictHostKeyChecking`, Linux 사용자 계정과 `sudo`의 관계는 [SSH.md](./SSH.md)에서 설명한다.
 
-운영 서버에서 사람 계정의 SSH 접속을 허용한다면 비밀번호 로그인보다 공개키 로그인을 권장한다. 공개키 로그인은 서버가 공개키로 접속자를 확인하고, 개인키는 접속자의 PC 밖으로 내보내지 않는 방식이다.
+이 문서에서는 배포 맥락에서 다음 기준만 둔다.
 
-```powershell
-ssh -i "$HOME\.ssh\<user>_server" <user>@<server-host>
-```
-
-구조는 다음과 같다.
-
-- 개인키
-  - 접속하는 사람의 PC에만 둔다.
-- 공개키
-  - 서버의 `~/.ssh/authorized_keys`에 등록한다.
-
-서버에서 실제 접속 허용 기준은 클라우드 콘솔에 보이는 키 목록이 아니라 각 계정의 `authorized_keys` 파일이다.
+- 사람 관리자는 사람별 Linux 계정으로 접속한다.
+- 자동화는 자동화 전용 Linux 계정과 전용 SSH key를 사용한다.
+- 애플리케이션 실행 계정은 service 실행과 checkout 소유에 사용하고 SSH 로그인 계정으로 쓰지 않는다.
+- 배포 command의 소유권과 실행 권한은 운영자가 임의로 수정할 수 없게 관리한다.
 
 ## 파일 소유권과 권한
 
-Linux 파일 권한은 owner, group, other 기준으로 나뉜다.
-
-```text
--rwxr-x---
-```
-
-- owner 권한
-- group 권한
-- other 권한
-
-SSH 키 인증에서는 권한이 너무 넓으면 보안상 키가 무시될 수 있다.
-
-OpenSSH가 기본 권한 검사를 사용하는 서버라면 다음 권한을 기준으로 잡을 수 있다.
-
-```text
-~/.ssh                 700
-~/.ssh/authorized_keys 600
-```
-
-예:
-
-```bash
-sudo chmod 700 /home/<user>/.ssh
-sudo chmod 600 /home/<user>/.ssh/authorized_keys
-sudo chown -R <user>:<user> /home/<user>/.ssh
-```
+Linux 파일 권한은 owner, group, other 기준으로 나뉜다. SSH key 파일 권한 기준은 [SSH.md](./SSH.md)의 `.ssh 파일 권한` 절에서 설명한다.
 
 여러 운영자가 같은 배포 명령을 실행해야 하고 스크립트 내용은 운영자가 임의로 바꾸면 안 되는 구조라면, 운영 스크립트는 root가 소유하고 누구나 실행할 수 있게 둘 수 있다.
 
@@ -273,7 +240,7 @@ sudo chmod 755 /usr/local/bin/deploy
 - SPA fallback 없이 정적 파일만 서빙하는 경우
 - Nginx 설정 수정 후 `nginx -t` 없이 reload하는 경우
 - service unit을 수정하고 `systemctl daemon-reload`를 빼먹는 경우
-- `.ssh`와 `authorized_keys` 권한을 너무 넓게 설정하는 경우
+- SSH key 파일 권한과 SSH host key 검증을 운영 기준 없이 처리하는 경우
 
 ## 관련 문서
 
@@ -281,5 +248,6 @@ sudo chmod 755 /usr/local/bin/deploy
 - [FastAPIBackend.md](./FastAPIBackend.md)
 - [HTTPAndBrowser.md](./HTTPAndBrowser.md)
 - [Cloud.md](./Cloud.md)
+- [SSH.md](./SSH.md)
 - [systemd](<../99 ETC/Linux/systemd.md>)
 

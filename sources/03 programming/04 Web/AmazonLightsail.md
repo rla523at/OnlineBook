@@ -176,72 +176,19 @@ SSH는 서버 관리자가 접속하는 포트다. HTTP와 HTTPS는 브라우저
 
 Lightsail 방화벽은 public IP로 들어오는 inbound traffic을 제어한다. 서버 내부에서 `127.0.0.1:8300`으로 통신하는 것처럼 loopback 주소를 사용하는 트래픽은 Lightsail 방화벽의 대상이 아니다.
 
-## SSH key pair
+## SSH 접속
 
-`SSH key pair`는 Linux/Unix 인스턴스에 SSH로 접속할 때 사용하는 공개키와 개인키 쌍이다.
+Lightsail 인스턴스는 브라우저 기반 SSH 또는 일반 SSH client로 접속할 수 있다. SSH key pair, `authorized_keys`, `known_hosts`, `StrictHostKeyChecking`, Linux 사용자 계정과 `sudo`의 관계는 [SSH.md](./SSH.md)에서 설명한다.
 
-```text
-public key
-  -> Lightsail 또는 인스턴스에 등록
+Lightsail에서 SSH 접속을 준비할 때 이 문서에서는 다음 Lightsail 선택지만 확인한다.
 
-private key
-  -> 내 PC에 보관
-  -> SSH 접속 시 사용
-```
-
-공개키는 서버에 등록해도 된다. 개인키는 외부에 노출되면 안 된다. 개인키를 가진 사용자는 해당 키를 신뢰하는 인스턴스에 접속할 수 있다.
-
-Lightsail에서 key pair를 사용하는 방식은 다음과 같다.
-
-- default SSH key 사용
-- Lightsail 콘솔에서 custom key 생성
+- 기본 SSH key 사용
+- Lightsail console에서 custom key 생성
 - 기존 public key 업로드
+- 브라우저 기반 SSH 사용 여부
+- 로컬 SSH client 사용 여부
 
-기존 public key를 업로드하면 내 PC에 이미 있는 private key로 새 인스턴스에 접속할 수 있다.
-
-같은 public key를 여러 인스턴스에 등록하면 같은 private key로 여러 인스턴스에 접속할 수 있다. 이것은 가능하지만, 개인키가 노출되면 여러 인스턴스가 함께 위험해진다. 따라서 운영에서는 private key 보관, passphrase 사용, 접근자 관리가 중요하다.
-
-## 브라우저 기반 SSH와 일반 SSH client
-
-Lightsail 콘솔에는 브라우저에서 바로 SSH 접속하는 기능이 있다. 이 방식은 로컬 PC에 SSH client를 직접 설정하지 않아도 된다.
-
-반면 로컬 터미널에서 접속하는 방식은 다음 형태를 사용한다.
-
-```bash
-ssh -i "<private-key-path>" <user>@<public-ip-or-domain>
-```
-
-예를 들어 Ubuntu 인스턴스라면 기본 사용자 이름이 `ubuntu`일 수 있다.
-
-```bash
-ssh -i "$HOME/.ssh/my_lightsail_key" ubuntu@203.0.113.10
-```
-
-여기서 `ubuntu`는 Linux 사용자 계정 이름이고, IP는 접속 대상 인스턴스 주소다. SSH key가 같아도 사용자 이름이 다르면 다른 Linux 계정으로 로그인하는 것이다.
-
-## Linux 사용자 계정과 sudo
-
-SSH 접속에 성공했다는 사실은 서버 관리자 권한을 가진다는 뜻과 같지 않다.
-
-Linux 서버에는 여러 사용자 계정이 있을 수 있다.
-
-- `ubuntu`
-- `deploy`
-- `ms`
-- `root`
-
-각 계정은 서로 다른 home directory, group, sudo 권한을 가질 수 있다.
-
-`sudo`는 일반 사용자가 관리자 권한으로 명령을 실행할 때 사용하는 도구다. 어떤 사용자가 어떤 명령을 sudo로 실행할 수 있는지는 `/etc/sudoers`와 `/etc/sudoers.d/` 설정으로 결정된다.
-
-따라서 같은 SSH key로 접속하더라도 다음은 서로 다른 의미다.
-
-```bash
-ssh -i key ubuntu@server
-ssh -i key ms@server
-```
-
-첫 번째는 `ubuntu` Linux 계정으로 로그인한다. 두 번째는 `ms` Linux 계정으로 로그인한다. 두 계정의 sudo 권한이 다르면 실행 가능한 관리 작업도 달라진다.
+로컬 SSH client를 사용할 때의 명령 형태는 [SSH.md](./SSH.md)의 사용자 인증 설명을 기준으로 확인한다.
 
 ## Lightsail DB 리소스
 
@@ -259,7 +206,7 @@ Lightsail DB 리소스에는 다음 요소가 있다.
 - backup과 snapshot
 - metrics와 logs
 
-`DB endpoint`는 애플리케이션이 DB 서버에 접속할 때 사용하는 host 이름이다.
+`DB endpoint`는 애플리케이션이 DB 서버에 접속할 때 사용하는 host 이름이다. DB endpoint는 DB 접속 정보 전체가 아니라 host에 해당한다. DB connection, DB 접속 정보, DB 연결 문자열의 구분은 [DBConnection.md](./DBConnection.md)에서 다룬다.
 
 ```text
 application
@@ -305,7 +252,7 @@ Lightsail DB 리소스
 
 PostgreSQL에는 DB user 또는 role이 있다. 애플리케이션은 특정 user와 password로 DB에 접속한다.
 
-이 문서의 웹 애플리케이션 구성에서는 `.env`의 다음 값들이 DB 연결을 구성한다.
+Lightsail 관리형 DB를 쓰는 웹 애플리케이션에서는 `.env`의 `POSTGRES_HOST`에 Lightsail DB resource endpoint가 들어간다.
 
 ```text
 POSTGRES_HOST=<DB endpoint>
@@ -314,12 +261,6 @@ POSTGRES_DB=<논리 DB 이름>
 POSTGRES_USER=<DB user>
 POSTGRES_PASSWORD=<DB user password>
 ```
-
-`POSTGRES_HOST`는 DB 서버를 가리킨다. Lightsail 관리형 DB를 쓰면 DB resource endpoint가 들어간다.
-
-`POSTGRES_DB`는 접속할 논리 DB를 가리킨다.
-
-`POSTGRES_USER`는 접속 계정을 가리킨다.
 
 따라서 같은 Lightsail DB 리소스를 쓰더라도 `POSTGRES_DB`만 바꾸면 다른 논리 DB에 접속할 수 있다. 단, 해당 user가 그 논리 DB에 접근할 권한을 가지고 있어야 한다.
 
@@ -587,7 +528,9 @@ Lightsail을 처음 학습할 때는 기능 목록을 외우는 것보다 계층
 
 - [Cloud.md](./Cloud.md): 클라우드 컴퓨팅, 가상 서버, managed database의 기본 개념을 설명한다.
 - [NetworkBasics.md](./NetworkBasics.md): IP, port, DNS 같은 네트워크 기초를 설명한다.
+- [SSH.md](./SSH.md): SSH key pair, authorized_keys, known_hosts, SSH host key 검증, Linux 사용자 계정과 sudo의 관계를 설명한다.
 - [WebDeployment.md](./WebDeployment.md): 웹 애플리케이션 배포에서 Nginx, backend, DB가 어떻게 연결되는지 설명한다.
+- [DBConnection.md](./DBConnection.md): DB connection, DB 접속 정보, DB 연결 문자열, DSN의 차이를 설명한다.
 - [Monitoring.md](./Monitoring.md): 운영 중인 서버와 애플리케이션 상태를 관찰하는 기본 개념을 설명한다.
 
 ## 참고 문서
