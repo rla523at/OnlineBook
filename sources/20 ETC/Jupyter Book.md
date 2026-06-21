@@ -172,6 +172,13 @@ TOC 구조
 ```
 conda activate jb
 
+python jb_manager.py --build
+```
+
+## 프리뷰
+```
+conda activate jb
+
 python jb_manager.py --test
 ```
 

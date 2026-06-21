@@ -447,6 +447,37 @@ Rerun된 `dev-gate`는 시작 시점에 pull request comment를 다시 읽고, �
 
 일반적으로 적절하지 않다. Comment workflow는 pull request head commit을 검증하는 check가 아니라 comment event에 반응하는 side effect workflow다. Merge 가능 여부는 pull request head commit을 기준으로 실행된 workflow의 status check로 판단하는 편이 명확하다.
 
+### merge 전에 pull request workflow 변경사항을 테스트할 수 있는가
+
+가능하다. 변경사항이 들어 있는 commit을 pull request head branch에 push해서 새 `pull_request` workflow run을 만들면 된다.
+
+GitHub `pull_request` event에서 `GITHUB_REF`는 open 상태의 merge 가능한 pull request 기준으로 `refs/pull/<pull_request_number>/merge` 형태의 merge branch를 가리킨다. `actions/checkout`은 기본값으로 이 ref를 checkout하므로, 이 상태에서는 base branch와 head branch를 합친 결과를 기준으로 command를 실행한다.
+
+Pull request head commit 자체를 기준으로 command를 실행해야 하면 checkout 대상을 명시한다.
+
+```yaml
+- uses: actions/checkout@v4
+  with:
+    ref: ${{ github.event.pull_request.head.sha }}
+```
+
+이 설정이 있는 workflow에서는 pull request head branch에 workflow file이나 script 변경사항을 push한 뒤 새 workflow run이 생성되면, merge 전에도 변경사항을 확인할 수 있다.
+
+Comment command를 함께 쓰는 구조에서는 `issue_comment` workflow와 `pull_request` workflow의 책임을 나누어 봐야 한다.
+
+```text
+1. 변경사항을 pull request head branch에 push한다.
+2. 새 pull_request workflow run이 생성되는지 확인한다.
+3. pull request comment command를 작성한다.
+4. issue_comment workflow가 comment를 감지한다.
+5. comment handler가 같은 head commit의 pull_request workflow run을 다시 실행한다.
+6. 다시 실행된 pull_request workflow run에서 변경된 workflow와 script 동작을 확인한다.
+```
+
+단, `issue_comment` event는 comment를 감지하는 workflow를 실행하는 event다. GitHub 문서 기준으로 `issue_comment` event의 `GITHUB_SHA`는 repository의 기본 branch인 default branch의 마지막 commit이고, `GITHUB_REF`도 default branch다. 따라서 comment handler workflow file 자체의 변경사항을 검증하려면 default branch에 반영된 뒤 확인하거나, 별도의 수동 실행 workflow 같은 테스트 경로를 마련해야 한다.
+
+이미 생성된 오래된 workflow run은 새 commit이 포함되지 않는다. 변경사항을 검증하려면 변경 commit을 push한 뒤 생성된 새 workflow run을 기준으로 확인한다.
+
 ### secret을 GitHub에 넣으면 아무도 볼 수 없는가
 
 GitHub UI에서 secret value를 일반 text처럼 다시 열람하는 구조는 아니다. 하지만 workflow file을 수정할 수 있는 사용자는 secret을 외부로 보내는 workflow를 만들 수 있다. 따라서 secret 사용은 workflow 변경 review, branch protection, 최소 권한 원칙과 함께 설계해야 한다.
