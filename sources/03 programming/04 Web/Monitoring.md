@@ -336,7 +336,7 @@ Grafana에서는 Prometheus datasource를 등록한 뒤 dashboard panel에서 Pr
 - [DockerNetwork.md](./DockerNetwork.md)
 - [Cloud.md](./Cloud.md)
 - [WebDeployment.md](./WebDeployment.md)
-- [systemd](<../99 ETC/Linux/systemd.md>)
+- [systemd](<../05 Linux/systemd.md>)
 - [Prometheus data model](https://prometheus.io/docs/concepts/)
 - [Prometheus jobs and instances](https://prometheus.io/docs/concepts/jobs_instances/)
 - [Prometheus exposition formats](https://prometheus.io/docs/instrumenting/exposition_formats/)

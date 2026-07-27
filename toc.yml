@@ -520,6 +520,11 @@ project:
       - file: sources/03 programming/04 Web/SSH.md
       - file: sources/03 programming/04 Web/UIPatternCatalog.md
       - file: sources/03 programming/04 Web/WebDeployment.md
+    - file: sources/03 programming/05 Linux/Linux.md
+      children:
+      - file: sources/03 programming/05 Linux/Shell Environment.md
+      - file: sources/03 programming/05 Linux/WSL.md
+      - file: sources/03 programming/05 Linux/systemd.md
     - file: sources/03 programming/99 ETC/ETC.md
       children:
       - file: sources/03 programming/99 ETC/1 OOP.md
@@ -527,6 +532,7 @@ project:
       - file: sources/03 programming/99 ETC/11 Visual Studio.md
       - file: sources/03 programming/99 ETC/12 Clang-format.md
       - file: sources/03 programming/99 ETC/13 vcpkg.md
+      - file: sources/03 programming/99 ETC/14 Intel oneAPI Compiler.md
       - file: sources/03 programming/99 ETC/2 Process.md
       - file: sources/03 programming/99 ETC/21 CMake.md
       - file: sources/03 programming/99 ETC/30 OpenMP.md
@@ -540,11 +546,6 @@ project:
       - file: sources/03 programming/99 ETC/Batch.md
       - file: sources/03 programming/99 ETC/Cache.md
       - file: sources/03 programming/99 ETC/JavaScript.md
-      - file: sources/03 programming/99 ETC/Linux/Linux.md
-        children:
-        - file: sources/03 programming/99 ETC/Linux/Shell Environment.md
-        - file: sources/03 programming/99 ETC/Linux/WSL.md
-        - file: sources/03 programming/99 ETC/Linux/systemd.md
       - file: sources/03 programming/99 ETC/MacProgramming.md
       - file: sources/03 programming/99 ETC/Memory.md
       - file: sources/03 programming/99 ETC/SAL.md

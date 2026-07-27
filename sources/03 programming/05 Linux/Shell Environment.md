@@ -24,7 +24,7 @@ terminal
       └─ python3 process
 ```
 
-Process의 기본 개념은 [Process](<../2 Process.md>) 문서를 참고한다.
+Process의 기본 개념은 [Process](<../99 ETC/2 Process.md>) 문서를 참고한다.
 
 ## shell state와 environment
 
@@ -286,7 +286,7 @@ WSL의 `.wslconfig`, `/etc/wsl.conf` 또는 systemd boot 설정은 Bash startup 
 
 - [Linux](./Linux.md)
 - [WSL](./WSL.md)
-- [Process](<../2 Process.md>)
+- [Process](<../99 ETC/2 Process.md>)
 
 ## References
 

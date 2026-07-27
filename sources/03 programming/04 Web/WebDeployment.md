@@ -175,7 +175,7 @@ location / {
 
 웹 backend는 장기 실행 process이므로 운영 서버에서는 systemd service로 등록해 실행할 수 있다.
 
-systemd는 backend 전용 기술이 아니라 Linux의 init system이자 service manager다. unit, service, target, `systemctl`, `journalctl` 개념은 [systemd](<../99 ETC/Linux/systemd.md>)를 참고한다.
+systemd는 backend 전용 기술이 아니라 Linux의 init system이자 service manager다. unit, service, target, `systemctl`, `journalctl` 개념은 [systemd](<../05 Linux/systemd.md>)를 참고한다.
 
 웹 배포에서 systemd service는 다음 역할을 담당한다.
 
@@ -249,5 +249,5 @@ sudo chmod 755 /usr/local/bin/deploy
 - [HTTPAndBrowser.md](./HTTPAndBrowser.md)
 - [Cloud.md](./Cloud.md)
 - [SSH.md](./SSH.md)
-- [systemd](<../99 ETC/Linux/systemd.md>)
+- [systemd](<../05 Linux/systemd.md>)
 

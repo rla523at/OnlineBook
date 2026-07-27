@@ -1,6 +1,100 @@
 # Visual Studio
 특정 프로젝트가 빌드가 안될 때는 구성 관리자에가서 빌드 체크가 되어 있는지 확인해본다.
 
+## Linux C++ 개발 환경
+
+Visual Studio는 Windows에서 실행되지만 C++ source code를 WSL 또는 원격 Linux system으로 보내 Linux compiler로 build하고 GDB로 debug할 수 있다. 이때 IDE는 Windows에서 실행되고 compiler, linker와 debugger는 대상 Linux 환경에서 실행된다.
+
+### Linux 개발 workload 설치
+
+Visual Studio Installer를 열고 설치된 Visual Studio의 `수정`을 선택한다. `워크로드` 탭의 `기타 도구 집합`에서 `Linux and embedded development with C++`에 해당하는 workload를 선택한 뒤 설치를 적용한다. 표시 이름은 Visual Studio의 언어 설정에 따라 다를 수 있다.
+
+CMake project를 사용한다면 설치 세부 정보에서 Linux용 CMake 지원도 함께 확인한다.
+
+### 대상 환경 선택
+
+대상 Linux 환경은 크게 두 가지다.
+
+- WSL: Windows 내부의 Linux distribution에서 build하고 debug한다.
+- 원격 Linux: 별도 PC, virtual machine 또는 server에 SSH로 연결해 build하고 debug한다.
+
+WSL을 대상으로 할 때는 별도의 Visual Studio remote connection이나 SSH 설정이 필요하지 않다. 원격 Linux를 대상으로 할 때는 Linux에서 SSH server가 실행 중이어야 하고 Visual Studio Connection Manager에 접속 정보를 등록해야 한다.
+
+WSL의 구성 요소와 실행 상태는 [WSL](<../05 Linux/WSL.md>)을 참고한다.
+
+### Ubuntu WSL 준비
+
+Visual Studio가 build, debug와 IntelliSense header 동기화에 사용하는 program을 WSL distribution에 설치한다.
+
+```bash
+sudo apt update
+sudo apt install -y g++ gdb make ninja-build rsync zip
+```
+
+- `g++`: C++ source code를 compile하고 link한다.
+- `gdb`: Linux에서 실행 중인 program을 debug한다.
+- `make`: Makefile 기반 build를 실행한다.
+- `ninja-build`: CMake project의 기본 build generator로 사용할 수 있다.
+- `rsync`, `zip`: Linux header를 Windows로 동기화해 IntelliSense에 사용한다.
+
+`ninja-build`는 CMake project를 사용하지 않는다면 필수 항목이 아니다.
+
+### 원격 Ubuntu 준비
+
+원격 Linux는 WSL용 package에 SSH server를 추가로 설치한다.
+
+```bash
+sudo apt update
+sudo apt install -y openssh-server g++ gdb make ninja-build rsync zip
+sudo service ssh start
+```
+
+Boot할 때 SSH service가 자동으로 시작되어야 한다면 다음 상태 변경도 적용한다.
+
+```bash
+sudo systemctl enable ssh
+```
+
+그다음 Visual Studio에서 `도구 > 옵션 > 플랫폼 간 > 연결 관리자`를 열고 대상의 host name 또는 IP address, SSH port, user와 authentication 정보를 등록한다. 처음 연결할 때 표시되는 host key fingerprint는 접속하려는 Linux system의 값인지 확인한 뒤 승인한다.
+
+### WSL MSBuild project 설정
+
+MSBuild 기반 Linux C++ project에서 WSL을 대상으로 지정하려면 다음 항목을 설정한다.
+
+```text
+프로젝트 > 속성 > 구성 속성 > 일반 > 플랫폼 도구 집합
+```
+
+Platform Toolset에서 `GCC for Windows Subsystem for Linux`에 해당하는 항목을 선택한다. 설치된 Visual Studio version과 표시 언어에 따라 항목 이름은 다르게 보일 수 있다.
+
+원격 Linux를 사용한다면 같은 일반 설정에서 Connection Manager에 등록한 `Remote Build Machine`을 선택한다.
+
+### build와 debug
+
+Visual Studio에서 Linux target을 선택하고 `F5` 또는 `디버그 > 디버깅 시작`을 실행하면 source code가 대상 환경에서 compile된다. Build가 성공하면 Visual Studio가 program을 실행하고 GDB를 통해 breakpoint, variable 확인과 step execution을 제공한다.
+
+실행 환경의 표준 입출력을 직접 확인하려면 `디버그 > Linux 콘솔`을 연다.
+
+### Intel oneAPI compiler 사용
+
+먼저 대상 WSL 또는 원격 Linux shell에서 oneAPI environment를 적용하고 실제 `icpx` 경로를 확인한다.
+
+```bash
+command -v icpx
+icpx --version
+```
+
+MSBuild Linux project의 `프로젝트 > 속성 > 구성 속성 > C/C++ > 일반`에서 C++ compiler 항목을 찾아 `command -v icpx`가 출력한 실제 경로를 지정한다. Linker를 별도로 지정하는 project라면 C++ object를 link하는 driver도 `icpx`로 맞춘다.
+
+`/opt/intel/oneapi/compiler/latest/bin/icpx`처럼 특정 layout을 가정한 경로를 그대로 복사하기보다 대상 환경의 실제 출력값을 사용한다. Compiler 설치와 shell environment 설정은 [Intel oneAPI Compiler](<./14 Intel oneAPI Compiler.md>)를 참고한다.
+
+### References
+
+- [Microsoft Learn - Install the C++ Linux Workload in Visual Studio](https://learn.microsoft.com/en-us/cpp/linux/download-install-and-setup-the-linux-development-workload?view=msvc-170)
+- [Microsoft Learn - Configure a Linux MSBuild C++ project in Visual Studio](https://learn.microsoft.com/en-us/cpp/linux/configure-a-linux-project?view=msvc-170)
+- [Microsoft Learn - Connect to a Target Linux System by Using Visual Studio](https://learn.microsoft.com/en-us/cpp/linux/connect-to-your-remote-linux-computer?view=msvc-170)
+- [Microsoft Learn - Deploy, run, and debug your Linux MSBuild C++ project](https://learn.microsoft.com/en-us/cpp/linux/deploy-run-and-debug-your-linux-project?view=msvc-170)
+
 ## Symbol
 도구 >> 옵션 >> 디버깅 >> 기호
 
