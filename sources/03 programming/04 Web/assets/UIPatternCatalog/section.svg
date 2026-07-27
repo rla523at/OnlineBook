@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" role="img" aria-labelledby="title desc">
+  <title id="title">Section 예시</title>
+  <desc id="desc">페이지 안에서 독립된 주제나 기능을 담당하는 Section 예시</desc>
+  <rect width="1100" height="620" fill="#f8fafc"/>
+  <text x="550" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#111827">Section</text>
+  <text x="550" y="94" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#475569">화면에서 하나의 독립된 주제나 기능을 담당하는 큰 영역</text>
+
+  <g transform="translate(150 128)">
+    <rect x="0" y="0" width="800" height="420" rx="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <rect x="30" y="28" width="740" height="66" rx="12" fill="#e2e8f0"/>
+    <text x="58" y="70" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#334155">페이지 헤더</text>
+
+    <rect x="30" y="122" width="740" height="246" rx="14" fill="#f0fdf4" stroke="#16a34a" stroke-width="4"/>
+    <text x="58" y="166" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#14532d">정산내역 섹션</text>
+    <rect x="58" y="194" width="684" height="48" rx="8" fill="#dcfce7"/>
+    <text x="82" y="225" font-family="Arial, sans-serif" font-size="18" fill="#166534">섹션 헤더: 제목, 설명, 주요 버튼</text>
+    <rect x="58" y="262" width="684" height="74" rx="8" fill="#ffffff" stroke="#bbf7d0"/>
+    <text x="82" y="306" font-family="Arial, sans-serif" font-size="18" fill="#166534">섹션 본문: 표, 폼, 그래프, 상세 정보</text>
+
+    <rect x="30" y="390" width="740" height="48" rx="12" fill="#e2e8f0"/>
+    <text x="58" y="421" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#475569">다른 섹션</text>
+  </g>
+
+  <g transform="translate(208 565)">
+    <rect x="0" y="0" width="684" height="38" rx="19" fill="#dcfce7"/>
+    <text x="342" y="26" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#166534">핵심: 테두리가 아니라 독립된 주제와 기능이 Section을 만든다.</text>
+  </g>
+</svg>
+

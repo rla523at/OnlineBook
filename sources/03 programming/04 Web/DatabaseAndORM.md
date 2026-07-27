@@ -120,6 +120,29 @@ SQLAlchemy 모델과 Pydantic 모델은 둘 다 Python class로 작성될 수 �
 
 DB 내부 column과 외부 API 계약은 서로 다른 이유로 바뀔 수 있다. 그래서 API 입출력 구조를 SQLAlchemy 모델에 그대로 의존시키지 않고 Pydantic 모델로 따로 정의한다.
 
+### SQLAlchemy mapped attribute와 Pydantic model field
+
+SQLAlchemy 모델과 Pydantic 모델은 둘 다 Python class로 작성될 수 있어서 class 본문에 선언된 이름이 비슷해 보인다. 하지만 각 도구가 그 이름을 해석하는 방식은 다르다.
+
+```python
+class Article(DbBaseModel):
+    __tablename__ = 'articles'
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String, nullable=False)
+```
+
+위 SQLAlchemy 모델에서 `id`, `title`은 Python 관점에서는 class attribute이고, SQLAlchemy ORM 관점에서는 mapped attribute다. mapped attribute는 ORM이 DB table의 column이나 relationship과 연결해서 관리하는 attribute다. DB table 안에서 실제 column을 가리킬 때는 column 또는 column name이라고 부른다.
+
+```python
+class ArticleRequest(BaseModel):
+    title: str
+```
+
+위 Pydantic 모델에서 `title`은 Pydantic model field다. 이 model field의 이름 문자열인 `"title"`은 field name이다. alias를 따로 지정하지 않으면 Pydantic field name은 request/response JSON key로도 사용된다.
+
+따라서 SQLAlchemy 모델의 `title`과 Pydantic 모델의 `title`은 코드 모양이 비슷해도 같은 계층의 개념이 아니다. SQLAlchemy 쪽 `title`은 DB column에 매핑되는 ORM attribute이고, Pydantic 쪽 `title`은 API 입출력 데이터의 field다.
+
 ## SQLAlchemy Session은 무엇인가
 
 SQLAlchemy Session은 DB 작업을 모아 실행하고 ORM 객체 상태를 추적하는 작업 단위다. 여기서 session은 로그인 세션이 아니라 DB 작업 범위를 뜻한다.

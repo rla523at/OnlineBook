@@ -518,6 +518,7 @@ project:
       - file: sources/03 programming/04 Web/ReactFrontend.md
       - file: sources/03 programming/04 Web/SQLAlchemyRelationships.md
       - file: sources/03 programming/04 Web/SSH.md
+      - file: sources/03 programming/04 Web/UIPatternCatalog.md
       - file: sources/03 programming/04 Web/WebDeployment.md
     - file: sources/03 programming/99 ETC/ETC.md
       children:
@@ -541,6 +542,8 @@ project:
       - file: sources/03 programming/99 ETC/JavaScript.md
       - file: sources/03 programming/99 ETC/Linux/Linux.md
         children:
+        - file: sources/03 programming/99 ETC/Linux/Shell Environment.md
+        - file: sources/03 programming/99 ETC/Linux/WSL.md
         - file: sources/03 programming/99 ETC/Linux/systemd.md
       - file: sources/03 programming/99 ETC/MacProgramming.md
       - file: sources/03 programming/99 ETC/Memory.md

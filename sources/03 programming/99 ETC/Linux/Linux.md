@@ -2,13 +2,15 @@
 
 ## 관련 문서
 
+- [WSL](./WSL.md)
+- [Shell Environment](<./Shell Environment.md>)
 - [systemd](./systemd.md)
 
-## WSL2 설치
-powershell 에서 `wsl --install` 입력
+## WSL
 
-> Reference  
-> [velog - Window 에서 Linux 사용하기](https://velog.io/@jskim/Windows%EC%97%90%EC%84%9C-Linux-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-with-WSL2)
+Windows Subsystem for Linux(WSL)은 Windows 안에서 Linux distribution과 Linux command-line tool을 실행할 수 있게 하는 Windows 기능이다.
+
+WSL의 구성 요소, 버전 구분, filesystem, resource와 실행 상태를 확인하는 방법은 [WSL](./WSL.md) 문서를 참고한다.
 
 ## Visual Studio Linux 개발 환경 설정
 

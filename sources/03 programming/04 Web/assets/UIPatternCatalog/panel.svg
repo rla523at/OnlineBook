@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" role="img" aria-labelledby="title desc">
+  <title id="title">Panel 예시</title>
+  <desc id="desc">관련된 내용을 테두리, 배경, padding으로 묶어 보여 주는 Panel 예시</desc>
+  <rect width="1100" height="620" fill="#f8fafc"/>
+  <text x="550" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#111827">Panel</text>
+  <text x="550" y="94" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#475569">내용의 역할이 아니라 시각적으로 하나의 영역을 묶는 박스형 표현</text>
+
+  <g transform="translate(120 132)">
+    <rect x="0" y="0" width="860" height="360" rx="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="32" y="48" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#334155">모달 또는 페이지 본문</text>
+
+    <g transform="translate(42 82)">
+      <rect x="0" y="0" width="360" height="236" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="4"/>
+      <text x="28" y="46" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#1e3a8a">변경 목록 패널</text>
+      <rect x="28" y="78" width="304" height="42" rx="8" fill="#dbeafe"/>
+      <rect x="28" y="136" width="304" height="42" rx="8" fill="#ffffff" stroke="#bfdbfe"/>
+      <rect x="28" y="194" width="210" height="18" rx="9" fill="#93c5fd"/>
+    </g>
+
+    <g transform="translate(458 82)">
+      <rect x="0" y="0" width="360" height="236" rx="14" fill="#f0fdf4" stroke="#16a34a" stroke-width="4"/>
+      <text x="28" y="46" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#14532d">변경 상세 패널</text>
+      <rect x="28" y="78" width="304" height="48" rx="8" fill="#dcfce7"/>
+      <rect x="28" y="142" width="304" height="70" rx="8" fill="#ffffff" stroke="#bbf7d0"/>
+    </g>
+  </g>
+
+  <g transform="translate(198 535)">
+    <rect x="0" y="0" width="704" height="38" rx="19" fill="#e0f2fe"/>
+    <text x="352" y="26" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#075985">핵심: Panel은 의미보다 시각적 경계를 만드는 컨테이너 표현이다.</text>
+  </g>
+</svg>
