@@ -551,6 +551,12 @@ project:
       - file: sources/03 programming/99 ETC/SAL.md
       - file: sources/03 programming/99 ETC/Text Encoding.md
     - file: sources/03 programming/Python.md
+  - file: sources/05 Robotics/Robotics.md
+    children:
+    - file: sources/05 Robotics/01 ROS 2/ROS 2.md
+      children:
+      - file: sources/05 Robotics/01 ROS 2/01 Environment and Workspace.md
+      - file: sources/05 Robotics/01 ROS 2/02 Node and Topic.md
   - title: Mechanics
     children:
     - title: Continuum

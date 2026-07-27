@@ -64,8 +64,5 @@
 
 - `sources` 하위 문서를 수정한 뒤에는 페이지가 의도대로 반영되고 Jupyter Book build가 정상 완료되는지 확인한다. 화면 확인이 필요한 경우 preview를 추가로 확인한다.
 - 기본 검증 command는 `python jb_manager.py --build`다. 이 command는 `toc.yml`을 재생성한 뒤 `jupyter_book build --html`을 실행하고 종료된다.
-- 자동화 환경에서 timeout을 지정할 수 있으면 전체 책 빌드 시간이 120초를 넘을 수 있으므로 300초 이상으로 설정한다.
-- `python jb_manager.py --test`는 `toc.yml`을 재생성한 뒤 `jupyter_book start`로 local preview server를 실행한다. preview가 필요한 경우에만 사용한다.
 - 문서 파일을 추가, 삭제, 이동, rename한 경우에는 `toc.yml` 구조가 바뀌므로 `python jb_manager.py --build`를 다시 실행해서 TOC와 build 결과를 확인한다.
-- 이미 `run_test` 또는 `jupyter_book start`로 preview server가 실행 중이고 본문만 수정한 경우에는 매번 server를 재시작하지 않아도 된다. 실행 중인 preview에서 수정 사항이 반영되는지 확인한다.
 - 작업을 마칠 때는 `python jb_manager.py --build`를 실행했는지, 또는 이미 실행 중인 preview에서 확인했는지를 명시한다.
