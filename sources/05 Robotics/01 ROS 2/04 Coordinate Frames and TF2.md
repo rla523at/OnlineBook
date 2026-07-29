@@ -30,18 +30,18 @@ Frame은 원점과 세 축으로 정의된다. `transform`은 두 frame의 상�
 
 이 문서에서는 다음 표기를 사용한다.
 
-\[
+$$
 {}^{A}\mathbf{T}_{B}
-\]
+$$
 
-\({}^{A}\mathbf{T}_{B}\)는 frame `B`의 pose를 frame `A`에서 표현한 transform이다. Frame `B`에서 표현한 point \({}^{B}\mathbf{p}\)를 frame `A` 좌표로 바꿀 때는 다음 관계를 사용한다.
+${}^{A}\mathbf{T}_{B}$는 frame `B`의 pose를 frame `A`에서 표현한 transform이다. Frame `B`에서 표현한 point ${}^{B}\mathbf{p}$를 frame `A` 좌표로 바꿀 때는 다음 관계를 사용한다.
 
-\[
+$$
 {}^{A}\mathbf{p}
 =
 {}^{A}\mathbf{T}_{B}
 {}^{B}\mathbf{p}
-\]
+$$
 
 예를 들어 `base_link`가 parent이고 `lidar_link`가 child라면 transform의 translation과 rotation은 `lidar_link`의 원점과 축이 `base_link`에서 어떻게 배치되는지를 설명한다. Parent와 child를 바꾸면 같은 숫자를 그대로 사용할 수 없고 inverse transform이 필요하다.
 
