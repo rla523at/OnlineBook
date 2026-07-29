@@ -557,6 +557,7 @@ project:
       children:
       - file: sources/05 Robotics/01 ROS 2/01 Environment and Workspace.md
       - file: sources/05 Robotics/01 ROS 2/02 Node and Topic.md
+      - file: sources/05 Robotics/01 ROS 2/03 Node Runtime and Middleware.md
   - title: Mechanics
     children:
     - title: Continuum

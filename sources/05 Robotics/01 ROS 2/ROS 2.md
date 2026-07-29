@@ -57,6 +57,10 @@ Node 사이의 대표적인 상호작용 방식은 다음과 같다.
 - [Node and Topic](<./02 Node and Topic.md>)
   - node, publisher, subscriber와 topic
   - 최소 C++ package 작성, build, 실행과 graph 관찰
+- [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>)
+  - executable, process, node와 실행 주체의 관계
+  - executor의 `spin()`, RMW와 DDS의 역할
+  - signal을 통한 정상 종료와 process 수명 관리
 
 ## References
 

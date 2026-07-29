@@ -305,6 +305,8 @@ ros2 run cpp_pubsub listener
 
 `ros2 run`은 package와 executable을 찾아 process를 시작한다. `talker` process는 `/talker` node를 만들고, `listener` process는 `/listener` node를 만든다.
 
+`ros2 run`은 executable을 찾고 실행하는 도구이며 topic message를 중계하지 않는다. Process가 시작된 뒤 `rclcpp::init()`, node 생성, executor의 `spin()`과 middleware 통신이 어떻게 이어지는지는 [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>)에서 설명한다.
+
 ## ROS graph와 topic 관찰
 
 세 번째 terminal C에서도 같은 underlay와 overlay를 활성화한다.
@@ -360,7 +362,9 @@ ros2 topic hz /chatter
 
 ## 종료와 다시 확인
 
-각 실행 terminal에서 `Ctrl+C`를 눌러 CLI program에 interrupt를 보내고 node process를 종료한다. Publisher를 먼저 종료하면 listener는 새 message를 받지 않은 채 계속 대기할 수 있으므로 listener도 별도로 종료한다.
+각 실행 terminal에서 `Ctrl+C`를 눌러 foreground process group에 `SIGINT`를 보낸다. 기본 `rclcpp::init()`이 설치한 signal handler가 ROS context에 shutdown을 요청하면 executor의 `spin()`이 끝나고 process가 종료 경로로 진행한다. Signal, `spin()`과 middleware 자원 정리의 관계는 [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>)에서 설명한다.
+
+Publisher를 먼저 종료하면 listener는 새 message를 받지 않은 채 계속 대기할 수 있으므로 listener도 별도로 종료한다.
 
 종료 후 다시 확인한다.
 
@@ -409,6 +413,7 @@ ros2 topic info /chatter --verbose
 
 - [ROS 2](<./ROS 2.md>)
 - [Environment and Workspace](<./01 Environment and Workspace.md>)
+- [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>)
 
 ## References
 
