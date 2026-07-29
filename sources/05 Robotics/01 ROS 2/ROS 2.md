@@ -61,6 +61,18 @@ Node 사이의 대표적인 상호작용 방식은 다음과 같다.
   - executable, process, node와 실행 주체의 관계
   - executor의 `spin()`, RMW와 DDS의 역할
   - signal을 통한 정상 종료와 process 수명 관리
+- [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)
+  - coordinate frame, transform과 ROS coordinate convention
+  - static·dynamic transform, TF tree와 timestamp
+  - `tf2_echo`, `view_frames`를 사용한 검증
+- [URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)
+  - URDF의 link, joint와 fixed sensor model
+  - `robot_description`과 `robot_state_publisher`
+  - package 설치, launch와 TF tree 검증
+- [PointCloud2 and RViz2](<./06 PointCloud2 and RViz2.md>)
+  - PointCloud2의 binary layout, frame과 timestamp
+  - C++ 합성 point cloud 작성과 topic 확인
+  - TF를 사용한 RViz2 visualization과 문제 진단
 
 ## References
 
@@ -70,4 +82,3 @@ Node 사이의 대표적인 상호작용 방식은 다음과 같다.
 - [ROS 2 Documentation - Creating a Workspace](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.rst)
 - [ROS 2 Documentation - Creating Your First ROS 2 Package](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.rst)
 - [ROS 2 Documentation - Release Jazzy Jalisco](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Releases/Release-Jazzy-Jalisco.rst)
-
