@@ -63,6 +63,7 @@ Node 사이의 대표적인 상호작용 방식은 다음과 같다.
   - signal을 통한 정상 종료와 process 수명 관리
 - [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)
   - coordinate frame, transform과 ROS coordinate convention
+  - `map`, `odom`, `base_link`의 역할과 localization 보정
   - static·dynamic transform, TF tree와 timestamp
   - runtime TF tree와 저장된 diagram snapshot의 차이
   - `tf2_echo`, `view_frames`를 사용한 검증

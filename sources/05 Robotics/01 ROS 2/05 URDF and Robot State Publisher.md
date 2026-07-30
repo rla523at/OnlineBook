@@ -180,7 +180,14 @@ base_link
 
 앞의 sensor rig에는 fixed joint만 있다. 따라서 이 최소 예제에서는 별도의 `JointState` publisher가 없어도 `base_link` → `imu_link`, `base_link` → `lidar_link` transform을 만들 수 있다.
 
-Root인 `base_link`에는 URDF 내부 parent가 없다. 이 model만 실행하면 `world` 또는 `odom`에서 `base_link`로 이어지는 transform도 생기지 않는다. RViz2의 Fixed Frame을 `base_link`로 선택하면 최소 model을 확인할 수 있고, 외부 global frame이 필요할 때는 그 관계를 담당하는 별도 component를 추가한다.
+Root인 `base_link`에는 URDF 내부 parent가 없지만, 이것이 전체 runtime TF
+tree에서도 root라는 뜻은 아니다. 이 model만 실행하면 `world` 또는 `odom`에서
+`base_link`로 이어지는 transform은 생기지 않는다. Odometry component가
+`odom → base_link`를 publish하면 이 URDF subtree 전체가 `odom` 아래에
+연결된다. `robot_state_publisher`는 `map → odom`이나 `odom → base_link`를
+자동으로 만들지 않는다. RViz2의 Fixed Frame을 `base_link`로 선택하면 최소
+model을 확인할 수 있고, 외부 global frame이 필요할 때는 그 관계를 담당하는
+별도 component를 추가한다.
 
 ## URDF file을 package에 설치
 
@@ -327,6 +334,7 @@ URDF에 `<visual>`을 추가했다고 sensor 측정값이 생기거나 Gazebo si
 | Fixed child link는 world에서 움직이지 않는다. | Parent와 child의 상대 pose만 고정되며 parent가 움직이면 child도 함께 움직인다. |
 | Joint 이름이 TF frame으로 나타난다. | TF의 parent와 child는 link 이름이며 joint 이름은 그 관계를 식별한다. |
 | Root link는 자동으로 `world`에 연결된다. | URDF root에는 내부 parent가 없으며 global frame transform은 별도 publisher가 담당한다. |
+| URDF root는 전체 runtime TF tree의 root다. | URDF root는 odometry 같은 외부 broadcaster가 publish하는 `odom` 또는 `world` transform 아래에 연결될 수 있다. |
 | Empty link는 잘못된 link다. | Geometry가 없어 보이지 않을 뿐 fixed sensor frame을 정의하는 최소 link로 사용할 수 있다. |
 | URDF와 command가 같은 child transform을 publish해도 안전하다. | 같은 child의 transform source가 중복되므로 하나의 authoritative publisher만 사용해야 한다. |
 

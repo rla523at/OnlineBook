@@ -237,6 +237,21 @@ RViz2에서 다음 순서로 설정한다.
 
 Fixed Frame은 모든 data를 표시할 공통 기준이다. Cloud의 `frame_id`가 `lidar_link`이면 RViz2는 message timestamp에서 `lidar_link`와 `base_link` 사이의 tf2 transform을 조회한다. 앞 문서의 static sensor transform을 사용하면 cloud 전체가 lidar 장착 위치와 방향을 반영해 표시된다.
 
+이 예제는 `map`이나 `odom`을 publish하는 motion estimation component가 없는
+최소 sensor rig이므로 `base_link`를 Fixed Frame으로 사용한다. Mobile robot
+system에서는 관찰 목적에 따라 다른 Fixed Frame을 선택할 수 있다.
+
+| Fixed Frame | 화면에서 관찰하는 기준 |
+|---|---|
+| `base_link` | Robot body를 고정하고 body에 대한 sensor 장착 위치와 주변 data를 확인한다. |
+| `odom` | 짧은 구간의 연속적인 robot motion을 확인한다. 장시간 누적하면 실제 환경과 drift할 수 있다. |
+| `map` | Map에 정렬된 전역 pose를 확인한다. Localization 보정 시 robot과 sensor data의 map pose가 바뀌어 보일 수 있다. |
+
+`odom`과 `map`을 Fixed Frame으로 선택하려면 `header.frame_id`에서 해당 frame까지
+이어지는 TF가 실제로 publish되어야 한다. 두 frame의 의미와
+`map → odom → base_link` 관계는
+[Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)에서 설명한다.
+
 따라서 화면 표시에는 PointCloud2 message가 실제로 수신되는 조건과
 `header.frame_id`에서 Fixed Frame까지 transform을 조회할 수 있는 조건이 모두
 필요하다. Style, Size와 Color Transformer는 이 두 조건이 충족된 뒤 화면 표현을

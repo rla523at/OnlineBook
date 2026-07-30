@@ -8,6 +8,10 @@ Coordinate frame은 공간의 원점과 축을 정의하고, tf2는 여러 frame
 
 `coordinate frame`은 위치와 방향을 수치로 표현하기 위한 기준이다. Frame이 달라지면 같은 물리적 점도 다른 좌표를 갖는다.
 
+`base_link`는 mobile robot body에 고정된 기준 frame이다. URDF에서는 같은
+이름의 link와 그 link에 붙은 coordinate frame을 함께 가리킬 수 있으며,
+원점의 정확한 위치는 robot model을 설계할 때 정한다.
+
 예를 들어 lidar가 자신의 앞쪽 1 m 지점에서 점을 측정했다고 하자. 이 점의 lidar 좌표는 `(1, 0, 0)`일 수 있다. 그러나 lidar가 robot 중심에서 앞쪽 0.2 m, 위쪽 0.3 m에 장착되어 있다면 같은 점의 `base_link` 좌표는 장착 위치와 방향을 반영해야 한다.
 
 ```text
@@ -136,18 +140,134 @@ base_link
 └── lidar_link
 ```
 
-`base_link`는 이 tree의 root다. `imu_link`와 `lidar_link`는 robot body에 고정되어 있으므로 두 관계는 static transform으로 표현할 수 있다.
+`base_link`는 이 최소 sensor rig subtree의 root다. `imu_link`와 `lidar_link`는 robot body에 고정되어 있으므로 두 관계는 static transform으로 표현할 수 있다. 움직이는 robot의 전체 TF tree에서는 `base_link`가 `odom` 같은 외부 frame의 child가 될 수 있다.
 
 TF graph 전체에 연결되지 않은 frame이 존재할 수는 있지만, 연결되지 않은 두 frame 사이의 transform은 계산할 수 없다. RViz2의 Fixed Frame과 sensor message의 frame이 서로 연결되지 않으면 해당 sensor data를 표시할 수 없다.
 
+## 이동 robot에서 자주 사용하는 frame
+
+REP-105는 mobile robot에서 `map`, `odom`과 `base_link`라는 frame 이름에
+공통 의미를 부여한다. 여기서 `world-fixed` frame은 robot body에 붙어서
+함께 움직이는 frame이 아니라 환경을 기준으로 robot pose를 표현하는 frame이다.
+
+| Frame | 역할 | Robot pose의 특성 |
+|---|---|---|
+| `map` | Localization이 사용하는 장기적인 world-fixed 기준 | 장기 drift를 억제하지만 새 관측을 반영할 때 pose가 불연속적으로 보정될 수 있다. |
+| `odom` | Odometry가 상대 이동을 누적하는 world-fixed 기준 | 값이 연속적으로 변하지만 장시간에는 drift가 누적될 수 있다. |
+| `base_link` | Robot body에 고정된 기준 | Robot이 이동하면 `map`과 `odom`에 대한 pose가 변한다. |
+
+`odom` 원점은 system 시작 위치 근처로 초기화할 수 있지만 모든 구현이
+`odom → base_link`를 정확히 identity로 시작해야 하는 것은 아니다. 핵심
+조건은 robot pose가 `odom` 기준에서 불연속적으로 뛰지 않고 연속적으로
+변하는 것이다. 연속성, drift와 localization의 일반적인 의미는
+[Robotics](<../Robotics.md>)에서 설명한다.
+
+REP-105를 따르는 최소 TF 관계는 다음과 같다.
+
+```text
+map
+└── odom
+    └── base_link
+        ├── imu_link
+        └── lidar_link
+```
+
+각 관계는 서로 다른 component가 책임진다.
+
+| Transform | 일반적인 broadcaster | 나타내는 값 |
+|---|---|---|
+| `map → odom` | SLAM 또는 localization component | Odometry의 누적 오차를 장기 기준에 맞추는 보정 |
+| `odom → base_link` | Wheel·visual odometry 또는 state estimation component | 연속적으로 누적한 robot motion |
+| `base_link → sensor frame` | URDF를 읽는 `robot_state_publisher` | Robot body에 대한 sensor 장착 pose |
+
+Localization component는 sensor 관측을 map이나 다른 외부 기준과 비교해
+`map → base_link` pose를 다시 추정한다. TF tree에서 `base_link`는 이미
+`odom`의 child이므로 localization component는 보통 직접 `map → base_link`를
+broadcast하지 않고 `map → odom`을 계산해 publish한다.
+
+Translation만 있는 1D 예제에서 `map`과 `odom`의 축 방향이 같다고 하자.
+Odometry는 출발 후 robot이 10.3 m 이동했다고 누적했지만 localization은
+map의 wall과 lidar 관측을 비교해 robot의 map pose를 10.0 m로 추정할 수 있다.
+
+```text
+odom → base_link = 10.3 m
+map  → odom      = -0.3 m
+map  → base_link = 10.0 m
+```
+
+이때 `odom → base_link`를 10.0 m로 갑자기 바꾸지 않으므로 odometry의
+연속성은 유지된다. 대신 `map → odom`이 바뀌어 robot의 `map` 기준 pose가
+보정된다. 실제 robot이 순간 이동한 것이 아니라 위치 추정값이 바뀐 것이다.
+`map` 자체가 보정된 숫자라는 뜻도 아니다. `map`은 좌표 기준이고
+localization이 보정하는 대상은 그 기준에서 표현한 robot pose다.
+
+### map frame의 원점
+
+`map`의 원점은 map 영역의 기하학적인 중심으로 정해져 있지 않다. Map을
+만드는 system이나 application이 `(0, 0, 0)`의 기준 위치와 축 방향을 정하고
+사용자에게 그 선택을 명시해야 한다.
+
+- 외부 위치 기준 없이 SLAM을 시작하면 시작 시점의 robot 위치를 원점으로
+  초기화할 수 있다.
+- 미리 만든 indoor map은 건물의 corner, 출입구 또는 설계도 기준점을 원점으로
+  사용할 수 있다.
+- Georeference된 outdoor map은 측량 기준 또는 `earth` frame과의 관계로
+  원점을 정할 수 있다.
+
+따라서 `map` 원점은 robot의 출발 위치와 일치할 수 있지만 반드시 일치하지는
+않는다. 이미 만들어진 map에서 localization을 시작하면 robot의 초기
+`map` pose는 원점이 아닌 임의의 위치일 수 있다.
+
+`nav_msgs/msg/OccupancyGrid`의 `info.origin`도 `map` frame 자체의 원점과
+구분해야 한다. `OccupancyGrid`는 `header.frame_id`로 grid 좌표의 기준 frame을
+지정하고, `info.origin`으로 grid cell `(0, 0)`의 왼쪽 아래 corner가 그 frame에서
+어디에 있는지 표현한다. 예를 들어 `header.frame_id`가 `map`이고
+`info.origin`이 `(-10, -10)`이면 cell `(0, 0)`은 `map` 원점에서 왼쪽 아래에
+있다. `map` frame은 OccupancyGrid message가 없어도 coordinate frame으로
+존재할 수 있다.
+
+### odom frame, `/odom` topic과 TF
+
+같은 `odom`이라는 문자열이 들어가도 frame, topic과 transform은 서로 다른
+대상이다.
+
+| 대상 | 의미 |
+|---|---|
+| `odom` frame | Pose를 표현하는 coordinate frame 이름 |
+| `/odom` topic | 관례적으로 `nav_msgs/msg/Odometry` message를 전달하는 topic 이름이며 remap할 수 있다. |
+| `odom → base_link` TF | 두 frame 사이의 시간별 translation과 rotation |
+
+`nav_msgs/msg/Odometry`는 pose와 velocity 추정값을 전달한다. Pose의 기준은
+message의 `header.frame_id`, velocity의 기준은 `child_frame_id`로 표현한다.
+`/odom` topic을 publish하는 것만으로 tf2 buffer에 transform이 자동으로
+생기지는 않는다. Odometry component가 topic과 TF를 모두 제공할 수도 있고,
+별도 component가 `odom → base_link`를 broadcast할 수도 있으므로 실행 중인
+system의 interface를 확인해야 한다.
+
 ## Static transform과 dynamic transform
 
-Frame 관계가 시간에 따라 변하는지에 따라 publish 방법이 달라진다.
+일반적인 TF tree에서는 parent와 child의 연결 구조를 유지한다. Static과
+dynamic의 차이는 그 연결을 나타내는 translation과 rotation 값이 시간에 따라
+변하는지 여부다.
 
 | 종류 | 적용 대상 | Topic | 시간 처리 |
 |---|---|---|---|
 | static transform | body와 고정 sensor처럼 변하지 않는 관계 | `/tf_static` | 한 번 publish한 관계를 late subscriber도 받을 수 있다. |
-| dynamic transform | `odom`과 움직이는 `base_link`처럼 변하는 관계 | `/tf` | timestamp별 transform을 buffer에 보관한다. |
+| dynamic transform | `odom → base_link`, `map → odom` 또는 움직이는 joint처럼 변하는 관계 | `/tf` | timestamp별 transform을 buffer에 보관한다. |
+
+Robot이 world에서 움직여도 body에 고정된 lidar의 장착 pose는 변하지 않는다.
+반대로 robot이 정지해 있어도 localization이 새 관측으로 pose를 다시 추정하면
+`map → odom` 값은 바뀔 수 있다.
+
+```text
+base_link → lidar_link
+t=0 s, 1 s, 2 s: translation = (0.2, 0.0, 0.3)
+
+odom → base_link
+t=0 s: x=0.0 m
+t=1 s: x=1.0 m
+t=2 s: x=2.0 m
+```
 
 `/tf_static`은 transient-local durability를 사용한다. Broadcaster endpoint가 유지되는
 동안에는 RViz2처럼 나중에 실행된 호환 listener도 저장된 static transform을 받을
@@ -206,7 +326,19 @@ Translation과 rotation이 반복해서 출력되면 두 frame 사이의 연결�
 ros2 run tf2_tools view_frames
 ```
 
-이 command는 일정 시간 동안 transform을 수신한 뒤 현재 directory에 `frames.pdf`를 생성한다. Diagram에서 `base_link`가 root이고 `imu_link`, `lidar_link`가 직접 child인지 확인한다.
+이 command는 일정 시간 동안 transform을 수신한 뒤 현재 directory에 `frames.pdf`를 생성한다. 이 최소 sensor rig 예제에서는 diagram에서 `base_link`가 root이고 `imu_link`, `lidar_link`가 직접 child인지 확인한다.
+
+Odometry와 localization component를 함께 실행하는 mobile robot system에서는
+대표적인 dynamic transform도 확인할 수 있다.
+
+```bash
+ros2 run tf2_ros tf2_echo map odom
+ros2 run tf2_ros tf2_echo odom base_link
+```
+
+해당 component를 실행하지 않았다면 `map`이나 `odom` frame이 없는 것이
+정상일 수 있다. URDF와 `robot_state_publisher`만으로 두 transform이 자동
+생성되지는 않는다.
 
 Topic과 publisher 상태도 함께 확인할 수 있다.
 
@@ -229,6 +361,7 @@ ros2 topic info /tf_static --verbose
 | `tf2_echo`가 frame이 없다고 보고한다. | Frame 이름, broadcaster process, ROS domain과 setup sourcing을 확인한다. |
 | 저장된 TF diagram은 있지만 현재 frame을 찾지 못한다. | Diagram은 snapshot이므로 `robot_state_publisher` 같은 broadcaster가 현재 실행 중인지 확인한다. |
 | 두 frame을 각각 찾지만 transform을 계산하지 못한다. | 서로 다른 root를 가진 disconnected tree인지 확인한다. |
+| `/odom` topic은 있지만 `odom` frame을 찾지 못한다. | Topic publisher가 `odom → base_link` TF도 broadcast하는 구성인지 확인한다. |
 | Point cloud 위치가 반대 방향으로 이동한다. | Parent/child 방향과 translation 부호를 확인한다. |
 | Frame 방향이 예상과 다르다. | Degree를 radian 값으로 잘못 넣지 않았는지와 sensor axis convention을 확인한다. |
 | RViz2가 extrapolation error를 표시한다. | Message timestamp와 dynamic transform의 publish time, clock source를 확인한다. |
@@ -245,6 +378,8 @@ ros2 topic info /tf_static --verbose
 
 - [REP-103 - Standard Units of Measure and Coordinate Conventions](https://github.com/ros-infrastructure/rep/blob/master/rep-0103.rst)
 - [REP-105 - Coordinate Frames for Mobile Platforms](https://github.com/ros-infrastructure/rep/blob/master/rep-0105.rst)
+- [nav_msgs - Odometry Message Definition](https://github.com/ros2/common_interfaces/blob/jazzy/nav_msgs/msg/Odometry.msg)
+- [nav_msgs - MapMetaData Message Definition](https://github.com/ros2/common_interfaces/blob/jazzy/nav_msgs/msg/MapMetaData.msg)
 - [ROS 2 Documentation - Introducing tf2](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Intermediate/Tf2/Introduction-To-Tf2.rst)
 - [ROS 2 Documentation - Writing a Static Broadcaster in C++](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Intermediate/Tf2/Writing-A-Tf2-Static-Broadcaster-Cpp.rst)
 - [tf2 Jazzy Documentation](https://docs.ros.org/en/jazzy/p/tf2/)
