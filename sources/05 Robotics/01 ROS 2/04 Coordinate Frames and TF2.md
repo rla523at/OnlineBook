@@ -84,6 +84,41 @@ application 또는 RViz2가 data 변환
 
 tf2가 topic에 있는 모든 sensor data를 자동으로 변환하는 것은 아니다. Consumer가 transform을 조회해 point, pose 또는 다른 stamped data에 적용해야 한다.
 
+## TF tree가 존재하는 위치
+
+TF tree를 영구적으로 보관하는 중앙 process나 단일 file은 없다. Broadcaster가
+frame 관계를 publish하면 각 listener가 그 message를 받아 자신의 tf2 buffer에
+frame 관계를 구성한다. 실제 transform query에 응답하는 것은 해당 listener의
+buffer다.
+
+| 대상 | 역할 |
+|---|---|
+| URDF file | Link와 joint 관계를 저장한 model description |
+| `robot_state_publisher` | URDF joint 관계를 `/tf` 또는 `/tf_static` transform으로 publish하는 broadcaster |
+| `/tf`, `/tf_static` | 실행 중인 broadcaster와 listener 사이에서 transform message를 전달하는 topic |
+| listener의 tf2 buffer | 수신한 transform을 시간과 함께 보관하고 연결된 frame 사이의 transform을 계산하는 memory |
+| `view_frames` output | 관찰 시점의 TF 관계를 file로 저장한 diagram snapshot |
+
+URDF를 사용하는 경우 link 이름은 TF tree의 frame이 되고 joint는 parent link와
+child link 사이의 transform 관계를 만든다. Joint 이름 자체가 별도의 TF frame이
+되는 것은 아니다. Link와 joint의 구체적인 대응은
+[URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)에서
+설명한다.
+
+```text
+URDF file
+    │ robot_state_publisher가 읽음
+    ▼
+/tf 또는 /tf_static
+    │ listener가 수신
+    ▼
+listener별 tf2 buffer ──> transform query
+```
+
+따라서 저장된 `frames.pdf`가 존재해도 현재 broadcaster가 실행 중이라는 뜻은
+아니다. 반대로 현재 TF tree가 정상이어도 `view_frames`를 실행하지 않았다면
+diagram file은 존재하지 않을 수 있다.
+
 ## TF tree
 
 tf2는 frame 관계를 tree 구조로 해석한다. 하나의 연결된 robot model을 만들 때는 다음 조건을 지킨다.
@@ -114,7 +149,11 @@ Frame 관계가 시간에 따라 변하는지에 따라 publish 방법이 달라
 | static transform | body와 고정 sensor처럼 변하지 않는 관계 | `/tf_static` | 한 번 publish한 관계를 late subscriber도 받을 수 있다. |
 | dynamic transform | `odom`과 움직이는 `base_link`처럼 변하는 관계 | `/tf` | timestamp별 transform을 buffer에 보관한다. |
 
-`/tf_static`은 transient-local durability를 사용한다. 따라서 RViz2처럼 나중에 실행된 listener도 이미 publish된 static transform을 받을 수 있다. Dynamic transform은 계속 갱신되어야 하며 query time에 사용할 수 있는 transform이 buffer 안에 있어야 한다.
+`/tf_static`은 transient-local durability를 사용한다. Broadcaster endpoint가 유지되는
+동안에는 RViz2처럼 나중에 실행된 호환 listener도 저장된 static transform을 받을
+수 있다. Broadcaster process를 종료한 뒤 새로 시작한 graph가 이전 diagram
+file에서 transform을 복원하는 것은 아니다. Dynamic transform은 계속 갱신되어야
+하며 query time에 사용할 수 있는 transform이 buffer 안에 있어야 한다.
 
 ## Static transform을 command로 확인
 
@@ -172,9 +211,14 @@ ros2 run tf2_tools view_frames
 Topic과 publisher 상태도 함께 확인할 수 있다.
 
 ```bash
+ros2 node list
 ros2 topic list -t
 ros2 topic info /tf_static --verbose
 ```
+
+`view_frames`는 관찰한 관계를 저장하고, `node list`와 `topic info`는 현재 실행
+상태를 확인한다. 과거에 저장한 diagram만으로 현재 TF가 활성 상태라고 판단하지
+않는다.
 
 `view_frames`의 tree 모양만 확인하지 않고 translation, rotation과 broadcaster도 확인해야 잘못된 축 방향이나 중복 publisher를 찾을 수 있다.
 
@@ -183,6 +227,7 @@ ros2 topic info /tf_static --verbose
 | 관찰 | 확인할 내용 |
 |---|---|
 | `tf2_echo`가 frame이 없다고 보고한다. | Frame 이름, broadcaster process, ROS domain과 setup sourcing을 확인한다. |
+| 저장된 TF diagram은 있지만 현재 frame을 찾지 못한다. | Diagram은 snapshot이므로 `robot_state_publisher` 같은 broadcaster가 현재 실행 중인지 확인한다. |
 | 두 frame을 각각 찾지만 transform을 계산하지 못한다. | 서로 다른 root를 가진 disconnected tree인지 확인한다. |
 | Point cloud 위치가 반대 방향으로 이동한다. | Parent/child 방향과 translation 부호를 확인한다. |
 | Frame 방향이 예상과 다르다. | Degree를 radian 값으로 잘못 넣지 않았는지와 sensor axis convention을 확인한다. |

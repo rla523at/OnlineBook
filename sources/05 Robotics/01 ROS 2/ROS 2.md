@@ -64,15 +64,17 @@ Node 사이의 대표적인 상호작용 방식은 다음과 같다.
 - [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)
   - coordinate frame, transform과 ROS coordinate convention
   - static·dynamic transform, TF tree와 timestamp
+  - runtime TF tree와 저장된 diagram snapshot의 차이
   - `tf2_echo`, `view_frames`를 사용한 검증
 - [URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)
-  - URDF의 link, joint와 fixed sensor model
+  - 실제 robot 구조와 URDF link·joint의 대응
+  - fixed와 movable joint의 차이와 sensor model
   - `robot_description`과 `robot_state_publisher`
   - package 설치, launch와 TF tree 검증
 - [PointCloud2 and RViz2](<./06 PointCloud2 and RViz2.md>)
   - PointCloud2의 binary layout, frame과 timestamp
   - C++ 합성 point cloud 작성과 topic 확인
-  - TF를 사용한 RViz2 visualization과 문제 진단
+  - TF와 PointCloud2를 RViz2에서 확인하는 절차와 문제 진단
 
 ## References
 

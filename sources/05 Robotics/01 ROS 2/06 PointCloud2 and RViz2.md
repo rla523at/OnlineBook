@@ -176,12 +176,14 @@ Publisher를 실행한 뒤 topic type, endpoint와 QoS를 확인한다.
 
 ```bash
 ros2 topic list -t
+ros2 topic find sensor_msgs/msg/PointCloud2
 ros2 topic info /synthetic_points --verbose
 ros2 topic hz /synthetic_points
 ros2 topic echo /synthetic_points --once --field header
 ```
 
 - `list -t`는 topic 이름과 message type을 확인한다.
+- `find`는 현재 graph에서 `PointCloud2` type을 사용하는 topic만 찾는다.
 - `info --verbose`는 publisher와 subscriber의 QoS profile을 확인한다.
 - `hz`는 cloud가 기대한 주기로 계속 publish되는지 확인한다.
 - `echo --field header`는 큰 binary `data` 대신 frame과 timestamp를 우선 확인한다.
@@ -222,7 +224,23 @@ RViz2에서 다음 순서로 설정한다.
 6. Point가 너무 작으면 Size 값을 조정하되 position 자체가 맞는지 먼저 확인한다.
 7. Display status가 `OK`인지 확인한다.
 
+자주 확인하는 property는 다음과 같다.
+
+| Property | 확인할 내용 |
+|---|---|
+| Global Options → Fixed Frame | Cloud의 `header.frame_id`와 TF로 연결된 공통 기준 frame |
+| TF → Show Axes·Show Names | Frame 축과 이름을 화면에 표시할지 여부 |
+| PointCloud2 → Topic | `PointCloud2` message를 publish하는 topic |
+| PointCloud2 → Reliability Policy | Publisher endpoint와 호환되는 reliability |
+| PointCloud2 → Style·Size | Point의 화면 표현 크기이며 좌표값 자체를 바꾸지는 않는다. |
+| PointCloud2 → Color Transformer | `RGB`, `intensity` 같은 실제 field 구성에 맞는 색상 규칙 |
+
 Fixed Frame은 모든 data를 표시할 공통 기준이다. Cloud의 `frame_id`가 `lidar_link`이면 RViz2는 message timestamp에서 `lidar_link`와 `base_link` 사이의 tf2 transform을 조회한다. 앞 문서의 static sensor transform을 사용하면 cloud 전체가 lidar 장착 위치와 방향을 반영해 표시된다.
+
+따라서 화면 표시에는 PointCloud2 message가 실제로 수신되는 조건과
+`header.frame_id`에서 Fixed Frame까지 transform을 조회할 수 있는 조건이 모두
+필요하다. Style, Size와 Color Transformer는 이 두 조건이 충족된 뒤 화면 표현을
+조정하는 property다.
 
 설정을 다시 사용하려면 **File → Save Config As**로 `.rviz` file을 저장한다. 저장한 configuration은 다음 command로 다시 열 수 있다.
 
@@ -268,6 +286,7 @@ Topic, message, TF, RViz 설정을 이 순서로 분리하면 화면에 point가
 |---|---|
 | Topic이 목록에 없다. | Publisher process, package sourcing과 topic 이름을 확인한다. |
 | Topic은 있지만 RViz2가 message를 받지 못한다. | Endpoint QoS compatibility와 publisher가 계속 publish하는지 확인한다. |
+| RViz2가 Fixed Frame이 존재하지 않는다고 표시한다. | Frame 이름과 `robot_state_publisher` 같은 TF broadcaster의 현재 실행 상태를 확인한다. |
 | RViz2가 `No transform`을 표시한다. | Fixed Frame, `header.frame_id`와 TF tree 연결을 확인한다. |
 | RViz2가 extrapolation error를 표시한다. | Message timestamp, dynamic TF timestamp와 clock source를 확인한다. |
 | Point가 예상 위치에서 일정하게 어긋난다. | URDF origin의 translation, rotation과 parent/child 방향을 확인한다. |
