@@ -2,11 +2,39 @@
 
 ## 한 줄 요약
 
-Coordinate frame은 공간의 원점과 축을 정의하고, tf2는 여러 frame 사이의 translation과 rotation을 시간과 함께 관리하여 서로 다른 frame에서 표현한 data를 연결한다.
+Coordinate frame은 공간의 원점과 basis를 정의하고, tf2는 frame 사이의
+translation과 rotation을 시간과 함께 관리하여 같은 geometric data의 좌표를
+서로 다른 frame에서 표현할 수 있게 한다.
 
 ## Coordinate frame이 필요한 이유
 
-`coordinate frame`은 위치와 방향을 수치로 표현하기 위한 기준이다. Frame이 달라지면 같은 물리적 점도 다른 좌표를 갖는다.
+`coordinate frame`은 위치와 방향을 수치로 표현하기 위한 기준이다. 3D
+coordinate frame $F$는 origin $O_F$와 서로 직교하고 길이가 $1$이며 순서가
+정해진 세 basis vector
+$\mathcal{B}_F=(\mathbf{e}^{F}_{x},\mathbf{e}^{F}_{y},\mathbf{e}^{F}_{z})$로
+구성된다.
+
+$$
+F=(O_F,\mathcal{B}_F)
+$$
+
+Geometric point $P$ 자체와 그 point를 나타내는 coordinate column vector는
+구분해야 한다. 이 문서에서는 frame $F$에서 표현한 $P$의 좌표를 다음과 같이
+표기한다.
+
+$$
+{}^{F}\mathbf{p}
+:=
+\left[
+\overrightarrow{O_FP}
+\right]_{\mathcal{B}_F}
+\in \mathbb{R}^{3}
+$$
+
+왼쪽 위의 $F$는 거듭제곱이 아니라 좌표를 표현한 frame을 나타낸다. Frame이
+달라지면 같은 물리적 point $P$도 다른 origin과 basis를 기준으로 하므로 다른
+숫자 좌표를 갖는다. Origin과 basis로 point의 좌표를 정의하는 일반적인 내용은
+[Affine space](<../../01 math/08 Geometry/11 Affine space.md>)에서 설명한다.
 
 `base_link`는 mobile robot body에 고정된 기준 frame이다. URDF에서는 같은
 이름의 link와 그 link에 붙은 coordinate frame을 함께 가리킬 수 있으며,
@@ -25,12 +53,15 @@ Point에 숫자 세 개만 기록하고 어느 frame의 좌표인지 기록하�
 
 ## Frame과 transform
 
-Frame은 원점과 세 축으로 정의된다. `transform`은 두 frame의 상대적인 위치와 방향을 나타내며 다음 두 부분으로 구성된다.
+`transform`은 두 frame의 origin과 basis가 서로 어떤 관계인지 나타내며 다음 두
+부분으로 구성된다.
 
 | 구성 | 의미 | 대표 표현 |
 |---|---|---|
-| translation | 한 frame의 원점이 다른 frame에서 어디에 있는지 나타낸다. | `(x, y, z)` |
-| rotation | 한 frame의 축이 다른 frame에 대해 어떻게 회전했는지 나타낸다. | quaternion 또는 rotation matrix |
+| translation | 한 frame의 origin을 다른 frame에서 표현한 위치 | `(x, y, z)` |
+| rotation | 한 frame의 basis를 다른 frame의 basis로 표현한 상대 orientation | quaternion 또는 rotation matrix |
+
+### Transform 표기와 좌표 변환 방향
 
 이 문서에서는 다음 표기를 사용한다.
 
@@ -39,17 +70,55 @@ $$
 $$
 
 ${}^{A}\mathbf{T}_{B}$는 frame `B`의 pose를 frame `A`에서 표현한
-transform이다. 이 transform의 rotation과 translation을 각각
+transform이다. 같은 transform을 좌표 변환에 사용하면 frame `B`에서 표현한
+좌표를 frame `A`에서 다시 표현한다.
+
+이 transform의 rotation과 translation을 각각
 ${}^{A}\mathbf{R}_{B}$와 ${}^{A}\mathbf{t}_{B}$로 표기한다.
 
 | 표기 | 의미 |
 |---|---|
-| ${}^{A}\mathbf{R}_{B} \in \mathbb{R}^{3\times3}$ | Frame `B`의 축 방향을 frame `A`에서 표현한 rotation matrix |
-| ${}^{A}\mathbf{t}_{B} \in \mathbb{R}^{3}$ | Frame `B`의 원점을 frame `A`에서 표현한 translation vector |
+| ${}^{A}\mathbf{R}_{B} \in \mathbb{R}^{3\times3}$ | Frame `B`의 basis vector를 frame `A`의 basis로 표현한 rotation matrix |
+| ${}^{A}\mathbf{t}_{B} \in \mathbb{R}^{3}$ | $\overrightarrow{O_AO_B}$를 frame `A`의 basis로 표현한 translation vector |
 
-같은 물리적 point의 좌표 column vector를 frame `A`와 `B`에서 각각
-${}^{A}\mathbf{p},{}^{B}\mathbf{p} \in \mathbb{R}^{3}$로 표현하자. Frame
-`B` 좌표를 frame `A` 좌표로 바꾸는 관계는 다음과 같다.
+Rotation matrix의 각 column은 frame `B`의 basis vector 하나를 frame `A`의
+basis로 표현한 좌표다.
+
+$$
+{}^{A}\mathbf{R}_{B}
+=
+\begin{bmatrix}
+\left[\mathbf{e}^{B}_{x}\right]_{\mathcal{B}_A} &
+\left[\mathbf{e}^{B}_{y}\right]_{\mathcal{B}_A} &
+\left[\mathbf{e}^{B}_{z}\right]_{\mathcal{B}_A}
+\end{bmatrix}
+$$
+
+따라서 ${}^{A}\mathbf{R}_{B}$는 같은 displacement vector의 coordinate를
+frame `B`의 basis에서 frame `A`의 basis로 바꾸는
+[change of coordinate matrix](<../../01 math/07 Linear Algebra/21 Change of Basis and Coordinate Matrix.md>)다.
+
+$$
+{}^{A}\mathbf{R}_{B}\,{}^{B}\mathbf{p}
+=
+\left[
+\overrightarrow{O_BP}
+\right]_{\mathcal{B}_A}
+$$
+
+두 frame은 basis뿐 아니라 origin도 다를 수 있다. 같은 point $P$에 대해
+다음 geometric vector 관계가 성립한다.
+
+$$
+\overrightarrow{O_AP}
+=
+\overrightarrow{O_AO_B}
++
+\overrightarrow{O_BP}
+$$
+
+각 vector를 frame `A`의 basis로 표현하면 frame `B` 좌표를 frame `A`
+좌표로 바꾸는 식을 얻는다.
 
 $$
 {}^{A}\mathbf{p}
@@ -60,32 +129,33 @@ $$
 {}^{A}\mathbf{t}_{B}
 $$
 
-먼저 point 좌표를 frame `A`의 축 방향으로 회전시킨 뒤, frame `A`에서
-표현한 frame `B` 원점의 위치를 더한다. Translation이 포함되므로 이 변환은
-$\mathbb{R}^{3}$에서의 linear transformation이 아니라
+이 식은 point $P$를 물리적으로 회전하거나 이동한다는 뜻이 아니다. 같은
+point를 frame `B` 대신 frame `A`에서 표현하도록 coordinate representation을
+바꾸는 passive coordinate transformation이다. 고정된 basis에서 geometric
+vector 자체를 회전시키는 active rotation도 같은 형태의 rotation matrix를
+사용할 수 있지만, 이 문서에서 위 식을 해석하는 관점과는 다르다.
+
+Origin 변경이 포함된 전체 관계는 $\mathbb{R}^{3}$에서의 linear
+transformation이 아니라
 [affine transformation](<../../01 math/08 Geometry/12 Affine Transformation.md>)이다.
 
-로보틱스에서는 이 affine transform의 적용을 다음과 같이 줄여 쓰기도 한다.
+### Homogeneous coordinate
+
+Affine coordinate transformation을 행렬곱 하나로 표현하려면 point 좌표에
+마지막 성분 `1`을 추가한 homogeneous coordinate를 사용한다.
 
 $$
-{}^{A}\mathbf{p}
-=
-{}^{A}\mathbf{T}_{B}
-{}^{B}\mathbf{p}
-$$
-
-여기서 ${}^{A}\mathbf{p}$와 ${}^{B}\mathbf{p}$를 일반적인
-$\mathbb{R}^{3}$ vector로 해석하면 오른쪽은 $3\times3$ matrix의 곱이 아니라
-앞에서 정의한 rotation과 translation의 적용을 나타내는 축약 표기다.
-
-행렬곱 하나로 표현하려면 point에 마지막 성분 `1`을 추가한 homogeneous
-coordinate를 사용한다.
-
-$$
+{}^{F}\overline{\mathbf{p}}
+:=
 \begin{bmatrix}
-{}^{A}\mathbf{p} \\
+{}^{F}\mathbf{p} \\
 1
 \end{bmatrix}
+\in \mathbb{R}^{4}
+$$
+
+$$
+{}^{A}\overline{\mathbf{p}}
 =
 \underbrace{
 \begin{bmatrix}
@@ -93,14 +163,20 @@ $$
 \mathbf{0}^{\mathsf T} & 1
 \end{bmatrix}
 }_{ {}^{A}\mathbf{T}_{B} }
-\begin{bmatrix}
-{}^{B}\mathbf{p} \\
-1
-\end{bmatrix}
+{}^{B}\overline{\mathbf{p}}
 $$
 
+로보틱스 문헌에서는 homogeneous coordinate 표시를 생략하고
+${}^{A}\mathbf{p}={}^{A}\mathbf{T}_{B}{}^{B}\mathbf{p}$로 줄여 쓰기도 한다.
+이 문서에서는 $\mathbb{R}^{3}$ point 좌표에는
+${}^{A}\mathbf{R}_{B}{}^{B}\mathbf{p}+{}^{A}\mathbf{t}_{B}$를 사용하고,
+$4\times4$ matrix 곱에는 $\overline{\mathbf{p}}$를 사용한다.
+
+### Inverse와 transform 합성
+
 반대로 frame `A` 좌표를 frame `B` 좌표로 바꿀 때는 inverse transform을
-사용한다.
+사용한다. Rotation matrix는 orthogonal matrix이므로 inverse가 transpose와
+같다.
 
 $$
 {}^{B}\mathbf{p}
@@ -113,10 +189,41 @@ $$
 \right)
 $$
 
-따라서 translation을 먼저 빼고 rotation을 적용하는 계산은 위 표기에서
-${}^{A}\mathbf{T}_{B}$와 반대 방향으로 좌표를 변환할 때 나타난다.
+따라서 translation을 먼저 빼고 basis를 바꾸는 계산은
+${}^{A}\mathbf{T}_{B}$가 나타내는 좌표 변환과 반대 방향에서 나타난다.
 
-예를 들어 `base_link`가 parent이고 `lidar_link`가 child라면 transform의 translation과 rotation은 `lidar_link`의 원점과 축이 `base_link`에서 어떻게 배치되는지를 설명한다. Parent와 child를 바꾸면 같은 숫자를 그대로 사용할 수 없고 inverse transform이 필요하다.
+Frame `C` 좌표를 frame `B`를 거쳐 frame `A` 좌표로 바꾸면 transform은
+다음 순서로 합성된다.
+
+$$
+{}^{A}\mathbf{T}_{C}
+=
+{}^{A}\mathbf{T}_{B}
+{}^{B}\mathbf{T}_{C}
+$$
+
+행렬은 오른쪽의 ${}^{B}\mathbf{T}_{C}$부터 적용된다. 가운데 frame `B`가
+이어지도록 superscript와 subscript를 맞추면 합성 방향을 확인하기 쉽다.
+
+### Parent-child 관계와 좌표 변환 방향
+
+TF tree diagram에서 사용하는 화살표와 coordinate가 변환되는 방향은 구분해야
+한다. 이 문서의 tree 표기 `A → B`는 frame `A`가 parent이고 frame `B`가
+child라는 관계를 뜻한다.
+
+| 관점 | `A → B` 관계의 의미 |
+|---|---|
+| Frame pose | Frame `B`의 pose를 frame `A`에서 표현한 ${}^{A}\mathbf{T}_{B}$ |
+| Coordinate 변환 | Frame `B` 좌표를 frame `A` 좌표로 바꾸는 ${}^{B}\mathbf{p}\mapsto{}^{A}\mathbf{p}$ |
+| `TransformStamped` | `header.frame_id = A`, `child_frame_id = B` |
+
+따라서 tree 화살표 `A → B`는 data coordinate가 `A`에서 `B`로 변환된다는
+뜻이 아니다. 예를 들어 `base_link → lidar_link` 관계는 `lidar_link`의
+origin과 basis가 `base_link`에서 어떻게 배치되는지를 나타내는
+${}^{\mathrm{base\_link}}\mathbf{T}_{\mathrm{lidar\_link}}$를 저장한다.
+이 transform을 좌표에 적용하면
+lidar point를 `lidar_link` 좌표에서 `base_link` 좌표로 다시 표현한다.
+Parent와 child를 바꾸면 inverse transform이 필요하다.
 
 ## ROS coordinate convention
 
@@ -133,7 +240,9 @@ Rotation을 roll, pitch, yaw로 입력할 때는 각각 x, y, z fixed axis에 �
 
 ## tf2의 역할
 
-`tf2`는 ROS 2에서 coordinate transform을 배포하고 조회하는 library 집합이다. tf2를 사용하는 process들은 frame 관계를 broadcast하고, transform이 필요한 process는 listener와 buffer를 통해 관계를 수신하고 조회한다.
+`tf2`는 ROS 2에서 coordinate transform을 배포하고 조회하는 library 집합이다.
+tf2를 사용하는 process들은 frame 관계를 broadcast하고, transform이 필요한
+process는 listener와 buffer를 통해 관계를 수신하고 조회한다.
 
 ```text
 transform broadcaster
@@ -145,17 +254,34 @@ transform broadcaster
         ▼
 listener와 transform buffer
         │
-        │ source frame, target frame, time으로 조회
+        │ target frame A, source frame B, time으로 조회
         ▼
-application 또는 RViz2가 data 변환
+     B 좌표 → A 좌표 transform 반환
+        │
+        ▼
+application 또는 RViz2가 data 좌표를 B에서 A로 다시 표현
 ```
 
 - `broadcaster`는 자신이 책임지는 frame 관계를 ROS graph에 publish한다.
 - `listener`는 publish된 관계를 수신한다.
-- `buffer`는 시간별 transform을 보관하고 연결된 frame 사이의 transform을 계산한다.
-- `RViz2` 같은 consumer는 message의 frame과 표시 기준 frame 사이의 transform을 조회한 뒤 data를 표시한다.
+- `buffer`는 시간별 transform을 보관하고 source frame에서 target frame으로
+  좌표를 바꾸는 transform을 계산한다.
+- `RViz2` 같은 consumer는 message의 frame을 source, 표시 기준 frame을
+  target으로 사용해 transform을 조회한 뒤 변환된 좌표로 data를 표시한다.
 
-tf2가 topic에 있는 모든 sensor data를 자동으로 변환하는 것은 아니다. Consumer가 transform을 조회해 point, pose 또는 다른 stamped data에 적용해야 한다.
+tf2 Buffer API의 기본 조회 형태는 다음과 같다.
+
+```text
+lookupTransform(target_frame, source_frame, time)
+```
+
+Target frame을 `A`, source frame을 `B`라고 하면 반환값은
+${}^{A}\mathbf{T}_{B}$다. 즉 source frame에서 표현된 data 좌표를 target
+frame에서 다시 표현할 때 사용한다.
+
+tf2가 topic에 있는 모든 sensor data를 자동으로 변환하는 것은 아니다.
+Consumer가 transform을 조회하고 point, pose 또는 다른 stamped data의
+수치 좌표에 적용해 target frame 표현을 만들어야 한다.
 
 ## TF tree가 존재하는 위치
 
@@ -194,7 +320,9 @@ diagram file은 존재하지 않을 수 있다.
 
 ## TF tree
 
-tf2는 frame 관계를 tree 구조로 해석한다. 하나의 연결된 robot model을 만들 때는 다음 조건을 지킨다.
+tf2는 parent-child frame 관계를 tree 구조로 해석한다. 아래 diagram에서는
+위쪽 frame이 parent이고 아래쪽 frame이 child다. 하나의 연결된 robot model을
+만들 때는 다음 조건을 지킨다.
 
 - Root가 아닌 각 child frame은 하나의 parent만 갖는다.
 - Parent를 따라 올라가면 root에 도달해야 하며 cycle이 없어야 한다.
@@ -241,28 +369,58 @@ map
         └── lidar_link
 ```
 
-각 관계는 서로 다른 component가 책임진다.
+각 parent-child 관계는 서로 다른 component가 책임질 수 있다.
 
-| Transform | 일반적인 broadcaster | 나타내는 값 |
+| Parent → child | 일반적인 broadcaster | 나타내는 pose |
 |---|---|---|
-| `map → odom` | SLAM 또는 localization component | Odometry의 누적 오차를 장기 기준에 맞추는 보정 |
-| `odom → base_link` | Wheel·visual odometry 또는 state estimation component | 연속적으로 누적한 robot motion |
-| `base_link → sensor frame` | URDF를 읽는 `robot_state_publisher` | Robot body에 대한 sensor 장착 pose |
+| `map → odom` | SLAM 또는 localization component | `map`에서 표현한 `odom`의 pose와 odometry 보정 |
+| `odom → base_link` | Wheel·visual odometry 또는 state estimation component | `odom`에서 표현한 `base_link`의 연속적인 pose |
+| `base_link → sensor frame` | URDF를 읽는 `robot_state_publisher` | `base_link`에서 표현한 sensor의 장착 pose |
+
+각 행의 transform을 coordinate에 적용하면 child frame 좌표를 parent frame
+좌표로 바꾼다.
 
 Localization component는 sensor 관측을 map이나 다른 외부 기준과 비교해
-`map → base_link` pose를 다시 추정한다. TF tree에서 `base_link`는 이미
-`odom`의 child이므로 localization component는 보통 직접 `map → base_link`를
-broadcast하지 않고 `map → odom`을 계산해 publish한다.
+`map`에서 표현한 `base_link` pose
+${}^{\mathrm{map}}\mathbf{T}_{\mathrm{base\_link}}$를
+다시 추정한다. TF tree에서 `base_link`는 이미 `odom`의 child이므로
+localization component는 보통 `map → base_link` 관계를 직접 broadcast하지
+않고 `map → odom` 관계를 계산해 publish한다.
+
+$$
+{}^{\mathrm{map}}\mathbf{T}_{\mathrm{odom}}
+=
+{}^{\mathrm{map}}\mathbf{T}_{\mathrm{base\_link}}
+\left(
+{}^{\mathrm{odom}}\mathbf{T}_{\mathrm{base\_link}}
+\right)^{-1}
+$$
 
 Translation만 있는 1D 예제에서 `map`과 `odom`의 축 방향이 같다고 하자.
 Odometry는 출발 후 robot이 10.3 m 이동했다고 누적했지만 localization은
 map의 wall과 lidar 관측을 비교해 robot의 map pose를 10.0 m로 추정할 수 있다.
 
-```text
-odom → base_link = 10.3 m
-map  → odom      = -0.3 m
-map  → base_link = 10.0 m
-```
+TF tree의 transform 합성은 다음과 같다.
+
+$$
+{}^{\mathrm{map}}\mathbf{T}_{\mathrm{base\_link}}
+=
+{}^{\mathrm{map}}\mathbf{T}_{\mathrm{odom}}
+{}^{\mathrm{odom}}\mathbf{T}_{\mathrm{base\_link}}
+$$
+
+이 예제에서는 세 frame의 basis 방향이 같고 translation만 있으므로 x 좌표를
+다음처럼 더할 수 있다.
+
+$$
+\begin{aligned}
+{}^{\mathrm{odom}}t_{\mathrm{base\_link},x} &= 10.3\ \mathrm{m} \\
+{}^{\mathrm{map}}t_{\mathrm{odom},x} &= -0.3\ \mathrm{m} \\
+{}^{\mathrm{map}}t_{\mathrm{base\_link},x}
+&= -0.3 + 10.3
+= 10.0\ \mathrm{m}
+\end{aligned}
+$$
 
 이때 `odom → base_link`를 10.0 m로 갑자기 바꾸지 않으므로 odometry의
 연속성은 유지된다. 대신 `map → odom`이 바뀌어 robot의 `map` 기준 pose가
@@ -304,7 +462,7 @@ localization이 보정하는 대상은 그 기준에서 표현한 robot pose다.
 |---|---|
 | `odom` frame | Pose를 표현하는 coordinate frame 이름 |
 | `/odom` topic | 관례적으로 `nav_msgs/msg/Odometry` message를 전달하는 topic 이름이며 remap할 수 있다. |
-| `odom → base_link` TF | 두 frame 사이의 시간별 translation과 rotation |
+| `odom → base_link` TF | `odom`에서 표현한 `base_link`의 시간별 pose이며, `base_link` 좌표를 `odom` 좌표로 바꿀 때 적용 |
 
 `nav_msgs/msg/Odometry`는 pose와 velocity 추정값을 전달한다. Pose의 기준은
 message의 `header.frame_id`, velocity의 기준은 `child_frame_id`로 표현한다.
@@ -356,13 +514,20 @@ ros2 run tf2_ros static_transform_publisher \
   --child-frame-id lidar_link
 ```
 
-이 명령은 `lidar_link`가 `base_link` 기준으로 x 방향 0.2 m, z 방향 0.3 m에 있고 축 방향은 같다는 static transform을 publish한다. Command를 실행하는 process가 transform broadcaster이며, process를 종료하면 새 graph에서 이 broadcaster도 사라진다.
+이 명령은 `header.frame_id = base_link`, `child_frame_id = lidar_link`인
+관계를 publish한다. Translation `(0.2, 0.0, 0.3)`은 `lidar_link`의 origin을
+`base_link`에서 표현한 좌표이고 두 frame의 basis 방향은 같다. 이 transform은
+`lidar_link` point 좌표를 `base_link` 좌표로 바꿀 때 사용할 수 있다.
+Command를 실행하는 process가 transform broadcaster이며, process를 종료하면
+새 graph에서 이 broadcaster도 사라진다.
 
 최종 robot model을 URDF와 `robot_state_publisher`로 publish한다면 같은 `base_link` → `lidar_link` 관계를 `static_transform_publisher`로 동시에 publish하지 않는다. 위 command는 값과 연결을 독립적으로 확인하는 임시 수단으로 사용한다.
 
 ## Transform과 timestamp
 
-ROS sensor message의 `header.stamp`는 측정 시각을 나타낸다. Consumer가 움직이는 frame의 data를 변환하려면 현재 시간이 아니라 측정 시각의 transform이 필요하다.
+ROS sensor message의 `header.stamp`는 측정 시각을 나타낸다. Consumer가
+움직이는 frame에서 측정한 data 좌표를 다른 frame에서 표현하려면 현재 시간이
+아니라 측정 시각의 transform이 필요하다.
 
 ```text
 sensor message
@@ -370,14 +535,17 @@ sensor message
 └── header.stamp    : data를 측정한 time
 
 transform query
-├── source frame
-├── target frame
+├── source frame : message 좌표가 표현된 frame
+├── target frame : 좌표를 다시 표현할 frame
 └── query time
 ```
 
 Dynamic transform이 너무 늦게 도착하거나 query time이 buffer 범위보다 과거 또는 미래라면 extrapolation error가 발생할 수 있다. Static transform은 시간에 따라 값이 변하지 않으므로 연결만 올바르면 모든 측정 시각에 사용할 수 있다.
 
-Message의 좌표값은 그대로 둔 채 `frame_id` 문자열만 다른 frame 이름으로 바꾸면 좌표 변환이 일어나지 않는다. 좌표값을 실제 transform으로 변환하거나 원래 측정 frame을 `frame_id`에 기록해야 한다.
+Message의 좌표값은 그대로 둔 채 `frame_id` 문자열만 다른 frame 이름으로
+바꾸면 좌표 변환이 일어나지 않는다. 좌표값을 실제 transform으로 다시 계산해
+target frame을 기록하거나, 계산하지 않았다면 원래 측정 frame을 `frame_id`에
+기록해야 한다.
 
 ## TF tree 확인
 
@@ -387,7 +555,13 @@ Message의 좌표값은 그대로 둔 채 `frame_id` 문자열만 다른 frame �
 ros2 run tf2_ros tf2_echo base_link lidar_link
 ```
 
-Translation과 rotation이 반복해서 출력되면 두 frame 사이의 연결을 조회할 수 있다는 뜻이다. Static transform이라면 출력 값이 변하지 않아야 한다.
+이 명령은
+${}^{\mathrm{base\_link}}\mathbf{T}_{\mathrm{lidar\_link}}$를 출력한다.
+좌표 변환 관점에서는 `base_link`가 target frame이고 `lidar_link`가 source
+frame인 조회와 같으며, 출력된 transform으로 lidar 좌표를 base 좌표로 바꿀
+수 있다.
+Translation과 rotation이 반복해서 출력되면 두 frame 사이의 연결을 조회할 수
+있다는 뜻이다. Static transform이라면 출력 값이 변하지 않아야 한다.
 
 전체 frame 관계를 diagram으로 저장하려면 Linux에서 다음 command를 실행한다.
 
@@ -404,6 +578,9 @@ Odometry와 localization component를 함께 실행하는 mobile robot system에
 ros2 run tf2_ros tf2_echo map odom
 ros2 run tf2_ros tf2_echo odom base_link
 ```
+
+첫 번째 명령은 ${}^{\mathrm{map}}\mathbf{T}_{\mathrm{odom}}$, 두 번째 명령은
+${}^{\mathrm{odom}}\mathbf{T}_{\mathrm{base\_link}}$를 출력한다.
 
 해당 component를 실행하지 않았다면 `map`이나 `odom` frame이 없는 것이
 정상일 수 있다. URDF와 `robot_state_publisher`만으로 두 transform이 자동
@@ -431,7 +608,7 @@ ros2 topic info /tf_static --verbose
 | 저장된 TF diagram은 있지만 현재 frame을 찾지 못한다. | Diagram은 snapshot이므로 `robot_state_publisher` 같은 broadcaster가 현재 실행 중인지 확인한다. |
 | 두 frame을 각각 찾지만 transform을 계산하지 못한다. | 서로 다른 root를 가진 disconnected tree인지 확인한다. |
 | `/odom` topic은 있지만 `odom` frame을 찾지 못한다. | Topic publisher가 `odom → base_link` TF도 broadcast하는 구성인지 확인한다. |
-| Point cloud 위치가 반대 방향으로 이동한다. | Parent/child 방향과 translation 부호를 확인한다. |
+| Point cloud 위치가 반대 방향으로 이동한다. | TF tree의 parent/child 관계와 좌표 변환의 target/source 방향, translation이 어느 frame에서 표현됐는지 확인한다. |
 | Frame 방향이 예상과 다르다. | Degree를 radian 값으로 잘못 넣지 않았는지와 sensor axis convention을 확인한다. |
 | RViz2가 extrapolation error를 표시한다. | Message timestamp와 dynamic transform의 publish time, clock source를 확인한다. |
 | Frame이 흔들리거나 parent가 바뀐다. | 같은 child frame을 둘 이상의 broadcaster가 publish하는지 확인한다. |
@@ -447,8 +624,10 @@ ros2 topic info /tf_static --verbose
 
 - [REP-103 - Standard Units of Measure and Coordinate Conventions](https://github.com/ros-infrastructure/rep/blob/master/rep-0103.rst)
 - [REP-105 - Coordinate Frames for Mobile Platforms](https://github.com/ros-infrastructure/rep/blob/master/rep-0105.rst)
+- [geometry_msgs - TransformStamped Message Definition](https://github.com/ros2/common_interfaces/blob/jazzy/geometry_msgs/msg/TransformStamped.msg)
 - [nav_msgs - Odometry Message Definition](https://github.com/ros2/common_interfaces/blob/jazzy/nav_msgs/msg/Odometry.msg)
 - [nav_msgs - MapMetaData Message Definition](https://github.com/ros2/common_interfaces/blob/jazzy/nav_msgs/msg/MapMetaData.msg)
+- [tf2_ros - Buffer Interface](https://github.com/ros2/geometry2/blob/jazzy/tf2_ros/include/tf2_ros/buffer_interface.hpp)
 - [ROS 2 Documentation - Introducing tf2](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Intermediate/Tf2/Introduction-To-Tf2.rst)
 - [ROS 2 Documentation - Writing a Static Broadcaster in C++](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Intermediate/Tf2/Writing-A-Tf2-Static-Broadcaster-Cpp.rst)
 - [tf2 Jazzy Documentation](https://docs.ros.org/en/jazzy/p/tf2/)
