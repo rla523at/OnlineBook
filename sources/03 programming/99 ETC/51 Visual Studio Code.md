@@ -109,7 +109,7 @@ sync가 제대로 안될 경우 다음 확장들을 설치한다.
 > [stackoverflow - separate-style-for-markdown-in-single-backticks-vs-triple-backticks](https://stackoverflow.com/questions/49703670/separate-style-for-markdown-in-single-backticks-vs-triple-backticks-using-the-m)  
 
 #### 매크로 적용
-* F1 >> Markdown Preview Enhanced: Open Config Script (Global)
+* F1 >> Markdown Preview Enhanced: Open Config Script (Workspace)
 * KatexConfig에 macro지정
 
 ```
