@@ -2,11 +2,13 @@
 
 ## 한 줄 요약
 
-Node는 ROS graph에 참여하는 논리적인 계산 단위이고, topic은 publisher가 보낸 같은 type의 message stream을 subscriber가 받게 하는 비동기 통신 경로다.
+Node는 ROS graph에 참여하는 논리적인 계산 단위이고, topic은 publisher가 보낸 message stream을 subscriber가 받는 비동기 통신 경로다.
 
 ## Node, executable과 process
 
-`node`는 sensor 읽기, localization, motor command 계산처럼 하나의 책임을 수행하도록 나눈 ROS 2의 논리 단위다. Node는 이름을 가지고 ROS graph에 참여하며 publisher, subscriber와 같은 통신 endpoint를 만든다.
+`node`는 ROS graph에 참여하는 논리적인 계산 단위다.
+
+보통 sensor 읽기, localization, motor command 계산처럼 하나의 책임을 맡도록 node를 나눈다.
 
 다음 세 용어는 같은 대상을 가리키지 않는다.
 
@@ -18,11 +20,13 @@ Node는 ROS graph에 참여하는 논리적인 계산 단위이고, topic은 pub
 
 하나의 executable이 실행될 때 node 하나만 만드는 구성이 흔하지만, 한 process가 여러 node를 포함할 수도 있다. 따라서 `node 하나 = process 하나`를 ROS 2의 규칙으로 가정하면 안 된다.
 
+Node는 이름을 가지고 ROS graph에 참여하며 publisher와 subscriber 같은 통신 endpoint를 만든다.
+
 Node들은 같은 process, 같은 computer 또는 network로 연결된 서로 다른 computer에서 실행될 수 있다. 같은 ROS domain의 node는 middleware discovery를 통해 서로를 찾고 ROS graph를 구성한다.
 
 ## Topic, publisher와 subscriber
 
-`topic`은 연속해서 발생하는 data를 전달하는 publish-subscribe 통신 방식이다.
+`topic`은 publisher가 보낸 message stream을 subscriber가 받는 비동기 통신 경로다. 연속해서 발생하는 data를 전달하는 데 적합하며 publish-subscribe 방식을 사용한다.
 
 ```text
             publish std_msgs/msg/String
@@ -30,15 +34,22 @@ Node들은 같은 process, 같은 computer 또는 network로 연결된 서로 �
  node              publisher               topic            subscriber
 ```
 
-- `publisher`는 정해진 topic 이름과 message type으로 message를 보낸다.
-- `subscriber`는 같은 topic 이름과 호환되는 message type으로 message를 받는다.
-- Topic은 strongly typed이므로 이름만 같고 message type이 다르면 서로 통신하지 않는다.
+그림의 각 요소는 다음 역할을 한다.
+
+- `publisher`는 정해진 topic에 message를 보낸다.
+- `subscriber`는 정해진 topic에서 message를 받는다.
 - Publisher와 subscriber는 직접 상대 process의 주소를 application code에 고정하지 않는다. 각 endpoint는 topic을 기준으로 연결된다.
 - 하나의 topic에는 publisher와 subscriber가 각각 0개 이상 존재할 수 있다.
 
+Publisher와 subscriber가 실제로 연결되려면 다음 조건을 만족해야 한다.
+
+- Topic 이름이 같아야 한다.
+- Message type이 같아야 한다. Topic은 strongly typed이므로 이름만 같고 type이 다르면 통신하지 않는다.
+- QoS 정책이 서로 호환되어야 한다. 두 endpoint의 모든 QoS 설정이 반드시 같을 필요는 없다.
+
 Node가 늦게 시작하거나 종료되어도 다른 node의 source code를 바꿀 필요는 없다. 다만 discovery가 연결을 만드는 데 짧은 시간이 걸릴 수 있고, subscriber가 연결되기 전에 지나간 message를 나중에 항상 받을 수 있는 것은 아니다.
 
-Publisher와 subscriber는 topic 이름과 type뿐 아니라 QoS(Quality of Service) 정책도 사용한다. 다음 예제의 `10`은 최근 10개 sample을 보관하는 `Keep Last` history depth를 간단히 지정한 값이다. 모든 message의 영구 보관이나 전달을 보장한다는 뜻은 아니다.
+다음 예제의 `10`은 publisher와 subscriber에 최근 10개 sample을 보관하는 `Keep Last` history depth를 간단히 지정한다. 모든 message의 영구 보관이나 전달을 보장한다는 뜻은 아니다.
 
 ## 최소 C++ publisher/subscriber package
 
@@ -83,6 +94,8 @@ ros2 pkg create --build-type ament_cmake --license Apache-2.0 cpp_pubsub
 
 ### 2. `package.xml`
 
+`package.xml`은 package가 사용하는 build tool과 dependency를 선언한다.
+
 `~/ros2_ws/src/cpp_pubsub/package.xml`을 다음 내용으로 교체한다.
 
 ```xml
@@ -109,9 +122,15 @@ ros2 pkg create --build-type ament_cmake --license Apache-2.0 cpp_pubsub
 </package>
 ```
 
-`rclcpp`는 ROS 2의 C++ client library이고 `std_msgs`는 이 예제에서 사용할 표준 문자열 message type을 제공한다. 실제 package에서는 placeholder maintainer 이름과 email을 관리 정보로 교체한다.
+- `ament_cmake`는 이 CMake 기반 package의 build system이다.
+- `rclcpp`는 ROS 2의 C++ client library다.
+- `std_msgs`는 이 예제에서 사용할 표준 문자열 message type을 제공한다.
+
+실제 package에서는 placeholder maintainer 이름과 email을 관리 정보로 교체한다.
 
 ### 3. `CMakeLists.txt`
+
+`CMakeLists.txt`는 source file을 executable target으로 만들고 필요한 dependency와 설치 위치를 연결한다.
 
 `~/ros2_ws/src/cpp_pubsub/CMakeLists.txt`을 다음 내용으로 교체한다.
 
@@ -141,9 +160,14 @@ install(
 ament_package()
 ```
 
-`add_executable`은 source file을 executable target으로 연결하고, `ament_target_dependencies`는 target에 필요한 ROS 2 dependency를 연결한다. `install` 규칙이 있어야 `ros2 run cpp_pubsub talker`처럼 설치된 executable을 찾을 수 있다.
+- `add_executable`은 source file로 `talker`와 `listener` executable target을 만든다.
+- `ament_target_dependencies`는 각 target에 필요한 ROS 2 dependency를 연결한다.
+- `install`은 두 executable의 설치 위치를 정한다. 이 규칙이 있어야 `ros2 run cpp_pubsub talker`처럼 설치된 executable을 찾을 수 있다.
+- `ament_package()`는 package를 ament index에 등록하는 데 필요한 설정을 생성한다.
 
 ### 4. Publisher source
+
+`publisher.cpp`는 `/talker` node를 만들고 `/chatter`에 문자열 message를 500 ms마다 publish한다.
 
 `~/ros2_ws/src/cpp_pubsub/src/publisher.cpp`를 만든다.
 
@@ -192,9 +216,14 @@ int main(int argc, char * argv[])
 }
 ```
 
-Constructor는 `/chatter` publisher와 500 ms timer를 만든다. `rclcpp::spin`은 callback을 처리하며, timer callback이 실행될 때마다 새로운 `std_msgs/msg/String` message를 publish한다.
+- `Node("talker")`는 node 이름을 `talker`로 정한다.
+- `create_publisher<std_msgs::msg::String>("chatter", 10)`은 message type, topic 이름과 history depth를 지정한다.
+- 500 ms timer callback은 새로운 message를 만들고 `/chatter`에 publish한다.
+- `rclcpp::spin`은 timer callback이 실행되도록 node의 callback을 처리한다.
 
 ### 5. Subscriber source
+
+`subscriber.cpp`는 `/listener` node를 만들고 `/chatter`에서 받은 문자열 message를 출력한다.
 
 `~/ros2_ws/src/cpp_pubsub/src/subscriber.cpp`를 만든다.
 
@@ -231,9 +260,14 @@ int main(int argc, char * argv[])
 }
 ```
 
-Constructor는 `/chatter` subscriber를 만든다. Message가 도착하면 executor가 callback을 호출하고 `message->data`를 log로 출력한다.
+- `Node("listener")`는 node 이름을 `listener`로 정한다.
+- `create_subscription<std_msgs::msg::String>("chatter", 10, ...)`은 message type, topic 이름과 history depth를 지정한다.
+- Message가 도착하면 executor가 subscription callback을 호출하고 `message->data`를 log로 출력한다.
+- `rclcpp::spin`은 message가 도착할 때 subscription callback이 실행되도록 node의 callback을 처리한다.
 
 ## Dependency 설치와 build
+
+먼저 `package.xml`에 선언한 dependency를 준비하고 package를 build한 뒤, 새 shell에서 설치 결과를 확인한다.
 
 Workspace root로 이동해 `package.xml`에 선언한 system dependency를 확인한다.
 
@@ -271,6 +305,8 @@ cpp_pubsub talker
 
 ## 두 node 실행
 
+`talker`와 `listener` executable은 각각 별도 process를 시작하고, 각 process는 `/talker`와 `/listener` node를 하나씩 만든다. 비동기 통신을 확인하기 위해 두 executable을 서로 다른 terminal에서 실행한다.
+
 Build terminal과 분리된 terminal A를 열어 publisher를 실행한다.
 
 ```bash
@@ -303,11 +339,11 @@ ros2 run cpp_pubsub listener
 [INFO] [...][listener]: Received: 'Hello ROS 2: 8'
 ```
 
-`ros2 run`은 package와 executable을 찾아 process를 시작한다. `talker` process는 `/talker` node를 만들고, `listener` process는 `/listener` node를 만든다.
-
-`ros2 run`은 executable을 찾고 실행하는 도구이며 topic message를 중계하지 않는다. Process가 시작된 뒤 `rclcpp::init()`, node 생성, executor의 `spin()`과 middleware 통신이 어떻게 이어지는지는 [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>)에서 설명한다.
+`ros2 run`은 package에서 executable을 찾아 process를 시작할 뿐 topic message를 중계하지 않는다. Process가 시작된 뒤 `rclcpp::init()`, node 생성, executor의 `spin()`과 middleware 통신이 어떻게 이어지는지는 [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>)에서 설명한다.
 
 ## ROS graph와 topic 관찰
+
+실행 중인 node와 endpoint가 ROS graph에 어떻게 나타나는지 `node → topic → message` 순서로 확인한다.
 
 세 번째 terminal C에서도 같은 underlay와 overlay를 활성화한다.
 
@@ -362,7 +398,7 @@ ros2 topic hz /chatter
 
 ## 종료와 다시 확인
 
-각 실행 terminal에서 `Ctrl+C`를 눌러 foreground process group에 `SIGINT`를 보낸다. 기본 `rclcpp::init()`이 설치한 signal handler가 ROS context에 shutdown을 요청하면 executor의 `spin()`이 끝나고 process가 종료 경로로 진행한다. Signal, `spin()`과 middleware 자원 정리의 관계는 [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>)에서 설명한다.
+각 실행 terminal에서 `Ctrl+C`를 눌러 `talker`와 `listener` process를 각각 종료한다.
 
 Publisher를 먼저 종료하면 listener는 새 message를 받지 않은 채 계속 대기할 수 있으므로 listener도 별도로 종료한다.
 
@@ -374,6 +410,8 @@ ros2 topic info /chatter
 ```
 
 다른 publisher나 subscriber가 없다면 `/talker`, `/listener`가 사라지고 `/chatter`를 찾지 못한다. Node와 topic은 source file에 적혀 있다는 이유만으로 graph에 계속 존재하는 것이 아니라, endpoint를 만든 process가 실행 중일 때 graph에 나타난다.
+
+`Ctrl+C`는 foreground process group에 `SIGINT`를 보낸다. 기본 `rclcpp::init()`이 설치한 signal handler가 ROS context에 shutdown을 요청하면 executor의 `spin()`이 끝나고 process가 종료 경로로 진행한다. Signal, `spin()`과 middleware 자원 정리의 관계는 [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>)에서 설명한다.
 
 ## 문제 확인 순서
 
@@ -396,7 +434,7 @@ ros2 pkg executables cpp_pubsub
 
 ### Node는 실행되지만 message가 오지 않는다
 
-다음 순서로 이름, type과 endpoint 수를 확인한다.
+Node 존재 여부부터 topic 이름, message type, QoS와 discovery 순서로 확인한다.
 
 ```bash
 ros2 node list
@@ -405,8 +443,9 @@ ros2 topic info /chatter --verbose
 ```
 
 - `/talker` 또는 `/listener`가 없다면 해당 process가 실행 중인지 확인한다.
-- Topic 이름이 다르면 publisher와 subscriber가 같은 graph edge를 사용하지 않는다.
-- Type이 다르면 같은 topic 이름이어도 통신할 수 없다.
+- Topic 이름이 다르면 서로 다른 통신 경로를 사용하므로 연결되지 않는다.
+- Message type이 다르면 같은 topic 이름이어도 연결되지 않는다.
+- QoS 정책이 서로 호환되지 않으면 topic 이름과 message type이 같아도 연결되지 않는다.
 - 서로 다른 machine이나 container라면 `ROS_DOMAIN_ID`, network와 middleware discovery 설정도 확인한다.
 
 ## 관련 문서

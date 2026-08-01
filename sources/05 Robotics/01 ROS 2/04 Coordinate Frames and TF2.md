@@ -38,7 +38,34 @@ $$
 {}^{A}\mathbf{T}_{B}
 $$
 
-${}^{A}\mathbf{T}_{B}$는 frame `B`의 pose를 frame `A`에서 표현한 transform이다. Frame `B`에서 표현한 point ${}^{B}\mathbf{p}$를 frame `A` 좌표로 바꿀 때는 다음 관계를 사용한다.
+${}^{A}\mathbf{T}_{B}$는 frame `B`의 pose를 frame `A`에서 표현한
+transform이다. 이 transform의 rotation과 translation을 각각
+${}^{A}\mathbf{R}_{B}$와 ${}^{A}\mathbf{t}_{B}$로 표기한다.
+
+| 표기 | 의미 |
+|---|---|
+| ${}^{A}\mathbf{R}_{B} \in \mathbb{R}^{3\times3}$ | Frame `B`의 축 방향을 frame `A`에서 표현한 rotation matrix |
+| ${}^{A}\mathbf{t}_{B} \in \mathbb{R}^{3}$ | Frame `B`의 원점을 frame `A`에서 표현한 translation vector |
+
+같은 물리적 point의 좌표 column vector를 frame `A`와 `B`에서 각각
+${}^{A}\mathbf{p},{}^{B}\mathbf{p} \in \mathbb{R}^{3}$로 표현하자. Frame
+`B` 좌표를 frame `A` 좌표로 바꾸는 관계는 다음과 같다.
+
+$$
+{}^{A}\mathbf{p}
+=
+{}^{A}\mathbf{R}_{B}
+{}^{B}\mathbf{p}
++
+{}^{A}\mathbf{t}_{B}
+$$
+
+먼저 point 좌표를 frame `A`의 축 방향으로 회전시킨 뒤, frame `A`에서
+표현한 frame `B` 원점의 위치를 더한다. Translation이 포함되므로 이 변환은
+$\mathbb{R}^{3}$에서의 linear transformation이 아니라
+[affine transformation](<../../01 math/08 Geometry/12 Affine Transformation.md>)이다.
+
+로보틱스에서는 이 affine transform의 적용을 다음과 같이 줄여 쓰기도 한다.
 
 $$
 {}^{A}\mathbf{p}
@@ -46,6 +73,48 @@ $$
 {}^{A}\mathbf{T}_{B}
 {}^{B}\mathbf{p}
 $$
+
+여기서 ${}^{A}\mathbf{p}$와 ${}^{B}\mathbf{p}$를 일반적인
+$\mathbb{R}^{3}$ vector로 해석하면 오른쪽은 $3\times3$ matrix의 곱이 아니라
+앞에서 정의한 rotation과 translation의 적용을 나타내는 축약 표기다.
+
+행렬곱 하나로 표현하려면 point에 마지막 성분 `1`을 추가한 homogeneous
+coordinate를 사용한다.
+
+$$
+\begin{bmatrix}
+{}^{A}\mathbf{p} \\
+1
+\end{bmatrix}
+=
+\underbrace{
+\begin{bmatrix}
+{}^{A}\mathbf{R}_{B} & {}^{A}\mathbf{t}_{B} \\
+\mathbf{0}^{\mathsf T} & 1
+\end{bmatrix}
+}_{ {}^{A}\mathbf{T}_{B} }
+\begin{bmatrix}
+{}^{B}\mathbf{p} \\
+1
+\end{bmatrix}
+$$
+
+반대로 frame `A` 좌표를 frame `B` 좌표로 바꿀 때는 inverse transform을
+사용한다.
+
+$$
+{}^{B}\mathbf{p}
+=
+({}^{A}\mathbf{R}_{B})^{\mathsf T}
+\left(
+{}^{A}\mathbf{p}
+-
+{}^{A}\mathbf{t}_{B}
+\right)
+$$
+
+따라서 translation을 먼저 빼고 rotation을 적용하는 계산은 위 표기에서
+${}^{A}\mathbf{T}_{B}$와 반대 방향으로 좌표를 변환할 때 나타난다.
 
 예를 들어 `base_link`가 parent이고 `lidar_link`가 child라면 transform의 translation과 rotation은 `lidar_link`의 원점과 축이 `base_link`에서 어떻게 배치되는지를 설명한다. Parent와 child를 바꾸면 같은 숫자를 그대로 사용할 수 없고 inverse transform이 필요하다.
 

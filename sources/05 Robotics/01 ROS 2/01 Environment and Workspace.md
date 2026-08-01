@@ -122,8 +122,6 @@ example_package/
 
 - `package.xml`은 package 이름, version, maintainer, license와 dependency를 선언한다.
 - `CMakeLists.txt`는 C++ source를 어떤 executable과 library로 build하고 어디에 설치할지 선언한다.
-- `ament_cmake`는 CMake 기반 ROS 2 package에 사용하는 build system이다.
-- `colcon`은 workspace 안의 package를 찾아 dependency 순서에 따라 build하는 build tool이다.
 
 Package directory 안에 다른 ROS package를 중첩하지 않는다. `colcon`이 package 경계를 잘못 해석할 수 있으므로 여러 package는 `src` 바로 아래의 형제 directory로 둔다.
 
@@ -150,6 +148,8 @@ rosdep install -i --from-path src --rosdistro jazzy -y
 - `-y`는 system package 설치 확인에 자동으로 동의한다.
 
 이 명령은 source code를 compile하지 않는다. 처음 사용하는 system이라 `rosdep` database가 초기화되지 않았다면 공식 `rosdep` 설치 절차에 따라 초기화와 update를 먼저 수행한다.
+
+`colcon`은 workspace 안의 package를 찾아 dependency 순서에 따라 build하는 build tool이다. CMake 기반 ROS 2 package는 build system으로 `ament_cmake`를 사용하며, `colcon`은 각 package에 선언된 build 방식에 따라 build를 실행한다.
 
 Workspace root에서 build한다.
 
