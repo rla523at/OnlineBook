@@ -147,17 +147,107 @@ $$
 
 ## Coordinate representation
 
-Affine space $A$의 coordinate system $(o,\beta)$를 선택하자. 계수의 합이 $1$이면 affine combination의 coordinate도 같은 계수로 결합된다.
+Affine space $A$에 coordinate system $(o,\beta)$를 선택하자. Point $p_i\in A$의 coordinate는 $o$에서 $p_i$로 가는 vector의 coordinate다.
 
 $$
-\left[
-\sum_{i=1}^n c_ip_i
-\right]_{(o,\beta)}
+[p_i]_{(o,\beta)}
+=
+[p_i-o]_\beta.
+$$
+
+Point $p_1,\ldots,p_n\in A$와 계수 $c_1,\ldots,c_n\in\mathbb F$가 다음을 만족한다고 하자.
+
+$$
+\sum_{i=1}^n c_i=1.
+$$
+
+$p$를 $p_1,\ldots,p_n$의 affine combination이라고 하자.
+
+$$
+p:=\sum_{i=1}^n c_ip_i.
+$$
+
+그러면 $p$의 coordinate는 각 $p_i$의 coordinate를 동일한 계수 $c_i$로 linear combination하여 구할 수 있다.
+
+$$
+[p]_{(o,\beta)}
 =
 \sum_{i=1}^n c_i[p_i]_{(o,\beta)}.
 $$
 
-이 식은 coordinate를 선택하면 affine combination이 익숙한 linear combination 형태로 계산된다는 뜻이다. 하지만 affine combination 자체는 앞에서 증명한 것처럼 특정 origin이나 coordinate system에 의존하지 않는다.
+여기서 $p:=\sum c_ip_i$는 point들의 affine combination을 나타내는 표기다. 반면 우변의 $\sum c_i[p_i]_{(o,\beta)}$는 $\mathbb F^n$의 coordinate vector들에 대한 일반적인 linear combination이다.
+
+실제로 affine combination의 정의에 따라 다음이 성립한다.
+
+$$
+p
+=
+o+\sum_{i=1}^n c_i(p_i-o).
+$$
+
+따라서 $o$에서 $p$로 가는 vector는 다음과 같다.
+
+$$
+p-o
+=
+\sum_{i=1}^n c_i(p_i-o).
+$$
+
+Vector의 coordinate map $v\mapsto[v]_\beta$의 linearity를 적용하면 다음을 얻는다.
+
+$$
+\begin{aligned}
+[p]_{(o,\beta)}
+&=[p-o]_\beta \\
+&=\left[\sum_{i=1}^n c_i(p_i-o)\right]_\beta \\
+&=\sum_{i=1}^n c_i[p_i-o]_\beta \\
+&=\sum_{i=1}^n c_i[p_i]_{(o,\beta)}.
+\end{aligned}
+$$
+
+예를 들어 두 point $a,b\in A$의 coordinate가 다음과 같다고 하자.
+
+$$
+[a]_{(o,\beta)}
+=
+\begin{bmatrix}
+1\\
+2
+\end{bmatrix},
+\qquad
+[b]_{(o,\beta)}
+=
+\begin{bmatrix}
+5\\
+4
+\end{bmatrix}.
+$$
+
+Midpoint $m=\frac12a+\frac12b$의 coordinate는 같은 계수 $\frac12,\frac12$를 사용하여 계산할 수 있다.
+
+$$
+\begin{aligned}
+[m]_{(o,\beta)}
+&=\frac12[a]_{(o,\beta)}+\frac12[b]_{(o,\beta)} \\
+&=\frac12
+\begin{bmatrix}
+1\\
+2
+\end{bmatrix}
++\frac12
+\begin{bmatrix}
+5\\
+4
+\end{bmatrix} \\
+&=
+\begin{bmatrix}
+3\\
+3
+\end{bmatrix}.
+\end{aligned}
+$$
+
+즉, affine space의 point 자체에는 일반적인 덧셈과 scalar multiplication이 없지만, coordinate system을 선택하면 affine combination을 coordinate vector의 linear combination으로 계산할 수 있다. 계수의 합이 $1$이라는 조건은 위의 linearity 계산 자체가 아니라, $p$가 기준 point의 선택과 무관한 affine combination으로 정의되는 것을 보장한다.
 
 ## 관련 문서
 
