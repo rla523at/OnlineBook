@@ -8,9 +8,41 @@ Affine map은 한 기준점의 image와 모든 vector에 공통으로 작용하�
 
 ### Motivation
 
-같은 field $\mathbb F$ 위의 affine space $A,B$가 있고, associated vector space를 각각 $V_A,V_B$라고 하자. 함수 $F:A\rightarrow B$가 affine space의 구조를 보존한다는 것이 무엇인지 생각해 보자.
+같은 field $\mathbb F$ 위의 affine space $A,B$가 있고, associated vector space를 각각 $V_A,V_B$라고 하자.
 
-[Affine Combination](<./12 Affine Combination.md>)에서 살펴본 affine combination은 origin이나 coordinate를 선택하지 않고 point 사이의 관계를 표현한다. 따라서 affine structure를 보존하는 함수라면 다음과 같이 affine combination의 계수를 보존해야 한다.
+Affine space의 구조는 point들의 집합만을 뜻하지 않는다. Associated vector space와 point에 vector를 더하는 다음 연산을 함께 뜻한다.
+
+$$
++:A\times V_A\rightarrow A,
+\qquad
+(a,v)\mapsto a+v.
+$$
+
+이 연산은 두 point를 잇는 vector와 point 사이의 상대적 위치 관계를 정한다. 반면 특별한 origin이나 coordinate, distance, angle은 affine structure에 포함되지 않는다. 합이 $1$인 계수로 만든 affine combination은 이러한 상대적 위치 관계를 표현하는 방법이다.
+
+함수 $F:A\rightarrow B$가 이 affine structure를 보존한다는 것이 무엇인지 생각해 보자.
+
+[Affine Combination](<./12 Affine Combination.md>)에서 살펴본 것처럼, point $p_1,\ldots,p_n$과 합이 $1$인 계수 $c_1,\ldots,c_n$을 정하면 다음 affine combination은 하나의 point $q$와 point 사이의 상대적 위치 관계를 정한다.
+
+$$
+q:=\sum_{i=1}^n c_ip_i,
+\qquad
+\sum_{i=1}^n c_i=1.
+$$
+
+이 등식은 $q$가 하나의 point라는 사실뿐만 아니라, $q$의 위치가 $p_1,\ldots,p_n$에 대해 계수 $c_1,\ldots,c_n$으로 정해진다는 상대적 위치 관계를 표현한다. 예를 들어 $2$의 multiplicative inverse가 $\mathbb F$에 존재할 때 다음 식은 point $m$을 정하는 동시에 $m$이 $a,b$의 midpoint라는 관계를 나타낸다.
+
+$$
+m=\frac12a+\frac12b.
+$$
+
+이러한 affine-combination 관계는 특별한 origin이나 coordinate를 선택하지 않아도 의미가 있다. 따라서 affine structure를 보존하는 함수 $F:A\rightarrow B$라면 변환 전의 관계가 변환 후에도 같은 계수로 성립해야 한다. 즉, $q=\sum_{i=1}^n c_ip_i$이면 다음이 성립해야 한다.
+
+$$
+F(q)=\sum_{i=1}^n c_iF(p_i).
+$$
+
+이를 하나의 식으로 쓰면 다음과 같다.
 
 $$
 F\left(\sum_{i=1}^n c_ip_i\right)
