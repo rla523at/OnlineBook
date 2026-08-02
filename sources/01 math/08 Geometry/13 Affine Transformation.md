@@ -1,14 +1,14 @@
 # Affine Transformation
 
-Affine map은 한 기준점의 image와 모든 displacement vector에 공통으로 작용하는 linear map으로 결정된다. Coordinate system을 선택하면 이 구조는 익숙한 $y=Mx+t$ 형태로 표현된다.
+Affine map은 한 기준점의 image와 모든 vector에 공통으로 작용하는 linear map으로 결정된다. Coordinate system을 선택하면 이 구조는 익숙한 $y=Mx+t$ 형태로 표현된다.
 
-이 문서는 [Affine space](<./11 Affine space.md>)에서 정의한 point, translation vector, subtraction과 [Affine Combination](<./12 Affine Combination.md>)에서 정의한 affine combination을 사용한다.
+이 문서는 [Affine space](<./11 Affine space.md>)에서 정의한 point, vector, subtraction과 [Affine Combination](<./12 Affine Combination.md>)에서 정의한 affine combination을 사용한다.
 
 ## Affine Homomorphism
 
 ### Motivation
 
-같은 field $\mathbb F$ 위의 affine space $A,B$가 있고, 이 affine space의 translation vector space를 각각 $V_A,V_B$라고 하자. 함수 $F:A\rightarrow B$가 affine space의 구조를 보존한다는 것이 무엇인지 생각해 보자.
+같은 field $\mathbb F$ 위의 affine space $A,B$가 있고, associated vector space를 각각 $V_A,V_B$라고 하자. 함수 $F:A\rightarrow B$가 affine space의 구조를 보존한다는 것이 무엇인지 생각해 보자.
 
 [Affine Combination](<./12 Affine Combination.md>)에서 살펴본 affine combination은 origin이나 coordinate를 선택하지 않고 point 사이의 관계를 표현한다. 따라서 affine structure를 보존하는 함수라면 다음과 같이 affine combination의 계수를 보존해야 한다.
 
@@ -20,9 +20,9 @@ F\left(\sum_{i=1}^n c_ip_i\right)
 \sum_{i=1}^n c_i=1.
 $$
 
-이 조건을 직접 확인하는 대신, affine combination을 구성하는 displacement가 어떻게 변하는지 살펴보면 더 간결한 조건을 얻을 수 있다.
+이 조건을 직접 확인하는 대신, affine combination을 구성하는 vector가 어떻게 변하는지 살펴보면 더 간결한 조건을 얻을 수 있다.
 
-#### Point와 displacement의 관계
+#### Point와 vector의 관계
 
 Affine space $A$에는 origin이나 coordinate를 선택하지 않아도 다음 두 연산이 정의되어 있다.
 
@@ -38,9 +38,9 @@ b=a+v
 b-a=v.
 $$
 
-이 관계는 $a$에서 displacement $v$만큼 이동하면 $b$에 도달한다는 뜻이다. Affine combination도 기준 point에서 각 point로 향하는 displacement의 linear combination으로 정의된다. 따라서 affine combination의 보존을 displacement의 변환으로 표현하고자 한다.
+이 관계는 point $a$에 vector $v$를 더하면 $b$에 도달한다는 뜻이다. Affine combination도 기준 point에서 각 point로 가는 vector의 linear combination으로 정의된다. 따라서 affine combination의 보존을 vector의 변환으로 표현하고자 한다.
 
-같은 displacement $v$를 두 시작점 $a,c\in A$에 적용하면 네 point는 다음 affine relation을 만족한다.
+같은 vector $v$를 두 시작점 $a,c\in A$에 적용하면 네 point는 다음 affine relation을 만족한다.
 
 $$
 c+v=(-1)a+(a+v)+c.
@@ -52,19 +52,19 @@ $$
 F(c+v)=-F(a)+F(a+v)+F(c).
 $$
 
-따라서 변환된 displacement는 다음과 같이 시작점과 무관하다.
+따라서 변환된 vector는 다음과 같이 시작점과 무관하다.
 
 $$
 F(c+v)-F(c)=F(a+v)-F(a).
 $$
 
-즉, affine combination을 보존하는 $F$는 어떤 시작점에서 적용한 displacement $v$도 하나의 공통된 displacement로 변환해야 한다. 이를 나타내는 함수 $T:V_A\rightarrow V_B$를 찾으면 다음과 같이 쓸 수 있다.
+즉, affine combination을 보존하는 $F$는 어떤 시작점에 적용한 vector $v$도 하나의 공통된 vector로 변환해야 한다. 이를 나타내는 함수 $T:V_A\rightarrow V_B$를 찾으면 다음과 같이 쓸 수 있다.
 
 $$
 F(a+v)=F(a)+T(v).
 $$
 
-#### Displacement map의 후보
+#### Associated linear map의 후보
 
 함수 $F:A\rightarrow B$가 주어지면 다음 함수는 항상 정의할 수 있다.
 
@@ -74,9 +74,9 @@ D_F:A\times V_A\rightarrow V_B,
 D_F(a,v):=F(a+v)-F(a).
 $$
 
-여기서 $D_F(a,v)$는 시작점 $a$에 displacement $v$를 적용했을 때 변환된 두 point $F(a),F(a+v)$가 만드는 displacement다. $D_F$는 시작점 $a$와 displacement $v$를 모두 입력으로 받는다.
+여기서 $D_F(a,v)$는 시작점 $a$에 vector $v$를 적용했을 때 변환된 두 point $F(a),F(a+v)$를 잇는 vector다. $D_F$는 시작점 $a$와 vector $v$를 모두 입력으로 받는다.
 
-반면 앞 절에서 찾고자 한 함수 $T_F:V_A\rightarrow V_B$는 displacement $v$만을 입력으로 받아야 한다. 따라서 $D_F(a,v)$가 $a$에 의존하지 않아야 한다. 즉, $F$가 다음 조건을 만족해야 한다.
+반면 앞 절에서 찾고자 한 함수 $T_F:V_A\rightarrow V_B$는 vector $v$만을 입력으로 받아야 한다. 따라서 $D_F(a,v)$가 $a$에 의존하지 않아야 한다. 즉, $F$가 다음 조건을 만족해야 한다.
 
 $$
 F(a+v)-F(a)
@@ -85,15 +85,15 @@ F(c+v)-F(c),
 \qquad \forall a,c\in A,\ v\in V_A.
 $$
 
-이 등식은 임의의 함수 $F$에 대해 자동으로 성립하는 명제가 아니라, $F$가 displacement map을 유도하기 위해 만족해야 하는 조건이다. 이 조건이 성립하면 어떤 시작점 $a\in A$를 선택해도 같은 값을 얻으므로 다음과 같이 정의할 수 있다.
+이 등식은 임의의 함수 $F$에 대해 자동으로 성립하는 명제가 아니라, $F$가 시작점과 무관한 map $T_F$를 유도하기 위해 만족해야 하는 조건이다. 이 조건이 성립하면 어떤 시작점 $a\in A$를 선택해도 같은 값을 얻으므로 다음과 같이 정의할 수 있다.
 
 $$
 T_F(v):=D_F(a,v)=F(a+v)-F(a).
 $$
 
-우변이 $a$의 선택과 무관하므로 $T_F$는 `well-defined` 함수다. 즉, 변환된 displacement는 시작점이 아니라 원래 displacement $v$에만 의존한다.
+우변이 $a$의 선택과 무관하므로 $T_F$는 `well-defined` 함수다. 즉, 변환된 vector는 시작점이 아니라 원래 vector $v$에만 의존한다.
 
-예를 들어 $\mathbb R$을 affine line으로 보고 $F(x)=x^2$라고 하자. 같은 displacement $v=1$을 두 시작점 $a=0$, $c=1$에 각각 적용하면 변환된 displacement는 서로 다르다.
+예를 들어 $\mathbb R$을 affine line으로 보고 $F(x)=x^2$라고 하자. 같은 vector $v=1$을 두 시작점 $a=0$, $c=1$에 각각 적용하면 변환된 vector는 서로 다르다.
 
 $$
 F(a+v)-F(a)=F(0+1)-F(0)=1,
@@ -115,7 +115,7 @@ $$
 
 #### Linear map이 필요한 이유
 
-여기까지는 $F$가 각 displacement $v$에 시작점과 무관한 변환된 displacement를 대응시켜 well-defined map $T_F:V_A\rightarrow V_B$를 유도하기 위한 조건을 확인했다. Affine space의 point에는 덧셈과 scalar multiplication이 정의되어 있지 않으므로 $F$ 자체에 vector space의 linearity 조건을 적용할 수는 없다. 대신 displacement space $V_A,V_B$의 vector space 연산이 어떻게 변하는지를 살펴봐야 한다.
+여기까지는 $F$가 각 vector $v$에 시작점과 무관한 변환된 vector를 대응시켜 well-defined map $T_F:V_A\rightarrow V_B$를 유도하기 위한 조건을 확인했다. Affine space의 point에는 덧셈과 scalar multiplication이 정의되어 있지 않으므로 $F$ 자체에 vector space의 linearity 조건을 적용할 수는 없다. 대신 associated vector space $V_A,V_B$의 연산이 어떻게 변하는지를 살펴봐야 한다.
 
 먼저 $T_F$의 덧셈 보존은 별도로 요구하지 않아도 시작점 독립성에서 따라온다. $a\in A$, $v,w\in V_A$에 대해 다음이 성립한다.
 
@@ -130,7 +130,7 @@ T_F(v+w)
 \end{aligned}
 $$
 
-첫 번째 항은 시작점 $a+v$에 displacement $w$를 적용했을 때의 변환된 displacement다. 시작점 독립성에 의해 이 값은 $T_F(w)$다. 따라서 displacement를 연속해서 적용하는 합성은 자동으로 보존된다.
+첫 번째 항은 시작점 $a+v$에 vector $w$를 적용했을 때 얻는 변환된 vector다. 시작점 독립성에 의해 이 값은 $T_F(w)$다. 따라서 point에 vector를 연속해서 더하는 연산은 자동으로 보존된다.
 
 다음으로 affine combination의 계수를 보존하려면 $T_F$가 scalar multiplication을 보존해야 한다. $b:=a+v$로 두고, $a,b$의 affine parameter $\lambda\in\mathbb F$에 해당하는 point를 $p_\lambda$라고 하자.
 
@@ -201,7 +201,7 @@ $$
 > Reference  
 > [Wikipedia - Affine space: Affine maps](https://en.wikipedia.org/wiki/Affine_space#Affine_maps)
 
-### Point와 displacement에 대한 동치 표현
+### Point와 vector에 대한 동치 표현
 
 Affine space $A,B$와 함수 $F:A\rightarrow B$가 있다고 하자. 그러면 다음 두 조건은 동치다.
 
@@ -231,13 +231,13 @@ $$
 이 식은 affine map의 역할을 두 부분으로 나누어 보여준다.
 
 1. 기준 point $a$를 $F(a)$로 보낸다.
-2. $a$에서 시작하는 displacement $v$를 $T_F(v)$로 변환한다.
+2. $a$에 더하는 vector $v$를 $T_F(v)$로 변환한다.
 
 한 point의 image와 associated linear map을 알면 다른 모든 point의 image가 결정된다.
 
 ### Affine combination의 보존
 
-Definition에서 displacement를 통해 정의한 affine map이 Motivation에서 목표로 삼은 affine combination을 실제로 보존하는지 확인하자.
+Definition에서 vector의 변환을 통해 정의한 affine map이 Motivation에서 목표로 삼은 affine combination을 실제로 보존하는지 확인하자.
 
 $p_1,\ldots,p_n\in A$와 $c_1,\ldots,c_n\in\mathbb F$가 다음을 만족한다고 하자.
 
@@ -379,7 +379,7 @@ $$
 
 따라서 $y=Mx+t$는 affine map의 정의가 아니라, affine map에 source와 target의 coordinate system을 선택하여 얻은 matrix representation이다.
 
-- $M$은 displacement vector에 작용하는 $T_F$의 matrix representation이다.
+- $M$은 vector에 작용하는 $T_F$의 matrix representation이다.
 - $t$는 source coordinate origin $a_0$의 image $F(a_0)$를 target coordinate system에서 표현한 coordinate다.
 
 $M$의 값은 $V_A,V_B$에서 선택한 basis $\beta,\gamma$에 의존한다. Basis에 따른 linear map의 matrix representation은 [Change of Basis and Coordinate Matrix](<../07 Linear Algebra/21 Change of Basis and Coordinate Matrix.md>)에서 설명한다.
@@ -454,7 +454,7 @@ $$
 F_t:A\rightarrow A, \qquad p\mapsto p+t.
 $$
 
-두 point의 displacement는 변하지 않는다.
+두 point를 잇는 vector는 변하지 않는다.
 
 $$
 F_t(b)-F_t(a)=(b+t)-(a+t)=b-a.
@@ -504,7 +504,7 @@ $$
 
 $\det R=1$이면 $R$은 rotation이고, $y=Rx+t$는 rotation과 translation으로 이루어진 orientation-preserving rigid transformation이다. 반면 일반적인 affine transformation의 $M$에는 scaling, shear, reflection 등이 포함될 수 있다.
 
-Rigid transformation에서도 displacement에는 rotation만 작용한다.
+Rigid transformation에서도 두 coordinate의 차를 나타내는 vector에는 rotation만 작용한다.
 
 $$
 (Rx_2+t)-(Rx_1+t)=R(x_2-x_1).

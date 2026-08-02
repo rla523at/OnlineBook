@@ -2,7 +2,7 @@
 
 Affine combination은 affine space의 point들을 origin의 선택과 무관하게 결합하는 방법이다. 계수의 합을 $1$로 제한하면 affine parameter, midpoint, barycenter처럼 point 사이의 위치 관계를 표현할 수 있다.
 
-이 문서는 [Affine space](<./11 Affine space.md>)에서 정의한 point, translation vector, subtraction을 사용한다.
+이 문서는 [Affine space](<./11 Affine space.md>)에서 정의한 point, vector, subtraction을 사용한다.
 
 ## Motivation
 
@@ -12,7 +12,7 @@ $$
 c_1p_1+\cdots+c_np_n.
 $$
 
-하지만 기준 point $o\in A$를 하나 선택하면 각 point $p_i$를 displacement vector $p_i-o\in V_A$로 나타낼 수 있다. Displacement vector는 linear combination할 수 있으므로 다음 point는 정의할 수 있다.
+하지만 기준 point $o\in A$를 하나 선택하면 각 point $p_i$를 vector $p_i-o\in V_A$로 나타낼 수 있다. Vector는 linear combination할 수 있으므로 다음 point는 정의할 수 있다.
 
 $$
 o+\sum_{i=1}^n c_i(p_i-o).
@@ -34,7 +34,9 @@ $$
 o+\sum_{i=1}^n c_i(p_i-o).
 $$
 
-이 point는 $o$의 선택과 무관하며, 이를 $p_1,\ldots,p_n$의 `affine combination`이라고 한다. 다음 표기는 point의 일반적인 덧셈이 아니라 이 affine combination을 나타내는 약속이다.
+이 point는 $o$의 선택과 무관하며, 이를 $p_1,\ldots,p_n$의 `affine combination`이라고 한다. 따라서 point $p_1,\ldots,p_n$과 계수 $c_1,\ldots,c_n$을 정하면 affine combination의 결과는 $A$에 속하는 하나의 point로 정해진다.
+
+다음 표기는 point의 일반적인 덧셈이나 scalar multiplication이 아니라, affine combination 전체를 나타내는 약속이다.
 
 $$
 \sum_{i=1}^n c_ip_i
@@ -67,6 +69,23 @@ $$
 
 그러므로 어느 기준 point를 사용해도 같은 affine combination을 얻는다.
 
+### Affine hull
+
+Point $p_1,\ldots,p_n$을 고정하고 계수의 합이 $1$이라는 조건 아래에서 가능한 모든 계수를 선택하자. 이렇게 얻은 affine combination들을 모은 집합을 $p_1,\ldots,p_n$의 `affine hull`이라고 한다.
+
+$$
+\operatorname{aff}\{p_1,\ldots,p_n\}
+:=
+\left\{
+\sum_{i=1}^n c_ip_i
+\;\middle|\;
+c_1,\ldots,c_n\in\mathbb F,
+\ \sum_{i=1}^n c_i=1
+\right\}.
+$$
+
+따라서 하나의 affine combination은 하나의 point이고, affine hull은 가능한 모든 affine combination으로 이루어진 set이다. 이 affine hull은 $p_1,\ldots,p_n$을 포함하는 가장 작은 affine subspace다.
+
 ## 두 point의 affine combination과 affine parameter
 
 $a,b\in A$와 $\lambda\in\mathbb F$가 있다고 하자. 두 계수 $1-\lambda$, $\lambda$의 합은 $1$이므로 다음 affine combination이 정의된다.
@@ -89,7 +108,7 @@ $$
 p_\lambda-a=\lambda(b-a).
 $$
 
-즉, $a$에서 $p_\lambda$로 가는 displacement는 $a$에서 $b$로 가는 displacement의 $\lambda$배다.
+즉, $a$에서 $p_\lambda$로 가는 vector는 $a$에서 $b$로 가는 vector의 $\lambda$배다.
 
 $\mathbb F=\mathbb R$인 경우에는 $\lambda$를 다음과 같이 해석할 수 있다.
 

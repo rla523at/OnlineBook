@@ -26,7 +26,7 @@ Translation 작용으로 affine space가 되며 translation에 의해 lines, pla
 ### 참고3
 $\R^n$에 dot product를 준 공간은 $n$차원 $E$이다.
 
-반대로 origin이 될 점과 translation space의 orthonormal basis를 결정하는 것은 $n$차원 $E$와 $\R^n$사이에 isomorphism을 정의하는 것과 동치이다.
+반대로 origin이 될 점과 associated vector space의 orthonormal basis를 결정하는 것은 $n$차원 $E$와 $\R^n$사이에 isomorphism을 정의하는 것과 동치이다.
 
 > Reference  
 > [wiki - Euclidean space](https://en.wikipedia.org/wiki/Euclidean_space#Motivation_of_the_modern_definition)
