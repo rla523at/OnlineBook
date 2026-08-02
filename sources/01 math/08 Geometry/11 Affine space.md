@@ -13,11 +13,19 @@ Vector space $V$에는 zero vector가 있으므로 모든 vector를 $0$에서 �
 
 반면 특별한 origin이 없으므로 point의 덧셈 $a+b$나 scalar multiplication $\lambda a$는 그 자체로 정의하지 않는다. Affine space는 point의 절대적인 위치 대신 point와 displacement 사이의 관계만 남긴 구조다.
 
-이 관계가 일관되려면 displacement $0$은 point를 움직이지 않아야 하고, $v$만큼 이동한 뒤 $w$만큼 이동한 결과는 $v+w$만큼 한 번에 이동한 결과와 같아야 한다. 또한 한 point에서 다른 point로 가는 displacement는 항상 하나만 존재해야 한다. 이 요구를 group action과 bijection으로 표현한 것이 affine space의 정의다.
+Point에 displacement vector를 더하여 다른 point로 이동한다는 규칙은 vector addition과 자연스럽게 맞아야 한다. 먼저 zero vector $0$은 이동량이 없다는 뜻이므로, 어떤 point $a$에서도 $a+0=a$여야 한다. 또한 $a$에서 $v$만큼 이동한 다음 $w$만큼 이동하는 것은 두 displacement를 합친 $v+w$만큼 한 번에 이동하는 것과 같아야 한다.
+
+$$
+(a+v)+w=a+(v+w)
+$$
+
+이 두 조건은 vector space $V_A$의 additive group이 point set $A$에 작용한다는 것, 즉 group action으로 표현된다.
+
+여기에 더해, 임의의 두 point $a,b$에 대해 $a+v=b$를 만족하는 displacement $v$가 정확히 하나 존재해야 한다. 그래야 $a$에서 $b$로 가는 displacement $b-a$를 모호함 없이 정의할 수 있다. 출발점 $a$를 고정하면 각 displacement $v$를 도착점 $a+v$에 대응시키는 함수 $\phi_a:V_A\rightarrow A$를 생각할 수 있다. 이 함수가 surjective라는 것은 $a$에서 모든 point에 도달할 수 있다는 뜻이고, injective라는 것은 같은 point로 가는 displacement가 둘 이상 없다는 뜻이다. 따라서 $\phi_a$가 bijective라는 조건은 임의의 목적지까지 가는 displacement가 정확히 하나 존재한다는 요구를 표현한다. Affine space는 이 group action과 bijectivity를 만족하는 공간이다.
 
 ## Definition
 
-Field $\mathbb F$ 위의 vector space $V_A$와 nonempty set $A$가 있다고 하자. $V_A$의 additive group이 $A$에 작용하는 [right group action](<../02 Abstract Algebra/05 Group/51 Group Action.md>)을 다음과 같이 표기하자.
+Field $\mathbb F$ 위의 vector space $V_A$와 nonempty set $A$가 있다고 하자. 다음 map을 생각하자.
 
 $$
 +:A\times V_A\rightarrow A,
@@ -25,17 +33,34 @@ $$
 (a,v)\mapsto a+v.
 $$
 
-Group action이므로 모든 $a\in A$, $v,w\in V_A$에 대해 다음이 성립한다.
+다음 세 조건을 모두 만족할 때 $(A,V_A,+)$를 field $\mathbb F$ 위의 `affine space`라고 한다.
 
-$$
-a+0_{V_A}=a,
-$$
+1. 모든 $a\in A$에 대해 다음이 성립한다.
 
-$$
-(a+v)+w=a+(v+w).
-$$
+   $$
+   a+0_{V_A}=a.
+   $$
 
-각 $a\in A$에 대해 다음 함수가 bijective라고 하자.
+2. 모든 $a\in A$, $v,w\in V_A$에 대해 다음이 성립한다.
+
+   $$
+   (a+v)+w=a+(v+w).
+   $$
+
+3. 모든 $a,b\in A$에 대해 다음을 만족하는 $v\in V_A$가 유일하게 존재한다.
+
+   $$
+   a+v=b.
+   $$
+
+- $A$의 원소를 `point`라고 한다.
+- $V_A$의 원소를 `translation vector` 또는 `displacement vector`라고 한다.
+
+### 조건의 의미
+
+첫 번째와 두 번째 조건은 $V_A$의 additive group이 $A$에 작용하는 [right group action](<../02 Abstract Algebra/05 Group/51 Group Action.md>) 조건이다.
+
+세 번째 조건은 각 $a\in A$에 대해 다음 함수가 bijective라는 것과 동치다.
 
 $$
 \phi_a:V_A\rightarrow A,
@@ -43,12 +68,7 @@ $$
 v\mapsto a+v.
 $$
 
-그러면 $(A,V_A,+)$를 field $\mathbb F$ 위의 `affine space`라고 한다.
-
-- $A$의 원소를 `point`라고 한다.
-- $V_A$의 원소를 `translation vector` 또는 `displacement vector`라고 한다.
-
-$\phi_a$의 surjectivity는 $a$에서 임의의 point로 이동할 수 있다는 뜻이고, injectivity는 그 이동에 필요한 displacement가 유일하다는 뜻이다. 따라서 bijectivity가 앞에서 요구한 “두 point 사이의 displacement가 항상 하나만 존재한다”는 조건을 정확히 표현한다.
+$\phi_a$의 surjectivity는 $a$에서 임의의 point로 이동할 수 있다는 뜻이고, injectivity는 그 이동에 필요한 displacement가 유일하다는 뜻이다. 따라서 세 번째 조건은 “두 point 사이의 displacement가 항상 유일하게 존재한다”는 요구를 정확히 표현한다.
 
 정의에는 특별한 origin이 포함되지 않는다. 임의의 point를 기준 point로 선택할 수 있지만, 그 선택은 affine space에 추가한 정보다.
 
