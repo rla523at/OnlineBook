@@ -208,8 +208,8 @@ project:
         - file: sources/01 math/08 Geometry/04 Curve/03 Curvature.md
       - file: sources/01 math/08 Geometry/05 Conic Section.md
       - file: sources/01 math/08 Geometry/11 Affine space.md
-      - file: sources/01 math/08 Geometry/12 Affine Transformation.md
-      - file: sources/01 math/08 Geometry/13 Affine Combination.md
+      - file: sources/01 math/08 Geometry/12 Affine Combination.md
+      - file: sources/01 math/08 Geometry/13 Affine Transformation.md
       - file: sources/01 math/08 Geometry/21 Euclidean Space.md
       - file: sources/01 math/08 Geometry/31 Cylidrical Coordinates.md
     - title: Numerical Analysis

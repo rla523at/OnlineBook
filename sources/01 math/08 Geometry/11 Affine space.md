@@ -1,344 +1,302 @@
-# Affine space
-## 정의
-집합 $A$와 vector space $V_A/\F$와 right group action $+:A\times V_A \rightarrow A$가 있다고 하자.
+# Affine Space
 
-임의의 $p\in A$에 의존하여 정의되는 함수 $\phi_p$가 다음을 만족하는 경우 $(A,V_A,+)$를 `affine space`라고 한다.
+Affine space는 특별한 origin을 지정하지 않고 point와 displacement 사이의 관계를 다루는 공간이다. Point에 displacement vector를 더할 수 있고 두 point를 빼면 displacement vector를 얻지만, point끼리의 덧셈은 정의하지 않는다.
 
-$$ \phi_p : V_A \rightarrow A \st v \mapsto p + v \text{ is bijective} $$
+## Motivation
 
-> Reference  
-> [wiki - Affine space](https://en.wikipedia.org/wiki/Affine_space#Definition)  
+Vector space $V$에는 zero vector가 있으므로 모든 vector를 $0$에서 시작하는 위치로 해석할 수 있다. 그러나 geometric point를 다룰 때 어느 point를 origin으로 선택할지는 공간 자체가 정해 주지 않는다. Origin을 바꾸면 각 point의 coordinate는 달라지지만 point 사이의 displacement는 달라지지 않는다.
 
-### 참고1
-집합 $A$의 원소를 `점(point)`, $V_A$의 원소를 `vector` 혹은  `translation`이라고 하며 $\phi_p$에서 $p$를 `원점(origin)`이라고 한다. 
+따라서 origin을 선택하지 않은 상태에서도 다음 관계는 표현할 수 있어야 한다.
 
-### 참고2
-$+$가 right group action이기 때문에 well defined, right indenity와 associativity가 성립한다.
+- Point $a$에서 displacement vector $v$만큼 이동한 point를 $a+v$로 나타낸다.
+- 두 point $a,b$ 사이의 displacement vector를 $b-a$로 나타낸다.
 
-**well defined**
+반면 특별한 origin이 없으므로 point의 덧셈 $a+b$나 scalar multiplication $\lambda a$는 그 자체로 정의하지 않는다. Affine space는 point의 절대적인 위치 대신 point와 displacement 사이의 관계만 남긴 구조다.
 
-$p_1, p_2 \in A$, $v \in V$가 있다고 하자.
+이 관계가 일관되려면 displacement $0$은 point를 움직이지 않아야 하고, $v$만큼 이동한 뒤 $w$만큼 이동한 결과는 $v+w$만큼 한 번에 이동한 결과와 같아야 한다. 또한 한 point에서 다른 point로 가는 displacement는 항상 하나만 존재해야 한다. 이 요구를 group action과 bijection으로 표현한 것이 affine space의 정의다.
 
-$$ p_1 = p_2 \implies p_1+v = p_2+v  $$
+## Definition
 
-**right identity**
+Field $\mathbb F$ 위의 vector space $V_A$와 nonempty set $A$가 있다고 하자. $V_A$의 additive group이 $A$에 작용하는 [right group action](<../02 Abstract Algebra/05 Group/51 Group Action.md>)을 다음과 같이 표기하자.
 
-$$ \forall p \in A, \quad  p + 0_{V_A} = p $$
+$$
++:A\times V_A\rightarrow A,
+\qquad
+(a,v)\mapsto a+v.
+$$
 
-**Associativity**
+Group action이므로 모든 $a\in A$, $v,w\in V_A$에 대해 다음이 성립한다.
 
-$$ \forall v ,w \in V_A, \quad \forall a \in A, \quad (a+v) +w = a + (v+w) $$
+$$
+a+0_{V_A}=a,
+$$
 
-### 참고3
-$p \in A$, $v_1,v_2 \in V_A$라고 하자.
+$$
+(a+v)+w=a+(v+w).
+$$
 
-$\phi_p$가 well defined 함수이기 때문에 다음이 성립한다.
+각 $a\in A$에 대해 다음 함수가 bijective라고 하자.
 
-$$ v_1 = v_2 \implies p+v_1 = p+v_2 $$
+$$
+\phi_a:V_A\rightarrow A,
+\qquad
+v\mapsto a+v.
+$$
 
-또 한, $\phi_p$가 injective 함수이기 때문에 다음이 성립한다.
+그러면 $(A,V_A,+)$를 field $\mathbb F$ 위의 `affine space`라고 한다.
 
-$$ v_1 = v_2 \impliedby p+v_1 = p+v_2 $$
+- $A$의 원소를 `point`라고 한다.
+- $V_A$의 원소를 `translation vector` 또는 `displacement vector`라고 한다.
 
-결론적으로 다음이 성립한다.
+$\phi_a$의 surjectivity는 $a$에서 임의의 point로 이동할 수 있다는 뜻이고, injectivity는 그 이동에 필요한 displacement가 유일하다는 뜻이다. 따라서 bijectivity가 앞에서 요구한 “두 point 사이의 displacement가 항상 하나만 존재한다”는 조건을 정확히 표현한다.
 
-$$ v_1 = v_2 \iff p+v_1 = p+v_2 $$
+정의에는 특별한 origin이 포함되지 않는다. 임의의 point를 기준 point로 선택할 수 있지만, 그 선택은 affine space에 추가한 정보다.
 
-### 참고4
-$p \in A$, $v \in V$가 있다고 하자.
+## Translation과 subtraction
 
-$\phi_p$가 well defined 함수이기 때문에 다음이 성립한다.
+### Translation
 
-$$ \exist! q \in A \st q = \phi_p(v) = p+v $$
+$v\in V_A$에 대해 다음 함수를 $v$에 의한 `translation`이라고 한다.
 
-### 참고5
-origin $p$가 주어진 경우, $\phi_p$는 bijective 이기 때문에, $A$와 $V_A$는 isomorphic하다.
+$$
+\tau_v:A\rightarrow A,
+\qquad
+a\mapsto a+v.
+$$
 
-따라서, point를 vector로 vector를 point로 볼 수 있게 된다.
+$-v$에 의한 translation은 $\tau_v$의 inverse다.
 
-$$ A \xtofrom[\phi_p]{\phi_p^{-1}} V_A$$
+$$
+\tau_{-v}(\tau_v(a))
+=(a+v)+(-v)
+=a.
+$$
 
-참고로, Affine space 정의 자체에는 origin이 주어져 있지 않다.
+따라서 모든 translation은 bijective다. 두 translation을 연속해서 적용하면 displacement vector의 덧셈에 대응한다.
 
-따라서, 특정한 origin이 정해지기 전까지는 vector는 어떤 point와도 1:1 대응될 수 없다.
+$$
+\tau_w\circ\tau_v=\tau_{v+w}.
+$$
 
-> Reference
-> [wikipedia - Affine_transformation#Structure](https://en.wikipedia.org/wiki/Affine_transformation#Structure)
+### 두 point의 subtraction
 
+$a,b\in A$라고 하자. $\phi_a$가 bijective이므로 다음을 만족하는 vector $v\in V_A$가 유일하게 존재한다.
 
+$$
+a+v=b.
+$$
 
-### 명제1
-Affine space $A$와 $v \in V_A$가 있다고 하자.
+이 vector를 $b-a$로 표기하고, 두 point의 `subtraction` 또는 $a$에서 $b$로 가는 displacement라고 한다.
 
-그리고 함수 $T_v:A \rightarrow A$를 다음과 같이 정의하자.
+$$
+b-a:=v
+\quad\Longleftrightarrow\quad
+a+v=b.
+$$
 
-$$T_v : A \rightarrow A \st p \mapsto p + v$$
+정의에서 바로 다음 관계를 얻는다.
 
-이 때, $T_v$가 bijectivce임을 증명하여라.
+$$
+a+(b-a)=b,
+$$
 
-**Proof**
+$$
+(a+v)-a=v,
+$$
 
-[well defined]  
-$p_1,p_2 \in A$라고 하자.
+$$
+a-a=0_{V_A},
+$$
 
-$+$는 group action이기 때문에, well defined 되어 있음으로 다음이 성립한다.
+$$
+a-b=-(b-a).
+$$
 
-$$ p_1 = p_2 \implies p_1 + v = p_2 + v \implies T_v(p_1) = T_v(p_2) \qed $$
+Point와 point의 subtraction은 vector지만, point와 point의 덧셈은 여전히 정의되지 않는다는 점에 주의해야 한다.
 
-[injective]  
-$p_1,p_2 \in A$라 하자.  
+### Displacement의 합성
 
-$$ \begin{aligned} 
-        & T_v(p_1) = T_v(p_2) \\ 
-\implies& p_1 + v = p_2 + v \\ 
-\implies& (p_1 + v) + v^{-1} = (p_2 + v) + v^{-1} \\ 
-\implies& p_1 + (v + v^{-1}) = p_2 + (v + v^{-1}) \\ 
-\implies& p_1 + 0_V = p_2 + 0_V \\ 
-\implies& p_1 = p_2 \qed
-\end{aligned} $$
+$a,b,c\in A$라고 하자. $a$에서 $b$로 이동한 뒤 $b$에서 $c$로 이동하면 $a$에서 $c$에 도달하므로 다음이 성립한다.
 
-[surjective]   
-$A$의 임의의 element를 $p$라고 할 떄, $q$를 다음과 같이 정의하자.
+$$
+(b-a)+(c-b)=c-a.
+$$
 
-$$ q = p+(-v) $$
+실제로 다음 두 displacement는 모두 $a$를 $c$로 보낸다.
 
-이 때, $+$는 binary operation임으로 다음이 성립한다.
+$$
+a+\big((b-a)+(c-b)\big)=c,
+$$
 
-$$ q \in A $$
+$$
+a+(c-a)=c.
+$$
 
-따라서, $T_v$의 정의에 의해 다음이 성립한다.
+$\phi_a$가 injective이므로 두 displacement는 같다.
 
-$$ T_v(q) = q + v = p+(-v)+v = p+0_{V_A} = p $$
+### Parallelogram relation
 
-즉, 다음이 성립한다.
+$a,b,c,d\in A$에 대해 다음 두 조건은 동치다.
 
-$$ \forall p \in A, \quad \exist q \in A \st T_v(q) = p \qed $$
+$$
+b-a=d-c
+\quad\Longleftrightarrow\quad
+c-a=d-b.
+$$
 
-#### 참고1
-$T_v$가 bijective이기 때문에 다음이 성립한다.
+첫 번째 등식은 두 변 $a\rightarrow b$, $c\rightarrow d$의 displacement가 같다는 뜻이고, 두 번째 등식은 나머지 두 변 $a\rightarrow c$, $b\rightarrow d$의 displacement가 같다는 뜻이다. 따라서 이 관계는 네 point가 만드는 parallelogram을 origin이나 coordinate 없이 표현한다.
 
-$$ \forall p \in A, \quad \exist! q \in A \st T_v(q) = q+v = p \qed $$
+실제로 displacement의 합성에 의해 다음이 성립한다.
 
-이를, `Existence of one-to-one translations`라고 표현한다.
+$$
+(b-a)+(d-b)
+=d-a
+=(c-a)+(d-c).
+$$
 
-> Reference  
-> [wikipedia - Affine_space#Definition](https://en.wikipedia.org/wiki/Affine_space#Definition)
+한쪽 변의 displacement가 같다고 가정하고 vector addition의 cancellation을 적용하면 다른 쪽 변의 displacement도 같다는 결론을 얻는다. 두 방향에 같은 논리를 적용하면 위의 동치가 성립한다.
 
-#### 참고2
-$T_v$가 bijective하기 때문에 다음이 성립한다.
+## 기준 point의 선택
 
-$$ p_1 = p_2 \iff p_1 + v = p_2 = v $$
+기준 point $o\in A$를 선택하면 다음 bijection을 얻는다.
 
+$$
+\phi_o:V_A\rightarrow A,
+\qquad
+v\mapsto o+v,
+$$
 
-### 명제2
-Affine space $A$가 있다고 하자.
+$$
+\phi_o^{-1}:A\rightarrow V_A,
+\qquad
+p\mapsto p-o.
+$$
 
-임의의 $p,q \in A$에 대해서, 다음이 성립함을 증명하여라.
+따라서 기준 point를 하나 선택한 뒤에는 각 point $p$를 displacement vector $p-o$와 대응시킬 수 있다. 하지만 이것은 $A$와 $V_A$의 canonical identification이 아니다. 다른 기준 point를 선택하면 같은 point에 대응하는 vector가 달라진다.
 
-$$ \exist! v \in V_A \st p+v = q $$
-
-**Proof**
-
-Affine space의 정의에 의해 $\phi_p$는 bijective function임으로 다음이 성립한다.
-
-$$ \exist! v \in V_A \st \phi_p(v) = p+v = q \qed $$
-
-#### 참고1
-$p,q \in A$면 $\phi_p(v) = q$인 $v$가 $p,q$의 선택에 의존하여 유일하게 존재함으로 $v$를 다음과 같이 표현할 수 있다.
-
-$$ v \equiv q-p $$
-
-이를 substraction이라고 한다.
-
-또한, $q-p$를 $\overrightarrow{pq}$로 표현하기도 한다.
-
-> Reference  
-> [wikipedia - Affine_space#Subtraction_and_Weyl's_axioms](https://en.wikipedia.org/wiki/Affine_space#Subtraction_and_Weyl's_axioms)  
-
-#### 참고2
-substraction의 정의에 따라 $p,q \in A$, $v \in V_A$에 대해서 다음 표현식들이 성립한다.
-
-$$ p + (q-p) = q $$
-
-$$ (p+v) - p = v $$
-
-$$ p+v = q \iff v = q-p \iff p= q-v \iff p-q = -v $$
-
-### 명제3
-Affine space $A$가 있다고 하자.
-
-임의의 $p,q,r \in A$에 대해서 다음이 성립함을 증명하여라.
-
-$$ (r - q) + (q - p) = (r-p) $$
-
-**Proof**
-
-substraction 표현의 정의에 따라 다음이 두가지가 성립한다.
-
-$$ p + (r-q) + (q-p) = p + (q-p) + (r-q) = q+(r-q) = r $$
-
-$$ p +(r-p) = r $$
-
-따라서, 다음이 성립한다.
-
-$$ p+ (r-q)+(q-p) = p + (r-p) \implies (r - q) + (q - p) = (r-p) \qed $$
-
-#### 따름정리
-Affine space $A$가 있다고 하자.
-
-이 때, 임의의 $a,b,c,d \in A$에서 다음이 성립함을 증명하여라.
-
-$$ b-a = d-c \iff c-a = d-b $$
-
-**Proof**
-
-명제 4에 의해 다음이 성립한다.
-
-$$ d-a = (d-b) + (b-a) = (d-c) + (c-a) $$
-
-따라서, 다음이 성립한다.
-
-$$ b-a = d-c \iff c-a = d-b \qed $$
-
-##### 참고
-이를 `평행사변형 특성(parallelogram property)`이라고 하며, Affine space는 parallelogram property를 만족한다.
-
-> Reference  
-> [wikipedia - Affine_space#Subtraction_and_Weyl's_axioms](https://en.wikipedia.org/wiki/Affine_space#Subtraction_and_Weyl's_axioms)  
-> [wikipedia - Equipollence_(geometry)#Parallelogram_property](https://en.wikipedia.org/wiki/Equipollence_(geometry)#Parallelogram_property)  
-
-
-### 명제4
-Affine space $A$가 있다고 하자.
-
-$p_1,p_2,p_3 \in A$에 대해서 다음이 성립함을 증명하여라.
-
-$$ p_2 - p_1 = p_3 - p_1 \iff p_2 = p_3 $$
-
-**Proof**
-
-[$\implies$]  
-
-$$ p_2 = p_1 + (p_2 - p_1) = p_1 + (p_3 - p_1) = p_3 \qed $$
-
-[$\impliedby$]  
-
-$$p_1 + (p_2 -p_1) = p_2 = p_3 = p_1 + (p_3 - p_1) \implies p_2 - p_1 = p_3 - p_1 \qed $$
+Affine space를 “origin을 잊은 vector space”라고 표현하는 이유가 여기에 있다. Origin을 선택하면 vector space처럼 표현할 수 있지만 어느 point를 origin으로 선택할지는 affine structure 자체에 포함되지 않는다.
 
 ## Affine subspace
-Affine space $A$와 $V_B \le V_A$가 있다고 하자.
 
-$p \in A$에 대해서, 집합 $B$를 다음과 같이 정의하자.
+Linear subspace $W\le V_A$와 point $p\in A$가 있다고 하자. 다음 집합을 생각하자.
 
-$$ B := \{ p + v \enspace | \enspace v \in V_B \} $$
+$$
+B:=p+W
+=\{p+w\mid w\in W\}.
+$$
 
-그러면 $B$는 vector space $V_B$가 주어진 affine space가 되며, $B$를 $A$의 affine subspace라 한다.
+$B$는 translation vector space가 $W$인 affine space가 되며, 이를 $A$의 `affine subspace`라고 한다. $W$를 $B$의 `direction`이라고 한다.
 
-> Reference   
-> [wikipedia - Affine_space#Affine_subspaces_and_parallelism](https://en.wikipedia.org/wiki/Affine_space#Affine_subspaces_and_parallelism)  
+기준 point를 $q\in B$로 바꾸어도 같은 affine subspace를 얻는다. 실제로 어떤 $w_0\in W$에 대해 $q=p+w_0$이므로 다음이 성립한다.
 
-### 참고1
-Affine space $A$와 $B\le A$가 있다고 하자.
+$$
+q+W=p+w_0+W=p+W.
+$$
 
-이 때, $V_B$를 `direction`이라고 한다.
+두 affine subspace의 direction이 같으면 두 subspace가 `parallel`하다고 한다.
 
-> Reference  
-> [wikipedia - Affine_space#Affine_subspaces_and_parallelism](https://en.wikipedia.org/wiki/Affine_space#Affine_subspaces_and_parallelism)  
+### Affine line
 
-### 참고2
-affine space $A$와 subspace $B,C \le A$가 있다고 하자.
+$v\in V_A$가 nonzero vector이고 $a\in A$라고 하자. 다음 affine subspace를 $a$를 지나고 direction이 $\operatorname{span}\{v\}$인 affine line이라고 한다.
 
-이 때, $V_B = V_C$이면, $B$와 $C$가 `평행(parallel)`하다고 한다.
+$$
+L=a+\operatorname{span}\{v\}
+=\{a+\lambda v\mid\lambda\in\mathbb F\}.
+$$
 
-따라서, 모든 translation $A \rightarrow A : a \mapsto a+v$는 모든 affine subspace를 parallel 한 subspace로 mapping 한다.
+서로 다른 두 point $a,b\in A$가 정하는 affine line은 다음과 같다.
 
-예를 들어, $B=\{ p+u | u\in V_B \}$를 translation 하면 $B' = \set{ (p+v)+u | u \in V_B}$이 되고 둘은 paralle하다.
+$$
+L_{a,b}
+=\{a+\lambda(b-a)\mid\lambda\in\mathbb F\}.
+$$
 
-> Reference  
-> [wikipedia - Affine_space#Affine_subspaces_and_parallelism](https://en.wikipedia.org/wiki/Affine_space#Affine_subspaces_and_parallelism)  
+이 표현은 [Affine Combination](<./12 Affine Combination.md>)에서 두 point의 affine parameter로 이어진다.
 
-## Coordinate System
-affine space $A$가 있다고 하자.
+## Coordinate system
 
-$A$의 임의의 점을 $p_0$라고 하고 $V_A$의 임의의 기저를 $\beta$라고 할 때, $(p_0,\beta)$를 $A$의 coordinate system이라고 한다.
+$V_A$가 $n$-dimensional vector space이고 $\beta$가 $V_A$의 basis라고 하자. 기준 point $o\in A$와 basis $\beta$의 pair $(o,\beta)$를 $A$의 `coordinate system`이라고 한다.
 
-## Coordinate of Affine Space
-affine space $A$와 coordinate system $(p_0, \beta)$가 있다고 하자.
+Point $p\in A$의 coordinate는 $o$에서 $p$로 가는 displacement의 coordinate로 정의한다.
 
-그러면 $p\in A$에 대해서, $p$의 coordinate는 다음과 같이 정의된다.
+$$
+[p]_{(o,\beta)}
+:=
+[p-o]_{\beta}
+\in\mathbb F^n.
+$$
 
-$$ [p]_{(p_0,\beta)} := [p-p_0]_\beta $$
+Coordinate map은 다음 두 bijection의 composition이므로 bijective다.
 
-### 참고
-Affine Space 의 Coordinate 는 결국 Origin 과의 translation vector 의 cooridnate 이다.
+$$
+A\rightarrow V_A\rightarrow\mathbb F^n,
+\qquad
+p\mapsto p-o\mapsto[p-o]_{\beta}.
+$$
 
-### 명제1
-affine space $A$와 coordinate system $(p_0,\beta)$가 있다고 하자.
+따라서 coordinate system을 선택하면 각 point를 유일한 coordinate column vector로 표현할 수 있다.
 
-이 때, 다음을 증명하여라.
+### Change of coordinate system
 
-$$ \phi : A \rightarrow \R^n \st p \mapsto [p]_{(p_0,\beta)} \text{ is a bijective} $$
+두 coordinate system $(o_1,\beta)$, $(o_2,\gamma)$가 있다고 하자. Point $p\in A$의 두 coordinate를 다음과 같이 두자.
 
-**Proof**
+$$
+x:=[p]_{(o_1,\beta)},
+\qquad
+y:=[p]_{(o_2,\gamma)}.
+$$
 
-[well defined]    
-$p_1, p_2 \in A$에 대해서 $p_1=p_2$ 라고 하면 다음이 성립한다.
+$C=[\operatorname{id}_{V_A}]_{\beta}^{\gamma}$를 basis $\beta$의 coordinate를 basis $\gamma$의 coordinate로 바꾸는 matrix라고 하자. Displacement의 합성에 의해 다음이 성립한다.
 
-$$ \begin{aligned} 
-[p_1]_{(p_0,\beta)} &= [p_1-p_0]_\beta \\ 
-                  &= [p_2-p_0]_\beta \\
-                  &= [p_2]_{(p_0,\beta)} \\ 
-\end{aligned} $$
+$$
+p-o_2=(p-o_1)+(o_1-o_2).
+$$
 
-따라서, 다음이 성립한다.
+따라서 coordinate는 다음과 같이 변환된다.
 
-$$ p_1 = p_2 \implies \phi(p_1) = \phi(p_2) $$
+$$
+\begin{aligned}
+y
+&=[p-o_2]_{\gamma} \\
+&=[p-o_1]_{\gamma}+[o_1-o_2]_{\gamma} \\
+&=Cx+[o_1-o_2]_{\gamma}.
+\end{aligned}
+$$
 
-[injective]  
+첫 번째 항은 basis의 변경을, 두 번째 항은 coordinate origin의 변경을 나타낸다. 따라서 affine coordinate change는 일반적으로 linear term과 translation term을 함께 갖는다. Basis change matrix는 [Change of Basis and Coordinate Matrix](<../07 Linear Algebra/21 Change of Basis and Coordinate Matrix.md>)에서 설명한다.
 
-$$ \begin{aligned} 
-\phi(p_1) = \phi(p_2) &\implies [p_1]_{(p_0,\beta)} = [p_2]_{(p_0,\beta)} \\
-                      &\implies [p_1-p_0]_\beta = [p_2-p_0]_\beta \\
-                      &\implies p_1-p_0 = p_2-p_0\\
-                      &\implies p_1 = p_2 \qed  \\ 
-\end{aligned} $$
+## Examples
 
-[sujective]  
-$x \in \R^n$이 있다고 하면 다음이 성립한다.
+### Vector space에서 얻는 affine space
 
-$$ \exist! v \in V_A \st [v]_\beta  = x$$
+Field $\mathbb F$ 위의 vector space $V$에 대해 point set도 $A:=V$로 두고 기존 vector addition을 action으로 사용하면 $(A,V,+)$는 affine space가 된다.
 
-$p_0 \in A, v \in v_A$가 있을 떄, $T_{v}$는 bijective 함수임으로 다음이 성립한다.
+$$
+a+v\in A,
+\qquad
+a,v\in V.
+$$
 
-$$ \exist! p \in A \st p = p_0 +v \implies v = p_0 - p $$
+이 예시에서는 $A$와 $V$가 같은 underlying set이지만 역할은 다르다. $a\in A$는 point로, $v\in V$는 displacement vector로 사용한다. Vector space에는 zero vector가 있지만 affine structure만 보면 그 point를 반드시 origin으로 선택해야 할 이유는 없다.
 
-따라서, 이를 종합하면 다음과 같다.
+### Linear equation의 solution set
 
-$$ \forall x \in \R^n, \quad \exist! p \in A \st x= \phi(p) \qed $$
+Linear map $L:V\rightarrow W$와 $b\in W$가 있고 equation $L(x)=b$가 하나 이상의 solution을 갖는다고 하자. 하나의 solution $x_0$를 선택하면 전체 solution set은 다음과 같다.
 
-> Reference  
-> [wiki](https://en.wikipedia.org/wiki/Affine_space)  
-> [what-are-differences-between-affine-space-and-vector-space - mathematics](https://math.stackexchange.com/questions/884666/what-are-differences-between-affine-space-and-vector-space)  
-> [an-affine-space-is-nothing-more-than-a-vector-space - mathmatics](https://math.stackexchange.com/questions/3527297/an-affine-space-is-nothing-more-than-a-vector-space-whose-origin-we-try-to-forg)  
-> [when-is-a-vector-glued-to-the-origin - mathmatics](https://math.stackexchange.com/questions/2392479/when-is-a-vector-glued-to-the-origin)  
-> [must-vectors-in-mathbbrn-have-their-tail-at-origin - mathematics](https://math.stackexchange.com/questions/627616/must-vectors-in-mathbbrn-have-their-tail-at-origin)
-> [Euclidean space - wiki](https://en.wikipedia.org/wiki/Euclidean_space) 
+$$
+\{x\in V\mid L(x)=b\}
+=x_0+\ker L.
+$$
 
+따라서 nonempty linear equation의 solution set은 direction이 $\ker L$인 affine subspace다. $b=0$일 때에만 solution set이 origin을 포함하는 linear subspace가 된다.
 
-### Change of Coordinate System
-affine space $A$와 두개의 coordinate system $(p_1, \beta), (p_2, \gamma)$가 있다고 하자.
+## 관련 문서
 
-임의의 $p \in A$에 대해서 $[p]_{(p_1, \beta)}$ 를 알고 있을 떄, $[p]_{(p_2, \gamma)}$ 를 알아보자.
+- [Affine Combination](<./12 Affine Combination.md>)
+- [Affine Transformation](<./13 Affine Transformation.md>)
+- [Change of Basis and Coordinate Matrix](<../07 Linear Algebra/21 Change of Basis and Coordinate Matrix.md>)
 
-$[p]_{(p_2, \gamma)}$ 를 알려면 결국 $p_2$ 에서 $p$ 로 가는 trasnlation vector $p-p_2$ 의 $\gamma$ 에 대한 coordinate 를 알아야 한다.
+## Reference
 
-이 떄, $[p-p_1]_\beta$ 를 이미 알고 있음으로 이를 이용하면 $[p-p_2]_\gamma$ 를 다음과 같이 구할 수 있다.
-
-$$ \begin{aligned} 
-[p-p_2]_\gamma  &= [(p-p_1) + (p_1-p_2)]_\gamma \\
-                &= [id]^\gamma_\beta [(p-p_1)+(p_1-p_2)]_\beta
-\end{aligned} $$
-
-그리고 다음이 성립함으로 $[p-p_2]_\gamma$ 은 $p$ 를 $p_1 - p_2$만큼 translation한 point의 $(p_1,\beta)$ 에 대한 coordinate를 $\beta \rightarrow \gamma$로 basis change 해준 값으로도 볼 수 있다.
-
-$$ [p-p_2]_\gamma = [id]^\gamma_\beta [(p-p_1)+(p_1-p_2)]_\beta = [id]^\gamma_\beta [(p)+(p_1-p_2)]_{(p_1,\beta)} $$
+- [Wikipedia - Affine space](https://en.wikipedia.org/wiki/Affine_space)
+- [Wikipedia - Affine subspace](https://en.wikipedia.org/wiki/Affine_space#Affine_subspaces_and_parallelism)

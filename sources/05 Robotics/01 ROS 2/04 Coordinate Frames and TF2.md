@@ -109,7 +109,7 @@ $$
 
 이 식은 point $P$를 물리적으로 회전하거나 이동한다는 뜻이 아니다. 같은 point를 frame `B` 대신 frame `A`에서 표현하도록 coordinate representation을 바꾸는 passive coordinate transformation이다. 고정된 basis에서 geometric vector 자체를 회전시키는 active rotation도 같은 형태의 rotation matrix를 사용할 수 있지만, 이 문서에서 위 식을 해석하는 관점과는 다르다.
 
-Origin 변경이 포함된 전체 관계는 $\mathbb{R}^{3}$에서의 linear transformation이 아니라 [affine transformation](<../../01 math/08 Geometry/12 Affine Transformation.md>)이다.
+Origin 변경이 포함된 전체 관계는 $\mathbb{R}^{3}$에서의 linear transformation이 아니라 [affine transformation](<../../01 math/08 Geometry/13 Affine Transformation.md>)이다.
 
 ### Homogeneous coordinate
 
