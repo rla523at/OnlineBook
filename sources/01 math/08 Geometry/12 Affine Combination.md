@@ -77,45 +77,118 @@ $$
 E=\sum_{i=1}^n c_ip_i.
 $$
 
-여기서 각 $c_ip_i$는 point에 대한 실제 scalar multiplication이 아니라 expression 안에서 $p_i$의 coefficient를 기록하는 형식적인 항이다. $E$의 `coefficient sum`을 다음과 같이 정의하자.
+여기서 각 $c_ip_i$는 point에 대한 실제 scalar multiplication이 아니라 expression 안에서 point 기호 $p_i$의 coefficient를 기록하는 형식적인 항이다. Formal expression의 덧셈과 scalar multiplication도 point에 적용하는 연산이 아니라 각 point 기호의 coefficient에 적용하는 연산으로 정의한다. 이 연산에 대해 formal expression들의 집합은 vector space가 되지만, 그 원소는 $A$의 point가 아니라 형식적인 기호식이다.
+
+두 formal expression에서 각 point 기호의 coefficient를 모두 모았을 때 같은 coefficient를 얻으면 두 expression은 형식적으로 같다. 따라서 formal expression 단계에서는 coefficient sum과 관계없이 같은 point 기호의 coefficient를 모으거나 소거할 수 있다. 예를 들어 다음은 point를 직접 연산한 결과가 아니라 각 기호의 coefficient를 정리한 형식적 등식이다.
+
+$$
+p-q+q-r=p-r.
+$$
+
+이 형식적 계산이 실제 affine space의 vector나 point에 대한 등식을 나타내는지는 별도로 확인해야 한다.
+
+#### 기준 point에서의 vector evaluation
+
+기준 point $o\in A$를 선택하자. Formal expression $E$에 다음 vector를 대응시키는 `vector evaluation` $L_o$를 정의한다.
+
+$$
+L_o(E)
+:=
+\sum_{i=1}^n c_i(p_i-o)
+\in V_A.
+$$
+
+오른쪽에서는 point difference $p_i-o$가 모두 $V_A$의 vector이므로 일반적인 vector linear combination을 사용할 수 있다. 이 정의에 의해 $L_o$는 formal expression의 coefficient 계산을 $V_A$의 vector 계산으로 보존한다. 실제로 formal expression $E,F$와 scalar $\lambda\in\mathbb F$에 대해 다음이 성립한다.
+
+$$
+L_o(E+F)=L_o(E)+L_o(F),
+$$
+
+$$
+L_o(\lambda E)=\lambda L_o(E).
+$$
+
+즉, $L_o$는 formal expression에 대해 linear map이다. 따라서 coefficient를 모으고 소거하여 formal expression $E$와 $F$가 같아지면 실제 vector evaluation도 같다.
+
+$$
+E=F
+\quad\Longrightarrow\quad
+L_o(E)=L_o(F).
+$$
+
+예를 들어 앞의 형식적 등식은 $L_o$에 의해 다음 실제 vector 계산으로 옮겨진다.
+
+$$
+\begin{aligned}
+L_o(p-q+q-r)
+&=(p-o)-(q-o)+(q-o)-(r-o) \\
+&=(p-o)-(r-o) \\
+&=L_o(p-r).
+\end{aligned}
+$$
+
+중간의 $(q-o)$와 $-(q-o)$는 실제로 $V_A$의 vector이므로 vector addition의 cancellation을 적용할 수 있다. 이것이 formal expression의 coefficient cancellation이 실제 계산과 일치하는 이유다.
+
+#### Coefficient sum과 기준 point 독립성
+
+Formal expression $E$의 `coefficient sum`을 다음과 같이 정의하자.
 
 $$
 w(E):=\sum_{i=1}^n c_i.
 $$
 
-두 기준 point $o,q\in A$에 대해 다음이 성립한다.
+다른 기준 point $q\in A$를 선택하면 vector evaluation은 다음과 같이 변한다.
 
 $$
 \begin{aligned}
-\sum_{i=1}^n c_i(p_i-q)
+L_q(E)
 &=\sum_{i=1}^n c_i\big((p_i-o)+(o-q)\big) \\
-&=\sum_{i=1}^n c_i(p_i-o)+w(E)(o-q).
+&=L_o(E)+w(E)(o-q).
 \end{aligned}
 $$
 
-따라서 coefficient sum에 따라 $E$를 다음과 같이 해석할 수 있다.
+이제 coefficient sum에 따라 formal expression의 geometric interpretation이 달라진다.
 
-- $w(E)=0$이면 $E$는 다음 vector를 나타낸다.
-
-  $$
-  \sum_{i=1}^n c_i(p_i-o)\in V_A.
-  $$
-
-  위의 식에서 $w(E)(o-q)=0$이므로 이 vector는 기준 point $o$의 선택과 무관하다.
-
-- $w(E)=1$이면 $E$는 다음 point를 나타낸다.
+- $w(E)=0$이면 다음이 성립한다.
 
   $$
-  o+\sum_{i=1}^n c_i(p_i-o)\in A.
+  L_q(E)=L_o(E).
   $$
 
-  이것이 앞에서 정의한 affine combination이다.
+  따라서 $L_o(E)$는 기준 point의 선택과 무관한 하나의 vector를 나타낸다.
 
-- $w(E)$가 $0$도 $1$도 아니면 $E$ 자체는 기준 point 없이 하나의 vector나 point로 해석되지 않는다.
+- $w(E)=1$이면 $o+L_o(E)$를 $E$가 나타내는 point로 해석할 수 있다. 실제로 $V_A$의 vector addition이 commutative이므로 다음이 성립한다.
 
-이 결과를 `coefficient sum principle`이라고 하자. Formal affine expression 전체의 coefficient sum이 $0$ 또는 $1$이면 같은 point의 coefficient를 모으고 소거하는 형식적인 대수 계산을 사용할 수 있다. 실제 계산은 기준 point를 선택한 뒤 $V_A$의 vector 연산으로 이루어지고, coefficient sum 조건에 의해 그 결과가 기준 point의 선택과 무관하기 때문이다.
+  $$
+  \begin{aligned}
+  q+L_q(E)
+  &=q+\big(L_o(E)+(o-q)\big) \\
+  &=(q+(o-q))+L_o(E) \\
+  &=o+L_o(E).
+  \end{aligned}
+  $$
 
-그러나 이 원리는 $-p$나 $p+q$ 같은 부분식 자체에 point 연산의 의미를 부여하지 않는다. 예를 들어 $-a+b+c$에서는 세 항 전체의 coefficient sum이 $1$이므로 전체 expression만 affine combination으로 해석한다.
+  따라서 이 point도 기준 point의 선택과 무관하며, 이것이 앞에서 정의한 affine combination이다.
+
+- $w(E)$가 $0$도 $1$도 아니면 coefficient를 모으고 소거하는 formal calculation 자체는 가능하지만, 그 결과를 기준 point와 무관한 하나의 vector나 point로 해석할 수 없다.
+
+이 문서에서는 $L_o$의 linearity와 위의 기준 point 독립성을 합쳐 `coefficient sum principle`이라고 하자. 이 원리는 다음 두 단계를 구분한다.
+
+$$
+\text{formal coefficient calculation}
+\xrightarrow{\ L_o\text{의 linearity}\ }
+\text{actual vector calculation in }V_A,
+$$
+
+$$
+w(E)=0\text{ 또는 }1
+\quad\Longrightarrow\quad
+\text{기준 point와 무관한 vector 또는 point}.
+$$
+
+따라서 coefficient sum이 $0$인 formal equality는 기준 point와 무관한 vector equality로, coefficient sum이 $1$인 formal equality는 기준 point와 무관한 point equality로 해석할 수 있다.
+
+그러나 이 원리는 $-p$나 $p+q$ 같은 부분식 자체에 실제 point 연산의 의미를 부여하지 않는다. 예를 들어 $-a+b+c$에서는 세 항 전체의 coefficient sum이 $1$이므로 전체 expression만 affine combination으로 해석한다. 반면 $\mathbb F=\mathbb R$에서 $a+b$는 formal expression으로 coefficient를 정리할 수는 있지만 coefficient sum이 $2$이므로 기준 point와 무관한 point나 vector를 나타내지 않는다.
 
 #### 연쇄 차이 공식
 
