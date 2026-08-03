@@ -52,27 +52,17 @@ F\left(\sum_{i=1}^n c_ip_i\right)
 \sum_{i=1}^n c_i=1.
 $$
 
-이 조건을 직접 확인하는 대신, affine combination을 구성하는 vector가 어떻게 변하는지 살펴보면 더 간결한 조건을 얻을 수 있다.
+이 조건을 직접 확인하는 대신, 같은 vector를 서로 다른 point에 적용했을 때 그 vector가 $F$에 의해 어떻게 변하는지 살펴보면 더 간결한 조건을 얻을 수 있다.
 
-#### Point와 vector의 관계
+#### 서로 다른 시작점에 적용한 같은 vector
 
-Affine space $A$에는 origin이나 coordinate를 선택하지 않아도 다음 두 연산이 정의되어 있다.
-
-$$
-a+v\in A, \qquad b-a\in V_A,
-$$
-
-여기서 $a,b\in A$, $v\in V_A$다. 두 연산은 다음과 같이 같은 관계를 서로 다른 방식으로 표현한다.
+같은 vector $v\in V_A$를 서로 다른 시작점 $a,c\in A$에 적용하면 각각 $a+v$, $c+v$를 얻는다. 두 point 쌍이 나타내는 vector는 다음과 같이 같다.
 
 $$
-b=a+v
-\quad\Longleftrightarrow\quad
-b-a=v.
+(a+v)-a=v=(c+v)-c.
 $$
 
-이 관계는 point $a$에 vector $v$를 더하면 $b$에 도달한다는 뜻이다. Affine combination도 기준 point에서 각 point로 가는 vector의 linear combination으로 정의된다. 따라서 affine combination의 보존을 vector의 변환으로 표현하고자 한다.
-
-같은 vector $v$를 두 시작점 $a,c\in A$에 적용하면 네 point는 다음 affine relation을 만족한다.
+이 관계를 네 point 사이의 affine relation으로 표현하면 다음과 같다.
 
 $$
 c+v=[-a+(a+v)+c]_{\mathrm{aff}}.
