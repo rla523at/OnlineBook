@@ -74,12 +74,24 @@ $$
 F(c+v)=[-F(a)+F(a+v)+F(c)]_{\mathrm{aff}}.
 $$
 
-[Affine Combination](<./12 Affine Combination.md>)의 `Affine combination의 vector 표현과 재기준화` 절에서 $F(c)$를 기준 point로 선택하면 우변은 point $F(c)$에 vector $F(a+v)-F(a)$를 더한 식으로 바뀐다.
+[Affine Combination](<./12 Affine Combination.md>)의 `기준 point를 이용한 affine combination의 계산`에 따라 $F(c)$를 기준 point로 선택하면 다음이 성립한다.
 
 $$
+\begin{aligned}
 F(c+v)
-=F(c)+\big(F(a+v)-F(a)\big).
+&=F(c)+\Big(
+-\big(F(a)-F(c)\big)
++\big(F(a+v)-F(c)\big)
+\Big) \\
+&=F(c)+\Big(
+\big(F(a+v)-F(c)\big)
++\big(F(c)-F(a)\big)
+\Big) \\
+&=F(c)+\big(F(a+v)-F(a)\big).
+\end{aligned}
 $$
+
+두 번째 줄에서는 vector의 additive inverse와 commutativity를 사용했고, 마지막 줄에서는 연쇄 차이 공식을 사용했다.
 
 이제 양변의 point에서 $F(c)$를 직접 대수적으로 소거하는 것이 아니라, $F(c)$에서 각 point로 가는 vector를 취한다. Point와 vector의 action 및 subtraction 관계 $(p+w)-p=w$에 의해 다음을 얻는다.
 

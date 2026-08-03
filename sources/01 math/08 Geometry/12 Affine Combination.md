@@ -69,7 +69,7 @@ $$
 
 그러므로 어느 기준 point를 사용해도 같은 affine combination을 얻는다.
 
-### Affine combination의 vector 표현과 재기준화
+### 기준 point를 이용한 affine combination의 계산
 
 Point $s$가 다음 affine combination으로 주어졌다고 하자.
 
@@ -81,45 +81,15 @@ $$
 
 여기서 $\sum c_ip_i$는 point들을 항별로 더하는 식이 아니라 affine combination 전체를 나타내는 표기다.
 
-기준 point $o\in A$를 선택하면 $s$를 $o$에서 $s$로 가는 vector로 표현할 수 있다.
+기준 point $o\in A$를 선택하면 affine combination의 정의에 의해 다음이 성립한다.
 
 $$
-v_o(s):=s-o\in V_A.
-$$
-
-Affine combination의 정의에 의해 다음이 성립한다.
-
-$$
-s=o+\sum_{i=1}^n c_i(p_i-o).
-$$
-
-Point와 vector의 관계 $(o+v)-o=v$를 적용하면 $v_o(s)$를 다음과 같이 계산할 수 있다.
-
-$$
-\boxed{
-v_o(s)
-=s-o
+s-o
 =\sum_{i=1}^n c_i(p_i-o)
-}.
+\in V_A.
 $$
 
-우변의 $p_i-o$는 모두 associated vector space $V_A$의 실제 vector다. 따라서 우변에서는 일반적인 vector addition, scalar multiplication, coefficient 정리와 cancellation을 사용할 수 있다. 이러한 계산은 point들 사이에 정의되지 않은 덧셈을 사용하는 것이 아니라 point difference로 얻은 vector들을 계산하는 것이다.
-
-기준 point로 임의의 $q\in A$를 선택해도 같은 affine combination을 얻으므로 다음이 성립한다.
-
-$$
-s-q=\sum_{i=1}^n c_i(p_i-q).
-$$
-
-따라서 다음 `re-anchoring formula`를 얻는다.
-
-$$
-\boxed{
-s=q+\sum_{i=1}^n c_i(p_i-q)
-}.
-$$
-
-특히 $q=p_k$로 선택하면 $p_k-p_k=0$이므로 다음과 같이 쓸 수 있다.
+Affine combination의 기준 point는 임의로 선택할 수 있다. 특히 $p_k$를 기준 point로 선택하면 $p_k-p_k=0$이므로 다음과 같이 쓸 수 있다.
 
 $$
 \boxed{
@@ -135,7 +105,7 @@ $$
 s:=[-a+b+c]_{\mathrm{aff}}.
 $$
 
-$b$를 기준 point로 선택하면 재기준화 공식에 의해 다음이 성립한다.
+$b$를 기준 point로 선택하면 위 식에 의해 다음이 성립한다.
 
 $$
 \begin{aligned}
