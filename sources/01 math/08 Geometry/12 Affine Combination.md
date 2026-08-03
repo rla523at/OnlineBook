@@ -69,147 +69,7 @@ $$
 
 그러므로 어느 기준 point를 사용해도 같은 affine combination을 얻는다.
 
-### 계수 합에 따른 affine expression의 해석
-
-Affine combination의 표기는 point들을 일반적인 대수식처럼 계산하는 것으로 보일 수 있다. 이 표기를 정확히 구분하기 위해 point $p_1,\ldots,p_n\in A$로 이루어진 다음 `formal affine expression`을 생각하자.
-
-$$
-E=\sum_{i=1}^n c_ip_i.
-$$
-
-여기서 각 $c_ip_i$는 point에 대한 실제 scalar multiplication이 아니라 expression 안에서 point 기호 $p_i$의 coefficient를 기록하는 형식적인 항이다. Formal expression의 덧셈과 scalar multiplication도 point에 적용하는 연산이 아니라 각 point 기호의 coefficient에 적용하는 연산으로 정의한다. 이 연산에 대해 formal expression들의 집합은 vector space가 되지만, 그 원소는 $A$의 point가 아니라 형식적인 기호식이다.
-
-두 formal expression에서 각 point 기호의 coefficient를 모두 모았을 때 같은 coefficient를 얻으면 두 expression은 형식적으로 같다. 따라서 formal expression 단계에서는 coefficient sum과 관계없이 같은 point 기호의 coefficient를 모으거나 소거할 수 있다. 예를 들어 다음은 point를 직접 연산한 결과가 아니라 각 기호의 coefficient를 정리한 형식적 등식이다.
-
-$$
-p-q+q-r=p-r.
-$$
-
-이 형식적 계산이 실제 affine space의 vector나 point에 대한 등식을 나타내는지는 별도로 확인해야 한다.
-
-#### 기준 point에서의 vector evaluation
-
-기준 point $o\in A$를 선택하자. Formal expression $E$에 다음 vector를 대응시키는 `vector evaluation` $L_o$를 정의한다.
-
-$$
-L_o(E)
-:=
-\sum_{i=1}^n c_i(p_i-o)
-\in V_A.
-$$
-
-오른쪽에서는 point difference $p_i-o$가 모두 $V_A$의 vector이므로 일반적인 vector linear combination을 사용할 수 있다. 이 정의에 의해 $L_o$는 formal expression의 coefficient 계산을 $V_A$의 vector 계산으로 보존한다. 실제로 formal expression $E,F$와 scalar $\lambda\in\mathbb F$에 대해 다음이 성립한다.
-
-$$
-L_o(E+F)=L_o(E)+L_o(F),
-$$
-
-$$
-L_o(\lambda E)=\lambda L_o(E).
-$$
-
-즉, $L_o$는 formal expression에 대해 linear map이다. 따라서 coefficient를 모으고 소거하여 formal expression $E$와 $F$가 같아지면 실제 vector evaluation도 같다.
-
-$$
-E=F
-\quad\Longrightarrow\quad
-L_o(E)=L_o(F).
-$$
-
-예를 들어 앞의 형식적 등식은 $L_o$에 의해 다음 실제 vector 계산으로 옮겨진다.
-
-$$
-\begin{aligned}
-L_o(p-q+q-r)
-&=(p-o)-(q-o)+(q-o)-(r-o) \\
-&=(p-o)-(r-o) \\
-&=L_o(p-r).
-\end{aligned}
-$$
-
-중간의 $(q-o)$와 $-(q-o)$는 실제로 $V_A$의 vector이므로 vector addition의 cancellation을 적용할 수 있다. 이것이 formal expression의 coefficient cancellation이 실제 계산과 일치하는 이유다.
-
-#### Coefficient sum과 기준 point 독립성
-
-Formal expression $E$의 `coefficient sum`을 다음과 같이 정의하자.
-
-$$
-w(E):=\sum_{i=1}^n c_i.
-$$
-
-다른 기준 point $q\in A$를 선택하면 vector evaluation은 다음과 같이 변한다.
-
-$$
-\begin{aligned}
-L_q(E)
-&=\sum_{i=1}^n c_i\big((p_i-o)+(o-q)\big) \\
-&=L_o(E)+w(E)(o-q).
-\end{aligned}
-$$
-
-이제 coefficient sum에 따라 formal expression의 geometric interpretation이 달라진다.
-
-- $w(E)=0$이면 다음이 성립한다.
-
-  $$
-  L_q(E)=L_o(E).
-  $$
-
-  따라서 $L_o(E)$는 기준 point의 선택과 무관한 하나의 vector를 나타낸다.
-
-- $w(E)=1$이면 $o+L_o(E)$를 $E$가 나타내는 point로 해석할 수 있다. 실제로 $V_A$의 vector addition이 commutative이므로 다음이 성립한다.
-
-  $$
-  \begin{aligned}
-  q+L_q(E)
-  &=q+\big(L_o(E)+(o-q)\big) \\
-  &=(q+(o-q))+L_o(E) \\
-  &=o+L_o(E).
-  \end{aligned}
-  $$
-
-  따라서 이 point도 기준 point의 선택과 무관하며, 이것이 앞에서 정의한 affine combination이다.
-
-- $w(E)$가 $0$도 $1$도 아니면 coefficient를 모으고 소거하는 formal calculation 자체는 가능하지만, 그 결과를 기준 point와 무관한 하나의 vector나 point로 해석할 수 없다.
-
-이 문서에서는 $L_o$의 linearity와 위의 기준 point 독립성을 합쳐 `coefficient sum principle`이라고 하자. 이 원리는 다음 두 단계를 구분한다.
-
-$$
-\text{formal coefficient calculation}
-\xrightarrow{\ L_o\text{의 linearity}\ }
-\text{actual vector calculation in }V_A,
-$$
-
-$$
-w(E)=0\text{ 또는 }1
-\quad\Longrightarrow\quad
-\text{기준 point와 무관한 vector 또는 point}.
-$$
-
-따라서 coefficient sum이 $0$인 formal equality는 기준 point와 무관한 vector equality로, coefficient sum이 $1$인 formal equality는 기준 point와 무관한 point equality로 해석할 수 있다.
-
-그러나 이 원리는 $-p$나 $p+q$ 같은 부분식 자체에 실제 point 연산의 의미를 부여하지 않는다. 예를 들어 $-a+b+c$에서는 세 항 전체의 coefficient sum이 $1$이므로 전체 expression만 affine combination으로 해석한다. 반면 $\mathbb F=\mathbb R$에서 $a+b$는 formal expression으로 coefficient를 정리할 수는 있지만 coefficient sum이 $2$이므로 기준 point와 무관한 point나 vector를 나타내지 않는다.
-
-#### 연쇄 차이 공식
-
-Point $p_0,\ldots,p_n\in A$에 대해 각 $p_k-p_{k+1}$은 vector이고, 다음 expression의 coefficient sum은 $0$이다. 중간 point들의 coefficient를 모으면 다음을 얻는다.
-
-$$
-\boxed{
-(p_0-p_1)+(p_1-p_2)+\cdots+(p_{n-1}-p_n)
-=p_0-p_n
-}.
-$$
-
-특히 다음이 성립한다.
-
-$$
-(p-q)+(q-r)=p-r.
-$$
-
-이 식에서 일어나는 소거는 point addition이 아니라 이미 vector가 된 point difference들의 덧셈에서 일어난다. 이 공식의 affine space 정의에 의한 직접적인 유도는 [Affine space](<./11 Affine space.md>)의 `두 point를 잇는 vector의 합` 절에서 설명한다.
-
-#### Affine combination의 재기준화
+### Affine combination의 vector 표현과 재기준화
 
 Point $s$가 다음 affine combination으로 주어졌다고 하자.
 
@@ -219,7 +79,39 @@ s:=\sum_{i=1}^n c_ip_i,
 \sum_{i=1}^n c_i=1.
 $$
 
-Affine combination의 정의에서 임의의 point $q\in A$를 기준 point로 선택할 수 있으므로 다음 `re-anchoring formula`가 성립한다.
+여기서 $\sum c_ip_i$는 point들을 항별로 더하는 식이 아니라 affine combination 전체를 나타내는 표기다.
+
+기준 point $o\in A$를 선택하면 $s$를 $o$에서 $s$로 가는 vector로 표현할 수 있다.
+
+$$
+v_o(s):=s-o\in V_A.
+$$
+
+Affine combination의 정의에 의해 다음이 성립한다.
+
+$$
+s=o+\sum_{i=1}^n c_i(p_i-o).
+$$
+
+Point와 vector의 관계 $(o+v)-o=v$를 적용하면 $v_o(s)$를 다음과 같이 계산할 수 있다.
+
+$$
+\boxed{
+v_o(s)
+=s-o
+=\sum_{i=1}^n c_i(p_i-o)
+}.
+$$
+
+우변의 $p_i-o$는 모두 associated vector space $V_A$의 실제 vector다. 따라서 우변에서는 일반적인 vector addition, scalar multiplication, coefficient 정리와 cancellation을 사용할 수 있다. 이러한 계산은 point들 사이에 정의되지 않은 덧셈을 사용하는 것이 아니라 point difference로 얻은 vector들을 계산하는 것이다.
+
+기준 point로 임의의 $q\in A$를 선택해도 같은 affine combination을 얻으므로 다음이 성립한다.
+
+$$
+s-q=\sum_{i=1}^n c_i(p_i-q).
+$$
+
+따라서 다음 `re-anchoring formula`를 얻는다.
 
 $$
 \boxed{
@@ -227,7 +119,7 @@ s=q+\sum_{i=1}^n c_i(p_i-q)
 }.
 $$
 
-특히 $q=p_k$로 선택하면 $p_k-p_k=0$이므로 다음을 얻는다.
+특히 $q=p_k$로 선택하면 $p_k-p_k=0$이므로 다음과 같이 쓸 수 있다.
 
 $$
 \boxed{
@@ -235,26 +127,37 @@ s=p_k+\sum_{i\ne k}c_i(p_i-p_k)
 }.
 $$
 
-예를 들어 coefficient가 $-1,1,1$인 affine combination을 의미가 드러나도록 다음과 같이 쓰자.
+#### Example: coefficient가 $-1,1,1$인 경우
+
+Coefficient가 $-1,1,1$인 affine combination을 전체의 의미가 드러나도록 다음과 같이 쓰자.
 
 $$
 s:=[-a+b+c]_{\mathrm{aff}}.
 $$
 
-$b$와 $c$를 각각 기준 point로 선택하고 연쇄 차이 공식을 적용하면 다음이 성립한다.
+$b$를 기준 point로 선택하면 재기준화 공식에 의해 다음이 성립한다.
 
 $$
 \begin{aligned}
 s
-&=b+\big(-(a-b)+(c-b)\big)
-=b+(c-a), \\
-s
-&=c+\big(-(a-c)+(b-c)\big)
-=c+(b-a).
+&=b+\big(-(a-b)+(b-b)+(c-b)\big) \\
+&=b+\big((b-a)+(c-b)\big) \\
+&=b+(c-a).
 \end{aligned}
 $$
 
-따라서 다음 두 표현은 같은 point를 나타낸다.
+마찬가지로 $c$를 기준 point로 선택하면 다음을 얻는다.
+
+$$
+\begin{aligned}
+s
+&=c+\big(-(a-c)+(b-c)+(c-c)\big) \\
+&=c+\big((c-a)+(b-c)\big) \\
+&=c+(b-a).
+\end{aligned}
+$$
+
+중간 계산에서 $a-b$, $b-b$, $c-b$ 등은 모두 vector이므로 vector addition의 cancellation과 [Affine space](<./11 Affine space.md>)의 연쇄 차이 공식을 적용할 수 있다. 따라서 다음 두 표현은 같은 point를 나타낸다.
 
 $$
 [-a+b+c]_{\mathrm{aff}}
@@ -262,7 +165,7 @@ $$
 =c+(b-a).
 $$
 
-오른쪽의 각 식은 point 하나에 vector 하나를 더하는 실제 affine space 연산이다. 반면 왼쪽의 $-a+b+c$는 항별 point 연산이 아니라 coefficient sum이 $1$인 formal affine expression 전체를 나타낸다.
+오른쪽의 각 식은 point 하나에 vector 하나를 더하는 실제 affine space 연산이다. 반면 왼쪽의 $-a+b+c$는 항별 point 연산이 아니라 affine combination 전체를 나타내는 특별한 표기다.
 
 ### Affine hull
 

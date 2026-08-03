@@ -74,7 +74,7 @@ $$
 F(c+v)=[-F(a)+F(a+v)+F(c)]_{\mathrm{aff}}.
 $$
 
-[Affine Combination](<./12 Affine Combination.md>)의 `Affine combination의 재기준화` 절에서 $F(c)$를 기준 point로 선택하면 우변은 point $F(c)$에 vector $F(a+v)-F(a)$를 더한 식으로 바뀐다.
+[Affine Combination](<./12 Affine Combination.md>)의 `Affine combination의 vector 표현과 재기준화` 절에서 $F(c)$를 기준 point로 선택하면 우변은 point $F(c)$에 vector $F(a+v)-F(a)$를 더한 식으로 바뀐다.
 
 $$
 F(c+v)
