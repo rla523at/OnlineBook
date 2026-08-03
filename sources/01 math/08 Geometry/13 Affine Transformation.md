@@ -248,7 +248,19 @@ $$
 
 따라서 이 함수는 $\mathbb R$ 위에서는 affine map이지만 $\mathbb C$ 위에서는 affine map이 아니다.
 
-결국 주어진 함수 $F$가 affine map이 되려면 모든 시작점별 후보 $T_{F,a}$가 하나의 공통된 map $T_F$를 정의하고, 이 $T_F$가 scalar multiplication을 보존해야 한다. 이때 덧셈 보존은 시작점 독립성에서 따라오므로 $T_F$는 $\mathbb F$-linear map이 되고 Definition의 조건을 만족한다.
+한마디로 정리하면, 주어진 함수 $F:A\rightarrow B$가 affine map이기 위한 필요충분조건은 모든 시작점별 후보 $T_{F,a}$가 하나의 공통된 map $T_F$로 일치하고, 이 $T_F$가 scalar multiplication을 보존하는 것이다. 이를 식으로 쓰면 다음 두 조건이다.
+
+$$
+F(a+v)-F(a)=F(c+v)-F(c),
+\qquad \forall a,c\in A,\ v\in V_A,
+$$
+
+$$
+T_F(\lambda v)=\lambda T_F(v),
+\qquad \forall \lambda\in\mathbb F,\ v\in V_A.
+$$
+
+첫 번째 조건에서 $T_F$의 덧셈 보존은 자동으로 따라온다. 따라서 두 조건을 함께 만족하면 $T_F$는 $\mathbb F$-linear map이 되고 $F$는 Definition의 조건을 만족한다.
 
 ### Affine combination의 보존
 
