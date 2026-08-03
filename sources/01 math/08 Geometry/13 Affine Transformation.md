@@ -1,6 +1,6 @@
 # Affine Transformation
 
-Affine map은 한 기준점의 image와 모든 vector에 공통으로 작용하는 linear map으로 결정된다. Coordinate system을 선택하면 이 구조는 익숙한 $y=Mx+t$ 형태로 표현된다.
+Affine map은 한 기준점의 image와 모든 vector에 공통으로 작용하는 linear map으로 결정된다. Coordinate system을 선택하면 affine map은 익숙한 $y=Mx+t$ 형태로 표현된다.
 
 이 문서는 [Affine space](<./11 Affine space.md>)에서 정의한 point, vector, subtraction과 [Affine Combination](<./12 Affine Combination.md>)에서 정의한 affine combination을 사용한다.
 
@@ -10,7 +10,7 @@ Affine map은 한 기준점의 image와 모든 vector에 공통으로 작용하�
 
 같은 field $\mathbb F$ 위의 affine space $A,B$가 있고, associated vector space를 각각 $V_A,V_B$라고 하자.
 
-Affine space의 구조는 point들의 집합만을 뜻하지 않는다. Associated vector space와 point에 vector를 더하는 다음 연산을 함께 뜻한다.
+Affine space $A$의 `affine structure`는 point set $A$, associated vector space $V_A$, 그리고 point에 vector를 더하는 다음 action을 함께 뜻한다.
 
 $$
 +:A\times V_A\rightarrow A,
@@ -18,106 +18,145 @@ $$
 (a,v)\mapsto a+v.
 $$
 
-이 연산은 두 point를 잇는 vector와 point 사이의 상대적 위치 관계를 정한다. 반면 특별한 origin이나 coordinate, distance, angle은 affine structure에 포함되지 않는다. 합이 $1$인 계수로 만든 affine combination은 이러한 상대적 위치 관계를 표현하는 방법이다.
+이 action은 point $a$에서 point $a+v$로 가는 vector가 $v$라는 상대적 위치 관계를 정한다. 반면 특별한 origin이나 coordinate, distance, angle은 affine structure에 포함되지 않는다.
 
-함수 $F:A\rightarrow B$가 이 affine structure를 보존한다는 것이 무엇인지 생각해 보자.
-
-[Affine Combination](<./12 Affine Combination.md>)에서 살펴본 것처럼, point $p_1,\ldots,p_n$과 합이 $1$인 계수 $c_1,\ldots,c_n$을 정하면 다음 affine combination은 하나의 point $q$와 point 사이의 상대적 위치 관계를 정한다.
+함수 $F:A\rightarrow B$가 point-vector 관계를 어떻게 옮기는지 생각해 보자. $A$에서 $a\in A$에 $v\in V_A$를 적용하면 다음 point를 얻는다.
 
 $$
-q:=\sum_{i=1}^n c_ip_i,
+a+v\in A.
+$$
+
+이 point를 $F$로 변환한 결과는 다음과 같다.
+
+$$
+F(a+v)\in B.
+$$
+
+이 관계를 $B$에서도 재현하려면 $F(a)$에 어떤 vector를 적용해야 한다. 그러나
+
+$$
+F(a)\in B,
 \qquad
-\sum_{i=1}^n c_i=1.
+v\in V_A
 $$
 
-이 등식은 $q$가 하나의 point라는 사실뿐만 아니라, $q$의 위치가 $p_1,\ldots,p_n$에 대해 계수 $c_1,\ldots,c_n$으로 정해진다는 상대적 위치 관계를 표현한다. 예를 들어 $2$의 multiplicative inverse가 $\mathbb F$에 존재할 때 다음 식은 point $m$을 정하는 동시에 $m$이 $a,b$의 midpoint라는 관계를 나타낸다.
+이므로 일반적으로 $F(a)+v$는 정의되지 않는다. $B$의 point에 적용할 수 있는 것은 associated vector space $V_B$의 vector이기 때문이다.
 
 $$
-m=\frac12a+\frac12b.
++:B\times V_B\rightarrow B.
 $$
 
-이러한 affine-combination 관계는 특별한 origin이나 coordinate를 선택하지 않아도 의미가 있다. 따라서 affine structure를 보존하는 함수 $F:A\rightarrow B$라면 변환 전의 관계가 변환 후에도 같은 계수로 성립해야 한다. 즉, $q=\sum_{i=1}^n c_ip_i$이면 다음이 성립해야 한다.
+따라서 $v\in V_A$를 $B$에서 적용할 수 있는 vector로 변환하는 함수가 필요하다. 이를 다음과 같이 나타내자.
 
 $$
-F(q)=\sum_{i=1}^n c_iF(p_i).
-$$
-
-이를 하나의 식으로 쓰면 다음과 같다.
-
-$$
-F\left(\sum_{i=1}^n c_ip_i\right)
-=
-\sum_{i=1}^n c_iF(p_i),
+T_F:V_A\rightarrow V_B,
 \qquad
-\sum_{i=1}^n c_i=1.
+v\mapsto T_F(v).
 $$
 
-이 조건을 직접 확인하는 대신, 같은 vector를 서로 다른 point에 적용했을 때 그 vector가 $F$에 의해 어떻게 변하는지 살펴보면 더 간결한 조건을 얻을 수 있다.
+이제 $a$와 $v$를 각각 $F(a)$와 $T_F(v)$로 변환한 뒤 $B$의 action을 적용하면 다음 point를 얻는다.
 
-#### 서로 다른 시작점에 적용한 같은 vector
+$$
+F(a)+T_F(v)\in B.
+$$
 
-같은 vector $v\in V_A$를 서로 다른 시작점 $a,c\in A$에 적용하면 각각 $a+v$, $c+v$를 얻는다. 두 point 쌍이 나타내는 vector는 다음과 같이 같다.
+원래의 point-vector 관계가 변환 후에도 보존되려면, $A$에서 먼저 action을 적용한 뒤 $F$로 변환한 결과와 point와 vector를 각각 변환한 뒤 $B$에서 action을 적용한 결과가 같아야 한다.
+
+$$
+F(a+v)=F(a)+T_F(v).
+$$
+
+여기서 좌변의 $+$는 $A$의 action이고 우변의 $+$는 $B$의 action이다. 이 식은 point의 변환 $F$와 vector의 변환 $T_F$가 두 affine space의 action과 호환된다는 뜻이다.
+
+또한 associated vector space의 덧셈과 scalar multiplication까지 보존하려면 $T_F$가 다음을 만족해야 한다.
+
+$$
+T_F(v+w)=T_F(v)+T_F(w),
+\qquad
+T_F(\lambda v)=\lambda T_F(v).
+$$
+
+즉, $T_F$는 linear map이어야 한다. 따라서 affine structure를 보존한다는 말은 linear map $T_F$가 존재하고, $F$와 $T_F$가 위 식을 통해 action과 호환된다는 조건으로 구체화된다. 이를 다음과 같이 정의한다.
+
+### Definition
+
+같은 field $\mathbb F$ 위의 affine space $A,B$와 함수 $F:A\rightarrow B$가 있다고 하자. 다음을 만족하는 linear map $T_F:V_A\rightarrow V_B$가 존재할 때, $F$를 `affine homomorphism` 또는 `affine map`이라고 한다.
+
+$$
+\boxed{
+F(a+v)=F(a)+T_F(v)
+},
+\qquad \forall a\in A,\ v\in V_A.
+$$
+
+$T_F$를 $F$의 `associated linear map` 또는 `linear part`라고 한다.
+
+Definition의 식에서 $v=b-a$로 두면 다음과 같은 point difference 표현을 얻는다.
+
+$$
+\boxed{
+F(b)-F(a)=T_F(b-a)
+}.
+$$
+
+즉, 두 point 사이의 vector $b-a$는 associated linear map에 의해 $T_F(b-a)$로 변환된다.
+
+Associated linear map의 유일성을 보이자. Definition을 만족하는 두 linear map $T_1,T_2:V_A\rightarrow V_B$가 있다고 하자. 임의의 기준점 $a_0\in A$와 vector $v\in V_A$에 대해 다음이 성립한다.
+
+$$
+T_1(v)
+=F(a_0+v)-F(a_0)
+=T_2(v).
+$$
+
+이 등식이 모든 $v\in V_A$에 대해 성립하므로 $T_1=T_2$다. 따라서 associated linear map이 존재한다면 유일하다. 즉, 기준점 $a_0$ 하나를 고정하면 모든 함수값이
+
+$$
+T_F(v)=F(a_0+v)-F(a_0)
+$$
+
+로 완전히 결정된다. 이는 유일성에 관한 설명이다. 우변이 기준점에 따라 달라지면 $T_F$는 존재하지 않으며, 하나의 공통된 map을 구성할 수 있는 조건은 다음 절에서 살펴본다.
+
+> Reference: [Wikipedia - Affine space: Affine maps](https://en.wikipedia.org/wiki/Affine_space#Affine_maps)
+
+### Associated linear map의 구성
+
+Definition을 만족하는 associated linear map $T_F$가 이미 존재한다면 모든 $a\in A$와 $v\in V_A$에 대해 다음 등식이 성립한다.
+
+$$
+T_F(v)=F(a+v)-F(a).
+$$
+
+여기서 $=$는 이미 존재하는 $T_F$가 만족하는 등식을 나타내며 새로운 함수를 정의하는 기호가 아니다. 반면 임의의 함수 $F:A\rightarrow B$에서는 아직 associated linear map의 존재를 알 수 없으므로 우변으로 $T_F$를 바로 정의할 수 없다. 먼저 각 시작점에 대한 후보를 정의해야 한다.
+
+#### 시작점별 vector map
+
+각 $a\in A$를 고정하면 다음 함수는 항상 정의할 수 있다.
+
+$$
+T_{F,a}:V_A\rightarrow V_B,
+\qquad
+T_{F,a}(v):=F(a+v)-F(a).
+$$
+
+$T_{F,a}(v)$는 $a$에서 $a+v$로 가는 vector가 $F$에 의해 변환된 결과다. 이 단계에서 $T_{F,a}$는 시작점 $a$에 따라 달라질 수 있으며 linear map이라는 보장도 없다.
+
+#### 시작점 독립성
+
+같은 vector $v$를 서로 다른 시작점 $a,c\in A$에 적용하면 다음이 성립한다.
 
 $$
 (a+v)-a=v=(c+v)-c.
 $$
 
-이 관계를 네 point 사이의 affine relation으로 표현하면 다음과 같다.
+이 두 vector가 변환 후에도 하나의 공통된 vector에 대응하려면 시작점별 후보가 같아야 한다.
 
 $$
-c+v=[-a+(a+v)+c]_{\mathrm{aff}}.
+T_{F,a}(v)=T_{F,c}(v),
+\qquad \forall a,c\in A,\ v\in V_A.
 $$
 
-우변의 계수 합은 $-1+1+1=1$이다. $F$가 affine combination을 보존한다면 다음이 성립한다.
-
-$$
-F(c+v)=[-F(a)+F(a+v)+F(c)]_{\mathrm{aff}}.
-$$
-
-[Affine Combination](<./12 Affine Combination.md>)의 `기준 point를 이용한 affine combination의 계산`에 따라 $F(c)$를 기준 point로 선택하면 다음이 성립한다.
-
-$$
-\begin{aligned}
-F(c+v)
-&=F(c)+\Big(
--\big(F(a)-F(c)\big)
-+\big(F(a+v)-F(c)\big)
-\Big) \\
-&=F(c)+\Big(
-\big(F(a+v)-F(c)\big)
-+\big(F(c)-F(a)\big)
-\Big) \\
-&=F(c)+\big(F(a+v)-F(a)\big).
-\end{aligned}
-$$
-
-두 번째 줄에서는 vector의 additive inverse와 commutativity를 사용했고, 마지막 줄에서는 연쇄 차이 공식을 사용했다.
-
-이제 양변의 point에서 $F(c)$를 직접 대수적으로 소거하는 것이 아니라, $F(c)$에서 각 point로 가는 vector를 취한다. Point와 vector의 action 및 subtraction 관계 $(p+w)-p=w$에 의해 다음을 얻는다.
-
-$$
-F(c+v)-F(c)=F(a+v)-F(a).
-$$
-
-즉, affine combination을 보존하는 $F$는 어떤 시작점에 적용한 vector $v$도 하나의 공통된 vector로 변환해야 한다. 이를 나타내는 함수 $T:V_A\rightarrow V_B$를 찾으면 다음과 같이 쓸 수 있다.
-
-$$
-F(a+v)=F(a)+T(v).
-$$
-
-#### Associated linear map의 후보
-
-함수 $F:A\rightarrow B$가 주어지면 다음 함수는 항상 정의할 수 있다.
-
-$$
-D_F:A\times V_A\rightarrow V_B,
-\qquad
-D_F(a,v):=F(a+v)-F(a).
-$$
-
-여기서 $D_F(a,v)$는 시작점 $a$에 vector $v$를 적용했을 때 변환된 두 point $F(a),F(a+v)$를 잇는 vector다. $D_F$는 시작점 $a$와 vector $v$를 모두 입력으로 받는다.
-
-반면 앞 절에서 찾고자 한 함수 $T_F:V_A\rightarrow V_B$는 vector $v$만을 입력으로 받아야 한다. 따라서 $D_F(a,v)$가 $a$에 의존하지 않아야 한다. 즉, $F$가 다음 조건을 만족해야 한다.
+정의를 대입하면 이는 다음 조건과 같다.
 
 $$
 F(a+v)-F(a)
@@ -126,37 +165,43 @@ F(c+v)-F(c),
 \qquad \forall a,c\in A,\ v\in V_A.
 $$
 
-이 등식은 임의의 함수 $F$에 대해 자동으로 성립하는 명제가 아니라, $F$가 시작점과 무관한 map $T_F$를 유도하기 위해 만족해야 하는 조건이다. 이 조건이 성립하면 어떤 시작점 $a\in A$를 선택해도 같은 값을 얻으므로 다음과 같이 정의할 수 있다.
+이 조건이 성립하면 $T_{F,a}(v)$의 값이 $a$의 선택과 무관하므로 공통된 vector map을 다음과 같이 정의할 수 있다.
 
 $$
-T_F(v):=D_F(a,v)=F(a+v)-F(a).
+\boxed{
+T_F(v):=T_{F,a}(v)=F(a+v)-F(a)
+}.
 $$
 
-우변이 $a$의 선택과 무관하므로 $T_F$는 `well-defined` 함수다. 즉, 변환된 vector는 시작점이 아니라 원래 vector $v$에만 의존한다.
-
-예를 들어 $\mathbb R$을 affine line으로 보고 $F(x)=x^2$라고 하자. 같은 vector $v=1$을 두 시작점 $a=0$, $c=1$에 각각 적용하면 변환된 vector는 서로 다르다.
+여기서 $:=$는 공통된 값을 이용해 $T_F$를 새롭게 정의한다. 시작점 독립성을 먼저 확인했으므로 이 정의는 `well-defined`다. 또한 다음 식이 성립하므로 point의 변환 $F$와 vector의 변환 $T_F$가 affine space의 action과 호환된다.
 
 $$
-F(a+v)-F(a)=F(0+1)-F(0)=1,
+F(a+v)=F(a)+T_F(v).
+$$
+
+예를 들어 $\mathbb R$을 affine line으로 보고 $F(x)=x^2$라고 하자. 같은 vector $v=1$에 대해 시작점별 후보는 다음과 같이 서로 다르다.
+
+$$
+T_{F,0}(1)=F(0+1)-F(0)=1,
 $$
 
 $$
-F(c+v)-F(c)=F(1+1)-F(1)=3.
+T_{F,1}(1)=F(1+1)-F(1)=3.
 $$
 
-따라서 같은 입력 vector $1$에 서로 다른 출력이 대응하므로 $T_F$를 잘 정의할 수 없다.
+따라서 하나의 공통된 $T_F$를 정의할 수 없다.
 
-반면 $F(x)=2x+5$이면 다음이 성립한다.
+반면 $F(x)=2x+5$이면 모든 시작점 $a$에 대해 다음이 성립한다.
 
 $$
-F(a+v)-F(a)=2v.
+T_{F,a}(v)=F(a+v)-F(a)=2v.
 $$
 
-이 경우에는 시작점과 관계없이 $T_F(v)=2v$로 정의할 수 있다. 모든 point에 공통으로 더해진 translation $5$는 $F(a+v)-F(a)$를 계산할 때 소거된다.
+이 경우에는 시작점과 관계없이 $T_F(v):=2v$로 정의할 수 있다. 모든 point에 공통으로 더해진 translation $5$는 point difference를 계산할 때 소거된다.
 
-#### Linear map이 필요한 이유
+#### Linearity 조건
 
-여기까지는 $F$가 각 vector $v$에 시작점과 무관한 변환된 vector를 대응시켜 well-defined map $T_F:V_A\rightarrow V_B$를 유도하기 위한 조건을 확인했다. Affine space의 point에는 덧셈과 scalar multiplication이 정의되어 있지 않으므로 $F$ 자체에 vector space의 linearity 조건을 적용할 수는 없다. 대신 associated vector space $V_A,V_B$의 연산이 어떻게 변하는지를 살펴봐야 한다.
+시작점 독립성은 $T_F:V_A\rightarrow V_B$를 well-defined 함수로 만든다. 그러나 Definition의 associated linear map을 얻으려면 $T_F$가 vector space의 덧셈과 scalar multiplication도 보존해야 한다. Affine space의 point에는 이러한 연산이 정의되어 있지 않으므로 linearity는 $F$가 아니라 point 사이의 vector를 변환하는 $T_F$에 요구한다.
 
 먼저 $T_F$의 덧셈 보존은 별도로 요구하지 않아도 시작점 독립성에서 따라온다. $a\in A$, $v,w\in V_A$에 대해 다음이 성립한다.
 
@@ -173,45 +218,27 @@ $$
 
 첫 번째 항은 시작점 $a+v$에 vector $w$를 적용했을 때 얻는 변환된 vector다. 시작점 독립성에 의해 이 값은 $T_F(w)$다. 따라서 point에 vector를 연속해서 더하는 연산은 자동으로 보존된다.
 
-다음으로 affine combination의 계수를 보존하려면 $T_F$가 scalar multiplication을 보존해야 한다. $b:=a+v$로 두고, $a,b$의 affine parameter $\lambda\in\mathbb F$에 해당하는 point를 $p_\lambda$라고 하자.
-
-$$
-p_\lambda
-:=(1-\lambda)a+\lambda b
-=a+\lambda(b-a)
-=a+\lambda v.
-$$
-
-Affine combination의 계수까지 보존한다면 $p_\lambda$의 image는 다음과 같아야 한다.
-
-$$
-\begin{aligned}
-F(p_\lambda)
-&=(1-\lambda)F(a)+\lambda F(b) \\
-&=F(a)+\lambda\big(F(b)-F(a)\big) \\
-&=F(a)+\lambda T_F(v).
-\end{aligned}
-$$
-
-한편 $p_\lambda=a+\lambda v$이므로 $T_F$의 정의에 따라 다음도 성립한다.
-
-$$
-F(p_\lambda)=F(a)+T_F(\lambda v).
-$$
-
-두 식이 같은 point를 나타내므로 다음 조건을 얻는다.
+다음으로 $V_A,V_B$의 scalar multiplication을 보존하려면 모든 $\lambda\in\mathbb F$와 $v\in V_A$에 대해 다음 조건이 필요하다.
 
 $$
 T_F(\lambda v)=\lambda T_F(v).
 $$
 
-이 조건은 시작점 독립성만으로는 일반적으로 따라오지 않는다. 예를 들어 $\mathbb C$를 $\mathbb C$ 위의 affine space로 보고 $F(z)=\overline z$라고 하자. 이때
+이 조건이 성립하면 vector $v$를 $\lambda$배 한 vector를 적용한 point도 변환 후에 같은 $\lambda$배 관계를 유지한다.
+
+$$
+F(a+\lambda v)
+=F(a)+T_F(\lambda v)
+=F(a)+\lambda T_F(v).
+$$
+
+Scalar multiplication의 보존은 시작점 독립성만으로는 일반적으로 따라오지 않는다. 예를 들어 $\mathbb C$를 $\mathbb C$ 위의 affine space로 보고 $F(z)=\overline z$라고 하자. 이때
 
 $$
 F(a+v)-F(a)=\overline v
 $$
 
-이므로 $T_F(v)=\overline v$는 well-defined이고 덧셈을 보존한다. 하지만 다음과 같이 complex scalar multiplication은 보존하지 않는다.
+이므로 $T_F(v):=\overline v$로 정의하면 well-defined이고 덧셈을 보존한다. 하지만 다음과 같이 complex scalar multiplication은 보존하지 않는다.
 
 $$
 T_F(iv)=\overline{iv}=-i\overline v
@@ -219,66 +246,13 @@ T_F(iv)=\overline{iv}=-i\overline v
 i\overline v=iT_F(v).
 $$
 
-따라서 이 함수는 $\mathbb R$ 위에서는 affine map이지만 $\mathbb C$ 위에서는 affine map이 아니다. 같은 field $\mathbb F$의 계수를 사용하는 affine combination을 보존하려면 $T_F$가 scalar multiplication도 보존해야 한다. 이미 얻은 덧셈 보존과 이 조건을 합치면 $T_F$는 $\mathbb F$-linear map이 된다.
+따라서 이 함수는 $\mathbb R$ 위에서는 affine map이지만 $\mathbb C$ 위에서는 affine map이 아니다.
 
-### Definition
-
-같은 field $\mathbb F$ 위의 affine space $A,B$와 함수 $F:A\rightarrow B$가 있다고 하자. 다음을 만족하는 linear map $T_F:V_A\rightarrow V_B$가 존재할 때, $F$를 `affine homomorphism` 또는 `affine map`이라고 한다.
-
-$$
-F(b)-F(a)=T_F(b-a), \qquad \forall a,b\in A.
-$$
-
-$T_F$를 $F$의 `associated linear map` 또는 `linear part`라고 한다.
-
-임의의 $v\in V_A$와 $a\in A$에 대해 $b=a+v$로 둘 수 있으므로 다음이 성립한다.
-
-$$
-T_F(v)=F(a+v)-F(a).
-$$
-
-따라서 $T_F$가 존재하면 유일하다. Motivation에서 살펴본 well-defined 조건은 위 식의 우변이 $a$의 선택과 무관하게 오직 $v$에 의해서만 결정된다는 뜻이다.
-
-> Reference  
-> [Wikipedia - Affine space: Affine maps](https://en.wikipedia.org/wiki/Affine_space#Affine_maps)
-
-### Point와 vector에 대한 동치 표현
-
-Affine space $A,B$와 함수 $F:A\rightarrow B$가 있다고 하자. 그러면 다음 두 조건은 동치다.
-
-1. $F$는 associated linear map $T_F$를 갖는 affine map이다.
-2. Linear map $T_F:V_A\rightarrow V_B$가 존재하여 모든 $a\in A$, $v\in V_A$에 대해 다음을 만족한다.
-
-$$
-F(a+v)=F(a)+T_F(v).
-$$
-
-**Proof**
-
-$F$가 affine map이면 $(a+v)-a=v$이므로 다음이 성립한다.
-
-$$
-F(a+v)-F(a)=T_F((a+v)-a)=T_F(v).
-$$
-
-반대로 위 식을 만족하는 linear map $T_F$가 있다고 하자. $b=a+(b-a)$이므로 다음이 성립한다.
-
-$$
-F(b)-F(a)=T_F(b-a).
-$$
-
-따라서 $F$는 affine map이다. $\qed$
-
-이 식은 affine map의 역할을 두 부분으로 나누어 보여준다.
-
-1. 기준 point $a$를 $F(a)$로 보낸다.
-2. $a$에 더하는 vector $v$를 $T_F(v)$로 변환한다.
-
-한 point의 image와 associated linear map을 알면 다른 모든 point의 image가 결정된다.
+결국 주어진 함수 $F$가 affine map이 되려면 모든 시작점별 후보 $T_{F,a}$가 하나의 공통된 map $T_F$를 정의하고, 이 $T_F$가 scalar multiplication을 보존해야 한다. 이때 덧셈 보존은 시작점 독립성에서 따라오므로 $T_F$는 $\mathbb F$-linear map이 되고 Definition의 조건을 만족한다.
 
 ### Affine combination의 보존
 
-Definition에서 vector의 변환을 통해 정의한 affine map이 Motivation에서 목표로 삼은 affine combination을 실제로 보존하는지 확인하자.
+Definition에서 point 사이의 vector를 linear하게 변환하도록 정의한 affine map이 affine combination도 같은 계수로 보존하는지 확인하자.
 
 $p_1,\ldots,p_n\in A$와 $c_1,\ldots,c_n\in\mathbb F$가 다음을 만족한다고 하자.
 
