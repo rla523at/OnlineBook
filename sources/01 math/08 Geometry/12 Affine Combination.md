@@ -69,6 +69,128 @@ $$
 
 그러므로 어느 기준 point를 사용해도 같은 affine combination을 얻는다.
 
+### 계수 합에 따른 affine expression의 해석
+
+Affine combination의 표기는 point들을 일반적인 대수식처럼 계산하는 것으로 보일 수 있다. 이 표기를 정확히 구분하기 위해 point $p_1,\ldots,p_n\in A$로 이루어진 다음 `formal affine expression`을 생각하자.
+
+$$
+E=\sum_{i=1}^n c_ip_i.
+$$
+
+여기서 각 $c_ip_i$는 point에 대한 실제 scalar multiplication이 아니라 expression 안에서 $p_i$의 coefficient를 기록하는 형식적인 항이다. $E$의 `coefficient sum`을 다음과 같이 정의하자.
+
+$$
+w(E):=\sum_{i=1}^n c_i.
+$$
+
+두 기준 point $o,q\in A$에 대해 다음이 성립한다.
+
+$$
+\begin{aligned}
+\sum_{i=1}^n c_i(p_i-q)
+&=\sum_{i=1}^n c_i\big((p_i-o)+(o-q)\big) \\
+&=\sum_{i=1}^n c_i(p_i-o)+w(E)(o-q).
+\end{aligned}
+$$
+
+따라서 coefficient sum에 따라 $E$를 다음과 같이 해석할 수 있다.
+
+- $w(E)=0$이면 $E$는 다음 vector를 나타낸다.
+
+  $$
+  \sum_{i=1}^n c_i(p_i-o)\in V_A.
+  $$
+
+  위의 식에서 $w(E)(o-q)=0$이므로 이 vector는 기준 point $o$의 선택과 무관하다.
+
+- $w(E)=1$이면 $E$는 다음 point를 나타낸다.
+
+  $$
+  o+\sum_{i=1}^n c_i(p_i-o)\in A.
+  $$
+
+  이것이 앞에서 정의한 affine combination이다.
+
+- $w(E)$가 $0$도 $1$도 아니면 $E$ 자체는 기준 point 없이 하나의 vector나 point로 해석되지 않는다.
+
+이 결과를 `coefficient sum principle`이라고 하자. Formal affine expression 전체의 coefficient sum이 $0$ 또는 $1$이면 같은 point의 coefficient를 모으고 소거하는 형식적인 대수 계산을 사용할 수 있다. 실제 계산은 기준 point를 선택한 뒤 $V_A$의 vector 연산으로 이루어지고, coefficient sum 조건에 의해 그 결과가 기준 point의 선택과 무관하기 때문이다.
+
+그러나 이 원리는 $-p$나 $p+q$ 같은 부분식 자체에 point 연산의 의미를 부여하지 않는다. 예를 들어 $-a+b+c$에서는 세 항 전체의 coefficient sum이 $1$이므로 전체 expression만 affine combination으로 해석한다.
+
+#### 연쇄 차이 공식
+
+Point $p_0,\ldots,p_n\in A$에 대해 각 $p_k-p_{k+1}$은 vector이고, 다음 expression의 coefficient sum은 $0$이다. 중간 point들의 coefficient를 모으면 다음을 얻는다.
+
+$$
+\boxed{
+(p_0-p_1)+(p_1-p_2)+\cdots+(p_{n-1}-p_n)
+=p_0-p_n
+}.
+$$
+
+특히 다음이 성립한다.
+
+$$
+(p-q)+(q-r)=p-r.
+$$
+
+이 식에서 일어나는 소거는 point addition이 아니라 이미 vector가 된 point difference들의 덧셈에서 일어난다. 이 공식의 affine space 정의에 의한 직접적인 유도는 [Affine space](<./11 Affine space.md>)의 `두 point를 잇는 vector의 합` 절에서 설명한다.
+
+#### Affine combination의 재기준화
+
+Point $s$가 다음 affine combination으로 주어졌다고 하자.
+
+$$
+s:=\sum_{i=1}^n c_ip_i,
+\qquad
+\sum_{i=1}^n c_i=1.
+$$
+
+Affine combination의 정의에서 임의의 point $q\in A$를 기준 point로 선택할 수 있으므로 다음 `re-anchoring formula`가 성립한다.
+
+$$
+\boxed{
+s=q+\sum_{i=1}^n c_i(p_i-q)
+}.
+$$
+
+특히 $q=p_k$로 선택하면 $p_k-p_k=0$이므로 다음을 얻는다.
+
+$$
+\boxed{
+s=p_k+\sum_{i\ne k}c_i(p_i-p_k)
+}.
+$$
+
+예를 들어 coefficient가 $-1,1,1$인 affine combination을 의미가 드러나도록 다음과 같이 쓰자.
+
+$$
+s:=[-a+b+c]_{\mathrm{aff}}.
+$$
+
+$b$와 $c$를 각각 기준 point로 선택하고 연쇄 차이 공식을 적용하면 다음이 성립한다.
+
+$$
+\begin{aligned}
+s
+&=b+\big(-(a-b)+(c-b)\big)
+=b+(c-a), \\
+s
+&=c+\big(-(a-c)+(b-c)\big)
+=c+(b-a).
+\end{aligned}
+$$
+
+따라서 다음 두 표현은 같은 point를 나타낸다.
+
+$$
+[-a+b+c]_{\mathrm{aff}}
+=b+(c-a)
+=c+(b-a).
+$$
+
+오른쪽의 각 식은 point 하나에 vector 하나를 더하는 실제 affine space 연산이다. 반면 왼쪽의 $-a+b+c$는 항별 point 연산이 아니라 coefficient sum이 $1$인 formal affine expression 전체를 나타낸다.
+
 ### Affine hull
 
 Point $p_1,\ldots,p_n$을 고정하고 계수의 합이 $1$이라는 조건 아래에서 가능한 모든 계수를 선택하자. 이렇게 얻은 affine combination들을 모은 집합을 $p_1,\ldots,p_n$의 `affine hull`이라고 한다.

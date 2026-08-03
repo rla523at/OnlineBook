@@ -154,6 +154,15 @@ $$
 
 $\phi_a$가 injective이므로 두 vector는 같다.
 
+같은 관계를 여러 point에 반복해서 적용하면 다음 연쇄 차이 공식을 얻는다.
+
+$$
+(p_0-p_1)+(p_1-p_2)+\cdots+(p_{n-1}-p_n)
+=p_0-p_n.
+$$
+
+각 괄호 안의 subtraction은 vector이고, 괄호 사이의 덧셈은 $V_A$에서의 vector addition이다. 따라서 이 식은 point들을 직접 더하거나 소거하는 식이 아니다. Point로 이루어진 형식적 표현식을 계수의 합에 따라 point 또는 vector로 해석하는 일반적인 계산 규칙은 [Affine Combination](<./12 Affine Combination.md>)에서 설명한다.
+
 ### Parallelogram relation
 
 $a,b,c,d\in A$에 대해 다음 두 조건은 동치다.

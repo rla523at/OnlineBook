@@ -75,16 +75,23 @@ $$
 같은 vector $v$를 두 시작점 $a,c\in A$에 적용하면 네 point는 다음 affine relation을 만족한다.
 
 $$
-c+v=(-1)a+(a+v)+c.
+c+v=[-a+(a+v)+c]_{\mathrm{aff}}.
 $$
 
 우변의 계수 합은 $-1+1+1=1$이다. $F$가 affine combination을 보존한다면 다음이 성립한다.
 
 $$
-F(c+v)=-F(a)+F(a+v)+F(c).
+F(c+v)=[-F(a)+F(a+v)+F(c)]_{\mathrm{aff}}.
 $$
 
-따라서 변환된 vector는 다음과 같이 시작점과 무관하다.
+[Affine Combination](<./12 Affine Combination.md>)의 `Affine combination의 재기준화` 절에서 $F(c)$를 기준 point로 선택하면 우변은 point $F(c)$에 vector $F(a+v)-F(a)$를 더한 식으로 바뀐다.
+
+$$
+F(c+v)
+=F(c)+\big(F(a+v)-F(a)\big).
+$$
+
+이제 양변의 point에서 $F(c)$를 직접 대수적으로 소거하는 것이 아니라, $F(c)$에서 각 point로 가는 vector를 취한다. Point와 vector의 action 및 subtraction 관계 $(p+w)-p=w$에 의해 다음을 얻는다.
 
 $$
 F(c+v)-F(c)=F(a+v)-F(a).
