@@ -18,9 +18,13 @@ $$
 (a,v)\mapsto a+v.
 $$
 
-이 action은 point $a$에서 point $a+v$로 가는 vector가 $v$라는 상대적 위치 관계를 정한다. 반면 특별한 origin이나 coordinate, distance, angle은 affine structure에 포함되지 않는다.
+이 action은 point $a$에서 point $a+v$로 가는 vector가 $v$라는 상대적 위치 관계를 정한다. 
 
-함수 $F:A\rightarrow B$가 point-vector 관계를 어떻게 옮기는지 생각해 보자. $A$에서 $a\in A$에 $v\in V_A$를 적용하면 다음 point를 얻는다.
+이제 두 affine space 사이에서 affine structure를 보존하는 함수가 어떤 조건을 만족해야 하는지 생각해 보자. Affine structure의 핵심 연산은 point에 vector를 더하는 action이므로, 구조를 보존하려면 이 action이 두 공간 사이에서 호환되어야 한다.
+
+이를 구체화하기 위해 함수 $F:A\rightarrow B$가 point-vector 관계를 어떻게 옮기는지 살펴보자. 
+
+$A$에서 $a\in A$에 $v\in V_A$를 적용하면 다음 point를 얻는다.
 
 $$
 a+v\in A.
@@ -68,15 +72,35 @@ $$
 
 여기서 좌변의 $+$는 $A$의 action이고 우변의 $+$는 $B$의 action이다. 이 식은 point의 변환 $F$와 vector의 변환 $T_F$가 두 affine space의 action과 호환된다는 뜻이다.
 
-또한 associated vector space의 덧셈과 scalar multiplication까지 보존하려면 $T_F$가 다음을 만족해야 한다.
+Affine structure에서 vector addition은 displacement의 합성을 나타낸다. 즉, $v+w$를 한 번에 적용하는 것과 $v$와 $w$를 차례로 적용하는 것은 같은 point를 만들어야 한다.
 
 $$
-T_F(v+w)=T_F(v)+T_F(w),
-\qquad
+a+(v+w)=(a+v)+w.
+$$
+
+따라서 변환 후에도 두 방법이 같은 displacement를 나타내려면 다음이 성립해야 한다.
+
+$$
+T_F(v+w)=T_F(v)+T_F(w).
+$$
+
+이 조건이 없다면 하나의 displacement를 $v+w$로 적용할 때와 $v$, $w$로 나누어 적용할 때 서로 다른 결과를 얻게 되므로, point-vector action이 일관되게 보존되지 않는다. 실제로 이 덧셈 보존은 위의 action 호환성에서 자동으로 따라온다.
+
+Scalar multiplication은 displacement의 배율을 나타낸다. Point $a+\lambda v$는 $a$에서 $v$ 방향으로 affine parameter $\lambda$만큼 이동한 point이다. 이 parameter를 변환 후에도 그대로 유지하려면 다음이 성립해야 한다.
+
+$$
+F(a+\lambda v)=F(a)+\lambda T_F(v).
+$$
+
+그런데 action 호환성에 따르면 좌변은 $F(a)+T_F(\lambda v)$이므로 다음 조건이 필요하다.
+
+$$
 T_F(\lambda v)=\lambda T_F(v).
 $$
 
-즉, $T_F$는 linear map이어야 한다. 따라서 affine structure를 보존한다는 말은 linear map $T_F$가 존재하고, $F$와 $T_F$가 위 식을 통해 action과 호환된다는 조건으로 구체화된다. 이를 다음과 같이 정의한다.
+이 조건이 없다면 직선 위 point들의 affine parameter와 그에 따른 affine combination이 보존되지 않는다.
+
+따라서 $T_F$는 displacement의 합성과 배율을 모두 보존하는 linear map이어야 한다. 결국 affine structure를 보존한다는 것은 linear map $T_F$가 존재하고, $F$와 $T_F$가 위 식을 통해 두 affine space의 action과 호환된다는 뜻이다. 이를 다음과 같이 정의한다.
 
 ### Definition
 
@@ -256,11 +280,166 @@ F(a+v)-F(a)=F(c+v)-F(c),
 $$
 
 $$
-T_F(\lambda v)=\lambda T_F(v),
-\qquad \forall \lambda\in\mathbb F,\ v\in V_A.
+F(a+\lambda v)-F(a)
+=
+\lambda\big(F(a+v)-F(a)\big),
+\qquad \forall a\in A,\ \lambda\in\mathbb F,\ v\in V_A.
 $$
 
-첫 번째 조건에서 $T_F$의 덧셈 보존은 자동으로 따라온다. 따라서 두 조건을 함께 만족하면 $T_F$는 $\mathbb F$-linear map이 되고 $F$는 Definition의 조건을 만족한다.
+첫 번째 조건으로 공통된 map $T_F(v):=F(a+v)-F(a)$가 well-defined이고, 그 덧셈 보존은 자동으로 따라온다. 두 번째 조건은 이 공통된 map의 scalar multiplication 보존을 $F$만으로 표현한 것이다. 따라서 두 조건을 함께 만족하면 $T_F$는 $\mathbb F$-linear map이 되고 $F$는 Definition의 조건을 만족한다.
+
+### 기준점으로 affine map을 표현하고 구성하기
+
+#### 핵심 명제
+
+Source의 기준점 $p_0\in A$를 하나 고정하자. 이 기준점 아래에서 affine map $F:A\rightarrow B$는 다음 두 데이터에 의해 유일하게 결정된다.
+
+$$
+q_0\in B,
+\qquad
+L:V_A\rightarrow V_B\text{ linear}.
+$$
+
+구체적으로 $F$는 다음 식으로 주어진다.
+
+$$
+\boxed{
+F(p)=q_0+L(p-p_0)
+}.
+$$
+
+여기서 $q_0$는 기준점 $p_0$의 image이고 $L$은 $F$의 associated linear map이다. 반대로 $q_0$와 $L$을 임의로 선택하면 이 식으로 새로운 affine map을 정의할 수 있다. 다음 두 방향을 각각 확인하자.
+
+#### 주어진 affine map에서 데이터 추출하기
+
+먼저 affine map $F:A\rightarrow B$가 이미 주어졌다고 하자. 기준점 $p_0\in A$를 고정하고 다음과 같이 두자.
+
+$$
+q_0:=F(p_0),
+\qquad
+L:=T_F.
+$$
+
+임의의 $p\in A$는 기준점과 그 기준점으로부터의 변위를 사용하여 다음과 같이 표현된다.
+
+$$
+p=p_0+(p-p_0).
+$$
+
+Affine map의 정의를 적용하면 다음을 얻는다.
+
+$$
+\begin{aligned}
+F(p)
+&=F\big(p_0+(p-p_0)\big) \\
+&=F(p_0)+T_F(p-p_0) \\
+&=q_0+L(p-p_0).
+\end{aligned}
+$$
+
+따라서 주어진 affine map에서 기준점의 image $q_0$와 associated linear map $L$을 추출할 수 있다.
+
+#### 데이터로 affine map 구성하기
+
+이번에는 affine map $F$가 미리 주어지지 않았다고 하자. 고정된 $p_0\in A$에 대해 다음 데이터를 임의로 선택한다.
+
+$$
+q_0\in B,
+\qquad
+L:V_A\rightarrow V_B\text{ linear}.
+$$
+
+이 데이터로 함수 $F_{q_0,L}:A\rightarrow B$를 다음과 같이 정의한다.
+
+$$
+\boxed{
+F_{q_0,L}(p):=q_0+L(p-p_0)
+}.
+$$
+
+각 $p\in A$에 대해 $p-p_0\in V_A$가 유일하므로 이 함수는 well-defined다. 먼저 기준점에는 다음 값이 대응한다.
+
+$$
+F_{q_0,L}(p_0)
+=q_0+L(0)
+=q_0.
+$$
+
+또한 $a\in A$, $v\in V_A$에 대해 다음이 성립한다.
+
+$$
+\begin{aligned}
+F_{q_0,L}(a+v)
+&=q_0+L\big((a+v)-p_0\big) \\
+&=q_0+L(a-p_0)+L(v) \\
+&=F_{q_0,L}(a)+L(v).
+\end{aligned}
+$$
+
+따라서 $F_{q_0,L}$은 associated linear map이 $L$인 affine map이다. 즉, affine map을 미리 알지 못하더라도 $p_0$, $q_0$, $L$을 선택하면 하나의 affine map을 구성할 수 있다.
+
+#### 고정된 기준점에서의 유일성
+
+기준점 $p_0$가 고정되어 있으면 affine map $F$를 나타내는 $q_0$와 $L$은 유일하다. 실제로 반드시 다음과 같아야 한다.
+
+$$
+q_0=F(p_0),
+\qquad
+L=T_F.
+$$
+
+따라서 고정된 $p_0$에 대해 affine map과 데이터 쌍 사이에 다음 대응이 성립한다.
+
+$$
+\boxed{
+F\longleftrightarrow \big(F(p_0),T_F\big)
+}.
+$$
+
+#### 기준점 변경
+
+기준점 자체는 유일하지 않다. 새로운 기준점 $p_1\in A$를 선택하면 그 image는 다음과 같다.
+
+$$
+q_1:=F(p_1)
+=q_0+L(p_1-p_0).
+$$
+
+같은 affine map을 새로운 기준점으로 표현하면 다음과 같다.
+
+$$
+F(p)=q_1+L(p-p_1).
+$$
+
+즉, 기준점을 바꾸면 기준점의 image도 함께 바뀌지만 associated linear map $L=T_F$는 바뀌지 않는다.
+
+#### 함수 합성으로 쓴 기준점 표현
+
+[Affine space](<./11 Affine space.md>)에서 정의한 bijection을 source와 target에 대해 각각 다음과 같이 표기하자.
+
+$$
+\phi_{p_0}^A:V_A\rightarrow A,
+\qquad
+v\mapsto p_0+v,
+$$
+
+$$
+\phi_{q_0}^B:V_B\rightarrow B,
+\qquad
+w\mapsto q_0+w.
+$$
+
+이때 $(\phi_{p_0}^A)^{-1}(p)=p-p_0$이므로 기준점 표현은 다음 함수 합성으로 쓸 수 있다.
+
+$$
+F
+=
+\phi_{q_0}^B
+\circ T_F
+\circ (\phi_{p_0}^A)^{-1}.
+$$
+
+Source의 기준점 $p_0$와 target에서 그 image인 $q_0=F(p_0)$를 구분해야 한다. 특히 $A=B$인 경우에도 일반적인 affine map에서는 $q_0=p_0$일 필요가 없다. $q_0=p_0$를 요구하면 $p_0$를 고정하는 affine map만 얻는다.
 
 ### Affine combination의 보존
 
@@ -320,54 +499,6 @@ G(F(b))-G(F(a))
 $$
 
 이처럼 affine map은 affine structure를 보존하며 합성에 대해서도 닫혀 있다.
-
-## 기준점에 의한 표현
-
-Affine map은 source의 기준점 하나, 그 기준점의 image, 그리고 associated linear map으로 완전히 표현할 수 있다.
-
-$p_0\in A$를 선택하고 $q_0:=F(p_0)\in B$라고 하자. 임의의 $p\in A$에 대해 $p=p_0+(p-p_0)$이므로 다음이 성립한다.
-
-$$
-F(p)=q_0+T_F(p-p_0).
-$$
-
-반대로 $p_0\in A$, $q_0\in B$와 linear map $L:V_A\rightarrow V_B$를 임의로 선택하고 다음과 같이 $F$를 정의하자.
-
-$$
-F(p):=q_0+L(p-p_0).
-$$
-
-그러면 다음이 성립한다.
-
-$$
-F(b)-F(a)
-=L(b-p_0)-L(a-p_0)
-=L(b-a).
-$$
-
-따라서 $F$는 $T_F=L$인 affine map이다. 즉, 모든 affine map은 하나의 기준점 표현을 가지며, 위와 같이 만든 모든 함수는 affine map이다.
-
-[Affine space](<./11 Affine space.md>)에서 정의한 bijection을 구분하기 위해 다음과 같이 표기하자.
-
-$$
-\phi_{p_0}^A:V_A\rightarrow A, \qquad v\mapsto p_0+v,
-$$
-
-$$
-\phi_{q_0}^B:V_B\rightarrow B, \qquad w\mapsto q_0+w.
-$$
-
-그러면 기준점 표현은 다음 함수 합성으로 쓸 수 있다.
-
-$$
-F
-=
-\phi_{q_0}^B
-\circ T_F
-\circ (\phi_{p_0}^A)^{-1}.
-$$
-
-여기서 source의 기준점 $p_0$와 target의 기준점 $q_0=F(p_0)$를 구분해야 한다. $q_0=p_0$로 제한하면 $p_0$를 고정하는 affine map만 얻으므로 일반적인 translation을 표현할 수 없다.
 
 ## Coordinate Representation
 
