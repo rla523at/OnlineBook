@@ -6,22 +6,20 @@ URDF는 robot의 link와 joint 관계를 XML로 기술하고, `robot_state_publi
 
 ## URDF의 역할
 
-URDF(Unified Robot Description Format)는 robot의 구조를 표현하는 XML format이다. URDF file은 어떤 rigid body가 있고 서로 어떻게 연결되는지를 기술하지만, file이 존재한다는 사실만으로 ROS graph에 frame이 생기지는 않는다.
+URDF(Unified Robot Description Format)는 robot의 구조를 표현하는 XML format이며, robot의 link와 joint 관계를 저장하는 설계도 역할을 한다. 그러나 URDF file을 작성하는 것만으로 transform message가 publish되지는 않는다. `robot_state_publisher` 같은 broadcaster가 URDF를 읽고 `/tf` 또는 `/tf_static`에 transform을 publish해야 RViz2와 다른 listener가 frame 관계를 사용할 수 있다.
 
-다음 세 상태를 구분해야 한다.
+URDF와 실행 중인 TF tree의 관계를 이해하려면 다음 개념을 구분해야 한다.
 
-| 상태 | 의미 |
-|---|---|
-| URDF file | Link, joint, geometry가 text로 저장되어 있다. |
-| `robot_description` parameter | 실행 중인 node가 URDF text를 parameter로 가지고 있다. |
-| tf2 transform message | Broadcaster가 link 사이의 현재 transform을 `/tf` 또는 `/tf_static`에 publish한다. |
-| listener의 tf2 buffer | 각 listener가 수신한 transform으로 자신의 memory 안에 frame 관계를 구성한다. |
-| `view_frames` output | 특정 시간 동안 관찰한 frame 관계를 PDF 같은 file로 저장한 snapshot이다. |
+| 구성 요소 | 실행 중 역할 | 비유 |
+|---|---|---|
+| URDF file | Link, joint와 geometry를 text로 저장한다. | 로봇의 설계도 |
+| `robot_description` parameter | 실행 중인 node에 URDF text를 전달한다. | 전달된 설계도 |
+| `robot_state_publisher` | URDF와 joint state를 사용해 link 사이의 transform을 publish한다. | 설계도를 읽고 좌표 관계를 방송하는 프로그램 |
+| `/tf`, `/tf_static` | Broadcaster와 listener 사이에서 transform message를 전달한다. | 방송에 사용하는 통신 채널 |
+| RViz2 같은 tf2 listener | Transform message를 수신하고 필요한 transform을 조회한다. | 방송을 듣는 프로그램 |
+| listener의 tf2 buffer | 수신한 transform을 저장하고 frame 관계를 구성한다. | 들은 내용을 정리한 좌표 관계도 |
 
-TF tree는 중앙 file이나 database에 영구적으로 생성되는 대상이 아니다. URDF는
-구조의 정의이고, 실행 중인 broadcaster와 listener가 topic을 통해 transform을
-주고받을 때 사용할 수 있는 TF tree가 만들어진다. `view_frames`로 저장한
-diagram이 있어도 현재 broadcaster가 실행 중이라는 뜻은 아니다.
+TF tree는 중앙 file이나 database에 영구적으로 저장되는 대상이 아니라, 실행 중인 broadcaster가 publish한 transform을 listener가 수신하면서 각자의 buffer에 구성된다. URDF는 이 과정에서 robot의 구조를 정의하는 입력일 뿐, 그 자체가 TF tree는 아니다.
 
 `robot_state_publisher`는 URDF model을 읽고 link 사이의 transform을 tf2에 publish하는 ROS 2 node다. URDF 자체와 `robot_state_publisher`, publish된 TF tree는 서로 연결된 단계이지만 같은 개념은 아니다.
 
@@ -34,11 +32,20 @@ robot_description
    │
    ▼
 robot_state_publisher
-   ├── fixed joint ─────> /tf_static
-   └── movable joint ───> /tf
-              ▲
-              └── /joint_states
+   ├── fixed joint ─────> /tf_static ──┐
+   └── movable joint ───> /tf ─────────┤
+              ▲                        │ transform 수신
+              └── /joint_states        ▼
+                              RViz2 같은 tf2 listener
+                                        │
+                                        ▼
+                              listener의 tf2 buffer
+                                        │
+                                        ▼
+                              조회 가능한 TF tree
 ```
+
+즉, URDF는 robot 구조의 정의이고 TF tree는 그 정의를 바탕으로 publish된 transform을 listener가 수신해 자신의 buffer에 구성한 frame 관계다. Broadcaster, listener와 buffer의 일반적인 동작은 [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)에서 설명한다.
 
 ## Link와 joint
 
@@ -52,14 +59,11 @@ URDF의 kinematic tree는 `link`와 `joint`로 구성된다.
 | `<child>` | Joint에 의해 parent에 연결되는 child link를 지정한다. |
 | `<origin>` | Child 쪽 joint frame의 위치와 방향을 parent link frame에서 표현한다. |
 
-물리 구조 관점의 link와 joint는 [Robotics](<../Robotics.md>)에서 먼저 설명한다.
-URDF는 그 기구 구조와 좌표 관계를 XML element로 옮긴 model이다.
+물리 구조 관점의 link와 joint는 [Robotics](<../Robotics.md>)에서 먼저 설명한다. URDF는 그 기구 구조와 좌표 관계를 XML element로 옮긴 model이다.
 
 ### 실제 부품과 model 요소의 대응
 
-Link와 joint는 실제 부품 이름과 반드시 일대일로 대응하지 않는다. 서로 단단히
-고정되어 항상 함께 움직이는 여러 부품을 하나의 link로 묶을 수 있다. 반대로
-상대 운동이 있거나 별도의 측정 좌표계가 필요하면 별도 link로 나눌 수 있다.
+Link와 joint는 실제 부품 이름과 반드시 일대일로 대응하지 않는다. 서로 단단히 고정되어 항상 함께 움직이는 여러 부품을 하나의 link로 묶을 수 있다. 반대로 상대 운동이 있거나 별도의 측정 좌표계가 필요하면 별도 link로 나눌 수 있다.
 
 | 실제 구성 | URDF에서 가능한 표현 |
 |---|---|
@@ -68,24 +72,18 @@ Link와 joint는 실제 부품 이름과 반드시 일대일로 대응하지 않
 | 차체에 고정된 IMU | `base_link`와 `imu_link`를 fixed joint로 연결 |
 | Camera의 optical 기준축 | 형상 없는 `camera_optical_frame` link를 fixed joint로 연결 |
 
-실제 회전 joint assembly에는 motor, 감속기, bearing과 shaft가 함께 있을 수 있다.
-URDF joint는 이 부품들의 형상을 뜻하지 않고, 두 link 사이에서 허용되는 운동축과
-범위를 추상화한다. Motor 같은 actuator는 힘이나 torque를 만들고, joint는 그
-결과로 허용되는 상대 운동을 정의하므로 두 개념은 같지 않다.
+실제 회전 joint assembly에는 motor, 감속기, bearing과 shaft가 함께 있을 수 있다. URDF joint는 이 부품들의 형상을 뜻하지 않고, 두 link 사이에서 허용되는 운동축과 범위를 추상화한다. Motor 같은 actuator는 힘이나 torque를 만들고, joint는 그 결과로 허용되는 상대 운동을 정의하므로 두 개념은 같지 않다.
 
 Link를 나눌 때는 다음 두 질문을 먼저 확인한다.
 
 1. 두 부분이 서로 상대적으로 움직이는가?
 2. Sensor 측정이나 계산을 위한 별도 coordinate frame이 필요한가?
 
-상대 운동도 없고 별도 frame도 필요하지 않다면 하나의 link로 묶을 수 있다.
-상대 운동이 있으면 link를 나누고 movable joint로 연결한다. 상대 운동은 없지만
-별도 frame이 필요하면 두 link를 fixed joint로 연결할 수 있다.
+상대 운동도 없고 별도 frame도 필요하지 않다면 하나의 link로 묶을 수 있다. 상대 운동이 있으면 link를 나누고 movable joint로 연결한다. 상대 운동은 없지만 별도 frame이 필요하면 두 link를 fixed joint로 연결할 수 있다.
 
 ### Joint 종류와 fixed의 의미
 
-`degree of freedom`(DOF)은 joint의 상태를 독립적으로 결정하는 값의 개수다.
-URDF에서 자주 사용하는 joint 종류는 다음과 같다.
+`degree of freedom`(DOF)은 joint의 상태를 독립적으로 결정하는 값의 개수다. URDF에서 자주 사용하는 joint 종류는 다음과 같다.
 
 | Joint type | DOF | 운동 |
 |---|---:|---|
@@ -94,14 +92,9 @@ URDF에서 자주 사용하는 joint 종류는 다음과 같다.
 | `continuous` | 1 | 지정된 축을 중심으로 위치 제한 없이 회전한다. |
 | `prismatic` | 1 | 지정된 축을 따라 제한된 범위에서 직선 이동한다. |
 
-URDF에는 `planar`와 `floating` type도 있지만, 이 문서의 sensor rig와
-1-DOF joint 설명에서는 사용하지 않는다. 사용하는 consumer가 해당 type을 어떻게
-지원하는지는 별도로 확인해야 한다.
+URDF에는 `planar`와 `floating` type도 있지만, 이 문서의 sensor rig와 1-DOF joint 설명에서는 사용하지 않는다. 사용하는 consumer가 해당 type을 어떻게 지원하는지는 별도로 확인해야 한다.
 
-`fixed`는 child link가 world에서 절대 움직이지 않는다는 뜻이 아니다. Parent와
-child 사이의 상대 pose만 일정하다는 뜻이다. 예를 들어 `base_link`가 world에서
-이동하면 `imu_link`와 `lidar_link`도 함께 이동하지만, `base_link`에 대한 sensor
-장착 위치는 변하지 않는다.
+`fixed`는 child link가 world에서 절대 움직이지 않는다는 뜻이 아니다. Parent와 child 사이의 상대 pose만 일정하다는 뜻이다. 예를 들어 `base_link`가 world에서 이동하면 `imu_link`와 `lidar_link`도 함께 이동하지만, `base_link`에 대한 sensor 장착 위치는 변하지 않는다.
 
 ```text
 world_T_lidar = world_T_base × base_T_lidar
@@ -111,25 +104,19 @@ world_T_lidar = world_T_base × base_T_lidar
 
 ### Link frame과 joint 이름
 
-`robot_state_publisher`가 만드는 TF 관계의 parent와 child 이름은 link 이름이다.
-Joint 이름은 URDF에서 연결을 식별하고 movable joint의 경우 `/joint_states`에서
-현재 position을 대응시키는 데 사용하며, 별도의 TF frame 이름이 아니다.
+`robot_state_publisher`가 만드는 TF 관계의 parent와 child 이름은 link 이름이다. Joint 이름은 URDF에서 연결을 식별하고 movable joint의 경우 `/joint_states`에서 현재 position을 대응시키는 데 사용하며, 별도의 TF frame 이름이 아니다.
 
 ```text
 [base_link] --(base_to_imu: fixed joint)--> [imu_link]
 ```
 
-이 관계에서 TF display에 나타나는 frame은 `base_link`와 `imu_link`이고,
-`base_to_imu`는 두 frame 사이의 관계를 정의한 joint 이름이다.
+이 관계에서 TF display에 나타나는 frame은 `base_link`와 `imu_link`이고, `base_to_imu`는 두 frame 사이의 관계를 정의한 joint 이름이다.
 
 URDF model은 하나의 root link를 가진 tree여야 한다. 하나의 child link에 parent joint를 둘 이상 지정하거나 joint가 cycle을 만들면 일반적인 URDF kinematic tree로 해석할 수 없다.
 
 ## 최소 sensor rig URDF
 
-다음 model에서 `base_link`, `imu_link`와 `lidar_link`는 각각 link다.
-`base_to_imu`와 `base_to_lidar`라는 두 fixed joint가 sensor link를 `base_link`에
-연결한다. 위치 값은 URDF와 TF 동작을 설명하기 위한 임의의 예제이며 특정
-project나 실제 장비의 calibration 값이 아니다.
+다음 model에서 `base_link`, `imu_link`와 `lidar_link`는 각각 link다. `base_to_imu`와 `base_to_lidar`라는 두 fixed joint가 sensor link를 `base_link`에 연결한다. 위치 값은 URDF와 TF 동작을 설명하기 위한 임의의 예제이며 특정 project나 실제 장비의 calibration 값이 아니다.
 
 ```xml
 <?xml version="1.0"?>
@@ -180,14 +167,7 @@ base_link
 
 앞의 sensor rig에는 fixed joint만 있다. 따라서 이 최소 예제에서는 별도의 `JointState` publisher가 없어도 `base_link` → `imu_link`, `base_link` → `lidar_link` transform을 만들 수 있다.
 
-Root인 `base_link`에는 URDF 내부 parent가 없지만, 이것이 전체 runtime TF
-tree에서도 root라는 뜻은 아니다. 이 model만 실행하면 `world` 또는 `odom`에서
-`base_link`로 이어지는 transform은 생기지 않는다. Odometry component가
-`odom → base_link`를 publish하면 이 URDF subtree 전체가 `odom` 아래에
-연결된다. `robot_state_publisher`는 `map → odom`이나 `odom → base_link`를
-자동으로 만들지 않는다. RViz2의 Fixed Frame을 `base_link`로 선택하면 최소
-model을 확인할 수 있고, 외부 global frame이 필요할 때는 그 관계를 담당하는
-별도 component를 추가한다.
+Root인 `base_link`에는 URDF 내부 parent가 없지만, 이것이 전체 runtime TF tree에서도 root라는 뜻은 아니다. 이 model만 실행하면 `world` 또는 `odom`에서 `base_link`로 이어지는 transform은 생기지 않는다. Odometry component가 `odom → base_link`를 publish하면 이 URDF subtree 전체가 `odom` 아래에 연결된다. `robot_state_publisher`는 `map → odom`이나 `odom → base_link`를 자동으로 만들지 않는다. RViz2의 Fixed Frame을 `base_link`로 선택하면 최소 model을 확인할 수 있고, 외부 global frame이 필요할 때는 그 관계를 담당하는 별도 component를 추가한다.
 
 ## URDF file을 package에 설치
 
@@ -302,6 +282,8 @@ ros2 run tf2_tools view_frames
 ros2 run tf2_ros tf2_echo base_link imu_link
 ros2 run tf2_ros tf2_echo base_link lidar_link
 ```
+
+`view_frames`는 일정 시간 동안 `/tf`와 `/tf_static`에서 관측한 frame 관계를 `frames.pdf`로 저장한다. 이 file은 명령을 실행한 당시 TF tree의 snapshot이므로, file이 남아 있어도 현재 broadcaster가 실행 중이라는 뜻은 아니다.
 
 `frames.pdf`에서 예상한 세 frame이 하나의 tree로 연결되는지 확인한다. `tf2_echo`의 translation이 URDF의 `origin xyz`와 일치하고 rotation이 identity인지도 확인한다.
 
