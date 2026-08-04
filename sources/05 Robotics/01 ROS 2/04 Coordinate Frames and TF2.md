@@ -4,6 +4,159 @@
 
 Coordinate frame은 공간의 원점과 basis를 정의하고, tf2는 frame 사이의 translation과 rotation을 시간과 함께 관리하여 같은 geometric data의 좌표를 서로 다른 frame에서 표현할 수 있게 한다.
 
+## 전체 흐름: Sensor data를 다른 Frame에서 사용하기까지
+
+Sensor나 algorithm이 만드는 수치 data는 특정 source frame의 원점과 축을 기준으로 표현된다. 다른 component가 이 data를 자신의 기준 frame에서 사용하려면 sensor data와 frame 관계라는 두 종류의 정보가 모두 필요하다.
+
+```text
+Frame 관계를 만드는 흐름                         Sensor data를 만드는 흐름
+
+URDF·calibration·pose estimation                  sensor·algorithm
+                 │                                      │
+                 ▼                                      ▼
+        transform broadcaster                    stamped data message
+                 │                               ├── 수치 data
+                 │                               ├── header.frame_id
+                 ▼                               └── header.stamp
+        /tf 또는 /tf_static                              │
+                 │                                      │
+                 ▼                                      ▼
+        listener의 TF buffer ───────────────────────> consumer
+                                                        │
+                                                        ├── target frame 선택
+                                                        ├── transform 조회
+                                                        ├── data에 transform 적용
+                                                        └── 처리·표시·재발행
+```
+
+두 흐름은 독립적으로 전달된다. `/tf`와 `/tf_static`에는 sensor 측정값이 들어 있지 않고, sensor message에는 다른 frame까지의 transform이 들어 있지 않다. Consumer가 sensor message의 `header.frame_id`와 `header.stamp`를 이용해 tf2 buffer에서 필요한 transform을 조회하면서 두 흐름을 결합한다.
+
+### 1. Frame 관계를 정의하고 배포한다
+
+Robot에 고정된 sensor의 장착 관계는 URDF나 calibration으로 정의할 수 있다. 움직이는 robot이나 joint의 pose는 odometry, localization, joint state와 같은 실행 중의 추정값으로 결정할 수 있다.
+
+이 관계를 책임지는 broadcaster는 parent-child frame 사이의 transform을 `/tf` 또는 `/tf_static`에 publish한다. URDF file이나 calibration 값이 존재하는 것만으로 tf2 buffer에 transform이 생기는 것은 아니며, 실행 중인 broadcaster가 그 관계를 publish해야 한다.
+
+```text
+고정된 장착 관계
+URDF·calibration
+        │
+        ▼
+static transform broadcaster
+        │
+        ▼
+/tf_static
+
+시간에 따라 변하는 관계
+odometry·localization·joint state
+        │
+        ▼
+dynamic transform broadcaster
+        │
+        ▼
+/tf
+```
+
+### 2. Sensor data가 source frame과 측정 시각을 명시한다
+
+Sensor message의 수치값은 특정 frame을 기준으로 표현된다. `header.frame_id`는 그 수치값의 source frame을 나타내고, `header.stamp`는 data를 측정한 시각을 나타낸다.
+
+```text
+sensor message
+├── data            : source frame에서 표현된 측정값
+├── header.frame_id : source frame
+└── header.stamp    : measurement time
+```
+
+예를 들어 `PointCloud2.header.frame_id = lidar_link`라면 point 좌표들은 `lidar_link`의 원점과 축을 기준으로 표현되어 있다. `lidar_link`가 TF tree의 leaf인 경우가 많지만 source frame이 반드시 leaf여야 하는 것은 아니다.
+
+### 3. Listener가 TF buffer를 구성한다
+
+Listener는 `/tf`와 `/tf_static`의 transform을 수신해 자신의 tf2 buffer에 frame 관계와 시간별 transform을 구성한다. TF tree를 보관하는 하나의 중앙 process가 있는 것이 아니라, RViz2나 application처럼 transform을 사용하는 listener마다 자신의 buffer를 가진다.
+
+TF buffer에는 sensor data가 저장되지 않는다. Sensor data는 원래 topic으로 전달되고, buffer에는 frame 사이의 transform만 저장된다.
+
+### 4. Consumer가 target frame을 선택한다
+
+Consumer는 자신의 작업 목적에 맞는 target frame을 선택한다. RViz2에서는 Fixed Frame이 target frame이고, 일반 application에서는 처리 결과를 표현하려는 frame이 target frame이다.
+
+| Target frame 예 | 사용 목적 |
+|---|---|
+| Sensor frame | Sensor가 측정한 원래 형태를 확인한다. |
+| `base_link` | Robot body를 기준으로 sensor data를 처리한다. |
+| `odom` | 연속적인 local motion 기준으로 data를 누적한다. |
+| `map` | Global map이나 localization 결과에 맞춰 data를 배치한다. |
+| `earth` | Georeference된 공통 지구 기준으로 data를 표현한다. |
+
+Target frame이 TF tree의 root일 필요는 없다. Source와 target이 같은 연결 component에 있고 필요한 시각의 transform을 사용할 수 있으면 어느 방향으로도 변환할 수 있다.
+
+### 5. Source, target과 time으로 transform을 조회한다
+
+Source frame을 `S`, target frame을 `T`, 측정 시각을 $t$라고 하면 consumer는 다음과 같이 조회한다.
+
+```text
+lookupTransform(T, S, t)
+                │  │  └── query time
+                │  └───── source frame
+                └──────── target frame
+```
+
+tf2 buffer는 `S`와 `T` 사이의 TF tree 경로를 찾고, 경로에 있는 transform과 inverse transform을 합성해 다음 transform을 반환한다.
+
+$$
+{}^{T}\mathbf T_{S}(t)
+$$
+
+`lookupTransform()`이 반환하는 것은 변환된 sensor data가 아니라 source frame의 좌표를 target frame의 좌표로 바꾸는 transform이다.
+
+### 6. Consumer가 transform을 data에 적용한다
+
+Source frame `S`에서 표현된 point 좌표를 target frame `T`에서 표현하려면 반환된 rotation과 translation을 실제 좌표에 적용해야 한다.
+
+$$
+{}^{T}\mathbf p
+=
+{}^{T}\mathbf R_{S}(t)\,{}^{S}\mathbf p
++
+{}^{T}\mathbf t_{S}(t)
+$$
+
+Point, direction vector, orientation과 pose는 기하학적 의미가 다르므로 consumer는 data type에 맞는 변환 규칙을 사용해야 한다. Point에는 rotation과 translation을 적용하지만, 방향만 나타내는 vector에는 origin 이동을 나타내는 translation을 적용하지 않는다.
+
+Data가 TF tree의 각 중간 frame 좌표로 차례대로 변환되는 것은 아니다. Buffer는 경로의 transform을 합성해 요청한 source-to-target transform 하나를 반환하고, consumer는 그 transform을 data에 적용한다. 여러 target frame에서의 표현이 모두 필요하면 target별로 transform을 조회하고 각각 계산해야 한다.
+
+### 7. 변환 결과를 처리하거나 표시한다
+
+Consumer는 target frame에서 표현된 결과를 계산, 누적 또는 시각화에 사용한다. RViz2는 Fixed Frame을 target으로 transform을 조회한 뒤 변환된 좌표로 data를 화면에 표시한다. 이 과정에서 원래 sensor topic의 message가 변경되는 것은 아니다.
+
+변환 결과를 새로운 message로 publish한다면 좌표값에 transform을 실제로 적용한 뒤 `header.frame_id`를 target frame으로 기록해야 한다. 좌표값은 그대로 둔 채 `frame_id` 문자열만 바꾸면 좌표 변환이 일어나지 않는다.
+
+### 전체 흐름 요약
+
+```text
+1. Sensor가 source frame 기준으로 data를 측정한다.
+2. Message가 source frame과 measurement time을 기록한다.
+3. 별도의 broadcaster가 frame 사이의 transform을 publish한다.
+4. Listener가 transform을 받아 TF buffer를 구성한다.
+5. Consumer가 사용할 target frame을 선택한다.
+6. Consumer가 target, source와 time으로 transform을 조회한다.
+7. Consumer가 반환된 transform을 data에 적용한다.
+8. Target frame에서 표현된 결과를 처리하거나 표시한다.
+```
+
+이 전체 흐름을 기준으로 이후 내용은 다음과 같이 연결된다.
+
+| 이후 내용 | 전체 흐름에서 설명하는 부분 |
+|---|---|
+| Coordinate frame이 필요한 이유 | Sensor data의 숫자에 source frame이 필요한 이유 |
+| Frame과 transform | Source 좌표를 target 좌표로 바꾸는 수학적 관계 |
+| tf2의 역할 | Transform을 publish, 저장, 조회하는 runtime 구조 |
+| TF tree | 여러 transform을 연결하고 합성하는 구조 |
+| 이동 robot에서 사용하는 frame | 작업 목적에 따른 target frame 선택 |
+| Static과 dynamic transform | Frame 관계가 시간에 따라 변하는지 여부 |
+| Transform과 timestamp | 측정 시각에 맞는 transform을 조회해야 하는 이유 |
+| TF tree 확인 | 두 frame 사이의 변환 경로가 실제로 존재하는지 검증하는 방법 |
+
 ## Coordinate frame이 필요한 이유
 
 `coordinate frame`은 위치와 방향을 수치로 표현하기 위한 기준이다. 3D coordinate frame $F$는 origin $O_F$와 서로 직교하고 길이가 $1$이며 순서가 정해진 세 basis vector $\mathcal{B}_F=(\mathbf{e}^{F}_{x},\mathbf{e}^{F}_{y},\mathbf{e}^{F}_{z})$로 구성된다.
