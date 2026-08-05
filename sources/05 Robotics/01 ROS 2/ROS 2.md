@@ -63,16 +63,22 @@ Node 사이의 대표적인 상호작용 방식은 다음과 같다.
   - signal을 통한 정상 종료와 process 수명 관리
 - [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)
   - coordinate frame, transform과 ROS coordinate convention
-  - `map`, `odom`, `base_link`의 역할과 localization 보정
-  - static·dynamic transform, TF tree와 timestamp
+  - source·target과 parent·child 방향 구분
+  - broadcaster, listener, buffer와 TF tree
+  - static·dynamic transform의 기본 구분과 static transform 검증
   - runtime TF tree와 저장된 diagram snapshot의 차이
-  - `tf2_echo`, `view_frames`를 사용한 검증
 - [URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)
   - 실제 robot 구조와 URDF link·joint의 대응
-  - fixed와 movable joint의 차이와 sensor model
+  - 고정된 URDF model과 시간에 따라 변하는 joint state의 결합
+  - fixed와 movable joint의 `/tf_static`·`/tf` publish 규칙
   - `robot_description`과 `robot_state_publisher`
   - package 설치, launch와 TF tree 검증
-- [PointCloud2 and RViz2](<./06 PointCloud2 and RViz2.md>)
+- [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)
+  - sensor measurement, state estimate와 transform의 구분
+  - driver, `joint_state_broadcaster`, `robot_state_publisher`, `diff_drive_controller`의 책임
+  - `map`, `odom`, `base_link`의 역할과 localization 보정
+  - timestamp별 transform, buffer 보간과 extrapolation error
+- [PointCloud2 and RViz2](<./07 PointCloud2 and RViz2.md>)
   - PointCloud2의 binary layout, frame과 timestamp
   - C++ 합성 point cloud 작성과 topic 확인
   - TF와 PointCloud2를 RViz2에서 확인하는 절차와 문제 진단

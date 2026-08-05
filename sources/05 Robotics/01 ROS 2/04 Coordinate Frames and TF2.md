@@ -2,160 +2,28 @@
 
 ## 한 줄 요약
 
-Coordinate frame은 공간의 원점과 basis를 정의하고, tf2는 frame 사이의 translation과 rotation을 시간과 함께 관리하여 같은 geometric data의 좌표를 서로 다른 frame에서 표현할 수 있게 한다.
+Coordinate frame은 수치 좌표의 기준이고 transform은 같은 기하학적 대상을 source frame에서 target frame으로 다시 표현하는 관계이며, tf2는 실행 중인 transform을 publish·저장·조회한다.
 
-## 전체 흐름: Sensor data를 다른 Frame에서 사용하기까지
+## 문서 범위와 학습 순서
 
-Sensor나 algorithm이 만드는 수치 data는 특정 source frame의 원점과 축을 기준으로 표현된다. 다른 component가 이 data를 자신의 기준 frame에서 사용하려면 sensor data와 frame 관계라는 두 종류의 정보가 모두 필요하다.
-
-```text
-Frame 관계를 만드는 흐름                         Sensor data를 만드는 흐름
-
-URDF·calibration·pose estimation                  sensor·algorithm
-                 │                                      │
-                 ▼                                      ▼
-        transform broadcaster                    stamped data message
-                 │                               ├── 수치 data
-                 │                               ├── header.frame_id
-                 ▼                               └── header.stamp
-        /tf 또는 /tf_static                              │
-                 │                                      │
-                 ▼                                      ▼
-        listener의 TF buffer ───────────────────────> consumer
-                                                        │
-                                                        ├── target frame 선택
-                                                        ├── transform 조회
-                                                        ├── data에 transform 적용
-                                                        └── 처리·표시·재발행
-```
-
-두 흐름은 독립적으로 전달된다. `/tf`와 `/tf_static`에는 sensor 측정값이 들어 있지 않고, sensor message에는 다른 frame까지의 transform이 들어 있지 않다. Consumer가 sensor message의 `header.frame_id`와 `header.stamp`를 이용해 tf2 buffer에서 필요한 transform을 조회하면서 두 흐름을 결합한다.
-
-### 1. Frame 관계를 정의하고 배포한다
-
-Robot에 고정된 sensor의 장착 관계는 URDF나 calibration으로 정의할 수 있다. 움직이는 robot이나 joint의 pose는 odometry, localization, joint state와 같은 실행 중의 추정값으로 결정할 수 있다.
-
-이 관계를 책임지는 broadcaster는 parent-child frame 사이의 transform을 `/tf` 또는 `/tf_static`에 publish한다. URDF file이나 calibration 값이 존재하는 것만으로 tf2 buffer에 transform이 생기는 것은 아니며, 실행 중인 broadcaster가 그 관계를 publish해야 한다.
+이 문서는 coordinate frame과 transform의 수학적 의미를 먼저 정의한 뒤, tf2의 broadcaster·listener·buffer와 TF tree를 설명한다. 고정 transform을 command로 확인하는 최소 예제까지 다루며, transform 값을 만드는 구체적인 robot component는 뒤 문서로 분리한다.
 
 ```text
-고정된 장착 관계
-URDF·calibration
-        │
+source frame의 coordinate
+        │ source-to-target transform 적용
         ▼
-static transform broadcaster
-        │
-        ▼
-/tf_static
-
-시간에 따라 변하는 관계
-odometry·localization·joint state
-        │
-        ▼
-dynamic transform broadcaster
-        │
-        ▼
-/tf
+target frame의 coordinate
 ```
 
-### 2. Sensor data가 source frame과 측정 시각을 명시한다
+학습 순서는 다음과 같다.
 
-Sensor message의 수치값은 특정 frame을 기준으로 표현된다. `header.frame_id`는 그 수치값의 source frame을 나타내고, `header.stamp`는 data를 측정한 시각을 나타낸다.
+1. Coordinate frame이 필요한 이유를 확인한다.
+2. Rotation과 translation으로 coordinate를 변환하는 방법을 이해한다.
+3. TF tree의 parent-child 관계와 좌표 변환 방향을 구분한다.
+4. tf2가 transform sample을 배포하고 listener별 buffer에서 조회하는 과정을 이해한다.
+5. Static transform 하나를 실행하고 tree를 검증한다.
 
-```text
-sensor message
-├── data            : source frame에서 표현된 측정값
-├── header.frame_id : source frame
-└── header.stamp    : measurement time
-```
-
-예를 들어 `PointCloud2.header.frame_id = lidar_link`라면 point 좌표들은 `lidar_link`의 원점과 축을 기준으로 표현되어 있다. `lidar_link`가 TF tree의 leaf인 경우가 많지만 source frame이 반드시 leaf여야 하는 것은 아니다.
-
-### 3. Listener가 TF buffer를 구성한다
-
-Listener는 `/tf`와 `/tf_static`의 transform을 수신해 자신의 tf2 buffer에 frame 관계와 시간별 transform을 구성한다. TF tree를 보관하는 하나의 중앙 process가 있는 것이 아니라, RViz2나 application처럼 transform을 사용하는 listener마다 자신의 buffer를 가진다.
-
-TF buffer에는 sensor data가 저장되지 않는다. Sensor data는 원래 topic으로 전달되고, buffer에는 frame 사이의 transform만 저장된다.
-
-### 4. Consumer가 target frame을 선택한다
-
-Consumer는 자신의 작업 목적에 맞는 target frame을 선택한다. RViz2에서는 Fixed Frame이 target frame이고, 일반 application에서는 처리 결과를 표현하려는 frame이 target frame이다.
-
-| Target frame 예 | 사용 목적 |
-|---|---|
-| Sensor frame | Sensor가 측정한 원래 형태를 확인한다. |
-| `base_link` | Robot body를 기준으로 sensor data를 처리한다. |
-| `odom` | 연속적인 local motion 기준으로 data를 누적한다. |
-| `map` | Global map이나 localization 결과에 맞춰 data를 배치한다. |
-| `earth` | Georeference된 공통 지구 기준으로 data를 표현한다. |
-
-Target frame이 TF tree의 root일 필요는 없다. Source와 target이 같은 연결 component에 있고 필요한 시각의 transform을 사용할 수 있으면 어느 방향으로도 변환할 수 있다.
-
-### 5. Source, target과 time으로 transform을 조회한다
-
-Source frame을 `S`, target frame을 `T`, 측정 시각을 $t$라고 하면 consumer는 다음과 같이 조회한다.
-
-```text
-lookupTransform(T, S, t)
-                │  │  └── query time
-                │  └───── source frame
-                └──────── target frame
-```
-
-tf2 buffer는 `S`와 `T` 사이의 TF tree 경로를 찾고, 경로에 있는 transform과 inverse transform을 합성해 다음 transform을 반환한다.
-
-$$
-{}^{T}\mathbf T_{S}(t)
-$$
-
-`lookupTransform()`이 반환하는 것은 변환된 sensor data가 아니라 source frame의 좌표를 target frame의 좌표로 바꾸는 transform이다.
-
-### 6. Consumer가 transform을 data에 적용한다
-
-Source frame `S`에서 표현된 point 좌표를 target frame `T`에서 표현하려면 반환된 rotation과 translation을 실제 좌표에 적용해야 한다.
-
-$$
-{}^{T}\mathbf p
-=
-{}^{T}\mathbf R_{S}(t)\,{}^{S}\mathbf p
-+
-{}^{T}\mathbf t_{S}(t)
-$$
-
-Point, direction vector, orientation과 pose는 기하학적 의미가 다르므로 consumer는 data type에 맞는 변환 규칙을 사용해야 한다. Point에는 rotation과 translation을 적용하지만, 방향만 나타내는 vector에는 origin 이동을 나타내는 translation을 적용하지 않는다.
-
-Data가 TF tree의 각 중간 frame 좌표로 차례대로 변환되는 것은 아니다. Buffer는 경로의 transform을 합성해 요청한 source-to-target transform 하나를 반환하고, consumer는 그 transform을 data에 적용한다. 여러 target frame에서의 표현이 모두 필요하면 target별로 transform을 조회하고 각각 계산해야 한다.
-
-### 7. 변환 결과를 처리하거나 표시한다
-
-Consumer는 target frame에서 표현된 결과를 계산, 누적 또는 시각화에 사용한다. RViz2는 Fixed Frame을 target으로 transform을 조회한 뒤 변환된 좌표로 data를 화면에 표시한다. 이 과정에서 원래 sensor topic의 message가 변경되는 것은 아니다.
-
-변환 결과를 새로운 message로 publish한다면 좌표값에 transform을 실제로 적용한 뒤 `header.frame_id`를 target frame으로 기록해야 한다. 좌표값은 그대로 둔 채 `frame_id` 문자열만 바꾸면 좌표 변환이 일어나지 않는다.
-
-### 전체 흐름 요약
-
-```text
-1. Sensor가 source frame 기준으로 data를 측정한다.
-2. Message가 source frame과 measurement time을 기록한다.
-3. 별도의 broadcaster가 frame 사이의 transform을 publish한다.
-4. Listener가 transform을 받아 TF buffer를 구성한다.
-5. Consumer가 사용할 target frame을 선택한다.
-6. Consumer가 target, source와 time으로 transform을 조회한다.
-7. Consumer가 반환된 transform을 data에 적용한다.
-8. Target frame에서 표현된 결과를 처리하거나 표시한다.
-```
-
-이 전체 흐름을 기준으로 이후 내용은 다음과 같이 연결된다.
-
-| 이후 내용 | 전체 흐름에서 설명하는 부분 |
-|---|---|
-| Coordinate frame이 필요한 이유 | Sensor data의 숫자에 source frame이 필요한 이유 |
-| Frame과 transform | Source 좌표를 target 좌표로 바꾸는 수학적 관계 |
-| tf2의 역할 | Transform을 publish, 저장, 조회하는 runtime 구조 |
-| TF tree | 여러 transform을 연결하고 합성하는 구조 |
-| 이동 robot에서 사용하는 frame | 작업 목적에 따른 target frame 선택 |
-| Static과 dynamic transform | Frame 관계가 시간에 따라 변하는지 여부 |
-| Transform과 timestamp | 측정 시각에 맞는 transform을 조회해야 하는 이유 |
-| TF tree 확인 | 두 frame 사이의 변환 경로가 실제로 존재하는지 검증하는 방법 |
+URDF와 `robot_state_publisher`는 [URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)에서, sensor 측정·joint state·odometry·localization으로 시간별 transform을 만드는 과정은 [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)에서 이어서 설명한다.
 
 ## Coordinate frame이 필요한 이유
 
@@ -178,7 +46,7 @@ $$
 
 왼쪽 위의 $F$는 거듭제곱이 아니라 좌표를 표현한 frame을 나타낸다. Frame이 달라지면 같은 물리적 point $P$도 다른 origin과 basis를 기준으로 하므로 다른 숫자 좌표를 갖는다. Origin과 basis로 point의 좌표를 정의하는 일반적인 내용은 [Affine space](<../../01 math/08 Geometry/11 Affine space.md>)에서 설명한다.
 
-`base_link`는 mobile robot body에 고정된 기준 frame이다. URDF에서는 같은 이름의 link와 그 link에 붙은 coordinate frame을 함께 가리킬 수 있으며, 원점의 정확한 위치는 robot model을 설계할 때 정한다.
+`base_link`는 mobile robot body에 고정된 기준 frame이다. Robot model에서는 같은 이름의 body 기준과 coordinate frame을 함께 사용할 수 있으며, 원점의 정확한 위치는 model을 설계할 때 정한다.
 
 예를 들어 lidar가 자신의 앞쪽 1 m 지점에서 점을 측정했다고 하자. 이 점의 lidar 좌표는 `(1, 0, 0)`일 수 있다. 그러나 lidar가 robot 중심에서 앞쪽 0.2 m, 위쪽 0.3 m에 장착되어 있다면 같은 점의 `base_link` 좌표는 장착 위치와 방향을 반영해야 한다.
 
@@ -426,17 +294,17 @@ TF tree를 영구적으로 보관하는 중앙 process나 단일 file은 없다.
 
 | 대상 | 역할 |
 |---|---|
-| URDF file | Link와 joint 관계를 저장한 model description |
-| `robot_state_publisher` | URDF joint 관계를 `/tf` 또는 `/tf_static` transform으로 publish하는 broadcaster |
+| Model·calibration·pose estimate | Parent-child transform을 결정하는 입력 |
+| Transform broadcaster | 입력에서 얻은 transform sample을 `/tf` 또는 `/tf_static`에 publish하는 node 또는 library object |
 | `/tf`, `/tf_static` | 실행 중인 broadcaster와 listener 사이에서 `tf2_msgs/msg/TFMessage`를 전달하는 topic |
 | listener의 tf2 buffer | 수신한 transform을 시간과 함께 보관하고 연결된 frame 사이의 transform을 계산하는 memory |
 | `view_frames` output | 관찰 시점의 TF tree를 file로 저장한 diagram snapshot |
 
-URDF를 사용하는 경우 link 이름은 TF tree의 frame이 되고 joint는 parent link와 child link 사이의 transform을 정의한다. Joint 이름 자체가 별도의 TF frame이 되는 것은 아니다. Link와 joint의 구체적인 대응은 [URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)에서 설명한다.
+Broadcaster가 transform 값을 얻는 방법은 관계의 종류에 따라 다르다. 고정 관계는 calibration 값에서, 움직이는 관계는 joint state·odometry·localization 결과에서 얻을 수 있다. TF2는 이 물리 상태를 sensor에서 직접 추정하지 않고 broadcaster가 보낸 transform을 전달·저장·조회한다. URDF model을 읽는 구체적인 broadcaster는 다음 문서인 [URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)에서 설명하고, 동적 transform의 계산 주체는 [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)에서 설명한다.
 
 ```text
-URDF file
-    │ robot_state_publisher가 읽음
+transform source
+    │ broadcaster가 timestamped sample 구성
     ▼
 /tf 또는 /tf_static
     │ listener가 수신
@@ -467,120 +335,18 @@ base_link
 
 TF graph 전체에 연결되지 않은 frame이 존재할 수는 있지만, 연결되지 않은 두 frame 사이의 transform은 계산할 수 없다. RViz2의 Fixed Frame과 sensor message의 frame이 서로 연결되지 않으면 해당 sensor data를 표시할 수 없다.
 
-## 이동 robot에서 자주 사용하는 frame
-
-REP-105는 mobile robot에서 `map`, `odom`과 `base_link`라는 frame 이름에 공통 의미를 부여한다. 여기서 `world-fixed` frame은 robot body에 붙어서 함께 움직이는 frame이 아니라 환경을 기준으로 robot pose를 표현하는 frame이다.
-
-| Frame | 역할 | Robot pose의 특성 |
-|---|---|---|
-| `map` | Localization이 사용하는 장기적인 world-fixed 기준 | 장기 drift를 억제하지만 새 관측을 반영할 때 pose가 불연속적으로 보정될 수 있다. |
-| `odom` | Odometry가 상대 이동을 누적하는 world-fixed 기준 | 값이 연속적으로 변하지만 장시간에는 drift가 누적될 수 있다. |
-| `base_link` | Robot body에 고정된 기준 | Robot이 이동하면 `map`과 `odom`에 대한 pose가 변한다. |
-
-`odom` 원점은 system 시작 위치 근처로 초기화할 수 있지만 모든 구현이 `odom → base_link`를 정확히 identity로 시작해야 하는 것은 아니다. 핵심 조건은 robot pose가 `odom` 기준에서 불연속적으로 뛰지 않고 연속적으로 변하는 것이다. 연속성, drift와 localization의 일반적인 의미는 [Robotics](<../Robotics.md>)에서 설명한다.
-
-REP-105를 따르는 최소 TF 관계는 다음과 같다.
-
-```text
-map
-└── odom
-    └── base_link
-        ├── imu_link
-        └── lidar_link
-```
-
-각 parent-child 관계는 서로 다른 component가 책임질 수 있다.
-
-| Parent → child | 일반적인 broadcaster | 나타내는 pose |
-|---|---|---|
-| `map → odom` | SLAM 또는 localization component | `map`에서 표현한 `odom`의 pose와 odometry 보정 |
-| `odom → base_link` | Wheel·visual odometry 또는 state estimation component | `odom`에서 표현한 `base_link`의 연속적인 pose |
-| `base_link → sensor frame` | URDF를 읽는 `robot_state_publisher` | `base_link`에서 표현한 sensor의 장착 pose |
-
-각 행의 transform을 coordinate에 적용하면 child frame 좌표를 parent frame 좌표로 바꾼다.
-
-Localization component는 sensor 관측을 map이나 다른 외부 기준과 비교해 `map`에서 표현한 `base_link` pose ${}^{\mathrm{map}}\mathbf{T}_{\mathrm{base\_link}}$를 다시 추정한다. TF tree에서 `base_link`는 이미 `odom`의 child이므로 localization component는 보통 `map → base_link` 관계를 직접 broadcast하지 않고 `map → odom` 관계를 계산해 publish한다.
-
-$$
-{}^{\mathrm{map}}\mathbf{T}_{\mathrm{odom}}
-=
-{}^{\mathrm{map}}\mathbf{T}_{\mathrm{base\_link}}
-\left(
-{}^{\mathrm{odom}}\mathbf{T}_{\mathrm{base\_link}}
-\right)^{-1}
-$$
-
-Translation만 있는 1D 예제에서 `map`과 `odom`의 축 방향이 같다고 하자. Odometry는 출발 후 robot이 10.3 m 이동했다고 누적했지만 localization은 map의 wall과 lidar 관측을 비교해 robot의 map pose를 10.0 m로 추정할 수 있다.
-
-TF tree의 transform 합성은 다음과 같다.
-
-$$
-{}^{\mathrm{map}}\mathbf{T}_{\mathrm{base\_link}}
-=
-{}^{\mathrm{map}}\mathbf{T}_{\mathrm{odom}}
-{}^{\mathrm{odom}}\mathbf{T}_{\mathrm{base\_link}}
-$$
-
-이 예제에서는 세 frame의 basis 방향이 같고 translation만 있으므로 x 좌표를 다음처럼 더할 수 있다.
-
-$$
-\begin{aligned}
-{}^{\mathrm{odom}}t_{\mathrm{base\_link},x} &= 10.3\ \mathrm{m} \\
-{}^{\mathrm{map}}t_{\mathrm{odom},x} &= -0.3\ \mathrm{m} \\
-{}^{\mathrm{map}}t_{\mathrm{base\_link},x}
-&= -0.3 + 10.3
-= 10.0\ \mathrm{m}
-\end{aligned}
-$$
-
-이때 `odom → base_link`를 10.0 m로 갑자기 바꾸지 않으므로 odometry의 연속성은 유지된다. 대신 `map → odom`이 바뀌어 robot의 `map` 기준 pose가 보정된다. 실제 robot이 순간 이동한 것이 아니라 위치 추정값이 바뀐 것이다. `map` 자체가 보정된 숫자라는 뜻도 아니다. `map`은 좌표 기준이고 localization이 보정하는 대상은 그 기준에서 표현한 robot pose다.
-
-### map frame의 원점
-
-`map`의 원점은 map 영역의 기하학적인 중심으로 정해져 있지 않다. Map을 만드는 system이나 application이 `(0, 0, 0)`의 기준 위치와 축 방향을 정하고 사용자에게 그 선택을 명시해야 한다.
-
-- 외부 위치 기준 없이 SLAM을 시작하면 시작 시점의 robot 위치를 원점으로 초기화할 수 있다.
-- 미리 만든 indoor map은 건물의 corner, 출입구 또는 설계도 기준점을 원점으로 사용할 수 있다.
-- Georeference된 outdoor map은 측량 기준 또는 `earth` frame과의 관계로 원점을 정할 수 있다.
-
-따라서 `map` 원점은 robot의 출발 위치와 일치할 수 있지만 반드시 일치하지는 않는다. 이미 만들어진 map에서 localization을 시작하면 robot의 초기 `map` pose는 원점이 아닌 임의의 위치일 수 있다.
-
-`nav_msgs/msg/OccupancyGrid`의 `info.origin`도 `map` frame 자체의 원점과 구분해야 한다. `OccupancyGrid`는 `header.frame_id`로 grid 좌표의 기준 frame을 지정하고, `info.origin`으로 grid cell `(0, 0)`의 왼쪽 아래 corner가 그 frame에서 어디에 있는지 표현한다. 예를 들어 `header.frame_id`가 `map`이고 `info.origin`이 `(-10, -10)`이면 cell `(0, 0)`은 `map` 원점에서 왼쪽 아래에 있다. `map` frame은 OccupancyGrid message가 없어도 coordinate frame으로 존재할 수 있다.
-
-### odom frame, `/odom` topic과 TF
-
-같은 `odom`이라는 문자열이 들어가도 frame, topic과 transform은 서로 다른 대상이다.
-
-| 대상 | 의미 |
-|---|---|
-| `odom` frame | Pose를 표현하는 coordinate frame 이름 |
-| `/odom` topic | 관례적으로 `nav_msgs/msg/Odometry` message를 전달하는 topic 이름이며 remap할 수 있다. |
-| `odom → base_link` TF | `odom`에서 표현한 `base_link`의 시간별 pose이며, `base_link` 좌표를 `odom` 좌표로 바꿀 때 적용 |
-
-`nav_msgs/msg/Odometry`는 pose와 velocity 추정값을 전달한다. Pose의 기준은 message의 `header.frame_id`, velocity의 기준은 `child_frame_id`로 표현한다. `/odom` topic을 publish하는 것만으로 tf2 buffer에 transform이 자동으로 생기지는 않는다. Odometry component가 topic과 TF를 모두 제공할 수도 있고, 별도 component가 `odom → base_link`를 broadcast할 수도 있으므로 실행 중인 system의 interface를 확인해야 한다.
-
 ## Static transform과 dynamic transform
 
-일반적인 TF tree에서는 parent와 child의 연결 구조를 유지한다. Static과 dynamic의 차이는 그 연결을 나타내는 translation과 rotation 값이 시간에 따라 변하는지 여부다.
+TF tree의 parent-child 연결 구조가 같아도 그 관계를 나타내는 translation과 rotation이 시간에 따라 변하는지에 따라 publish 방법이 달라진다.
 
 | 종류 | 적용 대상 | Topic | 시간 처리 |
 |---|---|---|---|
-| static transform | body와 고정 sensor처럼 변하지 않는 관계 | `/tf_static` | 한 번 publish한 관계를 late subscriber도 받을 수 있다. |
-| dynamic transform | `odom → base_link`, `map → odom` 또는 움직이는 joint처럼 변하는 관계 | `/tf` | timestamp별 transform을 buffer에 보관한다. |
+| static transform | Body와 고정 sensor처럼 상대 pose가 변하지 않는 관계 | `/tf_static` | 한 번 publish한 관계를 호환되는 late subscriber도 받을 수 있다. |
+| dynamic transform | 움직이는 joint나 이동 robot처럼 상대 pose가 변하는 관계 | `/tf` | Timestamp가 다른 transform sample을 listener buffer에 보관한다. |
 
-Robot이 world에서 움직여도 body에 고정된 lidar의 장착 pose는 변하지 않는다. 반대로 robot이 정지해 있어도 localization이 새 관측으로 pose를 다시 추정하면 `map → odom` 값은 바뀔 수 있다.
+Static과 dynamic은 child가 world에서 움직이는지 여부가 아니라 **직접 연결된 parent에 대한 상대 pose가 변하는지**로 구분한다. 예를 들어 body에 고정된 lidar는 robot과 함께 world에서 움직여도 `base_link → lidar_link`가 static이다. 반대로 wheel이나 arm link는 `base_link`에 대한 관절 위치가 변하므로 dynamic이다.
 
-```text
-base_link → lidar_link
-t=0 s, 1 s, 2 s: translation = (0.2, 0.0, 0.3)
-
-odom → base_link
-t=0 s: x=0.0 m
-t=1 s: x=1.0 m
-t=2 s: x=2.0 m
-```
-
-`/tf_static`은 transient-local durability를 사용한다. Broadcaster endpoint가 유지되는 동안에는 RViz2처럼 나중에 실행된 호환 listener도 저장된 static transform을 받을 수 있다. Broadcaster process를 종료한 뒤 새로 시작한 graph가 이전 diagram file에서 transform을 복원하는 것은 아니다. Dynamic transform은 계속 갱신되어야 하며 query time에 사용할 수 있는 transform이 buffer 안에 있어야 한다.
+Dynamic transform의 값을 TF2가 sensor에서 추정하는 것은 아니다. 해당 관계를 책임지는 component가 joint state, odometry 또는 localization 결과로 시각별 translation과 rotation을 계산하고 broadcaster를 통해 publish한다. 계산 주체와 실제 ROS 2 package는 [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)에서 설명한다.
 
 ## Static transform을 command로 확인
 
@@ -598,11 +364,9 @@ ros2 run tf2_ros static_transform_publisher \
 
 최종 robot model을 URDF와 `robot_state_publisher`로 publish한다면 같은 `base_link` → `lidar_link` static transform을 `static_transform_publisher`로 동시에 publish하지 않는다. 위 command는 값과 연결을 독립적으로 확인하는 임시 수단으로 사용한다.
 
-## Transform과 timestamp
+## Timestamped transform의 기본 구조
 
-ROS sensor message의 `header.stamp`는 측정 시각을 나타낸다. Consumer가 움직이는 frame에서 측정한 data 좌표를 다른 frame에서 표현하려면 현재 시간이 아니라 측정 시각의 transform이 필요하다.
-
-Sensor message의 `header.frame_id`는 data가 표현된 frame의 이름만 기록하며, 그 frame의 시간별 origin과 basis pose를 message 안에 저장하지는 않는다. 움직이는 frame의 pose는 transform broadcaster가 timestamp가 서로 다른 `geometry_msgs/msg/TransformStamped` sample을 `/tf`를 통해 계속 전달하여 나타낸다. Parent frame을 `A`, child frame을 `B`라고 하면 각 sample에는 다음 정보가 기록된다.
+Dynamic transform은 시간에 따른 함수 전체를 message 하나에 담지 않는다. Broadcaster가 서로 다른 timestamp의 `geometry_msgs/msg/TransformStamped` sample을 계속 publish한다.
 
 ```text
 TransformStamped
@@ -613,53 +377,17 @@ TransformStamped
 └── transform.rotation    : A에서 표현한 B basis의 orientation
 ```
 
-따라서 이 message는 시각 $t$의 ${}^{A}\mathbf{T}_{B}(t)$를 나타낸다. 각 listener의 tf2 buffer는 수신한 dynamic transform을 timestamp별로 보관한다. Consumer가 `lookupTransform(A, B, t)`를 호출하면 buffer는 시각 $t$에 `B` 좌표를 `A` 좌표로 바꾸는 transform을 계산하며, 여러 frame을 거치는 경우에는 TF tree의 transform을 합성한다.
-
-예를 들어 lidar가 robot body에 고정되어 있으면 `base_link → lidar_link`는 static transform이다. Robot이 움직일 때 시간에 따라 달라지는 transform은 `odom → base_link` 같은 상위 transform이며, tf2는 다음과 같이 시각 $t$의 전체 transform을 계산한다.
-
-$$
-{}^{\mathrm{odom}}\mathbf{T}_{\mathrm{lidar\_link}}(t)
-=
-{}^{\mathrm{odom}}\mathbf{T}_{\mathrm{base\_link}}(t)
-{}^{\mathrm{base\_link}}\mathbf{T}_{\mathrm{lidar\_link}}
-$$
-
-따라서 sensor message의 `header.frame_id`는 계속 `lidar_link`여도 `odom`에서 본 `lidar_link`의 origin과 basis는 시간에 따라 달라질 수 있다. Lidar가 회전 joint나 gimbal에 장착되어 `base_link`에 대한 장착 pose 자체가 변한다면 `base_link → lidar_link`도 timestamp별 dynamic transform으로 `/tf`에 publish한다.
-
-```text
-sensor message
-├── header.frame_id : data가 표현된 frame
-└── header.stamp    : data를 측정한 time
-
-transform query
-├── source frame : message 좌표가 표현된 frame
-├── target frame : 좌표를 다시 표현할 frame
-└── query time
-```
-
-tf2 buffer는 dynamic transform을 timestamp별로 일정 시간 동안 보관한다. Consumer가 sensor message의 `header.stamp`를 query time으로 사용한다면, 조회 경로에 포함된 각 dynamic transform이 그 시각에 사용 가능해야 한다. 한 dynamic transform의 저장 범위를 기준으로 query 결과를 나누면 다음과 같다.
-
-| Query time 조건 | 의미 | 결과 |
-|---|---|---|
-| `query time < oldest transform time` | 필요한 시각의 transform이 buffer에 보관된 가장 오래된 transform보다 이전이다. | past extrapolation error |
-| `oldest transform time ≤ query time ≤ latest transform time` | 저장된 transform을 사용하거나 필요한 경우 앞뒤 timestamp의 transform 사이를 보간할 수 있다. | 시간 범위 조건을 만족한다. |
-| `latest transform time < query time` | 필요한 시각의 transform이 아직 buffer에 도착하지 않았다. | future extrapolation error |
-
-예를 들어 sensor message의 `header.stamp`가 `10.20 s`인데 listener가 수신한 최신 dynamic transform이 `10.15 s`까지라면, `10.20 s`는 buffer의 최신 transform을 기준으로 미래다. Consumer가 이때 transform을 조회하면 future extrapolation error가 발생할 수 있으며, `10.20 s`에 사용할 transform이 buffer에 도착한 뒤에는 같은 query가 성공할 수 있다.
-
-여기서 past와 future는 sensor data가 현재 시각보다 과거인지 미래인지를 뜻하지 않는다. Query time과 buffer에 저장된 transform timestamp를 비교한 표현이다. 여러 dynamic transform을 합성하는 query에서는 경로에 포함된 모든 dynamic transform이 query time을 지원해야 한다. Static transform은 시간에 따라 값이 변하지 않으므로 연결만 올바르면 모든 측정 시각에 사용할 수 있다.
-
-Message의 좌표값은 그대로 둔 채 `frame_id` 문자열만 다른 frame 이름으로 바꾸면 좌표 변환이 일어나지 않는다. 좌표값을 실제 transform으로 다시 계산해 target frame을 기록하거나, 계산하지 않았다면 원래 측정 frame을 `frame_id`에 기록해야 한다.
+각 listener의 buffer는 수신한 sample을 시간별로 보관한다. Consumer가 `lookupTransform(A, B, t)`를 호출하면 buffer는 시각 `t`에 source `B` 좌표를 target `A` 좌표로 바꾸는 transform을 반환한다. Sensor data를 처리할 때는 보통 message의 `header.stamp`를 query time으로 사용한다. 보간, buffer 범위와 extrapolation error는 [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)에서 자세히 설명한다.
 
 ## TF tree 확인
 
-먼저 두 frame 사이의 transform을 계속 조회한다.
+두 frame 사이의 transform을 계속 조회한다.
 
 ```bash
 ros2 run tf2_ros tf2_echo base_link lidar_link
 ```
 
-이 명령은 ${}^{\mathrm{base\_link}}\mathbf{T}_{\mathrm{lidar\_link}}$를 출력한다. 좌표 변환 관점에서는 `base_link`가 target frame이고 `lidar_link`가 source frame인 조회와 같으며, 출력된 transform으로 lidar 좌표를 base 좌표로 바꿀 수 있다. Translation과 rotation이 반복해서 출력되면 두 frame 사이의 연결을 조회할 수 있다는 뜻이다. Static transform이라면 출력 값이 변하지 않아야 한다.
+이 명령은 ${}^{\mathrm{base\_link}}\mathbf{T}_{\mathrm{lidar\_link}}$를 출력한다. `base_link`가 target frame이고 `lidar_link`가 source frame이다. Static transform이라면 출력되는 translation과 rotation이 시간에 따라 변하지 않아야 한다.
 
 전체 TF tree를 diagram으로 저장하려면 Linux에서 다음 command를 실행한다.
 
@@ -667,20 +395,9 @@ ros2 run tf2_ros tf2_echo base_link lidar_link
 ros2 run tf2_tools view_frames
 ```
 
-이 command는 일정 시간 동안 transform을 수신한 뒤 현재 directory에 `frames.pdf`를 생성한다. 이 최소 sensor rig 예제에서는 diagram에서 `base_link`가 root이고 `imu_link`, `lidar_link`가 직접 child인지 확인한다.
+이 command는 일정 시간 동안 transform을 수신한 뒤 현재 directory에 `frames.pdf`를 생성한다. Diagram은 관찰 시점의 snapshot이며 현재 broadcaster process를 대신하지 않는다.
 
-Odometry와 localization component를 함께 실행하는 mobile robot system에서는 대표적인 dynamic transform도 확인할 수 있다.
-
-```bash
-ros2 run tf2_ros tf2_echo map odom
-ros2 run tf2_ros tf2_echo odom base_link
-```
-
-첫 번째 명령은 ${}^{\mathrm{map}}\mathbf{T}_{\mathrm{odom}}$, 두 번째 명령은 ${}^{\mathrm{odom}}\mathbf{T}_{\mathrm{base\_link}}$를 출력한다.
-
-해당 component를 실행하지 않았다면 `map`이나 `odom` frame이 없는 것이 정상일 수 있다. URDF와 `robot_state_publisher`만으로 두 transform이 자동 생성되지는 않는다.
-
-Topic과 publisher 상태도 함께 확인할 수 있다.
+현재 ROS graph의 node, topic과 publisher도 함께 확인한다.
 
 ```bash
 ros2 node list
@@ -688,37 +405,33 @@ ros2 topic list -t
 ros2 topic info /tf_static --verbose
 ```
 
-`view_frames`는 관찰한 관계를 저장하고, `node list`와 `topic info`는 현재 실행 상태를 확인한다. 과거에 저장한 diagram만으로 현재 TF가 활성 상태라고 판단하지 않는다.
-
-`view_frames`의 tree 모양만 확인하지 않고 translation, rotation과 broadcaster도 확인해야 잘못된 축 방향이나 중복 publisher를 찾을 수 있다.
+Tree 모양뿐 아니라 translation, rotation과 broadcaster도 확인해야 잘못된 축 방향이나 중복 publisher를 찾을 수 있다.
 
 ## 문제 확인 순서
 
 | 관찰 | 확인할 내용 |
 |---|---|
 | `tf2_echo`가 frame이 없다고 보고한다. | Frame 이름, broadcaster process, ROS domain과 setup sourcing을 확인한다. |
-| 저장된 TF diagram은 있지만 현재 frame을 찾지 못한다. | Diagram은 snapshot이므로 `robot_state_publisher` 같은 broadcaster가 현재 실행 중인지 확인한다. |
+| 저장된 TF diagram은 있지만 현재 frame을 찾지 못한다. | Diagram은 snapshot이므로 broadcaster가 현재 실행 중인지 확인한다. |
 | 두 frame을 각각 찾지만 transform을 계산하지 못한다. | 서로 다른 root를 가진 disconnected tree인지 확인한다. |
-| `/odom` topic은 있지만 `odom` frame을 찾지 못한다. | Topic publisher가 `odom → base_link` TF도 broadcast하는 구성인지 확인한다. |
-| Point cloud 위치가 반대 방향으로 이동한다. | TF tree의 parent/child 관계와 좌표 변환의 target/source 방향, translation이 어느 frame에서 표현됐는지 확인한다. |
+| Point cloud 위치가 반대 방향으로 이동한다. | Parent-child 관계, target/source 방향과 translation이 어느 frame에서 표현됐는지 확인한다. |
 | Frame 방향이 예상과 다르다. | Degree를 radian 값으로 잘못 넣지 않았는지와 sensor axis convention을 확인한다. |
-| RViz2가 extrapolation error를 표시한다. | Error에 표시된 query time과 oldest/latest transform time을 비교한다. Future error라면 dynamic transform의 timestamp와 publish 또는 수신 지연을 확인하고, past error라면 오래된 message가 처리되고 있는지와 buffer 보관 범위를 확인한다. 두 경우 모두 node들의 clock source와 `use_sim_time` 설정이 일치하는지 확인한다. |
 | Frame이 흔들리거나 parent가 바뀐다. | 같은 child frame을 둘 이상의 broadcaster가 publish하는지 확인한다. |
+
+Dynamic timestamp와 `map → odom → base_link` 문제는 [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)의 진단 절에서 이어서 확인한다.
 
 ## 관련 문서
 
 - [ROS 2](<./ROS 2.md>)
-- [URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)
-- [PointCloud2 and RViz2](<./06 PointCloud2 and RViz2.md>)
 - [Node and Topic](<./02 Node and Topic.md>)
+- [URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)
+- [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)
+- [PointCloud2 and RViz2](<./07 PointCloud2 and RViz2.md>)
 
 ## References
 
 - [REP-103 - Standard Units of Measure and Coordinate Conventions](https://github.com/ros-infrastructure/rep/blob/master/rep-0103.rst)
-- [REP-105 - Coordinate Frames for Mobile Platforms](https://github.com/ros-infrastructure/rep/blob/master/rep-0105.rst)
 - [geometry_msgs - TransformStamped Message Definition](https://github.com/ros2/common_interfaces/blob/jazzy/geometry_msgs/msg/TransformStamped.msg)
-- [nav_msgs - Odometry Message Definition](https://github.com/ros2/common_interfaces/blob/jazzy/nav_msgs/msg/Odometry.msg)
-- [nav_msgs - MapMetaData Message Definition](https://github.com/ros2/common_interfaces/blob/jazzy/nav_msgs/msg/MapMetaData.msg)
 - [tf2_ros - Buffer Interface](https://github.com/ros2/geometry2/blob/jazzy/tf2_ros/include/tf2_ros/buffer_interface.hpp)
 - [ROS 2 Documentation - Introducing tf2](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Intermediate/Tf2/Introduction-To-Tf2.rst)
 - [ROS 2 Documentation - Writing a Static Broadcaster in C++](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Intermediate/Tf2/Writing-A-Tf2-Static-Broadcaster-Cpp.rst)

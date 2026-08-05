@@ -102,6 +102,52 @@ world_T_lidar = world_T_base × base_T_lidar
 
 여기서 fixed joint가 일정하게 유지하는 값은 `base_T_lidar`다.
 
+### 고정된 URDF와 시간에 따라 변하는 joint state
+
+URDF file이 실행 중에 바뀌지 않는다고 해서 URDF로 static transform만 만들 수 있는 것은 아니다. URDF는 joint의 parent·child, 원점, 운동축과 joint type처럼 **변하지 않는 운동 규칙**을 저장하고, movable joint의 현재 position $q(t)$는 `/joint_states` message로 별도로 전달한다.
+
+```text
+변하지 않는 입력                           시간에 따라 변하는 입력
+URDF: parent·child·origin·axis·type         /joint_states: joint name·position q(t)
+                    │                         │
+                    └──────┬──────────────────┘
+                           ▼
+                 robot_state_publisher
+                           │ forward kinematics
+                           ▼
+                  link 사이의 dynamic TF
+                           │
+                           ▼
+                          /tf
+```
+
+Revolute joint의 parent-to-child transform은 개념적으로 다음처럼 계산할 수 있다.
+
+$$
+{}^{\mathrm{parent}}\mathbf{T}_{\mathrm{child}}(t)
+=
+\mathbf{T}_{\mathrm{origin}}
+\mathbf{R}_{\mathrm{axis}}(q(t))
+$$
+
+`origin`과 `axis`는 URDF에서 읽고 $q(t)$는 같은 joint 이름의 `sensor_msgs/msg/JointState.position`에서 읽는다. Prismatic joint라면 rotation 대신 joint axis 방향의 translation이 $q(t)$에 따라 달라진다. `robot_state_publisher`는 이 입력으로 forward kinematics를 계산하지만 joint position 자체를 sensor에서 측정하거나 추정하지는 않는다.
+
+`/joint_states`를 만드는 주체는 실행 환경에 따라 달라진다.
+
+| 실행 환경 | Joint position의 출처 | `/joint_states`를 publish하는 일반적인 component |
+|---|---|---|
+| 실제 robot | Encoder를 읽은 hardware state interface | `ros2_control`의 `joint_state_broadcaster` 또는 robot driver |
+| Simulator | Simulation 안의 joint state | Simulator와 연결된 plugin 또는 bridge |
+| Model 학습·화면 확인 | 사용자가 지정한 test position | `joint_state_publisher` 또는 `joint_state_publisher_gui` |
+
+이름이 비슷하지만 `joint_state_publisher`와 `robot_state_publisher`의 출력은 다르다.
+
+- `joint_state_publisher`는 test나 model 확인에 사용할 joint position을 `/joint_states`로 publish한다.
+- `robot_state_publisher`는 URDF와 `/joint_states`를 결합해 link transform을 `/tf`로 publish한다.
+- 실제 hardware에서는 encoder 값을 제공하는 driver나 `joint_state_broadcaster`가 `joint_state_publisher`의 자리를 대신할 수 있다.
+
+따라서 dynamic joint transform의 전체 흐름은 “sensor가 TF를 직접 만든다”가 아니라 “상태 공급자가 $q(t)$를 전달하고 `robot_state_publisher`가 URDF 운동 규칙으로 TF를 계산한다”로 이해해야 한다. Odometry와 localization처럼 URDF joint 밖에서 만들어지는 dynamic transform은 [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)에서 설명한다.
+
 ### Link frame과 joint 이름
 
 `robot_state_publisher`가 만드는 TF 관계의 parent와 child 이름은 link 이름이다. Joint 이름은 URDF에서 연결을 식별하고 movable joint의 경우 `/joint_states`에서 현재 position을 대응시키는 데 사용하며, 별도의 TF frame 이름이 아니다.
@@ -311,6 +357,8 @@ URDF에 `<visual>`을 추가했다고 sensor 측정값이 생기거나 Gazebo si
 |---|---|
 | URDF file을 만들면 TF가 publish된다. | `robot_state_publisher` 같은 broadcaster process가 URDF를 읽고 실행되어야 한다. |
 | URDF와 TF tree는 같은 data다. | URDF는 model description이고 TF tree는 실행 중 publish된 frame 관계다. |
+| URDF file이 고정되어 있으면 dynamic TF를 만들 수 없다. | URDF의 운동 규칙은 고정되어 있지만 movable joint의 position은 `/joint_states`로 갱신되므로 `robot_state_publisher`가 dynamic TF를 만들 수 있다. |
+| `robot_state_publisher`가 encoder를 읽어 joint state를 추정한다. | `robot_state_publisher`는 다른 component가 publish한 `/joint_states`를 사용해 link transform을 계산한다. |
 | Fixed joint에도 `JointState`가 필요하다. | Fixed joint는 startup에 `/tf_static`으로 publish되며 joint position이 필요하지 않다. |
 | `imu_link`와 `lidar_link`가 fixed joint다. | 두 이름은 link다. `base_to_imu`와 `base_to_lidar`가 fixed joint다. |
 | Fixed child link는 world에서 움직이지 않는다. | Parent와 child의 상대 pose만 고정되며 parent가 움직이면 child도 함께 움직인다. |
@@ -324,7 +372,8 @@ URDF에 `<visual>`을 추가했다고 sensor 측정값이 생기거나 Gazebo si
 
 - [ROS 2](<./ROS 2.md>)
 - [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)
-- [PointCloud2 and RViz2](<./06 PointCloud2 and RViz2.md>)
+- [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)
+- [PointCloud2 and RViz2](<./07 PointCloud2 and RViz2.md>)
 - [Environment and Workspace](<./01 Environment and Workspace.md>)
 
 ## References
@@ -332,4 +381,6 @@ URDF에 `<visual>`을 추가했다고 sensor 측정값이 생기거나 Gazebo si
 - [ROS 2 Documentation - Using URDF with robot_state_publisher](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Intermediate/URDF/Using-URDF-with-Robot-State-Publisher.rst)
 - [ROS 2 Documentation - Building a Visual Robot Model from Scratch](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Intermediate/URDF/Building-a-Visual-Robot-Model-with-URDF-from-Scratch.rst)
 - [robot_state_publisher - Jazzy Branch](https://github.com/ros/robot_state_publisher/tree/jazzy)
+- [joint_state_publisher - Jazzy Documentation](https://docs.ros.org/en/jazzy/p/joint_state_publisher/)
+- [ros2_control - joint_state_broadcaster](https://control.ros.org/jazzy/doc/ros2_controllers/joint_state_broadcaster/doc/userdoc.html)
 - [URDF XML Joint Specification](http://wiki.ros.org/urdf/XML/joint)

@@ -250,7 +250,8 @@ system에서는 관찰 목적에 따라 다른 Fixed Frame을 선택할 수 있�
 `odom`과 `map`을 Fixed Frame으로 선택하려면 `header.frame_id`에서 해당 frame까지
 이어지는 TF가 실제로 publish되어야 한다. 두 frame의 의미와
 `map → odom → base_link` 관계는
-[Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)에서 설명한다.
+[Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)와
+[Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)에서 설명한다.
 
 따라서 화면 표시에는 PointCloud2 message가 실제로 수신되는 조건과
 `header.frame_id`에서 Fixed Frame까지 transform을 조회할 수 있는 조건이 모두
@@ -314,6 +315,7 @@ Topic, message, TF, RViz 설정을 이 순서로 분리하면 화면에 point가
 - [Node and Topic](<./02 Node and Topic.md>)
 - [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)
 - [URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)
+- [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)
 
 ## References
 

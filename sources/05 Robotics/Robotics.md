@@ -144,7 +144,7 @@ Localization 결과를 반영하면 pose 추정값이 10.3 m에서 10.0 m로 한
 
 ROS에서는 연속적인 단기 기준과 보정되는 장기 기준을 각각 `odom`과 `map`
 frame으로 표현할 수 있다. 두 frame과 robot body의 `base_link`를 연결하는
-방법은 [Coordinate Frames and TF2](<./01 ROS 2/04 Coordinate Frames and TF2.md>)에서
+방법은 [Dynamic TF and Mobile Robot Frames](<./01 ROS 2/06 Dynamic TF and Mobile Robot Frames.md>)에서
 설명한다.
 
 ## 문서 범위
