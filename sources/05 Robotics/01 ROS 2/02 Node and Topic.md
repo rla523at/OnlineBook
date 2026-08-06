@@ -51,6 +51,52 @@ Node가 늦게 시작하거나 종료되어도 다른 node의 source code를 바
 
 다음 예제의 `10`은 publisher와 subscriber에 최근 10개 sample을 보관하는 `Keep Last` history depth를 간단히 지정한다. 모든 message의 영구 보관이나 전달을 보장한다는 뜻은 아니다.
 
+### Message와 message type
+
+`message`는 publisher가 topic에 한 번 publish하는 하나의 data sample이다. 같은 message type으로 만든 message라도 instance마다 field 값은 달라질 수 있다.
+
+`message type`은 message가 어떤 field를 가지며 각 field의 type이 무엇인지 정의한 ROS interface다. 예제의 `std_msgs/msg/String`은 `data`라는 string field 하나를 정의한다.
+
+`std_msgs/msg/String` 형식의 이름은 다음 세 부분으로 구성된다.
+
+| 부분 | 예제 | 의미 |
+|---|---|---|
+| Package | `std_msgs` | Interface를 제공하는 package |
+| Interface 종류 | `msg` | Topic 통신에 사용하는 message interface |
+| Type 이름 | `String` | Field 구조를 정의한 구체적인 message type |
+
+CLI와 interface 이름에서는 `std_msgs/msg/String`으로 표기하고, C++ source에서는 같은 type을 namespace 형식인 `std_msgs::msg::String`으로 표기한다.
+
+```cpp
+std_msgs::msg::String message;
+message.data = "Hello ROS 2";
+publisher_->publish(message);
+```
+
+이 예제의 개념 대응은 다음과 같다.
+
+| 개념 | 실제 대응 |
+|---|---|
+| Message type | `std_msgs/msg/String` |
+| C++ message type | `std_msgs::msg::String` |
+| Message instance | 변수 `message` |
+| Message field | `message.data` |
+| Topic | Publisher를 만들 때 지정한 `/chatter` |
+
+Topic은 message가 전달되는 이름 있는 경로이고, message type은 그 경로로 전달할 data의 구조다. Message instance 자체에 topic 이름이 들어 있는 것은 아니며, 같은 message type을 여러 topic에서 사용할 수도 있다.
+
+다음 명령으로 설치된 message type의 실제 field 정의를 확인할 수 있다.
+
+```bash
+ros2 interface show std_msgs/msg/String
+```
+
+핵심 출력은 다음과 같다.
+
+```text
+string data
+```
+
 ## 최소 C++ publisher/subscriber package
 
 다음 예제는 하나의 `cpp_pubsub` package에 두 executable을 만든다.

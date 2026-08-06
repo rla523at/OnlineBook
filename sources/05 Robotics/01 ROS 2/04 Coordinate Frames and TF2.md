@@ -249,7 +249,7 @@ Rotation을 roll, pitch, yaw로 입력할 때는 각각 x, y, z fixed axis에 �
 
 ## tf2의 역할
 
-`tf2`는 ROS 2에서 coordinate transform을 배포하고 조회하는 library 집합이다. Broadcaster는 parent frame과 child frame 사이에서 특정 timestamp의 transform 값인 transform sample을 publish하고, listener는 이를 수신해 자신의 buffer에 보관한다. Transform이 필요한 process는 이 buffer에 source frame, target frame과 query time을 지정해 조회한다.
+`tf2`는 ROS 2에서 coordinate transform을 배포하고 조회하는 library 집합이다. Broadcaster는 parent frame과 child frame 사이에서 특정 timestamp의 transform 값인 transform sample을 publish하고, listener는 이를 수신해 자신의 buffer에 보관한다. Transform이 필요한 process는 이 buffer에 source frame, target frame과 query time을 지정해 조회한다. Listener와 buffer는 모든 consumer가 함께 사용하는 중앙 process를 뜻하지 않는다. RViz2, `tf2_echo` 또는 tf2를 사용하는 custom node처럼 transform이 필요한 각 consumer process가 내부에 listener와 buffer를 두고 자신의 buffer를 조회한다.
 
 Parent frame을 `A`, child frame을 `B`라고 하면 시각 $t_i$의 transform sample은 ${}^{A}\mathbf{T}_{B}(t_i)$다. `tf2_ros` broadcaster API에서는 sample 하나를 `geometry_msgs/msg/TransformStamped`로 표현한다. Dynamic transform ${}^{A}\mathbf{T}_{B}(t)$는 timestamp가 서로 다른 여러 `TransformStamped` sample로 전달되므로, `TransformStamped` 하나가 시간에 따른 transform 전체를 뜻하지는 않는다.
 
@@ -262,21 +262,24 @@ transform broadcaster
         ▼
      /tf 또는 /tf_static (`TFMessage`)
         │
+        │ consumer process 내부의 listener가 subscribe
         ▼
-listener와 transform buffer
-        │
-        │ target frame A, source frame B, time으로 조회
-        ▼
-     B 좌표 → A 좌표 transform 반환
-        │
-        ▼
-application 또는 RViz2가 data 좌표를 B에서 A로 다시 표현
+RViz2 process
+  ├─ listener: transform sample 수신
+  ├─ transform buffer: 시간별 transform 저장·계산
+  └─ PointCloud2 display 같은 application logic
+       │
+       │ target frame A, source frame B, time으로 내부 buffer 조회
+       ▼
+     B 좌표 → A 좌표 transform을 받아 data 좌표를 다시 표현
 ```
 
 - `broadcaster`는 자신이 책임지는 parent-child frame 사이의 transform sample을 ROS graph에 publish한다.
-- `listener`는 `TFMessage`에 담긴 `TransformStamped` sample을 수신해 buffer에 전달한다.
-- `buffer`는 시간별 transform을 보관하고 source frame에서 target frame으로 좌표를 바꾸는 transform을 계산한다.
-- `RViz2` 같은 consumer는 message의 frame을 source, 표시 기준 frame을 target으로 사용해 transform을 조회한 뒤 변환된 좌표로 data를 표시한다.
+- `listener`는 `TFMessage`에 담긴 `TransformStamped` sample을 수신해 같은 consumer process의 buffer에 전달한다. Listener 자체가 반드시 별도 node나 process인 것은 아니다.
+- `buffer`는 consumer process마다 별도로 존재하며, 시간별 transform을 보관하고 source frame에서 target frame으로 좌표를 바꾸는 transform을 계산한다.
+- `RViz2`는 별도 listener process 뒤에 연결되는 것이 아니라 내부에 listener와 buffer를 가진 tf2 consumer다. Message의 frame을 source, 표시 기준 frame을 target으로 사용해 transform을 조회한 뒤 변환된 좌표로 data를 표시한다.
+
+RViz2에서는 선택된 transformation backend가 listener와 buffer의 생명주기를 관리한다. 표준 TF backend가 초기화되면 listener가 `/tf`와 `/tf_static` subscription을 자동으로 생성하지만, TF display는 이 구독을 생성하는 구성 요소가 아니라 buffer의 frame 관계를 시각화하는 consumer다. RViz2 configuration에서 transformation backend, Fixed Frame과 TF display를 구분하는 방법은 [PointCloud2 and RViz2](<./07 PointCloud2 and RViz2.md>)에서 설명한다.
 
 tf2 Buffer API의 기본 조회 형태는 다음과 같다.
 
