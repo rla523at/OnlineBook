@@ -298,7 +298,7 @@ source install/setup.bash
 ros2 launch sensor_description publish_sensor_rig.launch.py
 ```
 
-첫 terminal의 `colcon build`는 URDF와 launch file을 install space에 배치한다. 새 terminal의 두 setup file은 Jazzy underlay와 workspace overlay를 활성화한다. 마지막 command가 `robot_state_publisher` process를 실제로 시작한다.
+첫 terminal의 `--packages-select sensor_description`은 `sensor_description` package만 선택하고 그 package의 CMake install rule을 실행해 URDF와 launch file을 install space에 배치한다. URDF 자체를 compile하는 과정은 아니다. Package 선택 방식과 compile 및 install의 차이는 [Environment and Workspace](<./01 Environment and Workspace.md>)를 참고한다. 새 terminal의 두 setup script는 Jazzy underlay와 workspace overlay를 활성화한다. 마지막 command가 `robot_state_publisher` process를 실제로 시작한다.
 
 ## 단계별 검증
 

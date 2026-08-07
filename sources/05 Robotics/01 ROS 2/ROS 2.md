@@ -44,7 +44,7 @@ Node 사이의 대표적인 상호작용 방식은 다음과 같다.
 
 `workspace`는 하나 이상의 ROS 2 package를 source에서 함께 개발하고 build하는 directory다. `colcon`은 workspace의 package dependency를 읽어 정해진 순서로 build하는 command-line tool이다.
 
-설치된 ROS 2를 기반 환경으로 사용하고 source에서 build한 workspace를 그 위에 추가할 수 있다. 이때 기반 환경을 `underlay`, 그 위에 추가하는 workspace 환경을 `overlay`라고 한다.
+설치된 ROS 2를 기반 환경으로 활성화한 뒤, workspace 안의 package들을 `colcon`으로 build하여 생성된 `install` 환경을 그 위에 추가할 수 있다. 이때 기반 환경을 `underlay`, 그 위에 추가하는 workspace 환경을 `overlay`라고 한다.
 
 설치, shell environment, underlay/overlay와 workspace 산출물의 관계는 [Environment and Workspace](<./01 Environment and Workspace.md>)에서 설명한다.
 

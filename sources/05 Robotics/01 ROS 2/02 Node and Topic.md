@@ -325,13 +325,13 @@ rosdep install -i --from-path src --rosdistro jazzy -y
 
 `rosdep`은 빠진 dependency를 설치하지만 C++ source를 compile하지 않는다.
 
-Package를 build한다.
+Package를 build한다. `--packages-select cpp_pubsub`은 workspace의 다른 package를 자동으로 build하지 않고 `cpp_pubsub`만 선택한다. 여기서 `rclcpp`와 `std_msgs`는 앞에서 활성화한 Jazzy underlay에 이미 있으므로 함께 build하지 않는다. Package 선택 방식과 build 산출물의 일반 원리는 [Environment and Workspace](<./01 Environment and Workspace.md>)를 참고한다.
 
 ```bash
 colcon build --packages-select cpp_pubsub
 ```
 
-성공하면 `talker`와 `listener`가 `install/cpp_pubsub/lib/cpp_pubsub` 아래에 설치되고 workspace용 setup file이 갱신된다.
+성공하면 `talker`와 `listener`가 `install/cpp_pubsub/lib/cpp_pubsub` 아래에 설치되고 workspace용 setup script가 갱신된다.
 
 Build에 사용한 shell과 분리된 새 terminal을 열고 설치 대상에 등록된 executable을 확인한다.
 

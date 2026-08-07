@@ -35,7 +35,7 @@ ROS context와 node 생성
              자원 정리와 process 종료
 ```
 
-`colcon build`가 성공했다는 사실은 executable이 준비됐다는 뜻이다. Build tool이 executable을 계속 실행하거나 node를 자동으로 유지한다는 뜻은 아니다.
+`colcon build`의 package 선택, build와 install 과정 및 산출물 구조는 [Environment and Workspace](<./01 Environment and Workspace.md>)에서 설명한다. 이 문서처럼 executable target을 선언한 package에서 `colcon build`가 성공했다는 사실은 executable이 준비됐다는 뜻이다. Build tool이 executable을 계속 실행하거나 node를 자동으로 유지한다는 뜻은 아니다.
 
 ## Executable 실행을 시작하는 주체
 
