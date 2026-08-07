@@ -2,7 +2,7 @@
 
 ## 한 줄 요약
 
-Node는 ROS graph에 참여하는 논리적인 계산 단위이고, topic은 publisher가 보낸 message stream을 subscriber가 받는 비동기 통신 경로다.
+Node는 ROS graph에 참여하는 논리적인 계산 단위이고, topic은 publisher endpoint가 보낸 message stream을 subscription endpoint가 받는 비동기 통신 경로다.
 
 ## Node, executable과 process
 
@@ -20,40 +20,57 @@ Node는 ROS graph에 참여하는 논리적인 계산 단위이고, topic은 pub
 
 하나의 executable이 실행될 때 node 하나만 만드는 구성이 흔하지만, 한 process가 여러 node를 포함할 수도 있다. 따라서 `node 하나 = process 하나`를 ROS 2의 규칙으로 가정하면 안 된다.
 
-Node는 이름을 가지고 ROS graph에 참여하며 publisher와 subscriber 같은 통신 endpoint를 만든다.
+Node는 이름을 가지고 ROS graph에 참여한다. Topic으로 message를 주고받기 위해 각 node는 `publisher`와 `subscription`이라는 통신 endpoint를 만든다. 이 endpoint들은 독립된 node가 아니라 이를 만든 node에 속하는 통신 객체다. 하나의 node는 publisher와 subscription을 각각 여러 개 만들 수 있으며, 두 종류를 동시에 가질 수도 있다.
 
 Node들은 같은 process, 같은 computer 또는 network로 연결된 서로 다른 computer에서 실행될 수 있다. 같은 ROS domain의 node는 middleware discovery를 통해 서로를 찾고 ROS graph를 구성한다.
 
-## Topic, publisher와 subscriber
+## Topic, publisher와 subscription
 
-`topic`은 publisher가 보낸 message stream을 subscriber가 받는 비동기 통신 경로다. 연속해서 발생하는 data를 전달하는 데 적합하며 publish-subscribe 방식을 사용한다.
+`topic`은 publisher endpoint가 보낸 message stream을 subscription endpoint가 받는 비동기 통신 경로다. 연속해서 발생하는 data를 전달하는 데 적합하며 publish-subscribe 방식을 사용한다.
+
+Topic은 node나 process가 아니며 자체적으로 실행되지 않는다. 사용자가 `/chatter`라는 별도의 topic node를 만드는 것도 아니다. 사용자는 node 안에 publisher endpoint 또는 subscription endpoint를 만들면서 topic 이름, message type과 QoS를 지정한다. ROS 2 client library와 middleware는 같은 topic 이름과 호환되는 설정을 사용하는 endpoint를 발견하고 message를 전달한다. 실행 중인 endpoint가 해당 이름을 사용하면 `/chatter`가 ROS graph에 topic으로 나타난다.
+
+예제 source code의 `"chatter"`는 현재 node의 namespace를 기준으로 해석하는 상대 이름이다. `/`는 ROS namespace의 root를 뜻하며, root namespace에서 실행되는 예제에서는 `"chatter"`가 완전히 해석된 이름인 `/chatter`가 된다. 예를 들어 node가 `/robot1` namespace에 있다면 상대 이름 `"chatter"`는 `/robot1/chatter`가 되지만, `/chatter`처럼 `/`로 시작하는 이름은 node의 namespace와 관계없이 그대로 유지된다.
 
 ```text
-            publish std_msgs/msg/String
-/talker  ──────────────────────────────>  /chatter  ─────>  /listener
- node              publisher               topic            subscriber
+Node 구성
+/talker node                  /listener node
+└── publisher endpoint        └── subscription endpoint
+
+Message 흐름
+publisher endpoint ── publish ──> topic 이름: /chatter ── deliver ──> subscription endpoint
 ```
+
+`publisher`와 `subscriber`는 각각 발행하거나 수신하는 node의 역할을 가리킬 때도 사용한다. 이 문서에서는 endpoint 자체를 `publisher endpoint`와 `subscription endpoint`, node의 역할을 `publisher node`와 `subscriber node`로 구분해 부른다. 예를 들어 `/listener`는 subscriber node이며, 내부에 `rclcpp::Subscription` 객체를 만든다.
 
 그림의 각 요소는 다음 역할을 한다.
 
-- `publisher`는 정해진 topic에 message를 보낸다.
-- `subscriber`는 정해진 topic에서 message를 받는다.
-- Publisher와 subscriber는 직접 상대 process의 주소를 application code에 고정하지 않는다. 각 endpoint는 topic을 기준으로 연결된다.
-- 하나의 topic에는 publisher와 subscriber가 각각 0개 이상 존재할 수 있다.
+- `publisher endpoint`는 정해진 topic에 message를 보낸다.
+- `subscription endpoint`는 정해진 topic에서 message를 받는다.
+- `publisher endpoint`와 `subscription endpoint`는 직접 상대 process의 주소를 application code에 고정하지 않는다. 각 endpoint는 topic을 기준으로 연결된다.
+- 하나의 topic에는 publisher endpoint와 subscription endpoint가 각각 0개 이상 존재할 수 있다.
 
-Publisher와 subscriber가 실제로 연결되려면 다음 조건을 만족해야 한다.
+### Topic 이름 정하기
 
-- Topic 이름이 같아야 한다.
+예제의 `chatter`는 ROS 2가 미리 정의한 이름이 아니라 application이 정한 topic 이름이다. 따라서 `chatterrrrr`처럼 다른 이름도 ROS 2 이름 규칙을 만족하면 사용할 수 있다.
+
+`chatter`처럼 `/`로 시작하지 않는 이름은 relative topic name이다. Node namespace가 `/robot1`이면 최종 이름은 `/robot1/chatter`가 된다. 반면 `/chatter`처럼 `/`로 시작하는 fully qualified topic name은 node namespace의 영향을 받지 않는다.
+
+이 문서의 예제처럼 특수한 치환 문법을 쓰지 않는 일반적인 topic 이름에는 영문자, 숫자, `_`와 namespace를 구분하는 `/`를 사용한다. 대표적인 제약으로 각 name token은 숫자로 시작할 수 없으며, 공백, 연속된 `_`, 빈 token을 만드는 `//`, 이름 끝의 `/`는 허용되지 않는다. 예를 들어 `chatterrrrr`, `robot1/chatter`, `/robot1/chatter`는 유효하지만 `123chatter`, `my chatter`, `foo__bar`, `foo//bar`, `foo/`는 유효하지 않다.
+
+`publisher endpoint`와 `subscription endpoint`가 실제로 연결되려면 다음 조건을 만족해야 한다.
+
+- Node namespace가 적용된 최종 topic 이름이 같아야 한다.
 - Message type이 같아야 한다. Topic은 strongly typed이므로 이름만 같고 type이 다르면 통신하지 않는다.
 - QoS 정책이 서로 호환되어야 한다. 두 endpoint의 모든 QoS 설정이 반드시 같을 필요는 없다.
 
-Node가 늦게 시작하거나 종료되어도 다른 node의 source code를 바꿀 필요는 없다. 다만 discovery가 연결을 만드는 데 짧은 시간이 걸릴 수 있고, subscriber가 연결되기 전에 지나간 message를 나중에 항상 받을 수 있는 것은 아니다.
+Node가 늦게 시작하거나 종료되어도 다른 node의 source code를 바꿀 필요는 없다. 다만 discovery가 연결을 만드는 데 짧은 시간이 걸릴 수 있고, subscription endpoint가 연결되기 전에 지나간 message를 나중에 항상 받을 수 있는 것은 아니다.
 
-다음 예제의 `10`은 publisher와 subscriber에 최근 10개 sample을 보관하는 `Keep Last` history depth를 간단히 지정한다. 모든 message의 영구 보관이나 전달을 보장한다는 뜻은 아니다.
+다음 예제의 `10`은 publisher endpoint와 subscription endpoint에 최근 10개 sample을 보관하는 `Keep Last` history depth를 간단히 지정한다. 모든 message의 영구 보관이나 전달을 보장한다는 뜻은 아니다.
 
 ### Message와 message type
 
-`message`는 publisher가 topic에 한 번 publish하는 하나의 data sample이다. 같은 message type으로 만든 message라도 instance마다 field 값은 달라질 수 있다.
+`message`는 publisher endpoint가 topic에 한 번 publish하는 하나의 data sample이다. 같은 message type으로 만든 message라도 instance마다 field 값은 달라질 수 있다.
 
 `message type`은 message가 어떤 field를 가지며 각 field의 type이 무엇인지 정의한 ROS interface다. 예제의 `std_msgs/msg/String`은 `data`라는 string field 하나를 정의한다.
 
@@ -353,7 +370,7 @@ cpp_pubsub talker
 
 `talker`와 `listener` executable은 각각 별도 process를 시작하고, 각 process는 `/talker`와 `/listener` node를 하나씩 만든다. 비동기 통신을 확인하기 위해 두 executable을 서로 다른 terminal에서 실행한다.
 
-Build terminal과 분리된 terminal A를 열어 publisher를 실행한다.
+Build terminal과 분리된 terminal A를 열어 `talker` executable을 실행하고 publisher node를 시작한다.
 
 ```bash
 source /opt/ros/jazzy/setup.bash
@@ -369,7 +386,7 @@ ros2 run cpp_pubsub talker
 [INFO] [...][talker]: Publishing: 'Hello ROS 2: 1'
 ```
 
-새 terminal B를 열어 subscriber를 실행한다.
+새 terminal B를 열어 `listener` executable을 실행하고 subscriber node를 시작한다.
 
 ```bash
 source /opt/ros/jazzy/setup.bash
@@ -407,7 +424,7 @@ ros2 node info /talker
 ros2 node info /listener
 ```
 
-`ros2 node list`에는 최소한 `/talker`와 `/listener`가 나타난다. `node info`는 각 node가 만든 publisher와 subscriber를 보여준다.
+`ros2 node list`에는 최소한 `/talker`와 `/listener`가 나타난다. `node info`는 각 node에 속한 endpoint를 `Publishers`와 `Subscribers` 항목으로 보여준다.
 
 Topic 이름과 type을 확인한다.
 
@@ -440,13 +457,13 @@ ros2 topic hz /chatter
 
 예제 timer가 500 ms이므로 충분히 관찰하면 약 2 Hz에 가까운 값이 나타난다. Operating system scheduling과 측정 구간 때문에 정확히 2.000 Hz일 필요는 없다.
 
-`ros2 topic echo`와 `ros2 topic hz`도 관찰하는 동안 임시 subscriber endpoint를 만든다. 따라서 이 명령이 실행 중일 때 `ros2 topic info`의 subscriber count가 늘어날 수 있다.
+`ros2 topic echo`와 `ros2 topic hz`도 관찰하는 동안 임시 subscription endpoint를 만든다. 따라서 이 명령이 실행 중일 때 `ros2 topic info`의 subscriber count가 늘어날 수 있다.
 
 ## 종료와 다시 확인
 
 각 실행 terminal에서 `Ctrl+C`를 눌러 `talker`와 `listener` process를 각각 종료한다.
 
-Publisher를 먼저 종료하면 listener는 새 message를 받지 않은 채 계속 대기할 수 있으므로 listener도 별도로 종료한다.
+`talker` process를 먼저 종료하면 listener는 새 message를 받지 않은 채 계속 대기할 수 있으므로 listener도 별도로 종료한다.
 
 종료 후 다시 확인한다.
 
@@ -455,7 +472,7 @@ ros2 node list
 ros2 topic info /chatter
 ```
 
-다른 publisher나 subscriber가 없다면 `/talker`, `/listener`가 사라지고 `/chatter`를 찾지 못한다. Node와 topic은 source file에 적혀 있다는 이유만으로 graph에 계속 존재하는 것이 아니라, endpoint를 만든 process가 실행 중일 때 graph에 나타난다.
+다른 publisher endpoint나 subscription endpoint가 없다면 `/talker`, `/listener`가 사라지고 `/chatter`를 찾지 못한다. Node와 topic은 source file에 적혀 있다는 이유만으로 graph에 계속 존재하는 것이 아니라, endpoint를 만든 process가 실행 중일 때 graph에 나타난다.
 
 `Ctrl+C`는 foreground process group에 `SIGINT`를 보낸다. 기본 `rclcpp::init()`이 설치한 signal handler가 ROS context에 shutdown을 요청하면 executor의 `spin()`이 끝나고 process가 종료 경로로 진행한다. Signal, `spin()`과 middleware 자원 정리의 관계는 [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>)에서 설명한다.
 
@@ -504,5 +521,6 @@ ros2 topic info /chatter --verbose
 
 - [ROS 2 Documentation - About Nodes](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Concepts/Basic/About-Nodes.rst)
 - [ROS 2 Documentation - About Topics](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Concepts/Basic/About-Topics.rst)
+- [ROS 2 Design - Topic and Service name mapping to DDS](https://design.ros2.org/articles/topic_and_service_names.html)
 - [ROS 2 Documentation - Writing a Simple C++ Publisher and Subscriber](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Cpp-Publisher-And-Subscriber.rst)
 - [ROS 2 Documentation - Creating Your First ROS 2 Package](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.rst)
