@@ -268,7 +268,7 @@ RViz2에서 다음 순서로 설정한다.
 
 Fixed Frame은 모든 data를 표시할 공통 기준이다. Cloud의 `frame_id`가 `lidar_link`이면 RViz2는 message timestamp에서 `lidar_link`와 `base_link` 사이의 tf2 transform을 조회한다. 앞 문서의 static sensor transform을 사용하면 cloud 전체가 lidar 장착 위치와 방향을 반영해 표시된다.
 
-이 예제는 `map`이나 `odom`을 publish하는 motion estimation component가 없는 최소 sensor rig이므로 `base_link`를 Fixed Frame으로 사용한다. Mobile robot system에서는 관찰 목적에 따라 다른 Fixed Frame을 선택할 수 있다.
+이 예제에는 `map`이나 `odom`을 publish하는 motion estimation component가 없으므로 `base_link`를 Fixed Frame으로 사용한다. Mobile robot system에서는 관찰 목적에 따라 다른 Fixed Frame을 선택할 수 있다.
 
 | Fixed Frame | 화면에서 관찰하는 기준 |
 |---|---|

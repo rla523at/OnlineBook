@@ -248,7 +248,7 @@ Rotation을 roll, pitch, yaw로 입력할 때는 각각 x, y, z fixed axis에 �
 - 서로 변환해야 하는 frame은 같은 연결 component에 있어야 한다.
 - 같은 child transform을 둘 이상의 node가 동시에 publish하지 않도록 transform의 소유자를 하나로 정한다.
 
-Sensor rig의 최소 tree는 다음처럼 만들 수 있다.
+IMU와 LiDAR를 `base_link`에 고정한 최소 tree는 다음처럼 만들 수 있다.
 
 ```text
 base_link
@@ -256,7 +256,7 @@ base_link
 └── lidar_link
 ```
 
-`base_link`는 이 최소 sensor rig subtree의 root다. `imu_link`와 `lidar_link`는 robot body에 고정되어 있으므로 두 관계는 static transform으로 표현할 수 있다. 움직이는 robot의 전체 TF tree에서는 `base_link`가 `odom` 같은 외부 frame의 child가 될 수 있다.
+`base_link`는 이 최소 예제 subtree의 root다. `imu_link`와 `lidar_link`는 robot body에 고정되어 있으므로 두 관계는 static transform으로 표현할 수 있다. 움직이는 robot의 전체 TF tree에서는 `base_link`가 `odom` 같은 외부 frame의 child가 될 수 있다.
 
 TF graph 전체에 연결되지 않은 frame이 존재할 수는 있지만, 연결되지 않은 두 frame 사이의 transform은 계산할 수 없다. RViz2의 Fixed Frame과 sensor message의 frame이 서로 연결되지 않으면 해당 sensor data를 표시할 수 없다.
 
@@ -312,6 +312,8 @@ application logic
 data 변환 또는 다른 계산에 사용
 ```
 
+`TransformListener`와 tf2 buffer의 역할은 다르다. `TransformListener`는 `/tf`와 `/tf_static`에서 수신한 `TFMessage`의 `TransformStamped` sample을 buffer에 전달한다. Application이 `lookupTransform()`을 호출하면 tf2 buffer 내부의 `tf2::BufferCore`가 요청 시각에 맞는 transform을 선택하거나 보간하고, source와 target frame 사이의 경로를 탐색해 transform을 합성한다. 따라서 조회를 요청하는 주체는 application이고, frame 경로를 탐색해 결과 transform을 계산하는 주체는 buffer다.
+
 - `broadcaster`는 자신이 책임지는 parent-child frame 사이의 transform sample을 ROS graph에 publish한다.
 - `listener`는 `TFMessage`에 담긴 `TransformStamped` sample을 수신해 같은 consumer process의 buffer에 전달한다. Listener 자체가 반드시 별도 node나 process인 것은 아니다.
 - `buffer`는 consumer process마다 별도로 존재하며, 시간별 transform을 보관하고 source frame에서 target frame으로 좌표를 바꾸는 transform을 계산한다.
@@ -329,16 +331,17 @@ Target frame을 `A`, source frame을 `B`라고 하면 반환값은 ${}^{A}\mathb
 
 tf2가 topic에 있는 모든 sensor data를 자동으로 변환하는 것은 아니다. Consumer가 transform을 조회하고 point, pose 또는 다른 stamped data의 수치 좌표에 적용해 target frame 표현을 만들어야 한다.
 
-### TF tree는 listener별 buffer에 구성된다
+### TF tree는 consumer별 local buffer에서 관리된다
 
-TF tree를 영구적으로 보관하는 중앙 process나 단일 file은 없다. Broadcaster가 transform sample을 publish하면 각 listener가 message를 받아 자신의 tf2 buffer에 TF tree와 시간별 transform을 구성한다. 실제 transform query에 응답하는 것은 해당 listener의 buffer다.
+TF tree를 영구적으로 보관하는 중앙 process나 단일 file은 없다. Broadcaster가 transform sample을 publish하면 각 consumer의 `TransformListener`가 message를 수신해 local buffer에 전달하고, buffer는 parent-child 관계와 시간별 transform을 저장한다. Consumer가 transform을 조회하면 해당 local buffer 내부의 `BufferCore`가 요청에 응답한다.
 
 | 대상 | 역할 |
 |---|---|
 | Model·calibration·pose estimate | Parent-child transform을 결정하는 입력 |
 | Transform broadcaster | 입력에서 얻은 transform sample을 `/tf` 또는 `/tf_static`에 publish하는 node 또는 library object |
 | `/tf`, `/tf_static` | 실행 중인 broadcaster와 listener 사이에서 `tf2_msgs/msg/TFMessage`를 전달하는 topic |
-| listener의 tf2 buffer | 수신한 transform을 시간과 함께 보관하고 연결된 frame 사이의 transform을 계산하는 memory |
+| `TransformListener` | `/tf`와 `/tf_static`을 수신해 transform sample을 같은 consumer의 buffer에 전달하는 library object |
+| Consumer의 local tf2 buffer | 수신한 transform을 시간과 함께 보관하고 조회 시 연결된 frame 사이의 transform을 계산하는 memory |
 
 Broadcaster가 transform 값을 얻는 방법은 관계의 종류에 따라 다르다. 고정 관계는 calibration 값에서, 움직이는 관계는 joint state·odometry·localization 결과에서 얻을 수 있다. TF2는 이 물리 상태를 sensor에서 직접 추정하지 않고 broadcaster가 보낸 transform을 전달·저장·조회한다. URDF model을 읽는 구체적인 broadcaster는 다음 문서인 [URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)에서 설명하고, 동적 transform의 계산 주체는 [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)에서 설명한다.
 

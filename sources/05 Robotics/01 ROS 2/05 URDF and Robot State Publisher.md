@@ -10,16 +10,17 @@ URDF(Unified Robot Description Format)는 robot의 구조를 표현하는 XML fo
 
 URDF와 실행 중인 TF tree의 관계를 이해하려면 다음 개념을 구분해야 한다.
 
-| 구성 요소 | 실행 중 역할 | 비유 |
-|---|---|---|
-| URDF file | Link, joint와 geometry를 text로 저장한다. | 로봇의 설계도 |
-| `robot_description` parameter | 실행 중인 node에 URDF text를 전달한다. | 전달된 설계도 |
-| `robot_state_publisher` | URDF와 joint state를 사용해 link 사이의 transform을 publish한다. | 설계도를 읽고 좌표 관계를 방송하는 프로그램 |
-| `/tf`, `/tf_static` | Broadcaster와 listener 사이에서 transform message를 전달한다. | 방송에 사용하는 통신 채널 |
-| RViz2 같은 tf2 listener | Transform message를 수신하고 필요한 transform을 조회한다. | 방송을 듣는 프로그램 |
-| listener의 tf2 buffer | 수신한 transform을 저장하고 frame 관계를 구성한다. | 들은 내용을 정리한 좌표 관계도 |
+| 구성 요소 | 실행 중 역할 |
+|---|---|
+| URDF file | Link, joint와 geometry를 text로 저장한다. |
+| `robot_description` parameter | 실행 중인 node에 URDF text를 전달한다. |
+| `robot_state_publisher` | URDF와 joint state를 사용해 link 사이의 transform을 publish한다. |
+| `/tf`, `/tf_static` | Broadcaster와 listener 사이에서 transform message를 전달한다. |
+| RViz2 같은 tf2 consumer | 내부에 `TransformListener`와 buffer를 두고 필요한 transform을 조회한다. |
+| `TransformListener` | `/tf`와 `/tf_static`의 transform message를 수신해 같은 consumer의 buffer에 전달한다. |
+| Consumer의 tf2 buffer | Transform을 시간별로 저장하고 조회 시 frame 경로를 탐색해 필요한 transform을 계산한다. |
 
-TF tree는 중앙 file이나 database에 영구적으로 저장되는 대상이 아니라, 실행 중인 broadcaster가 publish한 transform을 listener가 수신하면서 각자의 buffer에 구성된다. URDF는 이 과정에서 robot의 구조를 정의하는 입력일 뿐, 그 자체가 TF tree는 아니다.
+TF tree는 중앙 file이나 database에 영구적으로 저장되는 대상이 아니다. 실행 중인 broadcaster가 publish한 transform을 각 consumer의 `TransformListener`가 수신해 local buffer에 전달하고, buffer는 parent-child 관계와 시간 이력을 저장한다. 이 관계들이 해당 consumer가 조회할 수 있는 TF tree를 이룬다. URDF는 이 과정에서 robot의 구조를 정의하는 입력일 뿐, 그 자체가 TF tree는 아니다.
 
 `robot_state_publisher`는 URDF model을 읽고 link 사이의 transform을 tf2에 publish하는 ROS 2 node다. URDF 자체와 `robot_state_publisher`, publish된 TF tree는 서로 연결된 단계이지만 같은 개념은 아니다.
 
@@ -36,16 +37,16 @@ robot_state_publisher
    └── movable joint ───> /tf ─────────┤
               ▲                        │ transform 수신
               └── /joint_states        ▼
-                              RViz2 같은 tf2 listener
-                                        │
+                              RViz2 같은 tf2 consumer
+                                        │ TransformListener가 전달
                                         ▼
-                              listener의 tf2 buffer
-                                        │
+                              consumer의 local tf2 buffer
+                                        │ lookupTransform() 시 경로 탐색·합성
                                         ▼
-                              조회 가능한 TF tree
+                              조회 결과 transform
 ```
 
-즉, URDF는 robot 구조의 정의이고 TF tree는 그 정의를 바탕으로 publish된 transform을 listener가 수신해 자신의 buffer에 구성한 frame 관계다. Broadcaster, listener와 buffer의 일반적인 동작은 [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)에서 설명한다.
+즉, URDF는 robot 구조의 정의이고 TF tree는 그 정의를 바탕으로 publish되어 각 consumer의 local buffer에 저장된 parent-child frame 관계의 논리적 구조다. Consumer가 transform을 조회하면 buffer가 저장된 관계의 경로를 탐색해 필요한 transform을 계산한다. Broadcaster, listener와 buffer의 일반적인 동작은 [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)에서 설명한다.
 
 ## Link와 joint
 
@@ -92,7 +93,7 @@ Link를 나눌 때는 다음 두 질문을 먼저 확인한다.
 | `continuous` | 1 | 지정된 축을 중심으로 위치 제한 없이 회전한다. |
 | `prismatic` | 1 | 지정된 축을 따라 제한된 범위에서 직선 이동한다. |
 
-URDF에는 `planar`와 `floating` type도 있지만, 이 문서의 sensor rig와 1-DOF joint 설명에서는 사용하지 않는다. 사용하는 consumer가 해당 type을 어떻게 지원하는지는 별도로 확인해야 한다.
+URDF에는 `planar`와 `floating` type도 있지만, 이 문서의 IMU·LiDAR 고정 연결 예제와 1-DOF joint 설명에서는 사용하지 않는다. 사용하는 consumer가 해당 type을 어떻게 지원하는지는 별도로 확인해야 한다.
 
 `fixed`는 child link가 world에서 절대 움직이지 않는다는 뜻이 아니다. Parent와 child 사이의 상대 pose만 일정하다는 뜻이다. 예를 들어 `base_link`가 world에서 이동하면 `imu_link`와 `lidar_link`도 함께 이동하지만, `base_link`에 대한 sensor 장착 위치는 변하지 않는다.
 
@@ -160,13 +161,13 @@ $$
 
 URDF model은 하나의 root link를 가진 tree여야 한다. 하나의 child link에 parent joint를 둘 이상 지정하거나 joint가 cycle을 만들면 일반적인 URDF kinematic tree로 해석할 수 없다.
 
-## 최소 sensor rig URDF
+## IMU와 LiDAR를 fixed joint로 연결하는 URDF 예제
 
 다음 model에서 `base_link`, `imu_link`와 `lidar_link`는 각각 link다. `base_to_imu`와 `base_to_lidar`라는 두 fixed joint가 sensor link를 `base_link`에 연결한다. 위치 값은 URDF와 TF 동작을 설명하기 위한 임의의 예제이며 특정 project나 실제 장비의 calibration 값이 아니다.
 
 ```xml
 <?xml version="1.0"?>
-<robot name="sensor_rig">
+<robot name="imu_lidar_model">
   <link name="base_link"/>
   <link name="imu_link"/>
   <link name="lidar_link"/>
@@ -213,7 +214,7 @@ base_link
 
 RViz2의 기본 TF listener는 `/tf_static`에 호환되는 QoS로 구독하므로 `robot_state_publisher`가 실행 중인 동안 RViz2가 나중에 시작해도 retained static transform을 받을 수 있다. RViz2 내부 listener, transformation backend와 TF display의 역할 구분은 [PointCloud2 and RViz2](<./07 PointCloud2 and RViz2.md>)에서 설명한다.
 
-앞의 sensor rig에는 fixed joint만 있다. 따라서 이 최소 예제에서는 별도의 `JointState` publisher가 없어도 `base_link` → `imu_link`, `base_link` → `lidar_link` transform을 만들 수 있다.
+앞의 URDF 예제에는 fixed joint만 있다. 따라서 별도의 `JointState` publisher가 없어도 `base_link` → `imu_link`, `base_link` → `lidar_link` transform을 만들 수 있다.
 
 Root인 `base_link`에는 URDF 내부 parent가 없지만, 이것이 전체 runtime TF tree에서도 root라는 뜻은 아니다. 이 model만 실행하면 `world` 또는 `odom`에서 `base_link`로 이어지는 transform은 생기지 않는다. Odometry component가 `odom → base_link`를 publish하면 이 URDF subtree 전체가 `odom` 아래에 연결된다. `robot_state_publisher`는 `map → odom`이나 `odom → base_link`를 자동으로 만들지 않는다. RViz2의 Fixed Frame을 `base_link`로 선택하면 최소 model을 확인할 수 있고, 외부 global frame이 필요할 때는 그 관계를 담당하는 별도 component를 추가한다.
 
@@ -226,9 +227,9 @@ sensor_description/
 ├── CMakeLists.txt
 ├── package.xml
 ├── launch/
-│   └── publish_sensor_rig.launch.py
+│   └── publish_imu_lidar.launch.py
 └── urdf/
-    └── sensor_rig.urdf
+    └── imu_lidar.urdf
 ```
 
 `CMakeLists.txt`에 다음 install rule을 추가한다.
@@ -266,7 +267,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     package_share = Path(get_package_share_directory("sensor_description"))
-    urdf_path = package_share / "urdf" / "sensor_rig.urdf"
+    urdf_path = package_share / "urdf" / "imu_lidar.urdf"
     robot_description = urdf_path.read_text(encoding="utf-8")
 
     return LaunchDescription(
@@ -295,7 +296,7 @@ colcon build --packages-select sensor_description
 source /opt/ros/jazzy/setup.bash
 cd ~/ros2_ws
 source install/setup.bash
-ros2 launch sensor_description publish_sensor_rig.launch.py
+ros2 launch sensor_description publish_imu_lidar.launch.py
 ```
 
 첫 terminal의 `--packages-select sensor_description`은 `sensor_description` package만 선택하고 그 package의 CMake install rule을 실행해 URDF와 launch file을 install space에 배치한다. URDF 자체를 compile하는 과정은 아니다. Package 선택 방식과 compile 및 install의 차이는 [Environment and Workspace](<./01 Environment and Workspace.md>)를 참고한다. 새 terminal의 두 setup script는 Jazzy underlay와 workspace overlay를 활성화한다. 마지막 command가 `robot_state_publisher` process를 실제로 시작한다.
@@ -307,7 +308,7 @@ ros2 launch sensor_description publish_sensor_rig.launch.py
 `check_urdf` executable이 설치되어 있다면 XML parsing과 link tree를 먼저 확인할 수 있다.
 
 ```bash
-check_urdf src/sensor_description/urdf/sensor_rig.urdf
+check_urdf src/sensor_description/urdf/imu_lidar.urdf
 ```
 
 이 command가 성공해도 ROS node가 실행됐다는 뜻은 아니다. File이 URDF parser에서 유효하고 tree를 만들 수 있다는 뜻이다.
