@@ -6,7 +6,7 @@ Coordinate frame은 수치 좌표의 기준이고 transform은 같은 기하학�
 
 ## 문서 범위와 학습 순서
 
-이 문서는 coordinate frame과 transform의 수학적 의미를 먼저 정의한 뒤, tf2의 broadcaster·listener·buffer와 TF tree를 설명한다. 고정 transform을 command로 확인하는 최소 예제까지 다루며, transform 값을 만드는 구체적인 robot component는 뒤 문서로 분리한다.
+이 문서는 coordinate frame과 transform의 수학적 의미를 먼저 정의한 뒤, 여러 frame을 연결하는 TF tree와 tf2의 broadcaster·listener·buffer를 설명한다. 고정 transform을 command로 확인하는 최소 예제까지 다루며, transform 값을 만드는 구체적인 robot component는 뒤 문서로 분리한다.
 
 ```text
 source frame의 coordinate
@@ -19,7 +19,7 @@ target frame의 coordinate
 
 1. Coordinate frame이 필요한 이유를 확인한다.
 2. Rotation과 translation으로 coordinate를 변환하는 방법을 이해한다.
-3. TF tree의 parent-child 관계와 좌표 변환 방향을 구분한다.
+3. 여러 frame을 연결하는 TF tree를 이해하고 parent-child 관계와 좌표 변환 방향을 구분한다.
 4. tf2가 transform sample을 배포하고 listener별 buffer에서 조회하는 과정을 이해한다.
 5. Static transform 하나를 실행하고 tree를 검증한다.
 
@@ -108,7 +108,7 @@ $$
 \end{bmatrix}
 $$
 
-따라서 ${}^{A}\mathbf{R}_{B}$는 같은 displacement vector의 coordinate를 frame `B`의 basis에서 frame `A`의 basis로 바꾸는 [change of coordinate matrix](<../../01 math/07 Linear Algebra/21 Change of Basis and Coordinate Matrix.md>)다. 두 frame의 basis는 orthonormal이므로 ${}^{A}\mathbf{R}_{B}$는 scaling이나 shear를 포함하지 않는 rotation matrix다.
+따라서 ${}^{A}\mathbf{R}_{B}$는 같은 displacement vector의 coordinate를 frame `B`의 basis 기준에서 frame `A`의 basis 기준으로 바꾸는 [change of coordinate matrix](<../../01 math/07 Linear Algebra/21 Change of Basis and Coordinate Matrix.md>)다. 두 frame의 basis는 orthonormal이므로 ${}^{A}\mathbf{R}_{B}$는 scaling이나 shear를 포함하지 않는 rotation matrix다.
 
 $$
 {}^{A}\mathbf{R}_{B}\,{}^{B}\mathbf{p}
@@ -222,18 +222,6 @@ $$
 
 행렬은 오른쪽의 ${}^{B}\mathbf{T}_{C}$부터 적용된다. 가운데 frame `B`가 이어지도록 superscript와 subscript를 맞추면 합성 방향을 확인하기 쉽다.
 
-### Parent-child 관계와 좌표 변환 방향
-
-TF tree diagram의 화살표와 coordinate가 변환되는 방향은 구분해야 한다. 이 문서의 tree 표기 `A → B`는 frame `A`가 parent이고 frame `B`가 child라는 관계를 뜻하며, 이 관계에는 ${}^{A}\mathbf{T}_{B}$가 저장된다.
-
-| 관점 | `A → B` 관계의 의미 |
-|---|---|
-| Relative pose | Frame `A`를 기준으로 한 frame `B`의 pose |
-| Coordinate transform | Frame `B` 좌표를 frame `A` 좌표로 바꾸는 ${}^{B}\mathbf{p}\mapsto{}^{A}\mathbf{p}$ |
-| ROS message 표현 | `geometry_msgs/msg/TransformStamped`에서 `header.frame_id = A`, `child_frame_id = B` |
-
-따라서 tree 화살표 `A → B`는 data coordinate가 `A`에서 `B`로 변환된다는 뜻이 아니다. 예를 들어 `base_link → lidar_link` parent-child 연결에는 ${}^{\mathrm{base\_link}}\mathbf{T}_{\mathrm{lidar\_link}}$가 저장된다. 이 transform은 `base_link`를 기준으로 한 `lidar_link`의 장착 pose를 나타내며, coordinate에 적용하면 lidar point를 `lidar_link` 좌표에서 `base_link` 좌표로 다시 표현한다. 반대 방향으로 변환하려면 inverse transform이 필요하다.
-
 ## ROS coordinate convention
 
 ROS의 표준 단위와 좌표 convention은 REP-103에 정의되어 있다. 다른 convention을 사용해야 하는 sensor가 있으면 해당 차이를 별도 frame과 transform으로 명시한다.
@@ -247,31 +235,81 @@ ROS의 표준 단위와 좌표 convention은 REP-103에 정의되어 있다. 다
 
 Rotation을 roll, pitch, yaw로 입력할 때는 각각 x, y, z fixed axis에 대한 회전이며 값은 radian이다. Quaternion을 직접 입력할 때는 zero rotation인 `(x, y, z, w) = (0, 0, 0, 1)`처럼 normalized quaternion을 사용한다.
 
+## TF tree
+
+지금까지는 두 frame 사이의 transform을 다뤘다. 실제 robot에는 body, sensor와 joint처럼 여러 coordinate frame이 있으므로 이들의 관계를 함께 구성해야 한다.
+
+`TF tree`는 coordinate frame을 vertex로, 직접 연결된 parent-child frame 사이의 transform을 edge로 표현한 논리적 구조다. 여기서 vertex는 graph 이론의 구성 요소이며 ROS node를 뜻하지 않는다. TF tree diagram은 이 논리적 구조를 시각화한 표현이지 tree 자체가 아니다.
+
+하나의 연결된 robot model을 만들 때는 다음 조건을 지킨다.
+
+- Root가 아닌 각 child frame은 하나의 parent만 갖는다.
+- Parent를 따라 올라가면 root에 도달해야 하며 cycle이 없어야 한다.
+- 서로 변환해야 하는 frame은 같은 연결 component에 있어야 한다.
+- 같은 child transform을 둘 이상의 node가 동시에 publish하지 않도록 transform의 소유자를 하나로 정한다.
+
+Sensor rig의 최소 tree는 다음처럼 만들 수 있다.
+
+```text
+base_link
+├── imu_link
+└── lidar_link
+```
+
+`base_link`는 이 최소 sensor rig subtree의 root다. `imu_link`와 `lidar_link`는 robot body에 고정되어 있으므로 두 관계는 static transform으로 표현할 수 있다. 움직이는 robot의 전체 TF tree에서는 `base_link`가 `odom` 같은 외부 frame의 child가 될 수 있다.
+
+TF graph 전체에 연결되지 않은 frame이 존재할 수는 있지만, 연결되지 않은 두 frame 사이의 transform은 계산할 수 없다. RViz2의 Fixed Frame과 sensor message의 frame이 서로 연결되지 않으면 해당 sensor data를 표시할 수 없다.
+
+### Parent-child 관계와 좌표 변환 방향
+
+TF tree에서 `A`가 parent이고 `B`가 child인 관계를 `A → B`로 나타내면, 이 edge에는 ${}^{A}\mathbf{T}_{B}$가 저장된다.
+
+| TF tree 표기 | 저장되는 transform | Coordinate 적용 방향 |
+|---|---|---|
+| `A` parent → `B` child | ${}^{A}\mathbf{T}_{B}$ | ${}^{B}\mathbf{p}\mapsto{}^{A}\mathbf{p}$ |
+
+`A → B`는 parent-child 연결 방향을 나타내며 data coordinate의 변환 방향을 나타내지 않는다. 예를 들어 `base_link → lidar_link` parent-child 연결에는 ${}^{\mathrm{base\_link}}\mathbf{T}_{\mathrm{lidar\_link}}$가 저장된다. 이 transform은 `base_link`를 기준으로 한 `lidar_link`의 장착 pose를 나타내며, coordinate에 적용하면 lidar point를 `lidar_link` 좌표에서 `base_link` 좌표로 다시 표현한다. 반대 방향으로 변환하려면 inverse transform이 필요하다.
+
 ## tf2의 역할
 
 `tf2`는 ROS 2에서 coordinate transform을 배포하고 조회하는 library 집합이다. Broadcaster는 parent frame과 child frame 사이에서 특정 timestamp의 transform 값인 transform sample을 publish하고, listener는 이를 수신해 자신의 buffer에 보관한다. Transform이 필요한 process는 이 buffer에 source frame, target frame과 query time을 지정해 조회한다. Listener와 buffer는 모든 consumer가 함께 사용하는 중앙 process를 뜻하지 않는다. RViz2, `tf2_echo` 또는 tf2를 사용하는 custom node처럼 transform이 필요한 각 consumer process가 내부에 listener와 buffer를 두고 자신의 buffer를 조회한다.
 
-Parent frame을 `A`, child frame을 `B`라고 하면 시각 $t_i$의 transform sample은 ${}^{A}\mathbf{T}_{B}(t_i)$다. `tf2_ros` broadcaster API에서는 sample 하나를 `geometry_msgs/msg/TransformStamped`로 표현한다. Dynamic transform ${}^{A}\mathbf{T}_{B}(t)$는 timestamp가 서로 다른 여러 `TransformStamped` sample로 전달되므로, `TransformStamped` 하나가 시간에 따른 transform 전체를 뜻하지는 않는다.
+Parent frame을 `A`, child frame을 `B`라고 하면 시각 $t_i$의 transform sample은 ${}^{A}\mathbf{T}_{B}(t_i)$다. `tf2_ros` broadcaster API에서는 sample 하나를 `geometry_msgs/msg/TransformStamped`로 표현하며, `header.frame_id = A`, `child_frame_id = B`로 parent-child edge를 나타낸다. Dynamic transform ${}^{A}\mathbf{T}_{B}(t)$는 timestamp가 서로 다른 여러 `TransformStamped` sample로 전달되므로, `TransformStamped` 하나가 시간에 따른 transform 전체를 뜻하지는 않는다.
 
-`/tf`와 `/tf_static`의 topic type은 `tf2_msgs/msg/TFMessage`이며, `transforms` field에 하나 이상의 `TransformStamped` sample을 담는다. 따라서 broadcaster는 두 frame 자체가 아니라 두 frame 사이의 timestamped translation과 rotation을 publish한다.
+`/tf`와 `/tf_static`에서 사용하는 message type은 `tf2_msgs/msg/TFMessage`이며, `transforms` field에 하나 이상의 `TransformStamped` sample을 담는다. 따라서 broadcaster는 두 frame 자체가 아니라 두 frame 사이의 timestamped translation과 rotation을 publish한다.
+
+Broadcaster가 publish한 transform sample을 여러 consumer가 topic을 통해 수신해 각자의 local buffer에 저장하고 조회하는 흐름은 다음과 같다.
 
 ```text
-transform broadcaster
-        │
-        │ timestamped transform sample publish
-        ▼
-     /tf 또는 /tf_static (`TFMessage`)
-        │
-        │ consumer process 내부의 listener가 subscribe
-        ▼
-RViz2 process
-  ├─ listener: transform sample 수신
-  ├─ transform buffer: 시간별 transform 저장·계산
-  └─ PointCloud2 display 같은 application logic
-       │
-       │ target frame A, source frame B, time으로 내부 buffer 조회
-       ▼
-     B 좌표 → A 좌표 transform을 받아 data 좌표를 다시 표현
+Transform 배포
+
+dynamic transform broadcaster(s)
+  └─ publish → /tf (`TFMessage`)
+
+static transform broadcaster(s)
+  └─ publish → /tf_static (`TFMessage`)
+
+/tf와 /tf_static
+  │ topic을 통해 전달
+  ├─▶ consumer 1의 listener
+  │       └─▶ local buffer
+  ├─▶ consumer 2의 listener
+  │       └─▶ local buffer
+  └─▶ ...
+
+
+각 consumer process 내부의 조회
+
+application logic
+  │ lookupTransform(
+  │   target frame A,
+  │   source frame B,
+  │   time)
+  ▼
+같은 process의 local buffer
+  │ A ← B transform 반환
+  ▼
+data 변환 또는 다른 계산에 사용
 ```
 
 - `broadcaster`는 자신이 책임지는 parent-child frame 사이의 transform sample을 ROS graph에 publish한다.
@@ -291,7 +329,7 @@ Target frame을 `A`, source frame을 `B`라고 하면 반환값은 ${}^{A}\mathb
 
 tf2가 topic에 있는 모든 sensor data를 자동으로 변환하는 것은 아니다. Consumer가 transform을 조회하고 point, pose 또는 다른 stamped data의 수치 좌표에 적용해 target frame 표현을 만들어야 한다.
 
-## TF tree가 존재하는 위치
+### TF tree는 listener별 buffer에 구성된다
 
 TF tree를 영구적으로 보관하는 중앙 process나 단일 file은 없다. Broadcaster가 transform sample을 publish하면 각 listener가 message를 받아 자신의 tf2 buffer에 TF tree와 시간별 transform을 구성한다. 실제 transform query에 응답하는 것은 해당 listener의 buffer다.
 
@@ -301,42 +339,8 @@ TF tree를 영구적으로 보관하는 중앙 process나 단일 file은 없다.
 | Transform broadcaster | 입력에서 얻은 transform sample을 `/tf` 또는 `/tf_static`에 publish하는 node 또는 library object |
 | `/tf`, `/tf_static` | 실행 중인 broadcaster와 listener 사이에서 `tf2_msgs/msg/TFMessage`를 전달하는 topic |
 | listener의 tf2 buffer | 수신한 transform을 시간과 함께 보관하고 연결된 frame 사이의 transform을 계산하는 memory |
-| `view_frames` output | 관찰 시점의 TF tree를 file로 저장한 diagram snapshot |
 
 Broadcaster가 transform 값을 얻는 방법은 관계의 종류에 따라 다르다. 고정 관계는 calibration 값에서, 움직이는 관계는 joint state·odometry·localization 결과에서 얻을 수 있다. TF2는 이 물리 상태를 sensor에서 직접 추정하지 않고 broadcaster가 보낸 transform을 전달·저장·조회한다. URDF model을 읽는 구체적인 broadcaster는 다음 문서인 [URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)에서 설명하고, 동적 transform의 계산 주체는 [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)에서 설명한다.
-
-```text
-transform source
-    │ broadcaster가 timestamped sample 구성
-    ▼
-/tf 또는 /tf_static
-    │ listener가 수신
-    ▼
-listener별 tf2 buffer ──> transform query
-```
-
-따라서 저장된 `frames.pdf`가 존재해도 현재 broadcaster가 실행 중이라는 뜻은 아니다. 반대로 현재 TF tree가 정상이어도 `view_frames`를 실행하지 않았다면 diagram file은 존재하지 않을 수 있다.
-
-## TF tree
-
-tf2는 frame을 node로, parent-child frame 사이의 transform을 edge로 하는 tree 구조를 사용한다. 아래 diagram에서는 위쪽 frame이 parent이고 아래쪽 frame이 child다. 하나의 연결된 robot model을 만들 때는 다음 조건을 지킨다.
-
-- Root가 아닌 각 child frame은 하나의 parent만 갖는다.
-- Parent를 따라 올라가면 root에 도달해야 하며 cycle이 없어야 한다.
-- 서로 변환해야 하는 frame은 같은 연결 component에 있어야 한다.
-- 같은 child transform을 둘 이상의 node가 동시에 publish하지 않도록 transform의 소유자를 하나로 정한다.
-
-Sensor rig의 최소 tree는 다음처럼 만들 수 있다.
-
-```text
-base_link
-├── imu_link
-└── lidar_link
-```
-
-`base_link`는 이 최소 sensor rig subtree의 root다. `imu_link`와 `lidar_link`는 robot body에 고정되어 있으므로 두 관계는 static transform으로 표현할 수 있다. 움직이는 robot의 전체 TF tree에서는 `base_link`가 `odom` 같은 외부 frame의 child가 될 수 있다.
-
-TF graph 전체에 연결되지 않은 frame이 존재할 수는 있지만, 연결되지 않은 두 frame 사이의 transform은 계산할 수 없다. RViz2의 Fixed Frame과 sensor message의 frame이 서로 연결되지 않으면 해당 sensor data를 표시할 수 없다.
 
 ## Static transform과 dynamic transform
 

@@ -172,7 +172,7 @@ Interface definition을 확인한다.
 ros2 interface show sensor_msgs/msg/PointCloud2
 ```
 
-Publisher를 실행한 뒤 topic type, endpoint와 QoS를 확인한다.
+Publisher를 실행한 뒤 message type, endpoint와 QoS를 확인한다.
 
 ```bash
 ros2 topic list -t

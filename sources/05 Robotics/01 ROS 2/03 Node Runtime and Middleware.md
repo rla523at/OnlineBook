@@ -178,7 +178,7 @@ DDS 기반 RMW에서는 ROS publisher와 subscription이 DDS의 송수신 endpoi
 
 ## Message 한 개가 처리되는 흐름
 
-Publisher가 다음 함수를 호출한다고 하자.
+Publisher 측 application code가 다음 함수를 호출한다고 하자.
 
 ```cpp
 publisher_->publish(message);
@@ -187,7 +187,10 @@ publisher_->publish(message);
 Message는 개념적으로 다음 계층을 거친다.
 
 ```text
-publisher callback
+publisher 측 application code
+(timer callback, 다른 callback 또는 일반 함수 등)
+      │
+      │ publisher_->publish(message)
       │
       ▼
 rclcpp publisher
@@ -202,11 +205,16 @@ middleware의 serialization과 전송
 subscriber 쪽 middleware 수신
       │
       ▼
-executor에 준비된 subscription event 표시
+subscription data가 처리 가능한 상태가 됨
       │
       ▼
-executor가 message를 가져와 callback 호출
+executor가 준비 상태를 확인하고 message를 가져옴
+      │
+      ▼
+subscription callback(message) 호출
 ```
+
+Publisher 측에서 callback은 필수 단계가 아니다. Application code는 timer callback, 다른 callback 또는 일반 함수에서 `publish()`를 호출할 수 있다. 반면 subscription callback은 수신 data가 준비됐을 때 executor가 실행하는 application 함수다.
 
 Middleware와 executor의 책임은 다음처럼 구분한다.
 

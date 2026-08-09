@@ -74,6 +74,8 @@ Node가 늦게 시작하거나 종료되어도 다른 node의 source code를 바
 
 `message type`은 message가 어떤 field를 가지며 각 field의 type이 무엇인지 정의한 ROS interface다. 예제의 `std_msgs/msg/String`은 `data`라는 string field 하나를 정의한다.
 
+특정 topic이 사용하는 message type을 가리키는 맥락에서는 `topic type`이라는 표현도 사용한다. ROS 2 CLI와 일부 문서는 topic을 기준으로 type을 표시할 때 이 표현을 사용하지만, 별도의 interface type을 뜻하지 않는다. 이 문서에서는 data 구조를 가리키는 용어를 `message type`으로 통일한다.
+
 `std_msgs/msg/String` 형식의 이름은 다음 세 부분으로 구성된다.
 
 | 부분 | 예제 | 의미 |

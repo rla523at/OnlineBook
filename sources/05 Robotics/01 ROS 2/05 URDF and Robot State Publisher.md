@@ -2,7 +2,7 @@
 
 ## 한 줄 요약
 
-URDF는 robot의 link와 joint 관계를 XML로 기술하고, `robot_state_publisher`는 이 model과 joint state를 사용해 실행 중인 tf2 transform을 publish한다.
+URDF는 robot의 link와 joint 관계를 표현하기 위한 XML format이다. `robot_state_publisher`는 URDF로 작성된 robot model과 joint state를 바탕으로 tf2 transform을 publish한다.
 
 ## URDF의 역할
 
