@@ -6,28 +6,50 @@
 
 ## Point cloud visualization 흐름
 
-`point cloud`는 3D 공간의 point 집합이다. Lidar, depth camera와 3D reconstruction algorithm은 point마다 x, y, z 좌표와 intensity, color 같은 추가 값을 만들 수 있다.
+`point cloud`는 3D 공간의 point 집합이다.
 
-ROS 2에서 point cloud를 RViz2에 표시하려면 message와 transform이 함께 준비되어야 한다.
+ROS 2에서 point cloud를 RViz2에 표시하려면 publisher가 `sensor_msgs/msg/PointCloud2` message를 publish해야 하고, message의 `header.frame_id`에서 RViz2의 Fixed Frame까지 이어지는 TF transform을 message timestamp에 조회할 수 있어야 한다.
+
+다음 예시는 PointCloud2 publisher가 `/synthetic_points` topic에 message를 publish하고, RViz2가 이 message와 별도로 전달된 TF transform을 사용해 point cloud를 표시하는 흐름이다.
 
 ```text
+[PointCloud2 message 전달]
+
+발송 주체
 PointCloud2 publisher
-├── topic: synthetic_points
+        │
+        │ publish
+        ▼
+전달 topic과 message
+topic: /synthetic_points
+message: sensor_msgs/msg/PointCloud2
 ├── header.frame_id: lidar_link
 ├── header.stamp: measurement time
 └── x, y, z point data
-          │
-          ▼
-       RViz2
-          │
-          ├── Fixed Frame: base_link
-          └── tf2 query: lidar_link ↔ base_link at message time
-                    │
-                    ▼
-          point를 base_link 기준으로 표시
+        │
+        │ subscribe
+        ▼
+수신 주체
+RViz2 PointCloud2 display
+
+
+[TF transform 전달]
+
+발송 주체
+TF broadcaster
+        │
+        │ /tf 또는 /tf_static에 transform publish
+        ▼
+수신 주체
+RViz2 TF transformation backend와 transform buffer
+        │
+        │ message timestamp에서
+        │ lidar_link → base_link transform 조회
+        ▼
+point를 Fixed Frame인 base_link 기준으로 표시
 ```
 
-PointCloud2 topic만 존재하고 TF tree가 없으면 RViz2는 `lidar_link`의 point를 `base_link`로 옮길 수 없다. 반대로 TF tree가 있어도 PointCloud2의 layout이나 `frame_id`가 잘못되면 올바른 cloud를 표시할 수 없다.
+`PointCloud2` message를 전달하는 topic만 존재하고 TF tree가 없으면 RViz2는 `lidar_link`의 point를 `base_link`로 옮길 수 없다. 반대로 TF tree가 있어도 `PointCloud2` message의 layout이나 `frame_id`가 잘못되면 올바른 point cloud를 표시할 수 없다.
 
 ## PointCloud2 message
 
@@ -52,25 +74,26 @@ Lidar처럼 1D point list로 사용할 unorganized cloud는 `height = 1`, `width
 
 ## Frame과 timestamp
 
-Point 좌표가 `lidar_link` 기준으로 계산되었다면 다음처럼 기록한다.
+Point 좌표가 `lidar_link` 기준으로 계산되었다면 `PointCloud2` message의 header에 다음처럼 기록한다.
 
 ```cpp
-cloud.header.frame_id = "lidar_link";
-cloud.header.stamp = now().to_msg();
+sensor_msgs::msg::PointCloud2 point_cloud2_message;
+point_cloud2_message.header.frame_id = "lidar_link";
+point_cloud2_message.header.stamp = now().to_msg();
 ```
 
-- `frame_id`는 point 숫자의 기준 frame이다.
-- `stamp`는 publish를 호출한 시각이 아니라 측정이 이루어진 시각이어야 한다.
+- `frame_id`는 message에 저장된 point 좌표의 기준 frame이다.
+- `stamp`는 message를 publish한 시각이 아니라 point를 측정한 시각이어야 한다.
 
-합성 cloud를 생성 즉시 publish하는 smoke test에서는 node의 현재 ROS time을 측정 시각으로 사용할 수 있다. Driver queue나 algorithm processing delay가 있는 실제 sensor pipeline에서는 원본 측정 시각을 유지해야 한다.
+합성 `PointCloud2` message를 생성 즉시 publish하는 smoke test에서는 node의 현재 ROS time을 측정 시각으로 사용할 수 있다. Driver queue나 algorithm processing delay가 있는 실제 sensor pipeline에서는 원본 측정 시각을 유지해야 한다.
 
 좌표값을 변환하지 않고 `frame_id`만 `base_link`로 바꾸면 point가 `base_link` 좌표가 되지 않는다. 실제 tf2 transform을 각 point에 적용했을 때만 output frame을 바꿀 수 있다.
 
-## C++에서 작은 합성 cloud 만들기
+## C++에서 작은 합성 PointCloud2 message 만들기
 
 `sensor_msgs` package는 `PointCloud2Modifier`와 `PointCloud2Iterator`를 제공한다. Modifier는 field layout과 buffer size를 구성하고, iterator는 field offset을 직접 계산하지 않고 각 point 값을 쓸 수 있게 한다.
 
-다음 함수는 `lidar_link` frame에 있는 다섯 point를 xyz float field로 만든다. 이 예제는 little-endian host를 대상으로 하며 모든 point가 finite value이므로 `is_dense`를 `true`로 설정한다.
+다음 함수는 `lidar_link` frame에 있는 다섯 point를 `x`, `y`, `z` float field에 담은 `PointCloud2` message를 만든다. 이 예제는 little-endian host를 대상으로 하며 모든 point가 finite value이므로 `is_dense`를 `true`로 설정한다.
 
 ```cpp
 #include <array>
@@ -79,10 +102,10 @@ cloud.header.stamp = now().to_msg();
 #include "sensor_msgs/msg/point_cloud2.hpp"
 #include "sensor_msgs/point_cloud2_iterator.hpp"
 
-sensor_msgs::msg::PointCloud2 make_cloud(
-  const builtin_interfaces::msg::Time & stamp)
+sensor_msgs::msg::PointCloud2 make_point_cloud2_message(
+  const builtin_interfaces::msg::Time & measurement_timestamp)
 {
-  const std::array<std::array<float, 3>, 5> points = {{
+  const std::array<std::array<float, 3>, 5> point_coordinates = {{
     {0.0F, 0.0F, 0.0F},
     {1.0F, 0.0F, 0.0F},
     {1.0F, 1.0F, 0.0F},
@@ -90,31 +113,35 @@ sensor_msgs::msg::PointCloud2 make_cloud(
     {0.5F, 0.5F, 0.5F},
   }};
 
-  sensor_msgs::msg::PointCloud2 cloud;
-  cloud.header.stamp = stamp;
-  cloud.header.frame_id = "lidar_link";
-  cloud.height = 1;
-  cloud.is_bigendian = false;
-  cloud.is_dense = true;
+  sensor_msgs::msg::PointCloud2 point_cloud2_message;
+  point_cloud2_message.header.stamp = measurement_timestamp;
+  point_cloud2_message.header.frame_id = "lidar_link";
+  point_cloud2_message.height = 1;
+  point_cloud2_message.is_bigendian = false;
+  point_cloud2_message.is_dense = true;
 
-  sensor_msgs::PointCloud2Modifier modifier(cloud);
-  modifier.setPointCloud2FieldsByString(1, "xyz");
-  modifier.resize(points.size());
+  sensor_msgs::PointCloud2Modifier point_cloud2_modifier(
+    point_cloud2_message);
+  point_cloud2_modifier.setPointCloud2FieldsByString(1, "xyz");
+  point_cloud2_modifier.resize(point_coordinates.size());
 
-  sensor_msgs::PointCloud2Iterator<float> x(cloud, "x");
-  sensor_msgs::PointCloud2Iterator<float> y(cloud, "y");
-  sensor_msgs::PointCloud2Iterator<float> z(cloud, "z");
+  sensor_msgs::PointCloud2Iterator<float> x_iterator(
+    point_cloud2_message, "x");
+  sensor_msgs::PointCloud2Iterator<float> y_iterator(
+    point_cloud2_message, "y");
+  sensor_msgs::PointCloud2Iterator<float> z_iterator(
+    point_cloud2_message, "z");
 
-  for (const auto & point : points) {
-    *x = point[0];
-    *y = point[1];
-    *z = point[2];
-    ++x;
-    ++y;
-    ++z;
+  for (const auto & coordinates : point_coordinates) {
+    *x_iterator = coordinates[0];
+    *y_iterator = coordinates[1];
+    *z_iterator = coordinates[2];
+    ++x_iterator;
+    ++y_iterator;
+    ++z_iterator;
   }
 
-  return cloud;
+  return point_cloud2_message;
 }
 ```
 
@@ -125,26 +152,68 @@ sensor_msgs::msg::PointCloud2 make_cloud(
 - `lidar_link` 기준 point 좌표
 - 0 또는 1 m 범위에 있는 확인 가능한 pyramid 형태
 
-`modifier.resize()`는 point 수에 맞게 `data`, `width`와 `row_step`을 조정한다. `setPointCloud2FieldsByString()`은 xyz field의 offset과 `point_step`을 구성한다. Field offset과 byte buffer를 수동으로 작성할 수도 있지만, layout 계산 실수를 줄이기 위해 제공된 helper를 사용하는 편이 이 예제의 목적에 맞다.
+### `fields`를 직접 설정하지 않아도 되는 이유
+
+예제에는 `point_cloud2_message.fields.push_back(...)`처럼 `fields`를 직접 변경하는 코드가 없다. 대신 `PointCloud2Modifier`가 `point_cloud2_message`의 참조를 보관하고 다음 호출에서 message의 field layout을 변경한다.
+
+```cpp
+sensor_msgs::PointCloud2Modifier point_cloud2_modifier(
+  point_cloud2_message);
+point_cloud2_modifier.setPointCloud2FieldsByString(1, "xyz");
+```
+
+첫 번째 인자 `1`은 생성할 `PointField` 수가 아니라 전달하는 preset 문자열의 수다. `"xyz"` preset 하나는 `x`, `y`, `z`라는 세 개의 `PointField`로 확장된다. ROS 2 Jazzy의 `sensor_msgs` 구현에서 만들어지는 metadata는 다음과 같다.
+
+| name | datatype | count | offset |
+|---|---|---:|---:|
+| `x` | `PointField::FLOAT32` | 1 | 0 |
+| `y` | `PointField::FLOAT32` | 1 | 4 |
+| `z` | `PointField::FLOAT32` | 1 | 8 |
+
+Jazzy의 `setPointCloud2FieldsByString("xyz")`는 세 float 뒤에 호환성을 위한 4 byte padding도 둔다. Padding은 이름 있는 field가 아니므로 `fields`에는 나타나지 않으며, point 하나의 layout과 크기는 다음과 같다.
+
+```text
+byte 0..3   x
+byte 4..7   y
+byte 8..11  z
+byte 12..15 padding
+point_step  16
+```
+
+이 padding은 `PointCloud2` message 규격이 모든 xyz point에 강제하는 구조가 아니라 Jazzy helper의 preset 구현 동작이다. Consumer는 xyz가 항상 특정 offset에 있다고 가정하지 않고, 수신한 message의 `fields`와 `point_step`을 따라야 한다.
+
+Field layout을 만든 뒤 `point_cloud2_modifier.resize(point_coordinates.size())`는 `PointCloud2` message의 point 수를 5개로 설정한다. `height = 1`이므로 이 message는 unorganized cloud를 표현하며, `width = 5`, `row_step = 5 * 16 = 80`이 되고 `data`도 80 byte로 할당된다.
+
+```cpp
+sensor_msgs::PointCloud2Iterator<float> x_iterator(
+  point_cloud2_message, "x");
+```
+
+Iterator는 `point_cloud2_message.fields`에서 이름이 `x`인 항목을 찾아 `data + offset`에서 시작한다. `++x_iterator`는 바로 옆 float로 이동하는 연산이 아니라 `point_step`만큼 이동하는 연산이므로, 이 예제의 x 값은 `data`의 byte 0, 16, 32, 48, 64에서 시작한다. `y_iterator`와 `z_iterator`도 각각 offset 4와 8에서 시작해 같은 방식으로 이동한다.
+
+따라서 `point_cloud2_modifier`가 `fields`, `point_step`과 buffer 크기를 구성하고 각 iterator가 그 metadata를 사용하여 실제 `data`에 값을 쓰는 구조다. Field offset과 byte buffer를 수동으로 작성할 수도 있지만, layout 계산 실수를 줄이기 위해 제공된 helper를 사용하는 편이 이 예제의 목적에 맞다.
+
+`intensity`는 `"xyz"` preset에 포함되지 않는다. Intensity field가 필요한 `PointCloud2` message는 `setPointCloud2Fields()`로 이름, count와 datatype을 명시하고 같은 datatype의 iterator를 추가해야 한다.
 
 ## Publisher에서 사용
 
 Full C++ node의 생성과 build 구조는 [Node and Topic](<./02 Node and Topic.md>)에서 설명한다. 같은 `rclcpp::Node` 안에서 PointCloud2 publisher를 다음처럼 만들 수 있다.
 
 ```cpp
-cloud_publisher_ =
+point_cloud2_publisher_ =
   create_publisher<sensor_msgs::msg::PointCloud2>(
     "synthetic_points",
     rclcpp::QoS(10));
 ```
 
-Timer callback에서는 현재 ROS time으로 cloud를 만들고 publish한다.
+Timer callback에서는 현재 ROS time을 measurement timestamp로 사용해 `PointCloud2` message를 만들고 publish한다.
 
 ```cpp
-cloud_publisher_->publish(make_cloud(now().to_msg()));
+point_cloud2_publisher_->publish(
+  make_point_cloud2_message(now().to_msg()));
 ```
 
-RViz2를 publisher보다 늦게 실행해도 cloud를 받을 수 있도록 smoke test에서는 1 Hz처럼 낮은 주기로 계속 publish할 수 있다. Volatile durability로 message 한 개만 먼저 publish하고 process가 기다리면 뒤늦게 연결된 subscriber는 이전 message를 받지 못한다.
+RViz2를 publisher보다 늦게 실행해도 `PointCloud2` message를 받을 수 있도록 smoke test에서는 1 Hz처럼 낮은 주기로 계속 publish할 수 있다. Volatile durability로 message 한 개만 먼저 publish하고 process가 기다리면 뒤늦게 연결된 subscriber는 이전 message를 받지 못한다.
 
 `CMakeLists.txt`에서는 `sensor_msgs`를 찾고 target dependency에 추가한다.
 
@@ -152,7 +221,7 @@ RViz2를 publisher보다 늦게 실행해도 cloud를 받을 수 있도록 smoke
 find_package(sensor_msgs REQUIRED)
 
 ament_target_dependencies(
-  synthetic_cloud_publisher
+  synthetic_point_cloud2_publisher
   rclcpp
   sensor_msgs
 )
@@ -185,7 +254,7 @@ ros2 topic echo /synthetic_points --once --field header
 - `list -t`는 topic 이름과 message type을 확인한다.
 - `find`는 현재 graph에서 `PointCloud2` type을 사용하는 topic만 찾는다.
 - `info --verbose`는 publisher와 subscriber의 QoS profile을 확인한다.
-- `hz`는 cloud가 기대한 주기로 계속 publish되는지 확인한다.
+- `hz`는 `PointCloud2` message가 기대한 주기로 계속 publish되는지 확인한다.
 - `echo --field header`는 큰 binary `data` 대신 frame과 timestamp를 우선 확인한다.
 
 Point 수와 layout은 다음 field를 함께 확인한다.
@@ -259,14 +328,14 @@ RViz2에서 다음 순서로 설정한다.
 | Property | 확인할 내용 |
 |---|---|
 | Transformation → Current | 좌표 변환에 사용할 backend이며 표준 TF backend는 `/tf`와 `/tf_static`을 구독한다. |
-| Global Options → Fixed Frame | Cloud의 `header.frame_id`와 TF로 연결된 공통 기준 frame |
+| Global Options → Fixed Frame | `PointCloud2` message의 `header.frame_id`와 TF로 연결된 공통 기준 frame |
 | TF → Show Axes·Show Names | 진단용 TF display에서 frame 축과 이름을 화면에 표시할지 여부 |
 | PointCloud2 → Topic | `PointCloud2` message를 publish하는 topic |
 | PointCloud2 → Reliability Policy | Publisher endpoint와 호환되는 reliability |
 | PointCloud2 → Style·Size | Point의 화면 표현 크기이며 좌표값 자체를 바꾸지는 않는다. |
 | PointCloud2 → Color Transformer | `RGB`, `intensity` 같은 실제 field 구성에 맞는 색상 규칙 |
 
-Fixed Frame은 모든 data를 표시할 공통 기준이다. Cloud의 `frame_id`가 `lidar_link`이면 RViz2는 message timestamp에서 `lidar_link`와 `base_link` 사이의 tf2 transform을 조회한다. 앞 문서의 static sensor transform을 사용하면 cloud 전체가 lidar 장착 위치와 방향을 반영해 표시된다.
+Fixed Frame은 모든 data를 표시할 공통 기준이다. `PointCloud2` message의 `header.frame_id`가 `lidar_link`이면 RViz2는 message timestamp에서 `lidar_link`와 `base_link` 사이의 tf2 transform을 조회한다. 앞 문서의 static sensor transform을 사용하면 point cloud 전체가 lidar 장착 위치와 방향을 반영해 표시된다.
 
 이 예제에는 `map`이나 `odom`을 publish하는 motion estimation component가 없으므로 `base_link`를 Fixed Frame으로 사용한다. Mobile robot system에서는 관찰 목적에 따라 다른 Fixed Frame을 선택할 수 있다.
 
