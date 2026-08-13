@@ -347,6 +347,8 @@ Broadcaster가 transform 값을 얻는 방법은 관계의 종류에 따라 다�
 
 ## Static transform과 dynamic transform
 
+### Static과 dynamic의 구분
+
 TF tree의 parent-child 연결 구조가 같아도 그 관계를 나타내는 translation과 rotation이 시간에 따라 변하는지에 따라 publish 방법이 달라진다.
 
 | 종류 | 적용 대상 | Topic | 시간 처리 |
@@ -357,6 +359,16 @@ TF tree의 parent-child 연결 구조가 같아도 그 관계를 나타내는 tr
 Static과 dynamic은 child가 world에서 움직이는지 여부가 아니라 **직접 연결된 parent에 대한 상대 pose가 변하는지**로 구분한다. 예를 들어 body에 고정된 lidar는 robot과 함께 world에서 움직여도 `base_link → lidar_link`가 static이다. 반대로 wheel이나 arm link는 `base_link`에 대한 관절 위치가 변하므로 dynamic이다.
 
 Dynamic transform의 값을 TF2가 sensor에서 추정하는 것은 아니다. 해당 관계를 책임지는 component가 joint state, odometry 또는 localization 결과로 시각별 translation과 rotation을 계산하고 broadcaster를 통해 publish한다. 계산 주체와 실제 ROS 2 package는 [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)에서 설명한다.
+
+### tf2_ros의 기본 topic 이름
+
+`/tf`와 `/tf_static`은 application project가 임의로 정한 이름이 아니라 `tf2_ros`의 broadcaster와 listener가 기본으로 사용하는 topic 이름이다. 동적 transform을 위한 `TransformBroadcaster`는 `/tf`에 publish하고, 정적 transform을 위한 `StaticTransformBroadcaster`는 `/tf_static`에 publish한다. `TransformListener`도 별도 remapping이 없으면 두 topic을 구독한다.
+
+두 topic 모두 `tf2_msgs/msg/TFMessage` message를 전달한다. 차이는 message type이 아니라 전달할 transform의 시간적 성격과 기본 QoS다. `/tf`는 시간에 따라 갱신되는 dynamic transform sample을 전달하고, `/tf_static`은 변하지 않는 static transform을 전달한다. `/tf_static`의 broadcaster와 listener는 transient-local durability를 사용하므로 호환되는 listener가 늦게 시작해도 이미 publish된 static transform을 받을 수 있다.
+
+Project가 결정하는 것은 `base_link`, `lidar_link` 같은 frame 이름, parent-child 관계, transform 값과 그 값을 계산하거나 제공할 broadcaster다. `/tf`와 `/tf_static`이라는 기본 topic 이름 자체는 project별 frame 설계에 따라 새로 정하지 않는다.
+
+ROS 2 topic remapping을 사용하면 두 이름을 기술적으로 바꿀 수 있다. 이 경우 broadcaster와 모든 listener에 일관된 remapping을 적용해야 한다. RViz2와 tf2 검증 도구를 포함한 tf2 consumer는 기본적으로 `/tf`와 `/tf_static`을 사용하므로, 별도의 system-level topic 구성이 필요하지 않다면 기본 이름을 유지한다.
 
 ## Static transform을 command로 확인
 
@@ -443,6 +455,10 @@ Dynamic timestamp와 `map → odom → base_link` 문제는 [Dynamic TF and Mobi
 - [REP-103 - Standard Units of Measure and Coordinate Conventions](https://github.com/ros-infrastructure/rep/blob/master/rep-0103.rst)
 - [geometry_msgs - TransformStamped Message Definition](https://github.com/ros2/common_interfaces/blob/jazzy/geometry_msgs/msg/TransformStamped.msg)
 - [tf2_ros - Buffer Interface](https://github.com/ros2/geometry2/blob/jazzy/tf2_ros/include/tf2_ros/buffer_interface.hpp)
+- [tf2_ros - TransformBroadcaster Source](https://github.com/ros2/geometry2/blob/jazzy/tf2_ros/include/tf2_ros/transform_broadcaster.hpp)
+- [tf2_ros - StaticTransformBroadcaster Source](https://github.com/ros2/geometry2/blob/jazzy/tf2_ros/include/tf2_ros/static_transform_broadcaster.hpp)
+- [tf2_ros - TransformListener Source](https://github.com/ros2/geometry2/blob/jazzy/tf2_ros/include/tf2_ros/transform_listener.hpp)
+- [tf2_ros - QoS Definitions](https://github.com/ros2/geometry2/blob/jazzy/tf2_ros/include/tf2_ros/qos.hpp)
 - [ROS 2 Documentation - Introducing tf2](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Intermediate/Tf2/Introduction-To-Tf2.rst)
 - [ROS 2 Documentation - Writing a Static Broadcaster in C++](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Intermediate/Tf2/Writing-A-Tf2-Static-Broadcaster-Cpp.rst)
 - [tf2 Jazzy Documentation](https://docs.ros.org/en/jazzy/p/tf2/)

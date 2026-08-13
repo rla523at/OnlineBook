@@ -208,15 +208,17 @@ base_link
 
 `robot_state_publisher`는 시작할 때 `robot_description` parameter로 유효한 URDF string을 받아야 한다.
 
+여기서 `/tf`와 `/tf_static`은 project가 정한 이름이 아니라 `tf2_ros`가 기본으로 사용하는 topic 이름이다. 두 topic의 일반적인 역할, message type과 QoS는 [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)에서 설명한다. 이 문서에서는 `robot_state_publisher`가 joint 종류에 따라 어느 topic을 사용하는지에 초점을 맞춘다.
+
 - Fixed joint의 transform은 시작할 때 `/tf_static`에 publish한다.
 - Movable joint의 transform은 `/joint_states` message로 해당 joint가 갱신될 때 `/tf`에 publish한다.
 - `/tf_static`과 `robot_description` topic은 transient-local durability를 사용하므로 호환되는 late subscriber가 마지막 상태를 받을 수 있다.
 
 RViz2의 기본 TF listener는 `/tf_static`에 호환되는 QoS로 구독하므로 `robot_state_publisher`가 실행 중인 동안 RViz2가 나중에 시작해도 retained static transform을 받을 수 있다. RViz2 내부 listener, transformation backend와 TF display의 역할 구분은 [PointCloud2 and RViz2](<./07 PointCloud2 and RViz2.md>)에서 설명한다.
 
-앞의 URDF 예제에는 fixed joint만 있다. 따라서 별도의 `JointState` publisher가 없어도 `base_link` → `imu_link`, `base_link` → `lidar_link` transform을 만들 수 있다.
+앞의 URDF 예제에는 fixed joint만 있다. 따라서 별도의 `JointState` publisher가 없어도 `base_link`를 parent, `imu_link`와 `lidar_link`를 child로 하는 정적 transform을 만들 수 있다.
 
-Root인 `base_link`에는 URDF 내부 parent가 없지만, 이것이 전체 runtime TF tree에서도 root라는 뜻은 아니다. 이 model만 실행하면 `world` 또는 `odom`에서 `base_link`로 이어지는 transform은 생기지 않는다. Odometry component가 `odom → base_link`를 publish하면 이 URDF subtree 전체가 `odom` 아래에 연결된다. `robot_state_publisher`는 `map → odom`이나 `odom → base_link`를 자동으로 만들지 않는다. RViz2의 Fixed Frame을 `base_link`로 선택하면 최소 model을 확인할 수 있고, 외부 global frame이 필요할 때는 그 관계를 담당하는 별도 component를 추가한다.
+Root인 `base_link`에는 URDF 내부 parent가 없지만, 이것이 전체 runtime TF tree에서도 root라는 뜻은 아니다. 이 model만 실행하면 `world` 또는 `odom`을 parent, `base_link`를 child로 하는 transform은 생기지 않는다. Odometry component가 `odom`을 parent, `base_link`를 child로 하는 transform을 publish하면 이 URDF subtree 전체가 `odom` 아래에 연결된다. `robot_state_publisher`는 `map`을 parent로 하는 `odom` transform이나 `odom`을 parent로 하는 `base_link` transform을 자동으로 만들지 않는다. RViz2의 Fixed Frame을 `base_link`로 선택하면 최소 model을 확인할 수 있고, 외부 global frame이 필요할 때는 그 관계를 담당하는 별도 component를 추가한다.
 
 ## URDF file을 package에 설치
 
