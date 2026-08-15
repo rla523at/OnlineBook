@@ -567,6 +567,12 @@ project:
       children:
       - file: sources/05 Robotics/02 Simulation/01 Gazebo Harmonic Headless and ROS
           2 Integration.md
+      - file: sources/05 Robotics/02 Simulation/02 Long-Run Stability and Resource
+          Observation.md
+    - file: sources/05 Robotics/03 Evaluation/Evaluation.md
+      children:
+      - file: sources/05 Robotics/03 Evaluation/01 Pose Trajectory Coordinate Time
+          and Alignment.md
   - title: Mechanics
     children:
     - title: Continuum

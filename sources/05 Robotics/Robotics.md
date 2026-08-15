@@ -155,4 +155,5 @@ frame으로 표현할 수 있다. 두 frame과 robot body의 `base_link`를 연�
 
 - [ROS 2](<./01 ROS 2/ROS 2.md>): ROS 2의 목적과 핵심 구성 요소를 설명한다.
 - [Robot Simulation](<./02 Simulation/Simulation.md>): simulator의 역할과 Gazebo를 이용한 world·시간·ROS 2 연결을 설명한다.
+- [Robot Trajectory Evaluation](<./03 Evaluation/Evaluation.md>): pose trajectory의 좌표·시간 계약과 association·alignment·GT 평가 경계를 설명한다.
 

@@ -183,6 +183,10 @@ GUI 없는 자동 검증은 다음 책임을 분리한다.
 보장하지 않는다. 각각은 reference motion·measurement 비교와 장시간 실행처럼
 별도 완료 기준이 필요하다.
 
+장시간 대표 구성에서 기능적 진행, process memory와 종료를 함께 관찰하는 방법은
+[Long-Run Stability and Resource Observation](<./02 Long-Run Stability and Resource Observation.md>)에서
+설명한다.
+
 ## 설치 조합
 
 Ubuntu 24.04와 ROS 2 Jazzy에서는 Gazebo Harmonic이 권장 조합이다. ROS package

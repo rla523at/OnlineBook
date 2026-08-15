@@ -38,6 +38,12 @@ bridge가 두 영역을 연결한다.
   - simulation time, wall time과 real-time factor
   - Gazebo Transport와 ROS 2 `ros_gz_bridge`
   - `/clock`과 world statistics를 이용한 최소 실행 검증
+- [Long-Run Stability and Resource Observation](<./02 Long-Run Stability and Resource Observation.md>)
+  - Smoke test와 long-run stability test의 역할 구분
+  - Readiness 이후의 기능적 liveness와 stall 관찰
+  - Process tree RSS, system `MemAvailable`과 swap 해석
+  - 반복 replay의 cycle 경계와 timestamp 판정
+  - 단계적 signal, 잔여 process와 재현 증거
 
 ## References
 
