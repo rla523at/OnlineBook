@@ -409,6 +409,7 @@ Topic, message, TF, RViz 설정을 이 순서로 분리하면 화면에 point가
 - [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)
 - [URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)
 - [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)
+- [Rosbag2 Record, Inspect and Replay](<./08 Rosbag2 Record Inspect and Replay.md>)
 
 ## References
 

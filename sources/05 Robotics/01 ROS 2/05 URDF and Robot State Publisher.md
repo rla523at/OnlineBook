@@ -212,9 +212,13 @@ base_link
 
 - Fixed joint의 transform은 시작할 때 `/tf_static`에 publish한다.
 - Movable joint의 transform은 `/joint_states` message로 해당 joint가 갱신될 때 `/tf`에 publish한다.
-- `/tf_static`과 `robot_description` topic은 transient-local durability를 사용하므로 호환되는 late subscriber가 마지막 상태를 받을 수 있다.
+- `/tf_static`과 `robot_description` topic은 transient-local durability를 사용한다.
 
-RViz2의 기본 TF listener는 `/tf_static`에 호환되는 QoS로 구독하므로 `robot_state_publisher`가 실행 중인 동안 RViz2가 나중에 시작해도 retained static transform을 받을 수 있다. RViz2 내부 listener, transformation backend와 TF display의 역할 구분은 [PointCloud2 and RViz2](<./07 PointCloud2 and RViz2.md>)에서 설명한다.
+`robot_state_publisher`는 여러 fixed joint 관계를 하나의 `TFMessage`에 묶어 publish할 수 있다. 따라서 fixed joint가 두 개라고 `/tf_static` message가 반드시 두 개인 것은 아니다. Consumer는 message 수뿐 아니라 각 `TransformStamped`의 parent-child 관계를 확인해야 한다.
+
+RViz2의 기본 TF listener는 `/tf_static`에 transient-local durability를 요청한다. 따라서 `robot_state_publisher`가 실행 중인 동안 RViz2가 나중에 시작해도 publisher endpoint가 보관한 static transform을 받을 수 있다. Volatile subscription은 앞으로 publish될 message에는 연결될 수 있지만 이전 retained transform은 받지 못하며, `robot_state_publisher`가 먼저 종료된 뒤 처음 연결되는 listener까지 보장되는 것도 아니다. 일반 QoS 규칙은 [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>), TF에 적용된 세부 조건은 [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)에서 설명한다.
+
+RViz2 내부 listener, transformation backend와 TF display의 역할 구분은 [PointCloud2 and RViz2](<./07 PointCloud2 and RViz2.md>)에서 설명한다.
 
 앞의 URDF 예제에는 fixed joint만 있다. 따라서 별도의 `JointState` publisher가 없어도 `base_link`를 parent, `imu_link`와 `lidar_link`를 child로 하는 정적 transform을 만들 수 있다.
 
@@ -376,9 +380,11 @@ URDF에 `<visual>`을 추가했다고 sensor 측정값이 생기거나 Gazebo si
 ## 관련 문서
 
 - [ROS 2](<./ROS 2.md>)
+- [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>)
 - [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)
 - [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)
 - [PointCloud2 and RViz2](<./07 PointCloud2 and RViz2.md>)
+- [Rosbag2 Record, Inspect and Replay](<./08 Rosbag2 Record Inspect and Replay.md>)
 - [Environment and Workspace](<./01 Environment and Workspace.md>)
 
 ## References

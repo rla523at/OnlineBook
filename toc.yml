@@ -562,6 +562,11 @@ project:
       - file: sources/05 Robotics/01 ROS 2/05 URDF and Robot State Publisher.md
       - file: sources/05 Robotics/01 ROS 2/06 Dynamic TF and Mobile Robot Frames.md
       - file: sources/05 Robotics/01 ROS 2/07 PointCloud2 and RViz2.md
+      - file: sources/05 Robotics/01 ROS 2/08 Rosbag2 Record Inspect and Replay.md
+    - file: sources/05 Robotics/02 Simulation/Simulation.md
+      children:
+      - file: sources/05 Robotics/02 Simulation/01 Gazebo Harmonic Headless and ROS
+          2 Integration.md
   - title: Mechanics
     children:
     - title: Continuum

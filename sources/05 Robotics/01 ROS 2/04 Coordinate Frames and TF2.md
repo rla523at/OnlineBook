@@ -353,7 +353,7 @@ TF tree의 parent-child 연결 구조가 같아도 그 관계를 나타내는 tr
 
 | 종류 | 적용 대상 | Topic | 시간 처리 |
 |---|---|---|---|
-| static transform | Body와 고정 sensor처럼 상대 pose가 변하지 않는 관계 | `/tf_static` | 한 번 publish한 관계를 호환되는 late subscriber도 받을 수 있다. |
+| static transform | Body와 고정 sensor처럼 상대 pose가 변하지 않는 관계 | `/tf_static` | Transient-local을 요청하는 late subscriber가 publisher의 retained 관계를 받을 수 있다. |
 | dynamic transform | 움직이는 joint나 이동 robot처럼 상대 pose가 변하는 관계 | `/tf` | Timestamp가 다른 transform sample을 listener buffer에 보관한다. |
 
 Static과 dynamic은 child가 world에서 움직이는지 여부가 아니라 **직접 연결된 parent에 대한 상대 pose가 변하는지**로 구분한다. 예를 들어 body에 고정된 lidar는 robot과 함께 world에서 움직여도 `base_link → lidar_link`가 static이다. 반대로 wheel이나 arm link는 `base_link`에 대한 관절 위치가 변하므로 dynamic이다.
@@ -364,11 +364,21 @@ Dynamic transform의 값을 TF2가 sensor에서 추정하는 것은 아니다. �
 
 `/tf`와 `/tf_static`은 application project가 임의로 정한 이름이 아니라 `tf2_ros`의 broadcaster와 listener가 기본으로 사용하는 topic 이름이다. 동적 transform을 위한 `TransformBroadcaster`는 `/tf`에 publish하고, 정적 transform을 위한 `StaticTransformBroadcaster`는 `/tf_static`에 publish한다. `TransformListener`도 별도 remapping이 없으면 두 topic을 구독한다.
 
-두 topic 모두 `tf2_msgs/msg/TFMessage` message를 전달한다. 차이는 message type이 아니라 전달할 transform의 시간적 성격과 기본 QoS다. `/tf`는 시간에 따라 갱신되는 dynamic transform sample을 전달하고, `/tf_static`은 변하지 않는 static transform을 전달한다. `/tf_static`의 broadcaster와 listener는 transient-local durability를 사용하므로 호환되는 listener가 늦게 시작해도 이미 publish된 static transform을 받을 수 있다.
+두 topic 모두 `tf2_msgs/msg/TFMessage` message를 전달한다. 차이는 message type이 아니라 전달할 transform의 시간적 성격과 기본 QoS다. `/tf`는 시간에 따라 갱신되는 dynamic transform sample을 전달하고, `/tf_static`은 변하지 않는 static transform을 전달한다. `/tf_static`의 broadcaster와 기본 listener는 transient-local durability를 사용한다.
 
 Project가 결정하는 것은 `base_link`, `lidar_link` 같은 frame 이름, parent-child 관계, transform 값과 그 값을 계산하거나 제공할 broadcaster다. `/tf`와 `/tf_static`이라는 기본 topic 이름 자체는 project별 frame 설계에 따라 새로 정하지 않는다.
 
 ROS 2 topic remapping을 사용하면 두 이름을 기술적으로 바꿀 수 있다. 이 경우 broadcaster와 모든 listener에 일관된 remapping을 적용해야 한다. RViz2와 tf2 검증 도구를 포함한 tf2 consumer는 기본적으로 `/tf`와 `/tf_static`을 사용하므로, 별도의 system-level topic 구성이 필요하지 않다면 기본 이름을 유지한다.
+
+### `/tf_static`의 late-joiner 전달 조건
+
+Static broadcaster는 변하지 않는 transform을 주기적으로 반복 publish하는 대신 transient-local durability로 최근 `TFMessage`를 보관한다. 나중에 시작한 listener가 이미 publish된 static transform을 받으려면 listener subscription도 transient-local durability를 요청해야 한다.
+
+Transient-local publisher와 volatile subscription도 앞으로 새로 publish되는 message에 대해서는 연결될 수 있다. 그러나 volatile subscription은 연결 전에 publish된 retained message를 받지 못한다. 따라서 "QoS가 호환된다"는 조건만으로 late joiner가 static TF를 받는다고 판단하지 않고 subscription의 durability까지 확인해야 한다.
+
+Retained message는 중앙 TF server가 영구 보관하는 것이 아니라 broadcaster 쪽 middleware endpoint가 살아 있는 동안 유지한다. Broadcaster가 종료된 뒤 처음 시작한 listener가 이전 static TF를 받는다고 가정해서는 안 된다. 장기 보존과 새 graph에서의 재공급이 필요하면 URDF를 다시 publish하거나 `/tf_static`을 rosbag2 같은 storage에 기록해 replay해야 한다.
+
+`TFMessage` 자체에는 `header`가 없고 `transforms` 배열의 각 `TransformStamped`가 parent frame, child frame, stamp와 transform 값을 가진다. 하나의 `TFMessage`에 여러 static 관계가 들어갈 수 있으므로 topic message 수와 transform 관계 수는 같지 않을 수 있다. QoS의 offered/requested 호환 규칙은 [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>)에서 설명한다.
 
 ## Static transform을 command로 확인
 
@@ -446,9 +456,11 @@ Dynamic timestamp와 `map → odom → base_link` 문제는 [Dynamic TF and Mobi
 
 - [ROS 2](<./ROS 2.md>)
 - [Node and Topic](<./02 Node and Topic.md>)
+- [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>)
 - [URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)
 - [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)
 - [PointCloud2 and RViz2](<./07 PointCloud2 and RViz2.md>)
+- [Rosbag2 Record, Inspect and Replay](<./08 Rosbag2 Record Inspect and Replay.md>)
 
 ## References
 

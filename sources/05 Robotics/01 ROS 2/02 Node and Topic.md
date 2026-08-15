@@ -116,6 +116,21 @@ ros2 interface show std_msgs/msg/String
 string data
 ```
 
+### `Header`는 모든 message의 공통 field가 아니다
+
+ROS 2 message type에 공통으로 상속되는 base class나 `header` field는 없다. 각 message type은 자신의 `.msg` 정의에서 필요한 field를 직접 선언하며, 측정 시각과 frame 정보가 필요한 type만 `std_msgs/msg/Header`를 field로 포함한다.
+
+| Message type | `header` 구조 |
+|---|---|
+| `std_msgs/msg/String` | `data` field만 있고 `header`가 없다. |
+| `sensor_msgs/msg/PointCloud2` | Message 최상위에 `header`가 있다. |
+| `sensor_msgs/msg/Imu` | Message 최상위에 `header`가 있다. |
+| `tf2_msgs/msg/TFMessage` | 자체 `header`는 없고, `transforms` 배열의 각 `geometry_msgs/msg/TransformStamped`가 `header`를 갖는다. |
+
+`PointCloud2`와 `Imu`는 ROS 2 message type이다. `/robotics_sensor_smoke/points` 같은 이름은 이 message를 전달하는 topic이고, `sensor_msgs/msg/PointCloud2`는 그 topic으로 전달되는 data 구조다. Topic, message type과 한 번 publish되는 message instance를 서로 다른 개념으로 구분해야 한다.
+
+Message 안에서 다른 message type을 field로 사용하는 것은 상속이 아니라 합성이다. 예를 들어 `PointCloud2.header`는 `PointCloud2` 정의가 `std_msgs/msg/Header`를 field로 포함한 결과다. `ros2 interface show <message-type>`을 사용하면 최상위 field와 내부 type을 확인할 수 있다.
+
 ## 최소 C++ publisher/subscriber package
 
 다음 예제는 하나의 `cpp_pubsub` package에 두 executable을 만든다.
@@ -518,6 +533,7 @@ ros2 topic info /chatter --verbose
 - [ROS 2](<./ROS 2.md>)
 - [Environment and Workspace](<./01 Environment and Workspace.md>)
 - [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>)
+- [Rosbag2 Record, Inspect and Replay](<./08 Rosbag2 Record Inspect and Replay.md>)
 
 ## References
 

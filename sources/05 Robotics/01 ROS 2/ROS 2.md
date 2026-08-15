@@ -56,21 +56,25 @@ Node 사이의 대표적인 상호작용 방식은 다음과 같다.
   - underlay와 overlay
 - [Node and Topic](<./02 Node and Topic.md>)
   - node, publisher, subscriber와 topic
+  - topic, message type, message instance와 선택적 `Header` field
   - 최소 C++ package 작성, build, 실행과 graph 관찰
 - [Node Runtime and Middleware](<./03 Node Runtime and Middleware.md>)
   - executable, process, node와 실행 주체의 관계
   - executor의 `spin()`, RMW와 DDS의 역할
+  - QoS offered/requested, durability와 late joiner
   - signal을 통한 정상 종료와 process 수명 관리
 - [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)
   - coordinate frame, transform과 ROS coordinate convention
   - source·target과 parent·child 방향 구분
   - broadcaster, listener, buffer와 TF tree
   - static·dynamic transform의 기본 구분과 static transform 검증
+  - `/tf_static`의 transient-local 전달 조건과 publisher 수명
   - runtime TF tree와 저장된 diagram snapshot의 차이
 - [URDF and Robot State Publisher](<./05 URDF and Robot State Publisher.md>)
   - 실제 robot 구조와 URDF link·joint의 대응
   - 고정된 URDF model과 시간에 따라 변하는 joint state의 결합
   - fixed와 movable joint의 `/tf_static`·`/tf` publish 규칙
+  - fixed transform의 묶음 발행과 late listener 조건
   - `robot_description`과 `robot_state_publisher`
   - package 설치, launch와 TF tree 검증
 - [Dynamic TF and Mobile Robot Frames](<./06 Dynamic TF and Mobile Robot Frames.md>)
@@ -82,6 +86,12 @@ Node 사이의 대표적인 상호작용 방식은 다음과 같다.
   - PointCloud2의 binary layout, frame과 timestamp
   - C++ 합성 point cloud 작성과 topic 확인
   - TF와 PointCloud2를 RViz2에서 확인하는 절차와 문제 진단
+- [Rosbag2 Record, Inspect and Replay](<./08 Rosbag2 Record Inspect and Replay.md>)
+  - Recorder·storage·player와 live ROS graph의 관계
+  - 명시적 topic record, MCAP metadata와 `ros2 bag info`
+  - 기록 시각과 message `header.stamp`의 구분
+  - Recorder·player의 QoS 자동 적응과 `/tf_static` 보존
+  - message 수·timestamp 진행성·완전 일치 검증의 구분
 
 ## References
 

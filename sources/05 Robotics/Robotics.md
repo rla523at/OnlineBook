@@ -154,4 +154,5 @@ frame으로 표현할 수 있다. 두 frame과 robot body의 `base_link`를 연�
 현재 포함된 software 문서는 다음과 같다.
 
 - [ROS 2](<./01 ROS 2/ROS 2.md>): ROS 2의 목적과 핵심 구성 요소를 설명한다.
+- [Robot Simulation](<./02 Simulation/Simulation.md>): simulator의 역할과 Gazebo를 이용한 world·시간·ROS 2 연결을 설명한다.
 

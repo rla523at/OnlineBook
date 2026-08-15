@@ -176,6 +176,31 @@ Publisher와 subscription이 연결되려면 적어도 다음 조건을 확인�
 
 DDS 기반 RMW에서는 ROS publisher와 subscription이 DDS의 송수신 endpoint에 대응하도록 구현된다. 그러나 ROS node 자체를 DDS의 특정 entity 하나와 항상 일대일로 같다고 설명해서는 안 된다.
 
+### QoS의 offered/requested 모델과 late joiner
+
+QoS는 publisher와 subscription이 반드시 같은 값을 사용하는 설정표가 아니다. Publisher endpoint는 자신이 제공할 수 있는 QoS를 **offer**하고, subscription endpoint는 필요한 QoS를 **request**한다. Middleware는 두 profile이 호환되는지 검사한 뒤 endpoint를 연결한다.
+
+Reliability에서 reliable publisher는 reliable과 best-effort subscription 모두에 data를 제공할 수 있지만, best-effort publisher는 reliable subscription의 요청을 만족하지 못한다. Durability에서는 통신 가능 여부와 연결 전에 publish된 sample을 받을 수 있는지가 서로 다른 문제다.
+
+| Publisher durability | Subscription durability | 연결 | 연결 전에 publish된 sample |
+|---|---|---|---|
+| volatile | volatile | 가능 | 받을 수 없다. |
+| transient local | volatile | 가능 | 받을 수 없고 새 sample만 받는다. |
+| transient local | transient local | 가능 | Publisher가 보관한 sample을 받을 수 있다. |
+| volatile | transient local | 불가능 | 받을 수 없다. |
+
+따라서 transient-local publisher와 volatile subscription을 단순히 "호환된다"고만 설명하면 late-joiner 동작을 빠뜨리게 된다. 늦게 연결된 subscription이 이전 sample까지 받으려면 publisher가 transient-local을 offer하고 subscription도 transient-local을 request해야 한다.
+
+Transient-local sample은 별도의 중앙 DDS server나 bag file에 영구 저장되는 것이 아니다. 일반적인 DDS 구성에서는 publisher 쪽 endpoint가 history 정책과 depth 범위에서 sample을 보관한다. Publisher process가 종료되어 endpoint가 사라진 뒤 처음 나타난 subscription까지 과거 sample 수신을 보장하는 정책으로 이해하면 안 된다.
+
+다음 command는 publisher와 subscription endpoint별 실제 QoS를 함께 보여준다.
+
+```bash
+ros2 topic info /tf_static --verbose
+```
+
+Static TF에 적용된 transient-local QoS는 [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)에서, rosbag2 recorder와 player의 자동 QoS 적응은 [Rosbag2 Record, Inspect and Replay](<./08 Rosbag2 Record Inspect and Replay.md>)에서 이어서 설명한다.
+
 ## Message 한 개가 처리되는 흐름
 
 Publisher 측 application code가 다음 함수를 호출한다고 하자.
@@ -315,6 +340,8 @@ Executable이 검색되지만 `ros2 node list`에 node가 없다면 executable�
 - [ROS 2](<./ROS 2.md>)
 - [Environment and Workspace](<./01 Environment and Workspace.md>)
 - [Node and Topic](<./02 Node and Topic.md>)
+- [Coordinate Frames and TF2](<./04 Coordinate Frames and TF2.md>)
+- [Rosbag2 Record, Inspect and Replay](<./08 Rosbag2 Record Inspect and Replay.md>)
 - [Shell Environment](<../../03 programming/05 Linux/Shell Environment.md>)
 - [Process](<../../03 programming/99 ETC/2 Process.md>)
 
@@ -324,4 +351,5 @@ Executable이 검색되지만 `ros2 node list`에 node가 없다면 executable�
 - [ROS 2 Documentation - RMW Implementations](https://docs.ros.org/en/jazzy/Installation/RMW-Implementations.html)
 - [ROS 2 Documentation - Creating an RMW Implementation](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Tutorials/Advanced/Creating-An-RMW-Implementation.rst)
 - [ROS 2 Documentation - About Domain ID](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Concepts/Intermediate/About-Domain-ID.rst)
+- [ROS 2 Documentation - Quality of Service Settings](https://github.com/ros2/ros2_documentation/blob/jazzy/source/Concepts/Intermediate/About-Quality-of-Service-Settings.rst)
 - [rclcpp Jazzy - utilities.hpp](https://github.com/ros2/rclcpp/blob/jazzy/rclcpp/include/rclcpp/utilities.hpp)
