@@ -31,6 +31,11 @@ ATE나 RPE 수식이 같아도 입력 trajectory의 의미가 다르면 결과�
   - TUM-compatible trajectory text
   - Timestamp association과 SE(3)·Sim(3) alignment
   - Ground truth의 식별·평가 경계
+- [Gauge Freedom and Trajectory Alignment Policy](<./02 Gauge Freedom and Trajectory Alignment Policy.md>)
+  - Observability와 gauge freedom
+  - None·4-DoF·SE(3)·Sim(3) alignment 선택 기준
+  - Odometry와 global localization의 primary metric 차이
+  - Aligned·unaligned result와 fit 구간의 해석
 
 ## References
 

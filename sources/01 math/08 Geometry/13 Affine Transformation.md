@@ -677,11 +677,18 @@ $$
 
 두 해석의 수학적 형태는 같지만 geometric 의미는 다르다.
 
+Determinant가 $+1$인 orthogonal linear part와 translation을 결합한 3차원 rigid
+transformation의 group 구조는
+[Rigid Transformation and SE(3)](<./23 Rigid Transformation and SE(3).md>)에서
+설명한다.
+
 ## 관련 문서
 
 - [Affine space](<./11 Affine space.md>)
 - [Affine Combination](<./12 Affine Combination.md>)
 - [Change of Basis and Coordinate Matrix](<../07 Linear Algebra/21 Change of Basis and Coordinate Matrix.md>)
+- [Rotation Matrix and SO(3)](<./22 Rotation Matrix and SO(3).md>)
+- [Rigid Transformation and SE(3)](<./23 Rigid Transformation and SE(3).md>)
 
 ## Reference
 

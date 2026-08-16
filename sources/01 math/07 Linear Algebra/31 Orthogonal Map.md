@@ -167,37 +167,103 @@ $$ AA^T = A^TA = I $$
 ### 참고
 orthogonal map을 orthonormal basis로 표현하면 orthogonal matrix가 된다.
 
-### 명제
-$M \in {M}(3)$ 이고 대각행렬의 집합을 ${D}(3)$ 라고할 때, $S \in {D}(3)$ 과 $R \in SO(3)$ 에 대해 다음이 성립한다.
+### Orthogonal group과 special orthogonal group
 
-$$MM^T \in {D}(3) \iff M = SR$$
+$n\times n$ orthogonal matrix 전체의 집합을 orthogonal group $O(n)$이라고 한다.
+
+$$
+O(n)
+:=
+\{Q\in\mathbb R^{n\times n}\mid Q^{\mathsf T}Q=I\}
+$$
+
+$Q\in O(n)$이면 다음이 성립한다.
+
+$$
+1
+=
+\det(Q^{\mathsf T}Q)
+=
+\det(Q)^2
+$$
+
+따라서 orthogonal matrix의 determinant는 $+1$ 또는 $-1$이다.
+
+$$
+\det Q\in\{-1,+1\}
+$$
+
+Determinant가 $+1$인 orthogonal matrix만 모은 subgroup을 special orthogonal
+group $SO(n)$이라고 한다.
+
+$$
+SO(n)
+:=
+\{R\in O(n)\mid\det R=1\}
+$$
+
+$SO(3)$의 element는 3차원 orientation을 보존하는 rotation matrix다.
+$O(3)$에는 rotation뿐 아니라 determinant가 $-1$인 orientation-reversing
+transformation도 포함된다. 따라서 $Q^{\mathsf T}Q=I$만 확인하고 $Q$를 rotation이라고
+부르면 reflection을 구분하지 못한다.
+
+3차원 rotation의 geometric 의미와 group operation은
+[Rotation Matrix and SO(3)](<../08 Geometry/22 Rotation Matrix and SO(3).md>)에서
+설명한다.
+
+### 명제
+$M\in GL(3,\mathbb R)$이고 대각행렬의 집합을 $D(3)$라고 하자. 다음 두 조건은
+동치다.
+
+1. $MM^{\mathsf T}\in D(3)$이다.
+2. Positive diagonal matrix $S\in D(3)$와 $Q\in O(3)$가 존재해 $M=SQ$다.
 
 **Proof**
 
 [$\implies$]
 
-$MM^T \in D(3)$ 임으로 $M$은 orthogonal row vector 를 가지고 있다. 각 row vector 의 크기를 $s_{1,2,3}$ 라고 할 떄, $S \in D(3)$ 를 다음과 같이 정의한다.
+$MM^{\mathsf T}\in D(3)$이면 $M$의 서로 다른 row는 orthogonal하다. $M$이
+invertible이므로 각 row의 norm $s_1,s_2,s_3$는 0보다 크다. 다음 matrix를 정의하자.
 
 $$ S = \begin{bmatrix}
-  s1 & 0  & 0  \\
-  0  & s2 & 0  \\
-  0  & 0  & s3 \\
+  s_1 & 0  & 0  \\
+  0  & s_2 & 0  \\
+  0  & 0  & s_3 \\
 \end{bmatrix} $$
 
-$R = S^{-1}M$ 라고 하면 $MM^T = SS$ 임으로 다음이 성립한다.
+$Q=S^{-1}M$이라고 하면 $MM^{\mathsf T}=S^2$이므로 다음이 성립한다.
 
-$$ RR^T = S^{-1}MM^TS^{-T} = S^{-1}SSS^{-1} = I $$
+$$
+QQ^{\mathsf T}
+=
+S^{-1}MM^{\mathsf T}S^{-\mathsf T}
+=
+S^{-1}S^2S^{-1}
+=I
+$$
 
-따라서 $R \in SO(3)$ 이고 다음이 성립한다.
+따라서 $Q\in O(3)$이고 $M=SQ$다.
 
-$$ M = SR \qed $$
+[$\impliedby$]
+
+$M=SQ$, $S\in D(3)$, $Q\in O(3)$이면:
+
+$$
+MM^{\mathsf T}
+=
+SQQ^{\mathsf T}S^{\mathsf T}
+=
+S^2
+\in D(3)
+\qed
+$$
 
 #### 따름명제1
-$MM^T \in D(3)$ 를 만족하는 집합을 $\mathfrak{T}$ 라고 하자.
+$\mathfrak T:=\{M\in GL(3,\mathbb R)\mid MM^{\mathsf T}\in D(3)\}$라고 하자.
 
 $M \in \mathfrak{T}$ 일 때, $M^{-1} \notin \mathfrak{T}$ 일 수 있다.
 
 #### 따름명제2
-$MM^T \in D(3)$ 를 만족하는 집합을 $\mathfrak{T}$ 라고 하자.
+$\mathfrak T:=\{M\in GL(3,\mathbb R)\mid MM^{\mathsf T}\in D(3)\}$라고 하자.
 
 $M,N \in \mathfrak{T}$ 일 때, $MN \notin \mathfrak{T}$ 일 수 있다.

@@ -195,6 +195,9 @@ project:
       - file: sources/01 math/07 Linear Algebra/22 Eigenvector & Eigenvalue & EigenSpace.md
       - file: sources/01 math/07 Linear Algebra/30 Inner Product Space.md
       - file: sources/01 math/07 Linear Algebra/31 Orthogonal Map.md
+      - file: sources/01 math/07 Linear Algebra/32 Least Squares Problem.md
+      - file: sources/01 math/07 Linear Algebra/33 Symmetric Matrix and Spectral Theorem.md
+      - file: sources/01 math/07 Linear Algebra/34 Singular Value Decomposition.md
       - file: sources/01 math/07 Linear Algebra/41 Dual Space.md
     - title: Geometry
       children:
@@ -211,7 +214,12 @@ project:
       - file: sources/01 math/08 Geometry/12 Affine Combination.md
       - file: sources/01 math/08 Geometry/13 Affine Transformation.md
       - file: sources/01 math/08 Geometry/21 Euclidean Space.md
+      - file: sources/01 math/08 Geometry/22 Rotation Matrix and SO(3).md
+      - file: sources/01 math/08 Geometry/23 Rigid Transformation and SE(3).md
+      - file: sources/01 math/08 Geometry/24 Rigid Point Set Alignment with Kabsch
+          and Umeyama.md
       - file: sources/01 math/08 Geometry/31 Cylidrical Coordinates.md
+      - file: sources/01 math/08 Geometry/32 Quaternion and 3D Rotation.md
     - title: Numerical Analysis
       children:
       - title: Boundary Value Problem
@@ -573,6 +581,8 @@ project:
       children:
       - file: sources/05 Robotics/03 Evaluation/01 Pose Trajectory Coordinate Time
           and Alignment.md
+      - file: sources/05 Robotics/03 Evaluation/02 Gauge Freedom and Trajectory Alignment
+          Policy.md
   - title: Mechanics
     children:
     - title: Continuum

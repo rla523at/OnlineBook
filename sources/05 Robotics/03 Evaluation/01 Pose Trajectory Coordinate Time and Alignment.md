@@ -93,6 +93,9 @@ Quaternion은 singularity 없이 3D rotation을 표현할 수 있지만 componen
 API마다 다를 수 있다. ROS `geometry_msgs/Quaternion`과 TUM trajectory text는
 vector part 뒤에 scalar part를 두는 순서를 사용한다.
 
+Quaternion의 대수적 정의, axis-angle, rotation matrix와의 대응, rotation 합성과
+inverse는 [Quaternion and 3D Rotation](<../../01 math/08 Geometry/32 Quaternion and 3D Rotation.md>)에서 설명한다. 여기서는 trajectory를 교환하고 평가할 때 필요한 저장 순서와 frame convention에 집중한다.
+
 ```text
 qx qy qz qw
 identity = 0 0 0 1
@@ -213,6 +216,12 @@ Tolerance가 너무 크면 다른 motion state를 짝지어 spatial error를 tim
 다를 수 있다. `alignment`는 associated pose로 estimate에 적용할 하나의 transform을
 fit하는 평가 전처리다.
 
+Fitted transform만으로 원래 차이가 arbitrary coordinate frame 때문인지 estimator의
+constant global pose error 때문인지 판별할 수는 없다. 제거할 자유도는 estimator의
+measurement, output frame과 평가 목적을 근거로 result를 보기 전에 정해야 한다.
+[Gauge Freedom and Trajectory Alignment Policy](<./02 Gauge Freedom and Trajectory Alignment Policy.md>)에서
+alignment mode 선택 기준을 설명한다.
+
 | Alignment | Fit하는 자유도 | 제거되는 차이 |
 |---|---:|---|
 | None | 0 | 아무것도 제거하지 않는다. |
@@ -225,6 +234,10 @@ rotation·translation과 선택적으로 scale을 구하는 방법이다. Metric
 stereo 또는 LiDAR-inertial estimator에 Sim(3)을 적용하면 scale error를 숨길 수
 있다. Monocular SLAM처럼 scale이 원래 관측되지 않는 경우에만 scale correction을
 평가 protocol에 명시적으로 포함한다.
+
+Centroid로 translation을 분리하고 cross-covariance의 SVD로 rotation을 구하는 과정은
+[Rigid Point Set Alignment with Kabsch and Umeyama](<../../01 math/08 Geometry/24 Rigid Point Set Alignment with Kabsch and Umeyama.md>)에서
+설명한다.
 
 Alignment를 trajectory 전체에서 한 번 fit하는 것과 짧은 segment마다 다시 fit하는
 것은 다른 metric이다. Segment별 alignment는 accumulated drift 일부를 제거할 수
@@ -280,6 +293,7 @@ Alignment된 trajectory는 metric 계산용 파생 결과다. 이를 estimator o
 - Association tolerance, offset, interpolation과 평가 구간이 고정됐는가?
 - Alignment 종류, scale correction과 fit pair 범위를 기록했는가?
 - Aligned metric이 숨길 수 있는 unaligned 차이를 별도로 관찰했는가?
+- Alignment mode가 estimator의 observable·gauge 자유도와 일치하는가?
 - GT가 estimator·parameter identification 경로와 분리됐는가?
 
 ## References
