@@ -220,7 +220,7 @@ transformation이 $SE(3)$의 element다.
 ## 관련 문서
 
 - [Group](<../02 Abstract Algebra/05 Group/Group.md>)
-- [Orthogonal Map](<../07 Linear Algebra/31 Orthogonal Map.md>)
+- [Orthogonal Map](<../07 Linear Algebra/36 Orthogonal Map.md>)
 - [Euclidean Space](<./21 Euclidean Space.md>)
 - [Affine Transformation](<./13 Affine Transformation.md>)
 - [Rigid Transformation and SE(3)](<./23 Rigid Transformation and SE(3).md>)

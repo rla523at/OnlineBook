@@ -79,7 +79,7 @@ $$
 - $\sigma_i^2$는 $A^{\mathsf T}A$의 eigenvalue다.
 - $\sigma_i>0$이면 $u_i=Av_i/\sigma_i$다.
 
-[Symmetric Matrix and Spectral Theorem](<./33 Symmetric Matrix and Spectral Theorem.md>)이
+[Symmetric Matrix and Spectral Theorem](<./39 Symmetric Matrix and Spectral Theorem.md>)이
 SVD를 구성할 수 있는 이유를 제공한다.
 
 ## Thin SVD
@@ -193,9 +193,9 @@ rotation ambiguity나 numerical sensitivity로 나타날 수 있다.
 
 ## 관련 문서
 
-- [Least Squares Problem](<./32 Least Squares Problem.md>)
-- [Symmetric Matrix and Spectral Theorem](<./33 Symmetric Matrix and Spectral Theorem.md>)
-- [Orthogonal Map](<./31 Orthogonal Map.md>)
+- [Least Squares Problem](<./37 Least Squares Problem.md>)
+- [Symmetric Matrix and Spectral Theorem](<./39 Symmetric Matrix and Spectral Theorem.md>)
+- [Orthogonal Map](<./36 Orthogonal Map.md>)
 - [Rigid Point Set Alignment with Kabsch and Umeyama](<../08 Geometry/24 Rigid Point Set Alignment with Kabsch and Umeyama.md>)
 
 ## References

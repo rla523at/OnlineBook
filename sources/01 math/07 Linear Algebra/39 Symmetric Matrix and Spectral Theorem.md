@@ -159,8 +159,8 @@ cross-covariance matrix의 rank가 낮아지고 일부 rotation을 안정적으�
 
 - [Eigenvector & Eigenvalue](<./22 Eigenvector & Eigenvalue & EigenSpace.md>)
 - [Inner Product Space](<./30 Inner Product Space.md>)
-- [Orthogonal Map](<./31 Orthogonal Map.md>)
-- [Singular Value Decomposition](<./34 Singular Value Decomposition.md>)
+- [Orthogonal Map](<./36 Orthogonal Map.md>)
+- [Singular Value Decomposition](<./40 Singular Value Decomposition.md>)
 
 ## References
 

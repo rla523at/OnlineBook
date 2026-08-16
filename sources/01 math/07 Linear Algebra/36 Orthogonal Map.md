@@ -156,6 +156,31 @@ $\beta_i$와 $T(\beta_j)$ 모두 orthonormal basis이기 때문에 두 vector의
 
 따라서, $A^i_j$는 $\beta_i$와 $T(\beta_j)$ 사이의 각도에 따른 $\cos$값이 됨으로 $A^i_j$를 기존의 $i$ basis와 새로운 $j$ basis 사이의 directional cosine이라고 부르기도 한다.
 
+## 임의의 basis에서의 matrix condition
+
+Basis가 orthonormal이 아닐 때에는 [Gram Matrix](<31 Gram Matrix.md>)가 basis vector의 length와 angle 정보를 기록한다.
+
+Basis $\beta$에서 $T$의 matrix representation을 $A$라고 하면, 모든 coordinate column $a,b$에 대해 다음이 성립해야 한다.
+
+$$
+(Aa)^{\mathsf T}G(Ab)
+=
+a^{\mathsf T}Gb.
+$$
+
+따라서 arbitrary basis에서 orthogonal map의 matrix가 만족하는 조건은
+
+$$
+\boxed{A^{\mathsf T}GA=G}
+$$
+
+이다. Orthonormal basis에서는 $G=I$이므로 이 조건이 익숙한
+
+$$
+A^{\mathsf T}A=I
+$$
+
+로 바뀐다. 즉, orthogonal map이라는 geometric property는 basis와 무관하지만 $A^{\mathsf T}A=I$이라는 matrix equation은 orthonormal basis를 선택했을 때의 표현이다. Determinant는 basis를 바꾸어도 변하지 않으므로, 3차원 rotation은 arbitrary basis에서도 여기에 $\det A=1$ 조건을 함께 만족한다. Rotation과의 관계는 [Quaternion and 3D Rotation](<../08 Geometry/32 Quaternion and 3D Rotation.md>)에서 확인할 수 있다.
 
 ## Orthogonal Matrix
 $A \in M_{nn}(\R)$가 있다고 하자.

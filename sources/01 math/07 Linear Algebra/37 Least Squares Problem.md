@@ -95,7 +95,7 @@ $$
 이 식은 해의 구조를 설명하지만, numerical implementation에서 inverse matrix를
 직접 계산하라는 뜻은 아니다. $A^{\mathsf T}A$를 만들면 condition number가
 악화될 수 있으므로 실제 계산에서는 QR decomposition이나
-[Singular Value Decomposition](<./34 Singular Value Decomposition.md>)을 사용한다.
+[Singular Value Decomposition](<./40 Singular Value Decomposition.md>)을 사용한다.
 
 ## 해가 유일하지 않은 경우
 
@@ -179,8 +179,8 @@ error인지 판별하지는 않는다.
 ## 관련 문서
 
 - [Inner Product Space](<./30 Inner Product Space.md>)
-- [Symmetric Matrix and Spectral Theorem](<./33 Symmetric Matrix and Spectral Theorem.md>)
-- [Singular Value Decomposition](<./34 Singular Value Decomposition.md>)
+- [Symmetric Matrix and Spectral Theorem](<./39 Symmetric Matrix and Spectral Theorem.md>)
+- [Singular Value Decomposition](<./40 Singular Value Decomposition.md>)
 - [Rigid Point Set Alignment with Kabsch and Umeyama](<../08 Geometry/24 Rigid Point Set Alignment with Kabsch and Umeyama.md>)
 
 ## References
