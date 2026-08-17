@@ -6,17 +6,36 @@ Gram matrix는 선택한 basis vector 사이의 inner product를 기록하여, �
 
 ## Motivation
 
-[Inner Product Space](<30 Inner Product Space.md>)에서 정의한 inner product는 basis와 무관한 함수지만 실제 계산에서는 vector를 선택한 basis의 coordinate로 나타낸다. Orthonormal basis에서는 coordinate끼리 바로 inner product를 계산할 수 있지만, 일반적인 basis에서는 basis vector의 length와 서로 이루는 관계까지 반영해야 한다. 이 정보를 하나의 matrix에 모은 것이 Gram matrix다.
+[Inner Product Space](<30 Inner Product Space.md>)에서 정의한 inner product $B$는 basis 선택과 무관하게 두 vector 자체에 작용하지만, 실제 계산에서는 vector를 선택한 basis의 coordinate로 나타내는 경우가 많다. Basis를 $\beta=(\beta_1,\ldots,\beta_n)$라고 하고
+
+$$
+x=\sum_{i=1}^n a_i\beta_i,
+\qquad
+y=\sum_{j=1}^n b_j\beta_j
+$$
+
+라고 하자. Inner product의 linearity와 conjugate linearity를 사용하면 다음을 얻는다.
+
+$$
+B(x,y)
+=
+\sum_{i=1}^n\sum_{j=1}^n
+a_i\overline{b_j}B(\beta_i,\beta_j).
+$$
+
+따라서 coordinate의 같은 위치끼리 곱한 $\sum_{i=1}^n a_i\overline{b_i}$만으로는 일반적으로 $B(x,y)$를 계산할 수 없다. 각 coordinate가 나타내는 basis vector들이 inner product 아래에서 어떻게 관계하는지, 즉 $B(\beta_i,\beta_j)$도 알아야 한다.
+
+위 전개식은 필요한 정보와 그 배열 방법을 동시에 보여준다. $x$의 $i$번째 coordinate와 $y$의 $j$번째 coordinate 사이에 곱해지는 값 $B(\beta_i,\beta_j)$를 matrix의 $(i,j)$ entry에 놓으면 전체 double sum을 하나의 matrix product로 쓸 수 있다. 반대로 $x=\beta_i$, $y=\beta_j$를 대입하면 이 entry를 다시 얻으므로, 이 값들은 선택한 basis에서 inner product를 완전히 기록한다. 이렇게 얻는 matrix가 Gram matrix다.
 
 ## 정의와 계산
 
-$V$의 basis를 $\beta=(\beta_1,\ldots,\beta_n)$라고 하고 다음과 같이 정의하자.
+Inner product space $(V,B)$의 basis를 $\beta=(\beta_1,\ldots,\beta_n)$라고 하고 다음과 같이 정의하자.
 
 $$
 G_{ij}:=B(\beta_i,\beta_j)
 $$
 
-$G$를 inner product $B$의 basis $\beta$에 대한 `Gram matrix`라고 한다. Gram matrix는 basis vector 사이의 모든 inner product를 기록하여 coordinate에 필요한 geometry를 보존한다.
+$G$를 inner product $B$의 basis $\beta$에 대한 `Gram matrix`라고 한다. Diagonal entry는 각 basis vector의 squared length를 기록하고, off-diagonal entry는 서로 다른 basis vector 사이의 interaction을 기록한다.
 
 $a=[x]_\beta$와 $b=[y]_\beta$라고 하면 이 문서의 convention에서는 다음이 성립한다.
 
@@ -34,25 +53,55 @@ B(x,y)
 [x]_\beta^{\mathsf T}G[y]_\beta.
 $$
 
-Conjugate symmetry와 positive definiteness에 의해 Gram matrix는 다음을 만족한다.
+Conjugate symmetry가 Gram matrix에 주는 성질부터 확인하자. 여기서 $G^{\mathsf *}:=\overline G^{\mathsf T}$는 conjugate transpose다. 임의의 $i,j$에 대해 다음이 성립한다.
+
+$$
+\begin{aligned}
+(G^{\mathsf *})_{ij}
+&=\overline{G_{ji}} \\
+&=\overline{B(\beta_j,\beta_i)} \\
+&=B(\beta_i,\beta_j) \\
+&=G_{ij}.
+\end{aligned}
+$$
+
+세 번째 등식은 inner product의 conjugate symmetry에서 나온다. $G^{\mathsf *}$와 $G$의 corresponding entry가 모두 같으므로 $G^{\mathsf *}=G$이다.
+
+다음으로 nonzero coordinate column $a\in\F^n$을 잡고 $x=\sum_{i=1}^n a_i\beta_i$라고 하자. $\beta$가 basis이므로 $a\neq0$이면 $x\neq0_V$이다. 앞에서 얻은 coordinate 공식과 inner product의 positive definiteness에 의해 다음이 성립한다.
+
+$$
+0
+<
+B(x,x)
+=
+a^{\mathsf T}G\overline a.
+$$
+
+Matrix의 positive definiteness는 보통 $z^{\mathsf *}Gz$를 사용하여 표기하며, 여기서 $z^{\mathsf *}:=\overline z^{\mathsf T}$이다. $z:=\overline a$라고 두면 $z^{\mathsf *}=a^{\mathsf T}$이므로 다음을 얻는다.
+
+$$
+z^{\mathsf *}Gz
+=
+a^{\mathsf T}G\overline a
+=
+B(x,x)
+>
+0.
+$$
+
+Map $a\mapsto\overline a$는 nonzero coordinate column 전체에서 일대일 대응이므로, 이 부등식은 모든 nonzero $z\in\F^n$에 대해 성립한다. 따라서 Gram matrix는 다음 두 성질을 갖는다.
 
 $$
 G^{\mathsf *}=G,
 \qquad
 z^{\mathsf *}Gz>0
 \quad
-(z\neq0).
+(z\in\F^n,\ z\neq0).
 $$
 
-여기서 $G^{\mathsf *}:=\overline G^{\mathsf T}$는 conjugate transpose다. 첫 번째 성질을 Hermitian, 두 번째 성질을 positive definite라고 한다. Inner product와 basis 중 하나라도 바뀌면 Gram matrix도 일반적으로 바뀐다. 또한 다음 두 조건은 동치다.
+첫 번째 성질을 만족하는 matrix를 Hermitian, 두 번째 성질을 만족하는 matrix를 positive definite라고 한다. $\F=\R$이면 complex conjugation이 사라지므로 각각 $G^{\mathsf T}=G$와 $z^{\mathsf T}Gz>0$이 된다.
 
-$$
-\beta\text{ is an orthonormal basis}
-\qquad\Longleftrightarrow\qquad
-G=I.
-$$
-
-따라서 real inner product space의 arbitrary basis에서는 coordinate column끼리 계산한 $[x]_\beta^{\mathsf T}[y]_\beta$가 일반적으로 원래 inner product와 같지 않다. Complex inner product space에서는 coordinate의 complex conjugation도 함께 고려해야 한다.
+Inner product와 basis 중 하나라도 바뀌면 Gram matrix도 일반적으로 바뀐다. 일반적인 basis에서는 $G$가 identity matrix일 필요가 없으므로, real inner product space에서 coordinate column끼리 계산한 $[x]_\beta^{\mathsf T}[y]_\beta$는 일반적으로 원래 inner product와 같지 않다. Complex inner product space에서는 coordinate의 complex conjugation도 함께 고려해야 한다.
 
 ### Euclidean space에서의 예
 

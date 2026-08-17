@@ -6,128 +6,119 @@ Vector space에 inner product를 추가하면 vector의 length와 angle을 정�
 
 ## Motivation
 
-Vector space의 공리는 vector addition과 scalar multiplication을 설명한다. 따라서 linear combination, basis와 subspace는 정의할 수 있지만 다음 질문에는 답하지 못한다.
+$\F\in\{\R,\C\}$인 vector space $V/\F$를 생각하자. Vector space의 공리는 vector addition과 scalar multiplication을 설명한다. 따라서 vector를 어떻게 linear combination할지는 알 수 있지만, vector의 크기나 두 vector 사이의 관계를 나타내는 scalar는 정해져 있지 않다. 여기서는 vector space에 Euclidean-type geometry를 추가하려면 어떤 규칙이 필요한지 생각해 본다.
 
-- Vector의 length는 얼마인가?
-- 두 vector가 이루는 angle은 얼마인가?
-- 두 vector가 orthogonal한가?
-- 한 vector와 subspace 사이에서 가장 가까운 point는 무엇인가?
-
-이 질문들은 vector space 자체가 아니라 그 위에 추가로 선택한 기하 구조에 의해 결정된다. 여기서는 length, angle과 nearest point를 다루는 Euclidean-type geometry를 목표로 하고, 이러한 질문에 답하려면 어떤 규칙이 추가로 필요한지 살펴본다.
-
-한 vector와 subspace 사이에서 가장 가까운 point를 찾으려면 먼저 두 후보 중 어느 쪽이 더 가까운지 비교할 수 있어야 한다. 그러려면 두 point $x,y\in V$가 얼마나 떨어져 있는지를 nonnegative real number로 나타내는 distance $d(x,y)$가 필요하다.
-
-여기서 원하는 Euclidean-type geometry에서는 두 point를 같은 vector $a$만큼 평행이동해도 두 point 사이의 distance가 변하지 않아야 한다.
+먼저 우리가 원하는 length를 $L$이라고 하자. Length는 적어도 zero vector를 다른 vector와 구별하고 scalar multiplication과 다음과 같이 호환되어야 한다.
 
 $$
-d(x+a,y+a)=d(x,y).
-$$
-
-여기서 $a=-x$로 두면 다음을 얻는다.
-
-$$
-d(x,y)=d(0,y-x).
-$$
-
-따라서 모든 pair의 distance를 따로 정할 필요는 없다. 원점에서 displacement vector $v$까지의 distance를 그 vector의 length
-
-$$
-L(v):=d(0,v)
-$$
-
-로 정하면 모든 distance가
-
-$$
-d(x,y)=L(y-x)
-$$
-
-로 결정된다. 결국 distance를 정하는 문제는 각 displacement vector의 length를 정하는 문제로 바뀐다.
-
-Length를 그대로 사용해도 되지만, vector addition과 scalar multiplication이 length에 미치는 영향을 식으로 전개할 때는 length의 제곱을 사용하는 편이 더 편리하다. 이 squared length를 다음 함수로 나타내자.
-
-$$
-Q:V\rightarrow\R_{\ge0},
+L(x)\ge0,
 \qquad
-Q(x):=L(x)^2.
-$$
-
-Length가 vector space의 scalar multiplication과 호환되려면 $L(cx)=\lvert c\rvert L(x)$여야 한다. 따라서 squared length는 $Q(x)=0$과 $x=0_V$가 동치이고 다음 관계를 만족해야 한다.
-
-$$
-Q(cx)=\lvert c\rvert^2Q(x).
-$$
-
-이제 두 vector $x,y$를 더한 vector의 squared length $Q(x+y)$를 생각하자. $Q(x)$와 $Q(y)$만으로는 $Q(x+y)$를 결정할 수 없다. 두 vector가 서로 어떤 방향 관계에 있는지에 따라 합의 length가 달라지기 때문이다. 먼저 개별 squared length의 합을 기준으로 실제 합의 squared length가 얼마나 달라지는지를 다음 discrepancy로 나타내자. 여기서는 real vector space를 생각한다.
-
-$$
-\Delta_Q(x,y)
-:=
-Q(x+y)-Q(x)-Q(y).
-$$
-
-이 식은 새로운 성질을 가정한 것이 아니다. 실제 값 $Q(x+y)$에서 이미 알고 있는 두 값 $Q(x)$와 $Q(y)$를 뺀 나머지에 이름을 붙인 것이다.
-
-익숙한 평면에서 $Q(x)=Q(y)=1$인 두 vector를 비교해 보자.
-
-- 같은 방향으로 겹쳐서 $y=x$이면 $Q(x+y)=Q(2x)=4$이므로 $\Delta_Q(x,y)=2$이다.
-- 두 vector가 직각이면 Pythagorean theorem에 의해 $Q(x+y)=2$이므로 $\Delta_Q(x,y)=0$이다.
-- 반대 방향으로 겹쳐서 $y=-x$이면 $Q(x+y)=Q(0)=0$이므로 $\Delta_Q(x,y)=-2$이다.
-
-세 경우 모두 개별 squared length는 $1$로 같지만 $\Delta_Q(x,y)$는 서로 다르다. 따라서 이 차이는 개별 squared length만으로는 알 수 없는 두 vector의 방향 관계를 담는다.
-
-지금 필요한 것은 $Q$와 무관한 새로운 pairwise function이 아니라, $Q$가 담고 있는 squared-length 정보를 보존하면서 두 vector 사이의 관계까지 표현하는 함수다. 이 함수를 $B(x,y)$라고 하자.
-
-$Q$는 vector 하나를 입력받아 그 squared length를 알려 주고, $B$는 vector 두 개를 입력받아 그 관계를 알려 준다. $B$가 $Q$의 two-vector 확장이라면 $B$에 같은 vector $x$를 두 번 넣었을 때 기존 squared length를 다시 얻을 수 있어야 한다. 즉 다음 조건으로 $B$가 원래의 $Q$를 그대로 보존하도록 한다.
-
-$$
-B(x,x)=Q(x).
-$$
-
-앞서 정의한 $\Delta_Q$가 이 역할을 그대로 할 수 있는지 확인해 보자. 같은 vector를 두 번 입력하면
-
-$$
-\Delta_Q(x,x)
-=
-Q(2x)-2Q(x)
-=
-4Q(x)-2Q(x)
-=
-2Q(x).
-$$
-
-$\Delta_Q$를 그대로 $B$로 사용하면 $B(x,x)=2Q(x)$가 되어 처음 정한 squared length $Q(x)$를 직접 복원하지 못한다. 이것이 수학적으로 틀린 것은 아니지만, 원래 geometry의 squared length를 두 배로 바꾸게 된다. 따라서 $B(x,x)=Q(x)$가 되도록 $\Delta_Q$를 절반으로 normalization한다.
-
-$$
-B(x,y)
-:=
-\frac12\Delta_Q(x,y)
-=
-\frac12\left(Q(x+y)-Q(x)-Q(y)\right),
+L(x)=0\iff x=0_V,
 \qquad
-B(x,x)=Q(x).
+L(cx)=\lvert c\rvert L(x).
 $$
 
-Factor $\frac12$은 이처럼 pairwise relation $B$가 기존 squared length $Q$를 그대로 확장하도록 맞춘 결과다. 또한 정의를 정리하면
+그러나 각 vector의 length만 정해서는 length와 vector addition 사이의 관계가 드러나지 않는다. 예를 들어 $x\ne0_V$일 때 $x$와 $-x$는 같은 length를 갖지만 다음 두 합의 length는 서로 다르다.
 
 $$
-Q(x+y)
+L(x+x)=2L(x),
+\qquad
+L(x+(-x))=0.
+$$
+
+따라서 $L(x+y)$가 $L(x)$와 $L(y)$에 어떻게 연결되는지 설명하려면 두 vector가 합 안에서 만드는 interaction에 관한 정보가 추가로 필요하다. Euclidean-type geometry에서는 이 정보를 vector의 pair에 대응하는 하나의 scalar로 나타내고, 그 scalar가 linear combination과 호환되도록 하고자 한다. 이를 다음 함수로 나타내자.
+
+$$
+B:V\times V\rightarrow\F.
+$$
+
+$B(x,y)$는 $x$와 $y$가 함께 나타날 때의 interaction을 표현하기 위한 값이다. Vector space의 핵심 연산은 linear combination이므로, 한 vector가 합으로 분해되면 interaction도 같은 방식으로 분해되는 것이 자연스럽다. 이 문서에서는 첫 번째 argument를 기준으로 다음 linearity를 요구한다.
+
+$$
+B(x_1+x_2,y)
 =
-Q(x)+Q(y)+2B(x,y)
-$$
-
-를 얻는다.
-
-다만 임의의 squared-length function $Q$에서 만든 $B$가 언제나 vector 연산과 잘 맞는 것은 아니다. 기하 계산에 쓰려면 다음과 같이 vector addition과 scalar multiplication을 보존하고, 두 argument의 순서를 바꾸어도 값이 같아야 한다.
-
-$$
-B(x_1+x_2,y)=B(x_1,y)+B(x_2,y),
+B(x_1,y)+B(x_2,y),
 \qquad
-B(cx,y)=cB(x,y),
-\qquad
-B(x,y)=B(y,x).
+B(cx,y)=cB(x,y).
 $$
 
-이 조건과 squared length의 positivity가 함께 성립할 때 $B$는 real vector space의 내적(inner product)이 된다. $B(x,x)$는 squared length를, $B(x,y)$는 두 vector 사이의 interaction을 나타내므로 $B$에서 length, angle, orthogonality와 projection을 차례로 정의할 수 있다. Complex vector space에서는 한 argument에 대해 linear하고 다른 argument에 대해 conjugate linear한 sesquilinearity와 conjugate symmetry를 사용해 같은 역할을 유지한다. 다음 절에서 이 조건들을 정확히 정의한다.
+이제 두 argument의 순서를 바꾸었을 때의 관계를 정해야 한다. Real vector space에서는 두 vector의 interaction이 순서에 의존하지 않도록 symmetry
+
+$$
+B(x,y)=B(y,x)
+$$
+
+를 요구할 수 있다. 첫 번째 argument의 linearity와 symmetry를 결합하면 두 번째 argument에 대한 linearity도 따라오므로 $B$는 bilinear해진다.
+
+Complex vector space에서는 같은 symmetry를 그대로 사용할 수 없다. 첫 번째 argument의 linearity와 symmetry를 함께 요구하면 $B$가 두 argument 모두에 대해 complex-linear해진다. 이때 diagonal value $B(x,x)$를 squared length로 사용하려고 하면
+
+$$
+B(ix,ix)=i^2B(x,x)=-B(x,x)
+$$
+
+가 되어 nonnegative squared length로 사용할 수 없다. 또한 scalar multiplication에 대해 필요한 scaling은 $c^2$이 아니라 $\lvert c\rvert^2=c\overline c$이다. 따라서 complex case에서는 symmetry를 다음 conjugate symmetry로 바꾼다.
+
+$$
+B(x,y)=\overline{B(y,x)}.
+$$
+
+Real vector space에서는 complex conjugation이 값을 바꾸지 않으므로 이 조건은 ordinary symmetry와 같다. Complex case에서는 첫 번째 argument의 linearity와 conjugate symmetry로부터 두 번째 argument의 conjugate linearity가 따라온다.
+
+$$
+\begin{aligned}
+B(x,cy)
+&=\overline{B(cy,x)}\\
+&=\overline{cB(y,x)}\\
+&=\overline c\,B(x,y).
+\end{aligned}
+$$
+
+따라서 두 argument를 동시에 $c$배하면
+
+$$
+B(cx,cx)
+=c\overline c\,B(x,x)
+=\lvert c\rvert^2B(x,x)
+$$
+
+가 되어 squared length에 필요한 scaling을 얻는다. 또한 conjugate symmetry에 $y=x$를 대입하면
+
+$$
+B(x,x)=\overline{B(x,x)}
+$$
+
+이므로 diagonal value는 real number다.
+
+이제 $B(x,x)$를 squared length로 사용하려면 이 값이 nonnegative여야 하고, nonzero vector의 squared length가 $0$이 되어서는 안 된다. 따라서 다음 positive definiteness를 요구한다.
+
+$$
+B(x,x)\in\R_{\ge0},
+\qquad
+B(x,x)=0\iff x=0_V.
+$$
+
+그러면
+
+$$
+L(x):=\sqrt{B(x,x)}
+$$
+
+로 정의한 함수는 앞에서 요구한 length의 positivity와 scaling을 만족한다.
+
+마지막으로 $B(x,y)$가 처음에 필요했던 interaction을 실제로 나타내는지 확인해 보자. Linearity와 conjugate symmetry를 사용하면 다음을 얻는다.
+
+$$
+\begin{aligned}
+L(x+y)^2
+&=B(x+y,x+y)\\
+&=B(x,x)+B(x,y)+B(y,x)+B(y,y)\\
+&=L(x)^2+L(y)^2+2\operatorname{Re}B(x,y).
+\end{aligned}
+$$
+
+따라서 diagonal value $B(x,x)$는 vector 하나의 squared length를 나타내고, off-diagonal value $B(x,y)$는 개별 length만으로는 알 수 없었던 두 vector의 interaction을 나타낸다.
+
+이처럼 linear combination과 호환되고, argument의 교환에 대해 conjugate symmetry를 가지며, diagonal이 positive-definite squared length가 되는 pairwise function을 inner product라고 한다. 이 조건들은 vector space에서 자동으로 따라오는 것이 아니라 Euclidean-type geometry를 선택하는 추가 규칙이다. Inner product가 주어지면 length뿐 아니라 distance, angle, orthogonality와 projection을 차례로 정의할 수 있다. 다음 절에서 inner product의 조건을 정확히 정의한다.
 
 이 문서에서는 inner product의 정의에서 출발해 다음 관계를 차례로 설명한다.
 
@@ -201,27 +192,3 @@ $$ B(x,y) \equiv \lang x,y \rang $$
 ## Inner Product Space
 
 Vector space $V/\F$에 inner product $B$가 함께 주어진 공간 $(V,B)$를 `내적 공간(inner product space)`이라고 한다. 같은 vector space에도 서로 다른 inner product를 줄 수 있으므로 $V$만 적는 대신, inner product의 선택이 중요할 때는 $(V,B)$처럼 함께 표시한다.
-
-(gram-matrix)=
-
-### 명제: 모든 vector와 orthogonal인 vector
-
-$n$차원 vector space $V/\F$와 내적 $B$가 있다고 하자.
-
-$v \in V$가 있을 때, 다음을 증명하여라.
-
-$$
-\left(\forall w\in V,\quad B(v,w)=0_\F\right)
-\iff
-v=0_V
-$$
-
-**Proof**
-
-$v=0_V$이면 inner product의 linearity에 의해 모든 $w\in V$에 대해 $B(v,w)=0_\F$이다.
-
-반대로 모든 $w\in V$에 대해 $B(v,w)=0_\F$라고 하자. $w=v$로 두면 다음이 성립한다.
-
-$$ B(v,v) = 0_\F $$
-
-Positive definiteness에 의해 $v=0_V$이다. $\qed$

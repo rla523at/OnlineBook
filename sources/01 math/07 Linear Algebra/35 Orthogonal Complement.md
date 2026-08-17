@@ -14,6 +14,20 @@ $n$차원 inner product space $V/\F$와 subset $S\subseteq V$가 있다고 하�
 
 $$ S^\perp := \{ v \in V \enspace | \enspace \forall s \in S, \quad  B(v,s) = 0_\F \}$$
 
+## 기본 성질
+
+Inner product space $V/\F$에서 전체 공간의 orthogonal complement는 zero vector만으로 이루어진다.
+
+$$
+V^\perp=\{0_V\}.
+$$
+
+**Proof**
+
+Inner product의 linearity에 의해 모든 $w\in V$에 대해 $B(0_V,w)=0_\F$이므로 $0_V\in V^\perp$이다.
+
+반대로 $v\in V^\perp$라고 하자. Orthogonal complement의 정의에서 $w=v$로 두면 $B(v,v)=0_\F$이고, positive definiteness에 의해 $v=0_V$이다. 따라서 $V^\perp=\{0_V\}$이다. $\qed$
+
 ## 명제1
 $n$차원 inner product space $V/\F$가 있다고 하자.
 
