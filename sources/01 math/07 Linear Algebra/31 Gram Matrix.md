@@ -2,11 +2,11 @@
 
 ## 한 줄 요약
 
-Gram matrix는 선택한 basis vector 사이의 inner product를 기록하여, 임의의 basis에서 vector의 coordinate로 inner product를 계산하게 한다.
+Gram matrix는 선택한 basis에서 inner product를 나타내는 행렬이며, 두 vector의 coordinates로부터 inner product를 계산할 수 있게 한다.
 
 ## Motivation
 
-[Inner Product Space](<30 Inner Product Space.md>)에서 정의한 inner product $B$는 basis 선택과 무관하게 두 vector 자체에 작용하지만, 실제 계산에서는 vector를 선택한 basis의 coordinate로 나타내는 경우가 많다. Basis를 $\beta=(\beta_1,\ldots,\beta_n)$라고 하고
+[Inner Product Space](<30 Inner Product Space.md>)에서 정의한 inner product $B$는 basis의 선택과 관계없이 두 vector에 대해 정의된다. 하지만 실제 계산에서는 두 vector를 선택한 basis에 대한 coordinate vector로 나타내므로, 이러한 coordinates로부터 $B(x,y)$를 어떻게 계산할 수 있는지 살펴볼 필요가 있다. 선택한 basis를 $\beta=(\beta_1,\ldots,\beta_n)$라고 하고
 
 $$
 x=\sum_{i=1}^n a_i\beta_i,
@@ -25,7 +25,7 @@ $$
 
 따라서 coordinate의 같은 위치끼리 곱한 $\sum_{i=1}^n a_i\overline{b_i}$만으로는 일반적으로 $B(x,y)$를 계산할 수 없다. 각 coordinate가 나타내는 basis vector들이 inner product 아래에서 어떻게 관계하는지, 즉 $B(\beta_i,\beta_j)$도 알아야 한다.
 
-위 전개식은 필요한 정보와 그 배열 방법을 동시에 보여준다. $x$의 $i$번째 coordinate와 $y$의 $j$번째 coordinate 사이에 곱해지는 값 $B(\beta_i,\beta_j)$를 matrix의 $(i,j)$ entry에 놓으면 전체 double sum을 하나의 matrix product로 쓸 수 있다. 반대로 $x=\beta_i$, $y=\beta_j$를 대입하면 이 entry를 다시 얻으므로, 이 값들은 선택한 basis에서 inner product를 완전히 기록한다. 이렇게 얻는 matrix가 Gram matrix다.
+위 전개식은 필요한 정보와 그 배열 방법을 동시에 보여준다. $x$의 $i$번째 coordinate와 $y$의 $j$번째 coordinate 사이에 곱해지는 값 $B(\beta_i,\beta_j)$를 matrix의 $(i,j)$ entry에 놓으면 전체 double sum을 하나의 matrix product로 쓸 수 있다. 따라서 basis가 정해져 있으면 이 entries만으로 임의의 두 vector 사이의 inner product를 계산할 수 있다. 반대로 $x=\beta_i$, $y=\beta_j$를 대입하면 matrix의 $(i,j)$ entry인 $B(\beta_i,\beta_j)$를 그대로 얻는다. 즉 이 matrix는 선택한 basis에서 inner product에 관한 정보를 빠짐없이 담고 있다. 이렇게 얻는 matrix가 Gram matrix다.
 
 ## 정의와 계산
 

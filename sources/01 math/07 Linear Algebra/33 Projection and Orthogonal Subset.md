@@ -4,68 +4,107 @@
 
 Projection은 vector에서 특정 방향의 component를 추출하며, 선택한 방향들이 pairwise orthogonal하면 여러 방향의 component를 서로 간섭 없이 독립적으로 계산할 수 있다.
 
-## Motivation
-
-[Inner Product Space](<30 Inner Product Space.md>)에서 얻은 orthogonality를 이용해 한 방향의 component를 구하는 projection을 여러 방향이 span하는 subspace로 확장하면 coefficient들이 서로 영향을 줄 수 있다. Orthogonal property는 이 cross term을 없애며, orthogonal subset은 이러한 독립적인 방향들을 모아 놓은 집합이다.
-
 ## Projection
 
-Inner product space $V/\F$, nonzero vector $v\in V-\{0_V\}$와 $w\in V$가 있다고 하자. $w$에서 $v$ 방향의 component만 추출하는 것을 $v$ 방향으로의 `projection`이라고 한다.
+### Motivation
 
-$w$를 $v$ 방향으로 projection하여 얻은, $v$와 parallel한 vector를 $w^\parallel$이라고 하자. 그러면 제거하고 남은 $w-w^\parallel$에는 $v$와 orthogonal한 component만 있어야 한다.
-
-$$
-w-w^\parallel\perp v
-\qquad\Longleftrightarrow\qquad
-B(w-w^\parallel,v)=0_\F.
-$$
-
-$w^\parallel$은 $v$와 parallel하므로 어떤 $\alpha\in\F$에 대해 $w^\parallel=\alpha v$로 표현할 수 있다. 따라서 다음이 성립한다.
-
-$$ \begin{aligned}
-B(w-w^\parallel, v) &= B(w-\alpha v, v)  \\
-&= B(w,v) - \alpha B(v,v) \\
-\end{aligned}  $$
-
-이를 $B(w-w^\parallel,v)=0_\F$에 대입하고 $\alpha$에 대해 정리하면 다음과 같다.
-
-$$ \alpha = \frac{B(w,v)}{B(v,v)} $$
-
-따라서 $w$를 $v$ 방향으로 projection한 vector를 다음과 같이 정의한다.
+[Norm, Distance and Angle](<32 Norm Distance and Angle.md>)에서 두 vector $u,w$의 inner product가 $B(u,w)=0_\F$이면 두 vector가 orthogonal하다고 정의했다. Inner product space $V/\F$, vector $x\in V$와 nonzero vector $v\in V-\{0_V\}$가 있다고 하자. 이제 이 관계를 이용해 $x$에서 $v$와 같은 방향으로 놓인 부분만 분리하기 위해 $x$를
 
 $$
-\operatorname{proj}_v(w)
-:=
-w^\parallel
+x=p+r,
+\qquad
+p\in\operatorname{span}\{v\},
+\qquad
+r\perp v
+$$
+
+와 같이 나누고자 한다. 여기서 $p$는 $v$ 방향의 component이고, $r$은 그 component를 제거하고 남은 vector다. $p$는 $v$와 parallel하므로 어떤 $\alpha\in\F$에 대해 $p=\alpha v$로 쓸 수 있다. 나머지 $r=x-\alpha v$가 $v$와 orthogonal해야 한다는 조건을 적용하면
+
+$$
+\begin{aligned}
+0_\F
+&=B(x-\alpha v,v)\\
+&=B(x,v)-\alpha B(v,v)
+\end{aligned}
+$$
+
+를 얻는다. $v\ne0_V$이면 positive definiteness에 의해 $B(v,v)\ne0_\F$이므로 $\alpha$는 다음과 같이 결정된다.
+
+$$
+\alpha
 =
-\frac{B(w,v)}{B(v,v)}v.
+\frac{B(x,v)}{B(v,v)}.
 $$
 
-이 공식은 한 방향의 component를 추출한다. 여러 vector가 span하는 subspace 방향의 component를 구할 때 이 one-dimensional projection들을 단순히 더할 수 있는지는 선택한 방향들 사이의 관계에 따라 달라진다.
+따라서 $\alpha$와 $p=\alpha v$는 orthogonality 조건에 의해 유일하게 결정된다. 이처럼 component를 제거한 나머지가 해당 direction과 orthogonal하도록 만드는 연산이 projection을 정의하게 한다.
+
+### Definition
+
+Inner product space $V/\F$에서 nonzero vector $v\in V-\{0_V\}$가 정하는 direction으로의 `projection`을 다음 함수로 정의한다.
+
+$$
+\operatorname{proj}_v
+:
+V\rightarrow\operatorname{span}\{v\},
+\qquad
+\operatorname{proj}_v(x)
+:=
+\frac{B(x,v)}{B(v,v)}v.
+$$
+
+Vector $\operatorname{proj}_v(x)$는 $x$의 $v$ 방향 component다. Motivation의 orthogonality 조건에서 이 공식을 얻었으므로
+
+$$
+\operatorname{proj}_v(x)\in\operatorname{span}\{v\},
+\qquad
+x-\operatorname{proj}_v(x)\perp v
+$$
+
+가 성립한다. 이 정의는 한 방향의 component를 추출한다. 여러 vector가 span하는 subspace 방향의 component를 one-dimensional projection들의 합으로 구할 수 있는지는 선택한 방향들 사이의 관계에 따라 달라진다.
 
 ## Orthogonal Property
 
-여러 방향의 projection을 독립적으로 계산하려면 각 방향이 서로 섞이지 않아야 한다. Inner product space $V/\F$의 subset $S=\{s_1,\ldots,s_k\}$가 다음을 만족하면 $S$가 `orthogonal property`를 갖는다고 한다.
+### Motivation
 
-$$ i \neq j \implies B(s_i, s_j) = 0 $$
-
-즉, 서로 다른 모든 pair가 orthogonal하다는 뜻이다.
-
-이 조건이 projection 계산을 단순하게 만드는 이유를 살펴보자. $S=\{s_1,\ldots,s_k\}\subset V-\{0_V\}$이고 $W=\operatorname{span}(S)$라고 하자. $x$의 $W$ 방향 component를
+한 방향이 아니라 여러 방향이 span하는 subspace의 component를 구하고 싶다고 하자. $S=\{s_1,\ldots,s_k\}$가 finite-dimensional subspace $W$의 basis이고
 
 $$
-p=\sum_{i=1}^k c_i s_i
+W=\operatorname{span}(S)
 $$
 
-라고 쓰면, 제거하고 남은 $x-p$는 $W$의 모든 방향과 orthogonal해야 한다. $S$가 $W$를 span하므로 각 $s_j$에 대해 다음을 요구하면 된다.
+라고 하자. $x$의 $W$ 방향 component를
 
 $$
-B(x-p,s_j)=0
+p
+=
+\sum_{i=1}^k c_i s_i
+$$
+
+라고 쓰면, 제거하고 남은 $x-p$는 $W$의 모든 방향과 orthogonal해야 한다. $S$가 $W$를 span하므로 각 $s_j$에 대해 이 조건을 적용하면
+
+$$
+B(x-p,s_j)=0_\F
 \qquad\Longleftrightarrow\qquad
 \sum_{i=1}^k c_iB(s_i,s_j)=B(x,s_j).
 $$
 
-$S$가 orthogonal property를 가지면 $i\ne j$인 모든 cross term이 $0$이므로 $j$번째 식에는 $c_j$만 남는다.
+일반적인 basis에서는 $i\ne j$인 항 $B(s_i,s_j)$도 남는다. 이 항들은 서로 다른 basis direction 사이의 interaction을 나타내는 cross term이므로, 하나의 식에 여러 coefficient가 함께 나타나고 $c_1,\ldots,c_k$를 coupled system으로 풀어야 한다. 따라서 여러 direction의 coefficient를 독립적으로 구하려면 서로 다른 basis vector 사이의 모든 cross term을 없애는 조건이 필요하다.
+
+### Definition
+
+Inner product space $V/\F$의 subset $S=\{s_1,\ldots,s_k\}$가 다음 조건을 만족하면 $S$가 `orthogonal property`를 갖는다고 한다.
+
+$$
+i\ne j
+\implies
+B(s_i,s_j)=0_\F.
+$$
+
+즉, 서로 다른 모든 pair가 orthogonal하다는 뜻이다.
+
+### Projection onto Span
+
+$S=\{s_1,\ldots,s_k\}\subset V-\{0_V\}$가 orthogonal property를 갖고 $W=\operatorname{span}(S)$라고 하자. Motivation에서 얻은 coefficient system에서는 $i\ne j$인 모든 cross term이 $0_\F$이므로 $j$번째 식에 $c_j$만 남는다.
 
 $$
 c_j
@@ -85,7 +124,15 @@ $$
 
 ## Orthogonal Subset
 
-Zero vector는 모든 vector와 orthogonal하지만 독립된 방향을 나타내지 못한다. 따라서 zero vector를 제외한 subset
+### Motivation
+
+Orthogonal property만으로는 zero vector를 배제할 수 없다. Zero vector는 모든 vector와 orthogonal하지만 독립된 direction을 나타내지 못하고, $B(0_V,0_V)=0_\F$이므로 projection 공식의 denominator에도 사용할 수 없다. 따라서 실제 direction들을 모은 집합으로 사용하려면 모든 vector가 nonzero라는 조건이 필요하다.
+
+또한 orthogonal한 vector들의 length는 서로 다를 수 있다. 각 vector를 length $1$로 normalize하면 direction과 orthogonality는 유지하면서 projection coefficient에서 denominator를 제거할 수 있다. 이러한 집합을 구분하기 위해 orthogonal subset과 orthonormal subset을 정의한다.
+
+### Definition
+
+Zero vector를 제외한 subset
 
 $$
 S=\{s_1,\ldots,s_k\}\subset V-\{0_V\}

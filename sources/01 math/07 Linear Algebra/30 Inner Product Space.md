@@ -6,9 +6,9 @@ Vector space에 inner product를 추가하면 vector의 length와 angle을 정�
 
 ## Motivation
 
-$\F\in\{\R,\C\}$인 vector space $V/\F$를 생각하자. Vector space의 공리는 vector addition과 scalar multiplication을 설명한다. 따라서 vector를 어떻게 linear combination할지는 알 수 있지만, vector의 크기나 두 vector 사이의 관계를 나타내는 scalar는 정해져 있지 않다. 여기서는 vector space에 Euclidean-type geometry를 추가하려면 어떤 규칙이 필요한지 생각해 본다.
+$\F\in\{\R,\C\}$인 vector space $V/\F$를 생각하자. Vector space의 공리는 vector addition과 scalar multiplication을 설명하므로 vector의 linear combination을 만들 수 있게 해 준다. 그러나 이 공리만으로는 vector의 크기를 측정하는 방법이 정해지지 않는다.
 
-먼저 우리가 원하는 length를 $L$이라고 하자. Length는 적어도 zero vector를 다른 vector와 구별하고 scalar multiplication과 다음과 같이 호환되어야 한다.
+이를 보완하기 위해 먼저 vector의 length를 나타내는 함수 $L$을 생각하자. Length는 적어도 zero vector를 다른 vector와 구별하고 scalar multiplication과 다음과 같이 호환되어야 한다.
 
 $$
 L(x)\ge0,
@@ -18,7 +18,7 @@ L(x)=0\iff x=0_V,
 L(cx)=\lvert c\rvert L(x).
 $$
 
-그러나 각 vector의 length만 정해서는 length와 vector addition 사이의 관계가 드러나지 않는다. 예를 들어 $x\ne0_V$일 때 $x$와 $-x$는 같은 length를 갖지만 다음 두 합의 length는 서로 다르다.
+그러나 각 vector의 length만 정해서는 length와 vector addition 사이의 관계가 드러나지 않는다. 예를 들어 $x\ne0_V$라 하자. 두 쌍 $(x,x)$와 $(x,-x)$에서 각 vector의 length는 동일하지만, 각 쌍을 더해서 얻은 vector의 length는 서로 다르다.
 
 $$
 L(x+x)=2L(x),
@@ -50,13 +50,13 @@ $$
 
 를 요구할 수 있다. 첫 번째 argument의 linearity와 symmetry를 결합하면 두 번째 argument에 대한 linearity도 따라오므로 $B$는 bilinear해진다.
 
-Complex vector space에서는 같은 symmetry를 그대로 사용할 수 없다. 첫 번째 argument의 linearity와 symmetry를 함께 요구하면 $B$가 두 argument 모두에 대해 complex-linear해진다. 이때 diagonal value $B(x,x)$를 squared length로 사용하려고 하면
+Complex vector space에서는 같은 symmetry를 그대로 사용할 수 없다. 첫 번째 argument의 linearity와 symmetry를 함께 요구하면 $B$가 두 argument 모두에 대해 complex-linear해진다. Diagonal value를 이용하여 $Q(x):=B(x,x)$를 vector $x$의 squared length로 정의한다고 하자. Squared length라면 $Q(cx)=\lvert c\rvert^2Q(x)$를 만족해야 하므로, 특히 $\lvert i\rvert=1$일 때 $Q(ix)=Q(x)$여야 한다. 그러나 $B$가 두 argument 모두에 대해 complex-linear하면
 
 $$
-B(ix,ix)=i^2B(x,x)=-B(x,x)
+Q(ix)=B(ix,ix)=i^2B(x,x)=-Q(x)
 $$
 
-가 되어 nonnegative squared length로 사용할 수 없다. 또한 scalar multiplication에 대해 필요한 scaling은 $c^2$이 아니라 $\lvert c\rvert^2=c\overline c$이다. 따라서 complex case에서는 symmetry를 다음 conjugate symmetry로 바꾼다.
+가 되어 squared length에 필요한 성질과 충돌한다. 이는 complex-bilinearity에서 scalar가 $c^2$으로 나오지만 squared length에 필요한 scaling은 $\lvert c\rvert^2=c\overline c$이기 때문이다. 따라서 complex case에서는 symmetry를 다음 conjugate symmetry로 바꾼다.
 
 $$
 B(x,y)=\overline{B(y,x)}.
@@ -119,16 +119,6 @@ $$
 따라서 diagonal value $B(x,x)$는 vector 하나의 squared length를 나타내고, off-diagonal value $B(x,y)$는 개별 length만으로는 알 수 없었던 두 vector의 interaction을 나타낸다.
 
 이처럼 linear combination과 호환되고, argument의 교환에 대해 conjugate symmetry를 가지며, diagonal이 positive-definite squared length가 되는 pairwise function을 inner product라고 한다. 이 조건들은 vector space에서 자동으로 따라오는 것이 아니라 Euclidean-type geometry를 선택하는 추가 규칙이다. Inner product가 주어지면 length뿐 아니라 distance, angle, orthogonality와 projection을 차례로 정의할 수 있다. 다음 절에서 inner product의 조건을 정확히 정의한다.
-
-이 문서에서는 inner product의 정의에서 출발해 다음 관계를 차례로 설명한다.
-
-$$
-\text{inner product}
-\Longrightarrow
-\text{norm, distance, angle}
-\Longrightarrow
-\text{orthogonality and projection}.
-$$
 
 Inner product $B$ 자체는 basis와 무관하다. 그러나 vector $x,y$를 선택한 basis의 coordinate로 나타내어 $B(x,y)$를 계산하려면 basis vector 사이의 inner product를 기록한 Gram matrix가 필요하며, [Gram Matrix](<31 Gram Matrix.md>)에서 그 계산법을 설명한다. [Norm, Distance and Angle](<32 Norm Distance and Angle.md>)은 inner product에서 기본적인 geometry가 나오는 과정을 다루고, [Projection and Orthogonal Subset](<33 Projection and Orthogonal Subset.md>)은 한 방향의 component와 여러 방향을 독립적으로 계산하는 조건을 설명한다. [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)는 arbitrary basis를 같은 subspace를 span하는 orthogonal basis로 바꾸며, [Orthogonal Complement](<35 Orthogonal Complement.md>)는 전체 공간을 subspace 방향과 그에 수직인 방향으로 분해한다. [Schur's Theorem](<38 Schur's Theorem.md>)과 [Riesz Representation Theorem](<42 Riesz Representation Theorem.md>)은 이러한 구조가 linear map의 matrix representation과 linear functional의 표현을 어떻게 단순하게 만드는지 보여준다.
 
