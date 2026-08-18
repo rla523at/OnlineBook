@@ -2,153 +2,400 @@
 
 ## 한 줄 요약
 
-Finite-dimensional inner product space의 모든 linear functional은 어떤 vector와의 inner product로 유일하게 표현된다.
+Finite-dimensional inner product space의 모든 linear functional은 어떤 vector와의 inner product로 유일하게 표현되며, 이 correspondence가 dual map과 adjoint를 연결한다.
 
 ## Motivation
 
-[Dual Space](<41 Dual Space.md>)에서 정의한 linear functional $g\in V^*$는 vector를 scalar로 측정한다. 한편 [Inner Product Space](<30 Inner Product Space.md>)의 inner product에서 두 번째 인자를 $v$로 고정한 함수
+[Dual Space](<41 Dual Space.md>)의 linear functional $g\in V^*$는 vector를 scalar로 측정한다. 한편 [Inner Product Space](<30 Inner Product Space.md>)의 inner product에서 두 번째 argument를 $v$로 고정한 함수
 
 $$
-B(\cdot,v):V\rightarrow\F
+B(\mathord{\cdot},v):V\rightarrow\F
 $$
 
-도 첫 번째 인자에 대해 linear하므로 linear functional이다. 그렇다면 반대로 모든 linear functional을 어떤 vector와의 inner product로 표현할 수 있는지, 그리고 그 vector가 유일한지 묻게 된다. Finite-dimensional inner product space에서는 Riesz representation theorem이 이 질문에 답한다.
+도 첫 번째 argument에 대해 linear하므로 linear functional이다.
 
-## 정리
+그렇다면 반대로 모든 linear functional $g$를
 
-$n$차원 inner product space $V/\F$가 있다고 하자.
+$$
+g(x)=B(x,v_g)
+$$
 
-$\forall g \in V^*$에 대해 다음을 증명하여라.
-$$ \exist! v_g \in V \st g(\cdot) = B(\cdot, v_g) $$
+형태로 표현할 수 있는지 묻게 된다. 가능하다면 abstract function $g$를 하나의 concrete vector $v_g$로 다룰 수 있다. Finite-dimensional inner product space에서는 Riesz representation theorem이 이러한 vector의 existence와 uniqueness를 보장한다.
+
+## Riesz Representation Theorem
+
+### 정리1
+
+$\F\in\{\R,\C\}$인 finite-dimensional inner product space $V/\F$가 있다고 하자. 모든 $g\in V^*$에 대해 다음을 만족하는 unique vector $v_g\in V$가 존재한다.
+
+$$
+g(x)
+=
+B(x,v_g)
+\qquad
+\text{for every }x\in V.
+$$
 
 **Proof**
 
-[existence]  
-$V$ 의 임의의 basis 를 $\beta$라고 할 때, 어떤 $v_g = a_i\beta_i \in V$ 가 있어 임의의 $w = b_j\beta_j$ 에 대해 다음을 만족한다고 하자.
-
-$$ \begin{aligned}
-g(w) &= B(w,v_g) \\
-b_j g(\beta_j) &= b_j\overline{a_i} B(\beta_j,\beta_i) \\ 
-\end{aligned} $$
-
-임의의 $b_j$ 에 대해서 위가 성립해야 됨으로 다음이 성립한다. 
-
-$$ g(\beta_i) = B(\beta_i, \beta_j )\overline{a_j} $$
-
-$G_{ij} = B(\beta_i,\beta_j)$, $f_i = g(\beta_i)$  라고하면 $\beta$ 는 linearly independent set 임으로 $G$ 는 invertible 하다. 따라서, 다음이 성립한다.
-
-$$ a = \overline{G^{-1}f} $$
-
-즉, $[v_g]_\beta = a$ 면 $g(\cdot) = B(\cdot, v_g)$ 를 만족하는 vector 이다. $\qed$ 
-
-[uniquness]  
-$u,v \in V$ 가 임의의 $w \in V$ 에 대해 $g(w) = B(w, u) = B(w, v)$ 름 만족하면 다음이 성립한다.
-
-$$ \begin{aligned}
-B(w, u) - B(w, v) = 0_\F \\
-B(w, u-v) = 0_\F \\
-\end{aligned}  $$
-
-임의의 $w$ 에 대해서 만족해야 함으로 $u-v = 0_V$ 여야 하고, $u=v$다. $\qed$
-
-### 참고1
-$g\in V^*$가 있을 때, Riesz representation theorem에 의해 유일하게 결정되는 $v_g$를 $g$의 `Riesz representation`이라고 한다.
-
-이 theorem은 inner product가 주어지면 linear functional을 vector로 표현할 수 있음을 보여준다. Gram matrix를 이용하면 그 vector의 coordinate도 구체적으로 계산할 수 있다.
-
-### 참고2
-$f\in V^*$와 $f$의 Riesz representation $v_f\in V$의 인자 순서를 다음과 같이 바꿔보자.
-
-$$ \forall x \in V, \quad f(x) = B(v_f, x) $$
-
-$\F=\C$이면 이 문서의 convention에서 inner product는 두 번째 인자에 대해 conjugate linear하므로 오른쪽 함수는 일반적으로 linear functional이 아니다. 따라서 complex inner product space에서는 $f(x)=B(x,v_f)$라는 인자 순서가 중요하다. $\F=\R$이면 conjugation이 값을 바꾸지 않으므로 이 차이가 사라진다.
-
-### 참고3
-$\beta$가 orthonormal basis이면 $G=I$이므로 Riesz representation은 다음과 같이 단순해진다.
+[Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)에 의해 $V$의 orthonormal basis
 
 $$
-a=\overline f
-\qquad\Longrightarrow\qquad
-v_g=\overline{g(\beta_i)}\beta_i.
+\beta=(\beta_1,\ldots,\beta_n)
 $$
 
-Riesz representation은 유일한 vector이므로 basis 선택에 의존하지 않는다.
+를 선택할 수 있다. 다음 vector를 정의하자.
 
-따라서 $\gamma$ 가 $V$ 의 임의의 basis 일 때, $v_g$ 의 matrix representation 은 구체적으로 다음과 같이 적을 수 있다.
+$$
+v_g
+:=
+\sum_{i=1}^n
+\overline{g(\beta_i)}\beta_i.
+$$
 
-$$ [v_g]_\gamma = [id]^\gamma_\beta [v_g]_\beta $$
+임의의 $x\in V$를
 
-### 따름명제1
-$n$차원 inner product space $V/\F$가 있다고 하자.
+$$
+x
+=
+\sum_{i=1}^n a_i\beta_i
+$$
 
-함수 $B^\flat$를 다음과 같이 정의하자.
+라고 쓰면, 첫 번째 argument의 linearity와 두 번째 argument의 conjugate linearity에 의해
 
-$$ B^\flat : V \rightarrow V^* \st v \mapsto B(\cdot,v)$$
+$$
+\begin{aligned}
+B(x,v_g)
+&=
+B\left(
+\sum_{i=1}^n a_i\beta_i,
+\sum_{j=1}^n\overline{g(\beta_j)}\beta_j
+\right)\\
+&=
+\sum_{i=1}^n\sum_{j=1}^n
+a_i g(\beta_j)B(\beta_i,\beta_j)\\
+&=
+\sum_{i=1}^n a_i g(\beta_i)\\
+&=
+g(x).
+\end{aligned}
+$$
 
-다음을 증명하여라.
+따라서 existence가 성립한다.
 
-$$ B^\flat \text{ is a bijective} $$
+이제 $u,v\in V$가 모든 $x\in V$에 대해
+
+$$
+B(x,u)=B(x,v)
+$$
+
+를 만족한다고 하자. 그러면 $B(x,u-v)=0_\F$이고, 특히 $x=u-v$로 두면
+
+$$
+B(u-v,u-v)=0_\F.
+$$
+
+Positive definiteness에 의해 $u-v=0_V$, 즉 $u=v$다. 따라서 representation은 unique하다. $\qed$
+
+Vector $v_g$를 $g$의 `Riesz representation`이라고 한다. 이 vector는 basis를 사용해 구성했지만 uniqueness에 의해 최종 결과는 선택한 orthonormal basis에 의존하지 않는다.
+
+Infinite-dimensional inner product space에서는 같은 결론에 completeness와 functional의 continuity 같은 추가 조건이 필요하다. 이 문서에서는 finite-dimensional case만 다룬다.
+
+## Coordinate Formula
+
+Arbitrary basis
+
+$$
+\beta=(\beta_1,\ldots,\beta_n)
+$$
+
+를 사용해 Riesz representation의 coordinate를 계산해 보자. Gram matrix와 coordinate column을
+
+$$
+G_{ij}:=B(\beta_i,\beta_j),
+\qquad
+a:=[v_g]_\beta,
+\qquad
+f_i:=g(\beta_i)
+$$
+
+라고 하자. 각 basis vector에 theorem의 식을 적용하면
+
+$$
+f_i
+=
+g(\beta_i)
+=
+B(\beta_i,v_g)
+=
+\sum_{j=1}^n
+G_{ij}\overline{a_j}.
+$$
+
+따라서 matrix form은
+
+$$
+f=G\overline a
+$$
+
+이고,
+
+$$
+a
+=
+\overline{G^{-1}f}
+$$
+
+를 얻는다. $G$는 positive-definite Gram matrix이므로 invertible하다.
+
+Basis가 orthonormal이면 $G=I$이고 공식이
+
+$$
+[v_g]_\beta
+=
+\overline f
+$$
+
+로 단순해진다. 이는 theorem의 proof에서 사용한
+
+$$
+v_g
+=
+\sum_{i=1}^n
+\overline{g(\beta_i)}\beta_i
+$$
+
+와 같다.
+
+## Riesz Map
+
+Inner product $B$가 정하는 `Riesz map`을 다음과 같이 정의하자.
+
+$$
+\mathcal R_B:V\rightarrow V^*,
+\qquad
+\mathcal R_B(v)
+:=
+B(\mathord{\cdot},v).
+$$
+
+Riesz representation theorem의 existence는 $\mathcal R_B$가 surjective임을, uniqueness는 injective임을 뜻한다. 따라서 $\mathcal R_B$는 bijective다.
+
+다만 scalar field에 따라 linearity가 달라진다.
+
+- $\F=\R$이면
+  $$
+  \mathcal R_B(av+bw)
+  =
+  a\mathcal R_B(v)+b\mathcal R_B(w)
+  $$
+  이므로 real vector space isomorphism이다.
+- $\F=\C$이면
+  $$
+  \mathcal R_B(av+bw)
+  =
+  \overline a\,\mathcal R_B(v)
+  +
+  \overline b\,\mathcal R_B(w)
+  $$
+  이므로 conjugate-linear bijection이다.
+
+이 차이는 이 문서가 inner product의 첫 번째 argument를 linear, 두 번째 argument를 conjugate linear로 정했기 때문에 생긴다. 따라서 complex case에서 $\mathcal R_B$를 complex-linear isomorphism이라고 부르면 안 된다.
+
+### 따름정리1 (Dual norm)
+
+Linear functional $g\in V^*$의 dual norm을
+
+$$
+\lVert g\rVert_*
+:=
+\sup_{x\ne0_V}
+\frac{\lvert g(x)\rvert}{\lVert x\rVert}
+$$
+
+로 정의하면 다음이 성립한다.
+
+$$
+\lVert g\rVert_*
+=
+\lVert v_g\rVert.
+$$
 
 **Proof**
 
-[injective]  
-$V$의 임의의 element를 $v_1,v_2$라고 하자. 
+Cauchy–Schwarz inequality에 의해
 
-$V$의 임의의 element를 $v$라고 하면 다음이 성립한다.
+$$
+\lvert g(x)\rvert
+=
+\lvert B(x,v_g)\rvert
+\le
+\lVert x\rVert\lVert v_g\rVert
+$$
 
-$$ \begin{aligned} & (B^\flat(v_1))(v) = (B^\flat(v_2))(v) \\\implies& B(v,v_1) = B(v,v_2) \\\implies& B(v, v_1-v_2) = 0_W \end{aligned} $$
+이므로 $\lVert g\rVert_*\le\lVert v_g\rVert$다. $v_g\ne0_V$이면 $x=v_g/\lVert v_g\rVert$를 대입했을 때 equality가 성립한다. $v_g=0_V$이면 $g=0_{V^*}$이므로 양변이 모두 $0$이다. $\qed$
 
-임의의 $v$에서 위가 성립함으로, inner product의 성질에 의해 다음이 성립한다.
+## Adjoint
 
-$$ v_1 - v_2 = 0_V \implies v_1 = v_2 \qed $$
+### Motivation
 
-[surjective]  
-$V^*$의 임의의 element를 $f$라고 하자.
+Finite-dimensional inner product space $V,W$ 사이의 linear map
 
-그러면 Riesz representation theorem에 의해 다음이 성립한다.
+$$
+T:V\rightarrow W
+$$
 
-$$ \exist v_f \st B^\flat(v_f) = f \qed $$
+와 $y\in W$를 고정하면
 
-#### 참고
-$B^\flat$의 역함수를 $B^\sharp$로 표기한다.
+$$
+x\longmapsto B_W(Tx,y)
+$$
 
-> Reference  
-> [math.stackexchange - Inner product in dual space](https://math.stackexchange.com/questions/3486532/inner-product-in-dual-space)
+는 $V$ 위의 linear functional이다. Riesz representation theorem에 의해 이 functional을 $V$의 unique vector로 표현할 수 있다. 이 vector를 $T^*y$라고 두면 $T$의 작용을 inner product의 다른 argument로 옮길 수 있다.
 
-### 따름명제2
-$n$차원 inner product space $V/\R$가 있다고 하자.
+### Definition
 
-함수 $B^\flat$를 다음과 같이 정의하자.
+$T$의 `adjoint`는 다음 관계를 만족하는 unique linear map이다.
 
-$$ B^\flat : V \rightarrow V^* \st v \mapsto B(\cdot,v)$$
+$$
+T^*:W\rightarrow V,
+\qquad
+B_W(Tx,y)
+=
+B_V(x,T^*y)
+$$
 
-다음을 증명하여라.
+for every $x\in V$, $y\in W$.
 
-$$ B^\flat \text{ is a vector space isomorphism} $$
+각 $y$에 대한 existence와 uniqueness는 Riesz representation theorem에서 바로 따라온다. 또한 $a,b\in\F$, $y,z\in W$에 대해
+
+$$
+\begin{aligned}
+B_V(x,T^*(ay+bz))
+&=
+B_W(Tx,ay+bz)\\
+&=
+\overline a B_W(Tx,y)
++
+\overline b B_W(Tx,z)\\
+&=
+B_V(x,aT^*y+bT^*z)
+\end{aligned}
+$$
+
+이고 representation이 unique하므로
+
+$$
+T^*(ay+bz)
+=
+aT^*y+bT^*z.
+$$
+
+따라서 $T^*$는 linear map이다.
+
+### Matrix representation
+
+$V,W$의 orthonormal basis를 각각 $\beta,\gamma$라고 하고
+
+$$
+A:=[T]_\beta^\gamma
+$$
+
+라고 하자. Adjoint의 matrix는 conjugate transpose다.
+
+$$
+[T^*]_\gamma^\beta
+=
+A^{\mathsf *}
+:=
+\overline A^{\mathsf T}.
+$$
 
 **Proof**
 
-따름명제2.1에 의해 $B^\flat$은 bijective임으로 linear map인지만 증명하면 된다.
+$C:=[T^*]_\gamma^\beta$라고 하자. $x\in V$, $y\in W$의 coordinate column을 각각 $a,b$라고 하면 orthonormal basis에서 inner product는 다음과 같이 계산된다.
 
-[$B^\flat \in L(V,V^*)$]  
-$V$의 임의의 element를 $v_1,v_2$, $\R$의 임의의 element를 $a$라고 하면 다음이 성립한다.
+$$
+\begin{aligned}
+B_W(Tx,y)
+&=
+(Aa)^{\mathsf T}\overline b\\
+&=
+a^{\mathsf T}A^{\mathsf T}\overline b,
+\end{aligned}
+$$
 
-$$ \begin{aligned} B^\flat(v_1+av_2) &= B(\cdot, v_1 +av_2) \\&= B(\cdot,v_1) + aB(\cdot,v_2) \\&= B^\flat(v_1) + aB^\flat(v_2) \qed \end{aligned}  $$
+$$
+\begin{aligned}
+B_V(x,T^*y)
+&=
+a^{\mathsf T}\overline{Cb}\\
+&=
+a^{\mathsf T}\overline C\,\overline b.
+\end{aligned}
+$$
 
-[$B^\sharp \in L(V^*,V)$]  
-$V^*$의 임의의 element를 $g_1,g_2$, $\R$의 임의의 element를 $a$라고 하자.
+Adjoint의 정의에 의해 두 식이 모든 $a,b$에 대해 같으므로
 
-$V$의 임의의 element를 $v$라고 하면 다음이 성립한다.
+$$
+A^{\mathsf T}
+=
+\overline C.
+$$
 
-$$ (g_1 + ag_2)(v) = g_1(v) + ag_2(v) $$
+따라서
 
-따라서 다음이 성립한다.
+$$
+C
+=
+\overline A^{\mathsf T}
+=
+A^{\mathsf *}.
+\qed
+$$
 
-$$ B^\sharp(g_1+ag_2) = B^\sharp(g_1) + aB^\sharp(g_2) \qed $$
+Real case에서는 complex conjugation이 사라져
 
-#### 참고
-$B^\flat$은 coordinate basis의 선택에는 의존하지 않지만, inner product $B$의 선택에는 의존한다. 따라서 vector space structure만으로 주어지는 canonical isomorphism은 아니며, 선택한 real inner product가 $V$와 $V^*$를 식별해 주는 isomorphism이다.
+$$
+[T^*]_\gamma^\beta
+=
+A^{\mathsf T}
+$$
 
-> Reference  
-> [math.stackexchange - Inner product in dual space](https://math.stackexchange.com/questions/3486532/inner-product-in-dual-space)  
-> [math.stackexchange - natural isomorphism in linear algebra](https://math.stackexchange.com/questions/234127/natural-isomorphism-in-linear-algebra)
+가 된다.
+
+### Dual map과의 관계
+
+[Dual Space](<41 Dual Space.md>)에서 정의한 dual map
+
+$$
+T^\vee:W^*\rightarrow V^*
+$$
+
+은 inner product 없이 functional을 precomposition으로 pull back한다. Riesz map을 사용하면 adjoint와 dual map의 관계를 다음 식으로 나타낼 수 있다.
+
+$$
+\boxed{
+\mathcal R_{B_V}\circ T^*
+=
+T^\vee\circ\mathcal R_{B_W}
+}
+$$
+
+실제로 $y\in W$에 대해 양쪽은 모두 $V$ 위의 functional
+
+$$
+x\longmapsto B_W(Tx,y)
+$$
+
+를 나타낸다. 즉 adjoint는 dual map을 Riesz representation을 통해 원래 vector space 사이의 map으로 옮긴 것이다.
+
+Adjoint는 [Schur's Theorem](<38 Schur's Theorem.md>)에서 orthogonal complement가 invariant한 subspace를 만드는 데 사용된다.
+
+## 관련 문서
+
+- [Inner Product Space](<30 Inner Product Space.md>)
+- [Gram Matrix](<31 Gram Matrix.md>)
+- [Norm, Distance and Angle](<32 Norm Distance and Angle.md>)
+- [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)
+- [Dual Space](<41 Dual Space.md>)

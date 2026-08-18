@@ -70,27 +70,93 @@ $$
 \{Ax\mid x\in\mathbb R^n\}
 $$
 
-따라서 least squares는 $b$와 가장 가까운 $\mathcal C(A)$의 point $Ax^\star$를 찾는
-문제다. 가장 가까운 point에서는 residual이 column space에 orthogonal하다.
+따라서 least squares는 $b$와 가장 가까운 $\mathcal C(A)$의 vector $Ax^\star$를 찾는 문제다. [Orthogonal Complement](<./35 Orthogonal Complement.md>)의 closest vector property에 의해 가장 가까운 vector에서는 residual이 column space에 orthogonal하다.
+
+### 정리1 (Normal equation)
+
+Vector $x^\star\in\R^n$가 least-squares solution인 것과 다음 normal equation을 만족하는 것은 동치다.
 
 $$
 A^{\mathsf T}(Ax^\star-b)=0
 $$
 
-이를 정리하면 normal equation을 얻는다.
+$$
+\Longleftrightarrow
+\qquad
+A^{\mathsf T}Ax^\star
+=
+A^{\mathsf T}b.
+$$
+
+**Proof**
+
+$r^\star:=Ax^\star-b$라고 하자. 먼저 $A^{\mathsf T}r^\star=0$이라고 가정하자. 모든 $h\in\R^n$에 대해 $Ah\in\mathcal C(A)$이고
 
 $$
-A^{\mathsf T}A x^\star=A^{\mathsf T}b
+(Ah)^{\mathsf T}r^\star
+=
+h^{\mathsf T}A^{\mathsf T}r^\star
+=
+0
 $$
 
-$A$의 column이 linearly independent이면 $A^{\mathsf T}A$가 invertible이므로 해가
-유일하다.
+이므로 $Ah\perp r^\star$다. Pythagorean theorem에 의해
+
+$$
+\begin{aligned}
+\lVert A(x^\star+h)-b\rVert_2^2
+&=
+\lVert r^\star+Ah\rVert_2^2\\
+&=
+\lVert r^\star\rVert_2^2
++
+\lVert Ah\rVert_2^2\\
+&\ge
+\lVert r^\star\rVert_2^2.
+\end{aligned}
+$$
+
+따라서 $x^\star$는 least-squares solution이다.
+
+반대로 $x^\star$가 least-squares solution이라고 하자. 임의의 $h\in\R^n$에 대해 real variable $t$의 함수
+
+$$
+q(t)
+:=
+\lVert r^\star+tAh\rVert_2^2
+$$
+
+는 $t=0$에서 minimum을 가져야 한다. 이를 전개하면
+
+$$
+q(t)
+=
+\lVert r^\star\rVert_2^2
++
+2t(Ah)^{\mathsf T}r^\star
++
+t^2\lVert Ah\rVert_2^2.
+$$
+
+$t=0$이 minimum이려면 linear term의 coefficient가 $0$이어야 하므로
+
+$$
+h^{\mathsf T}A^{\mathsf T}r^\star
+=
+0
+$$
+
+이다. 이 식이 모든 $h$에 대해 성립하므로 $A^{\mathsf T}r^\star=0$이다. $\qed$
+
+$A$의 column이 linearly independent이면 $\ker A=\{0\}$이고 $A^{\mathsf T}A$가 invertible이므로 least-squares solution은 unique하다.
 
 $$
 x^\star
 =
-(A^{\mathsf T}A)^{-1}A^{\mathsf T}b
+(A^{\mathsf T}A)^{-1}A^{\mathsf T}b.
 $$
+
+반대로 $\ker A\ne\{0\}$이면 $Ah=0$인 nonzero $h$가 존재하므로 $x^\star$와 $x^\star+h$가 같은 fitted vector를 만든다. 따라서 parameter solution은 unique하지 않다.
 
 이 식은 해의 구조를 설명하지만, numerical implementation에서 inverse matrix를
 직접 계산하라는 뜻은 아니다. $A^{\mathsf T}A$를 만들면 condition number가

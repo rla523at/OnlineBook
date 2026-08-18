@@ -2,164 +2,248 @@
 
 ## 한 줄 요약
 
-Orthogonal complement는 주어진 subspace의 모든 방향에 수직인 vector들을 모아, 전체 공간을 subspace component와 수직 component로 분해한다.
+Orthogonal complement는 주어진 subspace의 모든 방향과 orthogonal한 vector들을 모으며, finite-dimensional inner product space를 subspace component와 그에 수직인 component의 direct sum으로 분해한다.
 
 ## Motivation
 
-[Projection and Orthogonal Subset](<33 Projection and Orthogonal Subset.md>)에서 한 vector 방향의 projection을 subspace 전체로 확장하면, 원래 vector를 subspace 안의 component와 그 subspace의 모든 방향에 orthogonal한 component로 나누고 싶어진다. 이때 두 번째 component가 놓이는 공간을 orthogonal complement가 설명한다.
+[Projection and Orthogonal Subset](<33 Projection and Orthogonal Subset.md>)에서는 한 vector를 선택한 direction들의 component와 나머지로 나누었다. 이제 하나의 direction이 아니라 subspace $W$ 전체를 생각해 보자. Vector $v$에서 $W$ 방향의 component를 제거한 나머지는 $W$의 특정 basis vector 몇 개뿐 아니라 $W$의 모든 vector와 orthogonal해야 한다.
 
-## 정의
+따라서 $W$의 모든 방향과 orthogonal한 vector들을 하나의 집합으로 모을 필요가 있다. 이 집합이 orthogonal complement이며, projection의 residual이 놓이는 공간을 basis와 무관하게 설명한다.
 
-$n$차원 inner product space $V/\F$와 subset $S\subseteq V$가 있다고 하자. $S$의 `orthogonal complement` $S^\perp$를 $S$의 모든 vector와 orthogonal한 vector의 집합으로 정의한다.
+## Definition
 
-$$ S^\perp := \{ v \in V \enspace | \enspace \forall s \in S, \quad  B(v,s) = 0_\F \}$$
-
-## 기본 성질
-
-Inner product space $V/\F$에서 전체 공간의 orthogonal complement는 zero vector만으로 이루어진다.
+Inner product space $V/\F$와 subset $S\subseteq V$가 있다고 하자. $S$의 `orthogonal complement`를 다음과 같이 정의한다.
 
 $$
-V^\perp=\{0_V\}.
+S^\perp
+:=
+\{v\in V\mid B(v,s)=0_\F\text{ for every }s\in S\}.
+$$
+
+Conjugate symmetry에 의해 $B(v,s)=0_\F$와 $B(s,v)=0_\F$는 동치이므로 argument의 순서는 orthogonality 자체를 바꾸지 않는다.
+
+Orthogonality는 linear combination과 호환되므로 $S$의 개별 vector들과 orthogonal한 것은 $\operatorname{span}(S)$의 모든 vector와 orthogonal한 것과 같다.
+
+$$
+S^\perp
+=
+\operatorname{span}(S)^\perp.
+$$
+
+실제로 $v\in S^\perp$이고 $w=\sum_i a_is_i\in\operatorname{span}(S)$이면
+
+$$
+B(v,w)
+=
+\sum_i\overline{a_i}B(v,s_i)
+=
+0_\F
+$$
+
+이다.
+
+## Basic Properties
+
+### 정리1 (Orthogonal complement is a subspace)
+
+Inner product space $V/\F$의 모든 subset $S\subseteq V$에 대해 $S^\perp$는 $V$의 subspace다.
+
+**Proof**
+
+$B(0_V,s)=0_\F$이므로 $0_V\in S^\perp$이다. $v_1,v_2\in S^\perp$와 $a_1,a_2\in\F$를 잡으면 모든 $s\in S$에 대해
+
+$$
+\begin{aligned}
+B(a_1v_1+a_2v_2,s)
+&=
+a_1B(v_1,s)+a_2B(v_2,s)\\
+&=
+0_\F.
+\end{aligned}
+$$
+
+따라서 $a_1v_1+a_2v_2\in S^\perp$이므로 $S^\perp\le V$이다. $\qed$
+
+### 정리2 (Basic relations)
+
+Subset $S,T\subseteq V$에 대해 다음이 성립한다.
+
+$$
+\{0_V\}^\perp=V,
+\qquad
+V^\perp=\{0_V\},
+$$
+
+$$
+S\subseteq T
+\implies
+T^\perp\subseteq S^\perp.
 $$
 
 **Proof**
 
-Inner product의 linearity에 의해 모든 $w\in V$에 대해 $B(0_V,w)=0_\F$이므로 $0_V\in V^\perp$이다.
+모든 $v\in V$에 대해 $B(v,0_V)=0_\F$이므로 $\{0_V\}^\perp=V$다. 한편 $v\in V^\perp$이면 특히 $B(v,v)=0_\F$이고, positive definiteness에 의해 $v=0_V$다. 따라서 $V^\perp=\{0_V\}$다.
 
-반대로 $v\in V^\perp$라고 하자. Orthogonal complement의 정의에서 $w=v$로 두면 $B(v,v)=0_\F$이고, positive definiteness에 의해 $v=0_V$이다. 따라서 $V^\perp=\{0_V\}$이다. $\qed$
+마지막으로 $S\subseteq T$일 때 $T$의 모든 vector와 orthogonal한 vector는 $S$의 모든 vector와도 orthogonal하므로 $T^\perp\subseteq S^\perp$다. $\qed$
 
-## 명제1
-$n$차원 inner product space $V/\F$가 있다고 하자.
+## Projection onto a Subspace
 
-$W \le V$가 있을 때, 다음을 증명하여라.
+### Motivation
 
-$$ W^\perp \le V $$
+Finite-dimensional subspace $W\le V$에는 [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)로 orthonormal basis를 선택할 수 있다. Orthonormal basis를
 
-**Proof**
+$$
+\beta=(\beta_1,\ldots,\beta_k)
+$$
 
-[기본 연산 법칙]  
-$w \in W^\perp$면, $w \in V$이기 때문에 교환법칙 분배법칙등 $F-$가군의 성질들이 전부 성립한다. 
+라고 하면 각 direction의 projection coefficient는 $B(v,\beta_i)$이고 cross term은 모두 사라진다. 따라서 $W$ 방향의 component를 이 projection들의 합으로 만들 수 있다.
 
-[연산에 닫힘]  
-$w_1,w_2 \in W^\perp$, $a \in \Bbb F$이고 $s \in W$라 하면 다음이 성립한다.
+### Definition
 
-$$ B(aw_1 + w_2, s) = aB(w_1,s) + B(w_2,s) = 0_\F  $$
+$W$의 orthonormal basis $\beta$를 사용해 `orthogonal projection onto $W$`를 다음과 같이 정의한다.
 
-따라서, $aw_1 + w_2 \in W^\perp$임으로 연산에 닫혀있다. $\qed$
+$$
+P_W:V\rightarrow W,
+\qquad
+P_W(v)
+:=
+\sum_{i=1}^k B(v,\beta_i)\beta_i.
+$$
 
-[$+$연산 항등원의 존재성]  
-$s \in W$라 하면 다음이 성립한다.
+정의에서 바로 $P_W(v)\in W$다. 또한 각 $j\in\{1,\ldots,k\}$에 대해
 
-$$ B(0_V,s) =  0_\F $$
+$$
+\begin{aligned}
+B(v-P_W(v),\beta_j)
+&=
+B(v,\beta_j)
+-
+\sum_{i=1}^k
+B(v,\beta_i)B(\beta_i,\beta_j)\\
+&=
+B(v,\beta_j)-B(v,\beta_j)\\
+&=
+0_\F.
+\end{aligned}
+$$
 
-따라서 $0_V \in W^\perp$이다.
+따라서
 
-[$+$연산 역원의 존재성]  
-상수곱이 정의되어 있음으로 환의 명제2에 의해 역원이 존재한다.
+$$
+v-P_W(v)\in W^\perp.
+$$
 
-## 명제2
-$n$차원 inner product space $V/\F$ 와 $W \le V$ 가 있을 떄, 다음을 증명하여라.
+이 성질과 다음 decomposition theorem은 $P_W(v)$가 선택한 orthonormal basis에 의존하지 않음을 보장한다.
 
-$$ W \cap W^{\perp} = \set{0_V} $$
+### 정리3 (Orthogonal decomposition)
 
-**Proof**
+Finite-dimensional inner product space $V/\F$와 subspace $W\le V$가 있다고 하자. 모든 $v\in V$는 다음과 같이 유일하게 표현된다.
 
-$w \in W \cap W^{\perp}$ 라고 하면 다음이 성립한다.
+$$
+v=w+u,
+\qquad
+w\in W,
+\qquad
+u\in W^\perp.
+$$
 
-$$ B(w,w) = 0_V \implies w = 0_V \qed $$
+특히
 
-## 명제3
-$n$차원 inner product space $V / \F$와 $k \le n$ 차원 subspace $W \le V$ 가 있다고 하자.
-
-$W$ 의 orthogonal basis 를 $\beta$ 라고 할 때, 임의의 $v \in V$ 에 대해 다음을 증명하여라.
-
-$$ v - \sum_{i=1}^k P_{\beta_i}(v) \in W^{\perp} $$
-
-**Proof**
-
-임의의 $\beta_i$ 에 대해서 다음이 성립한다.
-
-$$ \begin{aligned}
-B(v - \sum_{j=1}^k P_{\beta_j}(v), \beta_i) &= B(v, \beta_i) - \sum_{j=1}^k \frac{B(v,\beta_j)}{B(\beta_j, \beta_j)} B(\beta_j, \beta_i) \\
-&= B(v, \beta_i) - \frac{B(v,\beta_i)}{B(\beta_i, \beta_i)} B(\beta_i, \beta_i) \\
-&= 0_\F 
-\end{aligned} $$
-
-따라서, $\forall w \in W$ 에 대해서 다음이 성립한다.
-
-$$ \begin{aligned}
-B(v - \sum_{j=1}^k P_{\beta_j}(v),w) &= a_j B(v - \sum_{j=1}^k P_{\beta_j}(v), \beta_j) \\
-&= 0_\F \qed
-\end{aligned} $$
-
-## 명제4
-$n$차원 inner product space $V / \F$와 $k \le n$ 차원 subspace $W \le V$ 가 있다고 하자.
-
-$W$ 의 orthogonal basis 를 $\beta, \gamma$ 라고 할 때, 임의의 $v \in V$ 에 대해 다음을 증명하여라.
-
-$$ \sum_{i=1}^k P_{\beta_i}(v) = \sum_{i=1}^k P_{\gamma_i}(v) $$
+$$
+V=W\oplus W^\perp.
+$$
 
 **Proof**
 
-$\sum_{i=1}^k P_{\gamma_i}(v), \sum_{i=1}^k P_{\beta_i}(v) \in W$ 임으로 다음이 성립한다.
+$w:=P_W(v)$, $u:=v-P_W(v)$로 두면 앞의 계산에 의해 $w\in W$, $u\in W^\perp$이고 $v=w+u$이므로 existence가 성립한다.
 
-$$ \sum_{i=1}^k P_{\beta_i}(v) - \sum_{i=1}^k P_{\gamma_i}(v) \in W $$
+이제
 
-그리고 명제3에 의해 $v - \sum_{i=1}^k P_{\beta_i}(v),v - \sum_{i=1}^k P_{\gamma_i}(v) \in W^\perp$ 임으로 다음이 성립한다.
+$$
+v=w_1+u_1=w_2+u_2
+$$
 
-$$ \sum_{i=1}^k P_{\beta_i}(v) - \sum_{i=1}^k P_{\gamma_i}(v) = \left( v - \sum_{i=1}^k P_{\gamma_i}(v) \right) - \left( v - \sum_{i=1}^k P_{\beta_i}(v) \right) \in W^\perp $$
+인 두 표현이 있다고 하자. 그러면
 
-그러면 $\sum_{i=1}^k P_{\beta_i}(v) - \sum_{i=1}^k P_{\gamma_i}(v) \in W \cap W^\perp$ 임으로 명제2에 의해 다음이 성립한다.
+$$
+w_1-w_2=u_2-u_1
+$$
 
-$$ \sum_{i=1}^k P_{\beta_i}(v) - \sum_{i=1}^k P_{\gamma_i}(v) = 0_\F \qed $$
+이고 왼쪽은 $W$, 오른쪽은 $W^\perp$에 속한다. $x\in W\cap W^\perp$이면 $B(x,x)=0_\F$이므로 $x=0_V$다. 따라서 $w_1=w_2$, $u_1=u_2$이고 표현은 유일하다. $\qed$
 
-### 참고
-$v \in V$ 에 대해서 $W$ 로의 projection $P_W(v)$ 를 다음과 같이 정의한다.
+Orthogonal decomposition에서 $W$ component는 반드시 $P_W(v)$여야 한다. 따라서 서로 다른 orthonormal basis로 projection 공식을 계산해도 같은 vector를 얻는다.
 
-$$ P_W(v) = \sum_{i=1}^k P_{\beta_i}(v), \quad \beta \text{ is any orthogonal basis of } W $$
+### 따름정리1 (Double orthogonal complement)
 
-## 명제5
-$n$차원 inner product space $V / \F$와 $k \le n$ 차원 subspace $W \le V$ 가 있을 때, 다음을 증명하여라.
+Finite-dimensional inner product space $V/\F$와 subspace $W\le V$에 대해 다음이 성립한다.
 
-$$ \forall w \in W, \quad \norm{v-P_W(v)} \le \norm{v-w} $$
-
-**Proof**
-
-$v-w = (v-P_W(v)) - (P_W(v)-w)$ 이고 $v-P_W(v) \in W^\perp$, $P_W(v)-w \in W$ 임으로 다음이 성립한다.
-
-$$ (v-P_W(v)) \perp (P_W(v)-w) $$
-
-따라서, Pythagorean theorem 에 의해 다음이 성립한다.
-
-$$ \norm{v-w}^2 = \norm{v-P_W(v)}^2 + \norm{P_W(v)-w}^2 $$
-
-inner product 의 성질에 의해 $0_F \le \norm{P_W(v)-w}^2$ 이고 $0_F \le \norm{\cdot}$ 임으로 다음이 성립한다.
-
-$$ \norm{v-P_W(v)}^2 \le \norm{v-w}^2 \implies \norm{v-P_W(v)} \le \norm{v-w} \qed $$
-
-### 참고
-$P_W(v)$ 는 $W$ 의 모든 vector 중 가장 $v$ 에 가깝다. 따라서 $P_W(v)$ 를 `closest vector` 라고 한다.
-
-## 명제6
-$n$차원 inner product space $V/\F$가 있다고 하자.
-
-$W \le V$가 있을 때, 다음을 증명하여라.
-
-$$ V = W \oplus W^\perp $$
+$$
+(W^\perp)^\perp=W,
+\qquad
+\dim V=\dim W+\dim W^\perp.
+$$
 
 **Proof**
 
-[$V = W + W^\perp$]  
-임의의 $v\in V$ 에 대해 $P_W(v) \in W$ 이고 $v-P_W(v) \in W^\perp$ 임으로 $V = W + W^\perp$이다. $\qed$
+모든 $w\in W$는 $W^\perp$의 모든 vector와 orthogonal하므로 $W\subseteq(W^\perp)^\perp$다.
 
-[$W \cap W^\perp = \{ 0_V \}$]  
-$w \in W \cap W^\perp$라 하자.
+반대로 $x\in(W^\perp)^\perp$를 orthogonal decomposition으로 $x=w+u$, $w\in W$, $u\in W^\perp$라고 쓰자. $x\perp u$이고 $w\perp u$이므로
 
-$w \in W$이면서 $w \in W^\perp$임으로, $W^\perp$의 정의에 의해 다음이 성립한다.
+$$
+0_\F
+=
+B(x,u)
+=
+B(w+u,u)
+=
+B(u,u).
+$$
 
-$$ B(w,w) = 0_\F $$
+따라서 $u=0_V$이고 $x=w\in W$다. 그러므로 $(W^\perp)^\perp=W$다. Dimension 식은 direct sum의 dimension formula에서 따라온다. $\qed$
 
-내적의 정의에 의해 $w = 0_V$이다. $\qed$
+## Closest Vector Property
 
-### 참고1
-$v \in V$면 $v = w + w^\perp, \enspace w \in W, w^\perp \in W^\perp$이 성립하고 direct sum의 성질에 의해 이러한 표현법이 유일하다.
+### 정리4 (Projection minimizes distance)
+
+Finite-dimensional inner product space $V/\F$, subspace $W\le V$, vector $v\in V$가 있다고 하자. 모든 $w\in W$에 대해
+
+$$
+\lVert v-P_W(v)\rVert
+\le
+\lVert v-w\rVert
+$$
+
+이고 equality는 $w=P_W(v)$일 때 그리고 그때에만 성립한다.
+
+**Proof**
+
+다음 decomposition을 생각하자.
+
+$$
+v-w
+=
+\bigl(v-P_W(v)\bigr)
++
+\bigl(P_W(v)-w\bigr).
+$$
+
+첫 번째 항은 $W^\perp$, 두 번째 항은 $W$에 속하므로 두 항은 orthogonal하다. Pythagorean theorem에 의해
+
+$$
+\lVert v-w\rVert^2
+=
+\lVert v-P_W(v)\rVert^2
++
+\lVert P_W(v)-w\rVert^2.
+$$
+
+두 번째 항이 nonnegative이므로 원하는 부등식을 얻는다. Equality는 $\lVert P_W(v)-w\rVert=0$, 즉 $w=P_W(v)$일 때 그리고 그때에만 성립한다. $\qed$
+
+따라서 $P_W(v)$는 $W$의 vector들 중 $v$와 가장 가까운 유일한 vector다. 이 성질이 [Least Squares Problem](<37 Least Squares Problem.md>)에서 exact solution이 없을 때 best approximation을 선택하는 근거가 된다.
+
+## 관련 문서
+
+- [Norm, Distance and Angle](<32 Norm Distance and Angle.md>)
+- [Projection and Orthogonal Subset](<33 Projection and Orthogonal Subset.md>)
+- [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)
+- [Least Squares Problem](<37 Least Squares Problem.md>)

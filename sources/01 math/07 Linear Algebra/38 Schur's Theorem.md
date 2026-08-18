@@ -2,145 +2,233 @@
 
 ## 한 줄 요약
 
-Schur's theorem은 complex inner product space의 linear map이 어떤 orthonormal basis에서 upper triangular matrix로 표현됨을 보장한다.
+Schur's theorem은 characteristic polynomial이 split되는 finite-dimensional inner product space의 linear map이 어떤 orthonormal basis에서 upper triangular matrix로 표현됨을 보장한다.
 
 ## Motivation
 
-Linear map의 matrix representation이 diagonal이면 작용과 eigenvalue를 쉽게 읽을 수 있지만 모든 linear map이 diagonalizable한 것은 아니다. Upper triangular matrix도 diagonal entry에서 eigenvalue를 읽을 수 있고 계산이 단순하므로, basis가 orthonormal하다는 조건을 유지하면서 적어도 upper triangular form을 얻을 수 있는지 묻게 된다.
+Linear map의 matrix가 diagonal이면 각 basis direction이 서로 섞이지 않으므로 작용과 eigenvalue를 쉽게 읽을 수 있다. 하지만 모든 linear map이 diagonalizable한 것은 아니다. 예를 들어 eigenvector가 space 전체의 basis를 이루지 못하면 어떤 basis를 선택해도 diagonal matrix를 얻을 수 없다.
 
-Schur's theorem은 characteristic polynomial이 linear factor로 split되면 그런 orthonormal basis가 존재한다고 말한다. 특히 $\C$ 위에서는 fundamental theorem of algebra에 의해 모든 characteristic polynomial이 split되므로 모든 complex matrix에 적용된다.
+Upper triangular matrix는 diagonal matrix보다 약한 형태지만 다음 장점이 있다.
 
-증명에서는 $T$의 `adjoint` $T^*$를 사용한다. $T^*$는 선택한 inner product에 대해 다음 관계를 만족하는 유일한 linear map이다.
+- Diagonal entry에서 eigenvalue를 읽을 수 있다.
+- 앞쪽 basis vector들이 span하는 subspace가 map에 의해 보존된다.
+- Determinant와 characteristic polynomial을 diagonal entry의 product로 계산할 수 있다.
+
+따라서 diagonalization이 불가능하더라도 orthonormal basis를 유지하면서 upper triangular form까지 얻을 수 있는지 묻게 된다. Schur's theorem은 characteristic polynomial이 field $\F$에서 linear factor로 split되면 이것이 가능하다고 말한다.
+
+Complex field에서는 fundamental theorem of algebra에 의해 모든 nonconstant polynomial이 split되므로 모든 complex square matrix에 Schur's theorem을 적용할 수 있다.
+
+## Adjoint and an Invariant Orthogonal Complement
+
+Schur's theorem의 induction에서는 dimension을 하나 줄이면서 restriction을 만들 수 있는 invariant subspace가 필요하다. Eigenvector $v$ of $T$를 선택하면 $\operatorname{span}\{v\}$는 $T$-invariant지만 그 orthogonal complement가 반드시 $T$-invariant인 것은 아니다.
+
+이 문제는 $T$가 아니라 adjoint $T^*$의 eigenvector를 선택하면 해결된다. Finite-dimensional inner product space에서 adjoint는 [Riesz Representation Theorem](<42 Riesz Representation Theorem.md>)에 의해 존재하며 다음 관계를 만족한다.
 
 $$
-B(Tx,y)=B(x,T^*y).
+B(Tx,y)
+=
+B(x,T^*y).
 $$
 
-Finite-dimensional inner product space에서 $T^*$의 존재성과 유일성은 [Riesz Representation Theorem](<42 Riesz Representation Theorem.md>)으로부터 얻을 수 있다.
+### 보조정리1
 
-## 정리
+$T^*v=\overline\lambda v$인 nonzero vector $v$가 있다고 하자. 그러면
 
-$n$차원 inner product space $V/\F$와 $T \in \End(V)$가 있다고 하자.
+$$
+\operatorname{span}\{v\}^\perp
+$$
 
-$T$의 characteristic polynomial를 $\varphi_T(\lambda)$라 할 떄, 다음을 증명하여라.
-
-$$ \varphi_T(\lambda) \text{is split} \implies \exist \text{ orthonormal basis } \beta \st \frak m_\beta^\beta(T) \text{ is an upper triangular matrix} $$
-
-**Proof**
-
-증명을 위해 수학적 귀납법을 사용한다.
-
-먼저 $\dim(V) = 1$인 경우 자명하게 성립한다.
-
-다음으로 $\dim(V) = n-1$일 때, 성립한다고 가정하고 $\dim(V) = n$이라고 하자.
-
-$\lambda$를 $T$의 eigenvalue라 하면 adjoint의 성질에 의해 $\overline\lambda$는 $T^*$의 eigen value이다.
-
-$\overline\lambda$의 크기가 1인 eigenvector를 $v$라하면,  orthogonal complement의 성질에 의해 다음이 성립한다.
-
-$$ V = \span(v) \oplus \span(v)^\perp$$
-
-보조명제3.1에 의해 $\span(v)^\perp$는 split됨으로, 귀납적 가정에 의해 다음이 성립한다.
-
-$$ \exist \text{orthonormal basis } \gamma = \{\gamma_1, \cdots, \gamma_{n-1} \} \st \frak m_{\gamma}^{\gamma}(T|_{\span(v)^\perp}) \text{ be an upper triangular matrix.} $$
-
-이 때, $V$이 기저 $\beta$를 다음과 같이 정의하자.
-
-$$ \beta = \{ \gamma_1, \cdots, \gamma_{n-1}, v \}$$ 
-
-그러면 다음이 성립한다.
-
-$$ \begin{aligned} \frak m_{\beta}^{\beta}(T) &= \begin{bmatrix} \frak{m}_\beta(T(\gamma_1)) & \cdots & \frak{m}_\beta(T(\gamma_{n-1})) & \frak{m}_\beta(T(v)) \end{bmatrix} \\&= \begin{bmatrix} \begin{array}{c | c} \begin{array}{} \\ \frak m_\gamma^\gamma(T|_{\span(v)^\perp}) \\  \\ \hline 0 \end{array} & \begin{array}{} a_1 \\ \vdots \\ a_n \end{array} \end{array} \end{bmatrix} \end{aligned} $$
-
-$$ \text{Where, } T(v) = a_1 \gamma_1 + \cdots + a_{n-1}\gamma_{n-1} + a_nv $$
-
-이 때, $\frak m_{\gamma}^{\gamma}(T|_{\span(v)^\perp})$가 upper triangular matrix임으로 $\frak m_{\beta}^{\beta}(T)$도 upper trianular matrix가 된다. 
-
-동시에 $\beta$를 이루고 있는 $\gamma$와 $v$는 direct sum 관계에 있는 두 공간의 기저임으로 $\beta$는 $V$의 orthonormal basis가 된다.$\qed$
-
-### 보조명제3.1
-다음을 증명하여라.
-
-$$ \span(v)^\perp \text{ is split} $$
+는 $T$-invariant subspace다.
 
 **Proof**
 
-$V$에 대해 다음이 성립한다.
+$x\in\operatorname{span}\{v\}^\perp$이면 $B(x,v)=0_\F$다. 이 문서의 inner product는 두 번째 argument에 대해 conjugate linear하므로
 
-$$ V = \span(v) \oplus \span(v)^\perp$$
+$$
+\begin{aligned}
+B(Tx,v)
+&=
+B(x,T^*v)\\
+&=
+B(x,\overline\lambda v)\\
+&=
+\lambda B(x,v)\\
+&=
+0_\F.
+\end{aligned}
+$$
 
-$\span(v)^\perp$의 임의의 기저를 $\gamma = \{ \gamma_1, \cdots, \gamma_{n-1} \}$이라 할 때, $V$의 기저 $\beta$을 다음과 같이 정의하자
+따라서 $Tx\in\operatorname{span}\{v\}^\perp$이고 이 subspace는 $T$-invariant다. $\qed$
 
-$$ \beta = \{ \gamma_1, \cdots, \gamma_{n-1}, v \}$$ 
+Orthonormal basis에서 $T$의 matrix가 $A$이면 $T^*$의 matrix는 $A^{\mathsf *}$다. Characteristic polynomial을
 
-보조명제3.1.1에 의해서 $\span(v)^\perp$는 $T$ invariant임으로 다음이 성립한다.
+$$
+\chi_T(t):=\det(tI-A)
+$$
 
-$$ \begin{aligned} \frak m_{\beta}^{\beta}(T) &= \begin{bmatrix} \frak{m}_\beta(T(\gamma_1)) & \cdots & \frak{m}_\beta(T(\gamma_{n-1})) & \frak{m}_\beta(T(v)) \end{bmatrix} \\&= \begin{bmatrix} \begin{array}{c | c} \begin{array}{} \\ \frak m_\gamma^\gamma(T|_{\span(v)^\perp}) \\  \\ \hline 0 \end{array} & \begin{array}{} a_1 \\ \vdots \\ a_n \end{array} \end{array} \end{bmatrix} \end{aligned} $$
+로 정의하면
 
-$$ \text{Where, } T(v) = a_1 \gamma_1 + \cdots + a_{n-1}\gamma_{n-1} + a_nv $$
+$$
+\chi_{T^*}(t)
+=
+\overline{\chi_T(\overline t)}.
+$$
 
-따라서, $\det(T - a_nI) = 0$임으로 $T$가 split된 1차식 중에는 $(a_n - \lambda)$가 포함되어 있다.
+따라서
 
-이 때, detrminant의 block matrix에 대한 성질에 의해 다음이 성립한다.
+$$
+\chi_T(t)
+=
+\prod_{i=1}^n(t-\lambda_i)
+$$
 
-$$\det(\frak m_{\beta}^{\beta}(T) - \lambda I_n) = \det\Big( m_\gamma^\gamma(T|_{\span(v)^\perp}) - \lambda I_{n-1}\Big)(a_n - \lambda)$$
+가 $\F$에서 split되면
 
-따라서, $T$의 split 된 1차식들 중 $(a_n - \lambda)$제외한 나머지 1차식들로 $T|_{\span(v)^\perp}$이 구성되어 있다.
+$$
+\chi_{T^*}(t)
+=
+\prod_{i=1}^n(t-\overline{\lambda_i})
+$$
 
-그럼으로, $T|_{\span(v)^\perp}$는 split 된다. $\qed$
+도 split된다. 즉 $T^*$에도 $\F$에 속하는 eigenvalue와 eigenvector가 존재한다.
 
+## Schur's Theorem
 
-#### 보조명제3.1.1
-다음을 증명하여라.
+### 정리1
 
-$$ \span(v)^\perp \text{ is a } T \text{ invariant} $$
+$\F\in\{\R,\C\}$인 $n$-dimensional inner product space $V/\F$와 $T\in\operatorname{End}(V)$가 있다고 하자. Characteristic polynomial $\chi_T(t)$가 $\F$에서 split되면 $V$의 orthonormal basis $\beta$가 존재하여
+
+$$
+[T]_\beta^\beta
+$$
+
+가 upper triangular matrix가 된다.
 
 **Proof**
 
-$x \in \span(v)^\perp$라 하면 다음이 성립한다.
+Dimension $n$에 대한 induction을 사용한다.
 
-$$ B(T(x),v) = B(x, T^*(v)) = B(x, \overline\lambda v) = \lambda B(x, v) = 0_\F $$
+$n=1$이면 모든 $1\times1$ matrix가 upper triangular이므로 정리가 성립한다.
 
-임의의 $x \in \span(v)^\perp$에 대해, $T(x)$와 $v$가 수직함으로, $T(x) \in \span(v)^\perp$이다.
+이제 dimension이 $n-1$ 이하인 경우 정리가 성립한다고 가정하고 $\dim V=n$이라고 하자. $\chi_T$가 split되므로 앞의 논의에 의해 $\chi_{T^*}$도 split된다. 따라서 $T^*$의 unit eigenvector $v$와 scalar $\overline\lambda\in\F$를 다음과 같이 선택할 수 있다.
 
-따라서, $\span(v)^\perp$는 $T \text{ invariant}$이다. $\qed$
+$$
+T^*v
+=
+\overline\lambda v,
+\qquad
+\lVert v\rVert=1.
+$$
 
-##### 참고
-$\span(v)$는 일반적으로 $T$ invariant가 아니다.
+다음 subspace를 정의하자.
 
-### 따름명제3.1
-다음을 증명하여라.
+$$
+W
+:=
+\operatorname{span}\{v\}^\perp.
+$$
 
-$$ \text{ every complex matrix is similar to an upper triangular matrix} $$
+보조정리1에 의해 $W$는 $T$-invariant이고 $\dim W=n-1$이다. $W$의 basis를 먼저 놓고 마지막에 $v$를 놓으면 $T$의 matrix는 다음 block upper triangular form을 갖는다.
+
+$$
+[T]
+=
+\begin{bmatrix}
+[T|_W] & b\\
+0 & c
+\end{bmatrix}.
+$$
+
+따라서 characteristic polynomial은
+
+$$
+\chi_T(t)
+=
+\chi_{T|_W}(t)(t-c)
+$$
+
+로 분해된다. $\chi_T$가 linear factor들로 split되므로 $\chi_{T|_W}$도 $\F$에서 split된다.
+
+Induction hypothesis를 $T|_W$에 적용하면 $W$의 orthonormal basis
+
+$$
+\gamma=(\gamma_1,\ldots,\gamma_{n-1})
+$$
+
+가 존재하여
+
+$$
+[T|_W]_\gamma^\gamma
+$$
+
+가 upper triangular가 된다. $W\perp v$이고 $\lVert v\rVert=1$이므로
+
+$$
+\beta
+:=
+(\gamma_1,\ldots,\gamma_{n-1},v)
+$$
+
+는 $V$의 orthonormal basis다. 이 basis에서
+
+$$
+[T]_\beta^\beta
+=
+\begin{bmatrix}
+[T|_W]_\gamma^\gamma & b\\
+0 & c
+\end{bmatrix}
+$$
+
+이고 오른쪽 matrix는 upper triangular다. 따라서 dimension $n$에서도 정리가 성립한다. $\qed$
+
+## Complex Schur Decomposition
+
+### 따름정리1
+
+모든 complex square matrix $A\in\C^{n\times n}$에 대해 unitary matrix $U$와 upper triangular matrix $R$이 존재하여
+
+$$
+A
+=
+URU^{\mathsf *}
+$$
+
+로 쓸 수 있다.
 
 **Proof**
 
-$A \in M_{nn}(\C)$가 있다고 하자.
+Fundamental theorem of algebra에 의해 $\chi_A(t)$는 $\C$에서 split된다. Standard inner product가 주어진 $\C^n$에서 linear map $x\mapsto Ax$에 Schur's theorem을 적용하면 orthonormal basis를 column으로 갖는 unitary matrix $U$가 존재하여
 
-Fundamental theorem of algebra에 의해 $\varphi_A(\lambda)$는 항상 split된다. 
+$$
+R
+=
+U^{\mathsf *}AU
+$$
 
-따라서, Schur's theorem에 의해 $\frak m_\beta^\beta(L_A)$가 upper triangular matrix이 되는 orthonormal basis $\beta$가 존재한다.
+가 upper triangular가 된다. 양변을 정리하면 $A=URU^{\mathsf *}$다. $\qed$
 
-그럼으로, 다음이 성립한다.
+Real matrix의 characteristic polynomial이 $\R$에서 split되지 않으면 real orthonormal basis만으로 triangular form을 만들 수 없을 수 있다. 이 경우 complex field로 확장하면 complex Schur decomposition을 적용할 수 있다. Real arithmetic만 유지하려면 $1\times1$과 $2\times2$ diagonal block을 갖는 real Schur form을 사용한다.
 
-$$ \begin{aligned} \frak m_\beta^\beta(L_A) &= \frak m_\epsilon^\beta(id) \frak m_\epsilon^\epsilon(L_A) \frak m_\beta^\epsilon(L_A) \\&= C^{-1}AC \end{aligned}  $$
+## Consequences
 
-즉, $\frak m_\beta^\beta(L_A) \sim A$이다. $\qed$
+Upper triangular matrix의 characteristic polynomial은 diagonal entry로부터 바로 계산된다. $R=[T]_\beta^\beta$이고 diagonal entry가 $r_{11},\ldots,r_{nn}$이면
 
-### 참고1
-$\frak m_\beta^\beta(T)$가 다음과 같은 upper triangular matrix로 주어진다고 하자.
+$$
+\chi_T(t)
+=
+\det(tI-R)
+=
+\prod_{i=1}^n(t-r_{ii}).
+$$
 
-$$ \frak m_\beta^\beta(T) = \begin{bmatrix} a_1 & \cdots & & * \\ & a_2 \\ & & \ddots & \vdots \\ 0 & & & a_n \end{bmatrix} $$
+따라서 Schur form의 diagonal entry는 multiplicity를 포함한 $T$의 eigenvalue다.
 
-$T(\beta_1) = a_1\beta_1$이 되기 때문에 $\beta_1$은 eigen vector, $a_1$은 eigen value가 된다.
+Schur's theorem 자체는 upper triangular form만 보장한다. Off-diagonal entry가 모두 $0$이 되어 diagonal form을 얻으려면 normality나 symmetry 같은 추가 조건이 필요하다. Real symmetric matrix에 이 조건을 적용한 결과는 [Symmetric Matrix and Spectral Theorem](<39 Symmetric Matrix and Spectral Theorem.md>)에서 다룬다.
 
-### 참고2
-$\frak m_\beta^\beta(T)$가 다음과 같은 upper triangular matrix로 주어진다고 하자.
+## 관련 문서
 
-$$ \frak m_\beta^\beta(T) = \begin{bmatrix} a_1 & \cdots & & * \\ & a_2 \\ & & \ddots & \vdots \\ 0 & & & a_n \end{bmatrix} $$
-
-upper triangular matrix의 determinant 성질에 의해 다음이 성립한다.
-
-$$ \det(T-\lambda I) = \prod_{i=1}^n (a_i - \lambda) $$ 
-
-따라서, $a_1, \cdots, a_n$은 eigenvalue가 된다.
+- [Orthogonal Complement](<35 Orthogonal Complement.md>)
+- [Orthogonal Map](<36 Orthogonal Map.md>)
+- [Symmetric Matrix and Spectral Theorem](<39 Symmetric Matrix and Spectral Theorem.md>)
+- [Riesz Representation Theorem](<42 Riesz Representation Theorem.md>)

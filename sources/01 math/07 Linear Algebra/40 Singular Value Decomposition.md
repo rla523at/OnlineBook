@@ -17,8 +17,9 @@ SVD는 모든 real $m\times n$ matrix에 존재하며, input space와 output spa
 
 ## Full SVD
 
-$A\in\mathbb R^{m\times n}$에 대해 orthogonal matrix $U,V$와 rectangular diagonal
-matrix $\Sigma$가 존재하여 다음이 성립한다.
+### 정리1 (Existence of SVD)
+
+모든 real matrix $A\in\R^{m\times n}$에 대해 orthogonal matrix $U,V$와 rectangular diagonal matrix $\Sigma$가 존재하여 다음이 성립한다.
 
 $$
 A=U\Sigma V^{\mathsf T}
@@ -38,14 +39,79 @@ U^{\mathsf T}U=I,
 V^{\mathsf T}V=I
 $$
 
-$\Sigma$의 diagonal에는 nonnegative singular value가 큰 순서로 놓인다.
+$\Sigma$의 diagonal entry는 nonnegative이고 decreasing order로 놓을 수 있다.
 
 $$
 \sigma_1\ge\sigma_2\ge\cdots\ge 0
 $$
 
-$V$의 column $v_i$를 right singular vector, $U$의 column $u_i$를
-left singular vector라고 한다.
+**Proof**
+
+[Symmetric Matrix and Spectral Theorem](<./39 Symmetric Matrix and Spectral Theorem.md>)에 의해 positive semidefinite matrix $A^{\mathsf T}A$에는 orthonormal eigenvector basis
+
+$$
+(v_1,\ldots,v_n)
+$$
+
+가 존재한다. Eigenvalue를 decreasing order로 놓고 positive eigenvalue의 개수를 $r$이라고 하자.
+
+$$
+A^{\mathsf T}Av_i
+=
+\lambda_i v_i,
+\qquad
+\lambda_1\ge\cdots\ge\lambda_r>0,
+\qquad
+\lambda_{r+1}=\cdots=\lambda_n=0.
+$$
+
+$1\le i\le r$에 대해
+
+$$
+\sigma_i:=\sqrt{\lambda_i},
+\qquad
+u_i:=\frac{Av_i}{\sigma_i}
+$$
+
+라고 정의한다. 39번 문서에서 보인 계산에 의해 $u_1,\ldots,u_r$는 $\R^m$의 orthonormal subset이다. 이를 $\R^m$의 orthonormal basis
+
+$$
+(u_1,\ldots,u_m)
+$$
+
+로 확장한다.
+
+$V$와 $U$를 각각 $v_i$와 $u_i$를 column으로 갖는 matrix로 두고, $\Sigma\in\R^{m\times n}$의 첫 $r$개 diagonal entry를 $\sigma_1,\ldots,\sigma_r$, 나머지 entry를 $0$으로 둔다. $i\le r$이면 정의에 의해
+
+$$
+Av_i=\sigma_i u_i.
+$$
+
+$i>r$이면
+
+$$
+\lVert Av_i\rVert_2^2
+=
+v_i^{\mathsf T}A^{\mathsf T}Av_i
+=
+0
+$$
+
+이므로 $Av_i=0$다. 따라서 모든 basis vector에 대한 작용을 column으로 모으면
+
+$$
+AV=U\Sigma.
+$$
+
+$V$가 orthogonal이므로 오른쪽에 $V^{\mathsf T}$를 곱해
+
+$$
+A=U\Sigma V^{\mathsf T}
+$$
+
+를 얻는다. $\qed$
+
+$\Sigma$의 diagonal entry $\sigma_i$를 `singular value`, $V$의 column $v_i$를 `right singular vector`, $U$의 column $u_i$를 `left singular vector`라고 한다.
 
 ## Geometric meaning
 
@@ -122,6 +188,30 @@ $$
 \lVert A\rVert_F^2=\sum_i\sigma_i^2
 $$
 
+실제로 $x=Vy$라고 두면 orthogonal matrix가 norm을 보존하므로
+
+$$
+\lVert Ax\rVert_2^2
+=
+\lVert\Sigma y\rVert_2^2
+=
+\sum_i\sigma_i^2y_i^2.
+$$
+
+$\lVert x\rVert_2=\lVert y\rVert_2=1$인 vector 중 이 값의 maximum은 $y$가 첫 번째 right singular direction일 때의 $\sigma_1^2$이므로 $\lVert A\rVert_2=\sigma_1$이다. Frobenius norm 식은
+
+$$
+\lVert A\rVert_F^2
+=
+\operatorname{tr}(A^{\mathsf T}A)
+=
+\operatorname{tr}(V\Sigma^{\mathsf T}\Sigma V^{\mathsf T})
+=
+\sum_i\sigma_i^2
+$$
+
+에서 따라온다.
+
 Full column-rank matrix에서 가장 큰 singular value와 가장 작은 singular value의
 비는 2-norm condition number다.
 
@@ -151,9 +241,69 @@ $$
 A^+=V\Sigma^+U^{\mathsf T}
 $$
 
-$A^+b$는 least-squares solution 중 norm이 가장 작은 solution을 선택한다. 매우 작은
-singular value를 어디까지 0으로 취급할지는 numerical tolerance와 data scale에
-의존한다.
+### 정리2 (Minimum-norm least-squares solution)
+
+모든 $b\in\R^m$에 대해
+
+$$
+x^\star:=A^+b
+$$
+
+는 $\lVert Ax-b\rVert_2$를 minimize하는 solution 중 Euclidean norm이 가장 작은 unique solution이다.
+
+**Proof**
+
+$$
+c:=U^{\mathsf T}b,
+\qquad
+y:=V^{\mathsf T}x
+$$
+
+라고 두자. Orthogonal matrix는 norm을 보존하므로
+
+$$
+\lVert Ax-b\rVert_2
+=
+\lVert\Sigma y-c\rVert_2.
+$$
+
+$r=\operatorname{rank}(A)$라고 하면 objective의 square는
+
+$$
+\sum_{i=1}^r(\sigma_i y_i-c_i)^2
++
+\sum_{i=r+1}^m c_i^2
+$$
+
+이다. 따라서 residual을 minimize하려면
+
+$$
+y_i=\frac{c_i}{\sigma_i}
+\qquad
+(1\le i\le r)
+$$
+
+여야 한다. $i>r$인 coordinate $y_i$는 residual에 영향을 주지 않으므로 least-squares solution 사이에서 자유롭게 선택할 수 있다. 그중 $\lVert x\rVert_2=\lVert y\rVert_2$가 가장 작으려면 모든 free coordinate를 $0$으로 두어야 한다. 이는
+
+$$
+y=\Sigma^+c
+$$
+
+와 같으므로
+
+$$
+x
+=
+Vy
+=
+V\Sigma^+U^{\mathsf T}b
+=
+A^+b.
+$$
+
+Free coordinate를 모두 $0$으로 두는 선택은 유일하므로 minimum-norm solution도 unique하다. $\qed$
+
+매우 작은 singular value를 어디까지 $0$으로 취급할지는 numerical tolerance와 data scale에 의존한다.
 
 ## SVD 결과가 곧 rotation은 아니다
 

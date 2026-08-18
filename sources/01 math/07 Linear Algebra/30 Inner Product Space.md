@@ -26,13 +26,13 @@ L(x+x)=2L(x),
 L(x+(-x))=0.
 $$
 
-따라서 $L(x+y)$가 $L(x)$와 $L(y)$에 어떻게 연결되는지 설명하려면 두 vector가 합 안에서 만드는 interaction에 관한 정보가 추가로 필요하다. Euclidean-type geometry에서는 이 정보를 vector의 pair에 대응하는 하나의 scalar로 나타내고, 그 scalar가 linear combination과 호환되도록 하고자 한다. 이를 다음 함수로 나타내자.
+따라서 $L(x+y)$가 $L(x)$와 $L(y)$에 어떻게 연결되는지 설명하려면 두 vector가 합 안에서 만드는 interaction에 관한 정보가 추가로 필요하다. 이 정보는 두 vector 모두에 의존하고 length 사이의 관계를 보완하는 수치이므로, 각 pair $(x,y)$에 scalar 하나를 대응시키는 함수로 기록하자.
 
 $$
 B:V\times V\rightarrow\F.
 $$
 
-$B(x,y)$는 $x$와 $y$가 함께 나타날 때의 interaction을 표현하기 위한 값이다. Vector space의 핵심 연산은 linear combination이므로, 한 vector가 합으로 분해되면 interaction도 같은 방식으로 분해되는 것이 자연스럽다. 이 문서에서는 첫 번째 argument를 기준으로 다음 linearity를 요구한다.
+$B(x,y)$는 $x$와 $y$가 함께 나타날 때의 interaction을 표현하기 위한 값이다. 그러나 pair마다 scalar를 임의로 정하기만 해서는 이 정보가 vector addition과 어떻게 연결되는지 설명할 수 없다. $x=x_1+x_2$이면 $x$와 $y$의 interaction을 $x_1$과 $y$, $x_2$와 $y$의 interaction으로 나누어 계산할 수 있어야 하고, $x$를 $c$배하면 interaction도 $c$배되어야 한다. 이 요구를 첫 번째 argument에 대한 다음 linearity로 나타낸다.
 
 $$
 B(x_1+x_2,y)
@@ -50,7 +50,7 @@ $$
 
 를 요구할 수 있다. 첫 번째 argument의 linearity와 symmetry를 결합하면 두 번째 argument에 대한 linearity도 따라오므로 $B$는 bilinear해진다.
 
-Complex vector space에서는 같은 symmetry를 그대로 사용할 수 없다. 첫 번째 argument의 linearity와 symmetry를 함께 요구하면 $B$가 두 argument 모두에 대해 complex-linear해진다. Diagonal value를 이용하여 $Q(x):=B(x,x)$를 vector $x$의 squared length로 정의한다고 하자. Squared length라면 $Q(cx)=\lvert c\rvert^2Q(x)$를 만족해야 하므로, 특히 $\lvert i\rvert=1$일 때 $Q(ix)=Q(x)$여야 한다. 그러나 $B$가 두 argument 모두에 대해 complex-linear하면
+Complex vector space에서는 같은 symmetry를 그대로 사용할 수 없다. 첫 번째 argument의 linearity와 symmetry를 함께 요구하면 $B$가 두 argument 모두에 대해 complex-linear해진다. 두 argument에 같은 vector를 넣어 얻는 값 $B(x,x)$를 vector $x$의 squared length로 사용한다고 하자. 즉, $Q(x):=B(x,x)$로 둔다. Squared length라면 $Q(cx)=\lvert c\rvert^2Q(x)$를 만족해야 하므로, 특히 $\lvert i\rvert=1$일 때 $Q(ix)=Q(x)$여야 한다. 그러나 $B$가 두 argument 모두에 대해 complex-linear하면
 
 $$
 Q(ix)=B(ix,ix)=i^2B(x,x)=-Q(x)
@@ -87,7 +87,7 @@ $$
 B(x,x)=\overline{B(x,x)}
 $$
 
-이므로 diagonal value는 real number다.
+이므로 $B(x,x)$는 real number다.
 
 이제 $B(x,x)$를 squared length로 사용하려면 이 값이 nonnegative여야 하고, nonzero vector의 squared length가 $0$이 되어서는 안 된다. 따라서 다음 positive definiteness를 요구한다.
 
@@ -116,9 +116,9 @@ L(x+y)^2
 \end{aligned}
 $$
 
-따라서 diagonal value $B(x,x)$는 vector 하나의 squared length를 나타내고, off-diagonal value $B(x,y)$는 개별 length만으로는 알 수 없었던 두 vector의 interaction을 나타낸다.
+따라서 $B(x,x)$는 vector 하나의 squared length를 나타내고, $B(x,y)$는 개별 length만으로는 알 수 없었던 두 vector의 interaction을 나타낸다.
 
-이처럼 linear combination과 호환되고, argument의 교환에 대해 conjugate symmetry를 가지며, diagonal이 positive-definite squared length가 되는 pairwise function을 inner product라고 한다. 이 조건들은 vector space에서 자동으로 따라오는 것이 아니라 Euclidean-type geometry를 선택하는 추가 규칙이다. Inner product가 주어지면 length뿐 아니라 distance, angle, orthogonality와 projection을 차례로 정의할 수 있다. 다음 절에서 inner product의 조건을 정확히 정의한다.
+이처럼 linear combination과 호환되고, argument의 교환에 대해 conjugate symmetry를 가지며, $B(x,x)$가 positive-definite squared length가 되는 pairwise function을 inner product라고 한다. 이 조건들은 vector space에서 자동으로 따라오는 것이 아니라 Euclidean-type geometry를 선택하는 추가 규칙이다. Inner product가 주어지면 length뿐 아니라 distance, angle, orthogonality와 projection을 차례로 정의할 수 있다. 다음 절에서 inner product의 조건을 정확히 정의한다.
 
 Inner product $B$ 자체는 basis와 무관하다. 그러나 vector $x,y$를 선택한 basis의 coordinate로 나타내어 $B(x,y)$를 계산하려면 basis vector 사이의 inner product를 기록한 Gram matrix가 필요하며, [Gram Matrix](<31 Gram Matrix.md>)에서 그 계산법을 설명한다. [Norm, Distance and Angle](<32 Norm Distance and Angle.md>)은 inner product에서 기본적인 geometry가 나오는 과정을 다루고, [Projection and Orthogonal Subset](<33 Projection and Orthogonal Subset.md>)은 한 방향의 component와 여러 방향을 독립적으로 계산하는 조건을 설명한다. [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)는 arbitrary basis를 같은 subspace를 span하는 orthogonal basis로 바꾸며, [Orthogonal Complement](<35 Orthogonal Complement.md>)는 전체 공간을 subspace 방향과 그에 수직인 방향으로 분해한다. [Schur's Theorem](<38 Schur's Theorem.md>)과 [Riesz Representation Theorem](<42 Riesz Representation Theorem.md>)은 이러한 구조가 linear map의 matrix representation과 linear functional의 표현을 어떻게 단순하게 만드는지 보여준다.
 

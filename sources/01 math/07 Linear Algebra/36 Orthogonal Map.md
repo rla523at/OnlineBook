@@ -1,208 +1,189 @@
 # Orthogonal Map
-## 정의
-Inner product space $V/\R$와 $T \in \End(V)$가 있다고 하자.
 
-$V$의 임의의 element를 $v_1,v_2$라고 할 때, 다음하는 $T$를 `직교 변환(orthogonal map)`이라고 한다.
+## 한 줄 요약
 
-$$ B(v_1,v_2) = B(T(v_1),T(v_2)) $$
+Orthogonal map은 real inner product를 보존하는 linear map이며, 따라서 vector의 norm, distance, angle과 orthogonality를 모두 보존한다.
 
-> Reference  
-> [wiki](https://en.wikipedia.org/wiki/Orthogonal_transformation)  
-> [blog](https://m.blog.naver.com/qio910/221791116197)
+## Motivation
 
-### 참고
-Orthogonal map은 inner product를 보존하는 변환이다.
+Inner product는 vector space에 length와 angle을 정한다. 그렇다면 coordinate를 바꾸거나 vector를 변환한 뒤에도 같은 geometry를 유지하려면 어떤 조건이 필요할까?
 
-### 명제1
-Inner product space $V/\R$과 orthogonal map $T$가 있다고 하자.
+Real inner product space $V/\R$의 linear map $T:V\rightarrow V$가 모든 pair의 inner product를 보존하면
 
-$V$의 임의의 element를 $v$라고 할 떄, 다음을 증명하여라.
+$$
+B(Tv,Tw)=B(v,w)
+$$
 
-$$ \norm{v} = \norm{T(v)} $$
+이고, norm과 angle은 inner product로부터 정의되므로 함께 보존된다. 이 조건은 $T$가 space를 늘이거나 찌그러뜨리지 않는다는 뜻이다. 이러한 linear map을 orthogonal map이라고 한다.
 
-**Proof**
+## Definition
 
-$$ \norm{u} = \sqrt{B(u,u)} = \sqrt{B(T(u),T(u))} = \norm{T(u)} $$
+Real inner product space $V/\R$와 $T\in\operatorname{End}(V)$가 있다고 하자. 모든 $v,w\in V$에 대해
 
-### 명제2
-Inner product space $V/\R$과 orthogonal map $T$가 있다고 하자.
+$$
+B(Tv,Tw)=B(v,w)
+$$
 
-$V$의 임의의 element를 $v_1,v_2$라고 할 떄, $v_1,v_2$ 사이의 각을 $\theta$, $T(v_1),T(v_2)$사이의 각을 $\phi$라고 하자.
+가 성립하면 $T$를 `orthogonal map`이라고 한다.
 
-이 떄, 다음을 증명하여라.
+Complex inner product space에서 같은 조건을 만족하는 linear map은 `unitary map`이라고 한다. Real case의 matrix condition에는 transpose가, complex case에는 conjugate transpose가 나타난다.
 
-$$ \theta = \phi $$
+## Geometric Properties
 
-**Proof**
+### 정리1
 
-$$ \cos\theta = \frac{B(v_1,v_2)}{\norm{v_1}\norm{v_2}} = \frac{B(T(v_1),T(v_2))}{\norm{T(v_1)}\norm{T(v_2)}} = \cos\phi \qed $$
+Finite-dimensional real inner product space $V/\R$의 orthogonal map $T$는 다음을 만족한다.
 
-#### 참고
-orthogonal map은 각도를 보존한다. 따라서 orthogonality도 보존된다.
-
-### 명제3
-$n$ 차원 inner product space $V/\R$과 orthogonal map $T$가 있다고 하자.
-
-그리고 $V$의 orthonomral basis를 $\beta$라고 할 때, $A =\mathfrak{m}^\beta_\beta(T)$라고 하자.
-
-이 떄, 다음을 증명하여라.
-
-$$ A A^T = A^T A = I $$
-
-**Proof**
-
-$T$의 성질에 의해 다음이 성립한다.
-
-$$ \begin{aligned} B(\beta_i,\beta_j) &= B(T(\beta_i),T(\beta_j)) \\ \delta_{ij} &= B(A^k_i\beta_k,A^l_j\beta_l) \\&= A^k_iA^l_jB(\beta_k,\beta_l) \\&= A^k_iA^k_j \end{aligned}  $$
-
-즉, $A$의 $i$번째 column과 $j$번째 column을 componentwise하게 곱하면 $i=j$일 때는 1이고 $i\neq j$일 때는 0이라는 의미임으로 다음이 성립한다.
-
-$$ A^TA =I $$
-
-이 떄, $A$는 $n\times n$ square matrix임으로 다음이 성립한다.
-
-$$ A^T = A^{-1} $$
-
-따라서, 다음이 성립한다.
-
-$$ A A^T = A^T A = I \qed $$
-
-> Referemce  
-> [math.stackexchange](https://math.stackexchange.com/questions/3613207/prove-the-matrix-of-an-orthogonal-linear-transformation-relative-to-an-orthonorm)   
-> [youtube](https://www.youtube.com/watch?v=FM7u3jINbbA)  
-
-#### 보조정리
-$A^TA=I$ 일 떄, 다음을 증명하여라.
-
-$$ A \text{ is invertible } $$
+1. Norm preservation:
+   $$
+   \lVert Tv\rVert=\lVert v\rVert.
+   $$
+2. Distance preservation:
+   $$
+   \lVert Tv-Tw\rVert=\lVert v-w\rVert.
+   $$
+3. Orthogonality preservation:
+   $$
+   v\perp w\iff Tv\perp Tw.
+   $$
+4. Angle preservation: nonzero $v,w$ 사이의 angle과 $Tv,Tw$ 사이의 angle이 같다.
+5. $T$는 bijective다.
 
 **Proof**
 
-$\det$ 의 성질에 의해 다음이 성립한다.
+Inner product preservation에 의해
 
-$$ \det(A^TA) = \det(A^T) \det(A) = \det(A)^2 = 1 $$
+$$
+\lVert Tv\rVert^2
+=
+B(Tv,Tv)
+=
+B(v,v)
+=
+\lVert v\rVert^2
+$$
 
-따라서, $\det(A) = \pm 1 $ 임으로 다음이 성립한다. 
+이므로 norm이 보존된다. $T$의 linearity를 함께 사용하면
 
-$$ \det(A) \neq 0 \implies A \text{ is invertible } \qed $$
+$$
+\lVert Tv-Tw\rVert
+=
+\lVert T(v-w)\rVert
+=
+\lVert v-w\rVert
+$$
 
-#### 참고
-$A^TA=I$임으로 A의 column을 coordinate로 갖는 vector들은 orthonormal하다.
+이므로 distance도 보존된다.
 
-$AA^T=I$임으로 $A$의 row을 coordinate로 갖는 vector들은 orthonormal하다.
+또한
 
-### 명제4
-$n$차원 inner product space $V/\R$과 orthogonal map $T$가 있다고 하자.
+$$
+B(Tv,Tw)=B(v,w)
+$$
 
-이 때, 다음을 증명하여라.
+이므로 한쪽 inner product가 $0_\R$인 것과 다른 쪽이 $0_\R$인 것은 동치다. 따라서 orthogonality가 보존된다. Nonzero vector의 angle 공식에 inner product와 norm의 보존을 대입하면
 
-$$ T \text{ is bijective} $$
+$$
+\frac{B(Tv,Tw)}
+{\lVert Tv\rVert\lVert Tw\rVert}
+=
+\frac{B(v,w)}
+{\lVert v\rVert\lVert w\rVert}
+$$
 
-**Proof**
+이므로 angle도 보존된다.
 
-[injective]  
-$\ker(T)$의 임의의 element를 $v$라고 하면 다음이 성립한다.
+마지막으로 $Tv=0_V$이면
 
-$$ \begin{aligned} & \Braket{v,v} = \Braket{T(v),T(v)} = 0_\F \\\implies& v = 0_V \end{aligned} $$
+$$
+\lVert v\rVert
+=
+\lVert Tv\rVert
+=
+0
+$$
 
-$v$가 $0_V$일 수 밖에 없음으로 다음이 성립한다.
+이므로 $v=0_V$다. 따라서 $\ker T=\{0_V\}$이고 $T$는 injective다. Domain과 codomain이 같은 finite dimension을 가지므로 $T$는 bijective다. $\qed$
 
-$$ \ker(T) = \Set{0_V} \implies \ker(T) \text{ is injective} \qed $$
+## Matrix Representation
 
-[surjective]  
-Dimension theorem에 의해 다음이 성립한다.
+### Orthonormal basis
 
-$$ \begin{aligned} & \rank(T) = \dim(V) - \nullity(T) \\\implies& \rank(T) = \dim(V) \\\implies& \img(T) = V \end{aligned} $$
+$n$-dimensional real inner product space $V/\R$의 orthonormal basis를
 
-따라서, $T$는 surjective 하다. $\qed$
+$$
+\beta=(\beta_1,\ldots,\beta_n)
+$$
 
-### 명제5
-$n$차원 inner product space $V/\R$과 orthogonal map $T$가 있다고 하자.
+이라고 하고 $A=[T]_\beta^\beta$라고 하자. $A$의 $i$번째 column은 $T\beta_i$의 coordinate column이다. Basis가 orthonormal이므로
 
-그리고 $V$의 orthonormal basis를 $\beta$라고 할 때, 다음을 증명하여라.
+$$
+B(T\beta_i,T\beta_j)
+=
+(A^{\mathsf T}A)_{ij}.
+$$
 
-$$ T(\beta) \text{ is an orthonormal basis of } V $$
+따라서 $T$가 orthogonal map인 것과 다음 matrix equation은 동치다.
 
-**Proof**
+$$
+A^{\mathsf T}A=I.
+$$
 
-$T$가 bijective임으로 다음이 성립한다.
+$A$는 square matrix이고 $A^{\mathsf T}$가 left inverse이므로 invertible하다. 따라서
 
-$$ T(\beta) \text{ is an basis of } V $$
+$$
+A^{-1}=A^{\mathsf T},
+\qquad
+AA^{\mathsf T}=A^{\mathsf T}A=I.
+$$
 
-$T(\beta)$의 임의의 element를 $T(\beta_i),T(\beta_j)$라고 하면 다음이 성립한다.
+즉, orthonormal basis에서 orthogonal map의 matrix는 column과 row가 모두 orthonormal한 matrix다.
 
-$$ \Braket{T(\beta_i),T(\beta_j)} = \Braket{\beta_i,\beta_j} = \delta_{ij} $$
+### Arbitrary basis
 
-따라서, 다음이 성립한다.
+Basis $\beta$가 orthonormal이 아니면 [Gram Matrix](<31 Gram Matrix.md>) $G$가 basis vector 사이의 inner product를 기록한다. Coordinate column $a,b$에 대해
 
-$$ T(\beta) \text{ is an orthonormal basis of } V \qed $$
+$$
+B(v,w)=a^{\mathsf T}Gb
+$$
 
-### 명제6
-$n$차원 inner product space $V/\R$과 orthogonal map $T$가 있다고 하자.
-
-그리고 $V$의 orthonormal basis를 $\beta$라고 할 때,$A =\frak{m}^\beta_\beta(T)$라고 하자.
-
-이 떄, 다음을 증명하여라.
-
-$$ \Braket{\beta_i, T(\beta_j)} = A^i_j $$
-
-**Proof**
-
-$$ \Braket{\beta_i, T(\beta_j)} = \Braket{\beta_i, A^k_j\beta_k} = A^k_j\delta_{ik} = A^i_j \qed $$
-
-#### 참고
-
-$\beta_i$와 $T(\beta_j)$ 모두 orthonormal basis이기 때문에 두 vector의 inner product는 $\cos$값과 같다.
-
-따라서, $A^i_j$는 $\beta_i$와 $T(\beta_j)$ 사이의 각도에 따른 $\cos$값이 됨으로 $A^i_j$를 기존의 $i$ basis와 새로운 $j$ basis 사이의 directional cosine이라고 부르기도 한다.
-
-## 임의의 basis에서의 matrix condition
-
-Basis가 orthonormal이 아닐 때에는 [Gram Matrix](<31 Gram Matrix.md>)가 basis vector의 length와 angle 정보를 기록한다.
-
-Basis $\beta$에서 $T$의 matrix representation을 $A$라고 하면, 모든 coordinate column $a,b$에 대해 다음이 성립해야 한다.
+이고, $T$를 적용한 coordinate는 각각 $Aa,Ab$다. 따라서 inner product preservation은 모든 $a,b$에 대해
 
 $$
 (Aa)^{\mathsf T}G(Ab)
 =
-a^{\mathsf T}Gb.
+a^{\mathsf T}Gb
 $$
 
-따라서 arbitrary basis에서 orthogonal map의 matrix가 만족하는 조건은
+가 성립한다는 뜻이다. 이를 matrix equation으로 쓰면
 
 $$
 \boxed{A^{\mathsf T}GA=G}
 $$
 
-이다. Orthonormal basis에서는 $G=I$이므로 이 조건이 익숙한
+를 얻는다. Orthonormal basis에서는 $G=I$이므로 이 식이 $A^{\mathsf T}A=I$로 단순해진다.
 
-$$
-A^{\mathsf T}A=I
-$$
-
-로 바뀐다. 즉, orthogonal map이라는 geometric property는 basis와 무관하지만 $A^{\mathsf T}A=I$이라는 matrix equation은 orthonormal basis를 선택했을 때의 표현이다. Determinant는 basis를 바꾸어도 변하지 않으므로, 3차원 rotation은 arbitrary basis에서도 여기에 $\det A=1$ 조건을 함께 만족한다. Rotation과의 관계는 [Quaternion and 3D Rotation](<../08 Geometry/32 Quaternion and 3D Rotation.md>)에서 확인할 수 있다.
+Orthogonal map은 basis와 무관한 geometric property지만 $A^{\mathsf T}A=I$이라는 표현은 orthonormal basis를 선택했을 때만 그대로 성립한다.
 
 ## Orthogonal Matrix
-$A \in M_{nn}(\R)$가 있다고 하자.
 
-이 떄, $A$가 다음 성질을 만족할 경우 `orthogonal matrix`라고 한다.
-
-$$ AA^T = A^TA = I $$
-
-### 참고
-orthogonal map을 orthonormal basis로 표현하면 orthogonal matrix가 된다.
-
-### Orthogonal group과 special orthogonal group
-
-$n\times n$ orthogonal matrix 전체의 집합을 orthogonal group $O(n)$이라고 한다.
+Real square matrix $Q\in\R^{n\times n}$가
 
 $$
-O(n)
-:=
-\{Q\in\mathbb R^{n\times n}\mid Q^{\mathsf T}Q=I\}
+Q^{\mathsf T}Q=I
 $$
 
-$Q\in O(n)$이면 다음이 성립한다.
+를 만족하면 $Q$를 `orthogonal matrix`라고 한다. Square matrix에서는 이 조건으로부터
+
+$$
+Q^{-1}=Q^{\mathsf T},
+\qquad
+QQ^{\mathsf T}=I
+$$
+
+도 따라온다.
+
+Determinant를 취하면
 
 $$
 1
@@ -212,83 +193,96 @@ $$
 \det(Q)^2
 $$
 
-따라서 orthogonal matrix의 determinant는 $+1$ 또는 $-1$이다.
+이므로
 
 $$
-\det Q\in\{-1,+1\}
+\det Q\in\{-1,+1\}.
 $$
 
-Determinant가 $+1$인 orthogonal matrix만 모은 subgroup을 special orthogonal
-group $SO(n)$이라고 한다.
+Determinant가 $+1$인 orthogonal matrix는 orientation을 보존하고, determinant가 $-1$인 orthogonal matrix는 orientation을 뒤집는다.
+
+## Orthogonal and Special Orthogonal Groups
+
+$n\times n$ orthogonal matrix 전체의 집합을 `orthogonal group` $O(n)$이라고 한다.
+
+$$
+O(n)
+:=
+\{Q\in\R^{n\times n}\mid Q^{\mathsf T}Q=I\}.
+$$
+
+Determinant가 $+1$인 element만 모은 subgroup을 `special orthogonal group` $SO(n)$이라고 한다.
 
 $$
 SO(n)
 :=
-\{R\in O(n)\mid\det R=1\}
+\{R\in O(n)\mid\det R=1\}.
 $$
 
-$SO(3)$의 element는 3차원 orientation을 보존하는 rotation matrix다.
-$O(3)$에는 rotation뿐 아니라 determinant가 $-1$인 orientation-reversing
-transformation도 포함된다. 따라서 $Q^{\mathsf T}Q=I$만 확인하고 $Q$를 rotation이라고
-부르면 reflection을 구분하지 못한다.
+특히 $SO(3)$의 element는 3-dimensional orientation-preserving rotation을 나타낸다. 반면 $O(3)$에는 reflection과 rotation-reflection처럼 orientation을 뒤집는 transformation도 포함된다. 따라서 $Q^{\mathsf T}Q=I$만 확인하고 $Q$를 rotation matrix라고 부르면 determinant가 $-1$인 경우를 구분하지 못한다.
 
-3차원 rotation의 geometric 의미와 group operation은
-[Rotation Matrix and SO(3)](<../08 Geometry/22 Rotation Matrix and SO(3).md>)에서
-설명한다.
+3-dimensional rotation의 geometric 의미는 [Rotation Matrix and SO(3)](<../08 Geometry/22 Rotation Matrix and SO(3).md>)에서 다룬다.
 
-### 명제
-$M\in GL(3,\mathbb R)$이고 대각행렬의 집합을 $D(3)$라고 하자. 다음 두 조건은
-동치다.
+## Row Scaling Followed by an Orthogonal Map
 
-1. $MM^{\mathsf T}\in D(3)$이다.
-2. Positive diagonal matrix $S\in D(3)$와 $Q\in O(3)$가 존재해 $M=SQ$다.
+### 정리2
+
+$M\in GL(n,\R)$라고 하자. 다음 두 조건은 동치다.
+
+1. $MM^{\mathsf T}$가 diagonal matrix다.
+2. Positive diagonal matrix $S$와 orthogonal matrix $Q\in O(n)$가 존재해
+   $$
+   M=SQ
+   $$
+   로 표현된다.
 
 **Proof**
 
-[$\implies$]
+$MM^{\mathsf T}$가 diagonal이라고 하자. 이 matrix의 diagonal entry는 $M$의 각 row의 squared norm이다. $M$의 $i$번째 row를 $r_i$라고 하자. $M$이 invertible이므로 모든 $r_i$가 nonzero이고, 다음 positive diagonal matrix를 정의할 수 있다.
 
-$MM^{\mathsf T}\in D(3)$이면 $M$의 서로 다른 row는 orthogonal하다. $M$이
-invertible이므로 각 row의 norm $s_1,s_2,s_3$는 0보다 크다. 다음 matrix를 정의하자.
+$$
+S
+:=
+\operatorname{diag}(s_1,\ldots,s_n),
+\qquad
+s_i:=\lVert r_i\rVert_2.
+$$
 
-$$ S = \begin{bmatrix}
-  s_1 & 0  & 0  \\
-  0  & s_2 & 0  \\
-  0  & 0  & s_3 \\
-\end{bmatrix} $$
+서로 다른 row가 orthogonal하므로
 
-$Q=S^{-1}M$이라고 하면 $MM^{\mathsf T}=S^2$이므로 다음이 성립한다.
+$$
+MM^{\mathsf T}=S^2.
+$$
+
+$Q:=S^{-1}M$이라고 두면
 
 $$
 QQ^{\mathsf T}
 =
-S^{-1}MM^{\mathsf T}S^{-\mathsf T}
+S^{-1}MM^{\mathsf T}S^{-1}
 =
-S^{-1}S^2S^{-1}
-=I
+I.
 $$
 
-따라서 $Q\in O(3)$이고 $M=SQ$다.
+$Q$는 square matrix이므로 $QQ^{\mathsf T}=I$에서 $Q^{-1}=Q^{\mathsf T}$와 $Q^{\mathsf T}Q=I$가 따라온다. 따라서 $Q\in O(n)$이고 $M=SQ$다.
 
-[$\impliedby$]
-
-$M=SQ$, $S\in D(3)$, $Q\in O(3)$이면:
+반대로 $M=SQ$, $S$가 positive diagonal, $Q\in O(n)$이면
 
 $$
 MM^{\mathsf T}
 =
-SQQ^{\mathsf T}S^{\mathsf T}
+SQQ^{\mathsf T}S
 =
 S^2
-\in D(3)
-\qed
 $$
 
-#### 따름명제1
-$\mathfrak T:=\{M\in GL(3,\mathbb R)\mid MM^{\mathsf T}\in D(3)\}$라고 하자.
+이므로 $MM^{\mathsf T}$는 diagonal이다. $\qed$
 
-$M \in \mathfrak{T}$ 일 때, $M^{-1} \notin \mathfrak{T}$ 일 수 있다.
+이 decomposition은 $M$의 서로 orthogonal한 row들을 먼저 unit length로 normalize하여 $Q$를 만들고, 각 row의 원래 length를 $S$에 기록한 것이다.
 
-#### 따름명제2
-$\mathfrak T:=\{M\in GL(3,\mathbb R)\mid MM^{\mathsf T}\in D(3)\}$라고 하자.
+## 관련 문서
 
-$M,N \in \mathfrak{T}$ 일 때, $MN \notin \mathfrak{T}$ 일 수 있다.
+- [Gram Matrix](<31 Gram Matrix.md>)
+- [Norm, Distance and Angle](<32 Norm Distance and Angle.md>)
+- [Symmetric Matrix and Spectral Theorem](<39 Symmetric Matrix and Spectral Theorem.md>)
+- [Rotation Matrix and SO(3)](<../08 Geometry/22 Rotation Matrix and SO(3).md>)

@@ -1,166 +1,356 @@
-# Dual space
-vetor space $V/\Bbb F$이 있을 때, $V$의 `쌍대공간(dual space)` $V^* / \mathbb F$는 다음과 같이 정의된 vetor space이다.
+# Dual Space
 
-$$ V^* := L(V; \mathbb F) $$
+## 한 줄 요약
 
-즉, dual space는 linear form의 집합이다. 
+Dual space $V^*$는 vector를 scalar로 측정하는 모든 linear functional의 vector space이며, basis가 주어지면 coordinate를 추출하는 dual basis를 갖는다.
 
-linear form은 $V$와 $F$사이의 `homomorphism`임으로, $\hom(V;F)$이라고도 한다. 또한 함수 $f : V/\mathbb F \rightarrow \mathbb F$를 `범함수(functional)`라고 하며, linear form은 선형인 functional임으로 `linear functional`이라고도 한다.
+## Motivation
 
-> Reference  
-> [Dual Space - Wiki](https://en.wikipedia.org/wiki/Dual_space) 
+Vector $v\in V$ 자체는 direction과 magnitude를 나타내지만, 계산에서는 $v$에서 특정 coordinate나 linear quantity를 읽어 내는 함수도 필요하다. 예를 들어 basis
 
-# Dual set
-벡터공간 $V/\Bbb F$와 기저 $\beta$가 있을 때, 다음과 같이 정의된 함수 $\beta^i$의 집합을 $\beta$의 `쌍대 집합(dual set)` $\beta^*$이라 한다.
+$$
+\beta=(\beta_1,\ldots,\beta_n)
+$$
 
-$$ \beta^i :V \rightarrow \mathbb F \quad s.t. \quad \beta_j \mapsto \delta^i_j $$
+에 대해
 
-Dual set은 유한차원일 때, $V^*$의 기저임으로 `dual basis`라고도 하며 이는 명제2에서 증명한다.
+$$
+v=a_1\beta_1+\cdots+a_n\beta_n
+$$
 
-### 명제1
-벡터공간 $V/\Bbb F$와 기저 $\beta$가 있을 때, 다음을 증명하여라.
+라고 썼을 때 $v\mapsto a_i$는 vector에서 $i$번째 coordinate를 추출한다. 이 함수는 vector addition과 scalar multiplication을 보존한다.
 
-$$ \exist!\beta^* $$
+이처럼 vector를 scalar로 보내면서 linear structure를 보존하는 함수를 linear functional이라고 한다. Linear functional들을 다시 addition과 scalar multiplication이 가능한 하나의 vector space로 모은 것이 dual space다.
+
+## Dual Space
+
+### Definition
+
+Vector space $V/\F$에서 scalar-valued function
+
+$$
+f:V\rightarrow\F
+$$
+
+가 모든 $v,w\in V$와 $a,b\in\F$에 대해
+
+$$
+f(av+bw)=af(v)+bf(w)
+$$
+
+를 만족하면 $f$를 `linear functional`이라고 한다.
+
+$V$의 모든 linear functional의 집합을 $V$의 `dual space`라고 하며 다음과 같이 표기한다.
+
+$$
+V^*
+:=
+L(V,\F).
+$$
+
+Addition과 scalar multiplication은 pointwise하게 정의한다.
+
+$$
+(f+g)(v):=f(v)+g(v),
+\qquad
+(af)(v):=a f(v).
+$$
+
+이 연산 아래에서 $V^*$는 $\F$ 위의 vector space가 된다. Zero vector는 모든 $v\in V$를 $0_\F$로 보내는 zero functional이다.
+
+Dual space의 정의에는 inner product가 필요하지 않다. Inner product가 주어졌을 때 vector와 linear functional을 연결하는 추가 구조는 [Riesz Representation Theorem](<42 Riesz Representation Theorem.md>)에서 다룬다.
+
+## Dual Basis
+
+### Motivation
+
+Finite-dimensional vector space에 basis가 정해지면 각 vector는 유일한 coordinate를 갖는다. 각 coordinate를 하나씩 추출하는 linear functional들을 만들면, vector의 coordinate를 dual space의 basis로 표현할 수 있다.
+
+### Definition
+
+$n$-dimensional vector space $V/\F$의 ordered basis를
+
+$$
+\beta=(\beta_1,\ldots,\beta_n)
+$$
+
+이라고 하자. 각 $i\in\{1,\ldots,n\}$에 대해
+
+$$
+\beta^i(\beta_j)=\delta^i_j
+$$
+
+를 만족하는 linear functional $\beta^i\in V^*$가 유일하게 존재한다. Ordered subset
+
+$$
+\beta^*
+:=
+(\beta^1,\ldots,\beta^n)
+$$
+
+를 $\beta$의 `dual basis`라고 한다.
+
+실제로
+
+$$
+v=\sum_{j=1}^n a_j\beta_j
+$$
+
+이면 다음과 같이 정의할 수 있다.
+
+$$
+\beta^i(v):=a_i.
+$$
+
+Basis coordinate의 uniqueness 때문에 이 함수는 well-defined이고, coordinate가 linear combination과 호환되므로 $\beta^i$는 linear functional이다. 또한 basis vector에서의 함수값이 모든 vector에서의 값을 결정하므로 이 조건을 만족하는 functional은 유일하다.
+
+### 정리1 (Dual basis theorem)
+
+$n$-dimensional vector space $V/\F$의 basis가 $\beta$이면 dual basis $\beta^*$는 $V^*$의 basis다. 특히
+
+$$
+\dim V^*=\dim V=n.
+$$
 
 **Proof**
 
-$v \in V$일 때, dual set의 정의에 의해 다음이 성립한다.
+먼저 scalar $c_1,\ldots,c_n\in\F$에 대해
 
-$$ v = \beta^i(v)\beta_i $$
+$$
+\sum_{i=1}^n c_i\beta^i=0_{V^*}
+$$
 
-$\beta_i$가 $V$의 기저임으로, $\beta^i(v), \enspace i=1, \cdots, n$는 모든 $v \in V$마다 유일한 값을 갖음으로 모두 well-defined 함수이다. 따라서, $\beta^i, \enspace i=1, \cdots, n$의 집합인 $\beta^*$은 유일하게 존재한다.
+라고 하자. 양변을 $\beta_j$에 적용하면
 
-### 명제2
-벡터공간 $V/\Bbb F$와 기저 $\beta$가 있을 때, 다음을 증명하여라.
+$$
+0_\F
+=
+\sum_{i=1}^n c_i\beta^i(\beta_j)
+=
+c_j
+$$
 
-$$ \beta^* \text{ is linearly independent} $$
+를 얻는다. 모든 $j$에 대해 $c_j=0_\F$이므로 $\beta^*$는 linearly independent하다.
 
-**Proof**
+이제 $f\in V^*$를 잡고
 
-$\beta^*$의 원소중 임의로 $n$개의 원소를 선택해 $\beta^i \enspace i=1, \cdots, n$라 하자.
+$$
+g
+:=
+\sum_{i=1}^n f(\beta_i)\beta^i
+$$
 
-$a_i \in \mathbb F \enspace i=1, \cdots, n$가 있을 때, $a_i \beta^i  = 0_{V^*}$라 하자. 
+라고 하자. $v=\sum_i a_i\beta_i$에 대해
 
-따라서, $\beta_j \enspace j = 1, \cdots, n$에 대해 다음이 성립한다.
+$$
+g(v)
+=
+\sum_{i=1}^n a_i f(\beta_i)
+=
+f(v)
+$$
 
-$$ a_i \beta^i(\beta_j) = a_j = 0_\mathbb F $$
+이므로 $g=f$다. 따라서 $\beta^*$는 $V^*$를 span한다. $\qed$
 
-결론적으로, $a_i = 0 \enspace \forall i$일 때만 $a_i \beta^i = 0_\mathbb F$을 만족함으로 $\beta^i \enspace i=1, \cdots, n$는 선형독립이다. 그리고 $\beta^i$는 $\beta^*$에서 유한개를 임의로 선택한 것이므로 $\beta^*$는 성형독립이다.  $\quad {_\blacksquare}$
+Dual basis를 사용하면 모든 $v\in V$와 $f\in V^*$를 다음처럼 복원할 수 있다.
 
+$$
+v
+=
+\sum_{i=1}^n\beta^i(v)\beta_i,
+\qquad
+f
+=
+\sum_{i=1}^n f(\beta_i)\beta^i.
+$$
 
-### 명제3
-$n$차원 벡터공간 $V/\Bbb F$와 기저 $\beta$가 있을 때, 다음을 증명하여라.
+## Double Dual
 
-$$ \beta^i \text { is a basis of } V^* $$
+### Motivation
 
-**Proof**
+Dual space $V^*$도 vector space이므로 다시 dual을 취해
 
-명제2에의해 선형독립임이 증명되었음으로, $\text{span}(\beta^*) = V^*$만 확인하면 된다.
+$$
+V^{**}:=(V^*)^*
+$$
 
-[$\text{span}(\beta^*) \subseteq V^*$]  
-보조명제에 의해서 $\beta^* \subset V^*$임으로 $\text{span}(\beta^*) \subseteq V^*$이다. 
+를 정의할 수 있다. Vector $v\in V$는 모든 functional $f\in V^*$에 대해 scalar $f(v)$를 정한다. 따라서 $v$를 $V^*$ 위의 evaluation functional로 볼 수 있다.
 
-[$V^* \subseteq \text{span}(\beta^*)$]  
-$v^* \in V^*$에 대해 다음이 성립한다고 하자.
+### Definition
 
-$$ v^*(\beta_i) = a_i $$
+`Canonical evaluation map`
 
-$w^* = a_i\beta^i \in \text{span}(\beta^*)$는 다음을 만족한다.
+$$
+\iota_V:V\rightarrow V^{**}
+$$
 
-$$ w^*(\beta_i) = a_j\beta^j(\beta_i) = a_i $$
+를 다음과 같이 정의한다.
 
-즉, $v^* = w^*$임으로 $v^* \in \text{span}(\beta^*)$이다. $\quad {_\blacksquare}$
+$$
+\bigl(\iota_V(v)\bigr)(f)
+:=
+f(v),
+\qquad
+v\in V,\ f\in V^*.
+$$
 
-#### 보조명제
-다음을 증명하여라.
+각 $\iota_V(v)$는 $f$에 대해 linear하고,
 
-$$ \beta^* \subset V^*  $$
+$$
+\iota_V(av+bw)
+=
+a\iota_V(v)+b\iota_V(w)
+$$
 
-**Proof**
+이므로 $\iota_V$는 linear map이다. 이 정의에는 basis 선택이 들어가지 않으므로 canonical하다.
 
-$v_1 = b_i\beta_i, v_2 = c_i\beta_i \in V$일 때 다음이 성립한다.
+### 정리2 (Finite-dimensional double dual)
 
+Finite-dimensional vector space $V/\F$에서 canonical evaluation map
 
-$$ \begin{aligned} \beta^i(av_1 + v_2) &= \beta^i(ab_j\beta_j + c_k\beta_k) \\ &= \beta^i((ab_j+c_j)\beta_j) \\ &= ab_i + c_i \\ &= a \beta^i(v_1) + \beta^i(v_2) \end{aligned} $$
+$$
+\iota_V:V\rightarrow V^{**}
+$$
 
-$\beta^i$은 linear form임으로  $\beta^i \in V^*$이다. 따라서 linear form의 집합인 $\beta^*$는 $V^*$의 부분집합이다. $\quad {_\blacksquare}$
-
-#### 따름명제
-
-$$ \dim(V) = \dim(V^*) $$
-
-> Reference  
-> [Dual Space - Wiki](https://en.wikipedia.org/wiki/Dual_space)  
-
-#### 참고
-$\dim(V) = \infty$면 일반적으로, $\dim(V) \neq \dim(V^*)$이다.
-
-# Double dual
-vector space $V/\Bbb F$가 있을 때, $V^*$ 또한 vector space임으로 $V^*$의 dual space인 double dual $V^{**}$을 정의할 수 있다.
-
-### 명제
-vector space $V/\Bbb F$가 있을 때, 함수 $\phi$를 다음과 같이 정의하자.
-
-$$ \phi : V \rightarrow V^{**} \quad s.t \quad v \mapsto \phi(v) $$ 
-
-
-$$\text{Where,} \quad \phi(v) : V^* \rightarrow \mathbb F \quad s.t. \quad v^* \mapsto v^*(v) $$
-
-이 때, 다음을 증명하여라.
-
-$$ \phi \text { is a vector space isomorphism} $$
-
-**Proof**
-
-[$\phi \in L(V;V^{**})$]  
-$v_1,v_2 \in V, \enspace a \in \mathbb F, \enspace v^* \in V^*$라 하자.
-
-$$ \begin{aligned} \phi (v_1 + av_2)(v^*) &= v^*(v_1 + av_2) \\ &= v^*(v_1) + av^*(v_2) \\ &= \phi(v_1) + a\phi(v_2) \end{aligned} $$
-
-[bijective]  
-정의에 의해 $\ker(\phi) = \{ 0_V \}$이고 $\dim(V) = \dim(V^*) = \dim(V^{**})$임으로 dimension theorem의 명제에 의해 $\phi$는 bijective이다. $\quad {_\blacksquare}$
-
-#### 참고1
-$\phi$는 basis의 선택에 의존하지 않는다.
-
-> [Mathmatics - natural-isomorphism-in-linear-algebra](https://math.stackexchange.com/questions/234127/natural-isomorphism-in-linear-algebra)  
-
-#### 참고2
-$v \in V, \enspace v^{*} \in V^{*}$라 하면 다음이 성립한다.
-
-$$ (\phi(v))(v^*) = v^{*}(v) $$
-
-$v^* \in V^*, \enspace v^{**} \in V^{**}$라 하면 다음이 성립한다.
-
-$$ v^*(\phi^{-1}(v^{**})) = v^*(v) = v^{**}(v^*) $$
-
-> Reference  
-> [note] (Garrett) Duals, naturality, bilinear forms
-
-# Dual Map
-vector space $V,W/\Bbb F$가 있을 때 $T \in L(V;W)$가 있다고 하자.
-
-$T$의 `dual map` $T^*$은 다음과 같이 정의된 함수이다.
-
-$$T^* \in L(W^*; V^*) \quad s.t. \quad w^* \mapsto w^* \circ T$$
-
-### 명제
-$n,m$차원 vector space $V,W/\Bbb F$가 있을 때 $T \in L(V;W)$가 있다고 하자.
-
-다음을 증명하여라.
-
-$$ \frak m^{\beta^*}_{\gamma^*}(T^*) = (\frak m_{\beta}^{\gamma}(T))^T $$
+는 vector space isomorphism이다.
 
 **Proof**
 
+$\iota_V(v)=0_{V^{**}}$라고 하자. Basis $\beta$와 dual basis $\beta^*$를 선택하면 모든 $i$에 대해
 
-$$ \begin{aligned} \frak m^{\beta^*}_{\gamma^*}(T^*) &= \begin{bmatrix} \frak m_{\beta^*}(T^*(\gamma^*_1)) & \cdots & \frak m_{\beta^*}(T^*(\gamma^*_m)) \end{bmatrix} \\ &= \begin{bmatrix} (\gamma_1^* \circ T)(\beta_1) & \cdots & (\gamma_m^* \circ T)(\beta_1) \\ \vdots & & \vdots \\ (\gamma_1^* \circ T)(\beta_n) & \cdots & (\gamma_m^* \circ T)(\beta_n) \end{bmatrix} \\ &= \begin{bmatrix} \frak m_\gamma(T(\beta_1)) ^T \\ \vdots \\ \frak m_\gamma(T(\beta_n))^T \end{bmatrix}  \\ &= \begin{bmatrix} \frak m_\gamma(T(\beta_1)) & \cdots & \frak m_\gamma(T(\beta_n)) \end{bmatrix} ^T \end{aligned} $$
+$$
+0_\F
+=
+\bigl(\iota_V(v)\bigr)(\beta^i)
+=
+\beta^i(v).
+$$
 
----
+따라서 $v$의 모든 coordinate가 $0_\F$이고 $v=0_V$다. 그러므로 $\iota_V$는 injective다.
 
-> Reference  
-> [Dual Space - Wiki](https://en.wikipedia.org/wiki/Dual_space)  
-> [note] (upenn) The Dual Space   
-> [note] (Canez) Notes on dual spaces  
-> [note] (Garrett) Duals, naturality, bilinear forms
+정리1에 의해
 
+$$
+\dim V^{**}
+=
+\dim V^*
+=
+\dim V
+$$
+
+이므로 같은 finite dimension 사이의 injective linear map $\iota_V$는 surjective다. 따라서 $\iota_V$는 isomorphism이다. $\qed$
+
+Finite-dimensional 가정은 surjectivity에 필요하다. Infinite-dimensional vector space에서도 canonical evaluation map은 정의되지만 일반적으로 $V^{**}$ 전체를 채우지 못하므로 $V\cong V^{**}$라고 결론내릴 수 없다.
+
+## Dual Map
+
+### Motivation
+
+Linear map
+
+$$
+T:V\rightarrow W
+$$
+
+와 $W$의 linear functional $g:W\rightarrow\F$가 있으면 composition
+
+$$
+g\circ T:V\rightarrow\F
+$$
+
+도 linear functional이다. 따라서 $T$는 $W^*$의 functional을 $V^*$의 functional로 pull back한다. 원래 map과 반대 방향으로 움직인다는 점이 dual map의 핵심이다.
+
+### Definition
+
+Linear map $T:V\rightarrow W$의 `dual map`을 다음과 같이 정의한다.
+
+$$
+T^\vee:W^*\rightarrow V^*,
+\qquad
+T^\vee(g)
+:=
+g\circ T.
+$$
+
+모든 $a,b\in\F$와 $f,g\in W^*$에 대해
+
+$$
+T^\vee(af+bg)
+=
+aT^\vee(f)+bT^\vee(g)
+$$
+
+이므로 $T^\vee$는 linear map이다.
+
+Map의 composition을 취하면 순서가 뒤집힌다. $T:U\rightarrow V$, $S:V\rightarrow W$에 대해
+
+$$
+(S\circ T)^\vee
+=
+T^\vee\circ S^\vee.
+$$
+
+### 정리3 (Matrix of the dual map)
+
+Finite-dimensional vector space $V,W$의 basis를 각각 $\beta,\gamma$라고 하고
+
+$$
+A:=[T]_\beta^\gamma
+$$
+
+라고 하자. Dual basis $\beta^*,\gamma^*$에 대한 dual map의 matrix는
+
+$$
+[T^\vee]_{\gamma^*}^{\beta^*}
+=
+A^{\mathsf T}
+$$
+
+다.
+
+**Proof**
+
+$A_{ij}$는 $T(\beta_j)$의 $\gamma_i$ 방향 coordinate이므로
+
+$$
+A_{ij}
+=
+\gamma^i(T\beta_j).
+$$
+
+한편 $T^\vee(\gamma^i)$를 $\beta_j$에 적용하면
+
+$$
+\bigl(T^\vee(\gamma^i)\bigr)(\beta_j)
+=
+\gamma^i(T\beta_j)
+=
+A_{ij}.
+$$
+
+따라서 $T^\vee(\gamma^i)$의 $\beta^*$-coordinate column의 $j$번째 entry는 $A_{ij}$다. 즉 dual map matrix의 $(j,i)$ entry가 $A_{ij}$이므로 전체 matrix는 $A^{\mathsf T}$다. $\qed$
+
+### Dual map과 adjoint의 구분
+
+Dual map은 inner product 없이 정의되며
+
+$$
+T^\vee:W^*\rightarrow V^*
+$$
+
+처럼 dual space 사이에서 원래 map의 방향을 뒤집는다. 반면 inner product가 주어졌을 때 정의하는 adjoint는
+
+$$
+T^*:W\rightarrow V
+$$
+
+처럼 원래 vector space 사이를 움직인다.
+
+두 map 모두 흔히 $T^*$로 표기되지만 서로 같은 type의 map은 아니다. 이 문서에서는 혼동을 피하기 위해 dual map에는 $T^\vee$, adjoint에는 $T^*$를 사용한다. Riesz representation을 통한 두 map의 관계는 [Riesz Representation Theorem](<42 Riesz Representation Theorem.md>)에서 설명한다.
+
+## 관련 문서
+
+- [Linear Map](<10 Linear Map.md>)
+- [Coordinate](<06 Coordinate.md>)
+- [Change of Basis and Coordinate Matrix](<21 Change of Basis and Coordinate Matrix.md>)
+- [Riesz Representation Theorem](<42 Riesz Representation Theorem.md>)
