@@ -70,7 +70,7 @@ $$
 \{Ax\mid x\in\mathbb R^n\}
 $$
 
-따라서 least squares는 $b$와 가장 가까운 $\mathcal C(A)$의 vector $Ax^\star$를 찾는 문제다. [Orthogonal Complement](<./35 Orthogonal Complement.md>)의 closest vector property에 의해 가장 가까운 vector에서는 residual이 column space에 orthogonal하다.
+따라서 least squares는 $b$와 가장 가까운 $\mathcal C(A)$의 vector $Ax^\star$를 찾는 문제다. [Orthogonal Complement and Orthogonal Projection](<./35 Orthogonal Complement and Orthogonal Projection.md>)의 closest vector property에 의해 가장 가까운 vector에서는 residual이 column space에 orthogonal하다.
 
 ### 정리1 (Normal equation)
 

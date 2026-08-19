@@ -6,7 +6,7 @@ Orthogonal map은 real inner product를 보존하는 linear map이며, 따라서
 
 ## Motivation
 
-Inner product는 vector space에 length와 angle을 정한다. 그렇다면 coordinate를 바꾸거나 vector를 변환한 뒤에도 같은 geometry를 유지하려면 어떤 조건이 필요할까?
+Inner product는 vector space에 length와 angle을 정한다. 그렇다면 linear map을 적용한 뒤에도 이러한 geometric quantities가 변하지 않으려면 어떤 조건이 필요할까?
 
 Real inner product space $V/\R$의 linear map $T:V\rightarrow V$가 모든 pair의 inner product를 보존하면
 
@@ -115,7 +115,41 @@ $$
 \beta=(\beta_1,\ldots,\beta_n)
 $$
 
-이라고 하고 $A=[T]_\beta^\beta$라고 하자. $A$의 $i$번째 column은 $T\beta_i$의 coordinate column이다. Basis가 orthonormal이므로
+이라고 하고 $A=[T]_\beta^\beta$라고 하자. $A$의 $i$번째 column을 $a_i$라고 쓰면 matrix representation의 정의에 의해
+
+$$
+a_i=[T\beta_i]_\beta
+$$
+
+이다. 즉, $a_i$는 $T\beta_i$의 coordinate column이다.
+
+이제 $v,w\in V$의 coordinate column을 각각 $[v]_\beta=a$, $[w]_\beta=b$라고 하자. 그러면
+
+$$
+v=\sum_{k=1}^n a_k\beta_k,
+\qquad
+w=\sum_{\ell=1}^n b_\ell\beta_\ell.
+$$
+
+Basis $\beta$가 $B$에 대해 orthonormal이므로 $B(\beta_k,\beta_\ell)=\delta_{k\ell}$이다. 따라서
+
+$$
+\begin{aligned}
+B(v,w)
+&=\sum_{k=1}^n\sum_{\ell=1}^n
+a_kb_\ell B(\beta_k,\beta_\ell)\\
+&=\sum_{k=1}^n a_kb_k\\
+&=a^{\mathsf T}b.
+\end{aligned}
+$$
+
+즉, $B$를 dot product로 가정한 것이 아니라 $B$-orthonormal basis에서 $B$의 coordinate representation이 dot product와 같아진다. 특히 $v=T\beta_i$, $w=T\beta_j$로 두면
+
+$$
+B(T\beta_i,T\beta_j)=a_i^{\mathsf T}a_j.
+$$
+
+한편 $A=(a_1,\ldots,a_n)$이므로 $A^{\mathsf T}A$의 $(i,j)$ entry 역시 $a_i^{\mathsf T}a_j$다. 따라서
 
 $$
 B(T\beta_i,T\beta_j)

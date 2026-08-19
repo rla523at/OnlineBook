@@ -1,16 +1,18 @@
-# Orthogonal Complement
+# Orthogonal Complement and Orthogonal Projection
 
 ## 한 줄 요약
 
-Orthogonal complement는 주어진 subspace의 모든 방향과 orthogonal한 vector들을 모으며, finite-dimensional inner product space를 subspace component와 그에 수직인 component의 direct sum으로 분해한다.
+Orthogonal complement $W^\perp$는 $W$의 모든 vector와 orthogonal한 vector들의 subspace다. 이를 사용하면 finite-dimensional inner product space의 모든 vector $v$를 $P_W(v)\in W$와 $v-P_W(v)\in W^\perp$로 유일하게 분해할 수 있다.
 
-## Motivation
+## Orthogonal Complement
 
-[Projection and Orthogonal Subset](<33 Projection and Orthogonal Subset.md>)에서는 한 vector를 선택한 direction들의 component와 나머지로 나누었다. 이제 하나의 direction이 아니라 subspace $W$ 전체를 생각해 보자. Vector $v$에서 $W$ 방향의 component를 제거한 나머지는 $W$의 특정 basis vector 몇 개뿐 아니라 $W$의 모든 vector와 orthogonal해야 한다.
+### Motivation
 
-따라서 $W$의 모든 방향과 orthogonal한 vector들을 하나의 집합으로 모을 필요가 있다. 이 집합이 orthogonal complement이며, projection의 residual이 놓이는 공간을 basis와 무관하게 설명한다.
+[Projection and Orthogonal Subset](<33 Projection and Orthogonal Subset.md>)에서는 subspace $W$의 서로 orthogonal한 basis $S=\{s_1, \ldots, s_k\}$를 사용하여 vector $x$를 $W$ 위로 projection한 vector $p=\sum_{i=1}^k\operatorname{proj}_{s_i}(x)$와 나머지 $r=x-p$로 나누었다. 이때 $r$은 각 $s_i$와 orthogonal하다. 또한 $S$가 $W$를 span하므로 $r$은 $W$에 속하는 모든 vector와 orthogonal하다.
 
-## Definition
+이처럼 $W$에 속하는 모든 vector와 orthogonal한 vector들을 하나의 집합으로 모은 것이 orthogonal complement다. Orthogonal complement는 projection의 residual이 놓이는 공간을 basis와 무관하게 설명한다.
+
+### Definition
 
 Inner product space $V/\F$와 subset $S\subseteq V$가 있다고 하자. $S$의 `orthogonal complement`를 다음과 같이 정의한다.
 
@@ -42,9 +44,9 @@ $$
 
 이다.
 
-## Basic Properties
+### Basic Properties
 
-### 정리1 (Orthogonal complement is a subspace)
+#### 정리1 (Orthogonal complement is a subspace)
 
 Inner product space $V/\F$의 모든 subset $S\subseteq V$에 대해 $S^\perp$는 $V$의 subspace다.
 
@@ -64,7 +66,7 @@ $$
 
 따라서 $a_1v_1+a_2v_2\in S^\perp$이므로 $S^\perp\le V$이다. $\qed$
 
-### 정리2 (Basic relations)
+#### 정리2 (Basic relations)
 
 Subset $S,T\subseteq V$에 대해 다음이 성립한다.
 
@@ -86,17 +88,17 @@ $$
 
 마지막으로 $S\subseteq T$일 때 $T$의 모든 vector와 orthogonal한 vector는 $S$의 모든 vector와도 orthogonal하므로 $T^\perp\subseteq S^\perp$다. $\qed$
 
-## Projection onto a Subspace
+## Orthogonal Projection onto a Subspace
 
 ### Motivation
 
-Finite-dimensional subspace $W\le V$에는 [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)로 orthonormal basis를 선택할 수 있다. Orthonormal basis를
+[Projection and Orthogonal Subset](<33 Projection and Orthogonal Subset.md>)에서는 orthogonal basis가 주어진 경우 각 basis vector 위로의 projection을 더하는 공식을 구했다. 또한 finite-dimensional subspace $W\le V$에는 [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)를 적용하여 orthonormal basis를 선택할 수 있다. 이 basis를
 
 $$
 \beta=(\beta_1,\ldots,\beta_k)
 $$
 
-라고 하면 각 direction의 projection coefficient는 $B(v,\beta_i)$이고 cross term은 모두 사라진다. 따라서 $W$ 방향의 component를 이 projection들의 합으로 만들 수 있다.
+라고 하면 orthonormality에 의해 $B(\beta_i,\beta_j)=\delta_{ij}$이므로 각 projection coefficient는 $B(v,\beta_i)$이고 cross term은 모두 사라진다. 이제 이 합을 $W$ 위로의 projection을 나타내는 하나의 map으로 정의하고, 그 정의가 선택한 orthonormal basis에 의존하지 않음을 보인다.
 
 ### Definition
 
@@ -171,7 +173,7 @@ $$
 
 이고 왼쪽은 $W$, 오른쪽은 $W^\perp$에 속한다. $x\in W\cap W^\perp$이면 $B(x,x)=0_\F$이므로 $x=0_V$다. 따라서 $w_1=w_2$, $u_1=u_2$이고 표현은 유일하다. $\qed$
 
-Orthogonal decomposition에서 $W$ component는 반드시 $P_W(v)$여야 한다. 따라서 서로 다른 orthonormal basis로 projection 공식을 계산해도 같은 vector를 얻는다.
+Orthogonal decomposition에서 $W$에 속하는 항은 반드시 $P_W(v)$여야 한다. 따라서 서로 다른 orthonormal basis로 projection 공식을 계산해도 같은 vector를 얻는다.
 
 ### 따름정리1 (Double orthogonal complement)
 

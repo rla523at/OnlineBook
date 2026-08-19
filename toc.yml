@@ -198,7 +198,8 @@ project:
       - file: sources/01 math/07 Linear Algebra/32 Norm Distance and Angle.md
       - file: sources/01 math/07 Linear Algebra/33 Projection and Orthogonal Subset.md
       - file: sources/01 math/07 Linear Algebra/34 Gram-Schmidt Process.md
-      - file: sources/01 math/07 Linear Algebra/35 Orthogonal Complement.md
+      - file: sources/01 math/07 Linear Algebra/35 Orthogonal Complement and Orthogonal
+          Projection.md
       - file: sources/01 math/07 Linear Algebra/36 Orthogonal Map.md
       - file: sources/01 math/07 Linear Algebra/37 Least Squares Problem.md
       - file: sources/01 math/07 Linear Algebra/38 Schur's Theorem.md

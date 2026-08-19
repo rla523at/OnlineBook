@@ -228,7 +228,7 @@ Schur's theorem 자체는 upper triangular form만 보장한다. Off-diagonal en
 
 ## 관련 문서
 
-- [Orthogonal Complement](<35 Orthogonal Complement.md>)
+- [Orthogonal Complement and Orthogonal Projection](<35 Orthogonal Complement and Orthogonal Projection.md>)
 - [Orthogonal Map](<36 Orthogonal Map.md>)
 - [Symmetric Matrix and Spectral Theorem](<39 Symmetric Matrix and Spectral Theorem.md>)
 - [Riesz Representation Theorem](<42 Riesz Representation Theorem.md>)

@@ -2,13 +2,13 @@
 
 ## 한 줄 요약
 
-Projection은 vector에서 특정 방향의 component를 추출하며, 선택한 방향들이 pairwise orthogonal하면 여러 방향의 component를 서로 간섭 없이 독립적으로 계산할 수 있다.
+Nonzero vector 위로의 projection은 vector를 그 vector와 parallel한 부분과 orthogonal한 나머지로 분해하며, 선택한 vector들이 pairwise orthogonal하면 각각의 projection을 독립적으로 계산해 더할 수 있다.
 
 ## Projection
 
 ### Motivation
 
-[Norm, Distance and Angle](<32 Norm Distance and Angle.md>)에서 두 vector $u,w$의 inner product가 $B(u,w)=0_\F$이면 두 vector가 orthogonal하다고 정의했다. Inner product space $V/\F$, vector $x\in V$와 nonzero vector $v\in V-\{0_V\}$가 있다고 하자. 이제 이 관계를 이용해 $x$에서 $v$와 같은 방향으로 놓인 부분만 분리하기 위해 $x$를
+[Norm, Distance and Angle](<32 Norm Distance and Angle.md>)에서 두 vector $u,w$의 inner product가 $B(u,w)=0_\F$이면 두 vector가 orthogonal하다고 정의했다. Inner product space $V/\F$, vector $x\in V$와 nonzero vector $v\in V-\{0_V\}$가 있다고 하자. 이제 이 관계를 이용해 $x$를 $v$가 span하는 1-dimensional subspace에 속하는 vector와 $v$에 orthogonal한 vector로 분리하고자 한다.
 
 $$
 x=p+r,
@@ -18,7 +18,7 @@ p\in\operatorname{span}\{v\},
 r\perp v
 $$
 
-와 같이 나누고자 한다. 여기서 $p$는 $v$ 방향의 component이고, $r$은 그 component를 제거하고 남은 vector다. $p$는 $v$와 parallel하므로 어떤 $\alpha\in\F$에 대해 $p=\alpha v$로 쓸 수 있다. 나머지 $r=x-\alpha v$가 $v$와 orthogonal해야 한다는 조건을 적용하면
+여기서 $p\in\operatorname{span}\{v\}$이므로 $p$는 어떤 $\alpha\in\F$에 대해 $p=\alpha v$로 쓸 수 있다. 나머지 $r=x-\alpha v$가 $v$와 orthogonal해야 한다는 조건을 적용하면
 
 $$
 \begin{aligned}
@@ -36,11 +36,11 @@ $$
 \frac{B(x,v)}{B(v,v)}.
 $$
 
-따라서 $\alpha$와 $p=\alpha v$는 orthogonality 조건에 의해 유일하게 결정된다. 이처럼 component를 제거한 나머지가 해당 direction과 orthogonal하도록 만드는 연산이 projection을 정의하게 한다.
+따라서 $\alpha$와 $p=\alpha v$는 orthogonality 조건에 의해 유일하게 결정된다. 이처럼 $p\in\operatorname{span}\{v\}$이고 $x-p\perp v$가 되도록 $p$를 정하는 연산이 projection이다.
 
 ### Definition
 
-Inner product space $V/\F$에서 nonzero vector $v\in V-\{0_V\}$가 정하는 direction으로의 `projection`을 다음 함수로 정의한다.
+Inner product space $V/\F$에서 nonzero vector $v\in V-\{0_V\}$가 span하는 1-dimensional subspace 위로의 `projection`을 다음 함수로 정의한다.
 
 $$
 \operatorname{proj}_v
@@ -52,7 +52,7 @@ V\rightarrow\operatorname{span}\{v\},
 \frac{B(x,v)}{B(v,v)}v.
 $$
 
-Vector $\operatorname{proj}_v(x)$는 $x$의 $v$ 방향 component다. Motivation의 orthogonality 조건에서 이 공식을 얻었으므로
+Vector $\operatorname{proj}_v(x)$는 $v$의 scalar multiple이므로 $\operatorname{span}\{v\}$에 속한다. Motivation의 orthogonality 조건에서 이 공식을 얻었으므로
 
 $$
 \operatorname{proj}_v(x)\in\operatorname{span}\{v\},
@@ -60,19 +60,19 @@ $$
 x-\operatorname{proj}_v(x)\perp v
 $$
 
-가 성립한다. 이 정의는 한 방향의 component를 추출한다. 여러 vector가 span하는 subspace 방향의 component를 one-dimensional projection들의 합으로 구할 수 있는지는 선택한 방향들 사이의 관계에 따라 달라진다.
+가 성립한다. 이 정의는 1-dimensional subspace 위로의 projection을 다룬다. 여러 vector가 span하는 subspace에 대해 one-dimensional projection들을 단순히 더할 수 있는지는 선택한 vector들 사이의 관계에 따라 달라진다.
 
 ## Orthogonal Property
 
 ### Motivation
 
-한 방향이 아니라 여러 방향이 span하는 subspace의 component를 구하고 싶다고 하자. $S=\{s_1,\ldots,s_k\}$가 finite-dimensional subspace $W$의 basis이고
+$S=\{s_1,\ldots,s_k\}$가 finite-dimensional subspace $W$의 basis이고
 
 $$
 W=\operatorname{span}(S)
 $$
 
-라고 하자. $x$의 $W$ 방향 component를
+라고 하자. Vector $x$에 대해 $p\in W$를 선택하여 나머지 $r=x-p$가 basis의 각 vector $s_j$와 orthogonal하도록 만들고자 한다. $p\in W$이므로 basis $S$를 사용하여
 
 $$
 p
@@ -80,7 +80,7 @@ p
 \sum_{i=1}^k c_i s_i
 $$
 
-라고 쓰면, 제거하고 남은 $x-p$는 $W$의 모든 방향과 orthogonal해야 한다. $S$가 $W$를 span하므로 각 $s_j$에 대해 이 조건을 적용하면
+라고 쓸 수 있다. 각 $s_j$에 대해 $r=x-p$가 orthogonal하다는 조건을 적용하면
 
 $$
 B(x-p,s_j)=0_\F
@@ -88,7 +88,20 @@ B(x-p,s_j)=0_\F
 \sum_{i=1}^k c_iB(s_i,s_j)=B(x,s_j).
 $$
 
-일반적인 basis에서는 $i\ne j$인 항 $B(s_i,s_j)$도 남는다. 이 항들은 서로 다른 basis direction 사이의 interaction을 나타내는 cross term이므로, 하나의 식에 여러 coefficient가 함께 나타나고 $c_1,\ldots,c_k$를 coupled system으로 풀어야 한다. 따라서 여러 direction의 coefficient를 독립적으로 구하려면 서로 다른 basis vector 사이의 모든 cross term을 없애는 조건이 필요하다.
+일반적인 basis에서는 $i\ne j$인 항 $B(s_i,s_j)$도 남는다. 이 항들은 서로 다른 basis vector 사이의 interaction을 나타내는 cross term이므로, 하나의 식에 여러 coefficient가 함께 나타나고 $c_1,\ldots,c_k$를 coupled system으로 풀어야 한다. 이때 서로 다른 basis vector에 대해
+
+$$
+B(s_i,s_j)=0_\F
+\qquad(i\ne j)
+$$
+
+이면 모든 cross term이 사라지고, $j$번째 식은
+
+$$
+c_jB(s_j,s_j)=B(x,s_j)
+$$
+
+로 단순해진다. 따라서 각 coefficient를 다른 coefficient와 독립적으로 구할 수 있다.
 
 ### Definition
 
@@ -112,7 +125,7 @@ c_j
 \frac{B(x,s_j)}{B(s_j,s_j)}.
 $$
 
-따라서 각 coefficient를 다른 방향과 독립적으로 구할 수 있고, $W$ 방향 component는 one-dimensional projection들의 합이 된다.
+따라서 각 coefficient를 다른 basis vector의 coefficient와 독립적으로 구할 수 있고, 앞에서 요구한 vector $p$는 one-dimensional projection들의 합이 된다.
 
 $$
 p
@@ -120,15 +133,17 @@ p
 \sum_{j=1}^k\operatorname{proj}_{s_j}(x).
 $$
 
-반면 $S$가 $W$의 basis이지만 orthogonal하지 않으면 $B(s_i,s_j)$인 cross term들이 남으므로 one-dimensional projection들을 단순히 더할 수 없다. 그렇다고 $W$ 방향의 projection이 존재하지 않는 것은 아니다. 위의 coupled equation을 [Gram Matrix](<31 Gram Matrix.md>)를 이용해 풀거나, [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)로 같은 $W$를 span하는 orthogonal basis를 만든 뒤 방향별 projection을 더할 수 있다. 따라서 orthogonal property는 projection의 존재 조건이 아니라 projection coefficient들을 서로 간섭 없이 독립적으로 계산하게 하는 조건이다.
+반면 $S$가 $W$의 basis이지만 orthogonal하지 않으면 $B(s_i,s_j)$인 cross term들이 남으므로 one-dimensional projection들을 단순히 더하는 공식을 사용할 수 없다. 이 경우 위의 coupled equation을 [Gram Matrix](<31 Gram Matrix.md>)로 풀거나, [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)로 같은 $W$를 span하는 orthogonal basis를 만든 뒤 coefficient를 계산할 수 있다. 따라서 orthogonal property는 각 coefficient를 서로 간섭 없이 독립적으로 계산하게 하는 조건이다.
+
+이 절에서는 orthogonal basis가 주어진 경우의 계산까지만 다룬다. 일반적인 finite-dimensional subspace 위로의 projection을 basis와 무관한 map으로 정의하고 그 나머지가 놓이는 공간을 설명하는 이론은 [Orthogonal Complement and Orthogonal Projection](<35 Orthogonal Complement and Orthogonal Projection.md>)에서 다룬다.
 
 ## Orthogonal Subset
 
 ### Motivation
 
-Orthogonal property만으로는 zero vector를 배제할 수 없다. Zero vector는 모든 vector와 orthogonal하지만 독립된 direction을 나타내지 못하고, $B(0_V,0_V)=0_\F$이므로 projection 공식의 denominator에도 사용할 수 없다. 따라서 실제 direction들을 모은 집합으로 사용하려면 모든 vector가 nonzero라는 조건이 필요하다.
+Orthogonal property만으로는 zero vector를 배제할 수 없다. Zero vector는 모든 vector와 orthogonal하지만 1-dimensional subspace를 생성하지 못하고, $B(0_V,0_V)=0_\F$이므로 projection 공식의 denominator에도 사용할 수 없다. 따라서 projection에 사용할 vector들의 집합으로 삼으려면 모든 vector가 nonzero라는 조건이 필요하다.
 
-또한 orthogonal한 vector들의 length는 서로 다를 수 있다. 각 vector를 length $1$로 normalize하면 direction과 orthogonality는 유지하면서 projection coefficient에서 denominator를 제거할 수 있다. 이러한 집합을 구분하기 위해 orthogonal subset과 orthonormal subset을 정의한다.
+또한 orthogonal한 vector들의 length는 서로 다를 수 있다. 각 vector를 length $1$로 normalize해도 각 vector가 span하는 subspace와 orthogonality는 유지되며, projection coefficient에서는 denominator를 제거할 수 있다. 이러한 집합을 구분하기 위해 orthogonal subset과 orthonormal subset을 정의한다.
 
 ### Definition
 
@@ -144,7 +159,7 @@ Orthogonal subset $S$의 모든 vector가 다음 조건까지 만족하면 `orth
 
 $$ \norm{s_i} = 1 $$
 
-즉, orthonormal subset은 각 방향을 유지하면서 모든 vector의 length를 $1$로 normalize한 orthogonal subset이다.
+즉, orthonormal subset은 각 vector가 span하는 1-dimensional subspace를 유지하면서 모든 vector의 length를 $1$로 normalize한 orthogonal subset이다.
 
 ### 명제1
 $n$차원 inner product space $V/\F$가 있다고 하자.
