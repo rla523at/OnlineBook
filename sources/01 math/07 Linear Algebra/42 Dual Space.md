@@ -58,7 +58,7 @@ $$
 
 이 연산 아래에서 $V^*$는 $\F$ 위의 vector space가 된다. Zero vector는 모든 $v\in V$를 $0_\F$로 보내는 zero functional이다.
 
-Dual space의 정의에는 inner product가 필요하지 않다. Inner product가 주어졌을 때 vector와 linear functional을 연결하는 추가 구조는 [Riesz Representation Theorem](<42 Riesz Representation Theorem.md>)에서 다룬다.
+Dual space의 정의에는 inner product가 필요하지 않다. Inner product가 주어졌을 때 vector와 linear functional을 연결하는 추가 구조는 [Riesz Representation Theorem](<43 Riesz Representation Theorem.md>)에서 다룬다.
 
 ## Dual Basis
 
@@ -346,11 +346,11 @@ $$
 
 처럼 원래 vector space 사이를 움직인다.
 
-두 map 모두 흔히 $T^*$로 표기되지만 서로 같은 type의 map은 아니다. 이 문서에서는 혼동을 피하기 위해 dual map에는 $T^\vee$, adjoint에는 $T^*$를 사용한다. Riesz representation을 통한 두 map의 관계는 [Riesz Representation Theorem](<42 Riesz Representation Theorem.md>)에서 설명한다.
+두 map 모두 흔히 $T^*$로 표기되지만 서로 같은 type의 map은 아니다. 이 문서에서는 혼동을 피하기 위해 dual map에는 $T^\vee$, adjoint에는 $T^*$를 사용한다. Riesz representation을 통한 두 map의 관계는 [Riesz Representation Theorem](<43 Riesz Representation Theorem.md>)에서 설명한다.
 
 ## 관련 문서
 
 - [Linear Map](<10 Linear Map.md>)
 - [Coordinate](<06 Coordinate.md>)
-- [Change of Basis and Coordinate Matrix](<21 Change of Basis and Coordinate Matrix.md>)
-- [Riesz Representation Theorem](<42 Riesz Representation Theorem.md>)
+- [Change of Basis and Coordinate Matrix](<23 Change of Basis and Coordinate Matrix.md>)
+- [Riesz Representation Theorem](<43 Riesz Representation Theorem.md>)

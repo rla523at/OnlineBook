@@ -22,7 +22,7 @@ Complex field에서는 fundamental theorem of algebra에 의해 모든 nonconsta
 
 Schur's theorem의 induction에서는 dimension을 하나 줄이면서 restriction을 만들 수 있는 invariant subspace가 필요하다. Eigenvector $v$ of $T$를 선택하면 $\operatorname{span}\{v\}$는 $T$-invariant지만 그 orthogonal complement가 반드시 $T$-invariant인 것은 아니다.
 
-이 문제는 $T$가 아니라 adjoint $T^*$의 eigenvector를 선택하면 해결된다. Finite-dimensional inner product space에서 adjoint는 [Riesz Representation Theorem](<42 Riesz Representation Theorem.md>)에 의해 존재하며 다음 관계를 만족한다.
+이 문제는 $T$가 아니라 adjoint $T^*$의 eigenvector를 선택하면 해결된다. Finite-dimensional inner product space에서 adjoint는 [Riesz Representation Theorem](<43 Riesz Representation Theorem.md>)에 의해 존재하며 다음 관계를 만족한다.
 
 $$
 B(Tx,y)
@@ -224,11 +224,11 @@ $$
 
 따라서 Schur form의 diagonal entry는 multiplicity를 포함한 $T$의 eigenvalue다.
 
-Schur's theorem 자체는 upper triangular form만 보장한다. Off-diagonal entry가 모두 $0$이 되어 diagonal form을 얻으려면 normality나 symmetry 같은 추가 조건이 필요하다. Real symmetric matrix에 이 조건을 적용한 결과는 [Symmetric Matrix and Spectral Theorem](<39 Symmetric Matrix and Spectral Theorem.md>)에서 다룬다.
+Schur's theorem 자체는 upper triangular form만 보장한다. Off-diagonal entry가 모두 $0$이 되어 diagonal form을 얻으려면 normality나 symmetry 같은 추가 조건이 필요하다. Real symmetric matrix에 이 조건을 적용한 결과는 [Symmetric Matrix and Spectral Theorem](<40 Symmetric Matrix and Spectral Theorem.md>)에서 다룬다.
 
 ## 관련 문서
 
 - [Orthogonal Complement and Orthogonal Projection](<35 Orthogonal Complement and Orthogonal Projection.md>)
-- [Orthogonal Map](<36 Orthogonal Map.md>)
-- [Symmetric Matrix and Spectral Theorem](<39 Symmetric Matrix and Spectral Theorem.md>)
-- [Riesz Representation Theorem](<42 Riesz Representation Theorem.md>)
+- [Orthogonal Map](<37 Orthogonal Map.md>)
+- [Symmetric Matrix and Spectral Theorem](<40 Symmetric Matrix and Spectral Theorem.md>)
+- [Riesz Representation Theorem](<43 Riesz Representation Theorem.md>)

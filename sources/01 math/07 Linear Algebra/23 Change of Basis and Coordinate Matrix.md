@@ -63,7 +63,7 @@ $$ \text{Every invertible matrix is a change of basis matrix of } \F^n $$
 
 임의의 가역행렬을 $A \in M_{n \times n}(\F)$라 하자.
 
-$A$의 $i$ column을 $A_{*i}$라고 할 때, $A$는 invertible matrix임으로  $\beta=[A_{*1}, \cdots, A_{*n}]$은 $\mathbb F^n$의 기저이다.  
+$A$의 $i$ column을 $A_{*i}$라고 하자. [Column Space, Row Space, and Rank](<22 Column Space, Row Space, and Rank.md>)에서 확인했듯이 $A$가 invertible이면 $\operatorname{rank}(A)=n$이고 $\mathcal C(A)=\mathbb F^n$이므로 $\beta=[A_{*1},\cdots,A_{*n}]$은 $\mathbb F^n$의 basis다.
 
 그러면 $A = [id]_\beta^{\epsilon}$이다. 즉, $A$는 $\epsilon$을 $\beta$로 바꿔주는 change of basis matrix이다. $\qed$
 
@@ -86,7 +86,7 @@ $$ a_iA_{*i} = 0_{\F^n} $$
 
 $$ \begin{bmatrix} A_{*1} & \cdots & A_{*n} \end{bmatrix} \begin{bmatrix} a_1 \\ \vdots \\ a_n \end{bmatrix} = \begin{bmatrix} 0_\F \\ \vdots \\ 0_\F \end{bmatrix} $$
 
-이 때, $A$가 invertible matrix임으로 다음이 성립한다.
+이 식은 homogeneous linear system이다. $A$가 invertible이면 $\ker(L_A)=\{0\}$이므로 다음이 성립한다.
 
 $$ a_i = 0_\F $$
 
@@ -258,5 +258,12 @@ $$ M_m = N_m = k $$
 따라서, 명제5에 의해 성립한다. $\qed$
 
 즉, 동일한 linear map의 matrix representation간에는 위와 같은 관계가 성립한다.
+
+## 관련 문서
+
+- [Matrix Representation](<20 Matrix Representation.md>)
+- [Linear Systems and Row Reduction](<21 Linear Systems and Row Reduction.md>)
+- [Column Space, Row Space, and Rank](<22 Column Space, Row Space, and Rank.md>)
+- [Eigenvector & Eigenvalue & EigenSpace](<24 Eigenvector & Eigenvalue & EigenSpace.md>)
 
 

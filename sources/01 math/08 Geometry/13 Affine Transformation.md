@@ -540,7 +540,7 @@ $$
 - $M$은 vector에 작용하는 $T_F$의 matrix representation이다.
 - $t$는 source coordinate origin $a_0$의 image $F(a_0)$를 target coordinate system에서 표현한 coordinate다.
 
-$M$의 값은 $V_A,V_B$에서 선택한 basis $\beta,\gamma$에 의존한다. Basis에 따른 linear map의 matrix representation은 [Change of Basis and Coordinate Matrix](<../07 Linear Algebra/21 Change of Basis and Coordinate Matrix.md>)에서 설명한다.
+$M$의 값은 $V_A,V_B$에서 선택한 basis $\beta,\gamma$에 의존한다. Basis에 따른 linear map의 matrix representation은 [Change of Basis and Coordinate Matrix](<../07 Linear Algebra/23 Change of Basis and Coordinate Matrix.md>)에서 설명한다.
 
 두 coordinate $x_1,x_2$에 대해 translation term은 차이를 계산할 때 소거된다.
 
@@ -686,7 +686,7 @@ transformation의 group 구조는
 
 - [Affine space](<./11 Affine space.md>)
 - [Affine Combination](<./12 Affine Combination.md>)
-- [Change of Basis and Coordinate Matrix](<../07 Linear Algebra/21 Change of Basis and Coordinate Matrix.md>)
+- [Change of Basis and Coordinate Matrix](<../07 Linear Algebra/23 Change of Basis and Coordinate Matrix.md>)
 - [Rotation Matrix and SO(3)](<./22 Rotation Matrix and SO(3).md>)
 - [Rigid Transformation and SE(3)](<./23 Rigid Transformation and SE(3).md>)
 

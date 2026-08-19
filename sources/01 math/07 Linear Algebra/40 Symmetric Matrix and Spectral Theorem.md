@@ -14,7 +14,7 @@ $$
 S^{\mathsf T}=S.
 $$
 
-이 식은 standard inner product에 대해 $S$가 자신의 adjoint와 같다는 뜻이다. Adjoint와의 compatibility는 서로 다른 eigenspace를 orthogonal하게 만들고, [Schur's Theorem](<38 Schur's Theorem.md>)의 upper triangular form에서 off-diagonal entry를 모두 제거한다. 그 결과 symmetric matrix는 orthonormal eigenvector basis를 갖는다.
+이 식은 standard inner product에 대해 $S$가 자신의 adjoint와 같다는 뜻이다. Adjoint와의 compatibility는 서로 다른 eigenspace를 orthogonal하게 만들고, [Schur's Theorem](<39 Schur's Theorem.md>)의 upper triangular form에서 off-diagonal entry를 모두 제거한다. 그 결과 symmetric matrix는 orthonormal eigenvector basis를 갖는다.
 
 이 성질은 arbitrary real matrix $A$로 만든 $A^{\mathsf T}A$에 적용할 수 있다. $A^{\mathsf T}A$는 항상 symmetric이고 positive semidefinite이므로, 그 eigenvalue와 eigenvector에서 singular value decomposition을 구성할 수 있다.
 
@@ -292,15 +292,15 @@ $$
 
 이므로 $Av_i=0$다. 즉 zero eigenvalue에 대응하는 $v_i$는 $A$의 null-space direction이다.
 
-이 구성을 완성해 rectangular matrix를 분해하는 과정은 [Singular Value Decomposition](<40 Singular Value Decomposition.md>)에서 증명한다.
+이 구성을 완성해 rectangular matrix를 분해하는 과정은 [Singular Value Decomposition](<41 Singular Value Decomposition.md>)에서 증명한다.
 
 ## 관련 문서
 
-- [Eigenvector & Eigenvalue & EigenSpace](<22 Eigenvector & Eigenvalue & EigenSpace.md>)
+- [Eigenvector & Eigenvalue & EigenSpace](<24 Eigenvector & Eigenvalue & EigenSpace.md>)
 - [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)
-- [Orthogonal Map](<36 Orthogonal Map.md>)
-- [Schur's Theorem](<38 Schur's Theorem.md>)
-- [Singular Value Decomposition](<40 Singular Value Decomposition.md>)
+- [Orthogonal Map](<37 Orthogonal Map.md>)
+- [Schur's Theorem](<39 Schur's Theorem.md>)
+- [Singular Value Decomposition](<41 Singular Value Decomposition.md>)
 
 ## References
 

@@ -376,8 +376,8 @@ Optimization은 가장 잘 맞는 $R,t$를 찾지만 그 차이의 원인을 판
 
 ## 관련 문서
 
-- [Least Squares Problem](<../07 Linear Algebra/37 Least Squares Problem.md>)
-- [Singular Value Decomposition](<../07 Linear Algebra/40 Singular Value Decomposition.md>)
+- [Least Squares Problem](<../07 Linear Algebra/38 Least Squares Problem.md>)
+- [Singular Value Decomposition](<../07 Linear Algebra/41 Singular Value Decomposition.md>)
 - [Rotation Matrix and SO(3)](<./22 Rotation Matrix and SO(3).md>)
 - [Rigid Transformation and SE(3)](<./23 Rigid Transformation and SE(3).md>)
 - [Gauge Freedom and Trajectory Alignment Policy](<../../05 Robotics/03 Evaluation/02 Gauge Freedom and Trajectory Alignment Policy.md>)

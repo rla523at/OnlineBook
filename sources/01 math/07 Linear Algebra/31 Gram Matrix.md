@@ -138,4 +138,4 @@ G=
 \end{bmatrix}.
 $$
 
-이 경우 $a=(a_1,a_2)^{\mathsf T}$가 나타내는 vector의 squared length는 $a_1^2+a_2^2$가 아니라 $4a_1^2+a_2^2=a^{\mathsf T}Ga$다. Basis와 coordinate가 변하는 일반적인 관계는 [Change of Basis and Coordinate Matrix](<21 Change of Basis and Coordinate Matrix.md>)에서 설명한다. Inner product를 보존하는 map의 matrix condition이 Gram matrix에 따라 어떻게 달라지는지는 [Orthogonal Map](<36 Orthogonal Map.md>)에서 다룬다.
+이 경우 $a=(a_1,a_2)^{\mathsf T}$가 나타내는 vector의 squared length는 $a_1^2+a_2^2$가 아니라 $4a_1^2+a_2^2=a^{\mathsf T}Ga$다. Basis와 coordinate가 변하는 일반적인 관계는 [Change of Basis and Coordinate Matrix](<23 Change of Basis and Coordinate Matrix.md>)에서 설명한다. Inner product를 보존하는 map의 matrix condition이 Gram matrix에 따라 어떻게 달라지는지는 [Orthogonal Map](<37 Orthogonal Map.md>)에서 다룬다.

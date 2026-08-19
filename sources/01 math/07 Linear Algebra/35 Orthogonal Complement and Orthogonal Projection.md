@@ -22,8 +22,6 @@ S^\perp
 \{v\in V\mid B(v,s)=0_\F\text{ for every }s\in S\}.
 $$
 
-Conjugate symmetry에 의해 $B(v,s)=0_\F$와 $B(s,v)=0_\F$는 동치이므로 argument의 순서는 orthogonality 자체를 바꾸지 않는다.
-
 Orthogonality는 linear combination과 호환되므로 $S$의 개별 vector들과 orthogonal한 것은 $\operatorname{span}(S)$의 모든 vector와 orthogonal한 것과 같다.
 
 $$
@@ -92,13 +90,47 @@ $$
 
 ### Motivation
 
-[Projection and Orthogonal Subset](<33 Projection and Orthogonal Subset.md>)에서는 orthogonal basis가 주어진 경우 각 basis vector 위로의 projection을 더하는 공식을 구했다. 또한 finite-dimensional subspace $W\le V$에는 [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)를 적용하여 orthonormal basis를 선택할 수 있다. 이 basis를
+[Projection and Orthogonal Subset](<33 Projection and Orthogonal Subset.md>)에서는 subspace $W$의 orthogonal basis $S=\{s_1,\ldots,s_k\}$가 주어진 경우, vector $v$를 $W$ 위로 projection한 vector $p$를 구하기 위해 각 $s_i$가 span하는 one-dimensional subspace 위로 $v$를 projection한 vector들을 더했다.
+
+$$
+p
+=
+\sum_{i=1}^k\operatorname{proj}_{s_i}(v)
+=
+\sum_{i=1}^k\frac{B(v,s_i)}{B(s_i,s_i)}s_i
+$$
+
+각 $\operatorname{proj}_{s_i}(v)$가 $W$에 속하므로 $p\in W$다. 또한 선행 문서에서 확인했듯이 residual $v-p$는 모든 $s_i$와 orthogonal하다. $S$가 $W$를 span하므로 $v-p\in W^\perp$이고, 따라서 다음과 같이 분해된다.
+
+$$
+v
+=
+p+(v-p),
+\qquad
+p\in W,
+\qquad
+v-p\in W^\perp.
+$$
+
+이 분해는 $p$를 $W$ 방향의 component로 설명하지만, 위 계산식에는 선택한 orthogonal basis $S$가 직접 나타난다. $W$ 위로의 projection을 $v$와 $W$만으로 결정되는 map으로 정의하려면 두 가지를 확인해야 한다. 먼저 임의의 finite-dimensional subspace $W$에서 계산에 사용할 orthogonal basis를 선택할 수 있어야 한다. 다음으로 서로 다른 orthogonal basis를 선택하더라도 위 합이 같은 vector를 주어야 한다.
+
+첫 번째 문제는 [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)로 해결할 수 있다. $W$의 basis에 Gram-Schmidt process를 적용하고 각 basis vector를 normalize하면 orthonormal basis를 선택할 수 있다. 이 basis를
 
 $$
 \beta=(\beta_1,\ldots,\beta_k)
 $$
 
-라고 하면 orthonormality에 의해 $B(\beta_i,\beta_j)=\delta_{ij}$이므로 각 projection coefficient는 $B(v,\beta_i)$이고 cross term은 모두 사라진다. 이제 이 합을 $W$ 위로의 projection을 나타내는 하나의 map으로 정의하고, 그 정의가 선택한 orthonormal basis에 의존하지 않음을 보인다.
+라고 하면 $B(\beta_i,\beta_i)=1_\F$이므로 one-dimensional projection 공식은 다음과 같이 단순해진다.
+
+$$
+\operatorname{proj}_{\beta_i}(v)
+=
+\frac{B(v,\beta_i)}{B(\beta_i,\beta_i)}\beta_i
+=
+B(v,\beta_i)\beta_i.
+$$
+
+이제 남은 문제는 선택한 $\beta$에 따라 합이 달라지는지 여부다. 어떤 $\beta$를 선택하더라도 합으로 얻은 vector가 $p\in W$와 $v-p\in W^\perp$를 만족하고, 이 조건을 만족하는 $p$가 유일하다면 합은 basis의 선택에 의존하지 않는다. 따라서 다음에서는 이 합을 map $P_W$로 정의한 뒤 residual이 $W^\perp$에 속함을 확인하고, orthogonal decomposition의 uniqueness를 이용하여 basis independence를 보인다.
 
 ### Definition
 
@@ -173,7 +205,7 @@ $$
 
 이고 왼쪽은 $W$, 오른쪽은 $W^\perp$에 속한다. $x\in W\cap W^\perp$이면 $B(x,x)=0_\F$이므로 $x=0_V$다. 따라서 $w_1=w_2$, $u_1=u_2$이고 표현은 유일하다. $\qed$
 
-Orthogonal decomposition에서 $W$에 속하는 항은 반드시 $P_W(v)$여야 한다. 따라서 서로 다른 orthonormal basis로 projection 공식을 계산해도 같은 vector를 얻는다.
+어떤 orthonormal basis를 사용하더라도 projection 공식으로 얻은 vector를 $p$라고 하면 $p\in W$이고 $v-p\in W^\perp$다. Orthogonal decomposition theorem에 의해 이 두 조건을 만족하는 $p$는 유일하므로, 서로 다른 orthonormal basis를 사용해도 같은 $P_W(v)$를 얻는다.
 
 ### 따름정리1 (Double orthogonal complement)
 
@@ -241,11 +273,12 @@ $$
 
 두 번째 항이 nonnegative이므로 원하는 부등식을 얻는다. Equality는 $\lVert P_W(v)-w\rVert=0$, 즉 $w=P_W(v)$일 때 그리고 그때에만 성립한다. $\qed$
 
-따라서 $P_W(v)$는 $W$의 vector들 중 $v$와 가장 가까운 유일한 vector다. 이 성질이 [Least Squares Problem](<37 Least Squares Problem.md>)에서 exact solution이 없을 때 best approximation을 선택하는 근거가 된다.
+따라서 $P_W(v)$는 $W$의 vector들 중 $v$와 가장 가까운 유일한 vector다. 이 성질이 [Least Squares Problem](<38 Least Squares Problem.md>)에서 exact solution이 없을 때 best approximation을 선택하는 근거가 된다.
 
 ## 관련 문서
 
 - [Norm, Distance and Angle](<32 Norm Distance and Angle.md>)
 - [Projection and Orthogonal Subset](<33 Projection and Orthogonal Subset.md>)
 - [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)
-- [Least Squares Problem](<37 Least Squares Problem.md>)
+- [Four Fundamental Subspaces](<36 Four Fundamental Subspaces.md>)
+- [Least Squares Problem](<38 Least Squares Problem.md>)

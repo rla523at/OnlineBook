@@ -77,6 +77,14 @@ $$ (T - \lambda id)(v) = 0_V $$
 
 $$ v \in \ker(T-\lambda id) $$
 
+$V$의 basis를 $\beta$라고 하고 $M=[T]^\beta_\beta$라고 하면 eigenvector의 coordinate $[v]_\beta$는 homogeneous linear system
+
+$$
+(M-\lambda I)[v]_\beta=0
+$$
+
+의 nonzero solution이다. 따라서 eigenvector를 구하는 문제는 [Linear Systems and Row Reduction](<21 Linear Systems and Row Reduction.md>)에서 다룬 homogeneous system의 특별한 경우다.
+
 ### 명제1
 vector space $V/ \F$와 $T \in \End(V)$가 있을 때, 다음을 증명하여라.
 
@@ -105,8 +113,19 @@ $$ \begin{aligned}
 \Rightarrow \enspace & T(v) = \lambda v \quad {_\blacksquare}  
 \end{aligned} $$
 
-> Q. $\det(A)=0 \Rightarrow \exist x \neq 0 \quad s.t. \quad Ax = 0$임을 증명하여라.
-> https://math.stackexchange.com/questions/2905852/there-exists-x-neq-0-such-that-ax-0-iff-det-a-0-or-det-a-neq
+이 증명에서 사용한 핵심은 square matrix $M$에 대한 다음 동치다.
+
+$$
+\det M=0
+\Longleftrightarrow
+M\text{ is not invertible}
+\Longleftrightarrow
+\operatorname{rank}(M)<n
+\Longleftrightarrow
+\ker(L_M)\ne\{0\}.
+$$
+
+마지막 동치는 [Column Space, Row Space, and Rank](<22 Column Space, Row Space, and Rank.md>)에서 설명한 rank와 homogeneous system의 관계다.
 
 ### 명제2
 $n$차원 vector space $V/ \F$와 $T \in \End(V)$가 있다.
@@ -167,3 +186,10 @@ $\{\beta_{1,1}, \cdots, \beta_{l,m_l} \}$ 가장 cardinallity가 작은 linearly
 따라서, 서로 다른 고유값을 가지고 있음으로 $a_1 = \cdots = a_{m-1} = 0$이되고 $\beta_{l,m_l} = 0_V$가 된다. 이 때, 고유값은 $0_V$가 아님으로 모순이 발생한다.
 
 고유벡터의 집합이 선형종속이라 가정하였을 때 모순이 발생함으로, 고유벡터의 집합은 선형독립이다. $\quad {_\blacksquare}$
+
+## 관련 문서
+
+- [Linear Systems and Row Reduction](<21 Linear Systems and Row Reduction.md>)
+- [Column Space, Row Space, and Rank](<22 Column Space, Row Space, and Rank.md>)
+- [Change of Basis and Coordinate Matrix](<23 Change of Basis and Coordinate Matrix.md>)
+- [Symmetric Matrix and Spectral Theorem](<40 Symmetric Matrix and Spectral Theorem.md>)
