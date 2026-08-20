@@ -2,14 +2,11 @@
 
 ## 한 줄 요약
 
-대응하는 두 point set의 rigid alignment는 centroid로 translation을 분리하고,
-cross-covariance matrix의 SVD로 하나의 optimal rotation을 구한 뒤 모든 point에 같은
-$R,t$를 적용하는 constrained least-squares 문제다.
+대응하는 두 point set의 rigid alignment는 centroid로 translation을 분리하고, cross-covariance matrix의 SVD로 하나의 optimal rotation을 구한 뒤 모든 point에 같은 $R,t$를 적용하는 constrained least-squares 문제다.
 
 ## 문제 설정
 
-Source point $x_i\in\mathbb R^3$와 대응하는 target point
-$y_i\in\mathbb R^3$가 $N$쌍 있다고 하자.
+Source point $x_i\in\mathbb R^3$와 대응하는 target point $y_i\in\mathbb R^3$가 $N$쌍 있다고 하자.
 
 $$
 \{(x_i,y_i)\}_{i=1}^{N}
@@ -33,8 +30,7 @@ $$
 - 모든 source point에 같은 rigid transformation이 작용한다.
 - Residual은 squared Euclidean distance로 평가한다.
 
-Correspondence가 잘못됐거나 timestamp가 맞지 않으면 closed-form solution이
-존재하더라도 원하는 physical relation을 나타내지 않는다.
+Correspondence가 잘못됐거나 timestamp가 맞지 않으면 closed-form solution이 존재하더라도 원하는 physical relation을 나타내지 않는다.
 
 ## 1. Centroid를 계산한다
 
@@ -68,19 +64,47 @@ $$
 
 ## 2. Translation을 rotation의 함수로 제거한다
 
-Rotation $R$을 고정했을 때 objective를 최소로 만드는 translation은 다음과 같다.
+Rotation $R$을 고정하고 각 residual을 centered point와 centroid로 나누어 보자.
+
+$$
+\begin{aligned}
+y_i-(Rx_i+t)
+&=(\tilde y_i+\mu_y)-\left(R(\tilde x_i+\mu_x)+t\right)\\
+&=(\tilde y_i-R\tilde x_i)+(\mu_y-R\mu_x-t)
+\end{aligned}
+$$
+
+$d:=\mu_y-R\mu_x-t$로 두면 objective는
+
+$$
+\begin{aligned}
+\sum_{i=1}^{N}\lVert y_i-(Rx_i+t)\rVert_2^2
+&=
+\sum_{i=1}^{N}
+\lVert(\tilde y_i-R\tilde x_i)+d\rVert_2^2\\
+&=
+\sum_{i=1}^{N}\lVert\tilde y_i-R\tilde x_i\rVert_2^2
++2d^{\mathsf T}\sum_{i=1}^{N}(\tilde y_i-R\tilde x_i)
++N\lVert d\rVert_2^2\\
+&=
+\sum_{i=1}^{N}\lVert\tilde y_i-R\tilde x_i\rVert_2^2
++N\lVert d\rVert_2^2
+\end{aligned}
+$$
+
+로 분해된다. 마지막 등식에서는 $\sum_i\tilde x_i=\sum_i\tilde y_i=0$을 사용했다. 첫 번째 항은 $t$와 무관하고 두 번째 항은 $d=0$일 때에만 $0$이므로, objective를 최소로 만드는 translation은
 
 $$
 t^\star(R)=\mu_y-R\mu_x
 $$
 
-이 값을 적용하면 source centroid가 target centroid에 정확히 놓인다.
+이다. 이 값을 적용하면 source centroid가 target centroid에 정확히 놓인다.
 
 $$
 R\mu_x+t^\star=\mu_y
 $$
 
-원래 objective는 centered point 사이의 rotation fitting 문제로 줄어든다.
+또한 $d=0$이므로 원래 objective에서 translation에 관한 항이 사라지고 centered point 사이의 rotation fitting 문제만 남는다.
 
 $$
 R^\star
@@ -91,9 +115,7 @@ R^\star
 \lVert\tilde y_i-R\tilde x_i\rVert_2^2
 $$
 
-Centering이 translation을 제거한다는 말은 모든 translation error가 실제로 coordinate
-frame 차이라는 뜻이 아니다. 단지 optimization variable $t$를 $R$과 분리해 계산할
-수 있다는 뜻이다.
+Centering이 translation을 제거한다는 말은 모든 translation error가 실제로 coordinate frame 차이라는 뜻이 아니다. 단지 optimization variable $t$를 $R$과 분리해 계산할 수 있다는 뜻이다.
 
 ## 3. Cross-covariance matrix를 만든다
 
@@ -107,8 +129,54 @@ H
 \tilde x_i\tilde y_i^{\mathsf T}
 $$
 
-Centered objective를 전개하면 $R$에 의존하지 않는 term을 제외하고 다음 문제가
-남는다.
+$R\in SO(3)$이면 $\lVert R\tilde x_i\rVert_2=\lVert\tilde x_i\rVert_2$이므로 각 squared residual은
+
+$$
+\lVert\tilde y_i-R\tilde x_i\rVert_2^2
+=
+\lVert\tilde y_i\rVert_2^2
++\lVert\tilde x_i\rVert_2^2
+-2\tilde y_i^{\mathsf T}R\tilde x_i
+$$
+
+로 전개된다. 앞의 두 항을 모두 더한 값
+
+$$
+C
+:=
+\sum_{i=1}^{N}
+\left(
+\lVert\tilde y_i\rVert_2^2
++\lVert\tilde x_i\rVert_2^2
+\right)
+$$
+
+는 $R$과 무관하다. $R$에 의존하는 마지막 항은 trace의 cyclic property와 $H$의 정의를 사용하면
+
+$$
+\begin{aligned}
+\sum_{i=1}^{N}\tilde y_i^{\mathsf T}R\tilde x_i
+&=
+\sum_{i=1}^{N}
+\operatorname{tr}
+\left(
+R\tilde x_i\tilde y_i^{\mathsf T}
+\right)\\
+&=
+N\operatorname{tr}(RH)
+\end{aligned}
+$$
+
+가 된다. 따라서 centered objective는
+
+$$
+\sum_{i=1}^{N}
+\lVert\tilde y_i-R\tilde x_i\rVert_2^2
+=
+C-2N\operatorname{tr}(RH)
+$$
+
+이고, $C$와 $N$은 $R$과 무관하므로 이 objective를 최소화하는 문제는 $\operatorname{tr}(RH)$를 최대화하는 다음 문제와 동치다.
 
 $$
 R^\star
@@ -118,10 +186,7 @@ R^\star
 \operatorname{tr}(RH)
 $$
 
-문헌이나 library가 $H$를
-$\sum\tilde y_i\tilde x_i^{\mathsf T}$ 순서로 정의하면 최종 $U,V$ formula도
-transpose된다. SVD formula를 외우기 전에 cross-covariance의 source·target 순서를
-확인해야 한다.
+문헌이나 library가 $H$를 $\sum\tilde y_i\tilde x_i^{\mathsf T}$ 순서로 정의하면 최종 $U,V$ formula도 transpose된다. SVD formula를 외우기 전에 cross-covariance의 source·target 순서를 확인해야 한다.
 
 ## 4. SVD로 rotation을 구한다
 
@@ -131,10 +196,61 @@ $$
 H=U\Sigma V^{\mathsf T}
 $$
 
-Orthogonal matrix 전체 $O(3)$에서 optimum을 찾으면 $VU^{\mathsf T}$가 후보가 된다.
-그러나 determinant가 $-1$이면 reflection이므로 $SO(3)$ constraint를 만족하지 않는다.
+Singular value를 $\sigma_1\ge\sigma_2\ge\sigma_3\ge0$ 순서로 두어 $\Sigma=\operatorname{diag}(\sigma_1,\sigma_2,\sigma_3)$라고 하자. $R\in SO(3)$에 대해
 
-다음 correction matrix를 정의한다.
+$$
+Q:=V^{\mathsf T}RU
+$$
+
+로 두면 $Q$도 orthogonal matrix이고
+
+$$
+\begin{aligned}
+\operatorname{tr}(RH)
+&=
+\operatorname{tr}\left(RU\Sigma V^{\mathsf T}\right)\\
+&=
+\operatorname{tr}\left(V^{\mathsf T}RU\Sigma\right)\\
+&=
+\operatorname{tr}(Q\Sigma)
+=
+\sigma_1q_{11}+\sigma_2q_{22}+\sigma_3q_{33}
+\end{aligned}
+$$
+
+가 된다. 또한 $\det R=1$이므로
+
+$$
+\det Q
+=
+\det(V^{\mathsf T}RU)
+=
+\det(VU^{\mathsf T})
+=:
+s,
+\qquad
+s\in\{-1,1\}.
+$$
+
+$s=1$이면 각 $q_{ii}\le1$이므로 $\operatorname{tr}(Q\Sigma)\le\sigma_1+\sigma_2+\sigma_3$이고, $Q=I$가 이 upper bound를 만족한다.
+
+$s=-1$이면 3차원 orthogonal matrix $Q$는 eigenvalue $-1$을 하나 가지므로 $\operatorname{tr}(Q)\le1$이다. 따라서
+
+$$
+\begin{aligned}
+\operatorname{tr}(Q\Sigma)
+&=
+(\sigma_1-\sigma_3)q_{11}
++(\sigma_2-\sigma_3)q_{22}
++\sigma_3\operatorname{tr}(Q)\\
+&\le
+\sigma_1+\sigma_2-\sigma_3.
+\end{aligned}
+$$
+
+$Q=\operatorname{diag}(1,1,-1)$은 이 upper bound를 만족한다. 즉 $s=-1$이면 가장 작은 singular value에 해당하는 direction을 뒤집어야 trace의 감소가 가장 작다.
+
+두 경우의 optimal $Q$를 한 식으로 쓰기 위해 correction matrix를
 
 $$
 D
@@ -147,7 +263,7 @@ D
 \right)
 $$
 
-Optimal proper rotation은 다음과 같다.
+로 정의하면 $Q^\star=D$다. $Q^\star=V^{\mathsf T}R^\star U$를 $R^\star$에 대해 정리하면 optimal proper rotation은
 
 $$
 R^\star=VDU^{\mathsf T}
@@ -157,9 +273,7 @@ $$
 \det R^\star=1
 $$
 
-$\det(VU^{\mathsf T})=-1$이면 $D$의 마지막 element가 $-1$이 된다. Singular value를
-큰 순서로 배치했을 때 가장 작은 singular direction을 뒤집어 reflection을 제거하면서
-objective 증가를 최소화한다.
+을 만족한다. 실제로 $\det D=s$이고 $\det(VU^{\mathsf T})=s$이므로 $\det R^\star=s^2=1$이다.
 
 ## 5. Translation을 복원한다
 
@@ -200,12 +314,25 @@ Point마다 별도의 $R_i,t_i$를 선택하지 않는다.
 Umeyama method에서 uniform scale $c$까지 허용하면 objective는 다음과 같다.
 
 $$
-\underset{c,R,t}{\operatorname{minimize}}
+\underset{c\ge0,\ R\in SO(3),\ t\in\mathbb R^3}{\operatorname{minimize}}
 \sum_i
 \lVert y_i-(cRx_i+t)\rVert_2^2
 $$
 
-Source variance를 다음처럼 정의하자.
+앞의 centroid 분해에서 $R$을 $cR$로 바꾸면, $c$와 $R$을 고정했을 때 optimal translation은
+
+$$
+t^\star(c,R)=\mu_y-cR\mu_x
+$$
+
+이고 translation을 제거한 objective는
+
+$$
+\sum_i
+\lVert\tilde y_i-cR\tilde x_i\rVert_2^2
+$$
+
+가 된다. Source variance를 다음처럼 정의하자.
 
 $$
 \sigma_x^2
@@ -215,7 +342,34 @@ $$
 \lVert\tilde x_i\rVert_2^2
 $$
 
-앞의 normalized cross-covariance convention에서는 optimal scale이 다음과 같다.
+$\sigma_x^2>0$이라고 가정하고 앞에서 구한 $R^\star$를 고정하자. Centered objective를 $c$에 대해 전개하면
+
+$$
+\begin{aligned}
+\sum_i
+\lVert\tilde y_i-cR^\star\tilde x_i\rVert_2^2
+&=
+\sum_i\lVert\tilde y_i\rVert_2^2
++c^2\sum_i\lVert\tilde x_i\rVert_2^2
+-2c\sum_i\tilde y_i^{\mathsf T}R^\star\tilde x_i\\
+&=
+\sum_i\lVert\tilde y_i\rVert_2^2
++Nc^2\sigma_x^2
+-2Nc\operatorname{tr}(\Sigma D)
+\end{aligned}
+$$
+
+가 된다. 마지막 등식에서는 $\sum_i\tilde y_i^{\mathsf T}R^\star\tilde x_i=N\operatorname{tr}(R^\star H)=N\operatorname{tr}(\Sigma D)$를 사용했다. 이를 $c$로 미분하면
+
+$$
+\frac{d}{dc}
+\sum_i
+\lVert\tilde y_i-cR^\star\tilde x_i\rVert_2^2
+=
+2N\left(c\sigma_x^2-\operatorname{tr}(\Sigma D)\right)
+$$
+
+이므로, derivative가 $0$이 되는 optimal scale은
 
 $$
 c^\star
@@ -224,7 +378,7 @@ c^\star
 {\sigma_x^2}
 $$
 
-Translation은 scale을 포함해 다시 계산한다.
+이다. $\sigma_x^2=0$이면 모든 source point가 같아 scale을 식별할 수 없으므로 이 식을 적용할 수 없다. Translation은 scale을 포함해 다시 계산한다.
 
 $$
 t^\star
@@ -232,13 +386,11 @@ t^\star
 \mu_y-c^\star R^\star\mu_x
 $$
 
-$c=1$로 고정하면 metric scale을 보존하는 rigid alignment가 된다. Scale을 추정하는
-$Sim(3)$ alignment와 scale을 고정한 $SE(3)$ alignment를 결과에서 구분해야 한다.
+$c=1$로 고정하면 metric scale을 보존하는 rigid alignment가 된다. Scale을 추정하는 $Sim(3)$ alignment와 scale을 고정한 $SE(3)$ alignment를 결과에서 구분해야 한다.
 
 ## 2차원 직관 예시
 
-계산을 눈으로 확인하기 위해 2차원 point를 사용하자. 실제 $SE(3)$ alignment는 같은
-절차를 3차원에서 수행한다.
+계산을 눈으로 확인하기 위해 2차원 point를 사용하자. 실제 $SE(3)$ alignment는 같은 절차를 3차원에서 수행한다.
 
 Target point는 다음과 같다.
 
@@ -304,8 +456,7 @@ $$
 R(10,7)^{\mathsf T}+t=(2,0)^{\mathsf T}
 $$
 
-이 예시에서는 두 point set이 하나의 rigid transformation으로 정확히 연결되므로
-alignment 후 residual이 0이다.
+이 예시에서는 두 point set이 하나의 rigid transformation으로 정확히 연결되므로 alignment 후 residual이 0이다.
 
 ## Alignment 후 residual
 
@@ -328,14 +479,11 @@ $$
 }
 $$
 
-실제 trajectory에 drift, scale error 또는 non-rigid distortion이 있으면 하나의
-$R,t$로 모든 point를 동시에 겹칠 수 없으므로 residual이 남는다.
+실제 trajectory에 drift, scale error 또는 non-rigid distortion이 있으면 하나의 $R,t$로 모든 point를 동시에 겹칠 수 없으므로 residual이 남는다.
 
 ## Pose trajectory에 적용할 때
 
-Trajectory alignment에서는 timestamp association으로 만든 position pair를 point
-correspondence로 사용한다. Position으로 $R,t$를 fit한 뒤 estimated pose 전체에
-왼쪽에서 같은 transformation을 곱한다.
+Trajectory alignment에서는 timestamp association으로 만든 position pair를 point correspondence로 사용한다. Position으로 $R,t$를 fit한 뒤 estimated pose 전체에 왼쪽에서 같은 transformation을 곱한다.
 
 $$
 T_{\mathrm{target}\_\mathrm{body},i}^{\mathrm{aligned}}
@@ -344,9 +492,7 @@ T_{\mathrm{target}\_\mathrm{source}}
 T_{\mathrm{source}\_\mathrm{body},i}
 $$
 
-이때 orientation도 같은 global rotation만큼 함께 바뀐다. Position으로 fit한
-objective와 orientation error metric은 별개의 선택이므로 evaluator 설정에 명시해야
-한다.
+이때 orientation도 같은 global rotation만큼 함께 바뀐다. Position으로 fit한 objective와 orientation error metric은 별개의 선택이므로 evaluator 설정에 명시해야 한다.
 
 ## Degeneracy와 failure mode
 
@@ -359,9 +505,7 @@ Closed-form formula가 있다고 항상 reliable한 alignment가 되는 것은 �
 - Squared residual은 outlier에 민감하다.
 - Symmetric point configuration에서는 여러 rotation이 비슷한 objective를 가질 수 있다.
 
-Singular value와 rank를 검사하고, pair 수·coverage·residual distribution을 함께
-보고해야 한다. Outlier가 있는 registration에는 robust loss나 RANSAC 같은 별도
-방법이 필요하지만, 그것들은 기본 Kabsch·Umeyama solution의 일부가 아니다.
+Singular value와 rank를 검사하고, pair 수·coverage·residual distribution을 함께 보고해야 한다. Outlier가 있는 registration에는 robust loss나 RANSAC 같은 별도 방법이 필요하지만, 그것들은 기본 Kabsch·Umeyama solution의 일부가 아니다.
 
 ## Alignment가 판별하지 못하는 것
 
@@ -371,8 +515,7 @@ Optimization은 가장 잘 맞는 $R,t$를 찾지만 그 차이의 원인을 판
 - Estimator가 arbitrary local frame을 사용한 경우
 - Estimator가 common global frame에서 constant pose error를 낸 경우
 
-어느 자유도를 제거할지는 data를 본 뒤 정하는 것이 아니라 estimator의 observability와
-평가 protocol에서 먼저 정해야 한다.
+어느 자유도를 제거할지는 data를 본 뒤 정하는 것이 아니라 estimator의 observability와 평가 protocol에서 먼저 정해야 한다.
 
 ## 관련 문서
 
