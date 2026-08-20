@@ -6,7 +6,7 @@ Finite-dimensional inner product space의 모든 linear functional은 어떤 vec
 
 ## Motivation
 
-[Dual Space](<42 Dual Space.md>)의 linear functional $g\in V^*$는 vector를 scalar로 측정한다. 한편 [Inner Product Space](<30 Inner Product Space.md>)의 inner product에서 두 번째 argument를 $v$로 고정한 함수
+[Dual Space](<42 Dual Space.md>)의 linear functional $g\in V^*$는 vector를 scalar로 측정한다. 한편 [Inner Product Space](<../05 Inner Product and Orthogonality/30 Inner Product Space.md>)의 inner product에서 두 번째 argument를 $v$로 고정한 함수
 
 $$
 B(\mathord{\cdot},v):V\rightarrow\F
@@ -36,7 +36,7 @@ $$
 
 **Proof**
 
-[Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)에 의해 $V$의 orthonormal basis
+[Gram-Schmidt Process](<../05 Inner Product and Orthogonality/34 Gram-Schmidt Process.md>)에 의해 $V$의 orthonormal basis
 
 $$
 \beta=(\beta_1,\ldots,\beta_n)
@@ -388,12 +388,12 @@ $$
 
 를 나타낸다. 즉 adjoint는 dual map을 Riesz representation을 통해 원래 vector space 사이의 map으로 옮긴 것이다.
 
-Adjoint는 [Schur's Theorem](<39 Schur's Theorem.md>)에서 orthogonal complement가 invariant한 subspace를 만드는 데 사용된다.
+Adjoint는 [Schur's Theorem](<../08 Matrix Decompositions/39 Schur's Theorem.md>)에서 orthogonal complement가 invariant한 subspace를 만드는 데 사용된다.
 
 ## 관련 문서
 
-- [Inner Product Space](<30 Inner Product Space.md>)
-- [Gram Matrix](<31 Gram Matrix.md>)
-- [Norm, Distance and Angle](<32 Norm Distance and Angle.md>)
-- [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)
+- [Inner Product Space](<../05 Inner Product and Orthogonality/30 Inner Product Space.md>)
+- [Gram Matrix](<../05 Inner Product and Orthogonality/31 Gram Matrix.md>)
+- [Norm, Distance and Angle](<../05 Inner Product and Orthogonality/32 Norm Distance and Angle.md>)
+- [Gram-Schmidt Process](<../05 Inner Product and Orthogonality/34 Gram-Schmidt Process.md>)
 - [Dual Space](<42 Dual Space.md>)

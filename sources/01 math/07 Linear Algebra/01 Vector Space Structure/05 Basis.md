@@ -170,6 +170,6 @@ $$
 
 ## 관련 문서
 
-- [Linearly Independent](<04 Linearly Independet.md>)
+- [Linearly Independent](<04 Linearly Independent.md>)
 - [Coordinate](<06 Coordinate.md>)
-- [Vector Space Isomorphism](<13 Vector Space Isomorphism.md>)
+- [Vector Space Isomorphism](<../02 Linear Maps and Isomorphisms/13 Vector Space Isomorphism.md>)

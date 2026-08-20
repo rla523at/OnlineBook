@@ -162,11 +162,11 @@ $$
 \end{bmatrix}.
 $$
 
-두 column은 다르지만 둘 다 같은 $v$를 나타낸다. 어떤 basis의 coordinate인지 표시하지 않고 vector와 column을 동일시하면 이 차이를 놓치게 된다. 두 coordinate column 사이의 변환은 [Change of Basis and Coordinate Matrix](<23 Change of Basis and Coordinate Matrix.md>)에서 다룬다.
+두 column은 다르지만 둘 다 같은 $v$를 나타낸다. 어떤 basis의 coordinate인지 표시하지 않고 vector와 column을 동일시하면 이 차이를 놓치게 된다. 두 coordinate column 사이의 변환은 [Change of Basis and Coordinate Matrix](<../03 Matrix Representation and Eigenstructure/23 Change of Basis and Coordinate Matrix.md>)에서 다룬다.
 
 ## 관련 문서
 
 - [Basis](<05 Basis.md>)
-- [Linear Map](<10 Linear Map.md>)
-- [Matrix Representation](<20 Matrix Representation.md>)
-- [Change of Basis and Coordinate Matrix](<23 Change of Basis and Coordinate Matrix.md>)
+- [Linear Map](<../02 Linear Maps and Isomorphisms/10 Linear Map.md>)
+- [Matrix Representation](<../03 Matrix Representation and Eigenstructure/20 Matrix Representation.md>)
+- [Change of Basis and Coordinate Matrix](<../03 Matrix Representation and Eigenstructure/23 Change of Basis and Coordinate Matrix.md>)

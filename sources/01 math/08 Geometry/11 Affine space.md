@@ -292,7 +292,7 @@ y
 \end{aligned}
 $$
 
-첫 번째 항은 basis의 변경을, 두 번째 항은 coordinate origin의 변경을 나타낸다. 따라서 affine coordinate change는 일반적으로 linear term과 translation term을 함께 갖는다. Basis change matrix는 [Change of Basis and Coordinate Matrix](<../07 Linear Algebra/23 Change of Basis and Coordinate Matrix.md>)에서 설명한다.
+첫 번째 항은 basis의 변경을, 두 번째 항은 coordinate origin의 변경을 나타낸다. 따라서 affine coordinate change는 일반적으로 linear term과 translation term을 함께 갖는다. Basis change matrix는 [Change of Basis and Coordinate Matrix](<../07 Linear Algebra/03 Matrix Representation and Eigenstructure/23 Change of Basis and Coordinate Matrix.md>)에서 설명한다.
 
 ## Examples
 
@@ -323,7 +323,7 @@ $$
 
 - [Affine Combination](<./12 Affine Combination.md>)
 - [Affine Transformation](<./13 Affine Transformation.md>)
-- [Change of Basis and Coordinate Matrix](<../07 Linear Algebra/23 Change of Basis and Coordinate Matrix.md>)
+- [Change of Basis and Coordinate Matrix](<../07 Linear Algebra/03 Matrix Representation and Eigenstructure/23 Change of Basis and Coordinate Matrix.md>)
 
 ## Reference
 

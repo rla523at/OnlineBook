@@ -45,7 +45,7 @@ a_n
 \in\F^n
 $$
 
-이다. [Coordinate](<06 Coordinate.md>)에서 본 것처럼 map $v\mapsto[v]_\beta$는 $V$와 $\F^n$ 사이의 vector space isomorphism이다.
+이다. [Coordinate](<../01 Vector Space Structure/06 Coordinate.md>)에서 본 것처럼 map $v\mapsto[v]_\beta$는 $V$와 $\F^n$ 사이의 vector space isomorphism이다.
 
 ## Matrix of a Linear Map
 
@@ -314,7 +314,7 @@ $$
 
 ## 관련 문서
 
-- [Coordinate](<06 Coordinate.md>)
-- [Linear Map](<10 Linear Map.md>)
-- [Vector Space Isomorphism](<13 Vector Space Isomorphism.md>)
+- [Coordinate](<../01 Vector Space Structure/06 Coordinate.md>)
+- [Linear Map](<../02 Linear Maps and Isomorphisms/10 Linear Map.md>)
+- [Vector Space Isomorphism](<../02 Linear Maps and Isomorphisms/13 Vector Space Isomorphism.md>)
 - [Change of Basis and Coordinate Matrix](<23 Change of Basis and Coordinate Matrix.md>)

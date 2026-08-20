@@ -22,7 +22,7 @@ Complex field에서는 fundamental theorem of algebra에 의해 모든 nonconsta
 
 Schur's theorem의 induction에서는 dimension을 하나 줄이면서 restriction을 만들 수 있는 invariant subspace가 필요하다. Eigenvector $v$ of $T$를 선택하면 $\operatorname{span}\{v\}$는 $T$-invariant지만 그 orthogonal complement가 반드시 $T$-invariant인 것은 아니다.
 
-이 문제는 $T$가 아니라 adjoint $T^*$의 eigenvector를 선택하면 해결된다. Finite-dimensional inner product space에서 adjoint는 [Riesz Representation Theorem](<43 Riesz Representation Theorem.md>)에 의해 존재하며 다음 관계를 만족한다.
+이 문제는 $T$가 아니라 adjoint $T^*$의 eigenvector를 선택하면 해결된다. Finite-dimensional inner product space에서 adjoint는 [Riesz Representation Theorem](<../07 Duality and Adjoint/43 Riesz Representation Theorem.md>)에 의해 존재하며 다음 관계를 만족한다.
 
 $$
 B(Tx,y)
@@ -226,7 +226,7 @@ Schur's theorem 자체는 upper triangular form만 보장한다. Off-diagonal en
 
 ## 관련 문서
 
-- [Orthogonal Complement and Orthogonal Projection](<35 Orthogonal Complement and Orthogonal Projection.md>)
-- [Orthogonal Map](<37 Orthogonal Map.md>)
+- [Orthogonal Complement and Orthogonal Projection](<../05 Inner Product and Orthogonality/35 Orthogonal Complement and Orthogonal Projection.md>)
+- [Orthogonal Map](<../05 Inner Product and Orthogonality/37 Orthogonal Map.md>)
 - [Symmetric Matrix and Spectral Theorem](<40 Symmetric Matrix and Spectral Theorem.md>)
-- [Riesz Representation Theorem](<43 Riesz Representation Theorem.md>)
+- [Riesz Representation Theorem](<../07 Duality and Adjoint/43 Riesz Representation Theorem.md>)

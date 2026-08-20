@@ -108,7 +108,7 @@ $$
 \end{bmatrix}
 $$
 
-따라서 ${}^{A}\mathbf{R}_{B}$는 같은 displacement vector의 coordinate를 frame `B`의 basis 기준에서 frame `A`의 basis 기준으로 바꾸는 [change of coordinate matrix](<../../01 math/07 Linear Algebra/23 Change of Basis and Coordinate Matrix.md>)다. 두 frame의 basis는 orthonormal이므로 ${}^{A}\mathbf{R}_{B}$는 scaling이나 shear를 포함하지 않는 rotation matrix다.
+따라서 ${}^{A}\mathbf{R}_{B}$는 같은 displacement vector의 coordinate를 frame `B`의 basis 기준에서 frame `A`의 basis 기준으로 바꾸는 [change of coordinate matrix](<../../01 math/07 Linear Algebra/03 Matrix Representation and Eigenstructure/23 Change of Basis and Coordinate Matrix.md>)다. 두 frame의 basis는 orthonormal이므로 ${}^{A}\mathbf{R}_{B}$는 scaling이나 shear를 포함하지 않는 rotation matrix다.
 
 $$
 {}^{A}\mathbf{R}_{B}\,{}^{B}\mathbf{p}

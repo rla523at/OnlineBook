@@ -84,7 +84,7 @@ $$
 
 따라서 $(\lambda-\mu)B(v,w)=0$이고 $\lambda\ne\mu$이므로 $B(v,w)=0$이다. 즉 $v\perp w$다. $\qed$
 
-Repeated eigenvalue가 있으면 해당 eigenspace 안의 basis는 하나로 정해지지 않는다. 그러나 [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)를 적용하면 각 eigenspace에서 orthonormal basis를 선택할 수 있다.
+Repeated eigenvalue가 있으면 해당 eigenspace 안의 basis는 하나로 정해지지 않는다. 그러나 [Gram-Schmidt Process](<../05 Inner Product and Orthogonality/34 Gram-Schmidt Process.md>)를 적용하면 각 eigenspace에서 orthonormal basis를 선택할 수 있다.
 
 ## Spectral Theorem
 
@@ -294,9 +294,9 @@ $$
 
 ## 관련 문서
 
-- [Eigenvector & Eigenvalue & EigenSpace](<24 Eigenvector & Eigenvalue & EigenSpace.md>)
-- [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)
-- [Orthogonal Map](<37 Orthogonal Map.md>)
+- [Eigenvector & Eigenvalue & EigenSpace](<../03 Matrix Representation and Eigenstructure/24 Eigenvector & Eigenvalue & EigenSpace.md>)
+- [Gram-Schmidt Process](<../05 Inner Product and Orthogonality/34 Gram-Schmidt Process.md>)
+- [Orthogonal Map](<../05 Inner Product and Orthogonality/37 Orthogonal Map.md>)
 - [Schur's Theorem](<39 Schur's Theorem.md>)
 - [Singular Value Decomposition](<41 Singular Value Decomposition.md>)
 

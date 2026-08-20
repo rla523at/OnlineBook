@@ -59,9 +59,9 @@ $$
 \{Ax\mid x\in\mathbb R^n\}
 $$
 
-[Column Space, Row Space, and Rank](<./22 Column Space, Row Space, and Rank.md>)에서 보았듯이 $\mathcal C(A)$는 $A$의 column들이 span하는 공간이며, $Ax=b$가 exact solution을 갖는 것은 $b\in\mathcal C(A)$인 것과 동치다.
+[Column Space, Row Space, and Rank](<../04 Linear Systems and Rank/22 Column Space, Row Space, and Rank.md>)에서 보았듯이 $\mathcal C(A)$는 $A$의 column들이 span하는 공간이며, $Ax=b$가 exact solution을 갖는 것은 $b\in\mathcal C(A)$인 것과 동치다.
 
-따라서 least squares는 $b$와 가장 가까운 $\mathcal C(A)$의 vector $Ax^\star$를 찾는 문제다. [Orthogonal Complement and Orthogonal Projection](<./35 Orthogonal Complement and Orthogonal Projection.md>)의 closest vector property에 의해 가장 가까운 vector에서는 residual이 column space에 orthogonal하다. [Four Fundamental Subspaces](<./36 Four Fundamental Subspaces.md>)의 관계 $\mathcal C(A)^\perp=\mathcal N(A^{\mathsf T})$를 적용하면 이 orthogonality가 $A^{\mathsf T}(Ax^\star-b)=0$이라는 normal equation으로 바뀐다.
+따라서 least squares는 $b$와 가장 가까운 $\mathcal C(A)$의 vector $Ax^\star$를 찾는 문제다. [Orthogonal Complement and Orthogonal Projection](<../05 Inner Product and Orthogonality/35 Orthogonal Complement and Orthogonal Projection.md>)의 closest vector property에 의해 가장 가까운 vector에서는 residual이 column space에 orthogonal하다. [Four Fundamental Subspaces](<36 Four Fundamental Subspaces.md>)의 관계 $\mathcal C(A)^\perp=\mathcal N(A^{\mathsf T})$를 적용하면 이 orthogonality가 $A^{\mathsf T}(Ax^\star-b)=0$이라는 normal equation으로 바뀐다.
 
 ### 정리1 (Normal equation)
 
@@ -149,7 +149,7 @@ $$
 
 반대로 $\ker A\ne\{0\}$이면 $Ah=0$인 nonzero $h$가 존재하므로 $x^\star$와 $x^\star+h$가 같은 fitted vector를 만든다. 따라서 parameter solution은 unique하지 않다.
 
-이 식은 해의 구조를 설명하지만, numerical implementation에서 inverse matrix를 직접 계산하라는 뜻은 아니다. $A^{\mathsf T}A$를 만들면 condition number가 악화될 수 있으므로 실제 계산에서는 QR decomposition이나 [Singular Value Decomposition](<./41 Singular Value Decomposition.md>)을 사용한다.
+이 식은 해의 구조를 설명하지만, numerical implementation에서 inverse matrix를 직접 계산하라는 뜻은 아니다. $A^{\mathsf T}A$를 만들면 condition number가 악화될 수 있으므로 실제 계산에서는 QR decomposition이나 [Singular Value Decomposition](<../08 Matrix Decompositions/41 Singular Value Decomposition.md>)을 사용한다.
 
 ## 해가 유일하지 않은 경우
 
@@ -214,14 +214,14 @@ Least squares는 주어진 model 안에서 residual이 가장 작은 parameter�
 
 ## 관련 문서
 
-- [Linear Systems and Row Reduction](<./21 Linear Systems and Row Reduction.md>)
-- [Column Space, Row Space, and Rank](<./22 Column Space, Row Space, and Rank.md>)
-- [Inner Product Space](<./30 Inner Product Space.md>)
-- [Orthogonal Complement and Orthogonal Projection](<./35 Orthogonal Complement and Orthogonal Projection.md>)
-- [Four Fundamental Subspaces](<./36 Four Fundamental Subspaces.md>)
-- [Symmetric Matrix and Spectral Theorem](<./40 Symmetric Matrix and Spectral Theorem.md>)
-- [Singular Value Decomposition](<./41 Singular Value Decomposition.md>)
-- [Rigid Point Set Alignment with Kabsch and Umeyama](<../08 Geometry/24 Rigid Point Set Alignment with Kabsch and Umeyama.md>)
+- [Linear Systems and Row Reduction](<../04 Linear Systems and Rank/21 Linear Systems and Row Reduction.md>)
+- [Column Space, Row Space, and Rank](<../04 Linear Systems and Rank/22 Column Space, Row Space, and Rank.md>)
+- [Inner Product Space](<../05 Inner Product and Orthogonality/30 Inner Product Space.md>)
+- [Orthogonal Complement and Orthogonal Projection](<../05 Inner Product and Orthogonality/35 Orthogonal Complement and Orthogonal Projection.md>)
+- [Four Fundamental Subspaces](<36 Four Fundamental Subspaces.md>)
+- [Symmetric Matrix and Spectral Theorem](<../08 Matrix Decompositions/40 Symmetric Matrix and Spectral Theorem.md>)
+- [Singular Value Decomposition](<../08 Matrix Decompositions/41 Singular Value Decomposition.md>)
+- [Rigid Point Set Alignment with Kabsch and Umeyama](<../../08 Geometry/24 Rigid Point Set Alignment with Kabsch and Umeyama.md>)
 
 ## References
 

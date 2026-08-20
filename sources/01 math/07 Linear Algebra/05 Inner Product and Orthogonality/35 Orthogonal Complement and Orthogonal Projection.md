@@ -271,12 +271,12 @@ $$
 
 두 번째 항이 nonnegative이므로 원하는 부등식을 얻는다. Equality는 $\lVert P_W(v)-w\rVert=0$, 즉 $w=P_W(v)$일 때 그리고 그때에만 성립한다. $\qed$
 
-따라서 $P_W(v)$는 $W$의 vector들 중 $v$와 가장 가까운 유일한 vector다. 이 성질이 [Least Squares Problem](<38 Least Squares Problem.md>)에서 exact solution이 없을 때 best approximation을 선택하는 근거가 된다.
+따라서 $P_W(v)$는 $W$의 vector들 중 $v$와 가장 가까운 유일한 vector다. 이 성질이 [Least Squares Problem](<../06 Matrix Subspaces and Approximation/38 Least Squares Problem.md>)에서 exact solution이 없을 때 best approximation을 선택하는 근거가 된다.
 
 ## 관련 문서
 
 - [Norm, Distance and Angle](<32 Norm Distance and Angle.md>)
 - [Projection and Orthogonal Subset](<33 Projection and Orthogonal Subset.md>)
 - [Gram-Schmidt Process](<34 Gram-Schmidt Process.md>)
-- [Four Fundamental Subspaces](<36 Four Fundamental Subspaces.md>)
-- [Least Squares Problem](<38 Least Squares Problem.md>)
+- [Four Fundamental Subspaces](<../06 Matrix Subspaces and Approximation/36 Four Fundamental Subspaces.md>)
+- [Least Squares Problem](<../06 Matrix Subspaces and Approximation/38 Least Squares Problem.md>)

@@ -1365,8 +1365,8 @@ Quaternion을 파일이나 API 사이에서 전달할 때에는 다음 항목을
 
 ## Related Documents
 
-- [Orthogonal Map](<../07 Linear Algebra/37 Orthogonal Map.md>)
-- [Change of Basis and Coordinate Matrix](<../07 Linear Algebra/23 Change of Basis and Coordinate Matrix.md>)
+- [Orthogonal Map](<../07 Linear Algebra/05 Inner Product and Orthogonality/37 Orthogonal Map.md>)
+- [Change of Basis and Coordinate Matrix](<../07 Linear Algebra/03 Matrix Representation and Eigenstructure/23 Change of Basis and Coordinate Matrix.md>)
 - [Affine Transformation](<./13 Affine Transformation.md>)
 - [Rotation Matrix and SO(3)](<./22 Rotation Matrix and SO(3).md>)
 - [Rigid Transformation and SE(3)](<./23 Rigid Transformation and SE(3).md>)

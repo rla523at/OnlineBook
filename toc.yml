@@ -179,37 +179,75 @@ project:
       - file: sources/01 math/06 Calculus/Line Integral.md
     - file: sources/01 math/07 Linear Algebra/Linear Algebra.md
       children:
-      - file: sources/01 math/07 Linear Algebra/01 Vector Space.md
-      - file: sources/01 math/07 Linear Algebra/02 Subspace.md
-      - file: sources/01 math/07 Linear Algebra/03 Span.md
-      - file: sources/01 math/07 Linear Algebra/04 Linearly Independet.md
-      - file: sources/01 math/07 Linear Algebra/05 Basis.md
-      - file: sources/01 math/07 Linear Algebra/06 Coordinate.md
-      - file: sources/01 math/07 Linear Algebra/10 Linear Map.md
-      - file: sources/01 math/07 Linear Algebra/11 Kernel.md
-      - file: sources/01 math/07 Linear Algebra/12 Image.md
-      - file: sources/01 math/07 Linear Algebra/13 Vector Space Isomorphism.md
-      - file: sources/01 math/07 Linear Algebra/20 Matrix Representation.md
-      - file: sources/01 math/07 Linear Algebra/21 Linear Systems and Row Reduction.md
-      - file: sources/01 math/07 Linear Algebra/22 Column Space, Row Space, and Rank.md
-      - file: sources/01 math/07 Linear Algebra/23 Change of Basis and Coordinate
-          Matrix.md
-      - file: sources/01 math/07 Linear Algebra/24 Eigenvector & Eigenvalue & EigenSpace.md
-      - file: sources/01 math/07 Linear Algebra/30 Inner Product Space.md
-      - file: sources/01 math/07 Linear Algebra/31 Gram Matrix.md
-      - file: sources/01 math/07 Linear Algebra/32 Norm Distance and Angle.md
-      - file: sources/01 math/07 Linear Algebra/33 Projection and Orthogonal Subset.md
-      - file: sources/01 math/07 Linear Algebra/34 Gram-Schmidt Process.md
-      - file: sources/01 math/07 Linear Algebra/35 Orthogonal Complement and Orthogonal
-          Projection.md
-      - file: sources/01 math/07 Linear Algebra/36 Four Fundamental Subspaces.md
-      - file: sources/01 math/07 Linear Algebra/37 Orthogonal Map.md
-      - file: sources/01 math/07 Linear Algebra/38 Least Squares Problem.md
-      - file: sources/01 math/07 Linear Algebra/39 Schur's Theorem.md
-      - file: sources/01 math/07 Linear Algebra/40 Symmetric Matrix and Spectral Theorem.md
-      - file: sources/01 math/07 Linear Algebra/41 Singular Value Decomposition.md
-      - file: sources/01 math/07 Linear Algebra/42 Dual Space.md
-      - file: sources/01 math/07 Linear Algebra/43 Riesz Representation Theorem.md
+      - title: Vector Space Structure
+        children:
+        - file: sources/01 math/07 Linear Algebra/01 Vector Space Structure/01 Vector
+            Space.md
+        - file: sources/01 math/07 Linear Algebra/01 Vector Space Structure/02 Subspace.md
+        - file: sources/01 math/07 Linear Algebra/01 Vector Space Structure/03 Span.md
+        - file: sources/01 math/07 Linear Algebra/01 Vector Space Structure/04 Linearly
+            Independent.md
+        - file: sources/01 math/07 Linear Algebra/01 Vector Space Structure/05 Basis.md
+        - file: sources/01 math/07 Linear Algebra/01 Vector Space Structure/06 Coordinate.md
+      - title: Linear Maps and Isomorphisms
+        children:
+        - file: sources/01 math/07 Linear Algebra/02 Linear Maps and Isomorphisms/10
+            Linear Map.md
+        - file: sources/01 math/07 Linear Algebra/02 Linear Maps and Isomorphisms/11
+            Kernel.md
+        - file: sources/01 math/07 Linear Algebra/02 Linear Maps and Isomorphisms/12
+            Image.md
+        - file: sources/01 math/07 Linear Algebra/02 Linear Maps and Isomorphisms/13
+            Vector Space Isomorphism.md
+      - title: Matrix Representation and Eigenstructure
+        children:
+        - file: sources/01 math/07 Linear Algebra/03 Matrix Representation and Eigenstructure/20
+            Matrix Representation.md
+        - file: sources/01 math/07 Linear Algebra/03 Matrix Representation and Eigenstructure/23
+            Change of Basis and Coordinate Matrix.md
+        - file: sources/01 math/07 Linear Algebra/03 Matrix Representation and Eigenstructure/24
+            Eigenvector & Eigenvalue & EigenSpace.md
+      - title: Linear Systems and Rank
+        children:
+        - file: sources/01 math/07 Linear Algebra/04 Linear Systems and Rank/21 Linear
+            Systems and Row Reduction.md
+        - file: sources/01 math/07 Linear Algebra/04 Linear Systems and Rank/22 Column
+            Space, Row Space, and Rank.md
+      - title: Inner Product and Orthogonality
+        children:
+        - file: sources/01 math/07 Linear Algebra/05 Inner Product and Orthogonality/30
+            Inner Product Space.md
+        - file: sources/01 math/07 Linear Algebra/05 Inner Product and Orthogonality/31
+            Gram Matrix.md
+        - file: sources/01 math/07 Linear Algebra/05 Inner Product and Orthogonality/32
+            Norm Distance and Angle.md
+        - file: sources/01 math/07 Linear Algebra/05 Inner Product and Orthogonality/33
+            Projection and Orthogonal Subset.md
+        - file: sources/01 math/07 Linear Algebra/05 Inner Product and Orthogonality/34
+            Gram-Schmidt Process.md
+        - file: sources/01 math/07 Linear Algebra/05 Inner Product and Orthogonality/35
+            Orthogonal Complement and Orthogonal Projection.md
+        - file: sources/01 math/07 Linear Algebra/05 Inner Product and Orthogonality/37
+            Orthogonal Map.md
+      - title: Matrix Subspaces and Approximation
+        children:
+        - file: sources/01 math/07 Linear Algebra/06 Matrix Subspaces and Approximation/36
+            Four Fundamental Subspaces.md
+        - file: sources/01 math/07 Linear Algebra/06 Matrix Subspaces and Approximation/38
+            Least Squares Problem.md
+      - title: Duality and Adjoint
+        children:
+        - file: sources/01 math/07 Linear Algebra/07 Duality and Adjoint/42 Dual Space.md
+        - file: sources/01 math/07 Linear Algebra/07 Duality and Adjoint/43 Riesz
+            Representation Theorem.md
+      - title: Matrix Decompositions
+        children:
+        - file: sources/01 math/07 Linear Algebra/08 Matrix Decompositions/39 Schur's
+            Theorem.md
+        - file: sources/01 math/07 Linear Algebra/08 Matrix Decompositions/40 Symmetric
+            Matrix and Spectral Theorem.md
+        - file: sources/01 math/07 Linear Algebra/08 Matrix Decompositions/41 Singular
+            Value Decomposition.md
     - title: Geometry
       children:
       - title: Smooth Manifold

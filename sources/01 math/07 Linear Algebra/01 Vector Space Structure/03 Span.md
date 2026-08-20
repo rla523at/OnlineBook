@@ -128,10 +128,10 @@ $$
 
 첫 번째 식은 $Y$의 linear combination이 허용하는 vector 선택에 $X$의 선택이 모두 포함되기 때문이다. 두 번째 식은 $\operatorname{span}(S)$가 이미 subspace여서 그 안의 vector들을 다시 linear combination해도 밖으로 나가지 않기 때문이다.
 
-Span은 어떤 vector들을 사용할 수 있는지는 말하지만, 같은 vector를 나타내는 coefficient가 unique한지는 보장하지 않는다. 이 중복 여부는 [Linearly Independent](<04 Linearly Independet.md>)에서 다룬다.
+Span은 어떤 vector들을 사용할 수 있는지는 말하지만, 같은 vector를 나타내는 coefficient가 unique한지는 보장하지 않는다. 이 중복 여부는 [Linearly Independent](<04 Linearly Independent.md>)에서 다룬다.
 
 ## 관련 문서
 
 - [Subspace](<02 Subspace.md>)
-- [Linearly Independent](<04 Linearly Independet.md>)
+- [Linearly Independent](<04 Linearly Independent.md>)
 - [Basis](<05 Basis.md>)

@@ -184,7 +184,7 @@ $$
 \dim L(V,W)=mn.
 $$
 
-Coefficient $A_{ji}$를 matrix에 배열하는 과정은 [Matrix Representation](<20 Matrix Representation.md>)에서 다룬다.
+Coefficient $A_{ji}$를 matrix에 배열하는 과정은 [Matrix Representation](<../03 Matrix Representation and Eigenstructure/20 Matrix Representation.md>)에서 다룬다.
 
 ## Composition
 
@@ -227,4 +227,4 @@ $$
 - [Kernel](<11 Kernel.md>)
 - [Image](<12 Image.md>)
 - [Vector Space Isomorphism](<13 Vector Space Isomorphism.md>)
-- [Matrix Representation](<20 Matrix Representation.md>)
+- [Matrix Representation](<../03 Matrix Representation and Eigenstructure/20 Matrix Representation.md>)

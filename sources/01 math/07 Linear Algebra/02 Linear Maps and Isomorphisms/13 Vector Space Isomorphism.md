@@ -124,11 +124,11 @@ $$
 
 $V\cong W$는 $V=W$라는 뜻이 아니다. Isomorphism은 두 공간의 element를 대응시켜 addition과 scalar multiplication에 관한 모든 관계를 보존하지만, element의 원래 의미나 집합 자체를 같게 만들지는 않는다.
 
-또한 $V\cong\F^n$인 구체적인 correspondence는 일반적으로 basis 선택에 의존한다. 서로 다른 basis는 서로 다른 coordinate isomorphism을 만든다. Basis가 바뀔 때 coordinate가 어떻게 변하는지는 [Change of Basis and Coordinate Matrix](<23 Change of Basis and Coordinate Matrix.md>)에서 다룬다.
+또한 $V\cong\F^n$인 구체적인 correspondence는 일반적으로 basis 선택에 의존한다. 서로 다른 basis는 서로 다른 coordinate isomorphism을 만든다. Basis가 바뀔 때 coordinate가 어떻게 변하는지는 [Change of Basis and Coordinate Matrix](<../03 Matrix Representation and Eigenstructure/23 Change of Basis and Coordinate Matrix.md>)에서 다룬다.
 
 ## 관련 문서
 
-- [Basis](<05 Basis.md>)
-- [Coordinate](<06 Coordinate.md>)
+- [Basis](<../01 Vector Space Structure/05 Basis.md>)
+- [Coordinate](<../01 Vector Space Structure/06 Coordinate.md>)
 - [Linear Map](<10 Linear Map.md>)
-- [Matrix Representation](<20 Matrix Representation.md>)
+- [Matrix Representation](<../03 Matrix Representation and Eigenstructure/20 Matrix Representation.md>)

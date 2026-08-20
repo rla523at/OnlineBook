@@ -530,6 +530,6 @@ $$
 
 - [Gram Matrix](<31 Gram Matrix.md>)
 - [Norm, Distance and Angle](<32 Norm Distance and Angle.md>)
-- [Four Fundamental Subspaces](<36 Four Fundamental Subspaces.md>)
-- [Symmetric Matrix and Spectral Theorem](<40 Symmetric Matrix and Spectral Theorem.md>)
+- [Four Fundamental Subspaces](<../06 Matrix Subspaces and Approximation/36 Four Fundamental Subspaces.md>)
+- [Symmetric Matrix and Spectral Theorem](<../08 Matrix Decompositions/40 Symmetric Matrix and Spectral Theorem.md>)
 - [Rotation Matrix and SO(3)](<../08 Geometry/22 Rotation Matrix and SO(3).md>)

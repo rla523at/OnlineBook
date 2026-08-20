@@ -6,9 +6,9 @@ Real matrix $A\in\mathbb R^{m\times n}$는 domain $\mathbb R^n$을 row space와 
 
 ## 네 공간을 따로 아는 것만으로는 관계가 보이지 않는다
 
-[Column Space, Row Space, and Rank](<22 Column Space, Row Space, and Rank.md>)에서는 matrix의 column과 row가 만드는 공간을 정의하고, row reduction의 pivot 개수가 두 공간의 공통 dimension인 rank임을 확인했다. [Kernel](<11 Kernel.md>)에서는 linear map이 zero vector로 보내는 input의 집합을 정의했다.
+[Column Space, Row Space, and Rank](<../04 Linear Systems and Rank/22 Column Space, Row Space, and Rank.md>)에서는 matrix의 column과 row가 만드는 공간을 정의하고, row reduction의 pivot 개수가 두 공간의 공통 dimension인 rank임을 확인했다. [Kernel](<../02 Linear Maps and Isomorphisms/11 Kernel.md>)에서는 linear map이 zero vector로 보내는 input의 집합을 정의했다.
 
-이 결과로 $A$와 $A^{\mathsf T}$에서 네 subspace를 만들 수 있지만, 각 공간을 목록으로 나열하는 것만으로는 이들이 왜 네 개의 짝을 이루는지 알기 어렵다. [Orthogonal Complement and Orthogonal Projection](<35 Orthogonal Complement and Orthogonal Projection.md>)을 사용하면 각 kernel이 다른 한 공간에서 보이지 않는 orthogonal direction 전체라는 사실을 밝힐 수 있다.
+이 결과로 $A$와 $A^{\mathsf T}$에서 네 subspace를 만들 수 있지만, 각 공간을 목록으로 나열하는 것만으로는 이들이 왜 네 개의 짝을 이루는지 알기 어렵다. [Orthogonal Complement and Orthogonal Projection](<../05 Inner Product and Orthogonality/35 Orthogonal Complement and Orthogonal Projection.md>)을 사용하면 각 kernel이 다른 한 공간에서 보이지 않는 orthogonal direction 전체라는 사실을 밝힐 수 있다.
 
 이 문서에서는 transpose를 사용하는 orthogonality 관계를 설명하기 위해 real matrix를 다룬다. Complex matrix에서는 transpose 대신 conjugate transpose를 사용한다.
 
@@ -295,13 +295,13 @@ $$
 
 ## SVD와의 연결
 
-[Singular Value Decomposition](<41 Singular Value Decomposition.md>)은 네 fundamental subspaces의 orthonormal basis를 동시에 구성한다. Nonzero singular value에 대응하는 right singular vector들은 row space를, zero singular value에 대응하는 right singular vector들은 null space를 span한다. 같은 방식으로 left singular vector들은 column space와 left null space를 나눈다.
+[Singular Value Decomposition](<../08 Matrix Decompositions/41 Singular Value Decomposition.md>)은 네 fundamental subspaces의 orthonormal basis를 동시에 구성한다. Nonzero singular value에 대응하는 right singular vector들은 row space를, zero singular value에 대응하는 right singular vector들은 null space를 span한다. 같은 방식으로 left singular vector들은 column space와 left null space를 나눈다.
 
 ## 관련 문서
 
-- [Kernel](<11 Kernel.md>)
-- [Image](<12 Image.md>)
-- [Column Space, Row Space, and Rank](<22 Column Space, Row Space, and Rank.md>)
-- [Orthogonal Complement and Orthogonal Projection](<35 Orthogonal Complement and Orthogonal Projection.md>)
+- [Kernel](<../02 Linear Maps and Isomorphisms/11 Kernel.md>)
+- [Image](<../02 Linear Maps and Isomorphisms/12 Image.md>)
+- [Column Space, Row Space, and Rank](<../04 Linear Systems and Rank/22 Column Space, Row Space, and Rank.md>)
+- [Orthogonal Complement and Orthogonal Projection](<../05 Inner Product and Orthogonality/35 Orthogonal Complement and Orthogonal Projection.md>)
 - [Least Squares Problem](<38 Least Squares Problem.md>)
-- [Singular Value Decomposition](<41 Singular Value Decomposition.md>)
+- [Singular Value Decomposition](<../08 Matrix Decompositions/41 Singular Value Decomposition.md>)

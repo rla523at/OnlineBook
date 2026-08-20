@@ -197,4 +197,4 @@ Injective이면 nullity가 $0$이므로 rank가 $\dim V=\dim W$다. Image는 $W$
 
 - [Kernel](<11 Kernel.md>)
 - [Vector Space Isomorphism](<13 Vector Space Isomorphism.md>)
-- [Column Space, Row Space, and Rank](<22 Column Space, Row Space, and Rank.md>)
+- [Column Space, Row Space, and Rank](<../04 Linear Systems and Rank/22 Column Space, Row Space, and Rank.md>)

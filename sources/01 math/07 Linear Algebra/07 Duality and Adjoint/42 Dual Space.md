@@ -348,7 +348,7 @@ $$
 
 ## 관련 문서
 
-- [Linear Map](<10 Linear Map.md>)
-- [Coordinate](<06 Coordinate.md>)
-- [Change of Basis and Coordinate Matrix](<23 Change of Basis and Coordinate Matrix.md>)
+- [Linear Map](<../02 Linear Maps and Isomorphisms/10 Linear Map.md>)
+- [Coordinate](<../01 Vector Space Structure/06 Coordinate.md>)
+- [Change of Basis and Coordinate Matrix](<../03 Matrix Representation and Eigenstructure/23 Change of Basis and Coordinate Matrix.md>)
 - [Riesz Representation Theorem](<43 Riesz Representation Theorem.md>)

@@ -156,6 +156,6 @@ $$
 ## 관련 문서
 
 - [Span](<03 Span.md>)
-- [Linearly Independent](<04 Linearly Independet.md>)
+- [Linearly Independent](<04 Linearly Independent.md>)
 - [Basis](<05 Basis.md>)
-- [Kernel](<11 Kernel.md>)
+- [Kernel](<../02 Linear Maps and Isomorphisms/11 Kernel.md>)

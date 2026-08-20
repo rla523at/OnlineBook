@@ -42,7 +42,7 @@ $$
 
 **Proof**
 
-[Symmetric Matrix and Spectral Theorem](<./40 Symmetric Matrix and Spectral Theorem.md>)에 의해 positive semidefinite matrix $A^{\mathsf T}A$에는 orthonormal eigenvector basis
+[Symmetric Matrix and Spectral Theorem](<40 Symmetric Matrix and Spectral Theorem.md>)에 의해 positive semidefinite matrix $A^{\mathsf T}A$에는 orthonormal eigenvector basis
 
 $$
 (v_1,\ldots,v_n)
@@ -68,7 +68,7 @@ $$
 u_i:=\frac{Av_i}{\sigma_i}
 $$
 
-라고 정의한다. [Symmetric Matrix and Spectral Theorem](<./40 Symmetric Matrix and Spectral Theorem.md>)에서 보인 계산에 의해 $u_1,\ldots,u_r$는 $\R^m$의 orthonormal subset이다. 이를 $\R^m$의 orthonormal basis
+라고 정의한다. [Symmetric Matrix and Spectral Theorem](<40 Symmetric Matrix and Spectral Theorem.md>)에서 보인 계산에 의해 $u_1,\ldots,u_r$는 $\R^m$의 orthonormal subset이다. 이를 $\R^m$의 orthonormal basis
 
 $$
 (u_1,\ldots,u_m)
@@ -138,7 +138,7 @@ $$
 - $\sigma_i^2$는 $A^{\mathsf T}A$의 eigenvalue다.
 - $\sigma_i>0$이면 $u_i=Av_i/\sigma_i$다.
 
-[Symmetric Matrix and Spectral Theorem](<./40 Symmetric Matrix and Spectral Theorem.md>)이 SVD를 구성할 수 있는 이유를 제공한다.
+[Symmetric Matrix and Spectral Theorem](<40 Symmetric Matrix and Spectral Theorem.md>)이 SVD를 구성할 수 있는 이유를 제공한다.
 
 ## Thin SVD
 
@@ -324,11 +324,11 @@ Rigid alignment에서 cross-covariance가 rank deficient하면 이 non-uniquenes
 
 ## 관련 문서
 
-- [Four Fundamental Subspaces](<./36 Four Fundamental Subspaces.md>)
-- [Least Squares Problem](<./38 Least Squares Problem.md>)
-- [Symmetric Matrix and Spectral Theorem](<./40 Symmetric Matrix and Spectral Theorem.md>)
-- [Orthogonal Map](<./37 Orthogonal Map.md>)
-- [Rigid Point Set Alignment with Kabsch and Umeyama](<../08 Geometry/24 Rigid Point Set Alignment with Kabsch and Umeyama.md>)
+- [Four Fundamental Subspaces](<../06 Matrix Subspaces and Approximation/36 Four Fundamental Subspaces.md>)
+- [Least Squares Problem](<../06 Matrix Subspaces and Approximation/38 Least Squares Problem.md>)
+- [Symmetric Matrix and Spectral Theorem](<40 Symmetric Matrix and Spectral Theorem.md>)
+- [Orthogonal Map](<../05 Inner Product and Orthogonality/37 Orthogonal Map.md>)
+- [Rigid Point Set Alignment with Kabsch and Umeyama](<../../08 Geometry/24 Rigid Point Set Alignment with Kabsch and Umeyama.md>)
 
 ## References
 

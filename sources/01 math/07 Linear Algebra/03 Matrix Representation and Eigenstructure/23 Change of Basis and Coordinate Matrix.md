@@ -379,6 +379,6 @@ $$
 
 ## 관련 문서
 
-- [Coordinate](<06 Coordinate.md>)
+- [Coordinate](<../01 Vector Space Structure/06 Coordinate.md>)
 - [Matrix Representation](<20 Matrix Representation.md>)
 - [Eigenvector & Eigenvalue & EigenSpace](<24 Eigenvector & Eigenvalue & EigenSpace.md>)

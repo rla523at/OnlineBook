@@ -275,8 +275,8 @@ $$
 
 ## 관련 문서
 
-- [Kernel](<11 Kernel.md>)
+- [Kernel](<../02 Linear Maps and Isomorphisms/11 Kernel.md>)
 - [Matrix Representation](<20 Matrix Representation.md>)
-- [Linear Systems and Row Reduction](<21 Linear Systems and Row Reduction.md>)
+- [Linear Systems and Row Reduction](<../04 Linear Systems and Rank/21 Linear Systems and Row Reduction.md>)
 - [Change of Basis and Coordinate Matrix](<23 Change of Basis and Coordinate Matrix.md>)
-- [Symmetric Matrix and Spectral Theorem](<40 Symmetric Matrix and Spectral Theorem.md>)
+- [Symmetric Matrix and Spectral Theorem](<../08 Matrix Decompositions/40 Symmetric Matrix and Spectral Theorem.md>)

@@ -51,7 +51,7 @@ L_A:\mathbb F^n\to\mathbb F^m,
 x\mapsto Ax
 $$
 
-를 생각하면 column space는 [Image](<12 Image.md>)의 matrix version이다.
+를 생각하면 column space는 [Image](<../02 Linear Maps and Isomorphisms/12 Image.md>)의 matrix version이다.
 
 $$
 \mathcal C(A)=\operatorname{img}(L_A)
@@ -282,7 +282,7 @@ $$
 
 ## Rank
 
-[Image](<12 Image.md>)에서는 linear map의 rank를 image의 dimension으로 정의했다. Matrix $A$가 정의하는 $L_A:x\mapsto Ax$에 이를 적용하면
+[Image](<../02 Linear Maps and Isomorphisms/12 Image.md>)에서는 linear map의 rank를 image의 dimension으로 정의했다. Matrix $A$가 정의하는 $L_A:x\mapsto Ax$에 이를 적용하면
 
 $$
 \operatorname{rank}(A)
@@ -328,7 +328,7 @@ $A\in\mathbb F^{m\times n}$이고 $r=\operatorname{rank}(A)$라고 하자.
 
 - $r=n$이면 모든 coefficient column에 pivot이 있으므로 free variable이 없다. 이는 $\ker(L_A)=\{0\}$인 것과 동치이며, $Ax=b$는 solution을 가질 때 유일하다.
 - $r=m$이면 모든 row에 pivot이 있으므로 $\mathcal C(A)=\mathbb F^m$이다. 따라서 모든 $b\in\mathbb F^m$에 대해 $Ax=b$가 적어도 하나의 solution을 갖는다.
-- [Rank-nullity theorem](<12 Image.md>)에 의해 $\dim\ker(L_A)=n-r$이므로 free variable의 개수와 kernel의 dimension이 일치한다.
+- [Rank-nullity theorem](<../02 Linear Maps and Isomorphisms/12 Image.md>)에 의해 $\dim\ker(L_A)=n-r$이므로 free variable의 개수와 kernel의 dimension이 일치한다.
 
 특히 square matrix $A\in\mathbb F^{n\times n}$에 대해서는 다음 조건들이 동치다.
 
@@ -342,17 +342,17 @@ A\text{ is invertible}
 \end{aligned}
 $$
 
-이 동치들은 [Change of Basis and Coordinate Matrix](<23 Change of Basis and Coordinate Matrix.md>)에서 invertible matrix의 column들이 basis를 이룬다는 사실과 [Eigenvector & Eigenvalue & EigenSpace](<24 Eigenvector & Eigenvalue & EigenSpace.md>)에서 homogeneous system이 nonzero solution을 갖는 조건을 해석하는 데 사용된다.
+이 동치들은 [Change of Basis and Coordinate Matrix](<../03 Matrix Representation and Eigenstructure/23 Change of Basis and Coordinate Matrix.md>)에서 invertible matrix의 column들이 basis를 이룬다는 사실과 [Eigenvector & Eigenvalue & EigenSpace](<../03 Matrix Representation and Eigenstructure/24 Eigenvector & Eigenvalue & EigenSpace.md>)에서 homogeneous system이 nonzero solution을 갖는 조건을 해석하는 데 사용된다.
 
 ## 아직 결합하지 않은 네 공간
 
-이제 $\mathcal C(A)$, $\operatorname{Row}(A)=\mathcal C(A^{\mathsf T})$, $\ker(L_A)$, $\ker(L_{A^{\mathsf T}})$라는 네 subspace를 정의할 수 있다. 그러나 어떤 공간들이 서로 orthogonal complement인지 설명하려면 inner product와 orthogonal complement가 필요하다. 이 관계는 해당 개념을 학습한 뒤 [Four Fundamental Subspaces](<36 Four Fundamental Subspaces.md>)에서 다룬다.
+이제 $\mathcal C(A)$, $\operatorname{Row}(A)=\mathcal C(A^{\mathsf T})$, $\ker(L_A)$, $\ker(L_{A^{\mathsf T}})$라는 네 subspace를 정의할 수 있다. 그러나 어떤 공간들이 서로 orthogonal complement인지 설명하려면 inner product와 orthogonal complement가 필요하다. 이 관계는 해당 개념을 학습한 뒤 [Four Fundamental Subspaces](<../06 Matrix Subspaces and Approximation/36 Four Fundamental Subspaces.md>)에서 다룬다.
 
 ## 관련 문서
 
-- [Span](<03 Span.md>)
-- [Kernel](<11 Kernel.md>)
-- [Image](<12 Image.md>)
-- [Matrix Representation](<20 Matrix Representation.md>)
+- [Span](<../01 Vector Space Structure/03 Span.md>)
+- [Kernel](<../02 Linear Maps and Isomorphisms/11 Kernel.md>)
+- [Image](<../02 Linear Maps and Isomorphisms/12 Image.md>)
+- [Matrix Representation](<../03 Matrix Representation and Eigenstructure/20 Matrix Representation.md>)
 - [Linear Systems and Row Reduction](<21 Linear Systems and Row Reduction.md>)
-- [Four Fundamental Subspaces](<36 Four Fundamental Subspaces.md>)
+- [Four Fundamental Subspaces](<../06 Matrix Subspaces and Approximation/36 Four Fundamental Subspaces.md>)

@@ -264,7 +264,7 @@ Deployment에서 필요한 것이 global map pose라면 evaluator의 post-hoc al
 - [Pose Trajectory Coordinate, Time and Alignment](<./01 Pose Trajectory Coordinate Time and Alignment.md>)
 - [Rigid Transformation and SE(3)](<../../01 math/08 Geometry/23 Rigid Transformation and SE(3).md>)
 - [Rigid Point Set Alignment with Kabsch and Umeyama](<../../01 math/08 Geometry/24 Rigid Point Set Alignment with Kabsch and Umeyama.md>)
-- [Least Squares Problem](<../../01 math/07 Linear Algebra/38 Least Squares Problem.md>)
+- [Least Squares Problem](<../../01 math/07 Linear Algebra/06 Matrix Subspaces and Approximation/38 Least Squares Problem.md>)
 
 ## References
 

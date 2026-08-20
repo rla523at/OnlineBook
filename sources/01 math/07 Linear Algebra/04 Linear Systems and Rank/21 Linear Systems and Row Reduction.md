@@ -231,7 +231,7 @@ $$
 
 을 `homogeneous linear system`이라고 한다. Homogeneous system은 항상 trivial solution $x=0$을 갖는다. Free variable이 존재하면 이를 nonzero로 선택하여 nontrivial solution도 만들 수 있다.
 
-Matrix가 정의하는 linear map $L_A:x\mapsto Ax$를 생각하면 homogeneous system의 solution set은 [Kernel](<11 Kernel.md>)이다.
+Matrix가 정의하는 linear map $L_A:x\mapsto Ax$를 생각하면 homogeneous system의 solution set은 [Kernel](<../02 Linear Maps and Isomorphisms/11 Kernel.md>)이다.
 
 $$
 \ker(L_A)
@@ -261,8 +261,8 @@ Row reduction은 주어진 $b$에 대해 system이 consistent한지 판정한다
 
 ## 관련 문서
 
-- [Kernel](<11 Kernel.md>)
-- [Image](<12 Image.md>)
-- [Matrix Representation](<20 Matrix Representation.md>)
+- [Kernel](<../02 Linear Maps and Isomorphisms/11 Kernel.md>)
+- [Image](<../02 Linear Maps and Isomorphisms/12 Image.md>)
+- [Matrix Representation](<../03 Matrix Representation and Eigenstructure/20 Matrix Representation.md>)
 - [Column Space, Row Space, and Rank](<22 Column Space, Row Space, and Rank.md>)
-- [Eigenvector & Eigenvalue & EigenSpace](<24 Eigenvector & Eigenvalue & EigenSpace.md>)
+- [Eigenvector & Eigenvalue & EigenSpace](<../03 Matrix Representation and Eigenstructure/24 Eigenvector & Eigenvalue & EigenSpace.md>)

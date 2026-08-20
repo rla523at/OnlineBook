@@ -118,4 +118,4 @@ $z$-direction의 변화는 output에 나타나지 않으며 $\operatorname{nulli
 
 - [Linear Map](<10 Linear Map.md>)
 - [Image](<12 Image.md>)
-- [Linear Systems and Row Reduction](<21 Linear Systems and Row Reduction.md>)
+- [Linear Systems and Row Reduction](<../04 Linear Systems and Rank/21 Linear Systems and Row Reduction.md>)
