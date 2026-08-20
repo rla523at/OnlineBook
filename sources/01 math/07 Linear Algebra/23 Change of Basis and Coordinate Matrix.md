@@ -1,269 +1,384 @@
 # Change of Basis and Coordinate Matrix
-## Change of Basis(Motivation)
-$n$차원 벡터공간 $V/ \mathbb F$와 두 기저 $\beta, \gamma$가 있다고 하자.
 
-$\gamma_i \in V$이기 때문에 $\beta$로 $\gamma_i$를 표현하면 유일한 계수들 $B_{ji}, \enspace j = 1, \cdots, n$로 표현된다.
+## 한 줄 요약
 
-$$ \gamma_i = B_{ji} \beta_j $$
+Coordinate change matrix $P_{\beta\leftarrow\gamma}$는 같은 vector의 $\gamma$-coordinate를 $\beta$-coordinate로 바꾸며, 같은 linear map의 두 square matrix representation을 similarity relation으로 연결한다.
 
-이를 행렬형태로 나타내면 다음과 같다.
+## Why the Direction Must Be Explicit
 
-$$ \begin{bmatrix} \gamma_1 & \cdots & \gamma_n \end{bmatrix} = \begin{bmatrix} \beta_1 & \cdots & \beta_n \end{bmatrix} \begin{bmatrix} B_{11} & \cdots & B_{1n} \\ \vdots&&\vdots \\ B_{n1} & \cdots & B_{nn} \end{bmatrix} $$
-
-이는 행렬 $B$에 의해 $\beta$가 $\gamma$로 변환되고 있다고 볼 수 있다.
-
-그리고 $B$의 $i$ column은 $[\gamma_i]_\beta$임으로 $B = [id]^\beta_\gamma$이다.
-
-## Change of Basis(Definition)
-$n$차원 벡터공간 $V/ \mathbb F$와 두 기저 $\beta, \gamma$가 있다고 하자.
-
-$V$위의 $\beta$에서 $\gamma$로 변환하는 `기저 변환 행렬(change of basis matrix)` $B$를 다음과 같이 정의한다.
-
-$$ B := [id]^\beta_\gamma $$
-
-### 명제1
-$n$차원 vector space $V/\F$와 기저 $\beta, \gamma$가 있다고 하자.
-
-이 때, 다음을 증명하여라.
-
-$$ ([id]_\gamma^\beta)^{-1} = [id]_\beta^\gamma  $$
-
-**Proof**
-
-linear map의 matrix representation의 성질에 의해 다음이 성립한다.
-
-$$ 
-\begin{gather*} 
-[id\circ id]^\beta_\beta = [id]^\beta_\gamma[id]^\gamma_\beta = I_n \\ 
-[id\circ id]^\gamma_\gamma = [id]^\gamma_\beta[id]^\beta_\gamma = I_n  
-\end{gather*} 
-$$
-
-따라서, $[id]^\beta_\gamma$와 $[id]^\gamma_\beta$는 역행렬 관계에 있다. $\qed$
-
-#### 참고1
-1. 모든 change of basis matrix는 invertible matrix이다.
-2. $\beta$를 $\gamma$로 바꾸는 change of basis matrix와 $\gamma$를 $\beta$로 바꾸는 change of basis matrix는 역행렬 관계를 갖는다.
-
-#### 참고2
-$\R^n$ 에서 임의의 basis $\beta,\gamma$ 가 주어졌을 때, change of basis matrix 를 구체적으로 계산하는 방법을 생각해보자.
-
-$[id]^\beta_\gamma = [ [\gamma_1]_\beta, \cdots, [\gamma_n]_\beta]$ 인데 $[\gamma_i]_\beta$ 를 구하는게 쉽지 않다. 따라서, 다음과 같이 우회한다.
-
-$$ [id]^\beta_\gamma = [id \circ id]^\beta_\gamma = [id]^\beta_\epsilon[id]^\epsilon_\gamma = ([id]^\epsilon_\beta)^{-1}[id]^\epsilon_\gamma $$
-
-$[id]^\epsilon_{\beta,\gamma}$ 는 쉽게 계산할 수 있음으로 chagne of basis matrix 또한 쉽게 계산할 수 있다.
-
-### 명제2
-다음을 증명하여라.
-
-$$ \text{Every invertible matrix is a change of basis matrix of } \F^n $$
-
-**Proof**
-
-임의의 가역행렬을 $A \in M_{n \times n}(\F)$라 하자.
-
-$A$의 $i$ column을 $A_{*i}$라고 하자. [Column Space, Row Space, and Rank](<22 Column Space, Row Space, and Rank.md>)에서 확인했듯이 $A$가 invertible이면 $\operatorname{rank}(A)=n$이고 $\mathcal C(A)=\mathbb F^n$이므로 $\beta=[A_{*1},\cdots,A_{*n}]$은 $\mathbb F^n$의 basis다.
-
-그러면 $A = [id]_\beta^{\epsilon}$이다. 즉, $A$는 $\epsilon$을 $\beta$로 바꿔주는 change of basis matrix이다. $\qed$
-
-#### 보조정리
-임의의 가역행렬을 $A \in M_{n \times n}(\F)$라 하자.
-
-$A$의 column의 집합을 $\beta$라고 할 때, 다음을 증명하여라.
-
-$$ \beta \text{ is a basis of } \F^n $$
-
-**Proof**
-
-$\beta$가 $n$개의 element를 갖음으로, $\beta$가 linearly independent set임만 보이면 된다.
-
-$A$의 $i$번째 column을 $A_{*i}$라고 할 때, 어떤 $a_i \in \F$에 대해서 다음이 성립한다고 하자.
-
-$$ a_iA_{*i} = 0_{\F^n} $$
-
-이를 행렬 형태로 다시 쓰면 다음과 같다.
-
-$$ \begin{bmatrix} A_{*1} & \cdots & A_{*n} \end{bmatrix} \begin{bmatrix} a_1 \\ \vdots \\ a_n \end{bmatrix} = \begin{bmatrix} 0_\F \\ \vdots \\ 0_\F \end{bmatrix} $$
-
-이 식은 homogeneous linear system이다. $A$가 invertible이면 $\ker(L_A)=\{0\}$이므로 다음이 성립한다.
-
-$$ a_i = 0_\F $$
-
-따라서, $\beta$는 linearly independet set임으로 $\F^n$의 basis이다. $\qed$
-
-> Reference  
-> [math.stackexchange](https://math.stackexchange.com/questions/1058555/do-the-columns-of-an-invertible-n-times-n-matrix-form-a-basis-for-mathbb-r)
-
-## Change of Coordinate(Motivation)
-$n$차원 벡터공간 $V/ \mathbb F$와 두 기저 $\beta, \gamma$가 있다고 하자.
-
-$V$의 임의의 element를 $v$를  $v = a^i \beta_i = b^i \gamma_i$라 하자.
-
-$\beta$를 $\gamma$로 바꾸는 change of basis matrix를 $B$라고 하면 다음이 성립한다.
-
-$$ b^i\gamma_i = b^iB_{ji}\beta_j \implies a^i = B_{ij} b^j $$
-
-이를 행렬 형태로 나타내면 다음과 같다.
-
-$$ \begin{bmatrix} a_1 \\ \vdots \\ a_n \end{bmatrix} = B \begin{bmatrix} b_1 \\ \vdots \\ b_n \end{bmatrix} \implies \begin{bmatrix} b_1 \\ \vdots \\ b_n \end{bmatrix} = B^{-1} \begin{bmatrix} a_1 \\ \vdots \\ a_n \end{bmatrix} $$
-
-이는 행렬 $B^{-1}$에 의해 $\beta$에 의한 좌표가 $\gamma$에 의한 좌표로 변환된다고 볼 수 있다.
-
-그리고 $\beta \rightarrow \gamma$일 때, $B = [id]^\beta_\gamma$임으로  $B^{-1} = [id]^\gamma_\beta$이다.
-
-## Change of Coordinate(Definition)
-$n$차원 벡터공간 $V/ \mathbb F$와 두 기저 $\beta, \gamma$가 있다고 하자.
-
-$V$의 임의의 element를 $v$라고 할 때, $[v]_\beta$를 $[v] _\gamma$로 변환시켜주는 `좌표 변환 행렬(change of coordinate matrix)` $C$를 다음과 같이 정의한다.
-
-$$ C:= [id]^\gamma_\beta $$
-
-그리고 $[v]_\beta$와 $[v]_\gamma$ 그리고 $C$는 다음 관계를 만족한다.
-
-$$ [v]_\gamma = C [v]_\beta  $$
-
-## Similar(Motivation)
-$n$차원 벡터공간 $V/ \mathbb F$와 $V$의 임의의 element를 $v$가 있다고 하자.
-
-$v = id(v)$임으로 $V$의 임의의 두 기저를 $\beta, \gamma$라고 할 때, linear map의 matrix representation에 의해 다음이 성립한다.
-
-$$ [v]_\gamma = [id]^\gamma_\beta[v]_\beta $$
-
-즉, 동일한 vector의 matrix representation간에 어떤 관계를 맺는지 알려준다.
-
-그렇다면 $T \in \End(V)$가 있을 때, 위와 비슷한 방식으로 동일한 linear map의 matrix representation간에 어떤 관계를 맺는 지 살펴보자.
-
-$T = id \circ T \circ id$임으로, linear map의 matrix representation에 의해 다음이 성립한다.
-
-$$ [T]^\gamma_\gamma = [id]^\gamma_\beta[T]^\beta_\beta[id]^\beta_\gamma $$
-
-$\beta \rightarrow \gamma$일 때, change of basis matrix $B = [id]^\beta_\gamma$임으로 다음이 성립한다.
-
-$$ [T]^\gamma_\gamma = B^{-1}[T]^\beta_\beta B $$
-
-$[T]^\gamma_\gamma$와 $[T]^\beta_\beta$는 서로 다른 matrix이지만, $T$라는 동일한 linear map을 표현하는 matrix representation이라는 공통점을 가지고 있다. 따라서, 두 matrix는 완전히 같지는 않지만 $T$를 표현하는 matrix라는 점에서 닮아 있다.
-
-## Similar(Defintion)
-$M,N \in M_{nn}(\F)$가 있다고 하자.
-
-이 때, 다음이 성립하는 경우 $M$과 $N$이 서로 `닮았다(similar)`라고 하고 $M \sim N$라고 표기한다.
-
-$$ \exist B \in M_{nn}(\F) \st M = B^{-1}NB  $$
-
-### 참고
-$M,N$이 어떤 linear map의 두 기저에 대한 matrix representation이라고 할 때, $\exist B \in M_{nn}(\F) \st M = B^{-1}NB$가 성립하는지보자. 두 기저 사이의 change of basis matrix $B$가 존재하고 motivation에서 $M = B^{-1}NB$를 만족한다는 것을 보았다. 따라서, $\exist B \in M_{nn}(\F) \st M = B^{-1}NB$가 성립한다.
-
-이번에는 반대로 $\exist B \in M_{nn}(\F) \st M = B^{-1}NB$일 때, $M,N$이 어떤 linear map의 두 기저에 대한 matrix representation인지 보자. 모든 invertible matrix는 change of basis matrix임으로, $\beta \rightarrow \gamma$ change of basis matrix가 $B$가 되게 하는 $\beta,\gamma$를 임의로 결정하자. 그리고 $N = [T]_\beta^\beta$가 되게 $T$를 결정하면 $M = B^{-1}NB = [id]^\gamma_\beta[T]^\beta_\beta[id]^\beta_\gamma = [T]_\gamma^\gamma$가 된다. 따라서, $M,N$은 $T$의 서로다른 기저에서의 matrix representation이 됨을 볼 수 있다.
-
-### 명제1
-$M,N \in M_{nn}(\F)$가 있을 때, 다음을 증명하여라.
-
-$$ M \sim N \iff \exist \beta \quad s.t. \quad [L_N]^\beta_\beta = M $$
-
-**Proof**
-
-[$\implies$]  
-전제에 의해 다음이 성립한다.
-
-$$ \exist B \in M_{n\times n}(\F) \st M = B^{-1}NB $$
-
-$B$의 $i$ column을 $B_{*i}$라고 할 때, $\beta = \Set{B_{*1}, \cdots, B_{*n}}$라고 하면 다음이 성립한다.
-
-$$ B = [id]^\epsilon_\beta $$
-
-따라서, 다음이 성립한다.
-
-$$ [L_N]_\beta^\beta = [id]^\beta_\epsilon [L_N]_\epsilon^\epsilon [id]^\epsilon_\beta = B^{-1}NB = M \qed $$
-
-[$\impliedby$]  
-$$ 
-\begin{align*}  
-M &= [L_N]^\beta_\beta \\ 
-& = [id_V]^\beta_\epsilon [L_N]^\epsilon_\epsilon [id_V]_\beta^\epsilon \\ 
-&= B^{-1}NB \qed  
-\end{align*} 
-$$
-
-### 명제2
-$M,N \in M_{nn}(\F)$가 있을 때, $M \sim N$라 하자.
-
-이 때, 다음을 증명하여라.
-
-$$ \det(M) = \det(N) $$
-
-**Proof**
-
-$\det(AB) = \det(BA)$ 임으로 다음이 성립한다.
-
-$$ \det(M) = \det(B^{-1}NB) = \det(B^{-1})\det(N)\det(B) = \det({B^{-1}B})\det(N) = \det(N) \qed $$
-
-### 명제3
-$M,N \in M_{nn}(\F)$가 있을 때, $M \sim N$라 하자.
-
-이 때, 다음을 증명하여라.
-
-$$ \tr(M) = \tr(N) $$
-
-**Proof**
-
-$\tr(AB) = \tr(BA)$ 임으로 다음이 성립한다.
-
-$$ \tr(M) = \tr(B^{-1}NB) = \tr(BB^{-1}N) = \tr(N) \qed  $$
-
-### 명제4
-$M,N \in M_{nn}(\F)$가 있을 때, $M \sim N$라 하자.
-
-이 때, 다음을 증명하여라.
-
-$$ \tr(M^2) = \tr(N^2) $$
-
-**Proof**
-
-$$ \tr(M^2) = \tr(B^{-1}NBB^{-1}NB) = \tr(B^{-1}N^2B) = \tr(N^2)  \qed  $$
-
-### 명제5
-$M,N \in M_{nn}(\F)$가 있을 때, $M \sim N$라 하자.
-
-$c_1,c_2 \in \F$에 대해, 다음을 증명하여라.
-
-$$ c_1M + c_2I \sim c_1N + c_2I $$
-
-**Proof**
-
-$M \sim N$이기 때문에 다음을 만족하는 $B \in M_{nn}(\F)$가 존재한다.
-
-$$ M = B^{-1}NB $$
-
-따라서, 다음이 성립한다.
+$n$-dimensional vector space $V/\F$의 두 ordered bases를
 
 $$
-\begin{align*} 
-B^{-1}(c_1N + c_2I)B &= c_1B^{-1}NB + c_2I \\
-&= c_1M + c_2I \qed 
-\end{align*} 
+\beta=(\beta_1,\ldots,\beta_n),
+\qquad
+\gamma=(\gamma_1,\ldots,\gamma_n)
 $$
 
-#### 따름명제
-$X_m = \tr(X) / 3$로 정의할 떄, 다음을 증명하여라.
+이라고 하자. 같은 vector $v\in V$라도
 
-$$ (M - M_mI) \sim (N - N_m I) $$
+$$
+v
+=
+\sum_{i=1}^n a_i\beta_i
+=
+\sum_{j=1}^n b_j\gamma_j
+$$
+
+이므로 coordinate columns $[v]_\beta$와 $[v]_\gamma$는 일반적으로 다르다.
+
+각 $\gamma_j$를 $\beta$로 표현하면
+
+$$
+\gamma_j
+=
+\sum_{i=1}^n P_{ij}\beta_i.
+$$
+
+이를 $v=\sum_jb_j\gamma_j$에 대입하면
+
+$$
+\begin{aligned}
+v
+&=
+\sum_{j=1}^n b_j
+\sum_{i=1}^nP_{ij}\beta_i\\
+&=
+\sum_{i=1}^n
+\left(
+\sum_{j=1}^nP_{ij}b_j
+\right)\beta_i.
+\end{aligned}
+$$
+
+따라서
+
+$$
+[v]_\beta
+=
+P[v]_\gamma.
+$$
+
+같은 matrix가 $\gamma$ basis vector들을 $\beta$ basis로 표현하는 coefficient를 기록하면서, coordinate column은 반대쪽인 $\gamma$-coordinate에서 $\beta$-coordinate로 보낸다. “$\beta$에서 $\gamma$로 기저를 바꾼다”라는 말만으로는 이 두 관점의 방향을 혼동하기 쉽다. 이 문서에서는 coordinate의 입력과 출력을 화살표로 직접 표시한다.
+
+## Coordinate Change Matrix
+
+### Definition
+
+$\gamma$-coordinate를 $\beta$-coordinate로 바꾸는 `coordinate change matrix`를
+
+$$
+P_{\beta\leftarrow\gamma}
+:=
+[id_V]_\gamma^\beta
+=
+\begin{bmatrix}
+[\gamma_1]_\beta
+&
+\cdots
+&
+[\gamma_n]_\beta
+\end{bmatrix}
+$$
+
+로 정의한다. 이 matrix를 두 bases 사이의 `change-of-basis matrix`라고도 한다.
+
+Matrix representation의 fundamental coordinate equation에 identity map을 적용하면 모든 $v\in V$에 대해
+
+$$
+\boxed{
+[v]_\beta
+=
+P_{\beta\leftarrow\gamma}[v]_\gamma
+}
+$$
+
+를 얻는다. Basis vector들을 형식적으로 나란히 놓으면 같은 coefficient relation을
+
+$$
+\begin{bmatrix}
+\gamma_1&\cdots&\gamma_n
+\end{bmatrix}
+=
+\begin{bmatrix}
+\beta_1&\cdots&\beta_n
+\end{bmatrix}
+P_{\beta\leftarrow\gamma}
+$$
+
+로 쓸 수 있다.
+
+## Example
+
+$\R^2$에서
+
+$$
+\beta=(e_1,e_2),
+\qquad
+\gamma=(e_1+e_2,e_2)
+$$
+
+라고 하자. $\gamma$ basis vector들의 $\beta$-coordinate를 column으로 모으면
+
+$$
+P_{\beta\leftarrow\gamma}
+=
+\begin{bmatrix}
+1&0\\
+1&1
+\end{bmatrix}.
+$$
+
+Vector $v=e_1+2e_2$는
+
+$$
+[v]_\beta
+=
+\begin{bmatrix}
+1\\
+2
+\end{bmatrix},
+\qquad
+[v]_\gamma
+=
+\begin{bmatrix}
+1\\
+1
+\end{bmatrix}
+$$
+
+이고 실제로
+
+$$
+\begin{bmatrix}
+1&0\\
+1&1
+\end{bmatrix}
+\begin{bmatrix}
+1\\
+1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1\\
+2
+\end{bmatrix}.
+$$
+
+따라서 subscript의 화살표는 basis vector가 아니라 coordinate column이 이동하는 방향을 나타낸다.
+
+## Inverse and Composition
+
+### 정리1
+
+$$
+P_{\gamma\leftarrow\beta}
+=
+P_{\beta\leftarrow\gamma}^{-1}.
+$$
 
 **Proof**
 
-$M \sim N$이기 때문에 다음이 성립한다.
+모든 $v\in V$에 대해
 
-$$ M_m = N_m = k $$
+$$
+[v]_\beta
+=
+P_{\beta\leftarrow\gamma}[v]_\gamma,
+\qquad
+[v]_\gamma
+=
+P_{\gamma\leftarrow\beta}[v]_\beta.
+$$
 
-따라서, 명제5에 의해 성립한다. $\qed$
+두 식을 합성하면
 
-즉, 동일한 linear map의 matrix representation간에는 위와 같은 관계가 성립한다.
+$$
+[v]_\beta
+=
+P_{\beta\leftarrow\gamma}
+P_{\gamma\leftarrow\beta}
+[v]_\beta.
+$$
+
+모든 column $[v]_\beta\in\F^n$에 대해 성립하므로
+
+$$
+P_{\beta\leftarrow\gamma}
+P_{\gamma\leftarrow\beta}
+=
+I_n.
+$$
+
+반대 순서도 같은 방식으로 identity이므로 두 matrix는 서로 inverse다. $\qed$
+
+세 번째 basis $\alpha$가 있으면 coordinate change를 두 단계로 합성할 수 있다.
+
+$$
+\boxed{
+P_{\alpha\leftarrow\gamma}
+=
+P_{\alpha\leftarrow\beta}
+P_{\beta\leftarrow\gamma}
+}
+$$
+
+오른쪽 matrix가 먼저 작용하므로 $\gamma$-coordinate를 $\beta$-coordinate로 바꾼 뒤 $\alpha$-coordinate로 바꾼다.
+
+## Every Invertible Matrix Is a Coordinate Change Matrix
+
+### 정리2
+
+모든 invertible matrix $A\in\F^{n\times n}$는 $\F^n$의 두 bases 사이의 coordinate change matrix다.
+
+**Proof**
+
+$\epsilon$을 $\F^n$의 standard basis라고 하고 $A$의 columns를
+
+$$
+\gamma=(a_1,\ldots,a_n)
+$$
+
+이라고 하자. $A$가 invertible이므로 columns는 linearly independent한 $n$개의 vector이고 $\gamma$는 basis다. Definition에 의해
+
+$$
+P_{\epsilon\leftarrow\gamma}
+=
+\begin{bmatrix}
+[a_1]_\epsilon&\cdots&[a_n]_\epsilon
+\end{bmatrix}
+=
+A.
+\qed
+$$
+
+## The Same Linear Map in Two Bases
+
+$T\in\operatorname{End}(V)$의 두 matrix representations를
+
+$$
+A_\beta:=[T]_\beta^\beta,
+\qquad
+A_\gamma:=[T]_\gamma^\gamma
+$$
+
+라고 하고
+
+$$
+P:=P_{\beta\leftarrow\gamma}
+$$
+
+라고 하자. 같은 input $v$에 대해 $\beta$-coordinate로 먼저 바꾸어 $T$를 적용하면
+
+$$
+[T(v)]_\beta
+=
+A_\beta P[v]_\gamma.
+$$
+
+반대로 $\gamma$-coordinate에서 $T$를 적용한 뒤 $\beta$-coordinate로 바꾸면
+
+$$
+[T(v)]_\beta
+=
+P A_\gamma[v]_\gamma.
+$$
+
+모든 $[v]_\gamma$에 대해 두 결과가 같으므로
+
+$$
+A_\beta P=PA_\gamma.
+$$
+
+$P$는 invertible이므로
+
+$$
+\boxed{
+A_\gamma
+=
+P^{-1}A_\beta P
+}
+$$
+
+를 얻는다. Basis가 바뀌면 matrix entry는 달라지지만 underlying linear map $T$는 같다.
+
+## Similar Matrices
+
+Square matrices $A,B\in\F^{n\times n}$에 대해 어떤 invertible matrix $P$가 존재하여
+
+$$
+B=P^{-1}AP
+$$
+
+이면 $A$와 $B$가 `similar`하다고 하고
+
+$$
+A\sim B
+$$
+
+라고 쓴다.
+
+같은 endomorphism을 서로 다른 bases에서 나타낸 두 matrix는 similar하다. 반대로 $B=P^{-1}AP$이면 정리2에 의해 $P$를 coordinate change matrix로 해석할 수 있으므로 $A$와 $B$를 같은 linear map의 두 basis representations로 볼 수 있다.
+
+## Similarity Invariants
+
+Similar matrices $B=P^{-1}AP$는 다음 값을 공유한다.
+
+$$
+\det B
+=
+\det(P^{-1})\det(A)\det(P)
+=
+\det A,
+$$
+
+$$
+\operatorname{tr}B
+=
+\operatorname{tr}(P^{-1}AP)
+=
+\operatorname{tr}(APP^{-1})
+=
+\operatorname{tr}A.
+$$
+
+Characteristic polynomial을
+
+$$
+\chi_A(t):=\det(tI-A)
+$$
+
+로 정의하면
+
+$$
+\begin{aligned}
+\chi_B(t)
+&=
+\det(tI-P^{-1}AP)\\
+&=
+\det\left(P^{-1}(tI-A)P\right)\\
+&=
+\chi_A(t).
+\end{aligned}
+$$
+
+따라서 finite-dimensional endomorphism $T$에 대해 임의의 basis $\beta$를 선택하여
+
+$$
+\det T:=\det([T]_\beta^\beta),
+$$
+
+$$
+\operatorname{tr}T:=\operatorname{tr}([T]_\beta^\beta),
+$$
+
+$$
+\chi_T(t):=\det\left(tI-[T]_\beta^\beta\right)
+$$
+
+로 정의해도 값은 basis 선택에 의존하지 않는다.
 
 ## 관련 문서
 
+- [Coordinate](<06 Coordinate.md>)
 - [Matrix Representation](<20 Matrix Representation.md>)
-- [Linear Systems and Row Reduction](<21 Linear Systems and Row Reduction.md>)
-- [Column Space, Row Space, and Rank](<22 Column Space, Row Space, and Rank.md>)
 - [Eigenvector & Eigenvalue & EigenSpace](<24 Eigenvector & Eigenvalue & EigenSpace.md>)
-
-

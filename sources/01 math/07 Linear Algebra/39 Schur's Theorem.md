@@ -106,9 +106,7 @@ $$
 
 **Proof**
 
-Dimension $n$에 대한 induction을 사용한다.
-
-$n=1$이면 모든 $1\times1$ matrix가 upper triangular이므로 정리가 성립한다.
+Dimension $n$에 대한 induction을 사용한다. $n=1$이면 모든 $1\times1$ matrix가 upper triangular이므로 정리가 성립한다.
 
 이제 dimension이 $n-1$ 이하인 경우 정리가 성립한다고 가정하고 $\dim V=n$이라고 하자. $\chi_T$가 split되므로 앞의 논의에 의해 $\chi_{T^*}$도 split된다. 따라서 $T^*$의 unit eigenvector $v$와 scalar $\overline\lambda\in\F$를 다음과 같이 선택할 수 있다.
 

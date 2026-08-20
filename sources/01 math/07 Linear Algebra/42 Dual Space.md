@@ -18,9 +18,7 @@ $$
 v=a_1\beta_1+\cdots+a_n\beta_n
 $$
 
-라고 썼을 때 $v\mapsto a_i$는 vector에서 $i$번째 coordinate를 추출한다. 이 함수는 vector addition과 scalar multiplication을 보존한다.
-
-이처럼 vector를 scalar로 보내면서 linear structure를 보존하는 함수를 linear functional이라고 한다. Linear functional들을 다시 addition과 scalar multiplication이 가능한 하나의 vector space로 모은 것이 dual space다.
+라고 썼을 때 $v\mapsto a_i$는 vector에서 $i$번째 coordinate를 추출한다. 이 함수는 vector addition과 scalar multiplication을 보존한다. 이처럼 vector를 scalar로 보내면서 linear structure를 보존하는 함수를 linear functional이라고 한다. Linear functional들을 다시 addition과 scalar multiplication이 가능한 하나의 vector space로 모은 것이 dual space다.
 
 ## Dual Space
 

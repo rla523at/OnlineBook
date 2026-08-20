@@ -1,102 +1,134 @@
 # Vector Space Isomorphism
-## 정의
-vetor space $V,W/\F$과 $\Phi \in L(V;W)$가 있다고 하자.
 
-$\Phi^{-1}:W \rightarrow V \in L(W;V)$면 $\Phi$를 `벡터 공간 동형 사상(vector space isomorphism)`이라고 한다.
+## 한 줄 요약
 
-### 명제1  
-유한 차원 벡터 공간 $V,W/\F$와 $\Phi \in L(V,W)$가 있을 때 다음을 증명하여라.  
+Vector space isomorphism은 linear structure를 보존하는 bijection이며, finite-dimensional vector spaces는 field가 같을 때 dimension만으로 isomorphism 여부가 결정된다.
 
-$$\Phi \text{ is bijective} \iff \Phi \text{ is a vectorspace isomorphism }$$
+## Motivation
 
-**Proof**  
+두 vector spaces의 element 모양이 달라도 addition과 scalar multiplication의 구조가 같을 수 있다. 예를 들어 degree가 $n-1$ 이하인 polynomial과 $\F^n$의 column은 서로 다른 대상이지만, polynomial coefficient를 column으로 보내면 linear combination의 규칙이 그대로 보존된다. 이처럼 element를 빠짐없이 일대일로 대응시키면서 linear structure를 보존하는 map이 있으면 두 vector space를 같은 linear-algebraic 구조로 다룰 수 있다.
 
-[$\implies$]  
-$W$의 임의의 element를 $w_1,w_2$라고 하자.
+## Definition
 
-그러면 전제에 의해 다음이 성립한다.
+Vector spaces $V,W/\F$ 사이의 bijective linear map
 
-$$ \exist! v_1,v_2 \in V \st \Phi^{-1}(w_1)=v_1, \Phi^{-1}(w_2)=v_2 $$
+$$
+\Phi:V\rightarrow W
+$$
 
-이 때, $\Phi$는 linear map임으로 다음이 성립한다.
+를 `vector space isomorphism`이라고 한다. 이러한 map이 존재하면 $V$와 $W$가 `isomorphic`하다고 하고
 
-$$\begin{aligned} \Phi(av_1 + v_2) &= a\Phi(v_1) + \Phi(v_2) \\&=  aw_1 + w_2 \end{aligned} $$
+$$
+V\cong W
+$$
 
-따라서, 다음이 성립한다.
+라고 쓴다.
 
-$$ \Phi^{-1}(aw_1+w_2) = av_1 +v_2 = a\Phi^{-1}(w_1) + \Phi^{-1}(w_2) $$
+## The Inverse Is Linear
 
-$\Phi^{-1}\in(L(W;V)$임으로 다음이 성립한다.
+### 정리1
 
-$$\Phi \text{ is a vectorspace isomorphism} \qed $$
+Bijective linear map $\Phi:V\rightarrow W$의 inverse
 
-[$\impliedby$]  
-정의에 의해 자명하다. $\qed$
+$$
+\Phi^{-1}:W\rightarrow V
+$$
 
-### 명제2
-$n$차원 vector space $V,W/\F$와 vector space isomorphism $f$가 있다고 하자.
+도 linear하다.
 
-$V$의 기저 $\beta = \{ \beta_1, \cdots, \beta_n \}$가 있을 때, 다음을 증명하여라.
+**Proof**
 
-$$ f(\beta) :=  \{ \Phi(\beta_1),\cdots,\Phi(\beta_n) \} \text { is a basis of } W$$
+$w_1,w_2\in W$와 $a,b\in\F$를 잡고 $v_i:=\Phi^{-1}(w_i)$라고 하자. Linearity에 의해
 
-**Proof**  
+$$
+\Phi(av_1+bv_2)
+=
+a\Phi(v_1)+b\Phi(v_2)
+=
+aw_1+bw_2.
+$$
 
-$f$가 injective임으로 다음이 성립한다.
+$\Phi$가 bijective이므로 $aw_1+bw_2$의 unique preimage는 $av_1+bv_2$다. 따라서
 
-$$ \ker(T) = \Set{0_V} $$
+$$
+\Phi^{-1}(aw_1+bw_2)
+=
+a\Phi^{-1}(w_1)+b\Phi^{-1}(w_2).
+$$
 
-따라서, $\img(f)$의 성질에 의해 $f(\beta)$는 $\img(f)$의 basis이다.
+즉 $\Phi^{-1}$도 linear하다. $\qed$
 
-이 떄, $f$가 surjective임으로 다음이 성립한다.
+따라서 isomorphism은 양방향에서 linear structure를 보존한다.
 
-$$ W = \img(f) $$
+## Isomorphisms Send Bases to Bases
 
-따라서, 다음이 성립한다.
+### 정리2
 
-$$ f(\beta) \text { is a basis of } W \qed $$
+$\Phi:V\rightarrow W$가 isomorphism이고 $\beta$가 $V$의 basis이면
 
-## Vectorspace Isomorphic
-vector space $V,W/ \F$와 vector space isomorphism $\Phi:V \rightarrow W$가 있다고 하자.
+$$
+\Phi(\beta)
+:=
+\{\Phi(v)\mid v\in\beta\}
+$$
 
-이 떄, $V$와 $W$를 `벡터 공간 동형(vector space isomorphic)`이라고 하고 $V \overset{\Phi \;}{\cong} W$ 또는 $V \cong W$라고 표기한다.
+는 $W$의 basis다.
 
-### 명제1
-유한 차원 벡터 공간 $V,W/F$가 있을 때, 다음을 증명하여라.
+**Proof**
 
-$$V \cong W \iff \dim(V)=\dim(W)$$
+$\Phi$가 injective이므로 $\ker\Phi=\{0_V\}$이고, basis vector들의 image는 linearly independent하다. 또한 임의의 $w\in W$에 대해 surjectivity로 $w=\Phi(v)$인 $v\in V$가 존재한다. $v$를 $\beta$의 linear combination으로 쓰고 $\Phi$를 적용하면 $w$는 $\Phi(\beta)$의 linear combination이다. 따라서 $\Phi(\beta)$는 $W$를 span한다. $\qed$
 
-**Proof**  
+## Classification by Dimension
 
-[$\implies$]  
-전제에 의해 bijective linear map $T$가 존재한다.
+### 정리3
 
-$T$가 bijective임으로 다음이 성립한다.
+같은 field $\F$ 위의 finite-dimensional vector spaces $V,W$에 대해
 
-$$ \begin{gathered} \ker(T) = \Set{0_V} \\ \dim(V)=\dim(W) \end{gathered}  \qed $$
+$$
+V\cong W
+\iff
+\dim V=\dim W.
+$$
 
-[$\impliedby$]  
-$T \in L(V;W)$가 $\nullity(T) = 0$이면 전제에 의해 $T$는 bijective이고 따라서 $T$는 vector space isomorphism이고 $V,W$는 vector space isomorphic하다.
+**Proof**
 
-이 때, 중요한점은 $\nullity(T) = 0$를 만족하는 $T \in L(V;W)$가 존재하는지이다.
+$V\cong W$이면 정리2에 의해 $V$의 basis가 $W$의 basis로 bijectively 대응하므로 두 dimension이 같다.
 
-[one of example]  
-$\beta = \Set{\beta_1,\cdots,\beta_n}, \gamma= \Set{\gamma_1,\cdots,\gamma_n}$를 $V,W$의 basis라고 하자.
+반대로 $\dim V=\dim W=n$이라고 하자. Ordered bases
 
-이 떄, 함수 $T$를 다음과 같이 정의하자.
-$$T:V \rightarrow W \quad s.t \quad a^i\beta_i \mapsto a^i\gamma_i$$  
+$$
+\beta=(\beta_1,\ldots,\beta_n),
+\qquad
+\gamma=(\gamma_1,\ldots,\gamma_n)
+$$
 
--[$T \in L(V,W)$]  
-$v_1 = a^i\beta_i, v_2 = b^i\beta_i \in V, c \in F$에 대해,
+를 선택하고
 
-$$ \begin{aligned} T(cv_1+v_2) &= (ca^i + b^i)\gamma_i \\ &= ca^i\gamma_i + b^i\gamma_i \\ &= cT(v_1) + T(v_2) \qed \end{aligned} $$
+$$
+\Phi\left(\sum_{i=1}^n a_i\beta_i\right)
+:=
+\sum_{i=1}^n a_i\gamma_i
+$$
 
--[$\nullity(T) = 0$]  
-$\ker(T) = \{ 0_V \}$임으로 $\nullity(T) = 0$이다. $\qed$
+로 정의하자. Basis representation이 unique하므로 $\Phi$는 well-defined이고 linear하다. 임의의 $\gamma$-coordinate를 같은 $\beta$-coordinate에서 얻을 수 있으므로 surjective이고, $\Phi(v)=0_W$이면 모든 coordinate가 zero이므로 injective다. 따라서 $\Phi$는 isomorphism이다. $\qed$
 
-### Remark
-차원을 통해 Vector space를 분류할 수 있다. 즉, 차원이 같으면 벡터 공간 동형이고 차원이 다르면 벡터 공간 동형이 아닌 경우로 분류가 된다.
+특히 모든 $n$-dimensional vector space는
 
-벡터 공간 동형은 집합론적 관점에서 동치 관계를 만족한다. 따라서 분할을 갖게 되며 차원이 같은 경우에는 동일한 그룹으로 볼 수 있다는것을 의미한다.
+$$
+V\cong\F^n
+$$
 
-이 때, $\F^n = \F\times \cdots \times \F$은 $\dim(\F^n)=n$임으로 임의의 $n$ 차원 벡터 공간 $V$와 $V \cong \F^n$이다. 이를통해 매우 추상적인 벡터 공간 $V$와 실질적인 $\F^n$을 동일한 그룹으로 볼 수 있다. 그리고 이 관계를 통해 추상적인 $V$를 편하게 서술할 수 있는 관점을 제공 받는다.
+이다. Basis $\beta$가 정하는 coordinate map $v\mapsto[v]_\beta$가 구체적인 isomorphism을 준다.
+
+## Same Structure Does Not Mean Equal Objects
+
+$V\cong W$는 $V=W$라는 뜻이 아니다. Isomorphism은 두 공간의 element를 대응시켜 addition과 scalar multiplication에 관한 모든 관계를 보존하지만, element의 원래 의미나 집합 자체를 같게 만들지는 않는다.
+
+또한 $V\cong\F^n$인 구체적인 correspondence는 일반적으로 basis 선택에 의존한다. 서로 다른 basis는 서로 다른 coordinate isomorphism을 만든다. Basis가 바뀔 때 coordinate가 어떻게 변하는지는 [Change of Basis and Coordinate Matrix](<23 Change of Basis and Coordinate Matrix.md>)에서 다룬다.
+
+## 관련 문서
+
+- [Basis](<05 Basis.md>)
+- [Coordinate](<06 Coordinate.md>)
+- [Linear Map](<10 Linear Map.md>)
+- [Matrix Representation](<20 Matrix Representation.md>)

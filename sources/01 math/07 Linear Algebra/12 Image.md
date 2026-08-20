@@ -1,209 +1,200 @@
 # Image
-## 정의
-Vector space $V,W / \mathbb F$와 $T \in L(V,W)$가 있다고 하자.
 
-이 떄, 다음과 같이 정의된 집합을 $T$의 image이라고 한다.
+## 한 줄 요약
 
-$$ \text{img}(T) := \{ T(v) \in W \enspace | \enspace v \in V \} $$
+Image는 linear map이 만들 수 있는 모든 output의 subspace이고, rank-nullity theorem은 가능한 output direction과 사라지는 input direction의 수를 연결한다.
 
-$\text{img}(T)$는 $T(V)$로 쓰기도 한다.
+## Motivation
 
-### 명제1
-Vector space $V,W/\F$과 $T \in L(V,W)$가 있을 때, 다음을 증명하여라.
+Linear map $T:V\rightarrow W$의 codomain $W$에 속한다고 해서 모든 vector가 실제 output으로 나타나는 것은 아니다. Equation
 
-$$ \img(T) \text{ is a subspace of } W $$
+$$
+T(v)=w
+$$
 
-**Proof**
+가 solution을 갖는지는 $w$가 $T$가 만들 수 있는 output들의 집합에 속하는지에 달려 있다. 이 집합이 image다.
 
-$\img(T)$는 $W$의 subset임으로 연산에 닫혀있음을 보이면 충분하다.
+## Definition
 
-$\img(T)$의 임의의 elements를 $w_1,w_2$라고 하면 다음이 성립한다.
+$T\in L(V,W)$의 `image`를
 
-$$ \exist v_1,v_2 \in V \st T(v_i) = w_i   $$
+$$
+\operatorname{im}T
+:=
+T(V)
+=
+\{T(v)\mid v\in V\}
+$$
 
-이 떄, $\F$의 임의의 element를 $a$라고 하면 다음이 성립한다.
+로 정의한다.
 
-$$ w_1 + aw_2 = T(v_1) + aT(v_2) = T(v_1 + av_2) \in \img(T) \qed $$
+## Image Is a Subspace
 
-### 명제2(Basis of image)
-$n$차원 vector space $V/\F$, vector space $W/\F$와 $T \in L(V; W)$가 있다고 하자.
+### 정리1
 
-그리고 $V$의 기저를 $\beta = \Set{\beta_1,\cdots,\beta_n}$라 하고, $\ker(T)$의 기저를 $\gamma = \Set{\gamma_1,\cdots,\gamma_k}$라고 하자.
-
-그러면 Steinitz exchange lemma에 의해서 다음이 성립한다.
-
-$$ \exist \beta' \subseteq \beta \st |\beta'| = n-k \land \span(\gamma\cup\beta') = V$$
-
-이 때, 다음을 증명하여라.
-
-$$ f(\beta') :=  \{ T(\beta'_1),\cdots,T(\beta'_{n-k}) \} \text { is a basis of } \img(T)$$
+$$
+\operatorname{im}T\le W.
+$$
 
 **Proof**
 
-[linearly independent]  
-어떤 $a^1,\cdots,a^{n-k}\in\F$에 대해서 $a^1f(\beta'_1)+\cdots+a^{n-k}f(\beta'_{n-k}) = 0_W$라고 하면 다음이 성립한다.
+$T(0_V)=0_W$이므로 $0_W\in\operatorname{im}T$다. $w_1,w_2\in\operatorname{im}T$이면 어떤 $v_1,v_2\in V$에 대해 $w_i=T(v_i)$다. 모든 $a,b\in\F$에 대해
 
-$$ \begin{aligned} &  a^if(\beta'_{i}) = 0_W \\\implies& f(a^i\beta'_{i}) = 0_W \\\implies& a^i\beta'_{i} \in \ker(T) = \span(\gamma) \\\implies& a^i\beta'_{i} =b^j\gamma_j \\\implies& a^1\beta'_1+\cdots+a^{n-k}\beta'_{n-k} -b^1\gamma_1-\cdots-b^k\gamma_k = 0_V \end{aligned} $$
+$$
+aw_1+bw_2
+=
+aT(v_1)+bT(v_2)
+=
+T(av_1+bv_2)
+\in\operatorname{im}T.
+$$
 
-이 때, $\beta' \cup \gamma$은 basis임으로 다음이 성립한다.
+Subspace test에 의해 $\operatorname{im}T\le W$다. $\qed$
 
-$$ a^1=\cdots=a^{n-k}=b^1=\cdots=b^k=0_\F $$
+$T$가 surjective인 것은
 
-따라서, $f(\beta')$은 linearly independent set이다. $\qed$
+$$
+\operatorname{im}T=W
+$$
 
-[$\img(f) = \span(f(\beta'))$]  
--[$\subseteq$]  
-$\img(f)$의 임의의 element를 $w$라고 하면 다음이 성립한다.
-
-$$ \exist v \in V \st f(v) = w $$
-
-이 떄, $\gamma \cup \beta'$이 basis임으로 어떤 $a^1,\cdots,a^{n-k},b^1,\cdots,b^k \in \F$에 대해서 다음이 성립한다.
-
-$$ v = a^1\beta'_1+\cdots+a^{n-k}\beta'_{n-k}+b^1\gamma_1+\cdots+b^k\gamma_k $$
-
-따라서, 다음이 성립한다.
-
-$$ \begin{aligned} w &= f(a^1\beta'_1+\cdots+a^{n-k}\beta'_{n-k}+b^1\gamma_1+\cdots+b^k\gamma_k) \\&= a^1f(\beta'_1)+\cdots+a^{n-k}f(\beta'_{n-k}) \\&\in \span(f(\beta'))\end{aligned} $$  
-
-$\img(f)$의 임의의 element에 대해 위가 성립함으로 다음이 성립한다.
-
-$$ \img(f) \subseteq \span(f(\beta')) \qed $$
-
--[$\supseteq$]  
-$\span(f(\beta'))$의 임의의 element를 $w$라고 하면 다음이 성립한다.
-
-$$ \begin{aligned} w &= a^1f(\beta'_1)+\cdots+a^{n-k}f(\beta'_{n-k}) \\&= f(a^1\beta'_1+\cdots+a^{n-k}\beta'_{n-k}) \end{aligned} $$
-
-이 때, $a^1\beta'_1+\cdots+a^{n-k}\beta'_{n-k} \in V$임으로 다음이 성립한다.
-
-$$ w \in \img(f) $$
-
-$\span(f(\beta'))$의 임의의 element에 대해 위가 성립함으로 다음이 성립한다.
-
-$$ \span(f(\beta')) \subseteq \img(f) \qed $$
-
-[결론]  
-$f(\beta')$는 linearly independent set이면서 동시에 $\img(f)$의 generating set임으로 다음이 성립한다.
-
-$$ f(\beta') \text{ is a basis of } \img(f) \qed $$
-
-> Reference  
-> [wiki](https://en.wikipedia.org/wiki/Rank%E2%80%93nullity_theorem)  
-
-#### 따름정리2.1
-$n$차원 vector space $V/\F$와 vector space $W/\F$ 그리고 $T \in L(V;W)$가 있다고 하자.
-
-$\beta$가 $V$의 basis이고 $T$가 injective일 때, 다음을 증명하여라.
-
-$$ T(\beta) \text{ is an basis of } \img(T) $$
-
-**Proof**
-
-$T$가 injective임으로 $\ker(T)$의 basis를 $\gamma$라고 하면 다음이 성립한다.
-
-$$ \gamma = \empty $$
-
-따라서, Steinitz exchange lemma에 의해 다음이 성립한다.
-
-$$ \exist \beta' \subseteq \beta \st \begin{gathered} |\beta'| = |\beta| \\ \span(\beta') = V \end{gathered}  $$
-
-$\beta$의 subset중 cardinality가 같은 subset은 자기 자신밖에 없음으로 $\beta' = \beta$이며 명제2에 의해 $T(\beta')$은 $\img(T)$의 basis임으로 다음이 성립한다.
-
-$$ T(\beta) \text{ is an basis of } \img(T) \qed $$
+인 것과 같다.
 
 ## Rank
-Vector space $V,W / \mathbb F$와 $T \in L(V,W)$가 있다고 하자.
 
-이 때, $W$의 subspace $\img(T)$의 dimension을 $\rank(T)$ 라고 한다.
+Image의 dimension을 $T$의 `rank`라고 한다.
 
-$$ \rank(T) := \dim(\img(T)) $$
+$$
+\operatorname{rank}(T)
+:=
+\dim\operatorname{im}T.
+$$
 
-### 명제1(Rank-nullity Theorem)
-$n$차원 vector space $V/\F$, vector space $W/\F$와 $T \in L(V; W)$가 있다고 하자.
+Finite-dimensional case에서 rank는 $T$가 만들 수 있는 independent output direction의 수다.
 
-이 때 다음을 증명하여라.
+## A Basis of the Image
 
-$$ \text{rank}(T) = \dim(V) - \text{nullity}(T) $$
+### 정리2
 
-**Proof1**
+$V$가 finite-dimensional이라고 하자. Kernel의 basis
 
-추상대수학에서 1st homorphism theorem을 통해 군 $G,H$와 group homomorphism인 $f : G \rightarrow H$가 있을 때, $G / \ker(f) \cong \text{img}(f)$임을 보였다. 이를 벡터공간으로 확장하면 다음과 같다.
+$$
+(\kappa_1,\ldots,\kappa_p)
+$$
 
-벡터공간 $V,W / \mathbb F$와, $T \in L(V,W)$가 있을 때, $V / \ker(T) \cong \text{img}(T)$이다. 이를 통해 $\dim(V / \ker(T)) = \dim(\text{img}(T))$이고 정리하면 $\text{rank}(T) = \dim(V) - \text{nullity}(T)$이다.
+를 $V$의 basis
 
-**Proof2**
+$$
+(\kappa_1,\ldots,\kappa_p,v_1,\ldots,v_r)
+$$
 
-$V$의 기저를 $\beta = \Set{\beta_1,\cdots,\beta_n}$라 하고, $\ker(T)$의 기저를 $\gamma = \Set{\gamma_1,\cdots,\gamma_k}$라고 하자. 
+로 확장하면
 
-그러면 Steinitz exchange lemma에 의해서 다음이 성립한다.
+$$
+(T(v_1),\ldots,T(v_r))
+$$
 
-$$ \exist \beta' \subseteq \beta \st |\beta'| = n-k \land \span(\gamma\cup\beta') = V$$
-
-이 떄, $f(\beta')$은 $\img(T)$의 basis임으로 다음이 성립한다.
-
-$$\text{rank}(T) = \dim(V) - \text{nullity}(T) \qed $$
-
-#### 참고
-dimension theorem은 Steinitz exchange lemma에 따른 자명한 결과이다.
-
-#### 따름명제1.1
-유한 차원 vector space $V,W / \mathbb F$과 $T \in L(V; W)$가 있을 때, 다음을 증명하여라.
-
-$$ \dim(V) = \dim(W) \land \ker(T) = \{ 0_V \} \iff T \text{ is bijective} $$
+는 $\operatorname{im}T$의 basis다.
 
 **Proof**
 
-[$\implies$]  
--[injective]  
-$\ker(T) = \{ 0_V \}$임으로 $T$는 injective이다. $\qed$
+임의의 $x\in V$는
 
--[surjective]  
-$\dim(V) = \dim(W)$임으로 Dimension Theorem에 의해 다음이 성립한다.
+$$
+x
+=
+\sum_{i=1}^p b_i\kappa_i
++
+\sum_{j=1}^r a_jv_j
+$$
 
-$$ \dim(W) = \dim(V) = \text{nullity}(T) + \text{rank}(T) = \text{rank}(T) = \dim(\text{img}(T)) $$
+로 표현된다. $\kappa_i\in\ker T$이므로
 
-$\img(T)$는 $W$의 subspace이고 $\dim(\text{img}(T)) = \dim(W)$임으로 다음이 성립한다.
+$$
+T(x)
+=
+\sum_{j=1}^r a_jT(v_j).
+$$
 
-$$ \text{img}(T) = W $$
+따라서 $T(v_1),\ldots,T(v_r)$는 image를 span한다.
 
-따라서, $W$의 임의의 element를 $w$라고 하면 다음이 성립한다.
+이 vector들의 linear combination이 zero라고 하자.
 
-$$ \exist v \in V \st T(v) = w \qed $$
+$$
+\sum_{j=1}^r a_jT(v_j)=0_W.
+$$
 
-[$\impliedby$]  
-$T$가 injective임으로 다음이 성립한다.
+그러면
 
-$$ \ker(T) = \Set{0_V} \implies \nullity(T) = 0 $$
+$$
+T\left(\sum_{j=1}^r a_jv_j\right)=0_W
+$$
 
-따라서, dimension theorem에 의해 다음이 성립한다.
+이므로 $\sum_j a_jv_j\in\ker T$다. 따라서 어떤 $b_i\in\F$에 대해
 
-$$ \begin{aligned} \dim(V) &= \rank(T) \\&= \dim(\img(T)) \end{aligned} $$
+$$
+\sum_{j=1}^r a_jv_j
+=
+\sum_{i=1}^p b_i\kappa_i.
+$$
 
-$T$가 surjective임으로 다음이 성립한다.
+양변을 한쪽으로 옮기면 $V$의 basis에 대한 linear relation이 된다. Basis가 linearly independent이므로 모든 $a_j$와 $b_i$가 zero다. 따라서 $T(v_1),\ldots,T(v_r)$는 linearly independent하고 image의 basis다. $\qed$
 
-$$ \img(T) = W $$
+## Rank-Nullity Theorem
 
-따라서, 다음이 성립한다.
+### 정리3
 
-$$ \dim(V) = \dim(W) \qed $$
+Finite-dimensional vector space $V$와 linear map $T:V\rightarrow W$에 대해
 
-### 명제2
-$n$차원 vector space $V,W/\F$와 $T \in L(V;W)$가 있다고 하자.
+$$
+\boxed{
+\dim V
+=
+\operatorname{nullity}(T)
++
+\operatorname{rank}(T)
+}
+$$
 
-$V$의 basis가 $\beta$다음을 증명하여라.
-
-$$ T \text{ is bijective} \implies T(\beta) \text{ is an basis of } W $$
+가 성립한다.
 
 **Proof**
 
-$T$가 injective임으로 다음이 성립한다.
+정리2의 notation에서
 
-$$ T(\beta) \text{ is an basis of } \img(T) $$
+$$
+\dim V=p+r,
+$$
 
-$T$가 surjective임으로 다음이 성립한다.
+$$
+p=\dim\ker T=\operatorname{nullity}(T),
+$$
 
-$$ W = \img(T) $$
+$$
+r=\dim\operatorname{im}T=\operatorname{rank}(T)
+$$
 
-따라서 다음이 성립한다.
+이므로 식이 성립한다. $\qed$
 
-$$ T(\beta) \text{ is an basis of } W \qed $$
+이 식은 domain의 independent direction들이 두 종류로 나뉜다는 뜻이다. Kernel basis direction들은 output에서 사라지고, 나머지 basis direction들의 image는 가능한 output의 basis가 된다.
+
+## Consequences
+
+Finite-dimensional vector spaces $V,W$가 같은 dimension을 갖고 $T:V\rightarrow W$가 linear라고 하자. Rank-nullity theorem에 의해 다음 조건은 동치다.
+
+$$
+T\text{ is injective}
+\iff
+T\text{ is surjective}
+\iff
+T\text{ is bijective}.
+$$
+
+Injective이면 nullity가 $0$이므로 rank가 $\dim V=\dim W$다. Image는 $W$와 같은 dimension을 갖는 subspace이므로 $W$ 전체다. 반대로 surjective이면 rank가 $\dim W=\dim V$이므로 nullity가 $0$이고 injective다.
+
+또한 $T$가 injective이고 $\beta$가 $V$의 basis이면 $T(\beta)$는 $\operatorname{im}T$의 basis다. $T$가 bijective이면 $\operatorname{im}T=W$이므로 $T(\beta)$는 $W$의 basis다.
+
+## 관련 문서
+
+- [Kernel](<11 Kernel.md>)
+- [Vector Space Isomorphism](<13 Vector Space Isomorphism.md>)
+- [Column Space, Row Space, and Rank](<22 Column Space, Row Space, and Rank.md>)

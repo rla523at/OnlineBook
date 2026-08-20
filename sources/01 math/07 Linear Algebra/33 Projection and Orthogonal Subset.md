@@ -162,61 +162,79 @@ $$ \norm{s_i} = 1 $$
 즉, orthonormal subset은 각 vector가 span하는 1-dimensional subspace를 유지하면서 모든 vector의 length를 $1$로 normalize한 orthogonal subset이다.
 
 ### 명제1
-$n$차원 inner product space $V/\F$가 있다고 하자.
-
-$S = \{ s_1, \cdots, s_k \} \subset V - \{ 0_V\}$가 orthogonal subset일 때 다음을 증명하여라.
+$n$차원 inner product space $V/\F$가 있다고 하자. $S = \{ s_1, \cdots, s_k \} \subset V - \{ 0_V\}$가 orthogonal subset일 때 다음을 증명하여라.
 
 $$ S \text { is linearly independent} $$
 
 **Proof**
 
-어떤 $a_i \in \F, \quad i \in \Set{1,\cdots,k}$ 들에 대해서 $a_is_i = 0_V$ 라고하자.
+어떤 $a_1,\ldots,a_k\in\F$에 대해서 다음이 성립한다고 하자.
+
+$$
+\sum_{i=1}^k a_is_i=0_V.
+$$
 
 임의의 $j \in \Set{1,\cdots,k}$ 을 고정하면 내적에 성질에 의해 다음이 성립한다.
 
-$$ B(a_is_i, s_j) = a_j B(s_j,s_j) = 0_\F \quad (\text{no sum over } j) $$
+$$
+B\left(\sum_{i=1}^k a_is_i,s_j\right)
+=
+a_jB(s_j,s_j)
+=
+0_\F.
+$$
 
-$s_j \neq 0_V$ 임으로 inner product 의 정의에 의해 $0 < B(s_j,s_j)$ 임으로 $a_j = 0$ 다.
-
-즉, 모든 $a_i = 0_\F$ 임으로 linearly independent하다. $\qed$
+$s_j \neq 0_V$ 임으로 inner product 의 정의에 의해 $0 < B(s_j,s_j)$ 임으로 $a_j = 0$ 다. 즉, 모든 $a_i = 0_\F$ 임으로 linearly independent하다. $\qed$
 
 #### 참고
 $S$ 가 linearly independent set 임으로 $\span(S)$ 의 basis 는 $S$ 이다. 
 
 ### 명제2
-$n$차원 inner product space $V/\F$가 있다고 하자.
-
-$S = \{ s_1, \cdots, s_k \} \subset V - \{ 0_V\}$가 orthogonal subset일 때 다음을 증명하여라.
+$n$차원 inner product space $V/\F$가 있다고 하자. $S = \{ s_1, \cdots, s_k \} \subset V - \{ 0_V\}$가 orthogonal subset일 때 다음을 증명하여라.
 
 $$ y \in \span(S) \implies y = \sum_{i=1}^k \text{proj}_{s_i}(y) $$
 
 **Proof** 
 
-$y \in \span(S)$ 임으로 다음과 같이 표현할 수 있다.
+$y \in \span(S)$이고 $S$가 linearly independent이므로 unique한 $a_1,\ldots,a_k\in\F$에 대해 다음과 같이 표현할 수 있다.
 
-$$ y = a_is_i, \quad a_i \in \F $$
+$$ y = \sum_{i=1}^k a_is_i. $$
 
 임의의 $j \in \Set{1,\cdots,k}$ 을 고정하면 orthogonal subset 의 성질에 의해 다음이 성립한다.
 
-$$ \begin{aligned}  
-B(y, s_j) &= B(a_is_i, s_j) \\
-&= a_j B(s_j, s_j) \quad (\text{no sum over } j) 
+$$ \begin{aligned}
+B(y, s_j)
+&= B\left(\sum_{i=1}^k a_is_i, s_j\right) \\
+&= a_j B(s_j, s_j)
 \end{aligned} $$
 
 위를 $a_j$ 에 대해서 정리하면 
 
-$$ a_j = \frac{B(y,s_j)}{B(s_j, s_j)}  \quad (\text{no sum over } j) $$
+$$ a_j = \frac{B(y,s_j)}{B(s_j, s_j)}. $$
 
 이를 이용해 $y$ 를 표현하면
 
-$$ y = a_is_i = \frac{B(y,s_i)}{B(s_i, s_i)} s_i = \sum_{i=1}^k \text{proj}_{s_i}(y) \qed $$
+$$
+y
+=
+\sum_{i=1}^k
+\frac{B(y,s_i)}{B(s_i,s_i)}s_i
+=
+\sum_{i=1}^k \operatorname{proj}_{s_i}(y).
+\qed
+$$
 
 #### 참고1
 $S$ 을 span 한 공간에 있는 vector 를 $x$ 라고 하면 $x$ 는 $S$ 의 각 원소에 projection 시킨 vector 들로 표현된다.
 
 #### 참고2
-$S$ 을 span 한 공간에 basis 는 $S$ 이고 임의의 $x \in \span(S)$ 의 coordinate 를 `Fourier coefficient`라고 하며 다음과 같다. 
+$S$는 $\span(S)$의 basis다. 임의의 $x\in\span(S)$는
 
-$$ x = \frac{B(x,s_i)}{B(s_i, s_i)} s_i $$
+$$
+x
+=
+\sum_{i=1}^k
+\frac{B(x,s_i)}{B(s_i,s_i)}s_i
+$$
 
-만약 $S$ 가 orthonormal subset 인 경우 Fourier coefficient 는 $B(y,s_i)$ 로 간단해 진다.
+로 표현되고, 각 coefficient $B(x,s_i)/B(s_i,s_i)$를 Fourier coefficient라고 한다. $S$가 orthonormal subset이면 이 coefficient는 $B(x,s_i)$로 단순해진다.

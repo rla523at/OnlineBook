@@ -1,179 +1,170 @@
-# Linearly Independet
-## Finite Set
-Vector space $V/\F$와 $V$의 finite subset $S = \Set{v_1,\cdots,v_n}$이 있다고 하자.
+# Linearly Independent
 
-$\F$의 elements $a^1,\cdots,a^n$에 대해서 다음을 만족할 때, 각각의 $v_i$들을 `선형 독립(linearly independent)`이라고 하고 $S$를 `선형 독립 집합(linearly independent set)`라고 한다.
+## 한 줄 요약
 
-$$ \sum_{k=1}^{n}a_k v_k = 0_V \implies \forall a_k=0_\F $$ 
+Linearly independent set은 zero vector를 만드는 finite linear combination의 coefficient가 모두 zero일 때만 가능한, 즉 서로 중복되는 vector가 없는 집합이다.
 
+## Motivation
 
-## Infinite Set
-Vector space $V/\F$와 $V$의 subset $S$가 있다고 하자.
+Span은 주어진 vector들로 어떤 공간을 만들 수 있는지 알려 주지만, 표현의 중복은 구분하지 않는다. 예를 들어 $v_3=v_1+v_2$이면
 
-$S$의 임의의 $n$개의 element $v_1, \cdots, v_n$이 항상 linearly independent일 때, $S$를 linearly independent set이라고 한다.
+$$
+v_3=0v_1+0v_2+1v_3
+$$
 
-> Reference  
-> {cite}`friedberg` Chapter1.5
+이면서
 
-### 참고1
-$S$가 finite set일 경우에는 $S$의 모든 element가 linearly independent인지 확인하면 된다.
+$$
+v_3=1v_1+1v_2+0v_3
+$$
 
-하지만 $S$가 infinite set일 경우에는 모든 element에 대한 linearly independent를 확인할 수 없음으로, 임의의 선택에 대해서 linear independent를 보장하는 방식으로 정의된다.
+이므로 같은 vector에 서로 다른 coefficient가 생긴다. Basis에서 coordinate를 unique하게 만들려면 이런 중복을 제거해야 한다. Linear independence가 그 조건이다.
 
-여기서 임의의 선택이란 $n$개에도 자유도가 있고, 그 선택에도 자유도가 있다는 말을 의미한다.
+## Definition
 
-다시 말해 2개를 뽑던지 100개를 뽑던 지 위에가 만족해야 되고 또한 2개를 어떻게 뽑더라도 100개를 어떻게 뽑더라도 항상 위를 만족해야 한다.
+Vector space $V/\F$와 subset $S\subseteq V$가 있다고 하자. $S$에서 선택한 서로 다른 vector $v_1,\ldots,v_k$에 대해
 
-따라서 set에서 선택가능한 모든 vector들의 조합이 linearly independent해야 한다.
+$$
+a_1v_1+\cdots+a_kv_k=0_V
+\implies
+a_1=\cdots=a_k=0_\F
+$$
 
-### 참고2
-linearly independent set이 아닌 집합을 `선형 종속 집합(linear dependent set)`이라고 한다.
+가 항상 성립하면 $S$를 `linearly independent set`이라고 한다.
 
-### 참고3
-선형 종속 집합 $S \subseteq V$가 있다면 다음을 만족한다.
+이 정의는 finite set과 infinite set에 모두 적용된다. Infinite set의 경우에도 한 번에 사용하는 linear combination은 finite하므로, 모든 finite subset이 linearly independent인지 확인한다. Empty set은 nontrivial finite relation이 없으므로 linearly independent하다고 본다.
 
-$$\exist a_i \in \F,v_i \in S \quad s.t. \quad \sum_{k=1}^{n}a_k v_k = 0_V \land \exist a_i  \neq 0_\F $$
+Linearly independent하지 않은 set을 `linearly dependent set`이라고 한다. 즉 서로 다른 $v_1,\ldots,v_k\in S$와 모두 zero는 아닌 coefficient $a_1,\ldots,a_k$가 존재하여
 
-이 때, 일반성을 잃지 않고 $a_1 \neq 0_\F$이라고 가정하면 다음 관계식이 성립한다.
-$$  v_1 = - \frac{1}{a_1}\sum_{k=2}^{n} a_k v_k $$
+$$
+a_1v_1+\cdots+a_kv_k=0_V
+$$
 
-즉, $v_1$은 $S$에 속하는 다른 원소들의 선형결합으로 표현이 가능하다.
+를 만족한다.
 
-### 참고4
-$v \in V- \{0_V\}$에 대해 $\beta=\{v\}$면 $\beta$는 선형 독립 집합이다.
+## Dependence Means Redundancy
 
-### 명제1
-Vector space $V/\F$와 $V$의 linearly independent set $S$가 있다고 하자.
+### 정리1
 
-$v \in V - \span(S)$일 때, 다음을 증명하여라.
+Subset $S\subseteq V$가 linearly dependent인 것과 어떤 $v\in S$가 나머지 vector들의 span에 속하는 것은 동치다.
 
-$$ S \cup \Set{v} \text{ is an linearly independent set} $$
-
-**Proof**
-
-$S$의 임의의 $n$개의 element를 $s_1,\cdots,s_n$이라 하자.
-
-$a_1v + a_2s_1 + \cdots + a_{n+1}s_{n} = 0_V$일 때, 다음을 가정하자.
-
-$$ a_1 \neq 0_\F $$
-
-그러면 다음이 성립한다.
-
-$$ v = -\left(\frac{a_2}{a_1}s_1 + \cdots + \frac{a_{n+1}}{a_{1}}s_n \right) $$
-
-하지만 이는 $v \in V-\span(S)$라는 전제에 모순됨으로, proof by contradiction에 의해 다음이 성립한다
-
-$$ a_1 = 0_\F $$
-
-그러면 $S$가 linearly independent set임으로 다음이 성립한다.
-
-$$ a_2 = \cdots = a_{n+1} = 0_\F $$
-
-따라서, linearly independet set의 정의에 따라 다음이 성립한다.
-
-$$ S \cup \Set{v} \text{ is an linearly independent set} \qed $$
-
-### 명제2(Steinitz exchange lemma)
-Vector space $V/\F$와 $V$의 finite linearly independent set $X$ 그리고 $V$의 finite generating set $Y$가 있다고 하자.
-
-이 떄, 다음을 증명하여라.
-
-$$ \begin{gathered} |X| \le |Y| \\ \exist Y' \subseteq Y \st |Y'| = |Y| - |X| \land \span(X \cup Y') = V \end{gathered} $$
+$$
+S\text{ is linearly dependent}
+\iff
+\exists v\in S
+\quad
+v\in\operatorname{span}(S\setminus\{v\}).
+$$
 
 **Proof**
 
-$X = \Set{x_1,\cdots,x_n}, Y = \Set{y_1,\cdots,y_m}$이라고 하자.
+$S$가 linearly dependent이면 nontrivial relation
 
-이 떄, $X_i,Y_i, \enspace i=0,\cdots,n$를 다음과 같이 정의하자
+$$
+a_1v_1+\cdots+a_kv_k=0_V
+$$
 
-$$ X_i := \Set{x_1, \cdots, x_i}, \enspace Y_i := \Set{y_{i+1}, \cdots, y_m} $$
+이 존재한다. Nonzero coefficient 하나를 $a_j\ne0_\F$로 고르면
 
-보조명제2.1에 의해 다음이 성립한다.
+$$
+v_j
+=
+-\sum_{i\ne j}\frac{a_i}{a_j}v_i
+$$
 
-$$  \begin{gathered} n \le m \\ \span(X_n \cup Y_n) = V \end{gathered} $$
- 
-따라서 $|X| \le |Y|$이고  $Y' = Y_n$이라고 하면 명제를 모두 만족시킴을 알 수 있다. $\qed$
+이므로 $v_j\in\operatorname{span}(S\setminus\{v_j\})$다.
 
-#### 보조명제2.1
-다음을 증명하여라.
+반대로 $v\in\operatorname{span}(S\setminus\{v\})$이면 어떤 $v_1,\ldots,v_k\in S\setminus\{v\}$와 $a_i\in\F$에 대해
 
-$$ \begin{gathered} n \le m \\ \span(X_n \cup Y_n) = V \end{gathered} $$
+$$
+v=a_1v_1+\cdots+a_kv_k
+$$
 
-**Proof**
+다. 따라서
 
-mathematrical induction을 통해 $n \le m$이고 $\span(X_n \cup Y_n) = V$임을 보이자.
+$$
+1_\F v-a_1v_1-\cdots-a_kv_k=0_V
+$$
 
-[$i=0$]  
-$0 \le m$이고  $X_0 = \empty, Y_0 = Y$임으로 $\span(X_0\cup Y_0) = V$이다. $\qed$
+는 nontrivial relation이므로 $S$는 linearly dependent다. $\qed$
 
-[$i=k<n$]  
-$k \le m$이고 $\span(X_k\cup Y_k) = V$라고 가정하자.
+이 정리에 의해 $0_V$를 포함하는 set은 linearly dependent다. 실제로 $1_\F0_V=0_V$가 nontrivial relation이다.
 
-[$i=k+1$]    
-$x_{k+1} \in V$이고 $\span(X_k\cup Y_k) = V$임으로 다음이 성립한다.
+## Adding a New Direction
 
-$$ x_{k+1} = a_1x_1 + \cdots a_kx_k + a_{k+1}y_{k+1} + \cdots + a_my_m $$
+### 정리2
 
-이 때, $X_{k+1}$은 linearly independent set임으로 다음이 성립한다.
+$S$가 linearly independent이고 $v\notin\operatorname{span}(S)$이면
 
-$$ \exist j \in [k+1,m] \st a_j \neq 0_\F $$
+$$
+S\cup\{v\}
+$$
 
-즉, $[k+1,m]$에 어떤 정수가 존재함으로 다음이 성립한다.
-
-$$ k+1 \le m $$
-
-그리고 $Y$의 element의 순서를 적절하게 바꿔줌으로써 일반성을 잃지 않고 $a_{k+1} \neq 0_\F$라고 할수 있음으로 다음이 성립한다.
-
-$$ \begin{aligned} & y_{k+1} = \frac{1}{a_{k+1}} \left( x_{k+1} - \sum_{i=1}^ka_ix_i - \sum_{i=k+2}^m a_iy_i \right) \\ \implies& y_{k+1} \in \span(X_{k+1}\cup Y_{k+1}) \end{aligned}  $$
-
-또한, $x_1,\cdots,x_k, y_{k+2},\cdots,y_m \in X_{k+1}\cup Y_{k+1}$이고 $X_{k}\cup Y_{k}$은 generating set임으로 다음이 성립한다.
-
-$$ X_{k}\cup Y_{k} \subseteq \span(X_{k+1}\cup Y_{k+1})  \implies \span(X_{k+1}\cup Y_{k+1}) = V \qed $$
-
-[결론]  
-따라서 mathematical induction에 의해 $n \le m$이고 $\span(X_{n}\cup Y_{n}) =V$이다. $\qed$
-
-> Reference  
-> [wiki](https://en.wikipedia.org/wiki/Steinitz_exchange_lemma)
-
-### 명제3
-Vector space $V/\F$와 $V$의 subset $S$가 있다고 하자.
-
-이 떄, 다음을 증명하여라.
-
-$$ S \text{ is an linearly independent set of } V \implies  0_V \notin S $$
+도 linearly independent다.
 
 **Proof**
 
-다음을 가정하자.
+$S$에서 선택한 $s_1,\ldots,s_k$와 scalar $a,a_1,\ldots,a_k$가
 
-$$ 0_V \in S $$
+$$
+av+\sum_{i=1}^k a_is_i=0_V
+$$
 
-그러면 $S$에서 $0_V$를 뽑으면 다음이 성립한다.
+를 만족한다고 하자. 만약 $a\ne0_\F$이면
 
-$$ \exist a \in \F - \Set{0_\F} \st a0_V = 0_\F $$
+$$
+v=-\sum_{i=1}^k\frac{a_i}{a}s_i
+$$
 
-이는 $S$가 linearly independent set이라는 전제에 모순임으로 proof by contradiction에 의해 다음이 성립한다.
+여서 $v\in\operatorname{span}(S)$가 되므로 전제와 모순이다. 따라서 $a=0_\F$이고, $S$의 linear independence에 의해 $a_1=\cdots=a_k=0_\F$다. $\qed$
 
-$$ S \text{ is an linearly independent set of } V \implies  0_V \notin S \qed $$
+## Steinitz Exchange Lemma
 
-### 명제4
-Vector space $V/\F$와 $V$의 nonempty subset $S$가 있다고 하자.
+### 정리3
 
-$S$의 maximal linearly independent set을 $M$이라고 할 때, 다음을 증명하여라.
+$X=\{x_1,\ldots,x_r\}$가 finite linearly independent set이고 $Y=\{y_1,\ldots,y_s\}$가 finite generating set of $V$이면
 
-$$ S \subseteq \span(M) $$
+$$
+r\le s
+$$
+
+이고, $Y$에서 $r$개의 vector를 제거한 뒤 $X$를 넣어도 $V$를 span하도록 선택할 수 있다. 즉 적절히 순서를 바꾸면
+
+$$
+\operatorname{span}
+\{x_1,\ldots,x_r,y_{r+1},\ldots,y_s\}
+=
+V
+$$
+
+가 된다.
 
 **Proof**
 
-다음을 가정하자.
+처음에는 $Y$가 $V$를 span한다. $x_1$을 $Y$의 linear combination으로 쓸 때 적어도 한 coefficient는 nonzero다. 해당 $y_j$를 그 식에서 풀어 쓰면 $y_j$를 $x_1$로 바꾸어도 나머지 vector들이 여전히 $V$를 span한다.
 
-$$ S \nsubseteq \span(M) $$
+이 과정을 반복한다고 하자. $i$번째 단계 전에
 
-그러면 다음이 성립한다.
+$$
+\{x_1,\ldots,x_{i-1},y_i,\ldots,y_s\}
+$$
 
-$$ \begin{aligned} & S - \span(M) \neq \empty \\ \implies& \exist v \in S - \span(M) \\\implies& M \cup \Set{v} \text{ is an linearly independent set} \end{aligned} $$
+가 $V$를 span하도록 $Y$의 순서를 정했다고 하자. $x_i$를 이 spanning set의 linear combination으로 표현할 때 $y_i,\ldots,y_s$의 coefficient가 모두 zero일 수는 없다. 그렇다면 $x_i\in\operatorname{span}\{x_1,\ldots,x_{i-1}\}$가 되어 $X$의 linear independence와 모순이기 때문이다.
 
-하지만 이는 $M$이 maximal linearly independent set이라는 사실에 모순임으로 proof by contradiction에 의해 다음이 성립한다.
+따라서 nonzero coefficient를 가진 remaining vector가 하나 이상 존재하므로 $i\le s$다. 그 vector를 $y_i$로 순서를 바꾸고 식에서 $y_i$를 풀면, $y_i$를 $x_i$로 교체한 집합도 $V$를 span한다. $r$번 반복하면 $r\le s$이고 원하는 spanning set을 얻는다. $\qed$
 
-$$ S \subseteq \span(M) \qed $$
+## Maximal Independent Subset
+
+$M\subseteq S$가 linearly independent이고 $S$ 안에서 더 이상 vector를 추가해 linear independence를 유지할 수 없으면 $M$을 $S$의 maximal linearly independent subset이라고 한다. 이때
+
+$$
+S\subseteq\operatorname{span}(M).
+$$
+
+만약 $v\in S\setminus\operatorname{span}(M)$가 존재하면 정리2에 의해 $M\cup\{v\}$도 linearly independent여서 maximality와 모순이기 때문이다.
+
+## 관련 문서
+
+- [Span](<03 Span.md>)
+- [Basis](<05 Basis.md>)
+- [Coordinate](<06 Coordinate.md>)

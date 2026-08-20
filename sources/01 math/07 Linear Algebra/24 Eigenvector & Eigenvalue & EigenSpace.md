@@ -1,195 +1,282 @@
-# Eigenvector & Eigenvalue
+# Eigenvector, Eigenvalue and Eigenspace
+
+## 한 줄 요약
+
+Eigenvector는 linear map이 direction을 바꾸지 않고 scalar배만 하는 nonzero vector이며, eigenspace는 같은 eigenvalue에 대응하는 eigenvector들과 zero vector를 모은 subspace다.
+
 ## Motivation
-선형변환 $L_A: \R^2 \rightarrow \R^2 \st x \mapsto Ax$ 가 임의의 $m \in \R$ 에 대해서 다음과 같이 정의된다.
 
-$$ A = \frac{1}{1+m^2} 
+$n$-dimensional vector space $V/\F$와 $T\in\operatorname{End}(V)$가 있다고 하자. Basis
+
+$$
+\beta=(\beta_1,\ldots,\beta_n)
+$$
+
+에서 $T$의 matrix가 diagonal이 되려면 각 column이 대응하는 coordinate axis에만 nonzero entry를 가져야 한다. Matrix representation의 definition에 의해 이는
+
+$$
+T(\beta_i)=\lambda_i\beta_i
+$$
+
+인 것과 같다. 즉 각 basis vector의 direction은 유지되고 scalar $\lambda_i$만큼 scale되어야 한다.
+
+이러한 vector들로 basis를 만들 수 있으면
+
+$$
+[T]_\beta^\beta
+=
 \begin{bmatrix}
-  1-m^2 & 2m    \\
-  2m    & m^2-1 \\
-\end{bmatrix} $$
-
-이 때, $\R^2$ 의 기저 $\beta$ 를 다음과 같이 정의하자.
-
-$$ \beta = \Set{\beta_1, \beta_2} = \Set{ \begin{bmatrix} 1 \\ m \end{bmatrix},  \begin{bmatrix} m \\ -1 \end{bmatrix} } $$
-
-그러면 다음이 성립한다.
-
-$$[L_A]^\beta_\beta = \begin{bmatrix}
-  1 & 0  \\
-  0 & -1 \\
-\end{bmatrix} $$
-
-위의 예시에서도 알 수 있듯이, 선형변환의 행렬표현은 basis 의 선택에 의존하기 때문에 basis 를 잘 선택하기만 하면 행렬표현이 간단한 대각행렬로 표현이 가능해진다.
-
-그러면 어떤 basis 를 선택해야 선형변환의 행렬표현식이 대각행렬이 되는지 알아보자.
-
-임의의 $n$차원 vector space 를 $V/\F$ 라고 할 때, $T \in \End(V)$ 라고 하자. 이 때, $V/\F$ 의 어떤 basis $\beta$ 에 대해서 $[T]^\beta_\beta$ 가 대각행렬이 되기 위해서는 $[ [T(\beta_1)]_\beta, \cdots, [T(\beta_n)]_\beta]$ 가 대각행렬이 되어야 한다. 즉, $i \in [1,n]$ 일 때,  $T(\beta_i) = \lambda_i\beta_i, \quad \lambda_i \in \F$ 형태여야 된다.
-
-위의 내용을 다시 한번 간단하게 정리하면, $T(\beta_i) = \lambda_i\beta_i, \quad \lambda_i \in \F$ 형태를 만족하는 $\beta_i$들로 이루어진 basis $\beta$가 존재한다고 하면 diagonal matrix로 $T$를 표현할 수 있게 된다.
-
-$$ [T]_\beta^\beta = \begin{bmatrix} \lambda_1 &&0 \\ & \ddots & \\ 0&&\lambda_n \end{bmatrix} $$
-
-### 참고1
-예시로 주어진 $L_A$ 는 $y=mx$ 의 대칭점으로 변환시켜주는 선형변환이다.
-
-그래서 $T_x : \R^2 \rightarrow \R^2 \st \begin{bmatrix} x \\ y \end{bmatrix} \mapsto \begin{bmatrix} x \\ -y \end{bmatrix}$ 는 $x$ 축 대칭 변환이고 $R_\theta$ 는 $\theta$ 만큼 회전시켜주는 회전변환 이라고 하면 $L_A = R_\theta T_x R_{-\theta}$ 로 표현된다.
-
-이 의미를 살펴보면, $R_{-\theta}$ 는 basis 를 $\theta$ 만큼 돌림으로써 $y=mx$ 선이 돌아간 basis 의 $x$ 축이 되게 한다. 그다음 $T_x$ 를 적용시킴으로써 $y=mx$ 의 대칭점을 얻은 다음 다시 basis 를 $-\theta$ 만큼 돌려 원래 좌표계에서 대칭점의 좌표를 얻는것이다.
-
-## Definition(Eigenvector & Eigenvalue)
-Vector space $V/ \F$와 $T \in \End(V)$가 있을 때, $T$의 `고유벡터(eigenvector)` $v$는 다음을 만족하는 벡터이다.
-
-$$ v \in V - \{ 0_V \} \st T(v)  = \lambda v \quad \lambda \in \F$$
-
-이 때, 스칼라 값 $\lambda$를 $v$의 `고유값(eigenvalue)`라 한다.
-
-### 참고
-#### 1
-Eigenvector $v$는 $T$의 의존해서 결정되는 vector이다. 따라서, $v$가 eigenvector라고 하면, 어떤 linear map의 eigenvector인지 명확해야 한다.
-
-또한 eigenvalue $\lambda$는 $v$에 의존해서 결정되는 scalar이다. 따라서, $\lambda$가 eigenvalue라고 하면 어떤 eigenvector의 eigenvalue인지 명확해야 한다.
-
-#### 2
-$v$가 $T$의 eigenvector이고 $\lambda$가 $v$의 eigenvalue라고 하자.
-
-$\F$의 임의의 element를 $a$라고 할 때, $T$는 linear map임으로 $T(av) = \lambda av$가 성립한다.
-
-따라서, $av$도 eigenvector임으로 $V$의 subspace $S := \Set{ av | a \in \F}$는 eigenvector들로 이루어진 subspace이다.
-
-#### 3
-vector space $V/ \F$와 $T \in \End(V)$가 있고, $T$의 eigenvector $v$와 $v$의 eigenvalue $\lambda$가 있을 때, $T$의 정의역을 $S := \{ cv | c \in \F\} < V$로 `restriction`시킨 restriction map을 생각해보자.
-
-$$ T|_S : S \rightarrow S \quad s.t. \quad cv \mapsto \lambda cv$$
-
-이 경우에 $T|_S$는 상수 곱처럼 동작한다.
-
-#### 4
-$v \in \ker(T)$라고 하면 $T(v) = 0_V = 0_\F v$이다.
-
-따라서, $v$는 $T$의 eigenvector이고 $v$의 eigenvalue는 $0_\F$이다.
-
-#### 5
-Eigenvector의 정의에 의해 다음이 성립한다.
-
-$$ (T - \lambda id)(v) = 0_V $$
-
-즉, 새로운 linear map $T - \lambda id$에 대해 다음이 성립한다.
-
-$$ v \in \ker(T-\lambda id) $$
-
-$V$의 basis를 $\beta$라고 하고 $M=[T]^\beta_\beta$라고 하면 eigenvector의 coordinate $[v]_\beta$는 homogeneous linear system
-
-$$
-(M-\lambda I)[v]_\beta=0
+\lambda_1&&0\\
+&\ddots&\\
+0&&\lambda_n
+\end{bmatrix}
 $$
 
-의 nonzero solution이다. 따라서 eigenvector를 구하는 문제는 [Linear Systems and Row Reduction](<21 Linear Systems and Row Reduction.md>)에서 다룬 homogeneous system의 특별한 경우다.
+가 되어 $T$의 작용을 direction별로 독립적으로 읽을 수 있다. 따라서 먼저 $T(v)$가 $v$와 parallel한 특별한 vector를 정의한다.
 
-### 명제1
-vector space $V/ \F$와 $T \in \End(V)$가 있을 때, 다음을 증명하여라.
+## Eigenvector and Eigenvalue
 
-$$ \lambda \in \mathbb{F} \text{ is eigenvalue of } T \Leftrightarrow \det(T - \lambda id) = 0 $$
+### Definition
+
+Vector $v\in V$가
+
+$$
+v\ne0_V,
+\qquad
+T(v)=\lambda v
+$$
+
+를 만족하면 $v$를 $T$의 `eigenvector`, scalar $\lambda\in\F$를 그 eigenvector에 대응하는 `eigenvalue`라고 한다. Zero vector는 모든 scalar $\lambda$에 대해 $T(0_V)=\lambda0_V$를 만족하므로 direction을 구분하지 못한다. 그래서 eigenvector의 definition에서 반드시 제외한다. Scalar $\lambda$가 $T$의 eigenvalue라는 말은 이에 대응하는 nonzero eigenvector가 하나 이상 존재한다는 뜻이다.
+
+## Eigenspace
+
+Equation $T(v)=\lambda v$를 한쪽으로 모으면
+
+$$
+(T-\lambda id_V)(v)=0_V
+$$
+
+이다. 따라서 같은 $\lambda$에 대응하는 solution 전체는 kernel로 표현할 수 있다.
+
+### Definition
+
+$$
+E_\lambda(T)
+:=
+\ker(T-\lambda id_V)
+$$
+
+를 $\lambda$에 대한 `eigenspace`라고 한다. Kernel은 subspace이므로 $E_\lambda(T)\le V$다. 이 subspace는 zero vector를 포함하며, $\lambda$가 eigenvalue일 때 그 nonzero vector들이 정확히 $\lambda$에 대응하는 eigenvector다.
+
+$$
+\lambda\text{ is an eigenvalue of }T
+\iff
+E_\lambda(T)\ne\{0_V\}.
+$$
+
+Eigenvector $v$에 대해 모든 nonzero scalar multiple $av$, $a\ne0_\F$도 같은 eigenvalue의 eigenvector다. 하지만 $a=0_\F$인 경우에는 zero vector이므로 eigenvector가 아니라 eigenspace의 element일 뿐이다.
+
+## Finding Eigenvalues with a Matrix
+
+$V$가 finite-dimensional이고 basis $\beta$에서
+
+$$
+A:=[T]_\beta^\beta
+$$
+
+라고 하자. Vector $v\ne0_V$에 대해
+
+$$
+T(v)=\lambda v
+$$
+
+인 것과
+
+$$
+(A-\lambda I)[v]_\beta=0
+$$
+
+이 nonzero solution을 갖는 것은 동치다.
+
+### 정리1
+
+$$
+\lambda\text{ is an eigenvalue of }T
+\iff
+\det(A-\lambda I)=0
+\iff
+\chi_T(\lambda)=0.
+$$
 
 **Proof**
 
-$\beta$를 $V$의 기저라고 하자.
-
-[$\Rightarrow$]  
-
-$$ \begin{aligned} 
-& \exist v \in V - \{ 0_V \} \quad s.t. \quad (T - \lambda id)(v) = 0_V \\ 
-\Rightarrow \enspace & [(T - \lambda id)]^\beta_\beta [v]_\beta = 0 \\ 
-\Rightarrow \enspace & \det( [(T - \lambda id)]^\beta_\beta ) = 0 \quad (\because [v]_\beta \neq 0) \\ 
-\Rightarrow \enspace & \det(T-\lambda id) = 0 \quad {_\blacksquare}  
-\end{aligned} $$
-
-[$\Leftarrow$]  
-
-$$ \begin{aligned} 
-& \det(T-\lambda id) = 0 \\ 
-\Rightarrow \enspace &  \det([(T - \lambda id)]^\beta_\beta) = 0 \\ 
-\Rightarrow \enspace & \exist v \in V - \{ 0_V \} \quad s.t. \quad [(T - \lambda id)]^\beta_\beta [v]_\beta = 0 \\
-\Rightarrow \enspace & [T]^\beta_\beta [v]_\beta = \lambda [v]_\beta \\
-\Rightarrow \enspace & T(v) = \lambda v \quad {_\blacksquare}  
-\end{aligned} $$
-
-이 증명에서 사용한 핵심은 square matrix $M$에 대한 다음 동치다.
+$\lambda$가 eigenvalue이면 어떤 $v\ne0_V$에 대해
 
 $$
-\det M=0
-\Longleftrightarrow
-M\text{ is not invertible}
-\Longleftrightarrow
-\operatorname{rank}(M)<n
-\Longleftrightarrow
-\ker(L_M)\ne\{0\}.
+(A-\lambda I)[v]_\beta=0
 $$
 
-마지막 동치는 [Column Space, Row Space, and Rank](<22 Column Space, Row Space, and Rank.md>)에서 설명한 rank와 homogeneous system의 관계다.
+이고 $[v]_\beta\ne0$다. 따라서 $A-\lambda I$는 injective하지 않고 square matrix이므로 invertible하지 않다. 그러므로 determinant가 zero다.
 
-### 명제2
-$n$차원 vector space $V/ \F$와 $T \in \End(V)$가 있다.
+반대로 $\det(A-\lambda I)=0$이면 $A-\lambda I$는 invertible하지 않으므로 homogeneous system에 nonzero solution $x$가 존재한다. Coordinate isomorphism에 의해 $x=[v]_\beta$인 nonzero vector $v$가 존재하고
 
-$\beta_{\lambda^i}$가 eigenvalue $\lambda^i$와 관련된 eigenvectors의 집합일 떄, $i \neq j$이면 $\lambda^i \neq \lambda^j$라 하자.
+$$
+(A-\lambda I)[v]_\beta=0
+$$
 
-이 때, 다음을 증명하여라.
+이므로 $T(v)=\lambda v$다.
 
-$$ \beta_{\lambda^i} \cap \beta_{\lambda^j} = \empty $$
+Characteristic polynomial은 $\chi_T(t)=\det(tI-A)$이고
+
+$$
+\det(\lambda I-A)
+=
+(-1)^n\det(A-\lambda I)
+$$
+
+이므로 두 determinant가 zero인 조건은 같다. $\qed$
+
+Characteristic polynomial은 basis가 바뀌어도 같지만, field $\F$ 안에 root가 없을 수 있다. 예를 들어 real plane의 nontrivial rotation은 real eigenvalue가 없을 수 있다.
+
+## Eigenvectors for Distinct Eigenvalues
+
+### 정리2
+
+Pairwise distinct eigenvalues $\lambda_1,\ldots,\lambda_k$에 대응하는 eigenvectors $v_1,\ldots,v_k$는 linearly independent하다.
 
 **Proof**
 
-$\beta_{\lambda^i} \cap \beta_{\lambda^j} \neq \empty$라 가정하자.
+$k$에 대해 induction한다. $k=1$이면 $v_1\ne0_V$이므로 $\{v_1\}$은 linearly independent다.
 
-$\beta \in \beta_{\lambda^i} \cap \beta_{\lambda^j}$라 하면 다음이 성립한다.
+이제 정리가 $k-1$개까지 성립한다고 가정하고
 
-$$ \begin{aligned} & T(\beta) = \lambda^i\beta = \lambda^j\beta \\ \Rightarrow \enspace & (\lambda^i - \lambda^j)\beta = 0_V \end{aligned}  $$
+$$
+\sum_{i=1}^k a_iv_i=0_V
+$$
 
-$\lambda^i \neq \lambda^j$임으로 $\beta = 0_V$여야한다. 하지만, eigenvector의 정의와 모순이 발생한다.
+라고 하자. 양변에 $T-\lambda_k id_V$를 적용하면
 
-따라서 가정에 의해 모순이 발생했음으로, $\beta_{\lambda^i} \cap \beta_{\lambda^j} = \empty$이다. $\quad {_\blacksquare}$
+$$
+\sum_{i=1}^{k-1}
+a_i(\lambda_i-\lambda_k)v_i
+=
+0_V.
+$$
 
-### 명제3
-$n$차원 vector space $V/ \F$와 $T \in \End(V)$가 있다.
+Induction hypothesis에 의해 $v_1,\ldots,v_{k-1}$은 linearly independent이므로
 
-$\beta_{\lambda^i}$가 eigenvalue $\lambda^i$와 관련된 eigenvectors의 집합일 떄, $i \neq j$이면 $\lambda^i \neq \lambda^j$라 하자.
+$$
+a_i(\lambda_i-\lambda_k)=0_\F
+\qquad
+(i=1,\ldots,k-1).
+$$
 
-이 때, 다음을 증명하여라.
+Eigenvalues가 서로 다르므로 $\lambda_i-\lambda_k\ne0_\F$이고 $a_1=\cdots=a_{k-1}=0_\F$다. 원래 relation에는 $a_kv_k=0_V$만 남고 $v_k\ne0_V$이므로 $a_k=0_\F$다. 따라서 모든 coefficient가 zero다. $\qed$
 
-$$ \bigcup_{i=1}^k \beta_{\lambda^i} \text{ is an linearly independent set.} $$
+같은 eigenvalue에 대응하는 모든 eigenvector를 한꺼번에 모은 set은 일반적으로 linearly independent하지 않다. 예를 들어 $v$와 $2v$는 둘 다 같은 eigenspace의 eigenvector지만 서로 dependent하다. 대신 각 eigenspace에서 basis를 선택하고, 서로 다른 eigenspace의 basis들을 합치면 정리2에 의해 linearly independent한 set을 얻는다.
+
+## Diagonalization
+
+### 정리3
+
+Finite-dimensional vector space $V$의 endomorphism $T$에 대해 다음 조건은 동치다.
+
+1. 어떤 basis $\beta$에서 $[T]_\beta^\beta$가 diagonal이다.
+2. $V$에는 $T$의 eigenvector들로 이루어진 basis가 존재한다.
 
 **Proof**
 
-다음과 같이 가정하자.
+$[T]_\beta^\beta$가 diagonal이고 diagonal entries가 $\lambda_i$이면 matrix의 $i$번째 column에 의해
 
-$$ \beta = \bigcup_{i=1}^k \beta_{\lambda^i} $$
+$$
+T(\beta_i)=\lambda_i\beta_i.
+$$
 
-$$ \text{Where, } \beta_{\lambda^i} = \{ \beta_{i,1}, \cdots, \beta_{i,m_i} \} $$
+Basis vector는 nonzero이므로 모두 eigenvector다.
 
-$\beta$가 선형종속이라고 가정하고, 일반성을 잃지 않고 $\beta$의 subset중 가장 cardinallity가 작은 부분집합이 다음과 같다고 하자.
+반대로 eigenvector basis $\beta=(\beta_1,\ldots,\beta_n)$가 있고 $T(\beta_i)=\lambda_i\beta_i$이면 $i$번째 matrix column은 $\lambda_i e_i$다. 따라서 $[T]_\beta^\beta$는 diagonal이다. $\qed$
 
-$$ \{\beta_{1,1}, \cdots, \beta_{l,m_l} \} $$
+$T$가 가진 distinct eigenvalues를 $\lambda_1,\ldots,\lambda_r$라고 하면 diagonalizable condition을 다음처럼 쓸 수도 있다.
 
-그러면, 다음이 성립한다.
+$$
+V
+=
+E_{\lambda_1}(T)
+\oplus\cdots\oplus
+E_{\lambda_r}(T).
+$$
 
-$$  \begin{aligned} & \beta_{l,m_l} = a^{1,1}\beta_{1,1} + \cdots + a^{l,m_l-1}\beta_{l,m_l-1} \\ \Rightarrow \enspace & T(\beta_{l,m_l}) = T(a^{1,1}\beta_{1,1} + \cdots + a^{l,m_l-1}\beta_{l,m_l-1}) \\ \Rightarrow \enspace & \lambda^l \beta_{l,m_l} = \lambda^1 a^{1,1} \beta_1 + \cdots + \lambda^{l}a^{l, m_l - 1}\beta_{l, m_l - 1} \end{aligned} $$
+즉 모든 eigenspace의 dimension 합이 $\dim V$에 도달해야 한다. Characteristic polynomial이 split되더라도 eigenvector가 충분하지 않으면 diagonalizable하지 않을 수 있다.
 
-동시에 다음도 성립한다.
+## Example: Reflection
 
-$$ \begin{aligned} & \beta_{l,m_l} = a^{1,1}\beta_{1,1} + \cdots + a^{l,m_l-1}\beta_{l,m_l-1} \\ \Rightarrow \enspace &  \lambda^l\beta_{l,m_l} = \lambda^l a^{1,1}\beta_{1,1} + \cdots + \lambda^l a^{l,m_l-1}\beta_{l,m_l-1} \end{aligned} $$
+$m\in\R$에 대해
 
-두 식을 빼면 다음과 같다.
+$$
+A
+=
+\frac{1}{1+m^2}
+\begin{bmatrix}
+1-m^2&2m\\
+2m&m^2-1
+\end{bmatrix}
+$$
 
-$$ 0_V = a^{1,1}(\lambda^l - \lambda^1)\beta_{1,1} + \cdots + a^{l-1,m_{l-1}}(\lambda^l - \lambda^{l-1})\beta_{l-1,m_{l-1}} $$
+라고 하자. Direct calculation으로
 
-$\{\beta_{1,1}, \cdots, \beta_{l,m_l} \}$ 가장 cardinallity가 작은 linearly dependent set이였음으로, $\{\beta_{1,1}, \cdots, \beta_{l-1,m_{l-1}} \}$은 linear independent set이다.
+$$
+A
+\begin{bmatrix}
+1\\
+m
+\end{bmatrix}
+=
+\begin{bmatrix}
+1\\
+m
+\end{bmatrix},
+\qquad
+A
+\begin{bmatrix}
+m\\
+-1
+\end{bmatrix}
+=
+-
+\begin{bmatrix}
+m\\
+-1
+\end{bmatrix}
+$$
 
-따라서, 서로 다른 고유값을 가지고 있음으로 $a_1 = \cdots = a_{m-1} = 0$이되고 $\beta_{l,m_l} = 0_V$가 된다. 이 때, 고유값은 $0_V$가 아님으로 모순이 발생한다.
+를 얻는다. 두 eigenvector는 linearly independent이므로
 
-고유벡터의 집합이 선형종속이라 가정하였을 때 모순이 발생함으로, 고유벡터의 집합은 선형독립이다. $\quad {_\blacksquare}$
+$$
+\beta
+=
+\left(
+\begin{bmatrix}1\\m\end{bmatrix},
+\begin{bmatrix}m\\-1\end{bmatrix}
+\right)
+$$
+
+는 $\R^2$의 basis이고
+
+$$
+[L_A]_\beta^\beta
+=
+\begin{bmatrix}
+1&0\\
+0&-1
+\end{bmatrix}.
+$$
+
+이 map은 첫 번째 eigenvector direction은 유지하고 두 번째 direction의 sign을 뒤집는 reflection이다.
 
 ## 관련 문서
 
+- [Kernel](<11 Kernel.md>)
+- [Matrix Representation](<20 Matrix Representation.md>)
 - [Linear Systems and Row Reduction](<21 Linear Systems and Row Reduction.md>)
-- [Column Space, Row Space, and Rank](<22 Column Space, Row Space, and Rank.md>)
 - [Change of Basis and Coordinate Matrix](<23 Change of Basis and Coordinate Matrix.md>)
 - [Symmetric Matrix and Spectral Theorem](<40 Symmetric Matrix and Spectral Theorem.md>)

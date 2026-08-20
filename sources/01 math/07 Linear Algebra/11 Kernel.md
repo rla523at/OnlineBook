@@ -1,53 +1,121 @@
 # Kernel
-## 정의
-Vector space $V,W / \mathbb F$와 $T \in L(V,W)$가 있을 때, 다음과 같이 정의된 집합을 $T$의 `kernel`이라고 한다.
 
-$$ \ker(T) := \{ v \in V \enspace | \enspace T(v) = 0_W \} $$
+## 한 줄 요약
 
-### 명제1
-vector space $V,W/\F$가 있다고 하자.
+Kernel은 linear map이 zero vector로 보내는 모든 input의 subspace이며, map이 구분하지 못하는 direction을 나타낸다.
 
-$L(V;W)$의 임의의 element를 $f$라고 할 때, 다음을 증명하여라.
+## Motivation
 
-$$ 0_V \in \ker(f)$$
+Linear map $T:V\rightarrow W$에서 서로 다른 input $v_1,v_2$가 같은 output을 만들면
+
+$$
+T(v_1)=T(v_2)
+\iff
+T(v_1-v_2)=0_W.
+$$
+
+따라서 map이 input을 구분하지 못하는 원인은 zero로 사라지는 difference direction에 있다. 이 direction들을 모은 집합이 kernel이다.
+
+## Definition
+
+Vector spaces $V,W/\F$와 $T\in L(V,W)$가 있다고 하자. $T$의 `kernel`을
+
+$$
+\ker T
+:=
+\{v\in V\mid T(v)=0_W\}
+$$
+
+로 정의한다.
+
+## Kernel Is a Subspace
+
+### 정리1
+
+$$
+\ker T\le V.
+$$
 
 **Proof**
 
-$V$의 임의의 element를 $v$라고 하면 다음이 성립한다.
+Linear map은 zero vector를 zero vector로 보내므로 $0_V\in\ker T$다. $u,v\in\ker T$와 $a,b\in\F$에 대해
 
-$$ f(v) = f(v+0_V) = f(v) + f(0_V) \implies f(0_V) = 0_W \qed $$
+$$
+T(au+bv)
+=
+aT(u)+bT(v)
+=
+0_W.
+$$
 
-### 명제2
-유한 차원 vector space $V,W / \mathbb F$과 $T \in L(V,W)$가 있을 때, 다음을 증명하여라.
+따라서 $au+bv\in\ker T$이고 subspace test에 의해 $\ker T\le V$다. $\qed$
 
-$$ \ker(T) \text{ is a subspace of } V $$
+이 결과에는 finite-dimensional 가정이 필요하지 않다.
+
+## Kernel and Injectivity
+
+### 정리2
+
+$$
+T\text{ is injective}
+\iff
+\ker T=\{0_V\}.
+$$
 
 **Proof**
 
-$\ker(T)$는 $V$의 subset임으로 연산에 닫혀있음만 보이면 된다.
+$T$가 injective이면 $T(v)=0_W=T(0_V)$를 만족하는 $v$는 $0_V$뿐이므로 $\ker T=\{0_V\}$다.
 
-$\ker(T)$의 임의의 elements를 $v_1,v_2$, $\F$의 임의의 element를 $a$라고 하면 다음이 성립한다.
+반대로 $\ker T=\{0_V\}$라고 하자. $T(v_1)=T(v_2)$이면
 
-$$ T(av_1+v_2) = aT(v_1)+T(v_2) = 0_W \implies av_1 + v_2 \in \ker(T) \qed $$
+$$
+T(v_1-v_2)=0_W,
+$$
 
-### 명제3
-유한 차원 vector space $V,W / \mathbb F$과 $T \in L(V,W)$가 있을 때, 다음을 증명하여라.
+따라서 $v_1-v_2\in\ker T$다. 전제에 의해 $v_1-v_2=0_V$이므로 $v_1=v_2$다. 따라서 $T$는 injective다. $\qed$
 
-$$ \ker(T) = \{ 0_V \} \iff T \text{ is injective} $$
+Kernel이 nonzero vector를 포함하면 그 direction으로 input을 바꾸어도 output이 달라지지 않는다. 실제로 $k\in\ker T$이면
 
-**Proof**
-
-[$\implies$]  
-$V$의 임의의 element를 $v_1,v_2$라고 하면 다음이 성립한다.
-
-$$ \begin{aligned} & T(v_1) = T(v_2) \\ \implies \enspace & T(v_1) - T(v_2) = T(v_2) - T(v_2) \\ \implies \enspace & T(v_1 - v_2) = 0_W \\ \implies \enspace & v_1 - v_2 = 0_V \\ \implies \enspace & v_1 = v_2 \qed \end{aligned} $$
-
-[$\impliedby$]  
-$T(0_V) = 0_W$이고 $T$가 injective임으로 $\ker(T) = \{ 0_V \}$이다. $\qed$
+$$
+T(v+k)=T(v)+T(k)=T(v).
+$$
 
 ## Nullity
-Vector space $V,W / \mathbb F$와 $T \in L(V,W)$가 있다고 하자.
 
-이 때, $V$의 subspace $\ker(T)$의 dimension을 $\nullity(T)$ 라고 한다.
+$V$가 finite-dimensional이면 kernel의 dimension을 $T$의 `nullity`라고 한다.
 
-$$ \nullity(T) := \dim(\ker(T)) $$
+$$
+\operatorname{nullity}(T)
+:=
+\dim\ker T.
+$$
+
+Nullity는 $T$가 zero로 보내는 independent direction의 수를 나타낸다. Image의 dimension인 rank와의 관계는 [Image](<12 Image.md>)의 rank-nullity theorem에서 다룬다.
+
+## Example
+
+Projection
+
+$$
+T:\R^3\rightarrow\R^2,
+\qquad
+T(x,y,z):=(x,y)
+$$
+
+에 대해
+
+$$
+\ker T
+=
+\{(0,0,z)\mid z\in\R\}
+=
+\operatorname{span}\{(0,0,1)\}.
+$$
+
+$z$-direction의 변화는 output에 나타나지 않으며 $\operatorname{nullity}(T)=1$이다.
+
+## 관련 문서
+
+- [Linear Map](<10 Linear Map.md>)
+- [Image](<12 Image.md>)
+- [Linear Systems and Row Reduction](<21 Linear Systems and Row Reduction.md>)

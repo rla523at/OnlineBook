@@ -1,260 +1,230 @@
 # Linear Map
-## 정의
-vector space $V,W / \mathbb F$와 함수 $\Phi:V \rightarrow W$가 있다고 하자.
 
-`선형 변환(linear transformation)` 혹은 `선형 사상(linear map)`은 `선형성(linearity)`을 보존하는 함수이다.
+## 한 줄 요약
 
-$$ \forall v_1,v_2 \in V, \forall a \in \F \implies \Phi(av_1+v_2)=a\Phi(v_1)+\Phi(v_2)$$  
+Linear map은 linear combination을 보존하는 함수이며, basis vector에서의 값만 알면 모든 vector에서의 값이 결정된다.
 
-### 참고1
-linear map은 vector space의 연산 및 관계를 보존하는 함수로 `vector space homomorphism`이다.
+## Motivation
 
-### 참고2
-$f : V \rightarrow W$인 모든 linear map들을 모은 집합을 $L(V; W)$라 표기한다.
+일반적인 함수는 vector space의 addition과 scalar multiplication을 보존할 필요가 없다. 그러면 input을 linear combination으로 표현해도 각 basis direction의 결과를 더해 output을 계산할 수 없다.
 
-### 참고3
-$f : V \rightarrow V$인 linear map을 `endomorphism`이라 하며 endomorphism을 모은 집합을 $\End(V)$라 표기한다.
+반대로 함수 $T$가
 
-> Reference  
-> [Wiki - Endomorphism](https://en.wikipedia.org/wiki/Endomorphism)
+$$
+T(av+bw)=aT(v)+bT(w)
+$$
 
-### 참고4
-$W = \mathbb F$이면 `linear form`이라고 한다.
+를 만족하면 input을 구성한 것과 같은 coefficient로 output을 구성할 수 있다. 따라서 basis vector들의 image만 알면 모든 input의 image를 계산할 수 있다. 이처럼 vector space의 linear structure를 보존하는 함수가 linear map이다.
 
-### 참고5
-vector space $V / \mathbb F$와 $T \in \text{End}(V)$가 있다고 하자.
+## Definition
 
-$W \le V$에 대해서 $T|_W \in \text{End}(W)$이면 $W$를 $T-$`invariant`라고 한다.
+같은 field $\F$ 위의 vector spaces $V,W$와 function
 
-### 명제1
-vector spaces $V,W / \mathbb F$가 있을 때, 다음과 같은 연산이 주어졌다고 하자.
+$$
+T:V\rightarrow W
+$$
 
-$$ \begin{aligned} + : & L(V,W) \times L(V,W) \rightarrow L(V,W) \quad s.t. \quad T_1 + T_2 \mapsto (T_1 + T_2) \\ & \text {satisfying} \quad (T_1 + T_2)(v) = T_1(v) + T_2 (v) \\ \cdot : & \mathbb F \times L(V,W) \rightarrow L(V,W) \quad s.t. \quad a \cdot T \mapsto (aT) \\ & \text {satisfying} \quad (aT)(v) = aT(v) \end{aligned}  $$
+가 있다고 하자. 모든 $v,w\in V$와 $a,b\in\F$에 대해
 
-이 때, 다음을 증명하여라.
+$$
+T(av+bw)=aT(v)+bT(w)
+$$
 
-$$ L(V;W) \text{ is a vector space} $$
+를 만족하면 $T$를 `linear map` 또는 `linear transformation`이라고 한다.
 
-**Proof**
+$V$에서 $W$로 가는 linear map 전체의 집합을
 
-[Abelian Group]  
--[closed]  
-$L(V;W)$의 임의의 element를 $f,g$라고 하자.
+$$
+L(V,W)
+$$
 
-$V$의 임의의 element를 $v_1,v_2$, $\F$의 임의의 element를 $c$라고할 때, 다음이 성립한다.
+라고 쓴다. $T:V\rightarrow V$인 linear map은 `endomorphism`이라고 하며, 그 집합을
 
-$$ \begin{aligned} (f+g)(v_1+cv_2) &= f(v_1+cv_2) + g(v_1+cv_2) \\&= f(v_1)+g(v_1) + c(f(v_2)+g(v_2)) \\&= (f+g)(v_1) + c(f+g)(v_2) \end{aligned}  $$
+$$
+\operatorname{End}(V):=L(V,V)
+$$
 
-따라서, $f+g \in L(V;W)$이다. $\qed$
+라고 쓴다.
 
--[identity]  
-$0_L \in L(V;W)$를 다음과 같이 정의하자.
+## Basic Consequences
 
-$$ \forall v\in V, \enspace  0_L(v) = 0_W $$
+Linear map은 zero vector를 zero vector로 보낸다. 실제로
 
-$L(V;W)$의 임의의 element를 $f$, $V$의 임의의 element를 $v$라고 하면 다음이 성립한다.
+$$
+T(0_V)
+=
+T(0_\F0_V)
+=
+0_\F T(0_V)
+=
+0_W.
+$$
 
-$$ \begin{gathered} (f+0_L)(v) = f(v)+0_L(v) = f(v) \\ (0_L+f)(v) = 0_L(v)+f(v) = f(v) \end{gathered} \implies (f+0_L) = (0_L+f) = f $$
+또한 finite sum에 대해
 
-따라서, $0_L$은 $L(V;W)$의 identity element이다.$\qed$
+$$
+T\left(\sum_{i=1}^k a_iv_i\right)
+=
+\sum_{i=1}^k a_iT(v_i)
+$$
 
--[inverse]  
-$L(V;W)$의 임의의 element를 $f$라고 하자.
+가 성립한다. 따라서 linear relation은 map을 적용한 뒤에도 유지된다.
 
-$-f \in L(V;W)$를 다음과 같이 정의하자.
+Affine translation
 
-$$ \forall v \in V, (-f)(v) = -f(v) $$
+$$
+F(v):=T(v)+w_0
+$$
 
-$V$의 임의의 element를 $v$라고 하면 다음이 성립한다.
+은 $w_0\ne0_W$이면 linear map이 아니다. $F(0_V)=w_0\ne0_W$이기 때문이다. Matrix multiplication $x\mapsto Ax$는 linear하지만 $x\mapsto Ax+b$는 $b\ne0$이면 일반적으로 linear하지 않다는 차이가 여기서 나온다.
 
-$$ \begin{gathered} (f+(-f))(v) = f(v)+(-f)(v) = 0_W = 0_L(v) \\ ((-f)+f)(v) = (-f)(v) + f(v) = 0_W = 0_L(v) \end{gathered} \implies f+(-f) = (-f) + f = 0_L $$
+## A Linear Map Is Determined by a Basis
 
-따라서, $-f$는 $f$의 inverse element이다.$\qed$
+### 정리1
 
--[commutative]  
-$L(V;W)$의 임의의 element를 $f,g$라고 하자.
+$V$의 basis가
 
-$V$의 임의의 element를 $v$라고 하면, $f(v),g(v)\in W$임으로 다음이 성립한다.
+$$
+\beta=(\beta_1,\ldots,\beta_n)
+$$
 
-$$ (f+g)(v) = f(v) + g(v) = g(v) + f(v) = (g+f)(v) \qed $$
+이고 $w_1,\ldots,w_n\in W$가 주어지면
 
-[Module]  
-$L(V;W)$의 임의의 element를 $f,g$, $\F$의 임의의 element를 $r_1,r_2$라고 하자.
+$$
+T(\beta_i)=w_i
+\qquad
+(i=1,\ldots,n)
+$$
 
-$V$의 임의의 element를 $v$라고 할 때, 주어진 action의 정의에 의해 다음이 성립한다.
-
-$$ \begin{aligned} (r_1(f+g))(v) &= r_1(f+g)(v) = r_1f(v) + r_1g(v) = (r_1f + r_1g)(v) \\ ((r_1+r_2)f)(v) &= (r_1+r_2)f(v) = r_1f(v) + r_2f(v) = (r_1f + r_2f)(v) \\ ((r_1r_2)f)(v) &= r_1r_2f(v) = r_1(r_2f)(v) = (r_1(r_2f))(v) \\ (1_\F f)(v) &= 1_\F f(v) = f(v) \end{aligned} $$
-
-따라서 주어진 action은 module의 scalar multiplication의 정의를 만족한다.
-
-[결론]  
-$\F$는 field 임으로 $L(V;W)$는 $\F-$module이고 vector space의 정의에 의해 다음이 성립한다.
-
-$$ L(V;W) \text{ is a vector space} \qed $$
-
-### 명제2
-$n$차원 vector space $V/\F$와 vector space $W/\F$가 있다고 하자.
-
-$L(V;W)$의 임의의 element를 $f,g$라고 하고 $V$의 basis를 $\beta$라 할 때, 다음을 증명하여라.
-
-$$ f(\beta_i) = g(\beta_i), \enspace i=1,\cdots,n \iff f = g $$
-
-**Proof**
-
-[$\implies$]  
-$V$의 임의의 element를 $v=a^i\beta_i$라고 하면 다음이 성립한다.
-
-$$ f(v) = f(a^i\beta_i) = a^if(\beta_i) = a^ig(\beta_i) = g(a^i\beta_i) = g(v) \qed  $$
-
-[$\impliedby$]  
-자명하게 성립한다. $\qed$
-
-### 명제3
-$n,m$ 차원 vector spaces $V,W / \mathbb F$가 있다고 하자.
-
-$V,W$의 기저를 각 각 $\beta, \gamma$라 할 때, 함수 $f^i_j, \enspace i=1,\cdots,m, j=1,\cdots,n$를 다음과 같이 정의하자.
-
-$$f^i_j : V \rightarrow W \quad s.t. \quad a^k\beta_k \mapsto a^i \gamma_j $$
-
-이 떄, 다음을 증명하여라.
-
-$$ \{ f^i_j \} \text{ is a basis of } L(V;W) $$
+를 만족하는 unique linear map $T:V\rightarrow W$가 존재한다.
 
 **Proof**
 
-[$\text{span}(\{ f^i_j \}) = L(V;W)$]  
--[$\text{span}(\{ f^i_j \}) \subseteq L(V;W)$]  
-$V$의 임의의 element를 $v_1 = a^i\beta_i, \enspace v_2 = b^i \beta_i$, $\F$의 임의의 element를 $c$라고 하자.
+모든 $v\in V$는 unique하게
 
-그러면, 임의의 $f^i_j$에 대해서 다음이 성립한다.
+$$
+v=\sum_{i=1}^n a_i\beta_i
+$$
 
-$$ \begin{aligned} f^i_j(cv_1 + v_2) &= f^i_j((ca^k + b^k)\beta_k) \\&= (ca^i + b^i)\gamma_j \\ &= cf^i_j(v_1) + f^i_j(v_2) \end{aligned} $$
+로 표현된다. 따라서
 
-따라서, 임의의 $f^i_j$ 는 $L(V;W)$의 element이고 $L(V;W)$는 vector space임으로 다음이 성립한다. 
+$$
+T(v)
+:=
+\sum_{i=1}^n a_iw_i
+$$
 
-$$ \span(\{ f^i_j \}) \subseteq L(V;W) \qed $$
+로 정의하면 basis coordinate의 uniqueness 때문에 well-defined다. Coefficient가 addition과 scalar multiplication에 따라 componentwise하게 변하므로 이 $T$는 linear하고 $T(\beta_i)=w_i$를 만족한다.
 
--[$L(V;W) \subseteq \text{span}(\{ f^i_j \})$]  
-$L(V;W)$의 임의의 element를 $T$라고 하자.
+다른 linear map $S$도 $S(\beta_i)=w_i$를 만족한다고 하자. Linearity에 의해
 
-$V$의 임의의 element를 $v=a^i\beta_i$, $T(v)=b^j\gamma_j$라고 하면 다음을 만족하는 $A^j_i \in \F, i=1,\cdots,n, j=1,\cdots,m$가 있다.
+$$
+S(v)
+=
+\sum_{i=1}^n a_iS(\beta_i)
+=
+\sum_{i=1}^n a_iw_i
+=
+T(v)
+$$
 
-$$ b^j = A^j_ia^i $$
+이므로 $S=T$다. $\qed$
 
-이 때, $g \in \span(\Set{f^i_j})$를 다음과 같이 정의하자.
+따라서 두 linear map $S,T\in L(V,W)$가 모든 basis vector에서 같은 값을 가지면 $S=T$다.
 
-$$ g = A^j_if^i_j $$
+## The Vector Space of Linear Maps
 
-그러면 다음이 성립한다.
+$S,T\in L(V,W)$와 $a\in\F$에 대해 pointwise operation을
 
-$$ \begin{aligned} & g(v) = (A^j_if^i_j)(a^k\beta_k) = A^j_if^i_j(a^k\beta_k) = A^j_i a^i\gamma_j = b^j\gamma_j = T(v) \\ \implies& g = f \\ \implies& T \in \span(\Set{f^i_j}) \end{aligned} $$
+$$
+(S+T)(v):=S(v)+T(v),
+\qquad
+(aT)(v):=aT(v)
+$$
 
-따라서, 임의의 element $T$가 $\span(\Set{f^i_j})$에 포함됨으로 다음이 성립한다.
+로 정의하면 $L(V,W)$는 $\F$ 위의 vector space가 된다. 예를 들어
 
-$$ L(V;W) \subseteq \text{span}(\{ f^i_j \}) \qed $$
+$$
+\begin{aligned}
+(S+T)(av+bw)
+&=S(av+bw)+T(av+bw)\\
+&=a(S+T)(v)+b(S+T)(w)
+\end{aligned}
+$$
 
-[$\{ f^i_j \}$ are linearly independent]  
-$A^j_if^i_j = 0_{L(V;W)}$라 하자.
+이므로 addition에 닫혀 있다. Zero vector는 모든 input을 $0_W$로 보내는 zero map이고, 나머지 vector-space laws는 $W$의 laws를 pointwise하게 물려받는다.
 
-$V$의 임의의 element를 $v = a^i\beta_i$라고 하면 다음이 성립한다.
+$\dim V=n$, $\dim W=m$이고 basis가 각각 $\beta=(\beta_1,\ldots,\beta_n)$, $\gamma=(\gamma_1,\ldots,\gamma_m)$라고 하자. $1\le i\le n$, $1\le j\le m$에 대해
 
-$$ A^j_if^i_j(v) = A^j_i a^i \gamma_j = 0_W $$
+$$
+E_{ji}(\beta_k):=\delta_{ik}\gamma_j
+$$
 
-임의의 $a^i$에 대해 항상 위 식이 성립해야 함으로 다음이 성립한다.
+로 정한 linear map $E_{ji}$를 생각하자. 정리1에 의해 이 map은 unique하게 존재한다.
 
-$$ A^j_i = 0 $$
+임의의 $T\in L(V,W)$에 대해
 
-따라서, 다음이 성립한다.
+$$
+T(\beta_i)
+=
+\sum_{j=1}^m A_{ji}\gamma_j
+$$
 
-$$ \{ f^i_j \}  \text{ are linearly independent} \qed $$
+라고 쓰면
 
-#### 따름정리
-다음을 증명하여라.
+$$
+T
+=
+\sum_{i=1}^n\sum_{j=1}^m A_{ji}E_{ji}.
+$$
 
-$$ \dim(L(V;W)) = mn $$
+또한 이 표현은 unique하므로 $\{E_{ji}\}$는 $L(V,W)$의 basis다. 따라서
 
-**Proof**
+$$
+\dim L(V,W)=mn.
+$$
 
-$f^i_j, \enspace i=1,\cdots,n, j=1,\cdots,m$가 basis임으로 다음이 성립한다.
+Coefficient $A_{ji}$를 matrix에 배열하는 과정은 [Matrix Representation](<20 Matrix Representation.md>)에서 다룬다.
 
-$$ \dim(L(V;W)) = mn \qed $$
+## Composition
 
-#### 참고
-$L(V;W)$의 임의의 element를 $T = A^j_if^i_j$라고 하자.
+Linear maps
 
-$f^i_j$는 $i$ coordinate를 $j$ coordinate로 변환시켜주고 $A^j_i$는 $i$ coordinate를 $j$ coordinate로 변환시켜줄 때 얼마나 scaling을 할지 결정한다.
+$$
+T:U\rightarrow V,
+\qquad
+S:V\rightarrow W
+$$
 
-따라서 $A^j_i$는 $\beta,\gamma$에 의존한다.
+의 composition도 linear하다. 모든 $u_1,u_2\in U$와 $a,b\in\F$에 대해
 
-### 명제4
-vector spaces $V,W,Z/ \mathbb F$와 $T_1 \in L(V;W), T_2\in L(W;Z)$가 있다고 하자.
+$$
+\begin{aligned}
+(S\circ T)(au_1+bu_2)
+&=S(aT(u_1)+bT(u_2))\\
+&=a(S\circ T)(u_1)+b(S\circ T)(u_2).
+\end{aligned}
+$$
 
-이 떄, 다음을 증명하여라.
+## Invariant Subspace
 
+$T\in\operatorname{End}(V)$와 subspace $U\le V$에 대해
 
-$$ T_2 \circ T_1 \in L(V;Z) $$
+$$
+T(U)\subseteq U
+$$
 
-**Proof**  
+이면 $U$를 $T$-`invariant subspace`라고 한다. 이 경우 domain과 codomain을 $U$로 제한한 map
 
-$v_1,v_2 \in V$과 $a \in F$가 있을 때, 다음이 성립한다.
+$$
+T|_U:U\rightarrow U
+$$
 
+을 정의할 수 있다. Invariant direct-sum decomposition은 적절한 basis에서 $T$의 matrix를 block diagonal form으로 만든다.
 
-$$ \begin{aligned} (T_2 \circ T_1)(av_1 + v_2) & = T_2(T_1(av_1 +v_2)) \\ & = T_2(aT_1(v_1) +T_1(v_2)) \\ & = aT_2(T_1(v_1)) + T_2(T_1(v_2)) \\ & = a(T_2 \circ T_1)(v_1) + (T_2 \circ T_1)(v_2) \end{aligned} $$
+## 관련 문서
 
-따라서, $T_2 \circ T_1 \in L(V;Z)$이다. $\quad {_\blacksquare}$
-
-## Determinant of an Linear Map
-vector space $V/ \mathbb F$와 $T \in \text{End}(V)$가 있을 때, $T$의 determinat를 다음과 같이 정의한다.
-
-$$ \det(T) : \text{End}(V) \rightarrow \mathbb F \quad s.t. \quad T \mapsto \det(\frak m_\beta^\beta(T)) \text { for any basis } \beta $$
-
-### 명제1
-vector space $V/ \mathbb F$와 $T \in \text{End}(V)$가 있을 때 다음을 증명하여라
-
-$$\det(T) \text{ is well-defined}$$
-
-**Proof**
-
-well-defined 되기 위해서는 기저의 선택에 관계없이 일정함을 보이면 된다.
-
-$V$의 두 기저를 $\beta,\gamma$라 하면 다음이 성립한다.
-
-$$ \frak m^\gamma_\gamma(T) \sim  \frak m^\beta_\beta(T)$$
-
-similar한 두 행렬의 성질에 의해 다음이 성립한다.
-
-
-$$ \det(\frak m^\gamma_\gamma(T)) = \det(\frak m^\beta_\beta(T)) \quad {_\blacksquare} $$
-
-## Trace of an Linear Map
-vector space $V/ \mathbb F$와 $T \in \text{End}(V)$가 있을 때, $T$의 trace를 다음과 같이 정의한다.
-
-$$ \mathrm{tr}(T) : \text{End}(V) \rightarrow \mathbb F \quad s.t. \quad T \mapsto \mathrm{tr}(\frak m_\beta^\beta(T)) \text { for any basis } \beta $$
-
-### 명제1
-vector space $V/ \mathbb F$와 $T \in \text{End}(V)$가 있을 때, 다음을 증명하여라
-
-$$\text{tr}(T) \text{ is well-defined}$$
-
-**Proof**
-
-well-defined 되기 위해서는 기저의 선택에 관계없이 일정함을 보이면 된다.
-
-$V$의 두 기저를 $\beta,\gamma$라 하면 다음이 성립한다.
-
-$$ \frak m^\gamma_\gamma(T) \sim  \frak m^\beta_\beta(T)$$
-
-similar한 두 행렬의 성질에 의해 다음이 성립한다.
-
-$$ \mathrm{tr}(\frak m^\gamma_\gamma(T)) = \mathrm{tr}(\frak m^\beta_\beta(T)) \quad {_\blacksquare} $$
-
-## Characteristic Polynomial of an Linear Map
-vector space $V/\mathbb F$와 $T \in \text{End}(V)$가 있을 때, $T$의 특성다항식은 다음과 같이 정의된다.
-
-$$ \varphi_T(t) = \det(T - tid) $$
-
-특성다항식의 근이 고유값이 된다.
-
-> Reference  
-> [Mathmatics - Coefficients of the characteristic polynomial](https://math.stackexchange.com/questions/2115713/coefficient-of-characteristic-polynomial-as-sum-of-principal-minors)  
-> [Note] (UCSC) The Characteristic Polynomial
+- [Kernel](<11 Kernel.md>)
+- [Image](<12 Image.md>)
+- [Vector Space Isomorphism](<13 Vector Space Isomorphism.md>)
+- [Matrix Representation](<20 Matrix Representation.md>)

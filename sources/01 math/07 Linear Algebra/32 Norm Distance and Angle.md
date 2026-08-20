@@ -38,9 +38,7 @@ $$
 \lVert v\rVert:=\sqrt{B(v,v)}.
 $$
 
-이 함수 $\lVert\cdot\rVert$를 inner product $B$에서 유도된 `norm`이라고 한다. Vector $v$에 대한 함수값 $\lVert v\rVert$는 $v$의 norm이며, inner product $B$가 정하는 geometry에서 $v$의 length를 나타낸다.
-
-즉, `norm`은 vector의 length를 측정하는 함수의 수학적 이름이고, $\lVert v\rVert$는 그 함수가 $v$에 부여한 length다.
+이 함수 $\lVert\cdot\rVert$를 inner product $B$에서 유도된 `norm`이라고 한다. Vector $v$에 대한 함수값 $\lVert v\rVert$는 $v$의 norm이며, inner product $B$가 정하는 geometry에서 $v$의 length를 나타낸다. 즉, `norm`은 vector의 length를 측정하는 함수의 수학적 이름이고, $\lVert v\rVert$는 그 함수가 $v$에 부여한 length다.
 
 ### Basic Properties
 
@@ -269,9 +267,7 @@ $$ v \perp w \implies \norm{v+w}^2 = \norm{v}^2 + \norm{w}^2 $$
 
 **Proof**
 
-$v\perp w$이므로 $B(v,w)=B(w,v)=0_\F$이다.
-
-따라서, 다음이 성립한다.
+$v\perp w$이므로 $B(v,w)=B(w,v)=0_\F$이다. 따라서, 다음이 성립한다.
 
 $$ \begin{aligned}
 \norm{v+w}^2 &= B(v+w,v+w) \\

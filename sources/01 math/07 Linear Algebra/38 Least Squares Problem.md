@@ -153,9 +153,7 @@ $$
 
 ## 해가 유일하지 않은 경우
 
-$A$의 column이 linearly dependent이면 서로 다른 $x$가 같은 $Ax$를 만들 수 있다. 이 경우 closest point $Ax^\star$는 유일해도 이를 만드는 parameter $x^\star$는 여러 개일 수 있다.
-
-Singular value decomposition으로 정의하는 Moore-Penrose pseudoinverse $A^+$를 사용하면 그중 norm이 가장 작은 solution을 선택할 수 있다.
+$A$의 column이 linearly dependent이면 서로 다른 $x$가 같은 $Ax$를 만들 수 있다. 이 경우 closest point $Ax^\star$는 유일해도 이를 만드는 parameter $x^\star$는 여러 개일 수 있다. Singular value decomposition으로 정의하는 Moore-Penrose pseudoinverse $A^+$를 사용하면 그중 norm이 가장 작은 solution을 선택할 수 있다.
 
 $$
 x^\star=A^+b

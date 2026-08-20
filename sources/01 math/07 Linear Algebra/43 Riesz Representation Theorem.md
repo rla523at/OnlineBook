@@ -12,9 +12,7 @@ $$
 B(\mathord{\cdot},v):V\rightarrow\F
 $$
 
-도 첫 번째 argument에 대해 linear하므로 linear functional이다.
-
-그렇다면 반대로 모든 linear functional $g$를
+도 첫 번째 argument에 대해 linear하므로 linear functional이다. 그렇다면 반대로 모든 linear functional $g$를
 
 $$
 g(x)=B(x,v_g)

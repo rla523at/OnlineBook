@@ -2,18 +2,13 @@
 
 ## 한 줄 요약
 
-Singular value decomposition(SVD)은 rectangular matrix를 두 orthogonal
-coordinate change와 축별 nonnegative scaling으로 분해하며, least squares와 rigid
-point-set alignment의 핵심 계산 도구다.
+Singular value decomposition(SVD)은 rectangular matrix를 두 orthogonal coordinate change와 축별 nonnegative scaling으로 분해하며, least squares와 rigid point-set alignment의 핵심 계산 도구다.
 
 ## Eigenvalue decomposition만으로 부족한 이유
 
-Eigenvalue decomposition은 기본적으로 square matrix가 자기 space에 작용할 때
-사용한다. 그러나 measurement matrix와 cross-covariance matrix는 rectangular일 수
-있고, square matrix라도 orthonormal eigenvector basis를 갖지 않을 수 있다.
+Eigenvalue decomposition은 기본적으로 square matrix가 자기 space에 작용할 때 사용한다. 그러나 measurement matrix와 cross-covariance matrix는 rectangular일 수 있고, square matrix라도 orthonormal eigenvector basis를 갖지 않을 수 있다.
 
-SVD는 모든 real $m\times n$ matrix에 존재하며, input space와 output space에서 서로
-다른 orthonormal basis를 사용한다.
+SVD는 모든 real $m\times n$ matrix에 존재하며, input space와 output space에서 서로 다른 orthonormal basis를 사용한다.
 
 ## Full SVD
 
@@ -73,7 +68,7 @@ $$
 u_i:=\frac{Av_i}{\sigma_i}
 $$
 
-라고 정의한다. 39번 문서에서 보인 계산에 의해 $u_1,\ldots,u_r$는 $\R^m$의 orthonormal subset이다. 이를 $\R^m$의 orthonormal basis
+라고 정의한다. [Symmetric Matrix and Spectral Theorem](<./40 Symmetric Matrix and Spectral Theorem.md>)에서 보인 계산에 의해 $u_1,\ldots,u_r$는 $\R^m$의 orthonormal subset이다. 이를 $\R^m$의 orthonormal basis
 
 $$
 (u_1,\ldots,u_m)
@@ -125,9 +120,7 @@ $$
 2. $\Sigma$가 각 orthogonal direction을 $\sigma_i$만큼 scale한다.
 3. $U$가 결과를 left singular vector basis 방향으로 옮긴다.
 
-따라서 unit sphere는 $A$를 거치며 singular vector 방향을 principal axis로 갖는
-ellipsoid가 된다. Singular value 0인 direction은 한 점이나 더 낮은 차원으로
-collapse된다.
+따라서 unit sphere는 $A$를 거치며 singular vector 방향을 principal axis로 갖는 ellipsoid가 된다. Singular value 0인 direction은 한 점이나 더 낮은 차원으로 collapse된다.
 
 ## $A^{\mathsf T}A$와의 관계
 
@@ -145,13 +138,11 @@ $$
 - $\sigma_i^2$는 $A^{\mathsf T}A$의 eigenvalue다.
 - $\sigma_i>0$이면 $u_i=Av_i/\sigma_i$다.
 
-[Symmetric Matrix and Spectral Theorem](<./40 Symmetric Matrix and Spectral Theorem.md>)이
-SVD를 구성할 수 있는 이유를 제공한다.
+[Symmetric Matrix and Spectral Theorem](<./40 Symmetric Matrix and Spectral Theorem.md>)이 SVD를 구성할 수 있는 이유를 제공한다.
 
 ## Thin SVD
 
-$A$의 rank가 $r$이면 0이 아닌 singular value에 해당하는 vector만 모아 다음처럼
-쓸 수 있다.
+$A$의 rank가 $r$이면 0이 아닌 singular value에 해당하는 vector만 모아 다음처럼 쓸 수 있다.
 
 $$
 A=U_r\Sigma_rV_r^{\mathsf T}
@@ -165,8 +156,7 @@ U_r\in\mathbb R^{m\times r},
 V_r\in\mathbb R^{n\times r}
 $$
 
-이를 thin SVD 또는 compact SVD라고 한다. Full SVD와 같은 linear map을 표현하지만
-null-space completion에 필요한 column을 생략한다.
+이를 thin SVD 또는 compact SVD라고 한다. Full SVD와 같은 linear map을 표현하지만 null-space completion에 필요한 column을 생략한다.
 
 ## Rank, norm과 conditioning
 
@@ -212,15 +202,13 @@ $$
 
 에서 따라온다.
 
-Full column-rank matrix에서 가장 큰 singular value와 가장 작은 singular value의
-비는 2-norm condition number다.
+Full column-rank matrix에서 가장 큰 singular value와 가장 작은 singular value의 비는 2-norm condition number다.
 
 $$
 \kappa_2(A)=\frac{\sigma_{\max}}{\sigma_{\min}}
 $$
 
-$\sigma_{\min}$이 0에 가까우면 작은 input perturbation이나 measurement noise가
-solution을 크게 바꿀 수 있다.
+$\sigma_{\min}$이 0에 가까우면 작은 input perturbation이나 measurement noise가 solution을 크게 바꿀 수 있다.
 
 ## Pseudoinverse와 least squares
 
@@ -313,9 +301,7 @@ $$
 \det U,\det V\in\{-1,+1\}
 $$
 
-따라서 point-set alignment에서 단순히 $VU^{\mathsf T}$를 사용하면 determinant가
-$-1$인 reflection이 나올 수 있다. Kabsch algorithm은 diagonal correction matrix를
-삽입해 결과가 $SO(3)$에 속하도록 강제한다.
+따라서 point-set alignment에서 단순히 $VU^{\mathsf T}$를 사용하면 determinant가 $-1$인 reflection이 나올 수 있다. Kabsch algorithm은 diagonal correction matrix를 삽입해 결과가 $SO(3)$에 속하도록 강제한다.
 
 $$
 D
@@ -328,18 +314,13 @@ $$
 R=VDU^{\mathsf T}
 $$
 
-이 correction은 SVD 자체의 일부가 아니라, alignment solution을 orientation-preserving
-rotation으로 제한하기 위한 단계다.
+이 correction은 SVD 자체의 일부가 아니라, alignment solution을 orientation-preserving rotation으로 제한하기 위한 단계다.
 
 ## Non-uniqueness
 
-Singular value가 반복되면 해당 singular subspace 안의 basis는 하나로 정해지지
-않는다. Singular value가 0인 null-space basis도 여러 방식으로 선택할 수 있다.
-따라서 서로 다른 SVD implementation이 다른 $U,V$를 반환해도 product
-$U\Sigma V^{\mathsf T}$와 의미 있는 subspace는 같을 수 있다.
+Singular value가 반복되면 해당 singular subspace 안의 basis는 하나로 정해지지 않는다. Singular value가 0인 null-space basis도 여러 방식으로 선택할 수 있다. 따라서 서로 다른 SVD implementation이 다른 $U,V$를 반환해도 product $U\Sigma V^{\mathsf T}$와 의미 있는 subspace는 같을 수 있다.
 
-Rigid alignment에서 cross-covariance가 rank deficient하면 이 non-uniqueness가
-rotation ambiguity나 numerical sensitivity로 나타날 수 있다.
+Rigid alignment에서 cross-covariance가 rank deficient하면 이 non-uniqueness가 rotation ambiguity나 numerical sensitivity로 나타날 수 있다.
 
 ## 관련 문서
 

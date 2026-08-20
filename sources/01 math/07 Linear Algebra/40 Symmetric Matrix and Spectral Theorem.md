@@ -98,9 +98,7 @@ S
 Q\Lambda Q^{\mathsf T}
 $$
 
-가 성립한다.
-
-$Q$의 column은 $S$의 orthonormal eigenvector이고, $\Lambda$의 diagonal entry는 대응하는 eigenvalue다.
+가 성립한다. $Q$의 column은 $S$의 orthonormal eigenvector이고, $\Lambda$의 diagonal entry는 대응하는 eigenvalue다.
 
 **Proof**
 

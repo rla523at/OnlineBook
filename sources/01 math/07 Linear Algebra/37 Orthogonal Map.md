@@ -24,9 +24,7 @@ $$
 B(Tv,Tw)=B(v,w)
 $$
 
-가 성립하면 $T$를 `orthogonal map`이라고 한다.
-
-Complex inner product space에서 같은 조건을 만족하는 linear map은 `unitary map`이라고 한다. Real case의 matrix condition에는 transpose가, complex case에는 conjugate transpose가 나타난다.
+가 성립하면 $T$를 `orthogonal map`이라고 한다. Complex inner product space에서 같은 조건을 만족하는 linear map은 `unitary map`이라고 한다. Real case의 matrix condition에는 transpose가, complex case에는 conjugate transpose가 나타난다.
 
 ## Geometric Properties
 

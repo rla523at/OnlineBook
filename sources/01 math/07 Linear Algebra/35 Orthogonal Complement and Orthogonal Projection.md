@@ -8,9 +8,7 @@ Orthogonal complement $W^\perp$는 $W$의 모든 vector와 orthogonal한 vector�
 
 ### Motivation
 
-[Projection and Orthogonal Subset](<33 Projection and Orthogonal Subset.md>)에서는 subspace $W$의 서로 orthogonal한 basis $S=\{s_1, \ldots, s_k\}$를 사용하여 vector $x$를 $W$ 위로 projection한 vector $p=\sum_{i=1}^k\operatorname{proj}_{s_i}(x)$와 나머지 $r=x-p$로 나누었다. 이때 $r$은 각 $s_i$와 orthogonal하다. 또한 $S$가 $W$를 span하므로 $r$은 $W$에 속하는 모든 vector와 orthogonal하다.
-
-이처럼 $W$에 속하는 모든 vector와 orthogonal한 vector들을 하나의 집합으로 모은 것이 orthogonal complement다. Orthogonal complement는 projection의 residual이 놓이는 공간을 basis와 무관하게 설명한다.
+[Projection and Orthogonal Subset](<33 Projection and Orthogonal Subset.md>)에서는 subspace $W$의 서로 orthogonal한 basis $S=\{s_1, \ldots, s_k\}$를 사용하여 vector $x$를 $W$ 위로 projection한 vector $p=\sum_{i=1}^k\operatorname{proj}_{s_i}(x)$와 나머지 $r=x-p$로 나누었다. 이때 $r$은 각 $s_i$와 orthogonal하다. 또한 $S$가 $W$를 span하므로 $r$은 $W$에 속하는 모든 vector와 orthogonal하다. 이처럼 $W$에 속하는 모든 vector와 orthogonal한 vector들을 하나의 집합으로 모은 것이 orthogonal complement다. Orthogonal complement는 projection의 residual이 놓이는 공간을 basis와 무관하게 설명한다.
 
 ### Definition
 
