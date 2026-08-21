@@ -99,12 +99,22 @@ $$
 x_3=\frac{c_2-a_{24}x_4}{p_2}
 $$
 
-로 $x_3$를 결정할 수 있다. 이어서 $x_2$를 선택하고 구한 $x_3$를 첫 번째 equation에 대입하면
+로 $x_3$를 결정할 수 있다. 이어서 $x_2$를 선택하고 구한 $x_3$를 첫 번째 equation에 대입한 뒤 $x_2,x_4$에 관한 항을 정리하면
 
 $$
+\begin{aligned}
 x_1
-=
-\frac{c_1-a_{12}x_2-a_{13}x_3-a_{14}x_4}{p_1}
+&=
+\frac{c_1-a_{12}x_2-a_{13}\left(\dfrac{c_2-a_{24}x_4}{p_2}\right)-a_{14}x_4}{p_1}\\
+&=
+\frac{c_1}{p_1}
+-\frac{a_{13}c_2}{p_1p_2}
+-\frac{a_{12}}{p_1}x_2
+-\left(
+\frac{a_{14}}{p_1}
+-\frac{a_{13}a_{24}}{p_1p_2}
+\right)x_4
+\end{aligned}
 $$
 
 로 $x_1$도 결정할 수 있다. 따라서 $x_2,x_4$의 값은 자유롭게 선택하지만, $x_3,x_1$의 값은 아래쪽 nonzero equation부터 위로 올라가며 차례로 결정된다.
@@ -137,12 +147,59 @@ REF의 leading entry가 있는 위치를 `pivot position`이라고 하고, 그 �
 
 위 예에서 $p_1,p_2$는 pivot이고, $x_1,x_3$는 pivot variable이며 $x_2,x_4$는 free variable이다. System에 모순이 없다면 free variable의 값을 선택한 뒤 pivot variable을 아래에서 위로 결정할 수 있다.
 
-REF가 다음 조건도 만족하면 `reduced row echelon form`, 줄여서 RREF라고 한다.
+REF만으로도 해를 구할 수 있지만, 각 pivot variable이 free variable에 어떻게 의존하는지를 matrix에서 바로 읽으려면 두 가지 작업이 더 필요하다. 먼저 pivot $p_1,p_2$는 nonzero이기만 하면 되므로, 같은 equation을 나타내는 row도 nonzero scalar를 곱한 정도에 따라 서로 다른 pivot을 가질 수 있다. 또한 첫 번째 equation에 아래쪽 pivot variable인 $x_3$가 남아 있으므로, 두 번째 equation에서 구한 $x_3$를 첫 번째 equation에 대입해야 한다.
+
+$p_1,p_2\ne0$이므로 먼저 $R_1,R_2$를 각각 scale하여 pivot을 $1$로 만든 다음, 마지막 row operation으로 두 번째 pivot 위의 entry를 제거할 수 있다.
+
+$$
+R_1\leftarrow \frac{1}{p_1}R_1,
+\qquad
+R_2\leftarrow \frac{1}{p_2}R_2,
+\qquad
+R_1\leftarrow R_1-\frac{a_{13}}{p_1}R_2
+$$
+
+그 결과 matrix는 다음과 같이 변한다.
+
+$$
+\left[
+\begin{array}{cccc|c}
+1&\dfrac{a_{12}}{p_1}&0&\dfrac{a_{14}}{p_1}-\dfrac{a_{13}a_{24}}{p_1p_2}&\dfrac{c_1}{p_1}-\dfrac{a_{13}c_2}{p_1p_2}\\
+0&0&1&\dfrac{a_{24}}{p_2}&\dfrac{c_2}{p_2}\\
+0&0&0&0&0
+\end{array}
+\right].
+$$
+
+첫 번째와 두 번째 nonzero row는 각각 다음 equation을 나타낸다.
+
+$$
+\begin{aligned}
+x_1
++\frac{a_{12}}{p_1}x_2
++\left(
+\frac{a_{14}}{p_1}
+-\frac{a_{13}a_{24}}{p_1p_2}
+\right)x_4
+&=
+\frac{c_1}{p_1}
+-\frac{a_{13}c_2}{p_1p_2},\\
+x_3+\frac{a_{24}}{p_2}x_4
+&=
+\frac{c_2}{p_2}.
+\end{aligned}
+$$
+
+첫 번째 equation은 앞에서 정리한 $x_1$ 식의 free variable 항을 왼쪽으로 옮긴 식이고, 두 번째 equation은 앞에서 구한 $x_3$ 식의 $x_4$ 항을 왼쪽으로 옮긴 식이다. 따라서 matrix의 각 coefficient와 right-hand side를 앞의 back substitution 결과에 항별로 대응시킬 수 있다.
+
+앞의 두 row operations는 pivot을 $1$로 만들어 row의 임의적인 nonzero scalar 배수를 표준화한다. 마지막 row operation은 두 번째 pivot 위의 entry를 $0$으로 만들어 첫 번째 equation에서 $x_3$를 제거한다. Pivot 아래의 entry는 REF에서 이미 $0$이므로, 이제 각 pivot은 자신의 column에서 유일한 nonzero entry다. 따라서 각 nonzero equation에는 자신의 pivot variable과 free variable만 남고, pivot variable을 아래에서부터 대입하지 않아도 각각의 식을 바로 읽을 수 있다.
+
+이처럼 REF가 다음 조건도 만족하면 `reduced row echelon form`, 줄여서 RREF라고 한다.
 
 1. 모든 pivot은 $1$이다.
 2. 각 pivot은 자신의 column에서 유일한 nonzero entry다.
 
-REF는 back substitution에 필요한 구조까지만 요구하므로 pivot을 $1$로 만들거나 pivot 위를 제거할 필요가 없다. RREF에서는 이 작업까지 수행하여 각 pivot variable이 free variable에 어떻게 의존하는지가 matrix에 직접 나타난다.
+첫 번째 조건은 pivot의 크기에 남아 있는 scalar 배수의 차이를 제거하고, 두 번째 조건은 pivot 위의 entry까지 제거하여 back substitution을 없앤다. 따라서 pivot position과 해의 존재 여부만 판별할 때는 REF로 충분하지만, 해를 free variable로 나타낸 식을 matrix에서 직접 읽을 때는 RREF가 편리하다.
 
 ## 예제: Pivot variable과 free variable
 
@@ -184,7 +241,19 @@ $$
 \right].
 $$
 
-$R_2$와 $R_3$를 교환한 뒤 $R_3\leftarrow R_3+2R_2$, $R_1\leftarrow R_1-R_2$를 적용하면 RREF를 얻는다.
+$R_2$와 $R_3$를 교환한 뒤 $R_3\leftarrow R_3+2R_2$를 적용하면 다음 REF를 얻는다.
+
+$$
+\left[
+\begin{array}{cccc|c}
+1&2&1&0&3\\
+0&0&1&-1&2\\
+0&0&0&0&0
+\end{array}
+\right].
+$$
+
+이 상태에서도 두 번째 row에서 $x_3$를 구하여 첫 번째 row에 대입하면 해를 구할 수 있다. 그러나 세 번째 coefficient column의 pivot 위에 $1$이 남아 있어, 첫 번째 row만으로는 $x_1$이 free variable에 어떻게 의존하는지 바로 읽을 수 없다. $R_1\leftarrow R_1-R_2$를 적용하여 이 entry를 제거하면 다음 RREF를 얻는다.
 
 $$
 \left[
@@ -260,7 +329,77 @@ $$
 Ax=0
 $$
 
-을 `homogeneous linear system`이라고 한다. Homogeneous system은 항상 trivial solution $x=0$을 갖는다. Free variable이 존재하면 이를 nonzero로 선택하여 nontrivial solution도 만들 수 있다.
+을 `homogeneous linear system`이라고 한다. $x=0$을 대입하면
+
+$$
+A0=0
+$$
+
+이므로 homogeneous system은 항상 trivial solution $x=0$을 갖는다. Trivial solution 이외의 solution이 언제 생기는지 알아보기 위해 free variable이 없는 경우와 있는 경우를 비교해 보자.
+
+### Free variable이 없는 경우
+
+다음 RREF가 나타내는 homogeneous system을 생각하자.
+
+$$
+\left[
+\begin{array}{cc|c}
+1&0&0\\
+0&1&0
+\end{array}
+\right]
+$$
+
+두 coefficient column에 모두 pivot이 있으므로 $x_1,x_2$는 모두 pivot variable이고 free variable은 없다. 두 row는
+
+$$
+x_1=0,
+\qquad
+x_2=0
+$$
+
+을 나타내므로 solution은 $x=0$뿐이다.
+
+### Free variable이 있는 경우
+
+이번에는 다음 RREF를 생각하자.
+
+$$
+\left[
+\begin{array}{cc|c}
+1&2&0
+\end{array}
+\right]
+$$
+
+두 번째 coefficient column에는 pivot이 없으므로 $x_2$는 free variable이다. $x_2=t$라고 두면
+
+$$
+x_1=-2t,
+\qquad
+x
+=
+t
+\begin{bmatrix}
+-2\\1
+\end{bmatrix}
+$$
+
+이다. $t=0$이면 trivial solution을 얻지만, $t=1$로 선택하면
+
+$$
+x=
+\begin{bmatrix}
+-2\\1
+\end{bmatrix}
+\ne0
+$$
+
+인 nontrivial solution을 얻는다.
+
+Homogeneous system을 row reduction해도 right-hand side의 zero vector는 그대로 유지된다. Free variable이 없으면 모든 variable이 pivot variable이므로 RREF의 각 nonzero row에서 $x_i=0$을 바로 읽을 수 있고, trivial solution만 존재한다. 반대로 free variable이 있으면 그중 하나를 nonzero로 선택하고 pivot variable을 결정할 수 있다. 이때 선택한 free coordinate가 nonzero이므로 얻은 solution도 nontrivial이다.
+
+따라서 homogeneous system에서는 free variable이 없는 것과 trivial solution만 존재하는 것이 동치이고, free variable이 있는 것과 nontrivial solution이 존재하는 것이 동치다.
 
 Matrix가 정의하는 linear map $L_A:x\mapsto Ax$를 생각하면 homogeneous system의 solution set은 [Kernel](<../02 Linear Maps and Isomorphisms/11 Kernel.md>)이다.
 
@@ -270,25 +409,83 @@ $$
 \{x\in\mathbb F^n\mid Ax=0\}
 $$
 
-일반 system $Ax=b$의 particular solution 하나를 $x_p$라고 하자. 다른 solution $x$에 대해서
+일반 system $Ax=b$가 solution을 갖는다고 하고, 그 solution set을
 
 $$
-A(x-x_p)=Ax-Ax_p=b-b=0
+S_b
+=
+\{x\in\mathbb F^n\mid Ax=b\}
 $$
 
-이므로 $x-x_p\in\ker(L_A)$다. 반대로 $z\in\ker(L_A)$이면 $A(x_p+z)=b$다. 따라서 solution이 존재할 때 전체 solution set은
+라고 하자. Particular solution 하나 $x_p\in S_b$를 고정한다. 먼저 임의의 $x\in S_b$를 선택하고 두 solution의 차이를
 
 $$
+z:=x-x_p
+$$
+
+라고 두면
+
+$$
+Az
+=
+A(x-x_p)
+=
+Ax-Ax_p
+=
+b-b
+=0
+$$
+
+이므로 $z\in\ker(L_A)$다. 또한 $z=x-x_p$를 다시 정리하면
+
+$$
+x=x_p+z
+$$
+
+이다. Kernel의 각 원소를 $x_p$에 더해 얻는 집합을
+
+$$
+x_p+\ker(L_A)
+:=
+\{x_p+z\mid z\in\ker(L_A)\}
+$$
+
+라고 쓴다. 따라서 $x\in x_p+\ker(L_A)$다. 여기서 $z$는 미리 찾아야 하는 값이 아니라 선택한 $x$와 $x_p$의 차이로 정해진다. 그러므로 임의의 $x\in S_b$마다 이러한 $z$가 반드시 존재하고
+
+$$
+S_b\subseteq x_p+\ker(L_A)
+$$
+
+이다.
+
+반대로 임의의 $z\in\ker(L_A)$를 선택하면
+
+$$
+A(x_p+z)
+=
+Ax_p+Az
+=
+b+0
+=b
+$$
+
+이므로 $x_p+z\in S_b$다. 따라서
+
+$$
+x_p+\ker(L_A)\subseteq S_b
+$$
+
+이고, 두 포함 관계를 합치면 전체 solution set은
+
+$$
+S_b
+=
 x_p+\ker(L_A)
 =
 \{x_p+z\mid z\in\ker(L_A)\}
 $$
 
-이다. 특히 solution이 유일한 것과 $ker(L_A)=\{0\}$인 것은 동치다.
-
-## 다음 문서에서 필요한 질문
-
-Row reduction은 주어진 $b$에 대해 system이 consistent한지 판정한다. 그러나 어떤 $b$들이 처음부터 $Ax$ 형태로 만들어질 수 있는지, pivot column이 왜 그 집합의 basis를 주는지, row와 column에서 얻은 pivot 수가 왜 같은지는 아직 설명하지 않았다. 이러한 공간적 의미는 [Column Space, Row Space, and Rank](<22 Column Space, Row Space, and Rank.md>)에서 다룬다.
+이다. 특히 solution이 유일한 것과 $\ker(L_A)=\{0\}$인 것은 동치다.
 
 ## 관련 문서
 

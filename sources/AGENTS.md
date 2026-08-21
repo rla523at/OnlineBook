@@ -6,7 +6,8 @@
 
 ## 스킬 적용
 
-- 학습 문서의 내용이나 문서 내부 구조를 실질적으로 수정한 뒤에는 작업을 마치기 전에 `$learning-document-review`를 사용한다.
+- 학습 문서를 새로 만들거나 내용 또는 문서 내부 구조를 실질적으로 수정할 때는 `$learning-document-writer`를 사용한다. writer는 작성 후 `$learning-document-reviewer`를 통한 읽기 전용 검토까지 수행한다.
+- 학습 문서를 변경하지 않고 검토만 할 때는 `$learning-document-reviewer`를 사용한다.
 - 학습 문서나 폴더를 추가·삭제·이동하거나 문서 순서·묶음·폴더 구성을 변경하기 전에는 `$learning-content-structure-review`를 사용한다.
 
 ## Jupyter Book 검증
