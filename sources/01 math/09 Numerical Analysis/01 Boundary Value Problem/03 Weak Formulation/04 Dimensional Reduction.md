@@ -1,44 +1,75 @@
 # Dimensional Reduction
-무한차원 함수공간인 $\mathcal{W_{relax}}$에 있는 모든 함수에 대해 weak formulation를 만족하는 $u$를 무한차원 함수공간인 $\mathcal{U_{relax}}$에서 찾는 일은 너무 어렵다.
 
-따라서 test function space와 solution function space를 각 각 유한차원 함수 공간으로 축소하여 dimensional reduction된 weak formulation를 살펴보자.
+앞 문서의 weak formulation은 다음 문제를 다룬다.
+
+$$
+\text{find }u\in\mathcal U_{\mathrm{relax}}
+\st
+\forall w\in\mathcal W_{\mathrm{relax}},
+\quad
+B(w,u)=l(w)
+$$
+
+이 식은 무한차원 공간의 함수 $u$를 미지수로 두고 모든 test function에 대한 조건을 요구한다. 수치적으로 계산할 수 있는 approximation을 만들려면 finite-dimensional test space의 basis $w_1,\ldots,w_n$을 고정하고, essential boundary condition을 만족하는 finite-dimensional trial family를 유한 개 coefficient $a=(a^1,\ldots,a^n)$로 나타낸다. 이 candidate를 $u_h(a)$라고 쓰면 조건은
+
+$$
+B(w_i,u_h(a))=l(w_i),
+\qquad
+i=1,\ldots,n
+$$
+
+이라는 유한 개 equation으로 바뀐다. 따라서 질문도 infinite-dimensional weak solution을 정확히 찾는 것에서 coefficient $a$로 표현되는 approximation을 찾는 것으로 바뀐다. 아래에서는 이 전환을 test function space와 solution function space에 나누어 구성한다.
 
 ## Test Function Space Reduction
-유한차원 함수 공간 $\mathcal{W_f}$를 다음과 같이 정의하자.
+Linearly independent한 test functions
 
-$$ \mathcal{W_f} := \span(\set{w_1,\cdots,w_n}) \subset C^\infty(\Omega)) $$
+$$
+w_1,\ldots,w_n\in\mathcal W_{\mathrm{relax}}
+$$
 
-$\mathcal{W_f}$의 subspace $\mathcal{W_{reduc}}$를 다음과 같이 정의하자.
+을 선택하고 finite-dimensional test space를
 
-$$ \mathcal{W_{reduc}} := \Set{w \in \mathcal{W_f}| w =0 \text{ on } \partial\Omega_E } $$
+$$
+\mathcal W_f
+:=
+\operatorname{span}\{w_1,\ldots,w_n\}
+\subseteq
+\mathcal W_{\mathrm{relax}}
+$$
 
-$\mathcal{W_{reduc}}$의 정의에 의해 다음이 성립한다.
+로 둔다. 모든 $w\in\mathcal W_f$는 unique coefficient $x=(x^1,\ldots,x^n)\in\R^n$에 대해
 
-$$ \mathcal{W_{reduc}} \text{ is subspace of } \mathcal{W_{relax}} $$
+$$
+w=\sum_{i=1}^n x^iw_i
+$$
 
-그리고 $\R^n_t \subseteq \R^n$을 다음과 같이 정의하자.
+로 표현된다. 따라서 test function space를 $\mathcal W_{\mathrm{relax}}$에서 $\mathcal W_f$로 제한한 weak formulation은
 
-$$ \R^n_t := \Set{a \in \R^n | a^iw_i = 0 \text{ on } \partial\Omega_E} $$
+$$
+\text{find }u\in\mathcal U_{\mathrm{relax}}
+\st
+\forall x\in\R^n,
+\quad
+\sum_{i=1}^n x^i\bigl(B(w_i,u)-l(w_i)\bigr)=0
+$$
 
-$\mathcal{W_{relax}}$를 $\mathcal{W_{reduc}}$로 축소하면 weak formulation는 다음과 같이 간단해 진다.
+과 같다. 이 식에 standard basis vector $x=e_i$를 차례로 대입하면 다음 $n$개 equation을 얻는다.
 
-$$ \begin{aligned} & \text{find } u \in \mathcal U \st \forall w \in \mathcal{W_{reduc}}, \quad B(w,u) = l(w) \\ \iff \enspace & \text{find } u \in \mathcal U \st \forall a \in \R^n_t, \quad  B(a^iw_i,u) = l(a^iw_i) \end{aligned} $$
-
-$B$은 첫번째 원소에 linear map이고, $l$은 linear map임으로 다음이 성립한다.
-
-$$ \text{find } u \in \mathcal U \st \forall a \in \R^n_t, \quad  a^iB(w_i,u) = a^il(w_i) $$
-
-$\forall a \in \R^n_t$에서 성립해야 됨으로 결론적으로 다음이 성립하면 된다.
-
-$$ \text{find } u \in \mathcal U \st B(w_i,u) = l(w_i), \enspace i = 1, \cdots, n $$
+$$
+\text{find }u\in\mathcal U_{\mathrm{relax}}
+\st
+B(w_i,u)=l(w_i),
+\qquad
+i=1,\ldots,n
+$$
 
 ### 참고
-Test function space을 $\mathcal{W_{reduc}}$로 축소함으로써 $n$개의 `기저함수(basis function)`에 대해서만 확인하면 되는 문제로 단순화 됐다.
+Test function space를 $\mathcal W_f$로 축소함으로써 $n$개의 `기저함수(basis function)`에 대해서만 확인하면 되는 문제로 단순화됐다.
 
 ## Solution Function Space Reduction
 유한차원 함수 공간 $\mathcal{U_f}$를 다음과 같이 정의하자.
 
-$$ \mathcal{U_f} := \span(\set{u_1,\cdots,u_n}) \subset C^1(\Omega)) $$
+$$ \mathcal{U_f} := \operatorname{span}\{u_1,\ldots,u_n\}\subseteq C^1(\Omega) $$
 
 $\mathcal{U_f}$의 subset $\mathcal{U_{reduc}}$를 다음과 같이 정의하자.
 
@@ -53,7 +84,7 @@ $$ \mathcal{U_{reduc}} \text{ is subset of } \mathcal{U_{relax}} $$
 ### Restriction form
 $\R^n_s \subseteq \R^n$을 다음과 같이 정의하자
 
-$$ \R^n_s := \Set{x \in \R^n | a^iu_i \text{ satisfy essential BC}} $$
+$$ \R^n_s := \Set{a \in \R^n | \sum_{i=1}^n a^iu_i \text{ satisfies essential BC}} $$
 
 그러면 test function space가 축소된 weak formulation는 다음과 같이 더 간단해 진다.
 
@@ -66,7 +97,7 @@ $$ \mathcal{U_0} := \Set{ u\in\mathcal{U_f}| u = 0 \text{ on } \partial\Omega_E}
 
 $\phi \in \mathcal{U_{reduc}}$라 할 때, 다음이 성립한다.
 
-$$ \forall u \in \mathcal{U_{reduc}}, \quad \exist u_0 \in \mathcal{U_0} \st u = \phi + \mathcal{u_0} $$
+$$ \forall u \in \mathcal{U_{reduc}}, \quad \exist u_0 \in \mathcal{U_0} \st u = \phi + u_0 $$
 
 $\mathcal{U_0}$의 basis를 $\Set{u^0_i}$라고 하면, test function space가 축소된 weak formulation는 다음과 같이 간단해 진다.
 
@@ -117,7 +148,7 @@ $$ \text{find } a \in \R^n_s \st B(w_i,a^j u_j) = l(w_i), \enspace i = 1,\cdots,
 
 #### Related function spaces
 
-$$ \begin{gathered} \mathcal{W_f} := \span(\set{w_1,\cdots,w_n}) \\ \mathcal{U_f} := \span(\set{u_1,\cdots,u_n}) \subset C^1(\Omega)) \\ \R^n_s := \Set{x \in \R^n | a^iu_i \text{ satisfy essential BC}} \end{gathered} $$
+$$ \begin{gathered} \mathcal{W_f} := \span(\set{w_1,\cdots,w_n}) \\ \mathcal{U_f} := \operatorname{span}\{u_1,\ldots,u_n\}\subseteq C^1(\Omega) \\ \R^n_s := \Set{a \in \R^n | \sum_{i=1}^n a^iu_i \text{ satisfies essential BC}} \end{gathered} $$
 
 ### Affine form
 $$ \text{find } a \in \R^n \st B(w_i,\phi + a^ju^0_j) = l(w_i), \enspace i = 1,\cdots,n $$
@@ -134,7 +165,7 @@ $$ \begin{gathered} \mathcal{W_f} := \span(\set{w_1,\cdots,w_n}) \\ \mathcal{U_{
 $$ \text{find } a \in \R^n_s \st B(w_i,u_j) a^j = l(w_i), \enspace i = 1,\cdots,n $$
 
 #### Related function spaces
-$$ \begin{gathered} \mathcal{W_f} := \span(\set{w_1,\cdots,w_n}) \\ \mathcal{U_f} := \span(\set{u_1,\cdots,u_n}) \subset C^1(\Omega))  \\ \R^n_s := \Set{a \in \R^n | a^iu_i \text{ satisfy essential BC}} \end{gathered} $$
+$$ \begin{gathered} \mathcal{W_f} := \span(\set{w_1,\cdots,w_n}) \\ \mathcal{U_f} := \operatorname{span}\{u_1,\ldots,u_n\}\subseteq C^1(\Omega) \\ \R^n_s := \Set{a \in \R^n | \sum_{i=1}^n a^iu_i \text{ satisfies essential BC}} \end{gathered} $$
 
 #### Matrix form
 $$ \begin{bmatrix} B(w_1,u_1) & \cdots & B(w_1,u_n) \\ \vdots & \ddots & \vdots \\ B(w_n,u_1) & \cdots & B(w_n,u_n) \end{bmatrix} \begin{bmatrix} a^1 \\ \vdots \\ a^n \end{bmatrix} = \begin{bmatrix} l(w_1) \\ \vdots \\ l(w_n) \end{bmatrix} $$

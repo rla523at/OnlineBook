@@ -1,44 +1,83 @@
 # Dimensional Reduction
-무한차원 함수공간인 $C^\infty_c(\Omega)$에 있는 모든 함수에 대해 WRF를 만족하는 $u$를 무한차원 함수공간인 $\mathcal U$에서 찾는 일은 너무 어렵다.
 
-따라서 test function space와 solution function space를 각 각 유한차원 함수 공간으로 축소하여 dimensional reduction된 WRF를 살펴보자.
+앞 문서의 WRF는 다음 exact problem을 다룬다.
+
+$$
+\text{find }u\in\mathcal U
+\st
+\forall w\in C_c^\infty(\Omega),
+\quad
+B_r(w,u)=l_r(w)
+$$
+
+이 식은 무한차원 공간의 함수 $u$를 미지수로 두고 모든 test function에 대한 조건을 요구한다. 이를 유한한 계산으로 근사하려면 질문을 exact solution을 찾는 문제에서, 유한 개 coefficient로 나타낸 candidate 중 조건을 만족하는 approximation을 찾는 문제로 바꾸어야 한다.
+
+Finite-dimensional test space의 basis $w_1,\ldots,w_n$과 trial functions $u_1,\ldots,u_n$을 고정하고, coefficient가 필요한 boundary condition을 만족하도록 제한한 candidate를
+
+$$
+u_h=\sum_{j=1}^n x^ju_j
+$$
+
+로 두면, 미지수는 함수 $u$ 자체가 아니라 coefficient $x^1,\ldots,x^n$이 된다. 또한 test function에 대한 조건은 basis별 equation
+
+$$
+B_r(w_i,u_h)=l_r(w_i),
+\qquad
+i=1,\ldots,n
+$$
+
+으로 바뀐다. 이처럼 test function space와 solution function space를 유한차원으로 제한하는 과정을 각각 살펴보자. 제한된 문제의 해는 일반적으로 original WRF의 exact solution이 아니라 approximation이다.
 
 ## Test Function Space Reduction
-유한차원 함수 공간 $\mathcal{W_f}$를 다음과 같이 정의하자.
+Linearly independent한 test functions
 
-$$ \mathcal{W_f} := \span(\set{w_1,\cdots,w_n} \subset C^\infty(\Omega)) $$
+$$
+w_1,\ldots,w_n\in C_c^\infty(\Omega)
+$$
 
-$\mathcal{W_f}$의 subspace $\mathcal{W_c}$를 다음과 같이 정의하자.
+을 선택하고 finite-dimensional test space를
 
-$$ \mathcal{W_c} := \Set{w \in \mathcal{W_f}| w =0 \text{ on } \partial\Omega } $$
+$$
+\mathcal W_f
+:=
+\operatorname{span}\{w_1,\ldots,w_n\}
+\subseteq
+C_c^\infty(\Omega)
+$$
 
-$\mathcal{W_c}$의 정의에 의해 다음이 성립한다.
+로 둔다. 모든 $w\in\mathcal W_f$는 unique coefficient $c=(c^1,\ldots,c^n)\in\R^n$에 대해
 
-$$ \mathcal{W_c} \text{ is subspace of } C_c^\infty $$
+$$
+w=\sum_{i=1}^n c^iw_i
+$$
 
-그리고 $\R^n_c \subseteq \R^n$을 다음과 같이 정의하자.
+로 표현된다. 따라서 test function space를 $C_c^\infty(\Omega)$에서 $\mathcal W_f$로 제한한 WRF는
 
-$$ \R^n_c := \Set{x \in \R^n | x^iw_i = 0 \text{ on } \partial\Omega} $$
+$$
+\text{find }u\in\mathcal U
+\st
+\forall c\in\R^n,
+\quad
+\sum_{i=1}^n c^i\bigl(B_r(w_i,u)-l_r(w_i)\bigr)=0
+$$
 
-$C_c^\infty$를 $\mathcal{W}_c$로 축소하면 WRF는 다음과 같이 간단해 진다.
+과 같다. 이 식에 standard basis vector $c=e_i$를 차례로 대입하면 다음 $n$개 equation을 얻는다.
 
-$$ \begin{aligned} & \text{find } u \in \mathcal U \st \forall w \in \mathcal W_c, \quad B_r(w,u) = l_r(w) \\ \iff \enspace & \text{find } u \in \mathcal U \st \forall x \in \R^n_c, \quad  B_r(x^iw_i,u) = l_r(x^iw_i) \end{aligned} $$
-
-$B_r$은 첫번째 원소에 linear map이고, $l_r$은 linear map임으로 다음이 성립한다.
-
-$$ \text{find } u \in \mathcal U \st \forall x \in \R^n_c, \quad  x^iB_r(w_i,u) = x^il_r(w_i) $$
-
-$\forall x \in \R^n_c$에서 성립해야 됨으로, 결론적으로 다음이 성립하면 된다.
-
-$$ \text{find } u \in \mathcal U \st B_r(w_i,u) = l_r(w_i), \enspace i = 1, \cdots, n $$
+$$
+\text{find }u\in\mathcal U
+\st
+B_r(w_i,u)=l_r(w_i),
+\qquad
+i=1,\ldots,n
+$$
 
 ### 참고
-Test function space을 $\mathcal W_c$로 축소함으로써 $n$개의 `기저함수(basis function)`에 대해서만 확인하면 되는 문제로 단순화 됐다.
+Test function space를 $\mathcal W_f$로 축소함으로써 $n$개의 `기저함수(basis function)`에 대해서만 확인하면 되는 문제로 단순화됐다.
 
 ## Solution Function Space Reduction
 유한차원 함수 공간 $\mathcal{U_f}$를 다음과 같이 정의하자.
 
-$$ \mathcal{U_f} := \span(\set{u_1,\cdots,u_n} \subset C^m(\Omega)) $$
+$$ \mathcal{U_f} := \operatorname{span}\{u_1,\ldots,u_n\}\subseteq C^m(\Omega) $$
 
 $\mathcal{U_f}$의 subset $\mathcal{U_{b}}$를 다음과 같이 정의하자.
 
@@ -53,7 +92,7 @@ $$ \mathcal{U_b} \text{ is subset of } \mathcal{U} $$
 ### Restriction form
 $\R^n_b \subseteq \R^n$을 다음과 같이 정의하자
 
-$$ \R^n_b := \Set{x \in \R^n | x^iu_i \text{ satisfy BC}} $$
+$$ \R^n_b := \Set{x \in \R^n | \sum_{i=1}^n x^iu_i \text{ satisfies BC}} $$
 
 그러면 test function space가 축소된 WRF는 다음과 같이 더 간단해 진다.
 
@@ -66,7 +105,7 @@ $$ \mathcal{U_0} := \Set{ u\in\mathcal{U_f}| u=0 \text{ on } \partial\Omega} $$
 
 $\phi \in \mathcal{U_b}$라 할 때, 다음이 성립한다.
 
-$$ \forall u \in \mathcal{U_b}, \quad \exist u_0 \in \mathcal{U_0} \st u = \phi + \mathcal{u_0} $$
+$$ \forall u \in \mathcal{U_b}, \quad \exist u_0 \in \mathcal{U_0} \st u = \phi + u_0 $$
 
 $\mathcal{U_0}$의 basis를 $\Set{u^0_i}$라고 하면, test function space가 축소된 WRF는 다음과 같이 간단해 진다.
 

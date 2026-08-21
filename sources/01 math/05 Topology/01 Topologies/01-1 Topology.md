@@ -1,5 +1,13 @@
 # Topology
+
+## Motivation
+
+[Open set](<../../04 Metric Space/03 Open Set.md>)에서 metric으로 정의한 open set들의 collection은 empty set과 전체 space를 포함하고, arbitrary union과 finite intersection에 대해 닫혀 있음을 확인했다. 이 세 성질은 open set을 처음 정의할 때 사용한 distance나 open ball을 직접 언급하지 않는다.
+
+따라서 distance를 선택하지 않은 집합에서도 이 세 성질을 만족하는 subset collection을 먼저 정하면, 그 collection의 원소를 open set으로 다룰 수 있다. 이러한 open-set structure에 이름을 붙여 다음과 같이 정의한다.
+
 ## 정의
+
 집합 $X$가 있다고 하자.
 
 $X$ 위의 `위상(topology)` $\mathcal{T_X}$란, 다음 성질을 만족하는 $X$의 부분집합의 집합이다.
@@ -7,12 +15,7 @@ $X$ 위의 `위상(topology)` $\mathcal{T_X}$란, 다음 성질을 만족하는 
 2. $$ \mathcal{S} \text{ is a finite subset of }\mathcal{T_X} \implies \bigcap \mathcal{S} \in \mathcal{T_X} $$
 3. $$ \mathcal{S} \subseteq \mathcal{T_X} \implies \bigcup \mathcal{S} \in \mathcal{T_X} $$
 
-### 참고
-Topology의 정의를 보면 알 수 있듯이, $\mathcal{T_X}$가 metric space에 open set collection의 성질을 만족한다.
-
-따라서, $\mathcal{T_X}$는 open set의 collection이라 보고 $S \in \mathcal{T_X}$를 open set이라 정의 한다.
-
-즉, Topology는 거리의 개념 없이 open set을 정의함으로써 open set의 개념을 한층 더 추상화 했다고 할 수 있다.
+$S\in\mathcal{T_X}$이면 $S$를 $X$의 open set이라고 한다. Topology는 distance 없이 open set들의 구조를 지정한다.
 
 > Referece  
 > {cite}`LeeTM` p.20
@@ -20,7 +23,7 @@ Topology의 정의를 보면 알 수 있듯이, $\mathcal{T_X}$가 metric space�
 ### 명제1(Metric Topology)
 Metric space $M$이 있다고 하자.
 
-$M$의 모든 open set의 집합을 $\mathcal{T_X}$라 할 때, 다음을 증명하여라.
+$M$의 모든 open set의 집합을 $\mathcal{T_M}$라 할 때, 다음을 증명하여라.
 
 $$ \mathcal{T_M} \text{ is a topology on } M $$
 
@@ -28,8 +31,8 @@ $$ \mathcal{T_M} \text{ is a topology on } M $$
 
 Metric space의 open set의 성질에 의해 다음을 만족한다.
 1. $$\empty, M \in \mathcal{T_M}$$
-2. $$ \mathcal{S} \text{ is a finite subset of }\mathcal{T_M} \implies \text{finite intersection of openset is open } \bigcap \mathcal{S} \in \mathcal{T_X} $$
-3. $$ \mathcal{S} \subseteq \mathcal{T_X} \implies \text{union of  openset is open } \bigcup \mathcal{S} \in \mathcal{T_X} $$
+2. $$ \mathcal{S} \text{ is a finite subset of }\mathcal{T_M} \implies \text{finite intersection of openset is open } \bigcap \mathcal{S} \in \mathcal{T_M} $$
+3. $$ \mathcal{S} \subseteq \mathcal{T_M} \implies \text{union of  openset is open } \bigcup \mathcal{S} \in \mathcal{T_M} $$
 
 
 따라서, $\mathcal{T_M}$는 $M$의 topology이다.

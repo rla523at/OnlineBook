@@ -1,30 +1,32 @@
 # Directional Derivative
+
 ## Motivation
+
 $\R^n$의 open set을 $U$라고 하고 다변수 함수 $f : U \rightarrow \R^m$이 있다고 하자.
 
-$a \in U$에서 일변수 함수의 미분계수의 정의를 그대로 다변수 함수의 미분계수로 확장해보자.
+일변수 함수의 derivative는 scalar parameter의 변화에 따른 함수값의 변화율을 측정한다. 다변수 함수에서 $a\in U$를 지나는 특정 direction $v\in\R^n$을 따라 같은 질문을 하려면, unit vector $v$를 고정하고 다음 일변수 함수를 생각할 수 있다.
 
-$$ \lim_{h\rightarrow 0}\frac{f(a+h) - f(a)}{h} $$
+$$
+g_v(t):=f(a+tv)
+$$
 
-위의 식을 살펴보면 $a$는 vector이고 $h$는 scalar인데 정의되지 않는 $+$연산을 하고 있다.
+$U$가 open이므로 충분히 작은 $\lvert t\rvert$에 대해 $a+tv\in U$다. 따라서 $g_v$의 $t=0$에서 derivative를 계산하면
 
-그리고 derivative는 $a$에 한없이 가까워질 때, $U$의 변화량과 $f$의 변화량의 비율의 극한이라는 의미를 갖는데, 일변수 함수의 경우 $a$에 가까워 지는것이 한가지 방향으로만 가능하기 때문에 $h\rightarrow 0$으로 그 의미가 충분히 표현된다. 
+$$
+g_v'(0)
+=
+\lim_{t\rightarrow 0}
+\frac{f(a+tv)-f(a)}{t}
+$$
 
-하지만 다변수 함수의 경우 $a$에 가까워 지는 방향이 무한하기때문에 $h\rightarrow 0$만으로 그 의미가 충분히 표현되지 못한다.
-
-```{figure} _image/0201.png
-```
-
-따라서, 위의 두 문제를 해결하기 위해 특정 방향 $v \in \R^n \st \norm{v} = 1$을 정해서 $v$ 방향으로 $a$에서 derivative를 생각하게 되면 다음과 같이 정의하는 것이 자연스럽다.
-
-$$ \lim_{h\rightarrow 0} \frac{f(a + h v) - f (a)}{h} $$
+를 얻는다. 이 값은 $a$에서 $v$가 정하는 직선을 따라 움직일 때 $f$가 변하는 비율을 나타낸다.
 
 ## 정의
 $\R^n$의 open subset $U$와 함수 $f:U \rightarrow \R^m$이 있다고 하자.
 
 $a \in U$에서 $v\in \R^n \st \norm{v}=1$ 방향으로의 $f$의 `방향 미분계수(directional derivative)`는 다음과 같다.
 
-$$ D_vf(a) = \lim_{h \rightarrow 0}\frac{ f(a + h v) - f (a)}{h} $$
+$$ D_vf(a) = \lim_{t \rightarrow 0}\frac{ f(a + t v) - f (a)}{t} $$
 
 ### 참고1
 $D_vf(a)$는 $\R^m$의 element, 즉 vector이다.

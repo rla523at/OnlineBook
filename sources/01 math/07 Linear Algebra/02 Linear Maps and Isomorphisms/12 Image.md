@@ -6,13 +6,21 @@ Image는 linear map이 만들 수 있는 모든 output의 subspace이고, rank-n
 
 ## Motivation
 
-Linear map $T:V\rightarrow W$의 codomain $W$에 속한다고 해서 모든 vector가 실제 output으로 나타나는 것은 아니다. Equation
+[Kernel](<11 Kernel.md>)에서는 linear map $T:V\rightarrow W$를 고정하고, 서로 다른 input이 같은 output을 만드는 원인을 zero로 사라지는 input direction에서 찾았다. 이제 같은 $T$를 고정한 채 target $w\in W$를 변화시키면서 어떤 target이 실제 output으로 나타나는지 묻자.
+
+Equation
 
 $$
 T(v)=w
 $$
 
-가 solution을 갖는지는 $w$가 $T$가 만들 수 있는 output들의 집합에 속하는지에 달려 있다. 이 집합이 image다.
+가 solution을 갖는 target 전체는
+
+$$
+\{T(v)\mid v\in V\}
+$$
+
+이다. Codomain $W$의 모든 vector가 이 집합에 속할 필요는 없다. 이 reachable output들의 집합을 하나의 대상으로 다루면 solution이 존재하는 target을 membership으로 판별할 수 있다.
 
 ## Definition
 

@@ -4,9 +4,21 @@
 
 Matrix의 column space는 $Ax$로 만들 수 있는 output의 집합이고, row space는 equation의 coefficient direction이 만드는 공간이며, 두 공간의 dimension은 pivot의 개수와 같은 rank다.
 
-## 하나의 right-hand side를 푸는 것만으로는 부족하다
+## Column space
 
-[Linear Systems and Row Reduction](<21 Linear Systems and Row Reduction.md>)에서는 주어진 $b$에 대해 $Ax=b$를 row reduction하여 solution을 구했다. 그러나 $b$가 바뀔 때마다 augmented matrix를 새로 계산하는 것만으로는 $A$가 어떤 output을 만들 수 있는지 한눈에 알기 어렵다.
+### 어떤 right-hand side에 대해 $Ax=b$가 solution을 갖는가
+
+[Linear Systems and Row Reduction](<21 Linear Systems and Row Reduction.md>)에서는 주어진 $b$에 대해 $Ax=b$를 row reduction하여 solution의 존재 여부와 전체 구조를 구했다. 특히 $Ax=b$가 solution을 갖고 $x_p$가 particular solution이면 solution set을
+
+$$
+S_b
+=
+x_p+\ker(L_A)
+$$
+
+로 나타낼 수 있었다. 이 식은 particular solution 하나가 존재한 뒤 모든 solution이 어떻게 달라질 수 있는지는 알려 주지만, 그러한 $x_p$가 어떤 $b$에 대해 존재하는지는 알려 주지 않는다. 따라서 $A$를 고정했을 때 어떤 $b\in\mathbb F^m$에 대해 $Ax=b$가 solution을 갖는지를 전체적으로 설명할 필요가 있다.
+
+Matrix equation $Ax=b$에서 $b$는 right-hand side다. 한편 $A$가 정의하는 linear map $L_A:x\mapsto Ax$의 관점에서 $b$는 input $x$로부터 만들어야 하는 output이다. 따라서 어떤 right-hand side에서 solution이 존재하는지를 묻는 것은 $A$가 어떤 output을 만들 수 있는지를 묻는 것과 같다.
 
 $A\in\mathbb F^{m\times n}$의 column을 $a_1,\ldots,a_n\in\mathbb F^m$라고 쓰면
 
@@ -25,11 +37,26 @@ Ax
 x_1a_1+\cdots+x_na_n
 $$
 
-따라서 $A$로 만들 수 있는 모든 output을 알려면 $A$의 column들이 만드는 모든 linear combination을 조사해야 한다.
+이므로 모든 output $Ax$는 $A$의 column들의 linear combination이다. 반대로 임의의 scalar $c_1,\ldots,c_n\in\mathbb F$에 대해
 
-## Column space
+$$
+x=
+\begin{bmatrix}
+c_1&\cdots&c_n
+\end{bmatrix}^{\mathsf T}
+$$
 
-$A$의 `column space`를 다음과 같이 정의한다.
+로 두면
+
+$$
+c_1a_1+\cdots+c_na_n=Ax
+$$
+
+이므로 column들의 모든 linear combination이 실제 output으로 나타난다. 따라서 $Ax=b$가 solution을 갖는 모든 right-hand side를 알려면 $A$의 column들이 만드는 linear combination 전체를 하나의 집합으로 다루어야 한다.
+
+### Definition
+
+위에서 얻은, $A$의 column들이 만드는 모든 linear combination의 집합을 $A$의 `column space`라고 하고 다음과 같이 나타낸다.
 
 $$
 \mathcal C(A)
@@ -41,7 +68,7 @@ $$
 \mathbb F^m
 $$
 
-두 번째 등식은 정의와 별개의 우연한 성질이 아니다. $Ax$가 column들의 linear combination이고, 반대로 column들의 coefficient를 모으면 vector $x$가 되기 때문에 두 집합이 정확히 같다.
+앞의 두 방향을 통해 column들의 span과 $A$가 만들 수 있는 모든 output의 집합이 정확히 같음을 확인했다.
 
 Matrix가 정의하는 linear map
 
@@ -54,7 +81,7 @@ $$
 를 생각하면 column space는 [Image](<../02 Linear Maps and Isomorphisms/12 Image.md>)의 matrix version이다.
 
 $$
-\mathcal C(A)=\operatorname{img}(L_A)
+\mathcal C(A)=\operatorname{im}(L_A)
 $$
 
 따라서 linear system의 solvability는 다음처럼 공간의 membership 문제로 바뀐다.
@@ -69,7 +96,7 @@ $$
 
 **Proof**
 
-$Ax=b$인 $x$가 존재하면 column space의 정의에 의해 $b\in\mathcal C(A)$다. 반대로 $b\in\mathcal C(A)$이면 어떤 coefficient $x_1,\ldots,x_n$에 대해 $b=x_1a_1+\cdots+x_na_n=Ax$이므로 $x=(x_1,\ldots,x_n)^{\mathsf T}$는 solution이다. $\qed$
+$Ax=b$인 $x$가 존재하면 column space의 정의에 의해 $b\in\mathcal C(A)$다. 반대로 $b\in\mathcal C(A)$이면 어떤 coefficient $x_1,\ldots,x_n$에 대해 $b=x_1a_1+\cdots+x_na_n$이다. $x:=(x_1,\ldots,x_n)^{\mathsf T}$로 두면 $b=Ax$이므로 $x$는 solution이다. $\qed$
 
 ## Pivot column이 필요한 이유
 
@@ -210,7 +237,27 @@ $$
 
 ## Row space
 
-$A$의 $i$번째 row를 $q_i^{\mathsf T}$라고 하자. 이 row를 transpose한 $q_i\in\mathbb F^n$을 사용하여 $A$의 `row space`를 다음과 같이 정의한다.
+앞 절에서는 row reduction으로 column 사이의 linear dependence relation을 찾았지만, column space의 basis로는 RREF의 column이 아니라 원래 matrix의 column을 선택했다. Row operation은 column vector가 놓인 direction을 바꿀 수 있기 때문이다. 그렇다면 row operation이 직접 바꾸는 row들의 쪽에서는 어떤 구조가 보존되는지 묻게 된다.
+
+$A$의 $i$번째 row를 $q_i^{\mathsf T}$라고 하고, transpose한 vector $q_i\in\mathbb F^n$을 생각하자. 대표적으로 row operation
+
+$$
+R_i\leftarrow R_i+cR_j
+$$
+
+를 적용하면 $q_i$는
+
+$$
+q_i':=q_i+cq_j
+$$
+
+로 바뀐다. $q_i'$는 원래 row들의 linear combination이고, 반대로
+
+$$
+q_i=q_i'-cq_j
+$$
+
+로 복원할 수 있다. 따라서 이 연산 전후의 row들이 만드는 span은 같다. Row operation 아래에서 보존되는 row direction 전체를 다루기 위해, $A$의 `row space`를 다음과 같이 정의한다.
 
 $$
 \operatorname{Row}(A)
@@ -230,7 +277,7 @@ $$
 
 ### Row operation은 row space를 보존한다
 
-Elementary row operation으로 얻은 새 row는 원래 row들의 linear combination이므로 새 matrix의 row space는 원래 row space에 포함된다. 각 elementary row operation은 역연산을 가지므로 원래 row들도 새 row들의 linear combination으로 복원된다. 따라서 row equivalent한 matrix $A$와 $R$에 대해
+앞에서 확인한 row replacement뿐 아니라, row interchange는 row들의 순서만 바꾸고 nonzero scalar multiplication은 역수로 복원할 수 있으므로 row들의 span을 바꾸지 않는다. 따라서 모든 elementary row operation은 row space를 보존하고, row equivalent한 matrix $A$와 $R$에 대해
 
 $$
 \operatorname{Row}(A)=\operatorname{Row}(R)
